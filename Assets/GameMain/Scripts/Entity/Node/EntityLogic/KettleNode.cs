@@ -44,7 +44,7 @@ namespace GameMain
             m_BoxCollider2D = this.GetComponent<BoxCollider2D>();
             m_BoxCollider2D.size = m_SpriteRenderer.size;
 
-            m_KettleBoxCollider2D = this.transform.Find("Burnisher").GetComponent<BoxCollider2D>();
+            m_KettleBoxCollider2D = this.transform.Find("Kettle").GetComponent<BoxCollider2D>();
 
             m_ProgressBar = this.transform.Find("ProgressBar").transform;//获取进度条
             m_ProgressBar.gameObject.SetActive(false);
@@ -79,7 +79,7 @@ namespace GameMain
                 //多个吸附点竞争时，寻找最近的吸附点吸附
                 if (m_AdsorbNode.Follow != false)
                     return;
-                if (m_AdsorbNode.transform.parent.GetComponent<BaseNode>().NodeData.NodeTag != NodeTag.Water|| m_AdsorbNode.transform.parent.GetComponent<BaseNode>().NodeData.NodeTag != NodeTag.Milk)
+                if (m_AdsorbNode.transform.parent.GetComponent<BaseNode>().NodeData.NodeTag != NodeTag.Water && m_AdsorbNode.transform.parent.GetComponent<BaseNode>().NodeData.NodeTag != NodeTag.Milk)
                     return;
 
                 m_AdsorbNode.ProducingTool = NodeTag.Kettle;

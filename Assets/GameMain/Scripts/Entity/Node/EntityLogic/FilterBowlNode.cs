@@ -89,15 +89,16 @@ namespace GameMain
                 m_AdsorbNode1 = null;
                 Producing = false;
             }
-            if (m_AdsorbNode != null && m_AdsorbNode1 !=null)
+            if (m_AdsorbNode != null || m_AdsorbNode1 !=null)
             {
                 Debug.Log("吸附中");
                 //吸附效果
                 //多个吸附点竞争时，寻找最近的吸附点吸附
-                if (m_AdsorbNode.Follow != false)
-                    return;
-                if (Contain(NodeTag.HotWater)&&Contain(NodeTag.GroundCoffee))
-                    return;
+                foreach (var item in m_AdsorbNodeList)
+                {
+                    if (item.Follow != false)
+                        return;
+                }
 
                 foreach (var item in m_AdsorbNodeList)
                 {
@@ -112,6 +113,10 @@ namespace GameMain
                         item.transform.DOMove(m_FilterBoxCollider2DList[1].transform.position, 0.1f);
                     }
                 }
+
+                if (!(Contain(NodeTag.HotWater)&&Contain(NodeTag.GroundCoffee)))
+                    return;
+
                 Producing = true;
                 if (Producing)
                 {
