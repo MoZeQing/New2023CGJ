@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
 namespace GameMain
 {
@@ -51,11 +52,11 @@ namespace GameMain
             m_ProgressBar = this.transform.Find("ProgressBar").transform;//获取进度条
             m_ProgressBar.gameObject.SetActive(false);
 
-            m_FilterBoxCollider2DList.AddRange(this.transform.Find("Cup").GetComponents<BoxCollider2D>()));
+            m_FilterBoxCollider2DList.AddRange(this.transform.Find("Cup").GetComponents<BoxCollider2D>());
 
             m_AdsorbNodeList.Add(m_AdsorbNode);
             m_AdsorbNodeList.Add(m_AdsorbNode1);
-            m_AdsorbNodeList.Add(m_AdsorbNode2);
+            //m_AdsorbNodeList.Add(m_AdsorbNode2);
             m_AdsorbNodeList.Add(m_AdsorbNode3);
 
         }
@@ -106,7 +107,7 @@ namespace GameMain
                 {
                     item.ProducingTool = NodeTag.FilterBowl;
                     item.Producing = true;
-                    item.transform.DOMove(m_FilterBowlBoxCollider2D2.transform.position, 0.1f);
+                    //item.transform.DOMove(m_FilterBowlBoxCollider2D2.transform.position, 0.1f);
                 }
                 Producing = true;
                 if (Producing)
@@ -149,8 +150,8 @@ namespace GameMain
             {
                 if (!baseCompenent.Follow)
                     return;
-                if (!m_FilterBowlBoxCollider2D.IsTouching(baseCompenent.GetComponent<BoxCollider2D>()))
-                    return;
+                //if (!m_FilterBowlBoxCollider2D.IsTouching(baseCompenent.GetComponent<BoxCollider2D>()))
+                //    return;
                 foreach (var item in m_FilterBoxCollider2DList)
                 {
                     if (!item.IsTouching(baseCompenent.GetComponent<BoxCollider2D>()))

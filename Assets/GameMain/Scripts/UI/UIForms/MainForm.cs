@@ -24,13 +24,13 @@ namespace GameMain
 
         private void Up()
         {
-            Camera.main.transform.DOMove(new Vector3(0, 8.8f, -8f), 1f).SetEase(Ease.OutExpo);
+            Camera.main.transform.DOMove(new Vector3(0, 4.6f, -8f), 1f).SetEase(Ease.OutExpo);
             canvasTrans.transform.DOLocalMove(new Vector3(0, -860, 0), 1f).SetEase(Ease.OutExpo);
         }
 
         private void Down()
         {     
-            Camera.main.transform.DOMove(new Vector3(0, 0f, -8f), 1f).SetEase(Ease.OutExpo);
+            Camera.main.transform.DOMove(new Vector3(0, -3.4f, -8f), 1f).SetEase(Ease.OutExpo);
             canvasTrans.transform.DOLocalMove(new Vector3(0, 0, 0), 1f).SetEase(Ease.OutExpo);
         }
     }

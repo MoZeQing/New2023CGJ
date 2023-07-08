@@ -17,12 +17,12 @@ public class Fog : MonoBehaviour
     void Update()
     {
         Vector3 mousePos = MouseToWorld(Input.mousePosition);
-        if (Mathf.Abs(mousePos.x) < 7.18f &&
-            mousePos.y < 2.84f && mousePos.y > -4.76f)
+        if (Mathf.Abs(mousePos.x) < 8.64f &&
+            mousePos.y < -0.91f && mousePos.y > -8.69f)
         {
             mMask.transform.position = MouseToWorld(Input.mousePosition);
         }
-        mBG.transform.position = Vector3.zero;
+        mBG.transform.position = new Vector3(0, -4.8f, 0);
     }
 
     private Vector3 MouseToWorld(Vector3 mousePos)
