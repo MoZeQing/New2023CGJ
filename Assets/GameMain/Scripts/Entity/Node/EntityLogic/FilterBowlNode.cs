@@ -14,9 +14,6 @@ namespace GameMain
         private SpriteRenderer m_SpriteRenderer;
         private BoxCollider2D m_BoxCollider2D;
 
-        private BoxCollider2D m_FilterBowlBoxCollider2D;
-        private BoxCollider2D m_FilterBowlBoxCollider2D2;
-
         private List<BoxCollider2D> m_FilterBoxCollider2DList = new List<BoxCollider2D>();
 
         private List<BaseCompenent> m_AdsorbNodeList = new List<BaseCompenent>();
@@ -50,13 +47,10 @@ namespace GameMain
             m_BoxCollider2D = this.GetComponent<BoxCollider2D>();
             m_BoxCollider2D.size = m_SpriteRenderer.size;
 
-            m_FilterBowlBoxCollider2D = this.transform.Find("Burnisher").GetComponent<BoxCollider2D>();
-            m_FilterBowlBoxCollider2D2 = this.transform.Find("Burnisher").GetComponent<BoxCollider2D>();
-
             m_ProgressBar = this.transform.Find("ProgressBar").transform;//获取进度条
             m_ProgressBar.gameObject.SetActive(false);
 
-            m_FilterBoxCollider2DList.AddRange(this.GetComponents<BoxCollider2D>());
+            m_FilterBoxCollider2DList.AddRange(this.transform.Find("FilterBowl").GetComponents<BoxCollider2D>());
 
             m_AdsorbNodeList.Add(m_AdsorbNode);
             m_AdsorbNodeList.Add(m_AdsorbNode1);
@@ -109,7 +103,14 @@ namespace GameMain
                 {
                     item.ProducingTool = NodeTag.FilterBowl;
                     item.Producing = true;
-                    item.transform.DOMove(m_FilterBowlBoxCollider2D2.transform.position, 0.1f);
+                    if (item == m_AdsorbNode)
+                    {
+                        item.transform.DOMove(m_FilterBoxCollider2DList[0].transform.position, 0.1f);
+                    }
+                    if (item == m_AdsorbNode1)
+                    {
+                        item.transform.DOMove(m_FilterBoxCollider2DList[1].transform.position, 0.1f);
+                    }
                 }
                 Producing = true;
                 if (Producing)
@@ -151,8 +152,6 @@ namespace GameMain
             if (collision.TryGetComponent<BaseCompenent>(out baseCompenent))
             {
                 if (!baseCompenent.Follow)
-                    return;
-                if (!m_FilterBowlBoxCollider2D.IsTouching(baseCompenent.GetComponent<BoxCollider2D>()))
                     return;
                 foreach (var item in m_FilterBoxCollider2DList)
                 {
