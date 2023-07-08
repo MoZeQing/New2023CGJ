@@ -41,6 +41,7 @@ namespace GameMain
                     GameEntry.Entity.ShowGroundCoffeeNode(data);
                     break;
                 case NodeTag.Kettle:
+                    GameEntry.Entity.ShowKettleNode(data);
                     break;
                 case NodeTag.Milk:
                     break;
