@@ -58,7 +58,8 @@ namespace GameMain
         HotWater,//热水
         Milk,//牛奶
         HotMilk,//热牛奶
-        Sugar,//糖
+        Cream,//奶油
+        ChocolateSyrup,//巧克力浆
         CoffeeLiquid,//咖啡液
         //工具
         Burnisher,//研磨器
@@ -68,8 +69,6 @@ namespace GameMain
         //咖啡
         Espresso,//浓缩咖啡
         Coffee,//咖啡
-        Cream,//奶油
-        ChocolateSyrup,//巧克力浆
         CafeAmericano,//美式咖啡
         WhiteCoffee,//白咖啡
         Latte,//拿铁

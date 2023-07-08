@@ -1,13 +1,11 @@
-using GameFramework.DataTable;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-
 namespace GameMain
-{
-    public class CreamNode : BaseCompenent, IPointerDownHandler
+{ 
+    public class MilkNode : BaseCompenent, IPointerDownHandler
     {
         private CompenentData m_CompenentData;
         private NodeData m_NodeData;
