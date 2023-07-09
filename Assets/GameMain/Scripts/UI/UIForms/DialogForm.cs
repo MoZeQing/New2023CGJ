@@ -143,6 +143,7 @@ namespace GameMain
                             break;
                     }
                     _index = 0;
+                    Next();
                 }
             }
         }

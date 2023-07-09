@@ -25,7 +25,7 @@ namespace GameMain
         private void Up()
         {
             Camera.main.transform.DOMove(new Vector3(0, 4.6f, -8f), 1f).SetEase(Ease.OutExpo);
-            canvasTrans.transform.DOLocalMove(new Vector3(0, -860, 0), 1f).SetEase(Ease.OutExpo);
+            canvasTrans.transform.DOLocalMove(new Vector3(0, -800, 0), 1f).SetEase(Ease.OutExpo);
         }
 
         private void Down()
