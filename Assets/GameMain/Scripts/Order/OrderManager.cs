@@ -100,7 +100,8 @@ namespace GameMain
             }
             if (orderData.Check())
             {
-                orderData = new OrderData(orders[Random.Range(0, orders.Count)]);
+                IDataTable<DROrder> dtOrder = GameEntry.DataTable.GetDataTable<DROrder>();
+                orderData = new OrderData(dtOrder.GetDataRow(Random.Range(0, dtOrder.Count)));
                 GameEntry.Event.FireNow(this, OrderEventArgs.Create(orderData));
             }
         }
