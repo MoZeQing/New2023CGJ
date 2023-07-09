@@ -94,6 +94,7 @@ namespace GameMain
                 if (chatData.charSprite != null)
                 {
                     spriteRenderer.sprite = chatData.charSprite;
+                    spriteRenderer.color = Color.white;
                 }
                 if (chatNode.GetPort(string.Format("chatDatas {0}", _index))!=null)
                 {
@@ -118,8 +119,10 @@ namespace GameMain
                 _index++;
             }
             else
-            { 
-                
+            {
+                nameText.text = string.Empty;
+                dialogText.text = string.Empty;
+                spriteRenderer.color = Color.clear;
             }
         }
         private void Next(OptionData optionData)
