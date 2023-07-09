@@ -152,7 +152,7 @@ namespace GameMain
         }
         public void SetDialog(DialogueGraph graph)
         {
-            m_Dialogue = graph;
+            Dialogue = graph;
             _index = 0;
             foreach (Node node in Dialogue.nodes)
             {

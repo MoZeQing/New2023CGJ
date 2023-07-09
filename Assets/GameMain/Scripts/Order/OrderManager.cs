@@ -18,13 +18,7 @@ namespace GameMain
         // Start is called before the first frame update
         void Start()
         {
-            orderData = new OrderData();
-            orderData.CafeAmericano = 1;
-            orderData.ConPanna = 1;
-            orderData.Espresso = 1;
-            orderData.Mocha = 1;
-            orderData.WhiteCoffee = 1;
-            orderData.Latte = 1;
+
         }
 
         private void OnEnable()
@@ -199,6 +193,12 @@ namespace GameMain
 
     public class OrderData
     {
+        public string Dialog
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// »ñÈ¡Å¨Ëõ¿§·È¡£
         /// </summary>
@@ -255,7 +255,12 @@ namespace GameMain
 
         public bool Check()
         {
-            return (ConPanna + Mocha + WhiteCoffee + CafeAmericano + Latte + Espresso) == 0;
+            return (ConPanna <= 0 &&
+                CafeAmericano <= 0 &&
+                Mocha <= 0 &&
+                WhiteCoffee <= 0 &&
+                Latte <= 0 &&
+                Espresso <= 0);
         }
 
         public OrderData() { }
