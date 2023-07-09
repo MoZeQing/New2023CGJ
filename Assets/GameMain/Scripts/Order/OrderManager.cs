@@ -9,20 +9,16 @@ namespace GameMain
 {
     public class OrderManager : MonoBehaviour
     {
-        [SerializeField] private Text EspressoText;
-        [SerializeField] private Text ConPannaText;
-        [SerializeField] private Text MochaText;
-        [SerializeField] private Text WhiteCoffeeText;
-        [SerializeField] private Text CafeAmericanoText;
-        [SerializeField] private Text LatteText;
-
         private List<DROrder> orders = new List<DROrder>();
         private OrderData orderData;
-        private MaterialData materialData;
+        private MaterialData materialData=new MaterialData();
         // Start is called before the first frame update
         void Start()
         {
-
+            IDataTable<DROrder> dtOrder = GameEntry.DataTable.GetDataTable<DROrder>();
+            DROrder drOrder = dtOrder.GetDataRow(0);
+            orderData = new OrderData(drOrder);
+            GameEntry.Event.FireNow(this, OrderEventArgs.Create(orderData));
         }
 
         // Update is called once per frame
@@ -74,18 +70,8 @@ namespace GameMain
             if (orderData.Check())
             {
                 orderData = new OrderData(orders[Random.Range(0, orders.Count)]);
-                UpdateOrder();
+                GameEntry.Event.FireNow(this, OrderEventArgs.Create(orderData));
             }
-        }
-
-        private void UpdateOrder()
-        {
-            EspressoText.text = orderData.Espresso.ToString();
-            ConPannaText.text = orderData.ConPanna.ToString();
-            MochaText.text = orderData.Mocha.ToString();
-            WhiteCoffeeText.text = orderData.WhiteCoffee.ToString();
-            CafeAmericanoText.text = orderData.CafeAmericano.ToString();
-            LatteText.text = orderData.Latte.ToString();
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -118,7 +104,7 @@ namespace GameMain
                         return;
                 }
                 GameEntry.Entity.HideEntity(nodeData.Id);
-                UpdateOrder();
+                GameEntry.Event.FireNow(this, OrderEventArgs.Create(orderData));
             }
         }
     }

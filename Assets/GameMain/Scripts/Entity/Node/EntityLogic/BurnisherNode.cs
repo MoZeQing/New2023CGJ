@@ -18,7 +18,6 @@ namespace GameMain
         private BoxCollider2D m_BurnishBoxCollider2D;
 
         private BaseCompenent m_AdsorbNode;
-        private bool m_Adsorb;
 
         private Transform m_ProgressBar = null;
         private float m_ProducingTime = 0f;
@@ -121,6 +120,7 @@ namespace GameMain
 
         public void OnTriggerEnter2D(Collider2D collision)
         {
+            Debug.Log("¼ì²âµ½Åö×²");
             BaseCompenent baseCompenent = null;
             if (collision.TryGetComponent<BaseCompenent>(out baseCompenent))
             {
