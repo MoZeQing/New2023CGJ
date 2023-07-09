@@ -19,6 +19,12 @@ namespace GameMain
         void Start()
         {
             orderData = new OrderData();
+            orderData.CafeAmericano = 1;
+            orderData.ConPanna = 1;
+            orderData.Espresso = 1;
+            orderData.Mocha = 1;
+            orderData.WhiteCoffee = 1;
+            orderData.Latte = 1;
         }
 
         private void OnEnable()

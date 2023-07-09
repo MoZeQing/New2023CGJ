@@ -29,7 +29,6 @@ namespace GameMain
         private bool hasQuestion = false;
         // Start is called before the first frame update
         // Update is called once per frame
-
         public void ShowButtons(List<OptionData> options)
         {
             ClearButtons();
@@ -184,6 +183,7 @@ namespace GameMain
         private void Start()
         {
             dialogBtn.onClick.AddListener(Next);
+            SetDialog(Dialogue);
         }
         private void Option_Onclick(object sender, EventArgs e)
         {
