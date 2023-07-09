@@ -34,18 +34,20 @@ namespace GameMain
 
             //获取到表
             IDataTable<DRNode> dtNode = GameEntry.DataTable.GetDataTable<DRNode>();
+            DRNode drNode = dtNode.GetDataRow(8);
 
-            DRNode drHotwaterNode = dtNode.GetDataRow(11);
-            m_NodeData.ProducingTime = drHotwaterNode.ProducingTime;
+            m_NodeData.ProducingTime = 5f;
             m_ProducingTime = m_NodeData.ProducingTime;
 
             m_SpriteRenderer = this.GetComponent<SpriteRenderer>();
             m_SpriteRenderer.sprite = GameEntry.Utils.nodeSprites[(int)m_NodeData.NodeTag];
+            m_SpriteRenderer.sortingLayerName = drNode.Layer;
+            m_SpriteRenderer.sortingLayerID= drNode.Layerint;
 
             m_BoxCollider2D = this.GetComponent<BoxCollider2D>();
             m_BoxCollider2D.size = m_SpriteRenderer.size;
 
-            m_BurnishBoxCollider2D = this.transform.Find("BurnishBox").GetComponent<BoxCollider2D>();
+            m_BurnishBoxCollider2D = this.transform.Find("Burnisher").GetComponent<BoxCollider2D>();
 
             m_ProgressBar = this.transform.Find("ProgressBar").transform;//获取进度条
             m_ProgressBar.gameObject.SetActive(false);

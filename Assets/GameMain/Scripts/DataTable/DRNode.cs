@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2023-07-08 22:38:34.957
+// 生成时间：2023-07-09 10:06:19.978
 //------------------------------------------------------------
 
 using GameFramework;
@@ -81,6 +81,24 @@ namespace GameMain
             private set;
         }
 
+        /// <summary>
+        /// 获取所在层。
+        /// </summary>
+        public string Layer
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取所在层级。
+        /// </summary>
+        public int Layerint
+        {
+            get;
+            private set;
+        }
+
         public override bool ParseDataRow(string dataRowString, object userData)
         {
             string[] columnStrings = dataRowString.Split(DataTableExtension.DataSplitSeparators);
@@ -98,6 +116,8 @@ namespace GameMain
             Tool = bool.Parse(columnStrings[index++]);
             Coffee = bool.Parse(columnStrings[index++]);
             ProducingTime = float.Parse(columnStrings[index++]);
+            Layer = columnStrings[index++];
+            Layerint = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -115,6 +135,8 @@ namespace GameMain
                     Tool = binaryReader.ReadBoolean();
                     Coffee = binaryReader.ReadBoolean();
                     ProducingTime = binaryReader.ReadSingle();
+                    Layer = binaryReader.ReadString();
+                    Layerint = binaryReader.Read7BitEncodedInt32();
                 }
             }
 
