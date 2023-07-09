@@ -68,11 +68,6 @@ namespace GameMain
             if (Follow)
             {
                 this.transform.position = MouseToWorld(Input.mousePosition);
-                m_ProgressBar.gameObject.SetActive(false);
-                m_ProgressBar.transform.SetLocalScaleX(1);
-                m_ProducingTime = m_NodeData.ProducingTime;
-                m_AdsorbNode = null;
-                Producing = false;
             }
             if (m_AdsorbNode != null)
             {

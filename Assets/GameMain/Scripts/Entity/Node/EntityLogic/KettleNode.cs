@@ -68,11 +68,6 @@ namespace GameMain
             if (Follow)
             {
                 this.transform.position = MouseToWorld(Input.mousePosition);
-                m_ProgressBar.gameObject.SetActive(false);
-                m_ProgressBar.transform.SetLocalScaleX(1);
-                m_ProducingTime = m_NodeData.ProducingTime;
-                m_AdsorbNode = null;
-                Producing = false;
             }
             if (m_AdsorbNode != null)
             {
@@ -107,7 +102,7 @@ namespace GameMain
                             {
                                 Position = this.transform.position
                             });
-                            m_ProducingTime = m_NodeData.ProducingTime; ;
+                            m_ProducingTime = m_NodeData.ProducingTime;
                         }
                         else if (m_AdsorbNode.transform.parent.GetComponent<BaseNode>().NodeData.NodeTag == NodeTag.Milk)
                         {
@@ -115,7 +110,7 @@ namespace GameMain
                             {
                                 Position = this.transform.position
                             });
-                            m_ProducingTime = m_NodeData.ProducingTime; ;
+                            m_ProducingTime = m_NodeData.ProducingTime;
                         }
                     }
                 }

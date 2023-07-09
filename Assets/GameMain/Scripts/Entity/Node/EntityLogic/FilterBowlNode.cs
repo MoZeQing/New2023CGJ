@@ -14,12 +14,15 @@ namespace GameMain
         private SpriteRenderer m_SpriteRenderer;
         private BoxCollider2D m_BoxCollider2D;
 
-        private List<BoxCollider2D> m_FilterBoxCollider2DList = new List<BoxCollider2D>();
+        private List<BoxCollider2D> m_FilterBoxCollider2DList = new List<BoxCollider2D>(3);
 
-        private List<BaseCompenent> m_AdsorbNodeList = new List<BaseCompenent>();
+        private List<BaseCompenent> m_AdsorbNodeList = new List<BaseCompenent>(3);
 
         private BaseCompenent m_AdsorbNode;
         private BaseCompenent m_AdsorbNode1;
+
+        private BoxCollider2D m_FilterBoxCollider2D;
+        private BoxCollider2D m_FilterBoxCollider2D1;
 
         private Transform m_ProgressBar = null;
         private float m_ProducingTime = 0f;
@@ -51,11 +54,16 @@ namespace GameMain
             m_ProgressBar = this.transform.Find("ProgressBar").transform;//获取进度条
             m_ProgressBar.gameObject.SetActive(false);
 
-            m_FilterBoxCollider2DList.AddRange(this.transform.Find("FilterBowl").GetComponents<BoxCollider2D>());
-
             m_AdsorbNodeList.Add(m_AdsorbNode);
             m_AdsorbNodeList.Add(m_AdsorbNode1);
 
+            m_FilterBoxCollider2D = this.transform.Find("FliterBowl").GetComponent<BoxCollider2D>();
+            Debug.Log(m_FilterBoxCollider2D);
+            m_FilterBoxCollider2D1 = this.transform.Find("AnotherFliterBowl").GetComponent<BoxCollider2D>();
+            Debug.Log(m_FilterBoxCollider2D1);
+
+            m_FilterBoxCollider2DList.Add(m_FilterBoxCollider2D);
+            m_FilterBoxCollider2DList.Add(m_FilterBoxCollider2D1);
         }
 
         private bool Contain (NodeTag nodeTag)
@@ -83,35 +91,32 @@ namespace GameMain
             if (Follow)
             {
                 this.transform.position = MouseToWorld(Input.mousePosition);
-                m_ProgressBar.gameObject.SetActive(false);
-                m_ProgressBar.transform.SetLocalScaleX(1);
-                m_ProducingTime = m_NodeData.ProducingTime;
-                m_AdsorbNode = null;
-                m_AdsorbNode1 = null;
-                Producing = false;
             }
             if (m_AdsorbNode != null || m_AdsorbNode1 !=null)
             {
-                Debug.Log("吸附中");
+                Debug.Log("过滤杯吸附中");
                 //吸附效果
                 //多个吸附点竞争时，寻找最近的吸附点吸附
+                ReLoad();
                 foreach (var item in m_AdsorbNodeList)
                 {
                     if (item.Follow != false)
                         return;
                 }
-
+                ReLoad();
                 foreach (var item in m_AdsorbNodeList)
                 {
                     item.ProducingTool = NodeTag.FilterBowl;
                     item.Producing = true;
                     if (item == m_AdsorbNode)
                     {
-                        item.transform.DOMove(m_FilterBoxCollider2DList[0].transform.position, 0.1f);
+                        FilReLoad();
+                        item.transform.DOMove(m_FilterBoxCollider2D.transform.position, 0.1f);
                     }
                     if (item == m_AdsorbNode1)
                     {
-                        item.transform.DOMove(m_FilterBoxCollider2DList[1].transform.position, 0.1f);
+                        FilReLoad();
+                        item.transform.DOMove(m_FilterBoxCollider2D1.transform.position, 0.1f);
                     }
                 }
 
@@ -130,6 +135,7 @@ namespace GameMain
                     if (m_ProducingTime <= 0)
                     {
                         Producing = false;
+                        ReLoad();
                         foreach (var item in m_AdsorbNodeList)
                         {
                             item.Producing = false;
@@ -142,6 +148,9 @@ namespace GameMain
                                 Position = this.transform.position
                             });
                             m_ProducingTime = m_NodeData.ProducingTime;
+                            ReLoad();
+                            m_AdsorbNode = null;
+                            m_AdsorbNode1 = null;
                         }
                     }
                 }
@@ -160,20 +169,24 @@ namespace GameMain
             {
                 if (!baseCompenent.Follow)
                     return;
-                foreach (var item in m_FilterBoxCollider2DList)
+                /*foreach (var item in m_FilterBoxCollider2DList)
                 {
                     if (!item.IsTouching(baseCompenent.GetComponent<BoxCollider2D>()))
                     {
                         return;
                     }
-                }
-                if (m_FilterBoxCollider2DList[0].IsTouching(baseCompenent.GetComponent<BoxCollider2D>()))
+                }*/
+                Debug.Log(m_FilterBoxCollider2DList[0]);
+                FilReLoad();
+                if (m_FilterBoxCollider2D.IsTouching(baseCompenent.GetComponent<BoxCollider2D>()))
                 {
                     m_AdsorbNode = baseCompenent;
+                    return;
                 }
-                if (m_FilterBoxCollider2DList[1].IsTouching(baseCompenent.GetComponent<BoxCollider2D>()))
+                if (m_FilterBoxCollider2D1.IsTouching(baseCompenent.GetComponent<BoxCollider2D>()))
                 {
                     m_AdsorbNode1 = baseCompenent;
+                    return;
                 }
                 Debug.Log("检测到吸附");
             }
@@ -186,20 +199,24 @@ namespace GameMain
             {
                 if (!baseCompenent.Follow)
                     return;
-                foreach (var item in m_FilterBoxCollider2DList)
+                /*foreach (var item in m_FilterBoxCollider2DList)
                 {
                     if (item.IsTouching(baseCompenent.GetComponent<BoxCollider2D>()))
                     {
                         return;
                     }
-                }
-                if (m_FilterBoxCollider2DList[0].IsTouching(baseCompenent.GetComponent<BoxCollider2D>()))
+                }*/
+                FilReLoad();
+                Debug.Log(m_FilterBoxCollider2D);
+                if (m_FilterBoxCollider2D.IsTouching(baseCompenent.GetComponent<BoxCollider2D>()))
                 {
                     m_AdsorbNode = null;
+                    return;
                 }
-                if (m_FilterBoxCollider2DList[1].IsTouching(baseCompenent.GetComponent<BoxCollider2D>()))
+                if (m_FilterBoxCollider2D1.IsTouching(baseCompenent.GetComponent<BoxCollider2D>()))
                 {
                     m_AdsorbNode1 = null;
+                    return;
                 }
                 Debug.Log("检测到离开吸附");
 
@@ -211,6 +228,18 @@ namespace GameMain
             Vector3 screenPosition = Camera.main.WorldToScreenPoint(transform.position);
             mousePos.z = screenPosition.z;
             return Camera.main.ScreenToWorldPoint(mousePos);
+        }
+        private void ReLoad()
+        {
+            m_AdsorbNodeList.Clear();
+            m_AdsorbNodeList.Add(m_AdsorbNode);
+            m_AdsorbNodeList.Add(m_AdsorbNode1);
+        }
+        private void FilReLoad()
+        {
+            m_FilterBoxCollider2DList.Clear();
+            m_FilterBoxCollider2DList.Add(m_FilterBoxCollider2D);
+            m_FilterBoxCollider2DList.Add(m_FilterBoxCollider2D1);
         }
     }
 }

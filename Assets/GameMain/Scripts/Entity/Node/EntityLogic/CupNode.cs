@@ -14,14 +14,10 @@ namespace GameMain
         private SpriteRenderer m_SpriteRenderer;
         private BoxCollider2D m_BoxCollider2D;
 
-        private List<BoxCollider2D> m_CupBoxCollider2DList = new List<BoxCollider2D>();
-
-        private List<BaseCompenent> m_AdsorbNodeList = new List<BaseCompenent>();
+        private BoxCollider2D m_CupBoxCollider2D;
 
         private BaseCompenent m_AdsorbNode;
-        private BaseCompenent m_AdsorbNode1;
-        private BaseCompenent m_AdsorbNode2;
-        private BaseCompenent m_AdsorbNode3;
+        private bool m_Adsorb;
 
         private Transform m_ProgressBar = null;
         private float m_ProducingTime = 0f;
@@ -50,26 +46,11 @@ namespace GameMain
             m_BoxCollider2D = this.GetComponent<BoxCollider2D>();
             m_BoxCollider2D.size = m_SpriteRenderer.size;
 
+            m_CupBoxCollider2D = this.transform.Find("Cup").GetComponent<BoxCollider2D>();
+
             m_ProgressBar = this.transform.Find("ProgressBar").transform;//获取进度条
             m_ProgressBar.gameObject.SetActive(false);
 
-            m_CupBoxCollider2DList.AddRange(this.transform.Find("Cup").GetComponents<BoxCollider2D>());
-
-            m_AdsorbNodeList.Add(m_AdsorbNode);
-            m_AdsorbNodeList.Add(m_AdsorbNode1);
-            m_AdsorbNodeList.Add(m_AdsorbNode2);
-            m_AdsorbNodeList.Add(m_AdsorbNode3);
-
-        }
-
-        private bool Contain(NodeTag nodeTag)
-        {
-            foreach (BaseCompenent item in m_AdsorbNodeList)
-            {
-                if (item.transform.parent.GetComponent<BaseNode>().NodeData.NodeTag == nodeTag)
-                    return true;
-            }
-            return false;
         }
 
         protected override void OnHide(bool isShutdown, object userData)
@@ -87,56 +68,25 @@ namespace GameMain
             if (Follow)
             {
                 this.transform.position = MouseToWorld(Input.mousePosition);
-                m_ProgressBar.gameObject.SetActive(false);
-                m_ProgressBar.transform.SetLocalScaleX(1);
-                m_ProducingTime = m_NodeData.ProducingTime;
-                m_AdsorbNode = null;
-                m_AdsorbNode1 = null;
-                m_AdsorbNode2 = null;
-                m_AdsorbNode3 = null;
-                Producing = false;
             }
-            if (m_AdsorbNode != null || m_AdsorbNode1 != null || m_AdsorbNode2 != null || m_AdsorbNode3 != null)
+            if (m_AdsorbNode != null)
             {
                 Debug.Log("吸附中");
                 //吸附效果
                 //多个吸附点竞争时，寻找最近的吸附点吸附
-                foreach (var item in m_AdsorbNodeList)
-                {
-                    if (item.Follow != false)
-                        return;
-                }
-
-                foreach (var item in m_AdsorbNodeList)
-                {
-                    item.ProducingTool = NodeTag.FilterBowl;
-                    item.Producing = true;
-                    if (item == m_AdsorbNode)
-                    {
-                        item.transform.DOMove(m_CupBoxCollider2DList[0].transform.position, 0.1f);
-                    }
-                    if (item == m_AdsorbNode1)
-                    {
-                        item.transform.DOMove(m_CupBoxCollider2DList[1].transform.position, 0.1f);
-                    }
-                    if (item == m_AdsorbNode2)
-                    {
-                        item.transform.DOMove(m_CupBoxCollider2DList[0].transform.position, 0.1f);
-                    }
-                    if (item == m_AdsorbNode3)
-                    {
-                        item.transform.DOMove(m_CupBoxCollider2DList[1].transform.position, 0.1f);
-                    }
-                }
-
-                if ((!(Contain(NodeTag.CoffeeLiquid)))
-                    && (!(Contain(NodeTag.CoffeeLiquid) && Contain(NodeTag.Water)))
-                    && (!(Contain(NodeTag.CoffeeLiquid) && Contain(NodeTag.Milk)))
-                    && (!(Contain(NodeTag.CoffeeLiquid) && Contain(NodeTag.HotMilk)))
-                    && (!(Contain(NodeTag.CoffeeLiquid) && Contain(NodeTag.ChocolateSyrup) && Contain(NodeTag.Cream) && Contain(NodeTag.Milk)))
-                    && (!(Contain(NodeTag.CoffeeLiquid) && Contain(NodeTag.Cream))))
+                if (m_AdsorbNode.Follow != false)
+                    return;
+                if (m_AdsorbNode.transform.parent.GetComponent<BaseNode>().NodeData.NodeTag != NodeTag.CoffeeLiquid 
+                    && m_AdsorbNode.transform.parent.GetComponent<BaseNode>().NodeData.NodeTag != NodeTag.Cream
+                    && m_AdsorbNode.transform.parent.GetComponent<BaseNode>().NodeData.NodeTag != NodeTag.ChocolateSyrup
+                    && m_AdsorbNode.transform.parent.GetComponent<BaseNode>().NodeData.NodeTag != NodeTag.GroundCoffee
+                    && m_AdsorbNode.transform.parent.GetComponent<BaseNode>().NodeData.NodeTag != NodeTag.CoffeeBean
+                    && m_AdsorbNode.transform.parent.GetComponent<BaseNode>().NodeData.NodeTag != NodeTag.HotMilk)
                     return;
 
+                m_AdsorbNode.ProducingTool = NodeTag.Cup;
+                m_AdsorbNode.Producing = true;
+                m_AdsorbNode.transform.DOMove(m_CupBoxCollider2D.transform.position, 0.1f);
                 Producing = true;
                 if (Producing)
                 {
@@ -149,12 +99,56 @@ namespace GameMain
                     if (m_ProducingTime <= 0)
                     {
                         Producing = false;
-                        foreach (var item in m_AdsorbNodeList)
+                        m_AdsorbNode.Producing = false;
+                        m_AdsorbNode.Completed = true;
+                        if (m_AdsorbNode.transform.parent.GetComponent<BaseNode>().NodeData.NodeTag == NodeTag.CoffeeLiquid)
                         {
-                            item.Producing = false;
-                            item.Completed = true;
+                            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Espresso)
+                            {
+                                Position = this.transform.position
+                            });
+                            m_ProducingTime = m_NodeData.ProducingTime;
                         }
-                        ShowCoffee();
+                        else if (m_AdsorbNode.transform.parent.GetComponent<BaseNode>().NodeData.NodeTag == NodeTag.Cream)
+                        {
+                            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Mocha)
+                            {
+                                Position = this.transform.position
+                            });
+                            m_ProducingTime = m_NodeData.ProducingTime;
+                        }
+                        else if (m_AdsorbNode.transform.parent.GetComponent<BaseNode>().NodeData.NodeTag == NodeTag.ChocolateSyrup)
+                        {
+                            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.ConPanna)
+                            {
+                                Position = this.transform.position
+                            });
+                            m_ProducingTime = m_NodeData.ProducingTime;
+                        }
+                        else if (m_AdsorbNode.transform.parent.GetComponent<BaseNode>().NodeData.NodeTag == NodeTag.CoffeeBean)
+                        {
+                            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.CafeAmericano)
+                            {
+                                Position = this.transform.position
+                            });
+                            m_ProducingTime = m_NodeData.ProducingTime;
+                        }
+                        else if (m_AdsorbNode.transform.parent.GetComponent<BaseNode>().NodeData.NodeTag == NodeTag.GroundCoffee)
+                        {
+                            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Latte)
+                            {
+                                Position = this.transform.position
+                            });
+                            m_ProducingTime = m_NodeData.ProducingTime;
+                        }
+                        else if (m_AdsorbNode.transform.parent.GetComponent<BaseNode>().NodeData.NodeTag == NodeTag.HotMilk)
+                        {
+                            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.WhiteCoffee)
+                            {
+                                Position = this.transform.position
+                            });
+                            m_ProducingTime = m_NodeData.ProducingTime;
+                        }
                     }
                 }
             }
@@ -172,30 +166,10 @@ namespace GameMain
             {
                 if (!baseCompenent.Follow)
                     return;
-                foreach (var item in m_CupBoxCollider2DList)
-                {
-                    if (!item.IsTouching(baseCompenent.GetComponent<BoxCollider2D>()))
-                    {
-                        return;
-                    }
-                }
-                if (m_CupBoxCollider2DList[0].IsTouching(baseCompenent.GetComponent<BoxCollider2D>()))
-                {
-                    m_AdsorbNode = baseCompenent;
-                }
-                if (m_CupBoxCollider2DList[1].IsTouching(baseCompenent.GetComponent<BoxCollider2D>()))
-                {
-                    m_AdsorbNode1 = baseCompenent;
-                }
-                if (m_CupBoxCollider2DList[2].IsTouching(baseCompenent.GetComponent<BoxCollider2D>()))
-                {
-                    m_AdsorbNode2 = baseCompenent;
-                }
-                if (m_CupBoxCollider2DList[3].IsTouching(baseCompenent.GetComponent<BoxCollider2D>()))
-                {
-                    m_AdsorbNode3 = baseCompenent;
-                }
+                if (!m_CupBoxCollider2D.IsTouching(baseCompenent.GetComponent<BoxCollider2D>()))
+                    return;
                 Debug.Log("检测到吸附");
+                m_AdsorbNode = baseCompenent;
             }
         }
 
@@ -206,31 +180,10 @@ namespace GameMain
             {
                 if (!baseCompenent.Follow)
                     return;
-                foreach (var item in m_CupBoxCollider2DList)
-                {
-                    if (!item.IsTouching(baseCompenent.GetComponent<BoxCollider2D>()))
-                    {
-                        return;
-                    }
-                }
-                if (m_CupBoxCollider2DList[0].IsTouching(baseCompenent.GetComponent<BoxCollider2D>()))
-                {
-                    m_AdsorbNode = null;
-                }
-                if (m_CupBoxCollider2DList[1].IsTouching(baseCompenent.GetComponent<BoxCollider2D>()))
-                {
-                    m_AdsorbNode1 = null;
-                }
-                if (m_CupBoxCollider2DList[2].IsTouching(baseCompenent.GetComponent<BoxCollider2D>()))
-                {
-                    m_AdsorbNode2 = null;
-                }
-                if (m_CupBoxCollider2DList[3].IsTouching(baseCompenent.GetComponent<BoxCollider2D>()))
-                {
-                    m_AdsorbNode3 = null;
-                }
+                if (m_CupBoxCollider2D.IsTouching(baseCompenent.GetComponent<BoxCollider2D>()))
+                    return;
                 Debug.Log("检测到离开吸附");
-
+                m_AdsorbNode = null;
             }
         }
 
@@ -239,61 +192,6 @@ namespace GameMain
             Vector3 screenPosition = Camera.main.WorldToScreenPoint(transform.position);
             mousePos.z = screenPosition.z;
             return Camera.main.ScreenToWorldPoint(mousePos);
-        }
-        /// <summary>
-        /// 根据六种情况生成咖啡
-        /// </summary>
-        private void ShowCoffee()
-        {
-            if (Contain(NodeTag.CoffeeLiquid) && (!Contain(NodeTag.Milk)) && (!Contain(NodeTag.Water)) && (!Contain(NodeTag.Cream)) && (!Contain(NodeTag.HotMilk)) && (!Contain(NodeTag.ChocolateSyrup)))
-            {
-                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Espresso)
-                {
-                    Position = this.transform.position
-                });
-                m_ProducingTime = m_NodeData.ProducingTime;
-            }
-            else if (Contain(NodeTag.CoffeeLiquid) && (!Contain(NodeTag.Milk)) && (Contain(NodeTag.Water)) && (!Contain(NodeTag.Cream)) && (!Contain(NodeTag.HotMilk)) && (!Contain(NodeTag.ChocolateSyrup)))
-            {
-                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.CafeAmericano)
-                {
-                    Position = this.transform.position
-                });
-                m_ProducingTime = m_NodeData.ProducingTime;
-            }
-            else if (Contain(NodeTag.CoffeeLiquid) && (Contain(NodeTag.Milk)) && (!Contain(NodeTag.Water)) && (!Contain(NodeTag.Cream)) && (!Contain(NodeTag.HotMilk)) && (!Contain(NodeTag.ChocolateSyrup)))
-            {
-                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.WhiteCoffee)
-                {
-                    Position = this.transform.position
-
-                });
-                m_ProducingTime = m_NodeData.ProducingTime;
-            }
-            else if (Contain(NodeTag.CoffeeLiquid) && (Contain(NodeTag.Milk)) && (!Contain(NodeTag.Water)) && (Contain(NodeTag.Cream)) && (!Contain(NodeTag.HotMilk)) && (Contain(NodeTag.ChocolateSyrup)))
-            {
-                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Mocha)
-                {
-                    Position = this.transform.position
-                });
-                m_ProducingTime = m_NodeData.ProducingTime;
-            }
-            else if (Contain(NodeTag.CoffeeLiquid) && (!Contain(NodeTag.Milk)) && (!Contain(NodeTag.Water)) && (!Contain(NodeTag.Cream)) && (Contain(NodeTag.HotMilk)) && (!Contain(NodeTag.ChocolateSyrup)))
-            {
-                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Latte)
-                {
-                    Position = this.transform.position
-                });
-                m_ProducingTime = m_NodeData.ProducingTime;
-            }
-            else if (Contain(NodeTag.CoffeeLiquid) && (!Contain(NodeTag.Milk)) && (!Contain(NodeTag.Water)) && (Contain(NodeTag.Cream)) && (!Contain(NodeTag.HotMilk)) && (!Contain(NodeTag.ChocolateSyrup)))
-            {
-                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.ConPanna)
-                {
-                    Position = this.transform.position
-                });
-                m_ProducingTime = m_NodeData.ProducingTime;
-            }
         }
     }
 }
