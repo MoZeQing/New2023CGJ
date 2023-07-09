@@ -113,7 +113,7 @@ namespace GameMain
             }
             if (orderData.Check())
             {
-                GameEntry.Event.FireNow(this, OrderEventArgs.Create(orderData));
+                GameEntry.Event.FireNow(this, LevelEventArgs.Create(1));
             }
         }
 

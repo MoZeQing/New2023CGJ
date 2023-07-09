@@ -57,12 +57,12 @@ namespace GameMain
 
         private void OnEnable()
         {
-            GameEntry.Event.Subscribe(OrderEventArgs.EventId, Level);
+            GameEntry.Event.Subscribe(LevelEventArgs.EventId, Level);
         }
 
         private void OnDisable()
         {
-            GameEntry.Event.Unsubscribe(OrderEventArgs.EventId, Level);
+            GameEntry.Event.Unsubscribe(LevelEventArgs.EventId, Level);
         }
         // Update is called once per frame
         void Update()
@@ -73,33 +73,29 @@ namespace GameMain
         private void Level(object sender, GameEventArgs e)
         {
             OrderManager orderManager = (OrderManager)sender;
-            OrderEventArgs order = (OrderEventArgs)e;
-            ProcedureMain main = (ProcedureMain)GameEntry.Procedure.CurrentProcedure;
-            if (order.OrderData.Check())
-            {
+            DialogForm dialog = GameObject.FindWithTag("Dialog").GetComponent<DialogForm>();
                 level++;
-            }
             switch (level)
             {
                 case 1:
                     orderManager.SetOrder(orderData1);
-                    main.MainForm.SetDialog(dialogueGraph1);
+                    dialog.SetDialog(dialogueGraph1);
                     break;
                 case 2:
                     orderManager.SetOrder(orderData2);
-                    main.MainForm.SetDialog(dialogueGraph2);
+                    dialog.SetDialog(dialogueGraph2);
                     break;
                 case 3:
                     orderManager.SetOrder(orderData3);
-                    main.MainForm.SetDialog(dialogueGraph3);
+                    dialog.SetDialog(dialogueGraph3);
                     break;
                 case 4:
-                    orderManager.SetOrder(orderData3);
-                    main.MainForm.SetDialog(dialogueGraph4);
+                    orderManager.SetOrder(orderData4);
+                    dialog.SetDialog(dialogueGraph4);
                     break;
                 case 5:
-                    orderManager.SetOrder(orderData3);
-                    main.MainForm.SetDialog(dialogueGraph5);
+                    orderManager.SetOrder(orderData5);
+                    dialog.SetDialog(dialogueGraph5);
                     break;
             }
         }
