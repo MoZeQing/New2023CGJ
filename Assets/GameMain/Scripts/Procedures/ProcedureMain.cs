@@ -13,6 +13,12 @@ namespace GameMain
     {
         private bool m_StartAdventure = false;
 
+        public MainForm MainForm
+        {
+            get;
+            set;
+        }
+
         public void StartAdventure()
         { 
             m_StartAdventure=true;

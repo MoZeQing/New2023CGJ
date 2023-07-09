@@ -11,15 +11,14 @@ namespace GameMain
     public class OrderManager : MonoBehaviour
     {
         private List<DROrder> orders = new List<DROrder>();
-        private OrderData orderData;
+        private OrderData orderData = new OrderData();
         private MaterialData materialData=new MaterialData();
+
+        private bool mFlag = false;
         // Start is called before the first frame update
         void Start()
         {
-            IDataTable<DROrder> dtOrder = GameEntry.DataTable.GetDataTable<DROrder>();
-            DROrder drOrder = dtOrder.GetDataRow(0);
-            orderData = new OrderData(drOrder);
-            GameEntry.Event.FireNow(this, OrderEventArgs.Create(orderData));
+            orderData = new OrderData();
         }
 
         private void OnEnable()
@@ -30,6 +29,20 @@ namespace GameMain
         private void OnDisable()
         {
             GameEntry.Event.Unsubscribe(MaterialEventArgs.EventId, UpdateMaterial);
+        }
+
+        public void SetOrder(int index)
+        {
+            IDataTable<DROrder> dtOrder = GameEntry.DataTable.GetDataTable<DROrder>();
+            DROrder drOrder = dtOrder.GetDataRow(index);
+            orderData = new OrderData(drOrder);
+            GameEntry.Event.FireNow(this, OrderEventArgs.Create(orderData));
+        }
+
+        public void SetOrder(OrderData order)
+        {
+            orderData = order;
+            GameEntry.Event.FireNow(this, OrderEventArgs.Create(orderData));
         }
 
         private void UpdateMaterial(object sender,GameEventArgs e)
@@ -100,8 +113,6 @@ namespace GameMain
             }
             if (orderData.Check())
             {
-                IDataTable<DROrder> dtOrder = GameEntry.DataTable.GetDataTable<DROrder>();
-                orderData = new OrderData(dtOrder.GetDataRow(Random.Range(0, dtOrder.Count)));
                 GameEntry.Event.FireNow(this, OrderEventArgs.Create(orderData));
             }
         }

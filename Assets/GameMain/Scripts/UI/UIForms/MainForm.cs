@@ -13,13 +13,26 @@ namespace GameMain
         [SerializeField] private Button downButton;
         [SerializeField] private Button upButton;
         [SerializeField] private Transform canvasTrans;
+        [SerializeField] private DialogForm dialogForm;
 
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
+            ProcedureMain main = (ProcedureMain)userData;
+            main.MainForm = this;
 
             upButton.onClick.AddListener(Up);
             downButton.onClick.AddListener(Down);
+        }
+
+        public void SetDialog(string path)
+        {
+            dialogForm.SetDialog(path);
+        }
+
+        public void SetDialog(DialogueGraph graph)
+        {
+            dialogForm.SetDialog(graph);
         }
 
         private void Up()

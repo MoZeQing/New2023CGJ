@@ -14,6 +14,7 @@ namespace GameMain
         [SerializeField] private Text nameText;
         [SerializeField] private Text dialogText;
         [SerializeField] private Button dialogBtn;
+        [SerializeField] private Image spriteRenderer;
         [SerializeField] private Transform mCanvas;
         [SerializeField] private GameObject mBtnPrefab;
 
@@ -27,7 +28,6 @@ namespace GameMain
         private List<GameObject> m_Btns = new List<GameObject>();
         private bool hasQuestion = false;
         // Start is called before the first frame update
-
         // Update is called once per frame
 
         public void ShowButtons(List<OptionData> options)
@@ -92,6 +92,10 @@ namespace GameMain
                 ChatData chatData = chatNode.chatDatas[_index];
                 nameText.text = chatData.charName;
                 dialogText.text = chatData.text;
+                if (chatData.charSprite != null)
+                {
+                    spriteRenderer.sprite = chatData.charSprite;
+                }
                 if (chatNode.GetPort(string.Format("chatDatas {0}", _index))!=null)
                 {
                     NodePort nodePort = chatNode.GetPort(string.Format("chatDatas {0}", _index));
@@ -147,13 +151,10 @@ namespace GameMain
                 }
             }
         }
-        private void Start()
+        public void SetDialog(DialogueGraph graph)
         {
-            dialogBtn.onClick.AddListener(Next);
-
-            //DialogueGraph data = (DialogueGraph)userData;
+            m_Dialogue = graph;
             _index = 0;
-            //m_Dialogue=data;
             foreach (Node node in Dialogue.nodes)
             {
                 if (node.GetType().ToString() == "StartNode")
@@ -164,6 +165,25 @@ namespace GameMain
                 }
             }
             Next();
+        }
+        public void SetDialog(string path)
+        {
+            m_Dialogue = (DialogueGraph)Resources.Load<DialogueGraph>(string.Format("DialogData/{0}", path));
+            _index = 0;
+            foreach (Node node in Dialogue.nodes)
+            {
+                if (node.GetType().ToString() == "StartNode")
+                {
+                    m_StartNode = (StartNode)node;
+                    m_Node = node;
+                    chatTag = ChatTag.Start;
+                }
+            }
+            Next();
+        }    
+        private void Start()
+        {
+            dialogBtn.onClick.AddListener(Next);
         }
         private void Option_Onclick(object sender, EventArgs e)
         {
