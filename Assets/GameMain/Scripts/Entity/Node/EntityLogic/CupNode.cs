@@ -45,7 +45,7 @@ namespace GameMain
             m_SpriteRenderer = this.GetComponent<SpriteRenderer>();
             m_SpriteRenderer.sprite = GameEntry.Utils.nodeSprites[(int)m_NodeData.NodeTag];
             m_SpriteRenderer.sortingLayerName = drNode.Layer;
-            m_SpriteRenderer.sortingLayerID = drNode.Layerint;
+            m_SpriteRenderer.sortingOrder = drNode.Layerint;
 
             m_BoxCollider2D = this.GetComponent<BoxCollider2D>();
             m_BoxCollider2D.size = m_SpriteRenderer.size;
@@ -89,7 +89,7 @@ namespace GameMain
                 this.transform.position = MouseToWorld(Input.mousePosition);
                 m_ProgressBar.gameObject.SetActive(false);
                 m_ProgressBar.transform.SetLocalScaleX(1);
-                m_ProducingTime = 0f;
+                m_ProducingTime = m_NodeData.ProducingTime;
                 m_AdsorbNode = null;
                 m_AdsorbNode1 = null;
                 m_AdsorbNode2 = null;

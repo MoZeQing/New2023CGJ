@@ -26,7 +26,7 @@ namespace GameMain
             m_SpriteRenderer = this.GetComponent<SpriteRenderer>();
             m_SpriteRenderer.sprite = GameEntry.Utils.nodeSprites[(int)m_NodeData.NodeTag];
             m_SpriteRenderer.sortingLayerName = drNode.Layer;
-            m_SpriteRenderer.sortingLayerID = drNode.Layerint;
+            m_SpriteRenderer.sortingOrder = drNode.Layerint;
 
             m_BoxCollider2D = this.GetComponent<BoxCollider2D>();
             m_BoxCollider2D.size = m_SpriteRenderer.size;
