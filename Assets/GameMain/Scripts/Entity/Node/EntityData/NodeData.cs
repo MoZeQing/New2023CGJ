@@ -61,6 +61,7 @@ namespace GameMain
         Cream,//奶油
         ChocolateSyrup,//巧克力浆
         CoffeeLiquid,//咖啡液
+        Sugar,
         //工具
         Burnisher,//研磨器
         Kettle,//加热壶

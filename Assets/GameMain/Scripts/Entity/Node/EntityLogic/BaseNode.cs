@@ -80,6 +80,8 @@ namespace GameMain
                 case NodeTag.ConPanna:
                     GameEntry.Entity.ShowConPannaNode(data);
                     break;
+                case NodeTag.Sugar:
+                    break;
             }
         }
     }
