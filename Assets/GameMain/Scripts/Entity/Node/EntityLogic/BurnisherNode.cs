@@ -107,6 +107,7 @@ namespace GameMain
                             {
                                 Position = this.transform.position
                             });
+                            m_ProducingTime = m_NodeData.ProducingTime;
                         }
                     }
                 }

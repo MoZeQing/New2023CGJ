@@ -107,6 +107,7 @@ namespace GameMain
                             {
                                 Position = this.transform.position
                             });
+                            m_ProducingTime = m_NodeData.ProducingTime; ;
                         }
                         else if (m_AdsorbNode.transform.parent.GetComponent<BaseNode>().NodeData.NodeTag == NodeTag.Milk)
                         {
@@ -114,6 +115,7 @@ namespace GameMain
                             {
                                 Position = this.transform.position
                             });
+                            m_ProducingTime = m_NodeData.ProducingTime; ;
                         }
                     }
                 }

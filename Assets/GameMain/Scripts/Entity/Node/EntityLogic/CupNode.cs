@@ -251,6 +251,7 @@ namespace GameMain
                 {
                     Position = this.transform.position
                 });
+                m_ProducingTime = m_NodeData.ProducingTime;
             }
             else if (Contain(NodeTag.CoffeeLiquid) && (!Contain(NodeTag.Milk)) && (Contain(NodeTag.Water)) && (!Contain(NodeTag.Cream)) && (!Contain(NodeTag.HotMilk)) && (!Contain(NodeTag.ChocolateSyrup)))
             {
@@ -258,13 +259,16 @@ namespace GameMain
                 {
                     Position = this.transform.position
                 });
+                m_ProducingTime = m_NodeData.ProducingTime;
             }
             else if (Contain(NodeTag.CoffeeLiquid) && (Contain(NodeTag.Milk)) && (!Contain(NodeTag.Water)) && (!Contain(NodeTag.Cream)) && (!Contain(NodeTag.HotMilk)) && (!Contain(NodeTag.ChocolateSyrup)))
             {
                 GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.WhiteCoffee)
                 {
                     Position = this.transform.position
+
                 });
+                m_ProducingTime = m_NodeData.ProducingTime;
             }
             else if (Contain(NodeTag.CoffeeLiquid) && (Contain(NodeTag.Milk)) && (!Contain(NodeTag.Water)) && (Contain(NodeTag.Cream)) && (!Contain(NodeTag.HotMilk)) && (Contain(NodeTag.ChocolateSyrup)))
             {
@@ -272,6 +276,7 @@ namespace GameMain
                 {
                     Position = this.transform.position
                 });
+                m_ProducingTime = m_NodeData.ProducingTime;
             }
             else if (Contain(NodeTag.CoffeeLiquid) && (!Contain(NodeTag.Milk)) && (!Contain(NodeTag.Water)) && (!Contain(NodeTag.Cream)) && (Contain(NodeTag.HotMilk)) && (!Contain(NodeTag.ChocolateSyrup)))
             {
@@ -279,6 +284,7 @@ namespace GameMain
                 {
                     Position = this.transform.position
                 });
+                m_ProducingTime = m_NodeData.ProducingTime;
             }
             else if (Contain(NodeTag.CoffeeLiquid) && (!Contain(NodeTag.Milk)) && (!Contain(NodeTag.Water)) && (Contain(NodeTag.Cream)) && (!Contain(NodeTag.HotMilk)) && (!Contain(NodeTag.ChocolateSyrup)))
             {
@@ -286,6 +292,7 @@ namespace GameMain
                 {
                     Position = this.transform.position
                 });
+                m_ProducingTime = m_NodeData.ProducingTime;
             }
         }
     }
