@@ -24,10 +24,17 @@ namespace GameMain
             set;
         }
 
-        public static MaterialEventArgs Create(NodeTag nodeTag)
+        public int Value
+        {
+            get;
+            set;
+        }
+
+        public static MaterialEventArgs Create(NodeTag nodeTag,int value)
         {
             MaterialEventArgs args = ReferencePool.Acquire<MaterialEventArgs>();
             args.NodeTag = nodeTag;
+            args.Value = value;
             return args;
         }
 

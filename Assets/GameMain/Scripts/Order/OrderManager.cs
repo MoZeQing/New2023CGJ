@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using GameFramework.DataTable;
 using UnityEngine.UI;
+using GameFramework.Event;
 
 
 namespace GameMain
@@ -21,6 +22,39 @@ namespace GameMain
             GameEntry.Event.FireNow(this, OrderEventArgs.Create(orderData));
         }
 
+        private void OnEnable()
+        {
+            GameEntry.Event.Subscribe(MaterialEventArgs.EventId, UpdateMaterial);
+        }
+
+        private void OnDisable()
+        {
+            GameEntry.Event.Unsubscribe(MaterialEventArgs.EventId, UpdateMaterial);
+        }
+
+        private void UpdateMaterial(object sender,GameEventArgs e)
+        {
+            MaterialEventArgs args = (MaterialEventArgs)e;
+            switch (args.NodeTag)
+            {
+                case NodeTag.Milk:
+                    materialData.Milk += args.Value;
+                    break;
+                case NodeTag.Water:
+                    materialData.Water += args.Value;
+                    break;
+                case NodeTag.Cream:
+                    materialData.Cream += args.Value;
+                    break;
+                case NodeTag.CoffeeBean:
+                    materialData.CoffeeBean += args.Value;
+                    break;
+                case NodeTag.ChocolateSyrup:
+                    materialData.ChocolateSyrup += args.Value;
+                    break;
+            }
+        }
+
         // Update is called once per frame
         void Update()
         {
@@ -29,14 +63,8 @@ namespace GameMain
                 GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Milk)
                 {
                     Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
-                }) ;
-            }
-            if (materialData.Sugaer < 1)
-            {
-                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Sugar)
-                {
-                    Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
                 });
+                materialData.Milk++;
             }
             if (materialData.Cream < 1)
             {
@@ -44,6 +72,7 @@ namespace GameMain
                 {
                     Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
                 });
+                materialData.Cream++;
             }
             if (materialData.CoffeeBean < 1)
             {
@@ -51,6 +80,7 @@ namespace GameMain
                 {
                     Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
                 });
+                materialData.CoffeeBean++;
             }
             if (materialData.Water < 1)
             {
@@ -58,6 +88,7 @@ namespace GameMain
                 {
                     Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
                 });
+                materialData.Water++;
             }
             if (materialData.ChocolateSyrup < 1)
             {
@@ -65,8 +96,8 @@ namespace GameMain
                 {
                     Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
                 });
+                materialData.ChocolateSyrup++;
             }
-
             if (orderData.Check())
             {
                 orderData = new OrderData(orders[Random.Range(0, orders.Count)]);
