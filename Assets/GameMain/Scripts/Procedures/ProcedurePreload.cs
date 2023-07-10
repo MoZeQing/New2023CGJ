@@ -14,6 +14,7 @@ namespace GameMain
 {
     public class ProcedurePreload : ProcedureBase
     {
+
         public static readonly string[] DataTableNames = new string[]
         {
             "Entity",
@@ -30,9 +31,9 @@ namespace GameMain
         {
             base.OnEnter(procedureOwner);
 
-            Debug.Log("Preload");
+            Debug.Log("Init");
             GameEntry.Event.Subscribe(LoadConfigSuccessEventArgs.EventId, OnLoadConfigSuccess);
-            //GameEntry.Event.Subscribe(LoadConfigFailureEventArgs.EventId, OnLoadConfigFailure);
+            GameEntry.Event.Subscribe(LoadConfigFailureEventArgs.EventId, OnLoadConfigFailure);
             GameEntry.Event.Subscribe(LoadDataTableSuccessEventArgs.EventId, OnLoadDataTableSuccess);
             GameEntry.Event.Subscribe(LoadDataTableFailureEventArgs.EventId, OnLoadDataTableFailure);
             GameEntry.Event.Subscribe(LoadDictionarySuccessEventArgs.EventId, OnLoadDictionarySuccess);
@@ -42,11 +43,10 @@ namespace GameMain
 
             PreloadResources();
         }
-
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
         {
             GameEntry.Event.Unsubscribe(LoadConfigSuccessEventArgs.EventId, OnLoadConfigSuccess);
-            //GameEntry.Event.Unsubscribe(LoadConfigFailureEventArgs.EventId, OnLoadConfigFailure);
+            GameEntry.Event.Unsubscribe(LoadConfigFailureEventArgs.EventId, OnLoadConfigFailure);
             GameEntry.Event.Unsubscribe(LoadDataTableSuccessEventArgs.EventId, OnLoadDataTableSuccess);
             GameEntry.Event.Unsubscribe(LoadDataTableFailureEventArgs.EventId, OnLoadDataTableFailure);
             GameEntry.Event.Unsubscribe(LoadDictionarySuccessEventArgs.EventId, OnLoadDictionarySuccess);
@@ -58,6 +58,7 @@ namespace GameMain
         protected override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
+
             foreach (KeyValuePair<string, bool> loadedFlag in m_LoadedFlag)
             {
                 if (!loadedFlag.Value)
@@ -81,10 +82,10 @@ namespace GameMain
             }
 
             // Preload dictionaries
-            LoadDictionary("Default");
+            //LoadDictionary("Default");
 
             // Preload fonts
-            LoadFont("MainFont");
+            //LoadFont("MainFont");
         }
 
         private void LoadConfig(string configName)

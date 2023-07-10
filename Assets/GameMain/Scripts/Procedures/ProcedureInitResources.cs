@@ -13,6 +13,7 @@ namespace GameMain
     public class ProcedureInitResources : ProcedureBase
     {
         private bool m_InitResourcesComplete = false;
+        private bool m_temp = false;
 
         public static readonly string[] DataTableNames = new string[]
         {
@@ -30,9 +31,13 @@ namespace GameMain
         {
             base.OnEnter(procedureOwner);
 
+            m_InitResourcesComplete = false;
+
+            GameEntry.Resource.InitResources(OnInitResourcesComplete);
+
             Debug.Log("Init");
             GameEntry.Event.Subscribe(LoadConfigSuccessEventArgs.EventId, OnLoadConfigSuccess);
-            //GameEntry.Event.Subscribe(LoadConfigFailureEventArgs.EventId, OnLoadConfigFailure);
+            GameEntry.Event.Subscribe(LoadConfigFailureEventArgs.EventId, OnLoadConfigFailure);
             GameEntry.Event.Subscribe(LoadDataTableSuccessEventArgs.EventId, OnLoadDataTableSuccess);
             GameEntry.Event.Subscribe(LoadDataTableFailureEventArgs.EventId, OnLoadDataTableFailure);
             GameEntry.Event.Subscribe(LoadDictionarySuccessEventArgs.EventId, OnLoadDictionarySuccess);
@@ -40,13 +45,16 @@ namespace GameMain
 
             //m_LoadedFlag.Clear();
 
-            PreloadResources();
         }
-
+        private void OnInitResourcesComplete()
+        {
+            m_InitResourcesComplete = true;
+            Debug.Log("Init resources complete.");
+        }
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
         {
             GameEntry.Event.Unsubscribe(LoadConfigSuccessEventArgs.EventId, OnLoadConfigSuccess);
-            //GameEntry.Event.Unsubscribe(LoadConfigFailureEventArgs.EventId, OnLoadConfigFailure);
+            GameEntry.Event.Unsubscribe(LoadConfigFailureEventArgs.EventId, OnLoadConfigFailure);
             GameEntry.Event.Unsubscribe(LoadDataTableSuccessEventArgs.EventId, OnLoadDataTableSuccess);
             GameEntry.Event.Unsubscribe(LoadDataTableFailureEventArgs.EventId, OnLoadDataTableFailure);
             GameEntry.Event.Unsubscribe(LoadDictionarySuccessEventArgs.EventId, OnLoadDictionarySuccess);
@@ -59,6 +67,19 @@ namespace GameMain
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
 
+            if (!m_InitResourcesComplete)
+            {
+                // 初始化资源未完成则继续等待
+                return;
+            }
+
+            if (!m_temp)
+            {
+                m_temp = true;
+                PreloadResources();
+            }
+
+
             foreach (KeyValuePair<string, bool> loadedFlag in m_LoadedFlag)
             {
                 if (!loadedFlag.Value)
@@ -66,7 +87,7 @@ namespace GameMain
                     return;
                 }
             }
-            procedureOwner.SetData<VarInt32>("NextSceneId", GameEntry.Config.GetInt("Scene.Main"));
+            procedureOwner.SetData<VarInt32>("NextSceneId", 1);
             ChangeState<ProcedureMenu>(procedureOwner);
         }
 
