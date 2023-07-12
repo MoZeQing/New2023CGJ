@@ -193,6 +193,9 @@ namespace GameMain
 
     public class OrderData
     {
+        /// <summary>
+        ///获取当天对话 
+        /// </summary>
         public string Dialog
         {
             get;
@@ -272,6 +275,7 @@ namespace GameMain
             Latte = order.Latte;
             CafeAmericano = order.CafeAmericano;
             Espresso = order.Espresso;
+            Dialog = order.Dialog;
         }
     }
 }

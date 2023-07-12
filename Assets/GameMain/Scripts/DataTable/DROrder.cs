@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2023-07-09 10:45:40.855
+// 生成时间：2023-07-12 15:29:06.046
 //------------------------------------------------------------
 
 using GameFramework;
@@ -90,6 +90,15 @@ namespace GameMain
             private set;
         }
 
+        /// <summary>
+        /// 获取对应剧情。
+        /// </summary>
+        public string Dialog
+        {
+            get;
+            private set;
+        }
+
         public override bool ParseDataRow(string dataRowString, object userData)
         {
             string[] columnStrings = dataRowString.Split(DataTableExtension.DataSplitSeparators);
@@ -108,6 +117,7 @@ namespace GameMain
             WhiteCoffee = int.Parse(columnStrings[index++]);
             Mocha = int.Parse(columnStrings[index++]);
             ConPanna = int.Parse(columnStrings[index++]);
+            Dialog = columnStrings[index++];
 
             GeneratePropertyArray();
             return true;
@@ -126,6 +136,7 @@ namespace GameMain
                     WhiteCoffee = binaryReader.Read7BitEncodedInt32();
                     Mocha = binaryReader.Read7BitEncodedInt32();
                     ConPanna = binaryReader.Read7BitEncodedInt32();
+                    Dialog = binaryReader.ReadString();
                 }
             }
 
