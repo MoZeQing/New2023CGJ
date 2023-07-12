@@ -24,10 +24,23 @@ namespace GameMain
             set;
         } = false;
 
+        public NodeTag NodeTag
+        {
+            get;
+            private set;
+        }
+
         public NodeTag ProducingTool
         {
             get;
             set;
+        }
+
+        protected override void OnInit(object userData)
+        {
+            base.OnInit(userData);
+            CompenentData data = (CompenentData)userData;
+            NodeTag = data.NodeData.NodeTag;
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
