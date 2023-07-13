@@ -7,6 +7,7 @@ using UnityGameFramework.Runtime;
 using DG.Tweening;
 using GameFramework.Sound;
 using GameFramework.DataTable;
+using GameFramework;
 
 namespace GameMain
 {
@@ -17,6 +18,7 @@ namespace GameMain
         [SerializeField] private Transform canvasTrans;
         [SerializeField] private DialogForm dialogForm;
         private SoundComponent m_Sound;
+        // private bool m_SoundPlayLoop;
 
 
         protected override void OnOpen(object userData)
@@ -32,8 +34,11 @@ namespace GameMain
             // DRSound drSound = dtSound.GetDataRow(19);
 
             m_Sound = this.GetComponent<SoundComponent>();
+            // m_SoundPlayLoop = true;
 
             GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/BGM/maou_bgm_acoustic52.mp3", "BGM");
+            // GameEntry.Sound.SetVolume(0.5f);
+            
         }
 
         public void SetDialog(string path)
