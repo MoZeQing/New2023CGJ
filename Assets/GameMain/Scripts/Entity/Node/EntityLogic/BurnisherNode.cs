@@ -4,7 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-
+using GameFramework.Sound;
+using UnityGameFramework.Runtime;
 
 namespace GameMain
 {
@@ -21,6 +22,8 @@ namespace GameMain
 
         private Transform m_ProgressBar = null;
         private float m_ProducingTime = 0f;
+
+        private SoundComponent m_Sound;
 
 
 
@@ -50,6 +53,8 @@ namespace GameMain
 
             m_ProgressBar = this.transform.Find("ProgressBar").transform;//获取进度条
             m_ProgressBar.gameObject.SetActive(false);
+
+            m_Sound = this.GetComponent<SoundComponent>();
 
         }
 
@@ -86,6 +91,7 @@ namespace GameMain
                 if (Producing)
                 {
                     //处理进度条
+                    GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/Burnisher.mp3", "Sound");
                     m_ProgressBar.gameObject.SetActive(true);
                     m_ProgressBar.transform.SetLocalScaleX(1 - (1 - m_ProducingTime / m_NodeData.ProducingTime));
                     m_ProducingTime -= Time.deltaTime;
@@ -111,6 +117,7 @@ namespace GameMain
 
         public void OnPointerDown(PointerEventData pointerEventData)
         {
+            GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/Pick_up.mp3", "Sound");
             Follow = true;
         }
 
