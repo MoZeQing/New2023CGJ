@@ -46,34 +46,11 @@ namespace GameMain
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
-            if (!Input.GetMouseButton(0))
-            {
-                Follow = false;
-            }
-            if (Follow)
-            {
-                this.transform.position = MouseToWorld(Input.mousePosition);
-                Producing = false;
-
-            }
             if (Completed)
             {
                 Completed = false;
                 GameEntry.Entity.HideEntity(m_NodeData.Id);
-
             }
-        }
-
-        public void OnPointerDown(PointerEventData pointerEventData)
-        {
-            Follow = true;
-        }
-
-        private Vector3 MouseToWorld(Vector3 mousePos)
-        {
-            Vector3 screenPosition = Camera.main.WorldToScreenPoint(transform.position);
-            mousePos.z = screenPosition.z;
-            return Camera.main.ScreenToWorldPoint(mousePos);
         }
     }
 }

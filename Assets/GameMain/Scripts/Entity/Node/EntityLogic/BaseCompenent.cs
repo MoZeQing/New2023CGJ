@@ -1,16 +1,31 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityGameFramework.Runtime;
 
 namespace GameMain
 {
-    public class BaseCompenent : Entity
+    public class BaseCompenent : Entity, IPointerDownHandler
     {
         public bool Follow
         {
             get;
             protected set;
         } = false;
+
+        public BaseCompenent Parent
+        {
+            get;
+            set;
+        }
+
+        public BaseCompenent Child
+        {
+            get;
+            set;
+        } = null;
 
         public bool Producing
         {
@@ -46,7 +61,78 @@ namespace GameMain
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
+            if (!Input.GetMouseButton(0))
+            {
+                Follow = false;
+            }
+            if (Follow)
+            {
+                this.transform.position = MouseToWorld(Input.mousePosition);
+                Producing = false;
+            }
             this.transform.position = new Vector3(Mathf.Clamp(this.transform.position.x, -8.8f, 8.8f), Mathf.Clamp(this.transform.position.y, -8f, -1.6f), 0);
+            if (Parent != null && !Follow)
+                this.transform.DOMove(Parent.transform.position+Vector3.up*0.5f, 0.1f);
+        }
+        protected Vector3 MouseToWorld(Vector3 mousePos)
+        {
+            Vector3 screenPosition = Camera.main.WorldToScreenPoint(transform.position);
+            mousePos.z = screenPosition.z;
+            return Camera.main.ScreenToWorldPoint(mousePos);
+        }
+        public void OnPointerDown(PointerEventData pointerEventData)
+        {
+            Debug.LogFormat("点击事件，来源于{0}", this.gameObject.name);
+            Follow = true;
+        }
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (!Follow)
+                return;
+            BaseCompenent baseCompenent = null;
+            if (!collision.TryGetComponent<BaseCompenent>(out baseCompenent))
+                return;
+            if (Parent != null|| baseCompenent.Child != null)
+                return;
+            //避免出现循环
+            BaseCompenent parent = baseCompenent;
+            //避免出现死循环
+            int block = 1000;
+            while (parent != null)
+            {
+                parent = parent.Parent;
+                if (parent == this)
+                    return;
+                block--;
+                if (block < 0)
+                    return;
+            }
+
+            Parent = baseCompenent;
+            baseCompenent.Child = this;
+        }
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            Debug.Log("检测到离开");
+            if (!Follow) 
+                return;
+            BaseCompenent baseCompenent = null;
+            if (!collision.TryGetComponent<BaseCompenent>(out baseCompenent))
+                return;
+            if (Parent == baseCompenent)
+            {   
+                Parent.Child= null;
+                Parent = null; 
+            }
+        }
+        public void Remove()
+        { 
+            if(Parent!=null)
+                Parent=null;
+            if(Child!=null)
+                Child=null;
+            GameEntry.Entity.HideEntity(this.transform.parent.GetComponent<BaseNode>().NodeData.Id);
         }
     }
 }

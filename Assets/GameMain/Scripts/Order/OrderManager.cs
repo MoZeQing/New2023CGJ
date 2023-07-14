@@ -21,15 +21,15 @@ namespace GameMain
 
         }
 
-        private void OnEnable()
-        {
-            GameEntry.Event.Subscribe(MaterialEventArgs.EventId, UpdateMaterial);
-        }
+        //private void OnEnable()
+        //{
+        //    GameEntry.Event.Subscribe(MaterialEventArgs.EventId, UpdateMaterial);
+        //}
 
-        private void OnDisable()
-        {
-            GameEntry.Event.Unsubscribe(MaterialEventArgs.EventId, UpdateMaterial);
-        }
+        //private void OnDisable()
+        //{
+        //    GameEntry.Event.Unsubscribe(MaterialEventArgs.EventId, UpdateMaterial);
+        //}
 
         public void SetOrder(int index)
         {

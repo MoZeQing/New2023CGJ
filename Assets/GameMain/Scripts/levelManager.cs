@@ -80,15 +80,15 @@ namespace GameMain
             orderData12 = new OrderData(drOrder11);
         }
 
-        private void OnEnable()
-        {
-            GameEntry.Event.Subscribe(LevelEventArgs.EventId, Level);
-        }
+        //private void OnEnable()
+        //{
+        //    GameEntry.Event.Subscribe(LevelEventArgs.EventId, Level);
+        //}
 
-        private void OnDisable()
-        {
-            GameEntry.Event.Unsubscribe(LevelEventArgs.EventId, Level);
-        }
+        //private void OnDisable()
+        //{
+        //    GameEntry.Event.Unsubscribe(LevelEventArgs.EventId, Level);
+        //}
         // Update is called once per frame
         void Update()
         {

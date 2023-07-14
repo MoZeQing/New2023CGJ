@@ -33,7 +33,11 @@ namespace GameMain
             m_BoxCollider2D.size = m_SpriteRenderer.size;
 
         }
-
+        protected override void OnShow(object userData)
+        {
+            base.OnShow(userData);
+            Debug.Log("չʾ");
+        }
         protected override void OnHide(bool isShutdown, object userData)
         {
             base.OnHide(isShutdown, userData);

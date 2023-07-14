@@ -12,6 +12,11 @@ namespace GameMain
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
+        }
+
+        protected override void OnShow(object userData)
+        {
+            base.OnShow(userData);
             NodeData = (NodeData)userData;
 
             AttachNode();
@@ -50,18 +55,6 @@ namespace GameMain
                 case NodeTag.CoffeeLiquid:
                     GameEntry.Entity.ShowCoffeeLiquidNode(data);
                     break;
-                case NodeTag.Burnisher:
-                    GameEntry.Entity.ShowBurnisherNode(data);
-                    break;
-                case NodeTag.Kettle:
-                    GameEntry.Entity.ShowKettleNode(data);
-                    break;
-                case NodeTag.FilterBowl:
-                    GameEntry.Entity.ShowFilterBowlNode(data);
-                    break;
-                case NodeTag.Cup:
-                    GameEntry.Entity.ShowCupNode(data);
-                    break;
                 case NodeTag.Espresso:
                     GameEntry.Entity.ShowEspressoNode(data);
                     break;
@@ -81,6 +74,20 @@ namespace GameMain
                     GameEntry.Entity.ShowConPannaNode(data);
                     break;
                 case NodeTag.Sugar:
+                    break;
+                case NodeTag.Burnisher:
+                    CompenentData burnisher = new CompenentData(GameEntry.Entity.GenerateSerialId(), 10003, this.Id, NodeData);
+                    GameEntry.Entity.ShowBurnisherNode(burnisher);
+                    break;
+                case NodeTag.Kettle:
+                    CompenentData kettle = new CompenentData(GameEntry.Entity.GenerateSerialId(), 10002, this.Id, NodeData);
+                    GameEntry.Entity.ShowKettleNode(kettle);
+                    break;
+                case NodeTag.FilterBowl:
+                    GameEntry.Entity.ShowFilterBowlNode(data);
+                    break;
+                case NodeTag.Cup:
+                    GameEntry.Entity.ShowCupNode(data);
                     break;
             }
         }
