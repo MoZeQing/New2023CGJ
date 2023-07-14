@@ -182,12 +182,30 @@ namespace GameMain
                 }
             }
             Next();
-        }    
+        }
+
+        private void SetDialog(object sender, GameEventArgs e)
+        {
+            DialogEventArgs args = (DialogEventArgs)e;
+            SetDialog(args.DialogTag);
+        }
+
         private void Start()
         {
             dialogBtn.onClick.AddListener(Next);
             SetDialog(Dialogue);
         }
+
+        private void OnEnable()
+        {
+            GameEntry.Event.Subscribe(DialogEventArgs.EventId, SetDialog);
+        }
+
+        private void OnDisable() 
+        {
+            GameEntry.Event.Unsubscribe(DialogEventArgs.EventId, SetDialog);
+        }
+
         private void Option_Onclick(object sender, EventArgs e)
         {
             OptionData optionData = (OptionData)sender;

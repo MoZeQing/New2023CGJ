@@ -21,15 +21,15 @@ namespace GameMain
 
         }
 
-        //private void OnEnable()
-        //{
-        //    GameEntry.Event.Subscribe(MaterialEventArgs.EventId, UpdateMaterial);
-        //}
+        private void OnEnable()
+        {
+            GameEntry.Event.Subscribe(MaterialEventArgs.EventId, UpdateMaterial);
+        }
 
-        //private void OnDisable()
-        //{
-        //    GameEntry.Event.Unsubscribe(MaterialEventArgs.EventId, UpdateMaterial);
-        //}
+        private void OnDisable()
+        {
+            GameEntry.Event.Unsubscribe(MaterialEventArgs.EventId, UpdateMaterial);
+        }
 
         public void SetOrder(int index)
         {
@@ -113,7 +113,7 @@ namespace GameMain
             }
             if (orderData.Check())
             {
-                GameEntry.Event.FireNow(this, LevelEventArgs.Create(1));
+                GameEntry.Event.FireNow(this, LevelEventArgs.Create());
             }
         }
 
