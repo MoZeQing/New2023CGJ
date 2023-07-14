@@ -24,7 +24,8 @@ namespace GameMain
         private Transform m_ProgressBar = null;
         private float m_ProducingTime = 0f;
 
-        private SoundComponent m_Sound;
+        private bool IsMusicPlayed;
+
 
         protected override void OnInit(object userData)
         {
@@ -53,7 +54,8 @@ namespace GameMain
             m_ProgressBar = this.transform.Find("ProgressBar").transform;//获取进度条
             m_ProgressBar.gameObject.SetActive(false);
 
-            m_Sound = this.GetComponent<SoundComponent>();
+            IsMusicPlayed = false;
+
 
         }
 
@@ -88,6 +90,12 @@ namespace GameMain
                 m_AdsorbNode.transform.DOMove(m_KettleBoxCollider2D.transform.position, 0.1f);
                 Producing = true;
 
+                if(Producing && IsMusicPlayed == false)
+                {
+                    GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/Heater.mp3", "Sound");
+                    IsMusicPlayed = true;
+                }
+
 
                 if (Producing)
                 {
@@ -100,6 +108,7 @@ namespace GameMain
                     if (m_ProducingTime <= 0)
                     {
                         Producing = false;
+                        IsMusicPlayed = false;
                         m_AdsorbNode.Producing = false;
                         m_AdsorbNode.Completed = true;
                         if (m_AdsorbNode.transform.parent.GetComponent<BaseNode>().NodeData.NodeTag == NodeTag.Water)

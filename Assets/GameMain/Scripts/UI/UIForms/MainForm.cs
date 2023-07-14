@@ -17,6 +17,7 @@ namespace GameMain
         [SerializeField] private Button upButton;
         [SerializeField] private Transform canvasTrans;
         [SerializeField] private DialogForm dialogForm;
+        private PlaySoundParams playSoundParams = PlaySoundParams.Create();
 
 
         protected override void OnOpen(object userData)
@@ -28,7 +29,6 @@ namespace GameMain
             upButton.onClick.AddListener(Up);
             downButton.onClick.AddListener(Down);
 
-            PlaySoundParams playSoundParams = PlaySoundParams.Create();
             playSoundParams.Loop = true;
             playSoundParams.VolumeInSoundGroup = 0.1f;
             playSoundParams.Priority = 64;
@@ -49,12 +49,16 @@ namespace GameMain
 
         private void Up()
         {
+            GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/page_turn.mp3", "Sound");
+
             Camera.main.transform.DOMove(new Vector3(0, 4.6f, -8f), 1f).SetEase(Ease.OutExpo);
             canvasTrans.transform.DOLocalMove(new Vector3(0, -800, 0), 1f).SetEase(Ease.OutExpo);
         }
 
         private void Down()
-        {     
+        {
+            GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/page_turn.mp3", "Sound");
+
             Camera.main.transform.DOMove(new Vector3(0, -3.4f, -8f), 1f).SetEase(Ease.OutExpo);
             canvasTrans.transform.DOLocalMove(new Vector3(0, 0, 0), 1f).SetEase(Ease.OutExpo);
         }
