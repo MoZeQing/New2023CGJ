@@ -87,6 +87,8 @@ namespace GameMain
                     bool flag = true;
                     foreach (AdsorbSlot slot in m_AdsorbSlots)
                     {
+                        if (slot.Child.Child != null)
+                            return;
                         if (!recipe.Materials.Contains(slot.Child.NodeTag))
                             flag = false;
                     }
@@ -96,7 +98,6 @@ namespace GameMain
                         m_ProgressBar.transform.SetLocalScaleX(1 - (1 - m_ProducingTime / m_NodeData.ProducingTime));
                         m_ProducingTime -= Time.deltaTime;
 
-                        Debug.Log(m_ProducingTime);
                         if (m_ProducingTime <= 0)
                         {
                             GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, recipe.Product)

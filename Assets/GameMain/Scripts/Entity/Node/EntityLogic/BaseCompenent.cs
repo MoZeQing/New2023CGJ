@@ -44,7 +44,6 @@ namespace GameMain
             get;
             private set;
         }
-
         public NodeTag ProducingTool
         {
             get;
@@ -70,9 +69,9 @@ namespace GameMain
                 this.transform.position = MouseToWorld(Input.mousePosition);
                 Producing = false;
             }
-            this.transform.position = new Vector3(Mathf.Clamp(this.transform.position.x, -8.8f, 8.8f), Mathf.Clamp(this.transform.position.y, -8f, -1.6f), 0);
+            this.transform.position = new Vector3(Mathf.Clamp(this.transform.position.x, -8.8f, 8.8f), Mathf.Clamp(this.transform.position.y, -8f, -1.6f), 0);//限制范围
             if (Parent != null && !Follow)
-                this.transform.DOMove(Parent.transform.position+Vector3.up*0.5f, 0.1f);
+                this.transform.DOMove(Parent.transform.position+Vector3.up*0.5f, 0.1f);//吸附节点
         }
         protected Vector3 MouseToWorld(Vector3 mousePos)
         {
@@ -129,9 +128,9 @@ namespace GameMain
         public void Remove()
         { 
             if(Parent!=null)
-                Parent=null;
+                Parent.Child=null;
             if(Child!=null)
-                Child=null;
+                Child.Parent=null;
             GameEntry.Entity.HideEntity(this.transform.parent.GetComponent<BaseNode>().NodeData.Id);
         }
     }

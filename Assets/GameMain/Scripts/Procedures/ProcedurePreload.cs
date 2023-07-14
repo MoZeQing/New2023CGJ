@@ -22,7 +22,8 @@ namespace GameMain
             "Scene",
             "Node",
             "Order",
-            "Level"
+            "Level",
+            "Sound"
         };
 
         private Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>();

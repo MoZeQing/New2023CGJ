@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2023-07-14 20:24:59.618
+// 生成时间：2023-07-14 20:24:59.625
 //------------------------------------------------------------
 
 using GameFramework;
@@ -19,14 +19,14 @@ using UnityGameFramework.Runtime;
 namespace GameMain
 {
     /// <summary>
-    /// Order配置文件。
+    /// 音效配置表。
     /// </summary>
-    public class DROrder : DataRowBase
+    public class DRSound : DataRowBase
     {
         private int m_Id = 0;
 
         /// <summary>
-        /// 获取订单ID。
+        /// 获取声音编号。
         /// </summary>
         public override int Id
         {
@@ -37,63 +37,36 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取浓缩咖啡。
+        /// 获取资源地址。
         /// </summary>
-        public int Espresso
+        public string AssetLoaction
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取拿铁。
+        /// 获取声音组。
         /// </summary>
-        public int Latte
+        public string SoundGroup
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取美式咖啡。
+        /// 获取是否音效。
         /// </summary>
-        public int CafeAmericano
+        public bool Sound
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取白咖啡。
+        /// 获取是否音乐。
         /// </summary>
-        public int WhiteCoffee
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取摩卡。
-        /// </summary>
-        public int Mocha
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取康宝蓝。
-        /// </summary>
-        public int ConPanna
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取对应剧情。
-        /// </summary>
-        public string Dialog
+        public bool BGM
         {
             get;
             private set;
@@ -111,13 +84,10 @@ namespace GameMain
             index++;
             m_Id = int.Parse(columnStrings[index++]);
             index++;
-            Espresso = int.Parse(columnStrings[index++]);
-            Latte = int.Parse(columnStrings[index++]);
-            CafeAmericano = int.Parse(columnStrings[index++]);
-            WhiteCoffee = int.Parse(columnStrings[index++]);
-            Mocha = int.Parse(columnStrings[index++]);
-            ConPanna = int.Parse(columnStrings[index++]);
-            Dialog = columnStrings[index++];
+            AssetLoaction = columnStrings[index++];
+            SoundGroup = columnStrings[index++];
+            Sound = bool.Parse(columnStrings[index++]);
+            BGM = bool.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -130,13 +100,10 @@ namespace GameMain
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
-                    Espresso = binaryReader.Read7BitEncodedInt32();
-                    Latte = binaryReader.Read7BitEncodedInt32();
-                    CafeAmericano = binaryReader.Read7BitEncodedInt32();
-                    WhiteCoffee = binaryReader.Read7BitEncodedInt32();
-                    Mocha = binaryReader.Read7BitEncodedInt32();
-                    ConPanna = binaryReader.Read7BitEncodedInt32();
-                    Dialog = binaryReader.ReadString();
+                    AssetLoaction = binaryReader.ReadString();
+                    SoundGroup = binaryReader.ReadString();
+                    Sound = binaryReader.ReadBoolean();
+                    BGM = binaryReader.ReadBoolean();
                 }
             }
 
