@@ -156,6 +156,8 @@ namespace GameMain
 
         public void OnPointerDown(PointerEventData pointerEventData)
         {
+            GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/Pick_up.mp3", "Sound");
+
             Follow = true;
         }
 

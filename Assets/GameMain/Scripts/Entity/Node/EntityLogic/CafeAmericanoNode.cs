@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-
+using GameFramework.Sound;
+using UnityGameFramework.Runtime;
 
 namespace GameMain
 {
@@ -13,6 +14,9 @@ namespace GameMain
         private NodeData m_NodeData;
         private SpriteRenderer m_SpriteRenderer;
         private BoxCollider2D m_BoxCollider2D;
+
+        private SoundComponent m_Sound;
+
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
@@ -62,6 +66,7 @@ namespace GameMain
 
         public void OnPointerDown(PointerEventData pointerEventData)
         {
+            GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/Pick_up.mp3", "Sound");
             Follow = true;
         }
 

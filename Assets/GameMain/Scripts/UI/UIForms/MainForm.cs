@@ -17,8 +17,6 @@ namespace GameMain
         [SerializeField] private Button upButton;
         [SerializeField] private Transform canvasTrans;
         [SerializeField] private DialogForm dialogForm;
-        private SoundComponent m_Sound;
-        // private bool m_SoundPlayLoop;
 
 
         protected override void OnOpen(object userData)
@@ -30,15 +28,13 @@ namespace GameMain
             upButton.onClick.AddListener(Up);
             downButton.onClick.AddListener(Down);
 
-            // IDataTable<DRSound> dtNode = GameEntry.DataTable.GetDataTable<DRSound>();
-            // DRSound drSound = dtSound.GetDataRow(19);
+            PlaySoundParams playSoundParams = PlaySoundParams.Create();
+            playSoundParams.Loop = true;
+            playSoundParams.VolumeInSoundGroup = 0.1f;
+            playSoundParams.Priority = 64;
+            playSoundParams.SpatialBlend = 0f;
+            GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/BGM/maou_bgm_acoustic52.mp3", "BGM", playSoundParams);
 
-            m_Sound = this.GetComponent<SoundComponent>();
-            // m_SoundPlayLoop = true;
-
-            GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/BGM/maou_bgm_acoustic52.mp3", "BGM");
-            // GameEntry.Sound.SetVolume(0.5f);
-            
         }
 
         public void SetDialog(string path)
