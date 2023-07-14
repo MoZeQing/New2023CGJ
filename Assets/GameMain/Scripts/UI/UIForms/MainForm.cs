@@ -7,6 +7,7 @@ using UnityGameFramework.Runtime;
 using DG.Tweening;
 using GameFramework.Sound;
 using GameFramework.DataTable;
+using GameFramework;
 
 namespace GameMain
 {
@@ -16,7 +17,7 @@ namespace GameMain
         [SerializeField] private Button upButton;
         [SerializeField] private Transform canvasTrans;
         [SerializeField] private DialogForm dialogForm;
-        private SoundComponent m_Sound;
+        private PlaySoundParams playSoundParams = PlaySoundParams.Create();
 
 
         protected override void OnOpen(object userData)
@@ -28,12 +29,12 @@ namespace GameMain
             upButton.onClick.AddListener(Up);
             downButton.onClick.AddListener(Down);
 
-            // IDataTable<DRSound> dtNode = GameEntry.DataTable.GetDataTable<DRSound>();
-            // DRSound drSound = dtSound.GetDataRow(19);
+            playSoundParams.Loop = true;
+            playSoundParams.VolumeInSoundGroup = 0.1f;
+            playSoundParams.Priority = 64;
+            playSoundParams.SpatialBlend = 0f;
+            GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/BGM/maou_bgm_acoustic52.mp3", "BGM", playSoundParams);
 
-            m_Sound = this.GetComponent<SoundComponent>();
-
-            GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/BGM/maou_bgm_acoustic52.mp3", "BGM");
         }
 
         public void SetDialog(string path)
@@ -48,12 +49,16 @@ namespace GameMain
 
         private void Up()
         {
+            GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/page_turn.mp3", "Sound");
+
             Camera.main.transform.DOMove(new Vector3(0, 4.6f, -8f), 1f).SetEase(Ease.OutExpo);
             canvasTrans.transform.DOLocalMove(new Vector3(0, -800, 0), 1f).SetEase(Ease.OutExpo);
         }
 
         private void Down()
-        {     
+        {
+            GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/page_turn.mp3", "Sound");
+
             Camera.main.transform.DOMove(new Vector3(0, -3.4f, -8f), 1f).SetEase(Ease.OutExpo);
             canvasTrans.transform.DOLocalMove(new Vector3(0, 0, 0), 1f).SetEase(Ease.OutExpo);
         }

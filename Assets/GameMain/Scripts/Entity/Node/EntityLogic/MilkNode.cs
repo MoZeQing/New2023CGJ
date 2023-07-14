@@ -19,7 +19,7 @@ namespace GameMain
             m_NodeData = m_CompenentData.NodeData;
             GameEntry.Entity.AttachEntity(this.Id, m_CompenentData.OwnerId);
 
-            //»ñÈ¡µ½±í
+            //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
             IDataTable<DRNode> dtNode = GameEntry.DataTable.GetDataTable<DRNode>();
             DRNode drNode = dtNode.GetDataRow(3);
 

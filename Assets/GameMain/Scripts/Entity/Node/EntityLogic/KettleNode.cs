@@ -17,7 +17,7 @@ namespace GameMain
         private SpriteRenderer m_SpriteRenderer;
         private BoxCollider2D m_BoxCollider2D;
 
-        private List<AdsorbSlot> m_AdsorbSlots=new List<AdsorbSlot>();//²ÛÎ»1
+        private List<AdsorbSlot> m_AdsorbSlots=new List<AdsorbSlot>();//ï¿½ï¿½Î»1
 
         private Transform m_ProgressBar = null;
         private float m_ProducingTime = 0f;
@@ -33,7 +33,7 @@ namespace GameMain
             m_NodeData = m_CompenentData.NodeData;
             GameEntry.Entity.AttachEntity(this.Id, m_CompenentData.OwnerId);
 
-            //»ñÈ¡µ½±í
+            //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
 
             m_NodeData.ProducingTime = 5f;
             m_ProducingTime = m_NodeData.ProducingTime;
@@ -47,10 +47,10 @@ namespace GameMain
             m_AdsorbSlots.Clear();
             m_AdsorbSlots.Add(this.transform.Find("Kettle").GetComponent<AdsorbSlot>());
 
-            m_ProgressBar = this.transform.Find("ProgressBar").transform;//»ñÈ¡½ø¶ÈÌõ
+            m_ProgressBar = this.transform.Find("ProgressBar").transform;//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             m_ProgressBar.gameObject.SetActive(false);
 
-            //²âÊÔ
+            //ï¿½ï¿½ï¿½ï¿½
             RecipeData recipe1=new RecipeData();
             recipe1.Materials.Add(NodeTag.Water);
             recipe1.Product = NodeTag.HotWater;
@@ -62,7 +62,7 @@ namespace GameMain
             recipe2.Product = NodeTag.HotMilk;
             recipe2.ProductTime = 10f;
             m_RecipeDatas.Add(recipe2);
-            //²âÊÔ
+            //ï¿½ï¿½ï¿½ï¿½
         }
 
         protected override void OnHide(bool isShutdown, object userData)
@@ -115,9 +115,9 @@ namespace GameMain
             }
                 //if (m_AdsorbNode != null)
                 //{
-                //    Debug.Log("Îü¸½ÖÐ");
-                //    //Îü¸½Ð§¹û
-                //    //¶à¸öÎü¸½µã¾ºÕùÊ±£¬Ñ°ÕÒ×î½üµÄÎü¸½µãÎü¸½
+                //    Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+                //    //ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½
+                //    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã¾ºï¿½ï¿½Ê±ï¿½ï¿½Ñ°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 //    if (m_AdsorbNode.Follow != false)
                 //        return;
                 //    if (m_AdsorbNode.transform.parent.GetComponent<BaseNode>().NodeData.NodeTag != NodeTag.Water && m_AdsorbNode.transform.parent.GetComponent<BaseNode>().NodeData.NodeTag != NodeTag.Milk)
@@ -129,7 +129,7 @@ namespace GameMain
                 //    Producing = true;
                 //    if (Producing)
                 //    {
-                //        //´¦Àí½ø¶ÈÌõ
+                //        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 //        m_ProgressBar.gameObject.SetActive(true);
                 //        m_ProgressBar.transform.SetLocalScaleX(1 - (1 - m_ProducingTime / m_NodeData.ProducingTime));
                 //        m_ProducingTime -= Time.deltaTime;
@@ -169,14 +169,14 @@ namespace GameMain
         }
         public void OnPointerDown(PointerEventData pointerEventData)
         {
-            Debug.LogFormat("µã»÷ÊÂ¼þ£¬À´Ô´ÓÚ{0}", this.gameObject.name);
+            Debug.LogFormat("ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½{0}", this.gameObject.name);
             m_Follow = true;
         }
 
         private bool m_Follow = false;
     }
     /// <summary>
-    /// ²Ëµ¥
+    /// ï¿½Ëµï¿½
     /// </summary>
     public class RecipeData
     {
