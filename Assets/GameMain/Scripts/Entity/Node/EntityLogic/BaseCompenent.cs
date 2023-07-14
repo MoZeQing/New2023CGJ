@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityGameFramework.Runtime;
+using GameFramework.Sound;
+using GameFramework.DataTable;
 
 namespace GameMain
 {
@@ -50,6 +52,9 @@ namespace GameMain
             set;
         }
 
+        private NodeData m_NodeData;
+        private string assetLocation;
+
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
@@ -79,9 +84,18 @@ namespace GameMain
             mousePos.z = screenPosition.z;
             return Camera.main.ScreenToWorldPoint(mousePos);
         }
+
+        private void GetSound()
+        {
+            //获取到表，但是暂时无法工作
+            IDataTable<DRSound> dtSound = GameEntry.DataTable.GetDataTable<DRSound>();
+            DRSound drSound = dtSound.GetDataRow(12);
+            assetLocation = drSound.AssetLoaction;
+        }
         public void OnPointerDown(PointerEventData pointerEventData)
         {
-            GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/Pick_up.mp3", "Sound");
+            //GameEntry.Sound.PlaySound(assetLocation, "Sound");
+            GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/Pick_up.mp3","Sound");
 
             Debug.LogFormat("点击事件，来源于{0}", this.gameObject.name);
             Follow = true;
