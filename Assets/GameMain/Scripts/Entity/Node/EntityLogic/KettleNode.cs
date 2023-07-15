@@ -24,6 +24,8 @@ namespace GameMain
 
         private List<RecipeData> m_RecipeDatas=new List<RecipeData>();
 
+        private bool IsMusicPlayed;
+
 
 
         protected override void OnInit(object userData)
@@ -49,6 +51,8 @@ namespace GameMain
 
             m_ProgressBar = this.transform.Find("ProgressBar").transform;//��ȡ������
             m_ProgressBar.gameObject.SetActive(false);
+
+            IsMusicPlayed = false;
 
             //����
             RecipeData recipe1=new RecipeData();
@@ -102,6 +106,13 @@ namespace GameMain
                         if (!recipe.Materials.Contains(slot.Child.NodeTag))
                             flag = false;
                     }
+
+                    if (flag && IsMusicPlayed == false)
+                    {
+                        GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/Heater.mp3", "Sound");
+                        IsMusicPlayed = true;
+                    }
+
                     if (flag)
                     {
                         m_ProgressBar.gameObject.SetActive(true);
@@ -110,6 +121,8 @@ namespace GameMain
 
                         if (m_ProducingTime <= 0)
                         {
+                            IsMusicPlayed = false;
+
                             GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, recipe.Product)
                             {
                                 Position = this.transform.position
@@ -180,6 +193,8 @@ namespace GameMain
         }
         public void OnPointerDown(PointerEventData pointerEventData)
         {
+            GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/Pick_up", "Sound");
+
             Debug.LogFormat("����¼�����Դ��{0}", this.gameObject.name);
             m_Follow = true;
         }

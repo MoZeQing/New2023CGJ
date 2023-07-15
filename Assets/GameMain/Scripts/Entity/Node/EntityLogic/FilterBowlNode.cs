@@ -127,6 +127,8 @@ namespace GameMain
         }
         public void OnPointerDown(PointerEventData pointerEventData)
         {
+            GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/Pick_up", "Sound");
+
             Debug.LogFormat("����¼�����Դ��{1}", this.gameObject.name);
             m_Follow = true;
         }
