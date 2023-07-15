@@ -60,6 +60,7 @@ namespace GameMain
             base.OnInit(userData);
             CompenentData data = (CompenentData)userData;
             NodeTag = data.NodeData.NodeTag;
+            SpriteRenderer = this.GetComponent<SpriteRenderer>();
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
@@ -75,8 +76,14 @@ namespace GameMain
                 Producing = false;
             }
             this.transform.position = new Vector3(Mathf.Clamp(this.transform.position.x, -8.8f, 8.8f), Mathf.Clamp(this.transform.position.y, -8f, -1.6f), 0);//限制范围
+            if (Parent == null)
+                SpriteRenderer.sortingOrder = 0;
             if (Parent != null && !Follow)
+            { 
                 this.transform.DOMove(Parent.transform.position+Vector3.up*0.5f, 0.1f);//吸附节点
+                SpriteRenderer.sortingOrder = Parent.SpriteRenderer.sortingOrder++;
+            }
+
         }
         protected Vector3 MouseToWorld(Vector3 mousePos)
         {
