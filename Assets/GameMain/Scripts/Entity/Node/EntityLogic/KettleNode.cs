@@ -37,7 +37,7 @@ namespace GameMain
 
             //��ȡ����
 
-            m_NodeData.ProducingTime = 5f;
+            m_NodeData.ProducingTime = 10f;
             m_ProducingTime = m_NodeData.ProducingTime;
 
             m_SpriteRenderer = this.GetComponent<SpriteRenderer>();
@@ -193,7 +193,7 @@ namespace GameMain
         }
         public void OnPointerDown(PointerEventData pointerEventData)
         {
-            GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/Pick_up", "Sound");
+            GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/Pick_up.mp3", "Sound");
 
             Debug.LogFormat("����¼�����Դ��{0}", this.gameObject.name);
             m_Follow = true;
