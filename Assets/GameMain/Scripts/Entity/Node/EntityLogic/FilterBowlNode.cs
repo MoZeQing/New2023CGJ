@@ -43,7 +43,7 @@ namespace GameMain
 
             m_AdsorbSlots.Clear();
             m_AdsorbSlots.Add(this.transform.Find("FilterBowl").GetComponent<AdsorbSlot>());
-            m_AdsorbSlots.Add(this.transform.Find("FilterBowl (1)").GetComponent<AdsorbSlot>());
+            m_AdsorbSlots.Add(this.transform.Find("FilterBowl1").GetComponent<AdsorbSlot>());
 
             m_ProgressBar = this.transform.Find("ProgressBar").transform;//��ȡ������
             m_ProgressBar.gameObject.SetActive(false);

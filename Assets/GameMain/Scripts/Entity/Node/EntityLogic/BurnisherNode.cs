@@ -27,8 +27,6 @@ namespace GameMain
 
         private bool IsMusicPlayed;
 
-
-
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
