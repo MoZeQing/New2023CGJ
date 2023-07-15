@@ -33,16 +33,16 @@ namespace GameMain
 
         }
 
-        /*protected override void OnShow(object userData)
-        {
-            base.OnShow(userData);
-        }
-
         protected override void OnHide(bool isShutdown, object userData)
         {
             base.OnHide(isShutdown, userData);
             GameEntry.Event.FireNow(this, MaterialEventArgs.Create(m_NodeData.NodeTag, -1));
         }
+        /*protected override void OnShow(object userData)
+        {
+            base.OnShow(userData);
+        }
+
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);

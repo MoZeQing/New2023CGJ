@@ -34,51 +34,51 @@ namespace GameMain
 
         }
 
-       /* protected override void OnShow(object userData)
-        {
-            base.OnShow(userData);
-        }
-
         protected override void OnHide(bool isShutdown, object userData)
         {
             base.OnHide(isShutdown, userData);
             GameEntry.Event.FireNow(this, MaterialEventArgs.Create(m_NodeData.NodeTag, -1));
         }
 
-        protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
-        {
-            base.OnUpdate(elapseSeconds, realElapseSeconds);
-            if (!Input.GetMouseButton(0))
-            {
-                Follow = false;
-            }
-            if (Follow)
-            {
-                this.transform.position = MouseToWorld(Input.mousePosition);
-                Producing = false;
+        /* protected override void OnShow(object userData)
+         {
+             base.OnShow(userData);
+         }
 
-            }
-            if (Completed)
-            {
-                Completed = false;
-                GameEntry.Entity.HideEntity(m_NodeData.Id);
+         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
+         {
+             base.OnUpdate(elapseSeconds, realElapseSeconds);
+             if (!Input.GetMouseButton(0))
+             {
+                 Follow = false;
+             }
+             if (Follow)
+             {
+                 this.transform.position = MouseToWorld(Input.mousePosition);
+                 Producing = false;
 
-            }
-        }
+             }
+             if (Completed)
+             {
+                 Completed = false;
+                 GameEntry.Entity.HideEntity(m_NodeData.Id);
 
-        public void OnPointerDown(PointerEventData pointerEventData)
-        {
-            GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/Pick_up.mp3", "Sound");
+             }
+         }
 
-            Follow = true;
-        }
+         public void OnPointerDown(PointerEventData pointerEventData)
+         {
+             GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/Pick_up.mp3", "Sound");
 
-        private Vector3 MouseToWorld(Vector3 mousePos)
-        {
-            Vector3 screenPosition = Camera.main.WorldToScreenPoint(transform.position);
-            mousePos.z = screenPosition.z;
-            return Camera.main.ScreenToWorldPoint(mousePos);
-        }
-        */
+             Follow = true;
+         }
+
+         private Vector3 MouseToWorld(Vector3 mousePos)
+         {
+             Vector3 screenPosition = Camera.main.WorldToScreenPoint(transform.position);
+             mousePos.z = screenPosition.z;
+             return Camera.main.ScreenToWorldPoint(mousePos);
+         }
+         */
     }
 }
