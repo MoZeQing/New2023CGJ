@@ -75,6 +75,16 @@ namespace GameMain
             }
             if (m_AdsorbSlots != null)
             {
+                //检测空卡片上的物体是否为空，制作途中拉开卡片可以重置时间和Bar
+                foreach (AdsorbSlot slot in m_AdsorbSlots)
+                {
+                    if (slot.Child == null)
+                    {
+                        m_ProgressBar.gameObject.SetActive(false);
+                        m_ProducingTime = m_NodeData.ProducingTime;
+                        m_ProgressBar.transform.SetLocalScaleX(1);
+                    }
+                }
                 foreach (RecipeData recipe in m_RecipeDatas)
                 {
                     bool flag = true;
