@@ -125,7 +125,8 @@ namespace GameMain
                 {
                     bool flag = true;
                     //获得插槽的儿子的儿子等等
-                    for (BaseCompenent child = m_AdsorbSlots[0].Child; child ==null; child =child.Child)
+                    m_ChildDatas.Clear();
+                    for (BaseCompenent child = m_AdsorbSlots[0].Child; child !=null; child =child.Child)
                     {
                         m_ChildDatas.Add(child);
                     }
@@ -136,7 +137,7 @@ namespace GameMain
                         if (!recipe.Materials.Contains(slot.Child.NodeTag))
                             flag = false;
                     }*/
-                    if (m_ChildDatas.Count > recipe.Materials.Count)
+                    if (m_ChildDatas.Count != recipe.Materials.Count)
                         return;
                     foreach (BaseCompenent materials in m_ChildDatas)
                     {
