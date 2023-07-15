@@ -18,16 +18,10 @@ namespace GameMain
             }
         }
 
-        public int Value
-        {
-            get;
-            set;
-        }
 
-        public static LevelEventArgs Create( int value)
+        public static LevelEventArgs Create()
         {
             LevelEventArgs args = ReferencePool.Acquire<LevelEventArgs>();
-            args.Value = value;
             return args;
         }
 
