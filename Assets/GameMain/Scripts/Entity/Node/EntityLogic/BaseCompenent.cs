@@ -49,6 +49,11 @@ namespace GameMain
             get;
             set;
         }
+        public SpriteRenderer SpriteRenderer
+        {
+            get;
+            set;
+        }
 
         protected override void OnInit(object userData)
         {
@@ -81,7 +86,7 @@ namespace GameMain
         }
         public void OnPointerDown(PointerEventData pointerEventData)
         {
-            GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/Pick_up.mp3", "Sound");
+            GameEntry.Sound.PlaySound("Assets/GameMain/Audio/Sounds/Pick_up.mp3", "Sound");
 
             Debug.LogFormat("点击事件，来源于{0}", this.gameObject.name);
             Follow = true;

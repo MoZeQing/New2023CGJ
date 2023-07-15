@@ -34,7 +34,7 @@ namespace GameMain
 
         }
 
-        protected override void OnShow(object userData)
+       /* protected override void OnShow(object userData)
         {
             base.OnShow(userData);
         }
@@ -79,5 +79,6 @@ namespace GameMain
             mousePos.z = screenPosition.z;
             return Camera.main.ScreenToWorldPoint(mousePos);
         }
+        */
     }
 }

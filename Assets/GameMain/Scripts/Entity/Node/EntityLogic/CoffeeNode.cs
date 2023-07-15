@@ -28,7 +28,7 @@ namespace GameMain
 
         }
 
-        protected override void OnHide(bool isShutdown, object userData)
+       /* protected override void OnHide(bool isShutdown, object userData)
         {
             base.OnHide(isShutdown, userData);
         }
@@ -67,5 +67,6 @@ namespace GameMain
             mousePos.z = screenPosition.z;
             return Camera.main.ScreenToWorldPoint(mousePos);
         }
+        */
     }
 }

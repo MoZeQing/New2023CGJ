@@ -34,7 +34,7 @@ namespace GameMain
 
         }
 
-        protected override void OnHide(bool isShutdown, object userData)
+        /*protected override void OnHide(bool isShutdown, object userData)
         {
             base.OnHide(isShutdown, userData);
         }
@@ -72,7 +72,7 @@ namespace GameMain
             Vector3 screenPosition = Camera.main.WorldToScreenPoint(transform.position);
             mousePos.z = screenPosition.z;
             return Camera.main.ScreenToWorldPoint(mousePos);
-        }
+        }*/
     }
 }
 

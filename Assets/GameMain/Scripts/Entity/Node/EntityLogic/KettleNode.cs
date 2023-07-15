@@ -112,53 +112,53 @@ namespace GameMain
                             }
                             m_ProducingTime = m_NodeData.ProducingTime;
                         }
+                    }
                 }
-            }
-                //if (m_AdsorbNode != null)
-                //{
-                //    Debug.Log("������");
-                //    //����Ч��
-                //    //��������㾺��ʱ��Ѱ�����������������
-                //    if (m_AdsorbNode.Follow != false)
-                //        return;
-                //    if (m_AdsorbNode.transform.parent.GetComponent<BaseNode>().NodeData.NodeTag != NodeTag.Water && m_AdsorbNode.transform.parent.GetComponent<BaseNode>().NodeData.NodeTag != NodeTag.Milk)
-                //        return;
+                /*if (m_AdsorbNode != null)
+                {
+                    Debug.Log("������");
+                    //����Ч��
+                    //��������㾺��ʱ��Ѱ�����������������
+                    if (m_AdsorbNode.Follow != false)
+                        return;
+                    if (m_AdsorbNode.transform.parent.GetComponent<BaseNode>().NodeData.NodeTag != NodeTag.Water && m_AdsorbNode.transform.parent.GetComponent<BaseNode>().NodeData.NodeTag != NodeTag.Milk)
+                        return;
 
-                //    m_AdsorbNode.ProducingTool = NodeTag.Kettle;
-                //    m_AdsorbNode.Producing = true;
-                //    m_AdsorbNode.transform.DOMove(m_KettleBoxCollider2D.transform.position, 0.1f);
-                //    Producing = true;
-                //    if (Producing)
-                //    {
-                //        //����������
-                //        m_ProgressBar.gameObject.SetActive(true);
-                //        m_ProgressBar.transform.SetLocalScaleX(1 - (1 - m_ProducingTime / m_NodeData.ProducingTime));
-                //        m_ProducingTime -= Time.deltaTime;
+                    m_AdsorbNode.ProducingTool = NodeTag.Kettle;
+                    m_AdsorbNode.Producing = true;
+                    m_AdsorbNode.transform.DOMove(m_KettleBoxCollider2D.transform.position, 0.1f);
+                    Producing = true;
+                    if (Producing)
+                    {
+                        //����������
+                        m_ProgressBar.gameObject.SetActive(true);
+                       m_ProgressBar.transform.SetLocalScaleX(1 - (1 - m_ProducingTime / m_NodeData.ProducingTime));
+                        m_ProducingTime -= Time.deltaTime;
 
-                //        Debug.Log(m_ProducingTime);
-                //        if (m_ProducingTime <= 0)
-                //        {
-                //            Producing = false;
-                //            m_AdsorbNode.Producing = false;
-                //            m_AdsorbNode.Completed = true;
-                //            if (m_AdsorbNode.transform.parent.GetComponent<BaseNode>().NodeData.NodeTag == NodeTag.Water)
-                //            {
-                //                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.HotWater)
-                //                {
-                //                    Position = this.transform.position
-                //                });
-                //                m_ProducingTime = m_NodeData.ProducingTime;
-                //            }
-                //            else if (m_AdsorbNode.transform.parent.GetComponent<BaseNode>().NodeData.NodeTag == NodeTag.Milk)
-                //            {
-                //                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.HotMilk)
-                //                {
-                //                    Position = this.transform.position
-                //                });
-                //                m_ProducingTime = m_NodeData.ProducingTime;
-                //            }
-                //        }
-                //    }
+                        Debug.Log(m_ProducingTime);
+                        if (m_ProducingTime <= 0)
+                        {
+                            Producing = false;
+                            m_AdsorbNode.Producing = false;
+                            m_AdsorbNode.Completed = true;
+                            if (m_AdsorbNode.transform.parent.GetComponent<BaseNode>().NodeData.NodeTag == NodeTag.Water)
+                            {
+                                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.HotWater)
+                                {
+                                    Position = this.transform.position
+                               });
+                                m_ProducingTime = m_NodeData.ProducingTime;
+                            }
+                            else if (m_AdsorbNode.transform.parent.GetComponent<BaseNode>().NodeData.NodeTag == NodeTag.Milk)
+                            {
+                                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.HotMilk)
+                                {
+                                  Position = this.transform.position
+                                });
+                                m_ProducingTime = m_NodeData.ProducingTime;
+                            }
+                      }
+                   }*/
             }
         }
 

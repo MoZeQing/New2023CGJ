@@ -1,4 +1,4 @@
-using DG.Tweening;
+ï»¿using DG.Tweening;
 using GameFramework.DataTable;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,21 +9,21 @@ using UnityGameFramework.Runtime;
 
 namespace GameMain
 {
-    public class BurnisherNode : BaseCompenent, IPointerDownHandler
+    public class BurnisherNode : Entity, IPointerDownHandler
     {
         private CompenentData m_CompenentData;
         private NodeData m_NodeData;
         private SpriteRenderer m_SpriteRenderer;
         private BoxCollider2D m_BoxCollider2D;
 
-        private BoxCollider2D m_BurnishBoxCollider2D;
-
-        private BaseCompenent m_AdsorbNode;
+        private List<AdsorbSlot> m_AdsorbSlots = new List<AdsorbSlot>();//ï¿½ï¿½Î»1
 
         private Transform m_ProgressBar = null;
         private float m_ProducingTime = 0f;
 
-        private SoundComponent m_Sound;
+        private List<RecipeData> m_RecipeDatas = new List<RecipeData>();
+
+        private bool m_Follow = false;
 
 
 
@@ -34,28 +34,26 @@ namespace GameMain
             m_NodeData = m_CompenentData.NodeData;
             GameEntry.Entity.AttachEntity(this.Id, m_CompenentData.OwnerId);
 
-            //»ñÈ¡µ½±í
-            IDataTable<DRNode> dtNode = GameEntry.DataTable.GetDataTable<DRNode>();
-            DRNode drNode = dtNode.GetDataRow(5);
-
             m_NodeData.ProducingTime = 5f;
             m_ProducingTime = m_NodeData.ProducingTime;
 
             m_SpriteRenderer = this.GetComponent<SpriteRenderer>();
             m_SpriteRenderer.sprite = GameEntry.Utils.nodeSprites[(int)m_NodeData.NodeTag];
-            m_SpriteRenderer.sortingLayerName = drNode.Layer;
-            m_SpriteRenderer.sortingOrder = drNode.Layerint;
 
             m_BoxCollider2D = this.GetComponent<BoxCollider2D>();
             m_BoxCollider2D.size = m_SpriteRenderer.size;
 
-            m_BurnishBoxCollider2D = this.transform.Find("Burnisher").GetComponent<BoxCollider2D>();
+            m_AdsorbSlots.Clear();
+            m_AdsorbSlots.Add(this.transform.Find("Burnisher").GetComponent<AdsorbSlot>());
 
-            m_ProgressBar = this.transform.Find("ProgressBar").transform;//»ñÈ¡½ø¶ÈÌõ
+            m_ProgressBar = this.transform.Find("ProgressBar").transform;//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             m_ProgressBar.gameObject.SetActive(false);
 
-            m_Sound = this.GetComponent<SoundComponent>();
-
+            RecipeData recipe1 = new RecipeData();
+            recipe1.Materials.Add(NodeTag.CoffeeBean);
+            recipe1.Product = NodeTag.GroundCoffee;
+            recipe1.ProductTime = 10f;
+            m_RecipeDatas.Add(recipe1);
         }
 
         protected override void OnHide(bool isShutdown, object userData)
@@ -68,93 +66,58 @@ namespace GameMain
             base.OnUpdate(elapseSeconds, realElapseSeconds);
             if (!Input.GetMouseButton(0))
             {
-                Follow = false;
+                m_Follow = false;
             }
-            if (Follow)
+            if (m_Follow)
             {
                 this.transform.position = MouseToWorld(Input.mousePosition);
             }
-            if (m_AdsorbNode != null)
+            if (m_AdsorbSlots != null)
             {
-                Debug.Log("Îü¸½ÖÐ");
-                //Îü¸½Ð§¹û
-                //¶à¸öÎü¸½µã¾ºÕùÊ±£¬Ñ°ÕÒ×î½üµÄÎü¸½µãÎü¸½
-                if (m_AdsorbNode.Follow != false)
-                    return;
-                if (m_AdsorbNode.transform.parent.GetComponent<BaseNode>().NodeData.NodeTag != NodeTag.CoffeeBean)
-                    return;
-
-                m_AdsorbNode.ProducingTool = NodeTag.Burnisher;
-                m_AdsorbNode.Producing = true;
-                m_AdsorbNode.transform.DOMove(m_BurnishBoxCollider2D.transform.position, 0.1f);
-                Producing = true;
-                if (Producing)
+                foreach (RecipeData recipe in m_RecipeDatas)
                 {
-                    //´¦Àí½ø¶ÈÌõ
-                    GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/Burnisher.mp3", "Sound");
-                    m_ProgressBar.gameObject.SetActive(true);
-                    m_ProgressBar.transform.SetLocalScaleX(1 - (1 - m_ProducingTime / m_NodeData.ProducingTime));
-                    m_ProducingTime -= Time.deltaTime;
-
-                    Debug.Log(m_ProducingTime);
-                    if (m_ProducingTime <= 0)
+                    bool flag = true;
+                    foreach (AdsorbSlot slot in m_AdsorbSlots)
                     {
-                        Producing = false;
-                        m_AdsorbNode.Producing = false;
-                        m_AdsorbNode.Completed = true;
-                        if (m_AdsorbNode.transform.parent.GetComponent<BaseNode>().NodeData.NodeTag == NodeTag.CoffeeBean)
+                        if (slot.Child.Child != null)
+                            return;
+                        if (!recipe.Materials.Contains(slot.Child.NodeTag))
+                            flag = false;
+                    }
+                    if (flag)
+                    {
+                        m_ProgressBar.gameObject.SetActive(true);
+                        m_ProgressBar.transform.SetLocalScaleX(1 - (1 - m_ProducingTime / m_NodeData.ProducingTime));
+                        m_ProducingTime -= Time.deltaTime;
+
+                        if (m_ProducingTime <= 0)
                         {
-                            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.GroundCoffee)
+                            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, recipe.Product)
                             {
                                 Position = this.transform.position
                             });
+                            foreach (AdsorbSlot slot in m_AdsorbSlots)
+                            {
+                                BaseCompenent baseCompenent = slot.Child;
+                                slot.Child = null;
+                                baseCompenent.Remove();
+                            }
                             m_ProducingTime = m_NodeData.ProducingTime;
                         }
                     }
                 }
             }
         }
-
-        public void OnPointerDown(PointerEventData pointerEventData)
-        {
-            GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/Pick_up.mp3", "Sound");
-            Follow = true;
-        }
-
-        public void OnTriggerEnter2D(Collider2D collision)
-        {
-            Debug.Log("¼ì²âµ½Åö×²");
-            BaseCompenent baseCompenent = null;
-            if (collision.TryGetComponent<BaseCompenent>(out baseCompenent))
-            {
-                if (!baseCompenent.Follow)
-                    return;
-                if (!m_BurnishBoxCollider2D.IsTouching(baseCompenent.GetComponent<BoxCollider2D>()))
-                    return;
-                Debug.Log("¼ì²âµ½Îü¸½");
-                m_AdsorbNode = baseCompenent;
-            }
-        }
-
-        public void OnTriggerExit2D(Collider2D collision)
-        {
-            BaseCompenent baseCompenent = null;
-            if (collision.TryGetComponent<BaseCompenent>(out baseCompenent))
-            {
-                if (!baseCompenent.Follow)
-                    return;
-                if (m_BurnishBoxCollider2D.IsTouching(baseCompenent.GetComponent<BoxCollider2D>()))
-                    return;
-                Debug.Log("¼ì²âµ½Àë¿ªÎü¸½");
-                m_AdsorbNode = null;
-            }
-        }
-
-        private Vector3 MouseToWorld(Vector3 mousePos)
+        protected Vector3 MouseToWorld(Vector3 mousePos)
         {
             Vector3 screenPosition = Camera.main.WorldToScreenPoint(transform.position);
             mousePos.z = screenPosition.z;
             return Camera.main.ScreenToWorldPoint(mousePos);
+        }
+        public void OnPointerDown(PointerEventData pointerEventData)
+        {
+            Debug.LogFormat("ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½{1}", this.gameObject.name);
+            m_Follow = true;
         }
     }
 }

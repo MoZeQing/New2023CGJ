@@ -10,7 +10,6 @@ public class AdsorbSlot : BaseCompenent
         base.OnInit(userData);
         CompenentData data = (CompenentData)userData;
         GameEntry.Entity.AttachEntity(this.Id, data.OwnerId);
-
     }
 
     protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)

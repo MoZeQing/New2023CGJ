@@ -33,7 +33,7 @@ namespace GameMain
             m_BoxCollider2D.size = m_SpriteRenderer.size;
         }
 
-        protected override void OnShow(object userData)
+     /*   protected override void OnShow(object userData)
         {
             base.OnShow(userData);
         }
@@ -77,7 +77,7 @@ namespace GameMain
             Vector3 screenPosition = Camera.main.WorldToScreenPoint(transform.position);
             mousePos.z = screenPosition.z;
             return Camera.main.ScreenToWorldPoint(mousePos);
-        }
+        }*/
     }
 }
 

@@ -33,7 +33,7 @@ namespace GameMain
 
         }
 
-        protected override void OnShow(object userData)
+        /*protected override void OnShow(object userData)
         {
             base.OnShow(userData);
         }
@@ -51,6 +51,6 @@ namespace GameMain
                 Completed = false;
                 GameEntry.Entity.HideEntity(m_NodeData.Id);
             }
-        }
+        }*/
     }
 }
