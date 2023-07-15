@@ -183,7 +183,7 @@ namespace GameMain
         }
         public void OnPointerDown(PointerEventData pointerEventData)
         {
-            Debug.LogFormat("����¼�����Դ��{1}", this.gameObject.name);
+            //Debug.LogFormat("����¼�����Դ��{1}", this.gameObject.name);
             m_Follow = true;
         }
         /*protected override void OnHide(bool isShutdown, object userData)

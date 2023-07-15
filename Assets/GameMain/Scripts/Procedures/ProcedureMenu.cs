@@ -34,11 +34,10 @@ namespace GameMain
             {
                 GameEntry.Scene.UnloadScene(loadedSceneAssetNames[i]);
             }
+            m_StartGame= false;
             //–∂‘ÿÀ˘”–≥°æ∞
-
-            GameEntry.UI.OpenUIForm(UIFormId.MenuForm, this);
-
             GameEntry.Event.Subscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUIFormSuccess);
+            GameEntry.UI.OpenUIForm(UIFormId.MenuForm, this);
         }
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
         {

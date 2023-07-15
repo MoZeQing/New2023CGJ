@@ -16,8 +16,12 @@ namespace GameMain
         [SerializeField] private Button downButton;
         [SerializeField] private Button upButton;
         [SerializeField] private Button catButton;
+        [SerializeField] private Button recipeButton;
+        [SerializeField] private Button settingButton;
         [SerializeField] private Transform canvasTrans;
         [SerializeField] private DialogForm dialogForm;
+        [SerializeField] private GameObject mRecipeForm;
+        [SerializeField] private GameObject mSettingForm;
         private PlaySoundParams playSoundParams = PlaySoundParams.Create();
         private int r;
 
@@ -30,13 +34,14 @@ namespace GameMain
             upButton.onClick.AddListener(Up);
             downButton.onClick.AddListener(Down);
             catButton.onClick.AddListener(Cat);
+            recipeButton.onClick.AddListener(Recipe);
+            settingButton.onClick.AddListener(() => mSettingForm.SetActive(true));
 
             playSoundParams.Loop = true;
             playSoundParams.VolumeInSoundGroup = 0.3f;
             playSoundParams.Priority = 64;
             playSoundParams.SpatialBlend = 0f;
             GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/BGM/maou_bgm_acoustic52.mp3", "BGM", playSoundParams);
-
         }
 
         public void SetDialog(string path)
@@ -77,6 +82,11 @@ namespace GameMain
             {
                 GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/cat.mp3", "Sound");
             }
+        }
+
+        private void Recipe()
+        {
+            mRecipeForm.gameObject.SetActive(!mRecipeForm.gameObject.activeSelf);
         }
     }
 

@@ -12,6 +12,7 @@ namespace GameMain
         private ProcedureMenu m_ProcedureMenu;
 
         [SerializeField] private Button button;
+        [SerializeField] private Button button2;
 
         protected override void OnOpen(object userData)
         {
@@ -19,6 +20,7 @@ namespace GameMain
             m_ProcedureMenu = (ProcedureMenu)userData;
 
             button.onClick.AddListener(m_ProcedureMenu.StartGame);
+            button2.onClick.AddListener(() => UnityGameFramework.Runtime.GameEntry.Shutdown(ShutdownType.Quit));
         }
     }
 

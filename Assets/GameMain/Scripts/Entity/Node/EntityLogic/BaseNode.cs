@@ -84,10 +84,12 @@ namespace GameMain
                     GameEntry.Entity.ShowKettleNode(kettle);
                     break;
                 case NodeTag.FilterBowl:
-                    GameEntry.Entity.ShowFilterBowlNode(data);
+                    CompenentData filterBowl = new CompenentData(GameEntry.Entity.GenerateSerialId(), 10002, this.Id, NodeData);
+                    GameEntry.Entity.ShowFilterBowlNode(filterBowl);
                     break;
                 case NodeTag.Cup:
-                    GameEntry.Entity.ShowCupNode(data);
+                    CompenentData cup = new CompenentData(GameEntry.Entity.GenerateSerialId(), 10002, this.Id, NodeData);
+                    GameEntry.Entity.ShowCupNode(cup);
                     break;
             }
         }

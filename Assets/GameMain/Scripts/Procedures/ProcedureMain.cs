@@ -11,7 +11,7 @@ namespace GameMain
 {
     public class ProcedureMain : ProcedureBase
     {
-        private bool m_StartAdventure = false;
+        private bool m_BackGame = false;
 
         public MainForm MainForm
         {
@@ -19,9 +19,9 @@ namespace GameMain
             set;
         }
 
-        public void StartAdventure()
+        public void BackGame()
         { 
-            m_StartAdventure=true;
+            m_BackGame=true;
         }
 
         protected override void OnEnter(IFsm<IProcedureManager> procedureOwner)
@@ -39,6 +39,7 @@ namespace GameMain
                 Log.Warning("Can not load scene '{0}' from data table.", 2.ToString());
                 return;
             }
+            m_BackGame = false;
             Debug.Log("Start Load Scene");
             GameEntry.Scene.LoadScene(AssetUtility.GetSceneAsset(drScene.AssetName), /*Constant.AssetPriority.SceneAsset*/0, this);
             GameEntry.UI.OpenUIForm(UIFormId.MainForm, this);
@@ -57,7 +58,7 @@ namespace GameMain
                 return;
             }
             Debug.Log("Start Load Scene");
-            GameEntry.Scene.UnloadScene(AssetUtility.GetSceneAsset(drScene.AssetName), this);
+            //GameEntry.Scene.UnloadScene(AssetUtility.GetSceneAsset(drScene.AssetName), this);
 
             GameEntry.UI.CloseAllLoadedUIForms();
             GameEntry.Entity.HideAllLoadedEntities();
@@ -66,9 +67,9 @@ namespace GameMain
         protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
-            if (m_StartAdventure)
+            if (m_BackGame)
             {
-                ChangeState<ProcedureAdventure>(procedureOwner);
+                ChangeState<ProcedureMenu>(procedureOwner);
             }
         }
     }

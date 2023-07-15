@@ -23,7 +23,6 @@ namespace GameMain
         {
             Debug.Log(44);
             ProcedureMain pa = (ProcedureMain)GameEntry.Procedure.CurrentProcedure;
-            pa.StartAdventure();
             Debug.Log(55);
         }
 
