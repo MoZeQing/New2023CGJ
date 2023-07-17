@@ -22,6 +22,7 @@ namespace GameMain
         private List<RecipeData> m_RecipeDatas = new List<RecipeData>();
 
         private List<BaseCompenent> m_ChildDatas = new List<BaseCompenent>();
+        private List<NodeTag> m_ChildNodes = new List<NodeTag>();
 
         private bool m_Follow = false;
 
@@ -121,15 +122,18 @@ namespace GameMain
                         m_ProgressBar.transform.SetLocalScaleX(1);
                     }
                 }
+                m_ChildDatas.Clear();
+                m_ChildNodes.Clear();
+                for (BaseCompenent child = m_AdsorbSlots[0].Child; child != null; child = child.Child)
+                {
+                    m_ChildDatas.Add(child);
+                    m_ChildNodes.Add(child.NodeTag);
+                }
                 foreach (RecipeData recipe in m_RecipeDatas)
                 {
                     bool flag = true;
                     //获得插槽的儿子的儿子等等
-                    m_ChildDatas.Clear();
-                    for (BaseCompenent child = m_AdsorbSlots[0].Child; child !=null; child =child.Child)
-                    {
-                        m_ChildDatas.Add(child);
-                    }
+
                     /*foreach (AdsorbSlot slot in m_AdsorbSlots)
                     {
                         /*if (slot.Child.Child != null)
@@ -138,10 +142,10 @@ namespace GameMain
                             flag = false;
                     }*/
                     if (m_ChildDatas.Count != recipe.Materials.Count)
-                        return;
-                    foreach (BaseCompenent materials in m_ChildDatas)
+                        continue;
+                    foreach (NodeTag child in recipe.Materials)
                     {
-                        if (!recipe.Materials.Contains(materials.NodeTag))
+                        if (!m_ChildNodes.Contains(child))
                             flag = false;
                     }
                     if (flag)
@@ -165,7 +169,6 @@ namespace GameMain
                                 for (int i = 0; i < m_ChildDatas.Count; i++)
                                 {
                                     baseCompenent = m_ChildDatas[i];
-                                    m_ChildDatas = null;
                                     baseCompenent.Remove();
                                 }
                                 m_ChildDatas.Clear();

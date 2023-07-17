@@ -18,6 +18,8 @@ namespace GameMain
         [SerializeField] private Button catButton;
         [SerializeField] private Button recipeButton;
         [SerializeField] private Button settingButton;
+        [SerializeField] private Text dayText;
+        [SerializeField] private Text levelText;
         [SerializeField] private Transform canvasTrans;
         [SerializeField] private DialogForm dialogForm;
         [SerializeField] private GameObject mRecipeForm;
@@ -87,6 +89,12 @@ namespace GameMain
         private void Recipe()
         {
             mRecipeForm.gameObject.SetActive(!mRecipeForm.gameObject.activeSelf);
+        }
+
+        private void UpdateTime()
+        {
+            //dayText.text;
+            //levelText.text;
         }
     }
 

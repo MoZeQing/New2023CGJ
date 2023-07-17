@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2023-07-14 20:24:59.620
+// 生成时间：2023-07-16 23:19:57.350
 //------------------------------------------------------------
 
 using GameFramework;
@@ -66,7 +66,16 @@ namespace GameMain
         /// <summary>
         /// 获取对应剧情。
         /// </summary>
-        public string Dialog
+        public string Foreword
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取正文。
+        /// </summary>
+        public string Text
         {
             get;
             private set;
@@ -96,7 +105,8 @@ namespace GameMain
             Char = columnStrings[index++];
             Order = int.Parse(columnStrings[index++]);
             Day = int.Parse(columnStrings[index++]);
-            Dialog = columnStrings[index++];
+            Foreword = columnStrings[index++];
+            Text = columnStrings[index++];
             Index = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
@@ -113,7 +123,8 @@ namespace GameMain
                     Char = binaryReader.ReadString();
                     Order = binaryReader.Read7BitEncodedInt32();
                     Day = binaryReader.Read7BitEncodedInt32();
-                    Dialog = binaryReader.ReadString();
+                    Foreword = binaryReader.ReadString();
+                    Text = binaryReader.ReadString();
                     Index = binaryReader.Read7BitEncodedInt32();
                 }
             }

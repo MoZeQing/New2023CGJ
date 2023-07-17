@@ -26,12 +26,10 @@ namespace GameMain
             }
 
         }
-
         private void OnEnable()
         {
             GameEntry.Event.Subscribe(LevelEventArgs.EventId, Level);
         }
-
         private void OnDisable()
         {
             GameEntry.Event.Unsubscribe(LevelEventArgs.EventId, Level);
@@ -40,7 +38,6 @@ namespace GameMain
         {
 
         }
-
         private LevelData GetRandomLevel()
         {
             LevelData levelData = new LevelData();
@@ -71,10 +68,11 @@ namespace GameMain
                         break; 
                 }
             }
-            levelData.Dialogue = string.Format("plot_wm_{0}", Random.Range(1, 3));
+            int index = Random.Range(1, 3);
+            levelData.Foreword = string.Format("plot_f_wm_{0}", index);
+            levelData.Text = string.Format("plot_wm_{0}", index);
             return levelData;
         }
-
         private void Level(object sender, GameEventArgs e)
         {
             OrderManager orderManager = (OrderManager)sender;
@@ -95,7 +93,7 @@ namespace GameMain
                 m_LevelData = GetRandomLevel();
             }
             orderManager.SetOrder(m_LevelData.OrderData);
-            GameEntry.Event.FireNow(this, DialogEventArgs.Create(m_LevelData.Dialogue));
+            GameEntry.Event.FireNow(this, DialogEventArgs.Create(m_LevelData.Foreword));
         }
     }
 
@@ -116,13 +114,22 @@ namespace GameMain
             get;
             set;
         }= new OrderData();
-
-        public string Dialogue
+        /// <summary>
+        /// Ç°ÑÔ
+        /// </summary>
+        public string Foreword
         {
             get;
             set;
         }
-
+        /// <summary>
+        /// ÕýÎÄ
+        /// </summary>
+        public string Text
+        {
+            get;
+            set;
+        }
         public LevelData() { }
         public LevelData(DRLevel dRLevel)
         {
@@ -131,7 +138,8 @@ namespace GameMain
             IDataTable<DROrder> dtOrder = GameEntry.DataTable.GetDataTable<DROrder>();
             OrderData order = new OrderData(dtOrder.GetDataRow(dRLevel.Order));
             OrderData = order;
-            Dialogue = dRLevel.Dialog;
+            Foreword=dRLevel.Foreword;
+            Text=dRLevel.Text;
         }
     }
 }
