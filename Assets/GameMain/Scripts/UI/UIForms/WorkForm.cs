@@ -17,7 +17,6 @@ namespace GameMain
         [SerializeField] private Text WhiteCoffeeText;
         [SerializeField] private Text CafeAmericanoText;
         [SerializeField] private Text LatteText;
-
         private void OnEnable()
         {
             GameEntry.Event.Subscribe(OrderEventArgs.EventId, UpdateOrder);

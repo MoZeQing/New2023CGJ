@@ -46,6 +46,29 @@ namespace GameMain
             return uiComponent.OpenUIForm(assetName, drUIForm.UIGroupName, /*Constant.AssetPriority.UIFormAsset*/50, drUIForm.PauseCoveredUIForm, userData);
         }
 
+        public static UIForm GetUIForm(this UIComponent uiComponent, int uiFormId)
+        {
+            IDataTable<DRUIForms> dtUIForm = GameEntry.DataTable.GetDataTable<DRUIForms>();
+            DRUIForms drUIForm = dtUIForm.GetDataRow(uiFormId);
+            if (drUIForm == null)
+            {
+                Log.Warning("Can not load UI form '{0}' from data table.", uiFormId.ToString());
+                return null;
+            }
+
+            string assetName = AssetUtility.GetUIFormAsset(drUIForm.AssetName);
+            if (!uiComponent.IsLoadingUIForm(assetName))
+                return null;
+
+            if (!uiComponent.HasUIForm(assetName))
+                return null;
+            return uiComponent.GetUIForm(assetName);
+        }
+
+        public static UIForm GetUIForm(this UIComponent uiComponent, UIFormId uiFormId)
+        {
+            return uiComponent.GetUIForm((int)uiFormId);
+        }
         public static void CloseUIForm(this UIComponent uiComponent, int uiFormId, object userData = null)
         { 
 

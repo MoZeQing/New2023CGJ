@@ -7,7 +7,7 @@ using UnityGameFramework.Runtime;
 using DG.Tweening;
 using GameFramework.Sound;
 using GameFramework.DataTable;
-using GameFramework;
+using GameFramework.Event;
 
 namespace GameMain
 {
@@ -24,8 +24,20 @@ namespace GameMain
         [SerializeField] private DialogForm dialogForm;
         [SerializeField] private GameObject mRecipeForm;
         [SerializeField] private GameObject mSettingForm;
+
         private PlaySoundParams playSoundParams = PlaySoundParams.Create();
         private int r;
+
+        public DialogForm DialogForm
+        {
+            get;
+            private set;
+        }
+        public WorkForm WorkForm
+        {
+            get;
+            private set;
+        }
 
         protected override void OnOpen(object userData)
         {
@@ -39,24 +51,23 @@ namespace GameMain
             recipeButton.onClick.AddListener(Recipe);
             settingButton.onClick.AddListener(() => mSettingForm.SetActive(true));
 
+            this.DialogForm = GetComponentInChildren<DialogForm>(true);
+            this.WorkForm = GetComponentInChildren<WorkForm>(true);
+
             playSoundParams.Loop = true;
             playSoundParams.VolumeInSoundGroup = 0.3f;
             playSoundParams.Priority = 64;
             playSoundParams.SpatialBlend = 0f;
             GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/BGM/maou_bgm_acoustic52.mp3", "BGM", playSoundParams);
-        }
 
-        public void SetDialog(string path)
+            GameEntry.Event.Subscribe(MainFormEventArgs.EventId, MainFormEvent);
+        }
+        protected override void OnClose(bool isShutdown, object userData)
         {
-            dialogForm.SetDialog(path);
+            base.OnClose(isShutdown, userData);
+            GameEntry.Event.Unsubscribe(MainFormEventArgs.EventId, MainFormEvent);
         }
-
-        public void SetDialog(DialogueGraph graph)
-        {
-            dialogForm.SetDialog(graph);
-        }
-
-        private void Up()
+        public void Up()
         {
             GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/page_turn.mp3", "Sound");
 
@@ -64,7 +75,7 @@ namespace GameMain
             canvasTrans.transform.DOLocalMove(new Vector3(0, -800, 0), 1f).SetEase(Ease.OutExpo);
         }
 
-        private void Down()
+        public void Down()
         {
             GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/page_turn.mp3", "Sound");
 
@@ -90,11 +101,47 @@ namespace GameMain
         {
             mRecipeForm.gameObject.SetActive(!mRecipeForm.gameObject.activeSelf);
         }
-
+        /// <summary>
+        /// 锁定该界面的UI
+        /// </summary>
+        public void LockGUI()
+        {
+            downButton.gameObject.SetActive(false);
+            upButton.gameObject.SetActive(false);
+            settingButton.gameObject.SetActive(false);
+        }
+        /// <summary>
+        /// 解锁该界面的UI
+        /// </summary>
+        public void UnlockGUI()
+        {
+            downButton.gameObject.SetActive(true);
+            upButton.gameObject.SetActive(true);
+            settingButton.gameObject.SetActive(true);
+        }
         private void UpdateTime()
         {
             //dayText.text;
             //levelText.text;
+        }
+        private void MainFormEvent(object sender, GameEventArgs e)
+        {
+            MainFormEventArgs args = (MainFormEventArgs)e;
+            switch (args.MainFormTag)
+            {
+                case MainFormTag.Lock:
+                    LockGUI();
+                    break;
+                case MainFormTag.Unlock:
+                    UnlockGUI();
+                    break;
+                case MainFormTag.Up:
+                    Up();
+                    break;
+                case MainFormTag.Down:
+                    Down();
+                    break;
+            }
         }
     }
 

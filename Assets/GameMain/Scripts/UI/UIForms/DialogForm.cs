@@ -120,9 +120,12 @@ namespace GameMain
             }
             else
             {
+                //播放完毕
                 nameText.text = string.Empty;
                 dialogText.text = string.Empty;
                 spriteRenderer.color = Color.clear;
+                GameEntry.Event.FireNow(this, MainFormEventArgs.Create(MainFormTag.Unlock));
+                //这不是一个好的通信方式，因为事件最好是自己做了什么被监听
             }
         }
         private void Next(OptionData optionData)

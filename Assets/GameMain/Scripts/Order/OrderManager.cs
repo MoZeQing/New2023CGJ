@@ -11,110 +11,26 @@ namespace GameMain
     public class OrderManager : MonoBehaviour
     {
         private List<DROrder> orders = new List<DROrder>();
-        private OrderData orderData = new OrderData();
-        private MaterialData materialData=new MaterialData();
+        private OrderData mOrderData = new OrderData();
 
-        private bool mFlag = false;
-        // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
-
-        }
-
-        private void OnEnable()
-        {
-            GameEntry.Event.Subscribe(MaterialEventArgs.EventId, UpdateMaterial);
-        }
-
-        private void OnDisable()
-        {
-            GameEntry.Event.Unsubscribe(MaterialEventArgs.EventId, UpdateMaterial);
+            if (mOrderData.Check())
+                GameEntry.Event.FireNow(this,LevelEventArgs.Create());
         }
 
         public void SetOrder(int index)
         {
             IDataTable<DROrder> dtOrder = GameEntry.DataTable.GetDataTable<DROrder>();
             DROrder drOrder = dtOrder.GetDataRow(index);
-            orderData = new OrderData(drOrder);
-            GameEntry.Event.FireNow(this, OrderEventArgs.Create(orderData));
+            mOrderData = new OrderData(drOrder);
+            GameEntry.Event.FireNow(this, OrderEventArgs.Create(mOrderData));
         }
 
         public void SetOrder(OrderData order)
         {
-            orderData = order;
-            GameEntry.Event.FireNow(this, OrderEventArgs.Create(orderData));
-        }
-
-        private void UpdateMaterial(object sender,GameEventArgs e)
-        {
-            MaterialEventArgs args = (MaterialEventArgs)e;
-            switch (args.NodeTag)
-            {
-                case NodeTag.Milk:
-                    materialData.Milk += args.Value;
-                    break;
-                case NodeTag.Water:
-                    materialData.Water += args.Value;
-                    break;
-                case NodeTag.Cream:
-                    materialData.Cream += args.Value;
-                    break;
-                case NodeTag.CoffeeBean:
-                    materialData.CoffeeBean += args.Value;
-                    break;
-                case NodeTag.ChocolateSyrup:
-                    materialData.ChocolateSyrup += args.Value;
-                    break;
-            }
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            if (materialData.Milk < 1)
-            {
-                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Milk)
-                {
-                    Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
-                });
-                materialData.Milk++;
-            }
-            if (materialData.Cream < 1)
-            {
-                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Cream)
-                {
-                    Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
-                });
-                materialData.Cream++;
-            }
-            if (materialData.CoffeeBean < 1)
-            {
-                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.CoffeeBean)
-                {
-                    Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
-                });
-                materialData.CoffeeBean++;
-            }
-            if (materialData.Water < 1)
-            {
-                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Water)
-                {
-                    Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
-                });
-                materialData.Water++;
-            }
-            if (materialData.ChocolateSyrup < 1)
-            {
-                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.ChocolateSyrup)
-                {
-                    Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
-                });
-                materialData.ChocolateSyrup++;
-            }
-            if (orderData.Check())
-            {
-                GameEntry.Event.FireNow(this, LevelEventArgs.Create());
-            }
+            mOrderData = order;
+            GameEntry.Event.FireNow(this, OrderEventArgs.Create(mOrderData));
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -126,28 +42,32 @@ namespace GameMain
                 switch (nodeData.NodeTag)
                 {
                     case NodeTag.Espresso:
-                        orderData.Espresso -= 1;
+                        mOrderData.Espresso -= 1;
                         break;
                     case NodeTag.ConPanna:
-                        orderData.ConPanna -= 1;
+                        mOrderData.ConPanna -= 1;
                         break;
                     case NodeTag.Mocha:
-                        orderData.Mocha -= 1;
+                        mOrderData.Mocha -= 1;
                         break;
                     case NodeTag.WhiteCoffee:
-                        orderData.WhiteCoffee -= 1;
+                        mOrderData.WhiteCoffee -= 1;
                         break;
                     case NodeTag.CafeAmericano:
-                        orderData.CafeAmericano -= 1;
+                        mOrderData.CafeAmericano -= 1;
                         break;
                     case NodeTag.Latte:
-                        orderData.Latte -= 1;
+                        mOrderData.Latte -= 1;
                         break;
                     default:
                         return;
                 }
                 GameEntry.Entity.HideEntity(nodeData.Id);
-                GameEntry.Event.FireNow(this, OrderEventArgs.Create(orderData));
+                GameEntry.Event.FireNow(this, OrderEventArgs.Create(mOrderData));
+                if (mOrderData.Check())
+                {
+                    GameEntry.Event.FireNow(this, LevelEventArgs.Create());
+                }
             }
         }
     }

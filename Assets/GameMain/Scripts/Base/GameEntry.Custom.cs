@@ -22,9 +22,16 @@ namespace GameMain
             private set;
         }
 
+        public static DialogComponent Dialog
+        {
+            get;
+            private set;
+        }
+
         private static void InitCustomComponents()
         {
             Utils = UnityGameFramework.Runtime.GameEntry.GetComponent<UtilsComponent>();
+            Dialog = UnityGameFramework.Runtime.GameEntry.GetComponent<DialogComponent>();
         }
     }
 }
