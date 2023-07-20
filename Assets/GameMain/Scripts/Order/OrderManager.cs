@@ -21,7 +21,6 @@ namespace GameMain
             private set
             {
                 mOrderData = value;
-                GameEntry.Event.FireNow(this, OrderEventArgs.Create(mOrderData));
             }
         }
 
@@ -29,7 +28,7 @@ namespace GameMain
         {
             if (OrderData.Check())
             {
-                GameEntry.Event.Fire(this, OrderEventArgs.Create(OrderData));
+                GameEntry.Event.FireNow(this, OrderEventArgs.Create(OrderData));
                 //ProcedureMain main = (ProcedureMain)GameEntry.Procedure.CurrentProcedure;
                 //main.Level(this);
             }
@@ -40,13 +39,13 @@ namespace GameMain
             IDataTable<DROrder> dtOrder = GameEntry.DataTable.GetDataTable<DROrder>();
             DROrder drOrder = dtOrder.GetDataRow(index);
             OrderData = new OrderData(drOrder);
-            GameEntry.Event.Fire(this, OrderEventArgs.Create(OrderData));
+            GameEntry.Event.Fire(this, OrderEventArgs.Create(mOrderData));//用于更新UI信息的事件，需要保证线程安全
         }
 
         public void SetOrder(OrderData order)
         {
             OrderData = order;
-            GameEntry.Event.Fire(this, OrderEventArgs.Create(OrderData));
+            GameEntry.Event.Fire(this, OrderEventArgs.Create(mOrderData));//用于更新UI信息的事件，需要保证线程安全
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -54,6 +53,8 @@ namespace GameMain
             BaseCompenent baseCompenent = null;
             if (collision.TryGetComponent<BaseCompenent>(out baseCompenent))
             {
+                if (baseCompenent.transform.parent.GetComponent<BaseNode>().NodeData == null)
+                    return;
                 NodeData nodeData = baseCompenent.transform.parent.GetComponent<BaseNode>().NodeData;
                 switch (nodeData.NodeTag)
                 {
@@ -79,10 +80,7 @@ namespace GameMain
                         return;
                 }
                 GameEntry.Entity.HideEntity(nodeData.Id);
-                if (OrderData.Check())
-                {
-                    GameEntry.Event.FireNow(this, OrderEventArgs.Create(OrderData));
-                }
+                GameEntry.Event.FireNow(this, OrderEventArgs.Create(OrderData));
             }
         }
     }

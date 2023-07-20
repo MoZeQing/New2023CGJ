@@ -18,8 +18,6 @@ namespace GameMain
         [SerializeField] private Transform mCanvas;
         [SerializeField] private GameObject mBtnPrefab;
 
-        [SerializeField] private DialogueGraph Dialogue = null;//测试使用
-
         private int _index;
         private DialogueGraph m_Dialogue = null;
         private StartNode m_StartNode = null;
@@ -49,6 +47,8 @@ namespace GameMain
         }
         public void Next()
         {
+            if (m_Node == null)
+                return;
             switch (chatTag)
             {
                 case ChatTag.Start:
@@ -124,6 +124,10 @@ namespace GameMain
                 nameText.text = string.Empty;
                 dialogText.text = string.Empty;
                 spriteRenderer.color = Color.clear;
+                _index= 0;
+                m_Dialogue = null;
+                m_StartNode= null;
+                m_Node = null;
                 GameEntry.Event.FireNow(this, DialogEventArgs.Create(""));
                 //这不是一个好的通信方式，因为事件最好是自己做了什么被监听
             }
@@ -158,9 +162,9 @@ namespace GameMain
         }
         public void SetDialog(DialogueGraph graph)
         {
-            Dialogue = graph;
+            m_Dialogue = graph;
             _index = 0;
-            foreach (Node node in Dialogue.nodes)
+            foreach (Node node in m_Dialogue.nodes)
             {
                 if (node.GetType().ToString() == "StartNode")
                 {
@@ -175,7 +179,7 @@ namespace GameMain
         {
             m_Dialogue = (DialogueGraph)Resources.Load<DialogueGraph>(string.Format("DialogData/{0}", path));
             _index = 0;
-            foreach (Node node in Dialogue.nodes)
+            foreach (Node node in m_Dialogue.nodes)
             {
                 if (node.GetType().ToString() == "StartNode")
                 {
@@ -204,15 +208,16 @@ namespace GameMain
         private void Start()
         {
             dialogBtn.onClick.AddListener(Next);
-            SetDialog(Dialogue);
-        }
-
-        private void OnEnable()
-        {
             GameEntry.Event.Subscribe(LevelEventArgs.EventId, SetDialog);
         }
-
-        private void OnDisable() 
+        private void FixedUpdate()
+        {
+            if (Input.GetKey(KeyCode.LeftControl))
+                Next();
+            if(Input.GetKeyDown(KeyCode.Space)||Input.GetKeyDown(KeyCode.Return))
+                Next();
+        }
+        private void OnDestroy()
         {
             GameEntry.Event.Unsubscribe(LevelEventArgs.EventId, SetDialog);
         }

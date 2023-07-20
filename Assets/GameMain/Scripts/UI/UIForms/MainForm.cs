@@ -128,11 +128,6 @@ namespace GameMain
             upButton.gameObject.SetActive(true);
             settingButton.gameObject.SetActive(true);
         }
-        private void UpdateTime()
-        {
-            //dayText.text;
-            //levelText.text;
-        }
         private void LevelEvent(object sender, GameEventArgs e)
         {
             LevelEventArgs args = (LevelEventArgs)e;
@@ -154,6 +149,8 @@ namespace GameMain
                     LockGUI();
                     break;
             }
+            dayText.text = string.Format("第：{0}天", args.LevelData.Day.ToString());
+            levelText.text= string.Format("第：{0}单", args.LevelData.Index.ToString());
         }
 
         private void UpdateOrder(object sender, GameEventArgs e)

@@ -64,7 +64,7 @@ namespace GameMain
             GameEntry.Event.Subscribe(MaterialEventArgs.EventId, UpdateMaterial);
             GameEntry.Event.Subscribe(OrderEventArgs.EventId, OrderEvent);
             GameEntry.Event.Subscribe(DialogEventArgs.EventId, DialogEvent);
-
+            GameEntry.Event.Subscribe(ChangeEventArgs.EventId, ChangeEvent);
             CheckMaterials();
         }
 
@@ -88,6 +88,7 @@ namespace GameMain
             GameEntry.Event.Unsubscribe(MaterialEventArgs.EventId, UpdateMaterial);//这里改成监听所有的实体生产的事件
             GameEntry.Event.Unsubscribe(OrderEventArgs.EventId, OrderEvent);
             GameEntry.Event.Unsubscribe(DialogEventArgs.EventId, DialogEvent);
+            GameEntry.Event.Unsubscribe(ChangeEventArgs.EventId, ChangeEvent);
         }
 
         protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
@@ -131,9 +132,12 @@ namespace GameMain
             int index = Random.Range(1, 3);
             levelData.Foreword = string.Format("plot_f_wm_{0}", index);
             levelData.Text = string.Format("plot_wm_{0}", index);
+            levelData.Day= mDay;
+            levelData.Index= mIndex;
             return levelData;
         }
-        private void OrderEvent(object sender,GameEventArgs e)
+        //因为监听导致了线程问题，因此弃用监听的模式
+        private void OrderEvent(object sender, GameEventArgs e)
         {
             mOrderManager = (OrderManager)sender;
             OrderEventArgs order = (OrderEventArgs)e;
@@ -146,13 +150,15 @@ namespace GameMain
             //if (dialog.DialogTag == m_LevelData.Foreword || dialog.DialogTag == m_LevelData.Text)
                 UpdateLevel();
         }
+        private void ChangeEvent(object sender, GameEventArgs e)
+        { 
+            if(mMainState==MainState.Change)
+                UpdateLevel();
+        }
         private void UpdateLevel()
         {
-            if (m_LevelData == null)
-            {
-                mMainState = MainState.Change;
-                GetLevel();
-            }
+            if(m_LevelData==null)
+                mMainState= MainState.Change;
             switch (mMainState)
             {
                 case MainState.Foreword:
@@ -163,16 +169,18 @@ namespace GameMain
                     break;
                 case MainState.Text:
                     mMainState = MainState.Change;
+                    ChangeScene();
                     break;
                 case MainState.Change:
                     mMainState = MainState.Foreword;
+                    GetLevel();
                     break;
             }
             GameEntry.Event.FireNow(this, LevelEventArgs.Create(mMainState, m_LevelData));
         }
         private void ChangeScene()
-        { 
-            
+        {
+            GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, 6f);
         }
         //更新关卡
         public void GetLevel()//改为装配
@@ -194,6 +202,7 @@ namespace GameMain
             {
                 m_LevelData = GetRandomLevel();
             }
+            mOrderManager.SetOrder(m_LevelData.OrderData);
         }
         private void UpdateMaterial(object sender, GameEventArgs e)
         {

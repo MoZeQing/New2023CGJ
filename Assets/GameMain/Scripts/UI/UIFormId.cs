@@ -10,15 +10,15 @@ namespace GameMain
         MenuForm=1,
         MainForm = 2,
         GameForm =3,
-        SettingForm=4,
-        BaseForm=5,
+        ChangeForm = 4,
+        BaseForm =5,
         UpgradeForm= 6,        
         DowngradeForm = 7,
         DispatchForm = 8,
         BuildingForm=9,
         AdventureForm=10,
         MapForm=11,
-        ReadyForm=12
+        ReadyForm=12,
     }
 }
 

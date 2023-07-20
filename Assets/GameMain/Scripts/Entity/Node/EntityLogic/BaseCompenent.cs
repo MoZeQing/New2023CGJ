@@ -80,9 +80,6 @@ namespace GameMain
                 SpriteRenderer.sortingOrder = 0;
             if (Parent != null && !Follow)
             {
-                Debug.Log(Parent.name);
-                Debug.Log(Parent.transform.position);
-                Debug.Log(Parent.transform.position + Vector3.down * 0.5f);
                 this.transform.DOMove(Parent.transform.position+Vector3.up*0.5f, 0.1f);//Îü¸½½Úµã
                 SpriteRenderer.sortingOrder = Parent.SpriteRenderer.sortingOrder++;
             }
