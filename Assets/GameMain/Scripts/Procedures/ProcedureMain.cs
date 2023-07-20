@@ -20,6 +20,7 @@ namespace GameMain
         private bool m_BackGame = false;
 
         private MainState mMainState;
+        private OrderManager mOrderManager;
 
         public MainForm MainForm
         {
@@ -60,8 +61,9 @@ namespace GameMain
                 LevelData level = new LevelData(dRLevel);
                 m_LevelDatas.Add(level);
             }
-            GameEntry.Event.Subscribe(OrderEventArgs.EventId, Level);
             GameEntry.Event.Subscribe(MaterialEventArgs.EventId, UpdateMaterial);
+            GameEntry.Event.Subscribe(OrderEventArgs.EventId, OrderEvent);
+            GameEntry.Event.Subscribe(DialogEventArgs.EventId, DialogEvent);
 
             CheckMaterials();
         }
@@ -83,8 +85,9 @@ namespace GameMain
             GameEntry.UI.CloseAllLoadedUIForms();
             GameEntry.Entity.HideAllLoadedEntities();
 
-            GameEntry.Event.Unsubscribe(OrderEventArgs.EventId, Level);
-            GameEntry.Event.Unsubscribe(MaterialEventArgs.EventId, UpdateMaterial);
+            GameEntry.Event.Unsubscribe(MaterialEventArgs.EventId, UpdateMaterial);//这里改成监听所有的实体生产的事件
+            GameEntry.Event.Unsubscribe(OrderEventArgs.EventId, OrderEvent);
+            GameEntry.Event.Unsubscribe(DialogEventArgs.EventId, DialogEvent);
         }
 
         protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
@@ -130,22 +133,51 @@ namespace GameMain
             levelData.Text = string.Format("plot_wm_{0}", index);
             return levelData;
         }
-        //更新关卡
-        private void Level(object sender, GameEventArgs e)
+        private void OrderEvent(object sender,GameEventArgs e)
         {
-            OrderManager orderManager = (OrderManager)sender;
-            Debug.Log("正在初始化关卡");
+            mOrderManager = (OrderManager)sender;
+            OrderEventArgs order = (OrderEventArgs)e;
+            if (order.OrderData.Check())
+                UpdateLevel();
+        }
+        private void DialogEvent(object sender,GameEventArgs e)
+        {
+            DialogEventArgs dialog = (DialogEventArgs)e;
+            //if (dialog.DialogTag == m_LevelData.Foreword || dialog.DialogTag == m_LevelData.Text)
+                UpdateLevel();
+        }
+        private void UpdateLevel()
+        {
+            if (m_LevelData == null)
+            {
+                mMainState = MainState.Change;
+                GetLevel();
+            }
             switch (mMainState)
             {
                 case MainState.Foreword:
+                    mMainState = MainState.Game;
                     break;
                 case MainState.Game:
+                    mMainState = MainState.Text;
                     break;
                 case MainState.Text:
+                    mMainState = MainState.Change;
                     break;
                 case MainState.Change:
+                    mMainState = MainState.Foreword;
                     break;
             }
+            GameEntry.Event.FireNow(this, LevelEventArgs.Create(mMainState, m_LevelData));
+        }
+        private void ChangeScene()
+        { 
+            
+        }
+        //更新关卡
+        public void GetLevel()//改为装配
+        {
+            Debug.Log("正在初始化关卡");
             mIndex++;
             if (mIndex > 4)
             {
@@ -162,10 +194,6 @@ namespace GameMain
             {
                 m_LevelData = GetRandomLevel();
             }
-            orderManager.SetOrder(m_LevelData.OrderData);
-            GameEntry.Event.FireNow(this, MainFormEventArgs.Create(MainFormTag.Lock));
-            GameEntry.Event.FireNow(this, MainFormEventArgs.Create(MainFormTag.Up));
-            GameEntry.Event.FireNow(this, DialogEventArgs.Create(m_LevelData.Foreword));
         }
         private void UpdateMaterial(object sender, GameEventArgs e)
         {
@@ -189,7 +217,6 @@ namespace GameMain
                     mMaterialData.ChocolateSyrup += args.Value;
                     break;
             }
-
             CheckMaterials();
         }
         private void CheckMaterials()

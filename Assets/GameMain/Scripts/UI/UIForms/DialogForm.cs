@@ -124,7 +124,7 @@ namespace GameMain
                 nameText.text = string.Empty;
                 dialogText.text = string.Empty;
                 spriteRenderer.color = Color.clear;
-                GameEntry.Event.FireNow(this, MainFormEventArgs.Create(MainFormTag.Unlock));
+                GameEntry.Event.FireNow(this, DialogEventArgs.Create(""));
                 //这不是一个好的通信方式，因为事件最好是自己做了什么被监听
             }
         }
@@ -189,8 +189,16 @@ namespace GameMain
 
         private void SetDialog(object sender, GameEventArgs e)
         {
-            DialogEventArgs args = (DialogEventArgs)e;
-            SetDialog(args.DialogTag);
+            LevelEventArgs args = (LevelEventArgs)e;
+            switch (args.MainState)
+            {
+                case MainState.Foreword:
+                    SetDialog(args.LevelData.Foreword);
+                    break;
+                case MainState.Text:
+                    SetDialog(args.LevelData.Text);
+                    break;
+            }
         }
 
         private void Start()
@@ -201,12 +209,12 @@ namespace GameMain
 
         private void OnEnable()
         {
-            GameEntry.Event.Subscribe(DialogEventArgs.EventId, SetDialog);
+            GameEntry.Event.Subscribe(LevelEventArgs.EventId, SetDialog);
         }
 
         private void OnDisable() 
         {
-            GameEntry.Event.Unsubscribe(DialogEventArgs.EventId, SetDialog);
+            GameEntry.Event.Unsubscribe(LevelEventArgs.EventId, SetDialog);
         }
 
         private void Option_Onclick(object sender, EventArgs e)

@@ -25,6 +25,13 @@ namespace GameMain
         [SerializeField] private GameObject mRecipeForm;
         [SerializeField] private GameObject mSettingForm;
 
+        [SerializeField] private Text EspressoText;
+        [SerializeField] private Text ConPannaText;
+        [SerializeField] private Text MochaText;
+        [SerializeField] private Text WhiteCoffeeText;
+        [SerializeField] private Text CafeAmericanoText;
+        [SerializeField] private Text LatteText;
+
         private PlaySoundParams playSoundParams = PlaySoundParams.Create();
         private int r;
 
@@ -60,12 +67,14 @@ namespace GameMain
             playSoundParams.SpatialBlend = 0f;
             GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/BGM/maou_bgm_acoustic52.mp3", "BGM", playSoundParams);
 
-            GameEntry.Event.Subscribe(MainFormEventArgs.EventId, MainFormEvent);
+            GameEntry.Event.Subscribe(LevelEventArgs.EventId, LevelEvent);
+            GameEntry.Event.Subscribe(OrderEventArgs.EventId, UpdateOrder);
         }
         protected override void OnClose(bool isShutdown, object userData)
         {
             base.OnClose(isShutdown, userData);
-            GameEntry.Event.Unsubscribe(MainFormEventArgs.EventId, MainFormEvent);
+            GameEntry.Event.Unsubscribe(LevelEventArgs.EventId, LevelEvent);
+            GameEntry.Event.Unsubscribe(OrderEventArgs.EventId, UpdateOrder);
         }
         public void Up()
         {
@@ -124,24 +133,41 @@ namespace GameMain
             //dayText.text;
             //levelText.text;
         }
-        private void MainFormEvent(object sender, GameEventArgs e)
+        private void LevelEvent(object sender, GameEventArgs e)
         {
-            MainFormEventArgs args = (MainFormEventArgs)e;
-            switch (args.MainFormTag)
+            LevelEventArgs args = (LevelEventArgs)e;
+            switch (args.MainState)
             {
-                case MainFormTag.Lock:
+                case MainState.Foreword:
                     LockGUI();
-                    break;
-                case MainFormTag.Unlock:
-                    UnlockGUI();
-                    break;
-                case MainFormTag.Up:
                     Up();
                     break;
-                case MainFormTag.Down:
+                case MainState.Game:
+                    UnlockGUI();
                     Down();
                     break;
+                case MainState.Text:
+                    LockGUI();
+                    Up();
+                    break;
+                case MainState.Change:
+                    LockGUI();
+                    break;
             }
+        }
+
+        private void UpdateOrder(object sender, GameEventArgs e)
+        {
+            OrderEventArgs args = (OrderEventArgs)e;
+            if (args.OrderData.Check())
+                return;
+            OrderData orderData = args.OrderData;
+            EspressoText.text = orderData.Espresso.ToString();
+            ConPannaText.text = orderData.ConPanna.ToString();
+            MochaText.text = orderData.Mocha.ToString();
+            WhiteCoffeeText.text = orderData.WhiteCoffee.ToString();
+            CafeAmericanoText.text = orderData.CafeAmericano.ToString();
+            LatteText.text = orderData.Latte.ToString();
         }
     }
 

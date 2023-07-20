@@ -12,25 +12,41 @@ namespace GameMain
     {
         private List<DROrder> orders = new List<DROrder>();
         private OrderData mOrderData = new OrderData();
+        public OrderData OrderData
+        {
+            get
+            {
+                return mOrderData;
+            }
+            private set
+            {
+                mOrderData = value;
+                GameEntry.Event.FireNow(this, OrderEventArgs.Create(mOrderData));
+            }
+        }
 
         private void Start()
         {
-            if (mOrderData.Check())
-                GameEntry.Event.FireNow(this,LevelEventArgs.Create());
+            if (OrderData.Check())
+            {
+                GameEntry.Event.Fire(this, OrderEventArgs.Create(OrderData));
+                //ProcedureMain main = (ProcedureMain)GameEntry.Procedure.CurrentProcedure;
+                //main.Level(this);
+            }
         }
 
         public void SetOrder(int index)
         {
             IDataTable<DROrder> dtOrder = GameEntry.DataTable.GetDataTable<DROrder>();
             DROrder drOrder = dtOrder.GetDataRow(index);
-            mOrderData = new OrderData(drOrder);
-            GameEntry.Event.FireNow(this, OrderEventArgs.Create(mOrderData));
+            OrderData = new OrderData(drOrder);
+            GameEntry.Event.Fire(this, OrderEventArgs.Create(OrderData));
         }
 
         public void SetOrder(OrderData order)
         {
-            mOrderData = order;
-            GameEntry.Event.FireNow(this, OrderEventArgs.Create(mOrderData));
+            OrderData = order;
+            GameEntry.Event.Fire(this, OrderEventArgs.Create(OrderData));
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -42,31 +58,30 @@ namespace GameMain
                 switch (nodeData.NodeTag)
                 {
                     case NodeTag.Espresso:
-                        mOrderData.Espresso -= 1;
+                        OrderData.Espresso -= 1;
                         break;
                     case NodeTag.ConPanna:
-                        mOrderData.ConPanna -= 1;
+                        OrderData.ConPanna -= 1;
                         break;
                     case NodeTag.Mocha:
-                        mOrderData.Mocha -= 1;
+                        OrderData.Mocha -= 1;
                         break;
                     case NodeTag.WhiteCoffee:
-                        mOrderData.WhiteCoffee -= 1;
+                        OrderData.WhiteCoffee -= 1;
                         break;
                     case NodeTag.CafeAmericano:
-                        mOrderData.CafeAmericano -= 1;
+                        OrderData.CafeAmericano -= 1;
                         break;
                     case NodeTag.Latte:
-                        mOrderData.Latte -= 1;
+                        OrderData.Latte -= 1;
                         break;
                     default:
                         return;
                 }
                 GameEntry.Entity.HideEntity(nodeData.Id);
-                GameEntry.Event.FireNow(this, OrderEventArgs.Create(mOrderData));
-                if (mOrderData.Check())
+                if (OrderData.Check())
                 {
-                    GameEntry.Event.FireNow(this, LevelEventArgs.Create());
+                    GameEntry.Event.FireNow(this, OrderEventArgs.Create(OrderData));
                 }
             }
         }
