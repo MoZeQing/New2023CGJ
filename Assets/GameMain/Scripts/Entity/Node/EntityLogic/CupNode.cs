@@ -57,8 +57,8 @@ namespace GameMain
             m_RecipeDatas.Add(recipe1);
 
             RecipeData recipe2 = new RecipeData();
-            recipe2.Materials.Add(NodeTag.CoffeeLiquid);
-            recipe2.Materials.Add(NodeTag.Water);
+            recipe2.Materials.Add(NodeTag.Espresso);
+            recipe2.Materials.Add(NodeTag.HotWater);
             recipe2.Product = NodeTag.CafeAmericano;
             recipe2.ProductTime = 10f;
             m_RecipeDatas.Add(recipe2);
@@ -80,7 +80,7 @@ namespace GameMain
             m_RecipeDatas.Add(recipe4);
 
             RecipeData recipe5 = new RecipeData();
-            recipe5.Materials.Add(NodeTag.CoffeeLiquid);
+            recipe5.Materials.Add(NodeTag.Espresso);
             recipe5.Materials.Add(NodeTag.HotMilk);
             recipe5.Product = NodeTag.Latte;
             recipe5.ProductTime = 10f;
