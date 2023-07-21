@@ -26,6 +26,7 @@ namespace GameMain
         private bool m_Follow = false;
 
         private bool IsMusicPlayed;
+        private int m_MusicSerialld;
 
         protected override void OnInit(object userData)
         {
@@ -50,6 +51,7 @@ namespace GameMain
             m_ProgressBar.gameObject.SetActive(false);
 
             IsMusicPlayed = false;
+            m_MusicSerialld = 0;
 
             RecipeData recipe1 = new RecipeData();
             recipe1.Materials.Add(NodeTag.CoffeeBean);
@@ -84,6 +86,9 @@ namespace GameMain
                         m_ProgressBar.gameObject.SetActive(false);
                         m_ProducingTime = m_NodeData.ProducingTime;
                         m_ProgressBar.transform.SetLocalScaleX(1);
+
+                        IsMusicPlayed = false;
+                        GameEntry.Sound.StopSound(m_MusicSerialld);
                     }
                 }
                 foreach (RecipeData recipe in m_RecipeDatas)
@@ -99,7 +104,7 @@ namespace GameMain
 
                     if(flag && IsMusicPlayed == false)
                     {
-                        GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/Burnisher.mp3", "Sound");
+                        m_MusicSerialld = GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/Burnisher.mp3", "Sound");
                         IsMusicPlayed = true;
                     }
 
@@ -112,6 +117,7 @@ namespace GameMain
                         if (m_ProducingTime <= 0)
                         {
                             IsMusicPlayed = false;
+                            m_MusicSerialld = 0;
 
                             GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, recipe.Product)
                             {

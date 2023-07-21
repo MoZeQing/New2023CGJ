@@ -7,6 +7,7 @@ using GameFramework.DataTable;
 using System.Linq;
 using System;
 using XNode.Examples.RuntimeMathNodes;
+using UnityEngine.Animations;
 
 namespace GameMain
 {
@@ -25,6 +26,7 @@ namespace GameMain
         private List<RecipeData> m_RecipeDatas=new List<RecipeData>();
 
         private bool IsMusicPlayed;
+        private int m_MusicSerialld;
 
 
 
@@ -53,6 +55,7 @@ namespace GameMain
             m_ProgressBar.gameObject.SetActive(false);
 
             IsMusicPlayed = false;
+            m_MusicSerialld = 0；
 
             //����
             RecipeData recipe1=new RecipeData();
@@ -94,6 +97,9 @@ namespace GameMain
                         m_ProgressBar.gameObject.SetActive(false);
                         m_ProducingTime = m_NodeData.ProducingTime;
                         m_ProgressBar.transform.SetLocalScaleX(1);
+
+                        IsMusicPlayed = false;
+                        GameEntry.Sound.StopSound(m_MusicSerialld);
                     }
                 }
                 foreach (RecipeData recipe in m_RecipeDatas)
@@ -109,7 +115,7 @@ namespace GameMain
 
                     if (flag && IsMusicPlayed == false)
                     {
-                        GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/Heater.mp3", "Sound");
+                        m_MusicSerialld = GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/Heater.mp3", "Sound");
                         IsMusicPlayed = true;
                     }
 
@@ -122,6 +128,7 @@ namespace GameMain
                         if (m_ProducingTime <= 0)
                         {
                             IsMusicPlayed = false;
+                            m_MusicSerialld = 0;
 
                             GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, recipe.Product)
                             {
