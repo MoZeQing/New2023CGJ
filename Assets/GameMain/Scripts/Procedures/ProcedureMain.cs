@@ -187,10 +187,14 @@ namespace GameMain
         {
             Debug.Log("正在初始化关卡");
             mIndex++;
-            if (mIndex > 4)
+            if (mIndex > 3)
             {
                 mDay++;
                 mIndex = 1;
+            }
+            if (mDay > 10)
+            { 
+                //进结局
             }
             m_LevelData = null;
             foreach (LevelData level in m_LevelDatas)
