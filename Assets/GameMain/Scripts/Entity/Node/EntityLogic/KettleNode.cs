@@ -55,7 +55,7 @@ namespace GameMain
             m_ProgressBar.gameObject.SetActive(false);
 
             IsMusicPlayed = false;
-            m_MusicSerialld = 0；
+            m_MusicSerialld = 0;
 
             //����
             RecipeData recipe1=new RecipeData();
