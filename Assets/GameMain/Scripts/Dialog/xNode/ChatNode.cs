@@ -43,4 +43,5 @@ public enum ChatTag
     Start,//启动状态
     Chat,//标准状态
     Option,//选择支状态
+    Trigger,//判断支状态
 }

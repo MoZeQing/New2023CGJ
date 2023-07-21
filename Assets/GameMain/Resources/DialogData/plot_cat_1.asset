@@ -81,6 +81,84 @@ MonoBehaviour:
   - charName: "\u6211"
     charSprite: {fileID: 0}
     text: "\u5BD2\u820D\u968F\u65F6\u606D\u5019\u5149\u4E34\u3002"
+--- !u!114 &-4581693962817480132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61ab94d448b57b6459c18a82dc1872f0, type: 3}
+  m_Name: Trigger
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1896, y: 488}
+  ports:
+    keys:
+    - a
+    - b
+    - eventDatas
+    - eventDatas 0
+    values:
+    - _fieldName: a
+      _node: {fileID: -4581693962817480132}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: b
+        node: {fileID: -445956062514593659}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: b
+      _node: {fileID: -4581693962817480132}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: eventDatas
+      _node: {fileID: -4581693962817480132}
+      _typeQualifiedName: System.Collections.Generic.List`1[[TriggerData, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
+        Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: eventDatas 0
+      _node: {fileID: -4581693962817480132}
+      _typeQualifiedName: TriggerData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+  a: 0
+  b: 0
+  eventDatas:
+  - trigger:
+      OR: []
+      And: []
+      key: 
+      not: 0
+      equals: 0
+      value: 
+    events:
+    - eventTag: 0
+      value: 
+    - eventTag: 1
+      value: 
+    - eventTag: 2
+      value: 
 --- !u!114 &-2714339037703481221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,7 +172,7 @@ MonoBehaviour:
   m_Name: Chat
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -520, y: -712}
+  position: {x: -520, y: 152}
   ports:
     keys:
     - a
@@ -404,7 +482,10 @@ MonoBehaviour:
       _node: {fileID: -445956062514593659}
       _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
-      connections: []
+      connections:
+      - fieldName: a
+        node: {fileID: -4581693962817480132}
+        reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
@@ -551,6 +632,7 @@ MonoBehaviour:
   - {fileID: -71410531430985224}
   - {fileID: -445956062514593659}
   - {fileID: -5843671204641323493}
+  - {fileID: -4581693962817480132}
 --- !u!114 &4408169225101140408
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12,12 +12,28 @@ namespace GameMain
         public List<Sprite> nodeSprites = new List<Sprite>();
 
         //数据管理器部分
-        private Dictionary<string,string> _values= new Dictionary<string,string>();
+        private Dictionary<TriggerTag,string> _values= new Dictionary<TriggerTag,string>();
         private List<string> _flags= new List<string>();
+
+        public void AddFlag(string flag)
+        { 
+            _flags.Add(flag);
+        }
+
+        public void Remove(string flag)
+        { 
+            _flags.Remove(flag);
+        }
+        public bool Check(TriggerData triggerData)
+        {
+            return Check(triggerData.trigger);
+        }
 
         public bool Check(Trigger trigger)
         {
-            if (trigger.key == "flag")
+            Debug.Log(int.Parse(_values[trigger.key]));
+            Debug.Log(int.Parse(trigger.value));
+            if (trigger.key == TriggerTag.Flag)
                 return _flags.Contains(trigger.value);
             if (trigger == null)
                 return true;
@@ -42,7 +58,7 @@ namespace GameMain
                 }
                 return false;
             }
-            if (trigger.key == "" && trigger.value == "")
+            if (trigger.key == TriggerTag.None)
                 return true;
             if (!_values.ContainsKey(trigger.key))
                 return false;
@@ -70,6 +86,12 @@ namespace GameMain
                         return true;
                 }
             }
+        }
+
+        private void Start()
+        {
+            _values.Add(TriggerTag.Davor, "5");
+            _values.Add(TriggerTag.Money, "300");
         }
     }
 }

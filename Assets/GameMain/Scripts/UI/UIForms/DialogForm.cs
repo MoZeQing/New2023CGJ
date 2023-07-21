@@ -61,7 +61,11 @@ namespace GameMain
                     break;
                 case ChatTag.Option:
                     OptionNode optionNode = (OptionNode)m_Node;
-                    ShowButtons(optionNode.chatDatas);
+                    ShowButtons(optionNode.optionDatas);
+                    break;
+                case ChatTag.Trigger:
+                    TriggerNode triggerNode = (TriggerNode)m_Node;
+                    Next(triggerNode);
                     break;
             }
         }
@@ -79,6 +83,10 @@ namespace GameMain
                     case "OptionNode":
                         m_Node = node;
                         chatTag = ChatTag.Option;
+                        break;
+                    case "TriggerNode":
+                        m_Node = node;
+                        chatTag = ChatTag.Trigger;
                         break;
                 }
                 Next();
@@ -112,6 +120,10 @@ namespace GameMain
                                 m_Node = node;
                                 chatTag = ChatTag.Option;
                                 break;
+                            case "TriggerNode":
+                                m_Node = node;
+                                chatTag = ChatTag.Trigger;
+                                break;
                         }
                         _index = 0;
                     }
@@ -138,9 +150,9 @@ namespace GameMain
                 return;
             ClearButtons();
             OptionNode optionNode = (OptionNode)m_Node;
-            if (optionNode.GetPort(string.Format("chatDatas {0}", _index)) != null)
+            if (optionNode.GetPort(string.Format("optionDatas {0}", optionData.index)) != null)
             {
-                NodePort nodePort = optionNode.GetPort(string.Format("chatDatas {0}", _index));
+                NodePort nodePort = optionNode.GetPort(string.Format("optionDatas {0}", optionData.index));
                 if (nodePort.Connection != null)
                 {
                     Node node = nodePort.Connection.node;
@@ -153,6 +165,69 @@ namespace GameMain
                         case "OptionNode":
                             m_Node = node;
                             chatTag = ChatTag.Option;
+                            break;
+                        case "TriggerNode":
+                            m_Node = node;
+                            chatTag = ChatTag.Trigger;
+                            break;
+                    }
+                    _index = 0;
+                    Next();
+                }
+            }
+        }
+        private void Next(TriggerNode triggerNode)
+        {
+            if (triggerNode == null)
+                return;
+            string output = "b";
+            for (int i = 0; i < triggerNode.triggerDatas.Count; i++)
+            {
+                TriggerData data = triggerNode.triggerDatas[i];
+                if (GameEntry.Utils.Check(data.trigger))
+                {
+                    foreach (EventData eventData in data.events)
+                    {
+                        switch (eventData.eventTag)
+                        {
+                            case EventTag.Play:
+                                if (eventData.value == string.Empty)
+                                    output = string.Format("triggerDatas {0}", i);
+                                else
+                                    output = eventData.value;
+                                break;
+                            case EventTag.AddMoney:
+                                break;
+                            case EventTag.AddFavor:
+                                break;
+                        }
+                    }
+                }
+            }
+            NextNode(triggerNode, output);
+        }
+        private void NextNode(TriggerNode node, string nodeName)
+        {
+            //如果没有中途跳转
+            if (node.GetPort(nodeName) != null)
+            {
+                NodePort nodePort = node.GetPort(nodeName);
+                if (nodePort.Connection != null)
+                {
+                    Node nextNode = nodePort.Connection.node;
+                    switch (nextNode.GetType().ToString())
+                    {
+                        case "ChatNode":
+                            m_Node = nextNode;
+                            chatTag = ChatTag.Chat;
+                            break;
+                        case "OptionNode":
+                            m_Node = nextNode;
+                            chatTag = ChatTag.Option;
+                            break;
+                        case "TriggerNode":
+                            m_Node = nextNode;
+                            chatTag = ChatTag.Trigger;
                             break;
                     }
                     _index = 0;

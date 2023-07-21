@@ -69,8 +69,8 @@ namespace GameMain
                 }
             }
             int index = Random.Range(1, 3);
-            levelData.Foreword = string.Format("plot_f_wm_{0}", index);
-            levelData.Text = string.Format("plot_wm_{0}", index);
+            //levelData.Foreword = /*string.Format("plot_f_wm_{0}", index)*/"plot_f_wm_1";
+            //levelData.Text = /*string.Format("plot_wm_{0}", index)*/"plot_wm_1";
             return levelData;
         }
         private void Level(object sender, GameEventArgs e)

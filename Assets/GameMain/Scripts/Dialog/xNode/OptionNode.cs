@@ -10,7 +10,7 @@ public class OptionNode : Node {
 	[Input] public float input;
 
     [SerializeField, Output(dynamicPortList = true)]
-    public List<OptionData> chatDatas = new List<OptionData>();
+    public List<OptionData> optionDatas = new List<OptionData>();
 
     // Use this for initialization
     protected override void Init() {
