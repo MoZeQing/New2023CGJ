@@ -32,6 +32,14 @@ namespace GameMain
             {
                 Position = new Vector3(6, -4.8f, 0)
             });
+            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Ice)
+            {
+                Position = new Vector3(6, -4.8f, 0)
+            });
+            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Sugar)
+            {
+                Position = new Vector3(6, -4.8f, 0)
+            });
         }
     }
 }

@@ -61,7 +61,8 @@ namespace GameMain
         Cream,//длсм
         ChocolateSyrup,//ги©ка╕╫╛
         CoffeeLiquid,//©╖╥хр╨
-        Sugar,
+        Sugar,//лг
+        Ice,//╠Ы
         //╧╓╬ъ
         Burnisher,//япд╔фВ
         Kettle,//╪схх╨Ь
@@ -75,6 +76,21 @@ namespace GameMain
         Latte,//дцлЗ
         Mocha,//д╕©╗
         ConPanna,//©╣╠╕ю╤
+        //╠Ы©╖╥х
+        IceEspresso,//╠Ые╗кУ©╖╥х
+        IceWhiteCoffee,//╠Ы╟в©╖╥х
+        IceConPanna,//╠Ы©╣╠╕ю╤
+        IceLatte,//╠ЫдцлЗ
+        IceCafeAmericano,//╠Ыцюй╫©╖╥х
+        IceMocha,//╠Ыд╕©╗
+        //╪слг
+        SweetEspresso,//╪слге╗кУ©╖╥х
+        SweetWhiteCoffee,//╪слг╟в©╖╥х
+        SweetConPanna,//╪слг©╣╠╕ю╤
+        SweetLatte,//╪слгдцлЗ
+        SweetCafeAmericano,//╪слгцюй╫©╖╥х
+        SweetMocha,//╪слгд╕©╗
+
 
     }
 }

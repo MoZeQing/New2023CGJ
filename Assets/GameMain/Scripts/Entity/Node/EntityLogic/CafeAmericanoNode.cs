@@ -51,10 +51,16 @@ namespace GameMain
             ProgressBar.gameObject.SetActive(false);
 
             RecipeData recipe1 = new RecipeData();
-            recipe1.Materials.Add(NodeTag.GroundCoffee);
-            recipe1.Product = NodeTag.Espresso;
+            recipe1.Materials.Add(NodeTag.Ice);
+            recipe1.Product = NodeTag.IceCafeAmericano;
             recipe1.ProductTime = 10f;
             M_RecipeDatas.Add(recipe1);
+
+            RecipeData recipe2 = new RecipeData();
+            recipe2.Materials.Add(NodeTag.Sugar);
+            recipe2.Product = NodeTag.SweetCafeAmericano;
+            recipe2.ProductTime = 10f;
+            M_RecipeDatas.Add(recipe2);
         }
 
         /*protected override void OnHide(bool isShutdown, object userData)

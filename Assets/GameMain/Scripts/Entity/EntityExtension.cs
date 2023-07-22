@@ -34,6 +34,14 @@ namespace GameMain
         {
             entityComponent.ShowEntity(typeof(WaterNode), "Coffee", 90, compenentData);
         }
+        public static void ShowSugarNode(this EntityComponent entityComponent, CompenentData compenentData)
+        {
+            entityComponent.ShowEntity(typeof(SugarNode), "Coffee", 90, compenentData);
+        }
+        public static void ShowIceNode(this EntityComponent entityComponent, CompenentData compenentData)
+        {
+            entityComponent.ShowEntity(typeof(IceNode), "Coffee", 90, compenentData);
+        }
         public static void ShowGroundCoffeeNode(this EntityComponent entityComponent, CompenentData compenentData)
         {
             entityComponent.ShowEntity(typeof(GroundCoffeeNode), "Coffee", 90, compenentData);
@@ -103,6 +111,14 @@ namespace GameMain
             entityComponent.ShowEntity(typeof(MochaNode), "Coffee", 90, compenentData);
         }
         public static void ShowConPannaNode(this EntityComponent entityComponent, CompenentData compenentData)
+        {
+            entityComponent.ShowEntity(typeof(ConPannaNode), "Coffee", 90, compenentData);
+        }
+        public static void ShowIceCafeAmericanoNode(this EntityComponent entityComponent, CompenentData compenentData)
+        {
+            entityComponent.ShowEntity(typeof(ConPannaNode), "Coffee", 90, compenentData);
+        }
+        public static void ShowSweetCafeAmericanoNode(this EntityComponent entityComponent, CompenentData compenentData)
         {
             entityComponent.ShowEntity(typeof(ConPannaNode), "Coffee", 90, compenentData);
         }
