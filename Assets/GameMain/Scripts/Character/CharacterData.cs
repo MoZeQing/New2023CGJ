@@ -9,10 +9,15 @@ namespace GameMain
     public class CharacterData : EntityData
     {
 
-        public CharacterData(int entityId, int typeId)
+        public ActionGraph ActionGraph
+        {
+            get;
+            set;
+        }
+        public CharacterData(int entityId, int typeId,ActionGraph actionGraph)
             : base(entityId, typeId)
         {
-            
+            this.ActionGraph= actionGraph;
         }
     }
 }

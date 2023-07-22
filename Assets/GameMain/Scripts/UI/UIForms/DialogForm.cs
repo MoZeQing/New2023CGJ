@@ -20,7 +20,6 @@ namespace GameMain
 
         private int _index;
         private DialogueGraph m_Dialogue = null;
-        private StartNode m_StartNode = null;
         private ChatTag chatTag;
         private Node m_Node = null;
         private List<GameObject> m_Btns = new List<GameObject>();
@@ -138,7 +137,6 @@ namespace GameMain
                 spriteRenderer.color = Color.clear;
                 _index= 0;
                 m_Dialogue = null;
-                m_StartNode= null;
                 m_Node = null;
                 GameEntry.Event.FireNow(this, DialogEventArgs.Create(""));
                 //这不是一个好的通信方式，因为事件最好是自己做了什么被监听
@@ -235,6 +233,13 @@ namespace GameMain
                 }
             }
         }
+        public void SetDialog(ChatNode chatNode)
+        {
+            _index = 0;
+            m_Node=chatNode;
+            chatTag = ChatTag.Chat;
+            Next();
+        }
         public void SetDialog(DialogueGraph graph)
         {
             m_Dialogue = graph;
@@ -243,7 +248,6 @@ namespace GameMain
             {
                 if (node.GetType().ToString() == "StartNode")
                 {
-                    m_StartNode = (StartNode)node;
                     m_Node = node;
                     chatTag = ChatTag.Start;
                 }
@@ -258,7 +262,6 @@ namespace GameMain
             {
                 if (node.GetType().ToString() == "StartNode")
                 {
-                    m_StartNode = (StartNode)node;
                     m_Node = node;
                     chatTag = ChatTag.Start;
                 }
