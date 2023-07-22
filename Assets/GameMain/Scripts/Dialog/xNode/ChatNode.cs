@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using XNode;
+using GameMain;
 
 [NodeWidth(400)]
 public class ChatNode : Node
@@ -33,7 +34,9 @@ public class ChatData
     [SerializeField]
     public string charName;
     [SerializeField]
-    public Sprite charSprite;
+    public CharSO charSO;//角色
+    [SerializeField]
+    public ActionData actionData;//动作数据
     [TextArea,SerializeField]
     public string text;
 }

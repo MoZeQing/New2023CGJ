@@ -66,10 +66,10 @@ namespace GameMain
                 }
             }
         }
-        public void SetChar(CharData charData)
+        public void SetChar(ActionData actionData)
         {
-            mSpriteRenderer.sprite = mDiffs[(int)charData.DiffTag];
-            Action(charData.ActionTag);
+            mSpriteRenderer.sprite = mDiffs[(int)actionData.diffTag];
+            Action(actionData.actionTag);
         }
 
         private void Action(ActionTag action)
@@ -83,19 +83,12 @@ namespace GameMain
             }
         }
     }
-    public class CharData
+    [System.Serializable]
+    public class ActionData
     {
-        public DiffTag DiffTag
-        {
-            get;
-            set;
-        }
-
-        public ActionTag ActionTag
-        {
-            get;
-            set;
-        }
+        [SerializeField]
+        public DiffTag diffTag;
+        public ActionTag actionTag;
     }
     //差分Tag
     public enum DiffTag
@@ -111,6 +104,7 @@ namespace GameMain
     //动作Tag
     public enum ActionTag
     {
+        None,//无
         Jump,//上下跳动
         Shake//左右抖动
     }

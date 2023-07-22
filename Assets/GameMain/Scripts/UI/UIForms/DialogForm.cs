@@ -14,10 +14,11 @@ namespace GameMain
         [SerializeField] private Text nameText;
         [SerializeField] private Text dialogText;
         [SerializeField] private Button dialogBtn;
-        [SerializeField] private Image spriteRenderer;
+        [SerializeField] private Image character;
         [SerializeField] private Transform mCanvas;
         [SerializeField] private GameObject mBtnPrefab;
 
+        private ActionGraph actionGraph;
         private int _index;
         private DialogueGraph m_Dialogue = null;
         private ChatTag chatTag;
@@ -98,10 +99,22 @@ namespace GameMain
                 ChatData chatData = chatNode.chatDatas[_index];
                 nameText.text = chatData.charName;
                 dialogText.text = chatData.text;
-                if (chatData.charSprite != null)
+                if (chatData.charSO != null)
                 {
-                    spriteRenderer.sprite = chatData.charSprite;
-                    spriteRenderer.color = Color.white;
+                    character.sprite = chatData.charSO.charData.Diffs[(int)chatData.actionData.diffTag];
+                    character.color = Color.white;
+                }
+                if (chatData.actionData.actionTag!=ActionTag.None)
+                {
+                    switch (chatData.actionData.actionTag)
+                    {
+                        case ActionTag.Jump:
+                            //跳动效果
+                            break;
+                        case ActionTag.Shake:
+                            //抖动效果
+                            break;
+                    }
                 }
                 if (chatNode.GetPort(string.Format("chatDatas {0}", _index))!=null)
                 {
@@ -134,7 +147,7 @@ namespace GameMain
                 //播放完毕
                 nameText.text = string.Empty;
                 dialogText.text = string.Empty;
-                spriteRenderer.color = Color.clear;
+                character.color = Color.clear;
                 _index= 0;
                 m_Dialogue = null;
                 m_Node = null;

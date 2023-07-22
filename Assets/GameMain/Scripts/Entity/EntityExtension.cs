@@ -16,6 +16,10 @@ namespace GameMain
         // 负值用于本地生成的临时实体（如特效、FakeObject等）
         private static int s_SerialId = 0;
 
+        public static void ShowCharacter(this EntityComponent entityComponent, CharacterData data)
+        {
+            entityComponent.ShowEntity(typeof(BaseCharacter), "Coffee", 90, data);
+        }
         public static void ShowNode(this EntityComponent entityComponent, NodeData data)
         {
             entityComponent.ShowEntity(typeof(BaseNode), "Coffee", 90, data);
