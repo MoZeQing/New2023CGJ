@@ -11,6 +11,7 @@ public class SettingForm : MonoBehaviour
     [SerializeField] private Button m_StaffButton;
     [SerializeField] private Button m_StaffBackButton;
     [SerializeField] private Slider m_BGMVolumeSlider;
+    [SerializeField] private Slider m_AudioVolumeSlider;
     [SerializeField] private GameObject m_StaffForm;
     // Start is called before the first frame update
     void Start()
@@ -20,6 +21,7 @@ public class SettingForm : MonoBehaviour
         m_BackButton.onClick.AddListener(() => this.gameObject.SetActive(false));
         m_TitleButton.onClick.AddListener(Back);
         m_BGMVolumeSlider.onValueChanged.AddListener(OnBGMVolumeChanged);
+        m_AudioVolumeSlider.onValueChanged.AddListener(OnAudioVolumeChanged);
     }
 
     // Update is called once per frame
@@ -38,5 +40,9 @@ public class SettingForm : MonoBehaviour
     private void OnBGMVolumeChanged(float volume)
     {
         GameEntry.Sound.SetVolume("BGM", volume);
+    }
+    private void OnAudioVolumeChanged(float volume)
+    {
+        GameEntry.Sound.SetVolume("Sound", volume);
     }
 }
