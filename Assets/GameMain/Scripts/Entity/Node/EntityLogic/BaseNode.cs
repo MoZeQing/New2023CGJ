@@ -56,7 +56,8 @@ namespace GameMain
                     GameEntry.Entity.ShowCoffeeLiquidNode(data);
                     break;
                 case NodeTag.Espresso:
-                    GameEntry.Entity.ShowEspressoNode(data);
+                    CompenentData espresso = new CompenentData(GameEntry.Entity.GenerateSerialId(), 10006, this.Id, NodeData);
+                    GameEntry.Entity.ShowEspressoNode(espresso);
                     break;
                 case NodeTag.CafeAmericano:
                     GameEntry.Entity.ShowCafeAmericanoNode(data);

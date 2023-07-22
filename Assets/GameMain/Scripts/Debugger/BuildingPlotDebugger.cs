@@ -24,6 +24,10 @@ namespace GameMain
             {
                 Position = new Vector3(6, -4.8f, 0)
             });
+            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Espresso)
+            {
+                Position = new Vector3(6, -4.8f, 0)
+            });
         }
     }
 }
