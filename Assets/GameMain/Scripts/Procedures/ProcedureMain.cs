@@ -66,6 +66,19 @@ namespace GameMain
             GameEntry.Event.Subscribe(DialogEventArgs.EventId, DialogEvent);
             GameEntry.Event.Subscribe(ChangeEventArgs.EventId, ChangeEvent);
             CheckMaterials();
+            
+            if(m_LevelData != null)
+            {
+                m_LevelData = null;
+            }
+            if(mDay != 1)
+            {
+                mDay = 1;
+            }
+            if (mIndex != 0)
+            {
+                mIndex = 0;
+            }
         }
 
         protected override void OnLeave(IFsm<IProcedureManager> procedureOwner, bool isShutdown)
@@ -84,6 +97,7 @@ namespace GameMain
 
             GameEntry.UI.CloseAllLoadedUIForms();
             GameEntry.Entity.HideAllLoadedEntities();
+
 
             GameEntry.Event.Unsubscribe(MaterialEventArgs.EventId, UpdateMaterial);//这里改成监听所有的实体生产的事件
             GameEntry.Event.Unsubscribe(OrderEventArgs.EventId, OrderEvent);

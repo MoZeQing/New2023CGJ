@@ -23,7 +23,8 @@ namespace GameMain
             "Node",
             "Order",
             "Level",
-            "Sound"
+            "Sound",
+            "Recipe"
         };
 
         private Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>();
