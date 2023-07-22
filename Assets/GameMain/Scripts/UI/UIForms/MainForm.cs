@@ -33,7 +33,7 @@ namespace GameMain
         [SerializeField] private Text LatteText;
 
         private PlaySoundParams playSoundParams = PlaySoundParams.Create();
-        private int r;
+        private int m_RandomValue;
 
         public DialogForm DialogForm
         {
@@ -65,7 +65,7 @@ namespace GameMain
             playSoundParams.VolumeInSoundGroup = 0.3f;
             playSoundParams.Priority = 64;
             playSoundParams.SpatialBlend = 0f;
-            GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/BGM/maou_bgm_acoustic52.mp3", "BGM", playSoundParams);
+            GameEntry.Sound.PlaySound("Assets/GameMain/Audio/BGM/maou_bgm_acoustic52.mp3", "BGM", playSoundParams);
 
             GameEntry.Event.Subscribe(LevelEventArgs.EventId, LevelEvent);
             GameEntry.Event.Subscribe(OrderEventArgs.EventId, UpdateOrder);
@@ -94,9 +94,9 @@ namespace GameMain
 
         private void Cat()
         {
-            r = Random.Range(0, 30);
+            m_RandomValue = Random.Range(0, 30);
 
-            if(r == 0)
+            if(m_RandomValue <= 10)
             {
                 GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/Yudachi.mp3", "Sound");
             }

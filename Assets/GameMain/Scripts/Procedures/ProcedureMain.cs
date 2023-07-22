@@ -97,6 +97,8 @@ namespace GameMain
 
             GameEntry.UI.CloseAllLoadedUIForms();
             GameEntry.Entity.HideAllLoadedEntities();
+            GameEntry.Sound.StopAllLoadingSounds();
+            GameEntry.Sound.StopAllLoadedSounds();
 
 
             GameEntry.Event.Unsubscribe(MaterialEventArgs.EventId, UpdateMaterial);//这里改成监听所有的实体生产的事件
