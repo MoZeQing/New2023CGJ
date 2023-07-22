@@ -688,5 +688,6 @@ namespace UnityGameFramework.Runtime
         {
             m_AudioListener.enabled = FindObjectsOfType<AudioListener>().Length <= 1;
         }
+
     }
 }
