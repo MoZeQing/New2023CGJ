@@ -1,4 +1,4 @@
-using GameFramework.DataTable;
+ï»¿using GameFramework.DataTable;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,72 +7,59 @@ using UnityEngine.EventSystems;
 
 namespace GameMain
 {
-    public class LatteNode : BaseCompenent, IPointerDownHandler
+    public class LatteNode : CoffeeBaseCompenent, IPointerDownHandler
     {
         private CompenentData m_CompenentData;
         private NodeData m_NodeData;
         private SpriteRenderer m_SpriteRenderer;
         private BoxCollider2D m_BoxCollider2D;
+
+        private AdsorbSlot m_AdsorbSlot;//ï¿½ï¿½Î»1
+
+        private Transform m_ProgressBar = null;
+        private float m_ProducingTime = 0f;
+
+        private List<RecipeData> m_RecipeDatas = new List<RecipeData>();
+
+        private List<BaseCompenent> m_ChildDatas = new List<BaseCompenent>();
+        private List<NodeTag> m_ChildNodes = new List<NodeTag>();
+
+        private bool m_Follow = false;
+
+
+
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
             m_CompenentData = (CompenentData)userData;
-            m_NodeData = m_CompenentData.NodeData;
+            M_NodeData = m_CompenentData.NodeData;
             GameEntry.Entity.AttachEntity(this.Id, m_CompenentData.OwnerId);
 
-            //»ñÈ¡µ½±í
-            IDataTable<DRNode> dtNode = GameEntry.DataTable.GetDataTable<DRNode>();
-            DRNode drNode = dtNode.GetDataRow(17);
+            M_NodeData.ProducingTime = 5f;
+            ProducingTime = M_NodeData.ProducingTime;
 
-            m_SpriteRenderer = this.GetComponent<SpriteRenderer>();
-            m_SpriteRenderer.sprite = GameEntry.Utils.nodeSprites[(int)m_NodeData.NodeTag];
-            m_SpriteRenderer.sortingLayerName = drNode.Layer;
-            m_SpriteRenderer.sortingOrder = drNode.Layerint;
+            SpriteRenderer = this.GetComponent<SpriteRenderer>();
+            SpriteRenderer.sprite = GameEntry.Utils.nodeSprites[(int)M_NodeData.NodeTag];
 
             m_BoxCollider2D = this.GetComponent<BoxCollider2D>();
-            m_BoxCollider2D.size = m_SpriteRenderer.size;
+            m_BoxCollider2D.size = SpriteRenderer.size;
 
+            M_AdsorbSlot = this.transform.Find("Coffee").GetComponent<AdsorbSlot>();
+
+            ProgressBar = this.transform.Find("ProgressBar").transform;//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            ProgressBar.gameObject.SetActive(false);
+
+            RecipeData recipe1 = new RecipeData();
+            recipe1.Materials.Add(NodeTag.Ice);
+            recipe1.Product = NodeTag.IceLatte;
+            recipe1.ProductTime = 10f;
+            M_RecipeDatas.Add(recipe1);
+
+            RecipeData recipe2 = new RecipeData();
+            recipe2.Materials.Add(NodeTag.Sugar);
+            recipe2.Product = NodeTag.SweetLatte;
+            recipe2.ProductTime = 10f;
+            M_RecipeDatas.Add(recipe2);
         }
-
-       /* protected override void OnHide(bool isShutdown, object userData)
-        {
-            base.OnHide(isShutdown, userData);
-        }
-
-        protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
-        {
-            base.OnUpdate(elapseSeconds, realElapseSeconds);
-            if (!Input.GetMouseButton(0))
-            {
-                Follow = false;
-            }
-            if (Follow)
-            {
-                this.transform.position = MouseToWorld(Input.mousePosition);
-                Producing = false;
-
-            }
-            if (Completed)
-            {
-                Completed = false;
-                GameEntry.Entity.HideEntity(m_NodeData.Id);
-
-            }
-        }
-
-        public void OnPointerDown(PointerEventData pointerEventData)
-        {
-            GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/Pick_up.mp3", "Sound");
-
-            Follow = true;
-        }
-
-        private Vector3 MouseToWorld(Vector3 mousePos)
-        {
-            Vector3 screenPosition = Camera.main.WorldToScreenPoint(transform.position);
-            mousePos.z = screenPosition.z;
-            return Camera.main.ScreenToWorldPoint(mousePos);
-        }
-        */
     }
 }

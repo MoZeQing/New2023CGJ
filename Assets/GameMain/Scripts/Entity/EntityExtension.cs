@@ -138,6 +138,30 @@ namespace GameMain
         {
             entityComponent.ShowEntity(typeof(SweetWhiteCoffeeNode), "Coffee", 90, compenentData);
         }
+        public static void ShowIceConPannaNode(this EntityComponent entityComponent, CompenentData compenentData)
+        {
+            entityComponent.ShowEntity(typeof(IceConPannaNode), "Coffee", 90, compenentData);
+        }
+        public static void ShowSweetConPannaNode(this EntityComponent entityComponent, CompenentData compenentData)
+        {
+            entityComponent.ShowEntity(typeof(SweetConPannaNode), "Coffee", 90, compenentData);
+        }
+        public static void ShowIceLatteNode(this EntityComponent entityComponent, CompenentData compenentData)
+        {
+            entityComponent.ShowEntity(typeof(IceLatteNode), "Coffee", 90, compenentData);
+        }
+        public static void ShowSweetLatteNode(this EntityComponent entityComponent, CompenentData compenentData)
+        {
+            entityComponent.ShowEntity(typeof(SweetLatteNode), "Coffee", 90, compenentData);
+        }
+        public static void ShowIceMochaNode(this EntityComponent entityComponent, CompenentData compenentData)
+        {
+            entityComponent.ShowEntity(typeof(IceMochaNode), "Coffee", 90, compenentData);
+        }
+        public static void ShowSweetMochaNode(this EntityComponent entityComponent, CompenentData compenentData)
+        {
+            entityComponent.ShowEntity(typeof(SweetMochaNode), "Coffee", 90, compenentData);
+        }
         private static void ShowEntity(this EntityComponent entityComponent, Type logicType, string entityGroup, int priority, EntityData data)
         {
             if (data == null)
