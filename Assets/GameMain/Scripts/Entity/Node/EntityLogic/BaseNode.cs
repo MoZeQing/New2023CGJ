@@ -105,13 +105,13 @@ namespace GameMain
                     GameEntry.Entity.ShowCupNode(cup);
                     break;
                 //±ù¿§·È
-                /*case NodeTag.IceEspresso:
+                case NodeTag.IceEspresso:
                     GameEntry.Entity.ShowIceEspressoNode(data);
                     break;
                 case NodeTag.IceWhiteCoffee:
                     GameEntry.Entity.ShowIceWhiteCoffeeNode(data);
                     break;
-                case NodeTag.IceConPanna:
+                /*case NodeTag.IceConPanna:
                     GameEntry.Entity.ShowIceConPannaNode(data);
                     break;
                 case NodeTag.IceLatte:
@@ -122,15 +122,15 @@ namespace GameMain
                     break;
                 /*case NodeTag.IceMocha:
                     GameEntry.Entity.ShowIceMochaNode(data);
-                    break;
+                    break;*/
                 //¼ÓÌÇ¿§·È
                 case NodeTag.SweetEspresso:
                     GameEntry.Entity.ShowSweetEspressoNode(data);
                     break;
                 case NodeTag.SweetWhiteCoffee:
-                    GameEntry.Entity.ShowSweetWhiteCoffeeNode(data);
+                    GameEntry.Entity.ShowSweetWhiteCofffeeNode(data);
                     break;
-                case NodeTag.SweetConPanna:
+                /*case NodeTag.SweetConPanna:
                     GameEntry.Entity.ShowSweetConPannaNode(data);
                     break;
                 case NodeTag.SweetLatte:

@@ -122,6 +122,22 @@ namespace GameMain
         {
             entityComponent.ShowEntity(typeof(ConPannaNode), "Coffee", 90, compenentData);
         }
+        public static void ShowIceEspressoNode(this EntityComponent entityComponent, CompenentData compenentData)
+        {
+            entityComponent.ShowEntity(typeof(IceEspressoNode), "Coffee", 90, compenentData);
+        }
+        public static void ShowSweetEspressoNode(this EntityComponent entityComponent, CompenentData compenentData)
+        {
+            entityComponent.ShowEntity(typeof(SweetEspressoNode), "Coffee", 90, compenentData);
+        }
+        public static void ShowIceWhiteCoffeeNode(this EntityComponent entityComponent, CompenentData compenentData)
+        {
+            entityComponent.ShowEntity(typeof(IceWhiteCoffeeNode), "Coffee", 90, compenentData);
+        }
+        public static void ShowSweetWhiteCofffeeNode(this EntityComponent entityComponent, CompenentData compenentData)
+        {
+            entityComponent.ShowEntity(typeof(SweetWhiteCoffeeNode), "Coffee", 90, compenentData);
+        }
         private static void ShowEntity(this EntityComponent entityComponent, Type logicType, string entityGroup, int priority, EntityData data)
         {
             if (data == null)

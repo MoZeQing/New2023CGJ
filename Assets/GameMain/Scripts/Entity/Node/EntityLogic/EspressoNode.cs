@@ -81,6 +81,18 @@ namespace GameMain
             recipe5.Product = NodeTag.ConPanna;
             recipe5.ProductTime = 10f;
             m_RecipeDatas.Add(recipe5);
+
+            RecipeData recipe6 = new RecipeData();
+            recipe6.Materials.Add(NodeTag.Ice);
+            recipe6.Product = NodeTag.IceEspresso;
+            recipe6.ProductTime = 10f;
+            m_RecipeDatas.Add(recipe6);
+
+            RecipeData recipe7 = new RecipeData();
+            recipe7.Materials.Add(NodeTag.Sugar);
+            recipe7.Product = NodeTag.SweetEspresso;
+            recipe7.ProductTime = 10f;
+            m_RecipeDatas.Add(recipe7);
         }
 
         protected override void OnHide(bool isShutdown, object userData)
