@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 namespace GameMain
 {
-    public class IceLatteNode : BaseCompenent, IPointerDownHandler
+    public class IceLatteNode : CoffeeBaseCompenent, IPointerDownHandler
     {
         private CompenentData m_CompenentData;
         private NodeData m_NodeData;

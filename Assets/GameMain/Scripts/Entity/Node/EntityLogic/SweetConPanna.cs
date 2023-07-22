@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 namespace GameMain
 {
-    public class SweetConPannaNode : BaseCompenent, IPointerDownHandler
+    public class SweetConPannaNode : CoffeeBaseCompenent, IPointerDownHandler
     {
         private CompenentData m_CompenentData;
         private NodeData m_NodeData;

@@ -50,8 +50,8 @@ namespace GameMain
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            BaseCompenent baseCompenent = null;
-            if (collision.TryGetComponent<BaseCompenent>(out baseCompenent))
+            CoffeeBaseCompenent baseCompenent = null;
+            if (collision.TryGetComponent<CoffeeBaseCompenent>(out baseCompenent))
             {
                 if (baseCompenent.transform.parent.GetComponent<BaseNode>().NodeData == null)
                     return;

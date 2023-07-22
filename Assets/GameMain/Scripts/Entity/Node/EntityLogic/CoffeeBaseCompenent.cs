@@ -65,6 +65,7 @@ namespace GameMain
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
+            
             if (!Input.GetMouseButton(0))
             {
                 Follow = false;
@@ -73,6 +74,7 @@ namespace GameMain
             {
                 this.transform.position = MouseToWorld(Input.mousePosition);
             }
+            this.transform.position = new Vector3(Mathf.Clamp(this.transform.position.x, -8.8f, 8.8f), Mathf.Clamp(this.transform.position.y, -8f, -1.6f), 0);//限制范围
             if (M_AdsorbSlot != null)
             {
                 //检测空卡片上的物体是否为空，制作途中拉开卡片可以重置时间和Bar
