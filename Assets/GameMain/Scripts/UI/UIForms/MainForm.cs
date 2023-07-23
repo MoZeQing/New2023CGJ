@@ -32,6 +32,8 @@ namespace GameMain
         [SerializeField] private Text CafeAmericanoText;
         [SerializeField] private Text LatteText;
 
+        [SerializeField] private Button mDebugButton;
+
         //[SerializeField] private Text Timer;//计时器
 
         //private float mOrderTime;//倒计时
@@ -50,6 +52,33 @@ namespace GameMain
             get;
             private set;
         }
+        private void Debug()
+        {
+            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.CafeAmericano)
+            {
+                Position = new Vector3(0, -4.8f, 0)
+            });
+            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Latte)
+            {
+                Position = new Vector3(0, -4.8f, 0)
+            });
+            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.ConPanna)
+            {
+                Position = new Vector3(0, -4.8f, 0)
+            });
+            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Espresso)
+            {
+                Position = new Vector3(0, -4.8f, 0)
+            });
+            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Mocha)
+            {
+                Position = new Vector3(0, -4.8f, 0)
+            });
+            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.WhiteCoffee)
+            {
+                Position = new Vector3(0, -4.8f, 0)
+            });
+        }
 
         protected override void OnOpen(object userData)
         {
@@ -62,6 +91,8 @@ namespace GameMain
             catButton.onClick.AddListener(Cat);
             recipeButton.onClick.AddListener(Recipe);
             settingButton.onClick.AddListener(() => mSettingForm.SetActive(true));
+
+            mDebugButton.onClick.AddListener(Debug);
 
             this.DialogForm = GetComponentInChildren<DialogForm>(true);
             this.WorkForm = GetComponentInChildren<WorkForm>(true);
