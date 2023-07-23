@@ -48,3 +48,16 @@ public enum ChatTag
     Option,//ѡ��֧״̬
     Trigger,//�ж�֧״̬
 }
+
+public enum SoundTag
+{
+    None,
+    Doubt_S,
+    Doubt_M,
+    Doubt_L,
+    Reluctantly,
+    Hesitate,
+    Speechless,
+    Happy,
+    Approve
+}

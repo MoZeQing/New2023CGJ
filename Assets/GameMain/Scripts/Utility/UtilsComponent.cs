@@ -31,8 +31,6 @@ namespace GameMain
 
         public bool Check(Trigger trigger)
         {
-            Debug.Log(int.Parse(_values[trigger.key]));
-            Debug.Log(int.Parse(trigger.value));
             if (trigger.key == TriggerTag.Flag)
                 return _flags.Contains(trigger.value);
             if (trigger == null)

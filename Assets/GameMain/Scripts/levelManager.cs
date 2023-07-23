@@ -130,6 +130,12 @@ namespace GameMain
             get;
             set;
         }
+
+        public string ActionGraph
+        { 
+            get;
+            set;
+        }
         public LevelData() { }
         public LevelData(DRLevel dRLevel)
         {

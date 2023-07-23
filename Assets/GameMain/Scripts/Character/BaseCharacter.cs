@@ -86,9 +86,9 @@ namespace GameMain
     [System.Serializable]
     public class ActionData
     {
-        [SerializeField]
         public DiffTag diffTag;
         public ActionTag actionTag;
+        public SoundTag soundTag;
     }
     //差分Tag
     public enum DiffTag
@@ -106,7 +106,8 @@ namespace GameMain
     {
         None,//无
         Jump,//上下跳动
-        Shake//左右抖动
+        Shake,//左右抖动
+        Squat
     }
     public enum ActionState
     {
