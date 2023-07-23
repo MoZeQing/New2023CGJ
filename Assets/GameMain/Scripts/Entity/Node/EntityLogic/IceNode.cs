@@ -1,3 +1,4 @@
+using GameFramework.DataTable;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine.EventSystems;
 
 namespace GameMain
 {
-    public class IceNode : CoffeeBaseCompenent, IPointerDownHandler
+    public class IceNode : BaseCompenent, IPointerDownHandler
     {
         private CompenentData m_CompenentData;
         private NodeData m_NodeData;
@@ -19,8 +20,14 @@ namespace GameMain
             m_NodeData = m_CompenentData.NodeData;
             GameEntry.Entity.AttachEntity(this.Id, m_CompenentData.OwnerId);
 
+            //获取到表
+            IDataTable<DRNode> dtNode = GameEntry.DataTable.GetDataTable<DRNode>();
+            DRNode drNode = dtNode.GetDataRow(0);
+
             m_SpriteRenderer = this.GetComponent<SpriteRenderer>();
             m_SpriteRenderer.sprite = GameEntry.Utils.nodeSprites[(int)m_NodeData.NodeTag];
+            m_SpriteRenderer.sortingLayerName = drNode.Layer;
+            m_SpriteRenderer.sortingOrder = drNode.Layerint;
 
             m_BoxCollider2D = this.GetComponent<BoxCollider2D>();
             m_BoxCollider2D.size = m_SpriteRenderer.size;
