@@ -44,14 +44,12 @@ namespace GameMain
             IDataTable<DRScene> dtScene = GameEntry.DataTable.GetDataTable<DRScene>();
             DRScene drScene = dtScene.GetDataRow(2);
             //加载主界面
-            Debug.Log(drScene != null);
             if (drScene == null)
             {
                 Log.Warning("Can not load scene '{0}' from data table.", 2.ToString());
                 return;
             }
             m_BackGame = false;
-            Debug.Log("Start Load Scene");
             GameEntry.Scene.LoadScene(AssetUtility.GetSceneAsset(drScene.AssetName), /*Constant.AssetPriority.SceneAsset*/0, this);
             GameEntry.UI.OpenUIForm(UIFormId.MainForm, this);
             //初始化信息
