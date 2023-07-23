@@ -35,7 +35,7 @@ namespace GameMain
             m_NodeData = m_CompenentData.NodeData;
             GameEntry.Entity.AttachEntity(this.Id, m_CompenentData.OwnerId);
 
-            m_NodeData.ProducingTime = 11f;
+            m_NodeData.ProducingTime = 5f;
             m_ProducingTime = m_NodeData.ProducingTime;
 
             m_SpriteRenderer = this.GetComponent<SpriteRenderer>();

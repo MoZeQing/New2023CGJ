@@ -39,7 +39,7 @@ namespace GameMain
 
             //��ȡ����
 
-            m_NodeData.ProducingTime = 10f;
+            m_NodeData.ProducingTime = 5f;
             m_ProducingTime = m_NodeData.ProducingTime;
 
             m_SpriteRenderer = this.GetComponent<SpriteRenderer>();
