@@ -268,6 +268,12 @@ namespace GameMain
                 case NodeTag.ChocolateSyrup:
                     mMaterialData.ChocolateSyrup += args.Value;
                     break;
+                case NodeTag.Ice:
+                    mMaterialData.Ice += args.Value;
+                    break;
+                case NodeTag.Sugar:
+                    mMaterialData.ChocolateSyrup += args.Value;
+                    break;
             }
             CheckMaterials();
         }
@@ -313,6 +319,22 @@ namespace GameMain
                     Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
                 });
                 mMaterialData.ChocolateSyrup++;
+            }
+            if (mMaterialData.Ice < 1)
+            {
+                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Ice)
+                {
+                    Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
+                });
+                mMaterialData.Ice++;
+            }
+            if (mMaterialData.Sugar < 1)
+            {
+                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Sugar)
+                {
+                    Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
+                });
+                mMaterialData.Sugar++;
             }
         }
     }
