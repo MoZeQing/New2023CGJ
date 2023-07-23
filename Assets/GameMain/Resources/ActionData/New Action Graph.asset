@@ -95,10 +95,7 @@ MonoBehaviour:
       _node: {fileID: -9094229987709919420}
       _typeQualifiedName: Trigger, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      connections:
-      - fieldName: a
-        node: {fileID: 6417169625833396454}
-        reroutePoints: []
+      connections: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
@@ -214,7 +211,10 @@ MonoBehaviour:
   - {fileID: 6393334831960722816}
   - {fileID: 4673865615169990418}
   - {fileID: -8707314803740676984}
-  - {fileID: 6417169625833396454}
+  charData:
+    charName: 
+    favour: 0
+    Diffs: []
   trigger:
     OR: []
     And: []
@@ -323,61 +323,6 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: chatDatas
       _node: {fileID: 6393334831960722816}
-      _typeQualifiedName: System.Collections.Generic.List`1[[ChatData, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
-        Culture=neutral, PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-  a: 0
-  b: 0
-  dialogId: 
-  chatDatas: []
---- !u!114 &6417169625833396454
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d2f46806851fa94f83f2f914748a21c, type: 3}
-  m_Name: Chat
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: -408, y: 312}
-  ports:
-    keys:
-    - a
-    - b
-    - chatDatas
-    values:
-    - _fieldName: a
-      _node: {fileID: 6417169625833396454}
-      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: coffee 0
-        node: {fileID: -9094229987709919420}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: b
-      _node: {fileID: 6417169625833396454}
-      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: chatDatas
-      _node: {fileID: 6417169625833396454}
       _typeQualifiedName: System.Collections.Generic.List`1[[ChatData, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
         Culture=neutral, PublicKeyToken=b77a5c561934e089

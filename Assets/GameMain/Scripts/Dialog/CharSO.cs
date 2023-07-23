@@ -16,7 +16,8 @@ namespace GameMain
     {
         public string charName;//角色名称
         public int favour;//好感度
-        public List<Sprite> Diffs = new List<Sprite>();//差分 
+        public List<Sprite> diffs = new List<Sprite>();//差分 
+        public List<int> audios = new List<int>();
     }
 }
 

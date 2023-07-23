@@ -67,11 +67,12 @@ namespace GameMain
             this.DialogForm = GetComponentInChildren<DialogForm>(true);
             this.WorkForm = GetComponentInChildren<WorkForm>(true);
 
-            playSoundParams.Loop = true;
-            playSoundParams.VolumeInSoundGroup = 0.3f;
-            playSoundParams.Priority = 64;
-            playSoundParams.SpatialBlend = 0f;
-            GameEntry.Sound.PlaySound("Assets/GameMain/Audio/BGM/maou_bgm_acoustic52.mp3", "BGM", playSoundParams);
+            //playSoundParams.Loop = true;
+            //playSoundParams.VolumeInSoundGroup = 0.3f;
+            //playSoundParams.Priority = 64;
+            //playSoundParams.SpatialBlend = 0f;
+            //GameEntry.Sound.PlaySound("Assets/GameMain/Audio/BGM/maou_bgm_acoustic52.mp3", "BGM", playSoundParams);
+            GameEntry.Sound.PlaySound(19);
 
             GameEntry.Event.Subscribe(LevelEventArgs.EventId, LevelEvent);
             GameEntry.Event.Subscribe(OrderEventArgs.EventId, UpdateOrder);
