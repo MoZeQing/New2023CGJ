@@ -22,6 +22,7 @@ namespace GameMain
 
         private MainState mMainState;
         private OrderManager mOrderManager;
+        private OrderData mOrderData = null;
 
         public MainForm MainForm
         {
@@ -66,6 +67,7 @@ namespace GameMain
             GameEntry.Event.Subscribe(OrderEventArgs.EventId, OrderEvent);
             GameEntry.Event.Subscribe(DialogEventArgs.EventId, DialogEvent);
             GameEntry.Event.Subscribe(ChangeEventArgs.EventId, ChangeEvent);
+            //GameEntry.Event.Subscribe(ClockEventArgs.EventId, ClockEvent);
             CheckMaterials();
             
             if(m_LevelData != null)
@@ -106,6 +108,7 @@ namespace GameMain
             GameEntry.Event.Unsubscribe(OrderEventArgs.EventId, OrderEvent);
             GameEntry.Event.Unsubscribe(DialogEventArgs.EventId, DialogEvent);
             GameEntry.Event.Unsubscribe(ChangeEventArgs.EventId, ChangeEvent);
+            //GameEntry.Event.Unsubscribe(ClockEventArgs.EventId, ClockEvent);
         }
 
         protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
@@ -147,18 +150,30 @@ namespace GameMain
                 }
             }
             int index = Random.Range(1, 3);
-            levelData.Foreword = /*string.Format("plot_f_wm_{0}", index)*/"plot_f_wm_1";
-            levelData.Text = /*string.Format("plot_wm_{0}", index)*/"plot_wm_1";
-            levelData.ActionGraph = "cat";
+            levelData.Foreword = string.Format("plot_f_wm_{0}", index);
+            levelData.Text = string.Format("plot_wm_{0}", index);
+            levelData.ActionGraph = string.Format("wm_{0}", index);
             levelData.Day= mDay;
             levelData.Index= mIndex;
             return levelData;
         }
+        //private void ClockEvent(object sender, GameEventArgs e)
+        //{ 
+        //    ClockEventArgs clock= (ClockEventArgs)e;
+        //    if (mMainState == MainState.Game)
+        //    { 
+        //        UpdateLevel();
+        //        float a = mOrderData.GetValue();
+        //        float b= m_LevelData.OrderData.GetValue();
+        //        m_LevelData.OrderData.OrderMoney = (int)(a / b * m_LevelData.OrderData.OrderMoney);
+        //    }
+        //}
         //因为监听导致了线程问题，因此弃用监听的模式
         private void OrderEvent(object sender, GameEventArgs e)
         {
             mOrderManager = (OrderManager)sender;
             OrderEventArgs order = (OrderEventArgs)e;
+            mOrderData= order.OrderData;
             if (order.OrderData.Check())
                 UpdateLevel();
         }
@@ -187,6 +202,10 @@ namespace GameMain
                     mMainState = MainState.Game;
                     break;
                 case MainState.Game:
+                    if (mDay == 10)
+                    {
+                        GameEntry.UI.OpenUIForm(UIFormId.EndForm,this);
+                    }
                     mMainState = MainState.Text;
                     break;
                 case MainState.Text:
@@ -217,10 +236,6 @@ namespace GameMain
             }
             else
                 m_ChangeDay= false;
-            if (mDay > 10)
-            { 
-                //进结局
-            }
             m_LevelData = null;
             foreach (LevelData level in m_LevelDatas)
             {

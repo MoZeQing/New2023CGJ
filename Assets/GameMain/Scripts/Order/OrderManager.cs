@@ -39,12 +39,14 @@ namespace GameMain
             IDataTable<DROrder> dtOrder = GameEntry.DataTable.GetDataTable<DROrder>();
             DROrder drOrder = dtOrder.GetDataRow(index);
             OrderData = new OrderData(drOrder);
+            OrderData.NodeTag = NodeTag.None;
             GameEntry.Event.Fire(this, OrderEventArgs.Create(mOrderData));//用于更新UI信息的事件，需要保证线程安全
         }
 
         public void SetOrder(OrderData order)
         {
             OrderData = order;
+            OrderData.NodeTag = NodeTag.None;
             GameEntry.Event.Fire(this, OrderEventArgs.Create(mOrderData));//用于更新UI信息的事件，需要保证线程安全
         }
 
@@ -80,6 +82,7 @@ namespace GameMain
                         return;
                 }
                 GameEntry.Entity.HideEntity(nodeData.Id);
+                OrderData.NodeTag= nodeData.NodeTag;
                 GameEntry.Event.FireNow(this, OrderEventArgs.Create(OrderData));
             }
         }
@@ -130,6 +133,24 @@ namespace GameMain
         ///获取当天对话 
         /// </summary>
         public string Dialog
+        {
+            get;
+            set;
+        }
+
+        public NodeTag NodeTag
+        {
+            get;
+            set;
+        }
+
+        public int OrderMoney
+        {
+            get;
+            set;
+        }
+
+        public float OrderTime
         {
             get;
             set;
@@ -189,6 +210,10 @@ namespace GameMain
             set;
         }
 
+        public int GetValue()
+        {
+            return ConPanna + CafeAmericano + WhiteCoffee + Mocha + Latte + Espresso;
+        }
         public bool Check()
         {
             return (ConPanna <= 0 &&

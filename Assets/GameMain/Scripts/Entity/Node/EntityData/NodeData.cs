@@ -91,7 +91,7 @@ namespace GameMain
         SweetCafeAmericano,//加糖美式咖啡
         SweetMocha,//加糖摩卡
 
-
+        None
     }
 }
 

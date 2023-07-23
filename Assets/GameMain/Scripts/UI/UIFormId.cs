@@ -11,7 +11,7 @@ namespace GameMain
         MainForm = 2,
         GameForm =3,
         ChangeForm = 4,
-        BaseForm =5,
+        EndForm =5,
         UpgradeForm= 6,        
         DowngradeForm = 7,
         DispatchForm = 8,

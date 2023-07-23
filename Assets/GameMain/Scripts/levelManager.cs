@@ -146,6 +146,7 @@ namespace GameMain
             OrderData = order;
             Foreword=dRLevel.Foreword;
             Text=dRLevel.Text;
+            ActionGraph= dRLevel.ActionGraph;
         }
     }
 }

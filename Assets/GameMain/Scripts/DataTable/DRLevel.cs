@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2023-07-23 13:52:50.385
+// 生成时间：2023-07-23 18:12:36.423
 //------------------------------------------------------------
 
 using GameFramework;
@@ -90,6 +90,15 @@ namespace GameMain
             private set;
         }
 
+        /// <summary>
+        /// 获取对应交互。
+        /// </summary>
+        public string ActionGraph
+        {
+            get;
+            private set;
+        }
+
         public override bool ParseDataRow(string dataRowString, object userData)
         {
             string[] columnStrings = dataRowString.Split(DataTableExtension.DataSplitSeparators);
@@ -108,6 +117,7 @@ namespace GameMain
             Foreword = columnStrings[index++];
             Text = columnStrings[index++];
             Index = int.Parse(columnStrings[index++]);
+            ActionGraph = columnStrings[index++];
 
             GeneratePropertyArray();
             return true;
@@ -126,6 +136,7 @@ namespace GameMain
                     Foreword = binaryReader.ReadString();
                     Text = binaryReader.ReadString();
                     Index = binaryReader.Read7BitEncodedInt32();
+                    ActionGraph = binaryReader.ReadString();
                 }
             }
 
