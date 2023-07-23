@@ -376,6 +376,8 @@ namespace GameMain
         }
         public void Click_Action()
         {
+            if (mMainState != MainState.Game)
+                return;
             if (mActionNode == null)
                 return;
             if (mActionNode.click != null)

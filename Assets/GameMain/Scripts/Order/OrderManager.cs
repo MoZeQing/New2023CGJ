@@ -55,6 +55,11 @@ namespace GameMain
             Entity baseCompenent = null;
             if (collision.TryGetComponent<Entity>(out baseCompenent))
             {
+                if (baseCompenent.transform.parent.GetComponent<BaseNode>() == null)
+                {
+                    Debug.LogWarning("错误，没有该脚本");
+                    return; 
+                }
                 if (baseCompenent.transform.parent.GetComponent<BaseNode>().NodeData == null)
                     return;
                 NodeData nodeData = baseCompenent.transform.parent.GetComponent<BaseNode>().NodeData;

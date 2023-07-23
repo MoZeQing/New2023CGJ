@@ -122,8 +122,7 @@ namespace GameMain
         private LevelData GetRandomLevel()
         {
             LevelData levelData = new LevelData();
-            int total = mDay + Random.Range(0, mDay);
-            Debug.Log(total);
+            int total = Mathf.Clamp(Random.Range(0, mDay), 1, 3);
             for (int i = 0; i < total; i++)
             {
                 int random = Random.Range(1, 6);
@@ -228,7 +227,7 @@ namespace GameMain
         {
             Debug.Log("正在初始化关卡");
             mIndex++;
-            if (mIndex > 3)
+            if (mIndex > 2)
             {
                 mDay++;
                 mIndex = 1;
