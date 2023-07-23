@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-5584381524905773527
+--- !u!114 &-3665130187461797408
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -13,7 +13,262 @@ MonoBehaviour:
   m_Name: Chat
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 1176, y: -88}
+  position: {x: 728, y: -184}
+  ports:
+    keys:
+    - a
+    - b
+    - chatDatas
+    - chatDatas 0
+    - chatDatas 1
+    - chatDatas 2
+    - chatDatas 3
+    - chatDatas 4
+    - chatDatas 5
+    - chatDatas 6
+    - chatDatas 7
+    - chatDatas 8
+    values:
+    - _fieldName: a
+      _node: {fileID: -3665130187461797408}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: chatDatas 16
+        node: {fileID: 7164289339770330812}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: b
+      _node: {fileID: -3665130187461797408}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: chatDatas
+      _node: {fileID: -3665130187461797408}
+      _typeQualifiedName: System.Collections.Generic.List`1[[ChatData, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
+        Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: chatDatas 0
+      _node: {fileID: -3665130187461797408}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: chatDatas 1
+      _node: {fileID: -3665130187461797408}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: chatDatas 2
+      _node: {fileID: -3665130187461797408}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: chatDatas 3
+      _node: {fileID: -3665130187461797408}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: chatDatas 4
+      _node: {fileID: -3665130187461797408}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: chatDatas 5
+      _node: {fileID: -3665130187461797408}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: chatDatas 6
+      _node: {fileID: -3665130187461797408}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: chatDatas 7
+      _node: {fileID: -3665130187461797408}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: chatDatas 8
+      _node: {fileID: -3665130187461797408}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+  a: 0
+  b: 0
+  dialogId: 
+  chatDatas:
+  - charName: "\u8D1D\u8D1D"
+    charSO: {fileID: 0}
+    actionData:
+      diffTag: 1
+      actionTag: 0
+      soundTag: 0
+    text: "\u4E5F\u5C31\u4E09\u56DB\u5E74\u800C\u5DF2\uFF1F\u8FD8\u662F\u8BF4\u4F60\u6839\u672C\u6CA1\u53BB\u627E\u5427~\uFF1F"
+  - charName: "\u5E97\u957F"
+    charSO: {fileID: 0}
+    actionData:
+      diffTag: 0
+      actionTag: 0
+      soundTag: 0
+    text: "\u3002\u3002\u3002\u6211\u8FD9\u51E0\u5E74\u662F\u6CA1\u6709\u627E\u2026\u90A3\u4F60\u5462\uFF0C\u6709\u627E\u5230\u5417\uFF1F"
+  - charName: 
+    charSO: {fileID: 0}
+    actionData:
+      diffTag: 0
+      actionTag: 0
+      soundTag: 0
+    text: "\u6211\u5440\uFF0C\u4F60\u4E5F\u77E5\u9053\u6700\u8FD1\u4E09\u5E74\u6211\u4EEC\u7684\u72B6\u51B5\u662F\u600E\u6837\u7684\u5566"
+  - charName: 
+    charSO: {fileID: 0}
+    actionData:
+      diffTag: 0
+      actionTag: 0
+      soundTag: 0
+    text: "\u5C31\u7B97\u54B1\u6CA1\u8DDF\u4F60\u76F4\u63A5\u89C1\u9762\uFF0C\u65B0\u95FB\u5565\u7684\u603B\u8BE5\u77E5\u9053\u7684\u5BF9\u5427\uFF1F\u800C\u4E14\uFF0C\u6211\u65E9\u5C31\u6709\u4E86\u3002"
+  - charName: 
+    charSO: {fileID: 0}
+    actionData:
+      diffTag: 5
+      actionTag: 0
+      soundTag: 0
+    text: "\u5C11\u5973\u4ECD\u7136\u7B11\u610F\u76C8\u76C8\uFF0C\u4F46\u773C\u77B3\u4E2D\u7684\u773C\u795E\u53D8\u4E86\u51E0\u5206"
+  - charName: "\u5E97\u957F"
+    charSO: {fileID: 0}
+    actionData:
+      diffTag: 5
+      actionTag: 0
+      soundTag: 0
+    text: "\u55EF\uFF0C\u600E\u4E48\u4E86\uFF1F\u4ED6\u8DDF\u6211\u6709\u4EC0\u4E48\u5173\u7CFB\u5417\uFF1F"
+  - charName: "\u5E97\u957F"
+    charSO: {fileID: 0}
+    actionData:
+      diffTag: 5
+      actionTag: 0
+      soundTag: 0
+    text: "\u6CA1\u4EC0\u4E48~\u4E0D\u8FC7\u4ED6\u8DDF\u4F60\u4E00\u6837\uFF0C\u90FD\u662F\u7B28\u86CB\u4E00\u4E2A\u2026"
+  - charName: "\u5E97\u957F"
+    charSO: {fileID: 0}
+    actionData:
+      diffTag: 5
+      actionTag: 0
+      soundTag: 0
+    text: "\u5509\u2026\u2026\u8BF4\u5427\uFF0C\u4ECA\u5929\u60F3\u559D\u4EC0\u4E48\uFF1F"
+  - charName: "\u5E97\u957F"
+    charSO: {fileID: 0}
+    actionData:
+      diffTag: 5
+      actionTag: 0
+      soundTag: 0
+    text: "\u666E\u901A\u7684\u7F8E\u5F0F\u5C31\u884C\u3002"
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87cdaf258b51efa4e889ba2918b1a700, type: 3}
+  m_Name: plot_f_dog_2
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: 4970210107051703069}
+  - {fileID: 7164289339770330812}
+  - {fileID: -3665130187461797408}
+--- !u!114 &4970210107051703069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3668561789e27d14ba7695eb6eb2fb2e, type: 3}
+  m_Name: Start
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -71.600006, y: -293.9}
+  ports:
+    keys:
+    - start
+    values:
+    - _fieldName: start
+      _node: {fileID: 4970210107051703069}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: a
+        node: {fileID: 7164289339770330812}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  start: 0
+--- !u!114 &7164289339770330812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d2f46806851fa94f83f2f914748a21c, type: 3}
+  m_Name: Chat
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 225.4, y: -288.9}
   ports:
     keys:
     - a
@@ -35,21 +290,22 @@ MonoBehaviour:
     - chatDatas 13
     - chatDatas 14
     - chatDatas 15
+    - chatDatas 16
     values:
     - _fieldName: a
-      _node: {fileID: -5584381524905773527}
+      _node: {fileID: 7164289339770330812}
       _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
-      - fieldName: chatDatas 12
-        node: {fileID: 5528981199981043381}
+      - fieldName: start
+        node: {fileID: 4970210107051703069}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: b
-      _node: {fileID: -5584381524905773527}
+      _node: {fileID: 7164289339770330812}
       _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections: []
@@ -58,7 +314,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: chatDatas
-      _node: {fileID: -5584381524905773527}
+      _node: {fileID: 7164289339770330812}
       _typeQualifiedName: System.Collections.Generic.List`1[[ChatData, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
         Culture=neutral, PublicKeyToken=b77a5c561934e089
@@ -68,7 +324,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: chatDatas 0
-      _node: {fileID: -5584381524905773527}
+      _node: {fileID: 7164289339770330812}
       _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections: []
@@ -77,7 +333,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 1
     - _fieldName: chatDatas 1
-      _node: {fileID: -5584381524905773527}
+      _node: {fileID: 7164289339770330812}
       _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections: []
@@ -86,7 +342,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 1
     - _fieldName: chatDatas 2
-      _node: {fileID: -5584381524905773527}
+      _node: {fileID: 7164289339770330812}
       _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections: []
@@ -95,7 +351,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 1
     - _fieldName: chatDatas 3
-      _node: {fileID: -5584381524905773527}
+      _node: {fileID: 7164289339770330812}
       _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections: []
@@ -104,7 +360,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 1
     - _fieldName: chatDatas 4
-      _node: {fileID: -5584381524905773527}
+      _node: {fileID: 7164289339770330812}
       _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections: []
@@ -113,7 +369,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 1
     - _fieldName: chatDatas 5
-      _node: {fileID: -5584381524905773527}
+      _node: {fileID: 7164289339770330812}
       _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections: []
@@ -122,7 +378,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 1
     - _fieldName: chatDatas 6
-      _node: {fileID: -5584381524905773527}
+      _node: {fileID: 7164289339770330812}
       _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections: []
@@ -131,7 +387,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 1
     - _fieldName: chatDatas 7
-      _node: {fileID: -5584381524905773527}
+      _node: {fileID: 7164289339770330812}
       _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections: []
@@ -140,7 +396,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 1
     - _fieldName: chatDatas 8
-      _node: {fileID: -5584381524905773527}
+      _node: {fileID: 7164289339770330812}
       _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections: []
@@ -149,7 +405,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 1
     - _fieldName: chatDatas 9
-      _node: {fileID: -5584381524905773527}
+      _node: {fileID: 7164289339770330812}
       _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections: []
@@ -158,7 +414,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 1
     - _fieldName: chatDatas 10
-      _node: {fileID: -5584381524905773527}
+      _node: {fileID: 7164289339770330812}
       _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections: []
@@ -167,7 +423,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 1
     - _fieldName: chatDatas 11
-      _node: {fileID: -5584381524905773527}
+      _node: {fileID: 7164289339770330812}
       _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections: []
@@ -176,7 +432,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 1
     - _fieldName: chatDatas 12
-      _node: {fileID: -5584381524905773527}
+      _node: {fileID: 7164289339770330812}
       _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections: []
@@ -185,7 +441,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 1
     - _fieldName: chatDatas 13
-      _node: {fileID: -5584381524905773527}
+      _node: {fileID: 7164289339770330812}
       _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections: []
@@ -194,7 +450,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 1
     - _fieldName: chatDatas 14
-      _node: {fileID: -5584381524905773527}
+      _node: {fileID: 7164289339770330812}
       _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections: []
@@ -203,7 +459,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 1
     - _fieldName: chatDatas 15
-      _node: {fileID: -5584381524905773527}
+      _node: {fileID: 7164289339770330812}
       _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections: []
@@ -211,348 +467,13 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 1
-  a: 0
-  b: 0
-  dialogId: 
-  chatDatas:
-  - charName: "\u8D1D\u8D1D"
-    charSO: {fileID: 0}
-    actionData:
-      diffTag: 0
-      actionTag: 0
-      soundTag: 0
-    text: "\u554A\u2026\u2026\u6700\u8FD1\u4E00\u5E74\u534A\u8FD8\u884C\uFF0C\u76F8\u6BD4\u4EE5\u524D\u5403\u7A7F\u90FD\u6709\u70B9\u95EE\u9898\u7684\u65F6\u5019\u5DF2\u7ECF\u597D\u975E\u5E38\u591A\u4E86\uFF0C\u4F60\u770B\u8FD9\u4E2A\u3002"
-  - charName: 
-    charSO: {fileID: 0}
-    actionData:
-      diffTag: 1
-      actionTag: 0
-      soundTag: 0
-    text: "\u5973\u5B69\u633A\u4E86\u633A\u81EA\u5DF1\u7A0D\u7A0D\u4E30\u6EE1\u7684\u80F8\u819B\uFF0C\u4E0A\u9762\u95EA\u7740\u4E00\u6761\u2014\u2014\u4E0D\u4E00\u4E2A\u2014\u2014\u94F6\u8272\u7684\u201C\u9879\u94FE\u201D\u3002"
-  - charName: "\u5E97\u957F"
-    charSO: {fileID: 0}
-    actionData:
-      diffTag: 1
-      actionTag: 0
-      soundTag: 0
-    text: "\u8FD9\u662F\u3002\u3002\u4F60\u4EEC\u4E16\u4EE3\u76F8\u4F20\u7684\u94F6\u8D28\u6CD5\u5668\uFF1F\u4F60\u4EEC\u628A\u5B83\u7ED9\u62CD\u56DE\u6765\u4E86\u5417\uFF1F"
-  - charName: "\u8D1D\u8D1D"
-    charSO: {fileID: 0}
-    actionData:
-      diffTag: 1
-      actionTag: 0
-      soundTag: 0
-    text: "YES\u3002\u7ECF\u8FC7\u6211\u7684\u5468\u65CB\uFF0C\u90A3\u4E2A\u4E00\u5F00\u59CB\u6B7B\u90FD\u4E0D\u80AF\u653E\u624B\u7684\u80AE\u810F\u7684\u65B0\u8D35\u65CF\u2014\u2014\u54E6\u4E0D\uFF0C\u5E94\u8BE5\u8BF4\u201C\u8D44\u672C\u5BB6\u201D\u2014\u2014\u7EC8\u4E8E\u80AF\u653E\u624B\u4E86\uFF0C\u54FC\u54FC~~"
-  - charName: 
-    charSO: {fileID: 0}
-    actionData:
-      diffTag: 1
-      actionTag: 0
-      soundTag: 0
-    text: "\u5C11\u5973\u4E00\u626B\u9634\u973E\uFF0C\u5F97\u610F\u6D0B\u6D0B\u5730\u7EE7\u7EED\u633A\u7740\u81EA\u5DF1\u7684\u80F8\u819B\uFF0C\u53D1\u51FA\u4E86\u5F97\u610F\u7684\u7B11\u58F0\u3002"
-  - charName: "\u5E97\u957F"
-    charSO: {fileID: 0}
-    actionData:
-      diffTag: 2
-      actionTag: 0
-      soundTag: 0
-    text: "\uFF08\u770B\u7740\u5C11\u5973\u7684\u6ED1\u7A3D\u6837\uFF0C\u4F60\u5FC3\u91CC\u611F\u5230\u4E00\u9635\u5B89\u5FC3\uFF09\u3002\u3002\u4F60\u7ECF\u8FC7\u4E86\u8FD9\u4E48\u591A\u8FD8\u662F\u8FD9\u4E2A\u6837\u5462\uFF08\u7B11\uFF09\u5E94\u8BE5\u8BF4\u662F\u672C\u6027\u96BE\u6539\u5417\u3002"
-  - charName: "\u8D1D\u8D1D"
-    charSO: {fileID: 0}
-    actionData:
-      diffTag: 0
-      actionTag: 0
-      soundTag: 0
-    text: "\u4EC0\u4E48\u8FD8\u662F\u8FD9\u4E2A\u6837\u561B~\u4F60\u8FD8\u662F\u548C\u4EE5\u524D\u4E00\u6837\u8BA8\u4EBA\u538C\uFF0C\u5C0F\u5FC3\u627E\u4E0D\u5230\u5973\u670B\u53CB\u54E6~"
-  - charName: 
-    charSO: {fileID: 0}
-    actionData:
-      diffTag: 7
-      actionTag: 0
-      soundTag: 0
-    text: "\u8F7B\u5FEB\u7B11\u58F0\u56DE\u8361\u5728\u5496\u5561\u5E97\u5185"
-  - charName: 
-    charSO: {fileID: 0}
-    actionData:
-      diffTag: 7
-      actionTag: 0
-      soundTag: 0
-    text: "\u2026\u2026\u2026\u2026"
-  - charName: "\u8D1D\u8D1D"
-    charSO: {fileID: 0}
-    actionData:
-      diffTag: 0
-      actionTag: 0
-      soundTag: 0
-    text: "\u662F\u65F6\u5019\u4E86\uFF08\u770B\u7740\u6E10\u665A\u7684\u65F6\u95F4\uFF0C\u8D77\u8EAB\u51C6\u5907\u9053\u522B\uFF09\u4E0B\u6B21\u89C1\u54AF\uFF0C\u5E97\u957F~"
-  - charName: "\u5E97\u957F"
-    charSO: {fileID: 0}
-    actionData:
-      diffTag: 7
-      actionTag: 0
-      soundTag: 0
-    text: "\u4E0B\u6B21\u89C1\u3002"
-  - charName: 
-    charSO: {fileID: 0}
-    actionData:
-      diffTag: 7
-      actionTag: 0
-      soundTag: 0
-    text: "\u4F60\u597D\u50CF\u60F3\u8D77\u4E86\u4EC0\u4E48\uFF0C\u4F60\u53EB\u4F4F\u4E86\u5973\u5B69"
-  - charName: "\u5E97\u957F"
-    charSO: {fileID: 0}
-    actionData:
-      diffTag: 7
-      actionTag: 0
-      soundTag: 0
-    text: "\u7B49\u4E00\u4E0B\u3002\u3002\u6211\u60F3\u95EE\u4E00\u4E0B\uFF0C\u540D\u5B57\u4EC0\u4E48\u7684\u4F60\u6709\u2014\u2014"
-  - charName: "\u8D1D\u8D1D"
-    charSO: {fileID: 0}
-    actionData:
-      diffTag: 7
-      actionTag: 0
-      soundTag: 0
-    text: "\u53EB\u6211\u8D1D\u8D1D\u5C31\u597D\uFF0C\u5C31\u548C\u4EE5\u524D\u4E00\u6837\u3002\u3002\u4F60\u4E0D\u662F\u8BF4\u4E86\u6211\u4E0D\u4F1A\u53D8\u561B~"
-  - charName: 
-    charSO: {fileID: 0}
-    actionData:
-      diffTag: 7
-      actionTag: 0
-      soundTag: 0
-    text: "\u5C11\u5973\u839E\u5C14\u4E00\u7B11\uFF0C\u8D70\u51FA\u4E86\u5496\u5561\u5385"
-  - charName: 
-    charSO: {fileID: 0}
-    actionData:
-      diffTag: 7
-      actionTag: 0
-      soundTag: 0
-    text: "\u4E0D\u4F1A\u53D8\u2026\u5417\u2026\u2026"
---- !u!114 &-5038128308447220653
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3668561789e27d14ba7695eb6eb2fb2e, type: 3}
-  m_Name: Start
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: 18, y: -96.100006}
-  ports:
-    keys:
-    - start
-    values:
-    - _fieldName: start
-      _node: {fileID: -5038128308447220653}
-      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: a
-        node: {fileID: 5528981199981043381}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-  start: 0
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87cdaf258b51efa4e889ba2918b1a700, type: 3}
-  m_Name: plot_dog_1
-  m_EditorClassIdentifier: 
-  nodes:
-  - {fileID: -5038128308447220653}
-  - {fileID: 5528981199981043381}
-  - {fileID: -5584381524905773527}
---- !u!114 &5528981199981043381
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d2f46806851fa94f83f2f914748a21c, type: 3}
-  m_Name: Chat
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: 376, y: -104}
-  ports:
-    keys:
-    - a
-    - b
-    - chatDatas
-    - chatDatas 0
-    - chatDatas 1
-    - chatDatas 2
-    - chatDatas 3
-    - chatDatas 4
-    - chatDatas 5
-    - chatDatas 6
-    - chatDatas 7
-    - chatDatas 8
-    - chatDatas 9
-    - chatDatas 10
-    - chatDatas 11
-    - chatDatas 12
-    values:
-    - _fieldName: a
-      _node: {fileID: 5528981199981043381}
-      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: start
-        node: {fileID: -5038128308447220653}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: b
-      _node: {fileID: 5528981199981043381}
-      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: chatDatas
-      _node: {fileID: 5528981199981043381}
-      _typeQualifiedName: System.Collections.Generic.List`1[[ChatData, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
-        Culture=neutral, PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: chatDatas 0
-      _node: {fileID: 5528981199981043381}
-      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 1
-    - _fieldName: chatDatas 1
-      _node: {fileID: 5528981199981043381}
-      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 1
-    - _fieldName: chatDatas 2
-      _node: {fileID: 5528981199981043381}
-      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 1
-    - _fieldName: chatDatas 3
-      _node: {fileID: 5528981199981043381}
-      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 1
-    - _fieldName: chatDatas 4
-      _node: {fileID: 5528981199981043381}
-      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 1
-    - _fieldName: chatDatas 5
-      _node: {fileID: 5528981199981043381}
-      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 1
-    - _fieldName: chatDatas 6
-      _node: {fileID: 5528981199981043381}
-      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 1
-    - _fieldName: chatDatas 7
-      _node: {fileID: 5528981199981043381}
-      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 1
-    - _fieldName: chatDatas 8
-      _node: {fileID: 5528981199981043381}
-      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 1
-    - _fieldName: chatDatas 9
-      _node: {fileID: 5528981199981043381}
-      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 1
-    - _fieldName: chatDatas 10
-      _node: {fileID: 5528981199981043381}
-      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 1
-    - _fieldName: chatDatas 11
-      _node: {fileID: 5528981199981043381}
-      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 1
-    - _fieldName: chatDatas 12
-      _node: {fileID: 5528981199981043381}
+    - _fieldName: chatDatas 16
+      _node: {fileID: 7164289339770330812}
       _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
       - fieldName: a
-        node: {fileID: -5584381524905773527}
+        node: {fileID: -3665130187461797408}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -562,94 +483,122 @@ MonoBehaviour:
   b: 0
   dialogId: 
   chatDatas:
-  - charName: "\u5E97\u957F"
+  - charName: 
     charSO: {fileID: 0}
     actionData:
-      diffTag: 0
+      diffTag: 7
       actionTag: 0
       soundTag: 0
-    text: "\u505A\u597D\u4E86\u3002"
+    text: "\u4E0B\u5348\u4E00\u70B9\u534A"
   - charName: "\u8D1D\u8D1D"
     charSO: {fileID: 0}
     actionData:
       diffTag: 0
       actionTag: 0
       soundTag: 0
-    text: "\u8C22\u8C22\u55BD~\uFF08\u8F7B\u8F7B\u5730\u55E6\u4E86\u4E00\u53E3\uFF09"
-  - charName: "\u8D1D\u8D1D"
+    text: "yahoo~\u4E0B\u5348\u597D\u201C\u5E97\u957F\u201D~\u4ECA\u5929\u65E9\u4E0A\u6709\u9047\u5230\u4EC0\u4E48\u7F8E\u4EBA\u5417~"
+  - charName: 
     charSO: {fileID: 0}
     actionData:
-      diffTag: 2
+      diffTag: 1
       actionTag: 0
       soundTag: 0
-    text: "\u5636\uFF0C\u597D\u70EB\u3002\u4F60\u5E72\u561B\u505A\u8FD9\u4E48\u70EB\u561B\uFF0C\u4F60\u53C8\u4E0D\u662F\u4E0D\u77E5\u9053\u6211\u7684\u820C\u5934\u7684\u3002"
-  - charName: "\u5E97\u957F"
-    charSO: {fileID: 0}
-    actionData:
-      diffTag: 2
-      actionTag: 0
-      soundTag: 0
-    text: "\u8FD9\u51E0\u5E74\u4F60\u53BB\u54EA\u4E86\uFF0C\u54EA\u91CC\u90FD\u6253\u542C\u4E0D\u5230\u4F60\u7684\u6D88\u606F\u2026\u2026\u4F60\u662F\u79BB\u5F00\u4E86\u8FD9\u91CC\u5417"
-  - charName: "\u8D1D\u8D1D"
-    charSO: {fileID: 0}
-    actionData:
-      diffTag: 0
-      actionTag: 0
-      soundTag: 0
-    text: "\u6CA1\u6709\uFF0C\u53EA\u662F\u7A0D\u5FAE\u7528\u4E86\u4E00\u70B9\u624B\u6BB5\u800C\u5DF2\u561B\uFF0C\u6211\u4E00\u76F4\u90FD\u5728\u8FD9\u4E2A\u57CE\u5E02\u7684\u67D0\u4E2A\u89D2\u843D\u54DF\u2026"
-  - charName: "\u8D1D\u8D1D"
-    charSO: {fileID: 0}
-    actionData:
-      diffTag: 0
-      actionTag: 0
-      soundTag: 0
-    text: "\u5012\u662F\u4F60\uFF0C\u4F60\u600E\u4E48\u505A\u5230\u4E00\u70B9\u6D88\u606F\u90FD\u6CA1\u6709\u7684\uFF0C\u641E\u5F97\u6211\u600E\u4E48\u627E\u90FD\u627E\u4E0D\u5230\u4F60\u3002"
+    text: "\u73B0\u5728\u2014\u2014\u8FD8\u662F\u8BB0\u5FC6\u4E2D\u2014\u2014\u5E0C\u671B\u88AB\u53EB\u505A\u8D1D\u8D1D\u7684\u5C11\u5973\u6B63\u7AD9\u5728\u95E8\u53E3"
   - charName: "\u5E97\u957F"
     charSO: {fileID: 0}
     actionData:
       diffTag: 0
       actionTag: 0
       soundTag: 0
-    text: "\u2026\u627E\u6211\u5E72\u4EC0\u4E48\uFF0C\u6211\u8FD9\u65E0\u540D\u5C0F\u5352\u8FD9\u4E48\u503C\u5F97\u60A8\u8FD9\u4E48\u5173\u6CE8\u5417"
+    text: "\u2026\u2026"
+  - charName: 
+    charSO: {fileID: 0}
+    actionData:
+      diffTag: 7
+      actionTag: 0
+      soundTag: 0
+    text: "\u4F60\u547C\u51FA\u4E00\u53E3\u6C14\uFF0C\u786E\u5B9A\u4E86\u5979\u7684\u786E\u4E0D\u662F\u6628\u65E5\u7684\u5E7B\u89C9"
+  - charName: "\u8D1D\u8D1D"
+    charSO: {fileID: 0}
+    actionData:
+      diffTag: 0
+      actionTag: 0
+      soundTag: 0
+    text: "\u563F\u54BB\u2026"
+  - charName: "\u5E97\u957F"
+    charSO: {fileID: 0}
+    actionData:
+      diffTag: 1
+      actionTag: 0
+      soundTag: 0
+    text: "\uFF01"
+  - charName: 
+    charSO: {fileID: 0}
+    actionData:
+      diffTag: 1
+      actionTag: 0
+      soundTag: 0
+    text: "\u5C11\u5973\u50CF\u5C0F\u72D7\u4F3C\u7684\u4E24\u4E09\u4E0B\u77AC\u95F4\u8E66\u8DF6\u5230\u4E86\u5427\u53F0\u524D\uFF0C\u5355\u817F\u8DEA\u5728\u65E0\u5EA7\u6905\u5B50\u4E0A\u3002\u5979\u534A\u7AD9\u7740\uFF0C\u4ED4\u7EC6\u5730\u7AEF\u8BE6\u7740\u4F60\u7684\u8138"
+  - charName: "\u5E97\u957F"
+    charSO: {fileID: 0}
+    actionData:
+      diffTag: 1
+      actionTag: 0
+      soundTag: 0
+    text: "\u2026\u2026"
+  - charName: 
+    charSO: {fileID: 0}
+    actionData:
+      diffTag: 0
+      actionTag: 0
+      soundTag: 0
+    text: "\u5C11\u5973\u51E0\u8FD1\u8D34\u4E0A\u4F60\u7684\u8138\uFF0C\u4EFF\u4F5B\u662F\u8981\u4EB2\u4E0A\u53BB\u4E00\u822C\uFF0C\u6253\u8DA3\u7684\u7684\u773C\u795E\u5728\u4F60\u7684\u8138\u4E0A\uFF0C\u8EAB\u4F53\u4E0A\u8086\u65E0\u5FCC\u60EE\u5730\u6E38\u8D70"
+  - charName: 
+    charSO: {fileID: 0}
+    actionData:
+      diffTag: 1
+      actionTag: 0
+      soundTag: 0
+    text: "\u91D1\u6A59\u8272\u7684\u5934\u53D1\u5219\u662F\u5728\u4F60\u7684\u9F3B\u5C16\u7559\u4E0B\u4E00\u4E1D\u7B26\u5408\u989C\u8272\u5370\u8C61\u7684\u6C14\u5473\u2014\u2014\u9999\u6A59\u7684\u6C14\u5473"
+  - charName: "\u8D1D\u8D1D"
+    charSO: {fileID: 0}
+    actionData:
+      diffTag: 1
+      actionTag: 0
+      soundTag: 0
+    text: "\u6628\u5929\u6CA1\u6765\u5F97\u53CA\u2026\u51E0\u5E74\u4E0D\u89C1\u53D8\u7ED3\u5B9E\u4E86\u561B\uFF0C\u563B\u563B"
+  - charName: "\u5E97\u957F"
+    charSO: {fileID: 0}
+    actionData:
+      diffTag: 1
+      actionTag: 0
+      soundTag: 0
+    text: "\u54CE\u2026\u2026\u5927\u5C0F\u59D0\uFF0C\u73A9\u7B11\u5F00\u5B8C\u4E86\u5417\uFF1F"
+  - charName: "\u8D1D\u8D1D"
+    charSO: {fileID: 0}
+    actionData:
+      diffTag: 0
+      actionTag: 0
+      soundTag: 0
+    text: "\u5657\u2026\u2026\u54C8\u54C8\u54C8\u54C8\u54C8\u54C8\u2026\u2026\u597D\u597D\u597D\u4E0D\u5F00\u4F60\u73A9\u7B11\u4E86\u3002"
+  - charName: "\u8D1D\u8D1D"
+    charSO: {fileID: 0}
+    actionData:
+      diffTag: 0
+      actionTag: 0
+      soundTag: 0
+    text: "\u771F\u662F\u7684\uFF0C\u6CA1\u89C1\u5230\u6211\u7684\u8FD9\u51E0\u5E74\uFF0C\u8EAB\u4F53\u90FD\u53D8\u5F97\u7ED3\u5B9E\uFF0C\u6027\u683C\u5C31\u662F\u4E00\u70B9\u90FD\u6CA1\u53D8\uFF0C\u4F60\u662F\u4EC0\u4E48\u4E07\u5E74\u4E0D\u53D8\u7684\u94C1\u738B\u516B\u5417\uFF1F\u8FD9\u51E0\u5E74\u5C31\u6CA1\u6709\u627E\u5230\u4F60\u5FC3\u4EEA\u7684\u5973\u6027\u5417\uFF1F"
+  - charName: 
+    charSO: {fileID: 0}
+    actionData:
+      diffTag: 0
+      actionTag: 0
+      soundTag: 0
+    text: "\u773C\u524D\u7684\u5C11\u5973\u6162\u6162\u5730\u5750\u56DE\u4E86\u5EA7\u4F4D\uFF0C\u53CC\u624B\u6491\u7740\u4E0B\u5DF4\uFF0C\u9762\u5E26\u7B11\u610F\u7684\u770B\u7740\u4F60"
   - charName: "\u5E97\u957F"
     charSO: {fileID: 0}
     actionData:
       diffTag: 0
       actionTag: 0
       soundTag: 0
-    text: "\u66F4\u4F55\u51B5\u6211\u4ECE\u201C\u90A3\u4E2A\u65F6\u5019\u201D\u8D77\uFF0C\u5DF2\u7ECF\u548C\u60A8\u6CA1\u4EC0\u4E48\u5173\u7CFB\u4E86\u5427\uFF0C\u201C\u5927\u5C0F\u59D0\u201D\u3002"
-  - charName: "\u8D1D\u8D1D"
-    charSO: {fileID: 0}
-    actionData:
-      diffTag: 2
-      actionTag: 0
-      soundTag: 0
-    text: "\u2026\u2026\uFF08\u773C\u76AE\u8037\u62C9\u4E0B\u53BB\uFF09\u55EF\u2026\u90A3\u65F6\u5019\u662F\u6709\u70B9\u539F\u56E0\u7684\u5566\u2026\u4F46\u6211\u771F\u7684\u4E0D\u662F\u6545\u610F\u7684"
-  - charName: "\u5E97\u957F"
-    charSO: {fileID: 0}
-    actionData:
-      diffTag: 0
-      actionTag: 0
-      soundTag: 0
-    text: "\u5F53\u65F6\u6B63\u503C\u5927\u8427\u6761\uFF0C\u4F60\u4EEC\u5DEE\u70B9\u8BA9\u6211\u6B7B\u5728\u8D2B\u6C11\u7A9F\u91CC\u9762\u3002"
-  - charName: "\u8D1D\u8D1D"
-    charSO: {fileID: 0}
-    actionData:
-      diffTag: 4
-      actionTag: 0
-      soundTag: 0
-    text: "\u2026\u5BF9\u4E0D\u8D77\u2026\u2026\uFF08\u5C11\u5973\u7684\u8033\u6735\u8037\u62C9\u4E86\u4E0B\u53BB\uFF09"
-  - charName: "\u5E97\u957F"
-    charSO: {fileID: 0}
-    actionData:
-      diffTag: 4
-      actionTag: 0
-      soundTag: 0
-    text: "\u54CE\u2026\u6211\u4EEC\u6362\u4E2A\u8BDD\u9898\u5427\u3002\u6700\u8FD1\u8FD8\u597D\u5417\uFF1F"
-  - charName: "\u5E97\u957F"
-    charSO: {fileID: 0}
-    actionData:
-      diffTag: 4
-      actionTag: 0
-      soundTag: 0
-    text: "\u4F60\u987A\u624B\u653E\u597D\u64E6\u597D\u7684\u5496\u5561\u676F"
+    text: "\u5509\u2026\u4E5F\u5C31\u4E09\u56DB\u5E74\u800C\u5DF2\uFF0C\u5FC3\u4EEA\u7684\u5973\u5B69\u5B50\u600E\u4E48\u53EF\u80FD\u8FD9\u4E48\u5BB9\u6613\u627E\u5230\u3002"
