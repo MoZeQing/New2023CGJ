@@ -63,19 +63,55 @@ namespace GameMain
                     case NodeTag.Espresso:
                         OrderData.Espresso -= 1;
                         break;
+                    case NodeTag.IceEspresso:
+                        OrderData.Espresso -= 1;
+                        break;
+                    case NodeTag.SweetEspresso:
+                        OrderData.Espresso -= 1;
+                        break;
                     case NodeTag.ConPanna:
+                        OrderData.ConPanna -= 1;
+                        break;
+                    case NodeTag.IceConPanna:
+                        OrderData.ConPanna -= 1;
+                        break;
+                    case NodeTag.SweetConPanna:
                         OrderData.ConPanna -= 1;
                         break;
                     case NodeTag.Mocha:
                         OrderData.Mocha -= 1;
                         break;
+                    case NodeTag.IceMocha:
+                        OrderData.Mocha -= 1;
+                        break;
+                    case NodeTag.SweetMocha:
+                        OrderData.Mocha -= 1;
+                        break;
                     case NodeTag.WhiteCoffee:
+                        OrderData.WhiteCoffee -= 1;
+                        break;
+                    case NodeTag.IceWhiteCoffee:
+                        OrderData.WhiteCoffee -= 1;
+                        break;
+                    case NodeTag.SweetWhiteCoffee:
                         OrderData.WhiteCoffee -= 1;
                         break;
                     case NodeTag.CafeAmericano:
                         OrderData.CafeAmericano -= 1;
                         break;
+                    case NodeTag.IceCafeAmericano:
+                        OrderData.CafeAmericano -= 1;
+                        break;
+                    case NodeTag.SweetCafeAmericano:
+                        OrderData.CafeAmericano -= 1;
+                        break;
                     case NodeTag.Latte:
+                        OrderData.Latte -= 1;
+                        break;
+                    case NodeTag.IceLatte:
+                        OrderData.Latte -= 1;
+                        break;
+                    case NodeTag.SweetLatte:
                         OrderData.Latte -= 1;
                         break;
                     default:
@@ -91,12 +127,6 @@ namespace GameMain
     public class MaterialData
     { 
         public int Water
-        {
-            get;
-            set;
-        }
-
-        public int Sugaer
         {
             get;
             set;
@@ -121,6 +151,16 @@ namespace GameMain
         }
 
         public int Cream
+        {
+            get;
+            set;
+        }
+        public int Ice
+        {
+            get;
+            set;
+        }
+        public int Sugar
         {
             get;
             set;
