@@ -31,6 +31,12 @@ namespace GameMain
         [SerializeField] private Text WhiteCoffeeText;
         [SerializeField] private Text CafeAmericanoText;
         [SerializeField] private Text LatteText;
+        [SerializeField] private Text Timer;//计时器
+
+        private float Count_Down;//倒计时
+        private int Count_DownTime;//倒计时
+        private bool Count_DownSign;//倒计时标志
+
 
         private PlaySoundParams playSoundParams = PlaySoundParams.Create();
         private int m_RandomValue;
@@ -69,6 +75,19 @@ namespace GameMain
 
             GameEntry.Event.Subscribe(LevelEventArgs.EventId, LevelEvent);
             GameEntry.Event.Subscribe(OrderEventArgs.EventId, UpdateOrder);
+
+            Count_Down = 180;
+            Count_DownSign = true;
+        }
+        protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
+        {
+            if (Count_DownSign)
+            {
+                Count_Down -= Time.deltaTime;
+                Count_DownTime=(int)Count_Down;
+                Timer.text = Count_DownTime.ToString();
+            }
+            
         }
         protected override void OnClose(bool isShutdown, object userData)
         {
@@ -166,6 +185,7 @@ namespace GameMain
             CafeAmericanoText.text = orderData.CafeAmericano.ToString();
             LatteText.text = orderData.Latte.ToString();
         }
+
     }
 
 }

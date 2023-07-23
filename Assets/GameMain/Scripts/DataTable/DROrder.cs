@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2023-07-22 13:45:31.436
+// 生成时间：2023-07-23 12:27:54.886
 //------------------------------------------------------------
 
 using GameFramework;
@@ -99,6 +99,15 @@ namespace GameMain
             private set;
         }
 
+        /// <summary>
+        /// 获取倒计时。
+        /// </summary>
+        public int Count_Down
+        {
+            get;
+            private set;
+        }
+
         public override bool ParseDataRow(string dataRowString, object userData)
         {
             string[] columnStrings = dataRowString.Split(DataTableExtension.DataSplitSeparators);
@@ -118,6 +127,7 @@ namespace GameMain
             Mocha = int.Parse(columnStrings[index++]);
             ConPanna = int.Parse(columnStrings[index++]);
             Dialog = columnStrings[index++];
+            Count_Down = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -137,6 +147,7 @@ namespace GameMain
                     Mocha = binaryReader.Read7BitEncodedInt32();
                     ConPanna = binaryReader.Read7BitEncodedInt32();
                     Dialog = binaryReader.ReadString();
+                    Count_Down = binaryReader.Read7BitEncodedInt32();
                 }
             }
 
