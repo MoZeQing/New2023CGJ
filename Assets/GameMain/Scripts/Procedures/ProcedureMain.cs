@@ -18,6 +18,7 @@ namespace GameMain
         private int mDay = 1;//现在天数
         private int mIndex = 0;//现在关卡数
         private bool m_BackGame = false;
+        private bool m_ChangeDay = false;
 
         private MainState mMainState;
         private OrderManager mOrderManager;
@@ -174,8 +175,12 @@ namespace GameMain
         }
         private void UpdateLevel()
         {
-            if(m_LevelData==null)
-                mMainState= MainState.Change;
+            if (m_LevelData == null)
+            {
+                mMainState = MainState.Change;
+                GetLevel();
+            }
+
             switch (mMainState)
             {
                 case MainState.Foreword:
@@ -186,18 +191,18 @@ namespace GameMain
                     break;
                 case MainState.Text:
                     mMainState = MainState.Change;
+                    GetLevel();
                     ChangeScene();
                     break;
                 case MainState.Change:
                     mMainState = MainState.Foreword;
-                    GetLevel();
                     break;
             }
             GameEntry.Event.FireNow(this, LevelEventArgs.Create(mMainState, m_LevelData));
         }
         private void ChangeScene()
         {
-            GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, 6f);
+            GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, m_ChangeDay ? mDay: 0);
         }
         //更新关卡
         public void GetLevel()//改为装配
@@ -208,7 +213,10 @@ namespace GameMain
             {
                 mDay++;
                 mIndex = 1;
+                m_ChangeDay = true;
             }
+            else
+                m_ChangeDay= false;
             if (mDay > 10)
             { 
                 //进结局

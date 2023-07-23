@@ -99,7 +99,8 @@ namespace GameMain
         Lose,//Ê§Âä
         Cry,//¿ÞÆü
         Shy,//º¦Ðß
-        Amazed//¾ªÑÈ
+        Amazed,//¾ªÑÈ
+        Scare//¿Ö¾å
     }
     //¶¯×÷Tag
     public enum ActionTag

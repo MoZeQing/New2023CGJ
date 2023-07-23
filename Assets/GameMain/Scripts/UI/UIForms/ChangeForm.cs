@@ -17,7 +17,10 @@ namespace GameMain
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            mDuration = (float)userData;
+            int index = (int)userData;
+            m_Image.sprite = GameEntry.Utils.changeSprites[index];
+
+            mDuration = 6f;
             mTime = 0;
         }
 

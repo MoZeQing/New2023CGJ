@@ -10,6 +10,8 @@ namespace GameMain
     public class UtilsComponent : GameFrameworkComponent
     {
         public List<Sprite> nodeSprites = new List<Sprite>();
+        //规定，第0张默认是黑屏切换（即每一段之间的切换），第1张开始则是每一天的奇幻
+        public List<Sprite> changeSprites= new List<Sprite>();
 
         //数据管理器部分
         private Dictionary<TriggerTag,string> _values= new Dictionary<TriggerTag,string>();
@@ -90,6 +92,11 @@ namespace GameMain
         {
             _values.Add(TriggerTag.Davor, "5");
             _values.Add(TriggerTag.Money, "300");
+        }
+
+        private void OnDisable()
+        {
+            
         }
     }
 }
