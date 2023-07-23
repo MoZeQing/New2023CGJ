@@ -31,7 +31,6 @@ MonoBehaviour:
     - chatDatas 9
     - chatDatas 10
     - chatDatas 11
-    - chatDatas 12
     values:
     - _fieldName: a
       _node: {fileID: -8863723730642135920}
@@ -175,15 +174,6 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 1
-    - _fieldName: chatDatas 12
-      _node: {fileID: -8863723730642135920}
-      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 1
   a: 0
   b: 0
   dialogId: 
@@ -265,13 +255,6 @@ MonoBehaviour:
       actionTag: 0
       soundTag: 0
     text: "\u8C22\u8C22\u5E97\u957F\uFF0C\u7ED9\u4E86\u6211\u8FD9\u4E48\u591A\u3002"
-  - charName: "\u6211"
-    charSO: {fileID: 11400000, guid: 2df0921c1f200e841ad8f3294cdec8f4, type: 2}
-    actionData:
-      diffTag: 1
-      actionTag: 0
-      soundTag: 0
-    text: "\u6162\u70B9\u559D\u3002"
   - charName: "\u6211"
     charSO: {fileID: 11400000, guid: 2df0921c1f200e841ad8f3294cdec8f4, type: 2}
     actionData:
@@ -721,8 +704,8 @@ MonoBehaviour:
       - fieldName: chatDatas 2
         node: {fileID: -4354726453391552259}
         reroutePoints: []
-      - fieldName: chatDatas 2
-        node: {fileID: 5436452092210965332}
+      - fieldName: b
+        node: {fileID: 6091194282367094222}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -1129,7 +1112,6 @@ MonoBehaviour:
     - chatDatas
     - chatDatas 0
     - chatDatas 1
-    - chatDatas 2
     values:
     - _fieldName: a
       _node: {fileID: 5436452092210965332}
@@ -1183,18 +1165,6 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 1
-    - _fieldName: chatDatas 2
-      _node: {fileID: 5436452092210965332}
-      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: a
-        node: {fileID: -5508956667617218983}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 1
   a: 0
   b: 0
   dialogId: 
@@ -1206,13 +1176,6 @@ MonoBehaviour:
       actionTag: 0
       soundTag: 0
     text: "-\u4F60\u5C06\u5496\u5561\u9012\u5230\u5973\u5B69\u684C\u4E0A"
-  - charName: "\u6211"
-    charSO: {fileID: 11400000, guid: 2df0921c1f200e841ad8f3294cdec8f4, type: 2}
-    actionData:
-      diffTag: 0
-      actionTag: 0
-      soundTag: 0
-    text: "\u60A8\u7684\u5496\u5561\uFF0C\u8BF7\u6162\u7528\u3002"
   - charName: "\u6211"
     charSO: {fileID: 11400000, guid: 2df0921c1f200e841ad8f3294cdec8f4, type: 2}
     actionData:
@@ -1233,7 +1196,7 @@ MonoBehaviour:
   m_Name: Trigger
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 360, y: -248}
+  position: {x: 328, y: -424}
   ports:
     keys:
     - a
@@ -1257,7 +1220,10 @@ MonoBehaviour:
       _node: {fileID: 6091194282367094222}
       _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
-      connections: []
+      connections:
+      - fieldName: a
+        node: {fileID: -5508956667617218983}
+        reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0

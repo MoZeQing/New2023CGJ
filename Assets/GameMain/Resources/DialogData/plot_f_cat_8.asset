@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Chat
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 1016, y: -328}
+  position: {x: 1128, y: -344}
   ports:
     keys:
     - a
@@ -40,11 +40,11 @@ MonoBehaviour:
       _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
+      - fieldName: b
+        node: {fileID: 6901274882910664273}
+        reroutePoints: []
       - fieldName: chatDatas 12
         node: {fileID: 2008075059564019534}
-        reroutePoints: []
-      - fieldName: chatDatas 5
-        node: {fileID: 2309369400651811656}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -348,7 +348,7 @@ MonoBehaviour:
   m_Name: Chat
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 504, y: -328}
+  position: {x: 536, y: 104}
   ports:
     keys:
     - a
@@ -638,7 +638,6 @@ MonoBehaviour:
     - chatDatas 2
     - chatDatas 3
     - chatDatas 4
-    - chatDatas 5
     values:
     - _fieldName: a
       _node: {fileID: 2309369400651811656}
@@ -719,18 +718,6 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 1
-    - _fieldName: chatDatas 5
-      _node: {fileID: 2309369400651811656}
-      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: a
-        node: {fileID: -9099281302418643379}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 1
   a: 0
   b: 0
   dialogId: 
@@ -770,13 +757,6 @@ MonoBehaviour:
       actionTag: 2
       soundTag: 0
     text: "\u6B38\uFF1F\u55EF\u3002\u3002\u3002\u55EF\u3002\u5E97\u957F\u665A\u4E0A\u597D\u3002"
-  - charName: "\u5C0F\u5973\u5B69"
-    charSO: {fileID: 11400000, guid: 2df0921c1f200e841ad8f3294cdec8f4, type: 2}
-    actionData:
-      diffTag: 5
-      actionTag: 0
-      soundTag: 0
-    text: "\u6B38\uFF1F\u55EF\u3002\u3002\u3002\u55EF\u3002\u5E97\u957F\u665A\u4E0A\u597D\u3002"
 --- !u!114 &2618631162150609820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -790,7 +770,7 @@ MonoBehaviour:
   m_Name: Chat
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 1528, y: -328}
+  position: {x: 2200, y: -248}
   ports:
     keys:
     - a
@@ -995,7 +975,7 @@ MonoBehaviour:
   m_Name: Trigger
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -56, y: -184}
+  position: {x: 24, y: -168}
   ports:
     keys:
     - a
@@ -1019,7 +999,10 @@ MonoBehaviour:
       _node: {fileID: 6901274882910664273}
       _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
-      connections: []
+      connections:
+      - fieldName: a
+        node: {fileID: -9099281302418643379}
+        reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0

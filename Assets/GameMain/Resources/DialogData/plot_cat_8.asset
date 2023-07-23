@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Trigger
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 1464, y: 536}
+  position: {x: 1416, y: 616}
   ports:
     keys:
     - a
@@ -37,7 +37,10 @@ MonoBehaviour:
       _node: {fileID: -9192791521350661465}
       _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
-      connections: []
+      connections:
+      - fieldName: a
+        node: {fileID: -814830316553484227}
+        reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
@@ -88,7 +91,7 @@ MonoBehaviour:
   m_Name: Chat
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 1912, y: 600}
+  position: {x: 2152, y: 584}
   ports:
     keys:
     - a
@@ -301,7 +304,6 @@ MonoBehaviour:
     - chatDatas 10
     - chatDatas 11
     - chatDatas 12
-    - chatDatas 13
     values:
     - _fieldName: a
       _node: {fileID: -2654602501295858837}
@@ -454,18 +456,6 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 1
-    - _fieldName: chatDatas 13
-      _node: {fileID: -2654602501295858837}
-      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: a
-        node: {fileID: -814830316553484227}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 1
   a: 0
   b: 0
   dialogId: 
@@ -561,13 +551,6 @@ MonoBehaviour:
       actionTag: 0
       soundTag: 0
     text: "\u867D\u7136\u6211\u6BCF\u5929\u90FD\u505A\u4E00\u6837\u7684\u4E8B\uFF0C\u4F46\u662F\u6211\u9047\u5230\u7684\u4E8B\u6BCF\u5929\u90FD\u4E0D\u4E00\u6837\u5440\u3002"
-  - charName: "\u6211"
-    charSO: {fileID: 11400000, guid: 2df0921c1f200e841ad8f3294cdec8f4, type: 2}
-    actionData:
-      diffTag: 1
-      actionTag: 0
-      soundTag: 0
-    text: "\u867D\u7136\u6211\u6BCF\u5929\u90FD\u505A\u4E00\u6837\u7684\u4E8B\uFF0C\u4F46\u662F\u6211\u9047\u5230\u7684\u4E8B\u6BCF\u5929\u90FD\u4E0D\u4E00\u6837\u5440\u3002"
 --- !u!114 &-1507846894210919369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -629,8 +612,8 @@ MonoBehaviour:
       - fieldName: chatDatas 7
         node: {fileID: -8902059467388738747}
         reroutePoints: []
-      - fieldName: chatDatas 13
-        node: {fileID: -2654602501295858837}
+      - fieldName: b
+        node: {fileID: -9192791521350661465}
         reroutePoints: []
       _direction: 0
       _connectionType: 0

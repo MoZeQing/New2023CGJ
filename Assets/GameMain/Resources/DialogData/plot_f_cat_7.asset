@@ -534,10 +534,7 @@ MonoBehaviour:
       _node: {fileID: -2252419485598803151}
       _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      connections:
-      - fieldName: a
-        node: {fileID: 6012116554334570925}
-        reroutePoints: []
+      connections: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
@@ -608,7 +605,7 @@ MonoBehaviour:
   m_Name: Trigger
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 584, y: 232}
+  position: {x: 616, y: 248}
   ports:
     keys:
     - a
@@ -632,7 +629,10 @@ MonoBehaviour:
       _node: {fileID: -193120114604896585}
       _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
-      connections: []
+      connections:
+      - fieldName: a
+        node: {fileID: 6012116554334570925}
+        reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
@@ -732,7 +732,7 @@ MonoBehaviour:
   m_Name: Chat
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 696, y: 1064}
+  position: {x: 696, y: 1160}
   ports:
     keys:
     - a
@@ -768,11 +768,11 @@ MonoBehaviour:
       _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
-      - fieldName: chatDatas 6
-        node: {fileID: -2252419485598803151}
-        reroutePoints: []
       - fieldName: chatDatas 20
         node: {fileID: -5307341411079643702}
+        reroutePoints: []
+      - fieldName: b
+        node: {fileID: -193120114604896585}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
