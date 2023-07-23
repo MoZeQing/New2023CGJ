@@ -109,7 +109,7 @@ namespace GameMain
                 {
                     character.sprite = chatData.charSO.charData.diffs[(int)chatData.actionData.diffTag];
                     character.color = Color.white;
-                    if (chatData.sound != SoundTag.None)
+                    if (chatData.actionData.soundTag != SoundTag.None)
                     {
                         GameEntry.Sound.PlaySound(chatData.charSO.charData.audios[(int)chatData.actionData.soundTag]);
                     }
