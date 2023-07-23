@@ -228,8 +228,16 @@ namespace GameMain
                                     output = string.Format("triggerDatas {0}", i);
                                 break;
                             case EventTag.AddMoney:
+                                GameEntry.Utils.Money += int.Parse(eventData.value);
                                 break;
                             case EventTag.AddFavor:
+                                GameEntry.Utils.CharData.favor += int.Parse(eventData.value);
+                                break;
+                            case EventTag.AddFlag:
+                                GameEntry.Utils.AddFlag(eventData.value);
+                                break;
+                            case EventTag.RemoveFlag:
+                                GameEntry.Utils.RemoveFlag(eventData.value);
                                 break;
                         }
                     }

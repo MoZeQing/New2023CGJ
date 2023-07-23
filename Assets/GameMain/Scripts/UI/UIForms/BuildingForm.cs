@@ -71,7 +71,7 @@ namespace GameMain
             if (m_BuildingData.Pos == null)
                 return;
             GameEntry.UI.CloseUIForm(this.UIForm);
-            GameEntry.UI.CloseUIForm(UIFormId.BaseForm);
+            //GameEntry.UI.CloseUIForm(UIFormId.BaseForm);
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)

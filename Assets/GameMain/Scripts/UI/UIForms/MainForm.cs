@@ -31,12 +31,11 @@ namespace GameMain
         [SerializeField] private Text WhiteCoffeeText;
         [SerializeField] private Text CafeAmericanoText;
         [SerializeField] private Text LatteText;
-        [SerializeField] private Text Timer;//计时器
 
-        private float Count_Down;//倒计时
-        private int Count_DownTime;//倒计时
-        private bool Count_DownSign;//倒计时标志
+        //[SerializeField] private Text Timer;//计时器
 
+        //private float mOrderTime;//倒计时
+        //private bool mOnOrderTime;
 
         private PlaySoundParams playSoundParams = PlaySoundParams.Create();
         private int m_RandomValue;
@@ -76,19 +75,18 @@ namespace GameMain
 
             GameEntry.Event.Subscribe(LevelEventArgs.EventId, LevelEvent);
             GameEntry.Event.Subscribe(OrderEventArgs.EventId, UpdateOrder);
-
-            Count_Down = 180;
-            Count_DownSign = true;
         }
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
-            if (Count_DownSign)
-            {
-                Count_Down -= Time.deltaTime;
-                Count_DownTime=(int)Count_Down;
-                Timer.text = Count_DownTime.ToString();
-            }
-            
+            base.OnUpdate(elapseSeconds, realElapseSeconds);
+            //if (mOnOrderTime)
+            //{
+            //    mOrderTime -= Time.deltaTime;
+            //    if (mOrderTime < 0)
+            //    {
+            //        GameEntry.Event.FireNow(this, ClockEventArgs.Create(false));
+            //    }
+            //}   
         }
         protected override void OnClose(bool isShutdown, object userData)
         {
@@ -148,9 +146,11 @@ namespace GameMain
             upButton.gameObject.SetActive(true);
             settingButton.gameObject.SetActive(true);
         }
+
         private void LevelEvent(object sender, GameEventArgs e)
         {
             LevelEventArgs args = (LevelEventArgs)e;
+            //mOnOrderTime = false;
             switch (args.MainState)
             {
                 case MainState.Foreword:
@@ -158,6 +158,8 @@ namespace GameMain
                     Up();
                     break;
                 case MainState.Game:
+                    //mOrderTime = args.LevelData.OrderData.OrderTime;
+                    //mOnOrderTime= true;
                     UnlockGUI();
                     Down();
                     break;
@@ -186,8 +188,6 @@ namespace GameMain
             CafeAmericanoText.text = orderData.CafeAmericano.ToString();
             LatteText.text = orderData.Latte.ToString();
         }
-
     }
-
 }
 

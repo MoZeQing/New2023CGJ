@@ -37,7 +37,8 @@ public enum TriggerTag
     Davor,//当前角色的好感度
     Money,//当前拥有的钱
     Coffee,//是否存在咖啡（一旦有咖啡）
-    Time//目前经过的时间
+    Day,//目前经过的时间
+    Index
 }
 [System.Serializable]
 public enum EventTag
