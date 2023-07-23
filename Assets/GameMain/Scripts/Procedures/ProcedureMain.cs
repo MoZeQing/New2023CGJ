@@ -152,7 +152,7 @@ namespace GameMain
             int index = Random.Range(1, 3);
             levelData.Foreword = string.Format("plot_f_wm_{0}", index);
             levelData.Text = string.Format("plot_wm_{0}", index);
-            levelData.ActionGraph = string.Format("wm_{0}", index);
+            levelData.ActionGraph = string.Format("act_wm_{0}", index);
             levelData.Day= mDay;
             levelData.Index= mIndex;
             return levelData;
