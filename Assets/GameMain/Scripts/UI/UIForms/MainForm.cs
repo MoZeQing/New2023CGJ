@@ -145,7 +145,7 @@ namespace GameMain
         {
             m_RandomValue = Random.Range(0, 30);
 
-            if(m_RandomValue <= 10)
+            if(m_RandomValue == 0)
             {
                 GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/Yudachi.mp3", "Sound");
             }
