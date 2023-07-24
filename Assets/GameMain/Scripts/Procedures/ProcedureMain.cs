@@ -225,7 +225,7 @@ namespace GameMain
         {
             Debug.Log("正在初始化关卡");
             mIndex++;
-            if (mIndex > 2)
+            if (mIndex > 3)
             {
                 mDay++;
                 mIndex = 1;
