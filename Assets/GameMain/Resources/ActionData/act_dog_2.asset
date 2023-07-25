@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8509246987029989596
+--- !u!114 &-4808293505454222176
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Chat
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 152, y: -328}
+  position: {x: 392, y: -120}
   ports:
     keys:
     - a
@@ -21,21 +21,23 @@ MonoBehaviour:
     - chatDatas
     - chatDatas 0
     - chatDatas 1
+    - chatDatas 2
+    - chatDatas 3
     values:
     - _fieldName: a
-      _node: {fileID: -8509246987029989596}
+      _node: {fileID: -4808293505454222176}
       _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
-      - fieldName: click 0
-        node: {fileID: 7645706503363806483}
+      - fieldName: idle 0
+        node: {fileID: -901174823492539396}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: b
-      _node: {fileID: -8509246987029989596}
+      _node: {fileID: -4808293505454222176}
       _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections: []
@@ -44,7 +46,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: chatDatas
-      _node: {fileID: -8509246987029989596}
+      _node: {fileID: -4808293505454222176}
       _typeQualifiedName: System.Collections.Generic.List`1[[ChatData, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
         Culture=neutral, PublicKeyToken=b77a5c561934e089
@@ -54,7 +56,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: chatDatas 0
-      _node: {fileID: -8509246987029989596}
+      _node: {fileID: -4808293505454222176}
       _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections: []
@@ -63,7 +65,25 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 1
     - _fieldName: chatDatas 1
-      _node: {fileID: -8509246987029989596}
+      _node: {fileID: -4808293505454222176}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: chatDatas 2
+      _node: {fileID: -4808293505454222176}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: chatDatas 3
+      _node: {fileID: -4808293505454222176}
       _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections: []
@@ -75,44 +95,35 @@ MonoBehaviour:
   b: 0
   dialogId: 
   chatDatas:
-  - charName: "\u5973\u5B69"
-    charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
+  - charName: "\u8D1D\u8D1D"
+    charSO: {fileID: 11400000, guid: 7177bdddceae85148ad226accac95908, type: 2}
     actionData:
-      diffTag: 0
+      diffTag: 7
       actionTag: 0
       soundTag: 0
-    text: "\u55EF\uFF1F"
-  - charName: "\u5973\u5B69"
-    charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
+    text: "\u5E97\u957F\u2026\u2026\u60F3\u542C\u6545\u4E8B\u5417\uFF1F"
+  - charName: "\u5E97\u957F"
+    charSO: {fileID: 11400000, guid: 7177bdddceae85148ad226accac95908, type: 2}
     actionData:
-      diffTag: 0
+      diffTag: 7
       actionTag: 0
       soundTag: 0
-    text: "\u600E\u4E48\u4E86\uFF1F"
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51133024182a97943a8c174ae1a8395e, type: 3}
-  m_Name: act_cat_1
-  m_EditorClassIdentifier: 
-  nodes:
-  - {fileID: 7645706503363806483}
-  - {fileID: -8509246987029989596}
-  charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
-  trigger:
-    OR: []
-    And: []
-    key: 0
-    not: 0
-    equals: 0
-    value: 
---- !u!114 &7645706503363806483
+    text: "\u6545\u4E8B\uFF1F\u4F60\u613F\u610F\u6211\u5C31\u5949\u966A\u3002"
+  - charName: "\u8D1D\u8D1D"
+    charSO: {fileID: 11400000, guid: 7177bdddceae85148ad226accac95908, type: 2}
+    actionData:
+      diffTag: 1
+      actionTag: 0
+      soundTag: 0
+    text: "\u55EF\u54FC~\u8C22\u8C22\u5E97\u957F\u2014\u2014\u8BB0\u5F97\u522B\u592A\u82E6\u54E6\u3002"
+  - charName: "\u5E97\u957F"
+    charSO: {fileID: 11400000, guid: 7177bdddceae85148ad226accac95908, type: 2}
+    actionData:
+      diffTag: 7
+      actionTag: 0
+      soundTag: 0
+    text: "\u8981\u662F\u6015\u82E6\u7684\u8BDD\u5E72\u561B\u70B9\u7F8E\u5F0F\u554A\u3002"
+--- !u!114 &-901174823492539396
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -125,17 +136,16 @@ MonoBehaviour:
   m_Name: Action
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -344, y: -280}
+  position: {x: -120, y: -166.5}
   ports:
     keys:
     - click
     - idle
     - coffee
-    - click 0
-    - click 1
+    - idle 0
     values:
     - _fieldName: click
-      _node: {fileID: 7645706503363806483}
+      _node: {fileID: -901174823492539396}
       _typeQualifiedName: System.Collections.Generic.List`1[[Trigger, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
         Culture=neutral, PublicKeyToken=b77a5c561934e089
@@ -145,7 +155,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: idle
-      _node: {fileID: 7645706503363806483}
+      _node: {fileID: -901174823492539396}
       _typeQualifiedName: System.Collections.Generic.List`1[[Trigger, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
         Culture=neutral, PublicKeyToken=b77a5c561934e089
@@ -155,7 +165,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: coffee
-      _node: {fileID: 7645706503363806483}
+      _node: {fileID: -901174823492539396}
       _typeQualifiedName: System.Collections.Generic.List`1[[Trigger, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
         Culture=neutral, PublicKeyToken=b77a5c561934e089
@@ -164,39 +174,47 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-    - _fieldName: click 0
-      _node: {fileID: 7645706503363806483}
+    - _fieldName: idle 0
+      _node: {fileID: -901174823492539396}
       _typeQualifiedName: Trigger, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
       - fieldName: a
-        node: {fileID: -8509246987029989596}
+        node: {fileID: -4808293505454222176}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 1
-    - _fieldName: click 1
-      _node: {fileID: 7645706503363806483}
-      _typeQualifiedName: Trigger, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 1
-  click:
+  click: []
+  idle:
   - OR: []
     And: []
     key: 0
     not: 0
     equals: 0
     value: 
-  - OR: []
-    And: []
-    key: 0
-    not: 0
-    equals: 0
-    value: 
-  idle: []
   coffee: []
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51133024182a97943a8c174ae1a8395e, type: 3}
+  m_Name: act_dog_2
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: -901174823492539396}
+  - {fileID: -4808293505454222176}
+  charSO: {fileID: 0}
+  trigger:
+    OR: []
+    And: []
+    key: 0
+    not: 0
+    equals: 0
+    value: 

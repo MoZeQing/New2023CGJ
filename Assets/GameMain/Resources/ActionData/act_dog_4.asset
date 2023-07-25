@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8509246987029989596
+--- !u!114 &-75773035143691278
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -13,29 +13,28 @@ MonoBehaviour:
   m_Name: Chat
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 152, y: -328}
+  position: {x: 248, y: -72}
   ports:
     keys:
     - a
     - b
     - chatDatas
     - chatDatas 0
-    - chatDatas 1
     values:
     - _fieldName: a
-      _node: {fileID: -8509246987029989596}
+      _node: {fileID: -75773035143691278}
       _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
-      - fieldName: click 0
-        node: {fileID: 7645706503363806483}
+      - fieldName: idle 0
+        node: {fileID: 5172352269062948500}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: b
-      _node: {fileID: -8509246987029989596}
+      _node: {fileID: -75773035143691278}
       _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections: []
@@ -44,7 +43,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: chatDatas
-      _node: {fileID: -8509246987029989596}
+      _node: {fileID: -75773035143691278}
       _typeQualifiedName: System.Collections.Generic.List`1[[ChatData, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
         Culture=neutral, PublicKeyToken=b77a5c561934e089
@@ -54,16 +53,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: chatDatas 0
-      _node: {fileID: -8509246987029989596}
-      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 1
-    - _fieldName: chatDatas 1
-      _node: {fileID: -8509246987029989596}
+      _node: {fileID: -75773035143691278}
       _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections: []
@@ -75,20 +65,13 @@ MonoBehaviour:
   b: 0
   dialogId: 
   chatDatas:
-  - charName: "\u5973\u5B69"
-    charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
+  - charName: "\u5E97\u957F"
+    charSO: {fileID: 11400000, guid: 7177bdddceae85148ad226accac95908, type: 2}
     actionData:
-      diffTag: 0
+      diffTag: 7
       actionTag: 0
       soundTag: 0
-    text: "\u55EF\uFF1F"
-  - charName: "\u5973\u5B69"
-    charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
-    actionData:
-      diffTag: 0
-      actionTag: 0
-      soundTag: 0
-    text: "\u600E\u4E48\u4E86\uFF1F"
+    text: "\u5230\u5E95\u662F\u4EC0\u4E48\u4E8B\u554A\u2026\u2026"
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99,12 +82,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 51133024182a97943a8c174ae1a8395e, type: 3}
-  m_Name: act_cat_1
+  m_Name: act_dog_4
   m_EditorClassIdentifier: 
   nodes:
-  - {fileID: 7645706503363806483}
-  - {fileID: -8509246987029989596}
-  charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
+  - {fileID: 5172352269062948500}
+  - {fileID: -75773035143691278}
+  charSO: {fileID: 0}
   trigger:
     OR: []
     And: []
@@ -112,7 +95,7 @@ MonoBehaviour:
     not: 0
     equals: 0
     value: 
---- !u!114 &7645706503363806483
+--- !u!114 &5172352269062948500
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -125,17 +108,16 @@ MonoBehaviour:
   m_Name: Action
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -344, y: -280}
+  position: {x: -200, y: -120}
   ports:
     keys:
     - click
     - idle
     - coffee
-    - click 0
-    - click 1
+    - idle 0
     values:
     - _fieldName: click
-      _node: {fileID: 7645706503363806483}
+      _node: {fileID: 5172352269062948500}
       _typeQualifiedName: System.Collections.Generic.List`1[[Trigger, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
         Culture=neutral, PublicKeyToken=b77a5c561934e089
@@ -145,7 +127,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: idle
-      _node: {fileID: 7645706503363806483}
+      _node: {fileID: 5172352269062948500}
       _typeQualifiedName: System.Collections.Generic.List`1[[Trigger, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
         Culture=neutral, PublicKeyToken=b77a5c561934e089
@@ -155,7 +137,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: coffee
-      _node: {fileID: 7645706503363806483}
+      _node: {fileID: 5172352269062948500}
       _typeQualifiedName: System.Collections.Generic.List`1[[Trigger, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
         Culture=neutral, PublicKeyToken=b77a5c561934e089
@@ -164,39 +146,24 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-    - _fieldName: click 0
-      _node: {fileID: 7645706503363806483}
+    - _fieldName: idle 0
+      _node: {fileID: 5172352269062948500}
       _typeQualifiedName: Trigger, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
       - fieldName: a
-        node: {fileID: -8509246987029989596}
+        node: {fileID: -75773035143691278}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 1
-    - _fieldName: click 1
-      _node: {fileID: 7645706503363806483}
-      _typeQualifiedName: Trigger, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 1
-  click:
+  click: []
+  idle:
   - OR: []
     And: []
     key: 0
     not: 0
     equals: 0
     value: 
-  - OR: []
-    And: []
-    key: 0
-    not: 0
-    equals: 0
-    value: 
-  idle: []
   coffee: []
