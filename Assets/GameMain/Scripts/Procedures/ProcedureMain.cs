@@ -65,7 +65,7 @@ namespace GameMain
             GameEntry.Event.Subscribe(OrderEventArgs.EventId, OrderEvent);
             GameEntry.Event.Subscribe(DialogEventArgs.EventId, DialogEvent);
             GameEntry.Event.Subscribe(ChangeEventArgs.EventId, ChangeEvent);
-            //GameEntry.Event.Subscribe(ClockEventArgs.EventId, ClockEvent);
+            GameEntry.Event.Subscribe(ClockEventArgs.EventId, ClockEvent);
             CheckMaterials();
             
             if(m_LevelData != null)
@@ -106,7 +106,7 @@ namespace GameMain
             GameEntry.Event.Unsubscribe(OrderEventArgs.EventId, OrderEvent);
             GameEntry.Event.Unsubscribe(DialogEventArgs.EventId, DialogEvent);
             GameEntry.Event.Unsubscribe(ChangeEventArgs.EventId, ChangeEvent);
-            //GameEntry.Event.Unsubscribe(ClockEventArgs.EventId, ClockEvent);
+            GameEntry.Event.Unsubscribe(ClockEventArgs.EventId, ClockEvent);
         }
 
         protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
@@ -154,18 +154,15 @@ namespace GameMain
             levelData.Index= mIndex;
             return levelData;
         }
-        //private void ClockEvent(object sender, GameEventArgs e)
-        //{ 
-        //    ClockEventArgs clock= (ClockEventArgs)e;
-        //    if (mMainState == MainState.Game)
-        //    { 
-        //        UpdateLevel();
-        //        float a = mOrderData.GetValue();
-        //        float b= m_LevelData.OrderData.GetValue();
-        //        m_LevelData.OrderData.OrderMoney = (int)(a / b * m_LevelData.OrderData.OrderMoney);
-        //    }
-        //}
-        //因为监听导致了线程问题，因此弃用监听的模式
+        private void ClockEvent(object sender, GameEventArgs e)
+        {
+            ClockEventArgs clock = (ClockEventArgs)e;
+            if (mMainState == MainState.Game)
+            {
+                //强制结算
+                UpdateLevel();
+            }
+        }
         private void OrderEvent(object sender, GameEventArgs e)
         {
             mOrderManager = (OrderManager)sender;
@@ -207,6 +204,7 @@ namespace GameMain
                     break;
                 case MainState.Text:
                     mMainState = MainState.Change;
+                    Settle();
                     GetLevel();
                     ChangeScene();
                     break;
@@ -215,6 +213,20 @@ namespace GameMain
                     break;
             }
             GameEntry.Event.FireNow(this, LevelEventArgs.Create(mMainState, m_LevelData));
+        }
+        /// <summary>
+        /// 结账(计算方法：完成的比例加上时间的奖励和小费的奖励)
+        /// </summary>
+        /// 完成比例*时间奖励*单价+小费
+        /// 其中的时间奖励是当完成时间在限定时间的
+        private void Settle()
+        {
+            float a = mOrderData.GetValue();
+            float b = m_LevelData.OrderData.GetValue();
+            float c = mOrderData.OrderTime;
+            float d = m_LevelData.OrderData.OrderTime;
+            float e = mOrderData.OrderTips;
+            GameEntry.Utils.Money += (int)(a / b/*  c / d*/ * m_LevelData.OrderData.OrderMoney + e);
         }
         private void ChangeScene()
         {

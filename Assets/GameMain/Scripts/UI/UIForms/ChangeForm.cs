@@ -20,7 +20,7 @@ namespace GameMain
             int index = (int)userData;
             m_Image.sprite = GameEntry.Utils.changeSprites[index];
 
-            mDuration = 6f;
+            mDuration = 3f;
             mTime = 0;
         }
 
@@ -45,7 +45,6 @@ namespace GameMain
                 GameEntry.Event.FireNow(this, ChangeEventArgs.Create());
                 GameEntry.UI.CloseUIForm(this.UIForm);
             }
-            Debug.LogFormat("Í¸Ã÷¶ÈÎª{0}", m_Image.color.a);
         }
 
         protected override void OnClose(bool isShutdown, object userData)

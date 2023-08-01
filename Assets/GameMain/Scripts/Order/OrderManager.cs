@@ -194,7 +194,14 @@ namespace GameMain
             get;
             set;
         }
-
+        /// <summary>
+        /// ะกทั
+        /// </summary>
+        public int OrderTips
+        {
+            get;
+            set;
+        }
         public float OrderTime
         {
             get;
