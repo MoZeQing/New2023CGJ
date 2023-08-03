@@ -242,12 +242,18 @@ namespace GameMain
         }
         private void ChangeScene()
         {
-            GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, m_ChangeDay ? mDay: 0);
+            if (m_ChangeDay)
+            {
+                GameEntry.UI.OpenUIForm(UIFormId.SettleForm,mOrderData);
+            }
+            else
+            {
+                GameEntry.UI.OpenUIForm(UIFormId.ChangeForm,mDay );
+            }
         }
         //更新关卡
         public void GetLevel()//改为装配
         {
-            Debug.Log("正在初始化关卡");
             mIndex++;
             if (mIndex > 3)
             {
@@ -302,7 +308,7 @@ namespace GameMain
         private void CheckMaterials()
         {
             //其下的数值改为常数
-            if (mMaterialData.Milk < 1)
+            if (mMaterialData.Milk < 3)
             {
                 GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Milk)
                 {
@@ -310,54 +316,70 @@ namespace GameMain
                 });
                 mMaterialData.Milk++;
             }
-            if (mMaterialData.Cream < 1)
+            if (mMaterialData.Milk < 3)
             {
-                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Cream)
+                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Milk)
                 {
                     Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
                 });
-                mMaterialData.Cream++;
+                mMaterialData.Milk++;
             }
-            if (mMaterialData.CoffeeBean < 1)
+            if (mMaterialData.Milk < 3)
             {
-                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.CoffeeBean)
+                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Milk)
                 {
                     Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
                 });
-                mMaterialData.CoffeeBean++;
+                mMaterialData.Milk++;
             }
-            if (mMaterialData.Water < 1)
-            {
-                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Water)
-                {
-                    Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
-                });
-                mMaterialData.Water++;
-            }
-            if (mMaterialData.ChocolateSyrup < 1)
-            {
-                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.ChocolateSyrup)
-                {
-                    Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
-                });
-                mMaterialData.ChocolateSyrup++;
-            }
-            if (mMaterialData.Ice < 1)
-            {
-                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Ice)
-                {
-                    Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
-                });
-                mMaterialData.Ice++;
-            }
-            if (mMaterialData.Sugar < 1)
-            {
-                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Sugar)
-                {
-                    Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
-                });
-                mMaterialData.Sugar++;
-            }
+            //if (mMaterialData.Cream < 1)
+            //{
+            //    GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Cream)
+            //    {
+            //        Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
+            //    });
+            //    mMaterialData.Cream++;
+            //}
+            //if (mMaterialData.CoffeeBean < 1)
+            //{
+            //    GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.CoffeeBean)
+            //    {
+            //        Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
+            //    });
+            //    mMaterialData.CoffeeBean++;
+            //}
+            //if (mMaterialData.Water < 1)
+            //{
+            //    GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Water)
+            //    {
+            //        Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
+            //    });
+            //    mMaterialData.Water++;
+            //}
+            //if (mMaterialData.ChocolateSyrup < 1)
+            //{
+            //    GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.ChocolateSyrup)
+            //    {
+            //        Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
+            //    });
+            //    mMaterialData.ChocolateSyrup++;
+            //}
+            //if (mMaterialData.Ice < 1)
+            //{
+            //    GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Ice)
+            //    {
+            //        Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
+            //    });
+            //    mMaterialData.Ice++;
+            //}
+            //if (mMaterialData.Sugar < 1)
+            //{
+            //    GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Sugar)
+            //    {
+            //        Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
+            //    });
+            //    mMaterialData.Sugar++;
+            //}
         }
     }
     /// <summary>

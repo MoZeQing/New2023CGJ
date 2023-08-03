@@ -38,7 +38,7 @@ namespace GameMain
 
         private void Upgrade_OnClick()
         {
-            GameEntry.UI.OpenUIForm(UIFormId.UpgradeForm, m_BuildingData);
+            //GameEntry.UI.OpenUIForm(UIFormId.UpgradeForm, m_BuildingData);
         }
 
         private void Building_OnClick()

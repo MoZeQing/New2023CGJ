@@ -13,11 +13,15 @@ namespace GameMain
         [SerializeField] private Text mMoney;
         [SerializeField] private Button mOKButton;
 
+        private LevelData mLevelData;
+
+        //思考传入什么参数
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            OrderData orderData=(OrderData)userData;
-            mMoney.text = orderData.OrderMoney.ToString();
+            mLevelData=(LevelData)userData;
+
+            mMoney.text = mLevelData.OrderData.OrderMoney.ToString();
 
             mOKButton.onClick.AddListener(Click);
         }
@@ -33,8 +37,16 @@ namespace GameMain
         }
 
         private void Click()
-        { 
-            
+        {
+            GameEntry.UI.CloseUIForm(this.UIForm);//更改
+            if (mLevelData.Index == 3)
+            {
+                GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, mLevelData.Day+1);
+            }
+            else
+            {
+                GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, 0);
+            }
         }
     }
 }

@@ -16,6 +16,17 @@ namespace GameMain
         //规定，第0张默认是黑屏切换（即每一段之间的切换），第1张开始则是每一天的奇幻
         public List<Sprite> changeSprites= new List<Sprite>();
 
+        public bool pickUp = false;
+        private int mCarfSort = 99;
+
+        public int CartSort
+        {
+            get
+            {
+                return mCarfSort++;
+            }
+        }
+
         //数据管理器部分
         private Dictionary<TriggerTag,string> _values= new Dictionary<TriggerTag,string>();
         private Dictionary<string,int> mCharFavor= new Dictionary<string,int>();

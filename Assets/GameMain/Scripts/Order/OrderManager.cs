@@ -207,6 +207,14 @@ namespace GameMain
             get;
             set;
         }
+        /// <summary>
+        /// 小费
+        /// </summary>
+        public int OrderTip
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// 获取浓缩咖啡。

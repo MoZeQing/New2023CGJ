@@ -18,7 +18,6 @@ namespace GameMain
         public void StartGame()
         {
             m_StartGame = true;
-            Debug.Log("´¥·¢");
         }
 
         public void ExitGame()

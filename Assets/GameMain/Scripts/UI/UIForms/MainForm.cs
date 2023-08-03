@@ -34,10 +34,10 @@ namespace GameMain
 
         [SerializeField] private Button mDebugButton;
 
-        //[SerializeField] private Text Timer;//计时器
+        [SerializeField] private Text Timer;//计时器
 
-        //private float mOrderTime;//倒计时
-        //private bool mOnOrderTime;
+        private float mOrderTime;//倒计时
+        private bool mOnOrderTime;
 
         private PlaySoundParams playSoundParams = PlaySoundParams.Create();
         private int m_RandomValue;
@@ -79,7 +79,6 @@ namespace GameMain
                 Position = new Vector3(0, -4.8f, 0)
             });
         }
-
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
@@ -97,11 +96,6 @@ namespace GameMain
             this.DialogForm = GetComponentInChildren<DialogForm>(true);
             this.WorkForm = GetComponentInChildren<WorkForm>(true);
 
-            //playSoundParams.Loop = true;
-            //playSoundParams.VolumeInSoundGroup = 0.3f;
-            //playSoundParams.Priority = 64;
-            //playSoundParams.SpatialBlend = 0f;
-            //GameEntry.Sound.PlaySound("Assets/GameMain/Audio/BGM/maou_bgm_acoustic52.mp3", "BGM", playSoundParams);
             GameEntry.Sound.PlaySound(19);
 
             GameEntry.Event.Subscribe(LevelEventArgs.EventId, LevelEvent);
@@ -110,14 +104,16 @@ namespace GameMain
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
-            //if (mOnOrderTime)
-            //{
-            //    mOrderTime -= Time.deltaTime;
-            //    if (mOrderTime < 0)
-            //    {
-            //        GameEntry.Event.FireNow(this, ClockEventArgs.Create(false));
-            //    }
-            //}   
+            if (mOnOrderTime)
+            {
+                mOrderTime -= Time.deltaTime;
+                Timer.text = Mathf.Floor(mOrderTime).ToString();
+                if (mOrderTime < 0)
+                {
+                    GameEntry.Event.FireNow(this, ClockEventArgs.Create(false));
+                    mOnOrderTime = false;
+                }
+            }
         }
         protected override void OnClose(bool isShutdown, object userData)
         {
@@ -189,12 +185,13 @@ namespace GameMain
                     Up();
                     break;
                 case MainState.Game:
-                    //mOrderTime = args.LevelData.OrderData.OrderTime;
-                    //mOnOrderTime= true;
+                    mOrderTime = 2000f;
+                    mOnOrderTime = true;
                     UnlockGUI();
                     Down();
                     break;
                 case MainState.Text:
+                    mOnOrderTime = false;
                     LockGUI();
                     Up();
                     break;

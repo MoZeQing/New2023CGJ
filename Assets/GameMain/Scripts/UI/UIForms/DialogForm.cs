@@ -334,7 +334,6 @@ namespace GameMain
         }
         private void SetAction(ActionGraph action)
         {
-            Debug.Log(action.nodes.Count);
             foreach (Node node in action.nodes)
             {
                 if (node.GetType().ToString() == "ActionNode")
