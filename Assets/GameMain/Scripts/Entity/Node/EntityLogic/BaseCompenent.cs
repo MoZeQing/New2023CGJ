@@ -78,12 +78,6 @@ namespace GameMain
             {
                 Follow = false;
             }
-            switch (NodeState)
-            {
-                case NodeState.Idle:
-                    SpriteRenderer.gameObject.transform.DOLocalMove(Vector3.zero, 0.2f);
-                    break;
-            }
             if (Follow)
             {
                 //缓动本身没有问题，但现在需要计算鼠标移动来跟踪了
@@ -99,6 +93,7 @@ namespace GameMain
             {
                 this.transform.DOMove(Parent.transform.position+Vector3.up*0.5f, 0.1f);//吸附节点
                 SpriteRenderer.sortingOrder = Parent.SpriteRenderer.sortingOrder+1;
+                Shader.sortingOrder = -99;
             }
         }
         protected Vector3 MouseToWorld(Vector3 mousePos)
@@ -113,6 +108,7 @@ namespace GameMain
 
             Follow = true;
             GameEntry.Utils.pickUp = true;
+            Shader.sortingOrder = GameEntry.Utils.CartSort;
             SpriteRenderer.sortingOrder = GameEntry.Utils.CartSort;
             NodeState = NodeState.PickUp;
             //播放拿起的声音
@@ -128,6 +124,9 @@ namespace GameMain
             PitchOn();
             if (mCompenents.Count == 0)
                 return;
+            if (Parent != null)
+                return;
+
             BaseCompenent bestCompenent = mCompenents[0];
             foreach (BaseCompenent baseCompenent in mCompenents)
             {
@@ -137,32 +136,8 @@ namespace GameMain
                 }
             }
             mCompenents.Clear();
-            Parent = bestCompenent;
-            Parent.Child= this;
-        }
-        public void OnPointerEnter(PointerEventData pointerEventData)
-        {
-            if (GameEntry.Utils.pickUp)
-                return;
-            NodeState = NodeState.PitchOn;
-            PitchOn();
-        }
-        public void OnPointerExit(PointerEventData pointerEventData)
-        {
-            if (GameEntry.Utils.pickUp)
-                return;
-            NodeState = NodeState.Idle;
-            PutDown();
-        }
-        private void OnTriggerStay2D(Collider2D collision)
-        {
-            if (!Follow)
-                return;
-            BaseCompenent baseCompenent = null;
-            if (!collision.TryGetComponent<BaseCompenent>(out baseCompenent))
-                return;
             //避免出现循环
-            BaseCompenent parent = baseCompenent;
+            BaseCompenent parent = bestCompenent;
             //避免出现死循环
             int block = 1000;
             while (parent != null)
@@ -174,6 +149,34 @@ namespace GameMain
                 if (block < 0)
                     return;
             }
+            Parent = bestCompenent;
+            Parent.Child= this;
+        }
+        public void OnPointerEnter(PointerEventData pointerEventData)
+        {
+            if (GameEntry.Utils.pickUp)
+                return;
+            if (Parent != null)
+                return;
+            NodeState = NodeState.PitchOn;
+            PitchOn();
+        }
+        public void OnPointerExit(PointerEventData pointerEventData)
+        {
+            if (GameEntry.Utils.pickUp)
+                return;
+            if (Parent != null)
+                return;
+            NodeState = NodeState.Idle;
+            PutDown();
+        }
+        private void OnTriggerStay2D(Collider2D collision)
+        {
+            if (!Follow)
+                return;
+            BaseCompenent baseCompenent = null;
+            if (!collision.TryGetComponent<BaseCompenent>(out baseCompenent))
+                return;
 
             if (!mCompenents.Contains(baseCompenent))
             {
@@ -202,6 +205,8 @@ namespace GameMain
         /// </summary>
         public void PickUp()
         {
+            SpriteRenderer.gameObject.transform.DOPause();
+            Shader.gameObject.transform.DOPause();
             SpriteRenderer.gameObject.transform.DOLocalMove(Vector3.up * 0.16f, 0.2f);
             Shader.gameObject.transform.DOLocalMove(Vector3.down * 0.08f, 0.2f);
             if (Child != null)
@@ -212,6 +217,8 @@ namespace GameMain
         /// </summary>
         public void PitchOn()
         {
+            SpriteRenderer.gameObject.transform.DOPause();
+            Shader.gameObject.transform.DOPause();
             SpriteRenderer.gameObject.transform.DOLocalMove(Vector3.up * 0.08f, 0.2f);
             Shader.gameObject.transform.DOLocalMove(Vector3.down * 0.04f, 0.2f);
             if (Child != null)
@@ -222,6 +229,8 @@ namespace GameMain
         /// </summary>
         public void PutDown()
         {
+            SpriteRenderer.gameObject.transform.DOPause();
+            Shader.gameObject.transform.DOPause();
             SpriteRenderer.gameObject.transform.DOLocalMove(Vector3.zero, 0.016f);
             Shader.gameObject.transform.DOLocalMove(Vector3.zero, 0.08f);
             if (Child != null)
