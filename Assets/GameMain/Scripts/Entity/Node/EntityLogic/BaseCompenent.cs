@@ -31,6 +31,7 @@ namespace GameMain
         }
         protected SpriteRenderer mSpriteRenderer = null;
         protected SpriteRenderer mShader = null;
+        protected BoxCollider2D mBoxCollider2D = null;
         //当抓取时鼠标与中心点的差距
         protected Vector3 mMouseGap;
         protected NodeData mNodeData = null;
@@ -47,6 +48,9 @@ namespace GameMain
             mSpriteRenderer = this.transform.Find("Sprite").GetComponent<SpriteRenderer>();
             mShader = this.transform.Find("Shader").GetComponent<SpriteRenderer>();
 
+            mBoxCollider2D = this.GetComponent<BoxCollider2D>();
+            mBoxCollider2D.size = mSpriteRenderer.size;
+
             if (mNodeData.Follow)
             {
                 GameEntry.Utils.pickUp = true;
@@ -61,6 +65,8 @@ namespace GameMain
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
+            if (Parent != null)
+                mBoxCollider2D.isTrigger = true;
             if (!Input.GetMouseButton(0))
             {
                 mNodeData.Follow = false;
@@ -80,8 +86,6 @@ namespace GameMain
             if (Parent != null && !mNodeData.Follow)
             {
                 this.transform.DOMove(Parent.transform.position+Vector3.up*0.5f, 0.1f);//吸附节点
-                mSpriteRenderer.sortingOrder = Parent.mSpriteRenderer.sortingOrder+1;
-                mShader.sortingOrder = -99;
             }
         }
         protected Vector3 MouseToWorld(Vector3 mousePos)
@@ -96,8 +100,11 @@ namespace GameMain
 
             mNodeData.Follow = true;
             GameEntry.Utils.pickUp = true;
+            mBoxCollider2D.isTrigger = true;
             mShader.sortingOrder = GameEntry.Utils.CartSort;
             mSpriteRenderer.sortingOrder = GameEntry.Utils.CartSort;
+            mSpriteRenderer.sortingLayerName = "Controller";
+            mShader.sortingLayerName = "Controller";
             //播放拿起的声音
             //抬高卡片
             mMouseGap = MouseToWorld(Input.mousePosition)-this.transform.position;
@@ -105,6 +112,9 @@ namespace GameMain
         }
         public void OnPointerUp(PointerEventData pointerEventData)
         {
+            mSpriteRenderer.sortingLayerName = "GamePlay";
+            mShader.sortingLayerName = "GamePlay";
+            mBoxCollider2D.isTrigger = false;
             PitchOn();
             if (mCompenents.Count == 0)
                 return;
@@ -192,6 +202,10 @@ namespace GameMain
             mShader.gameObject.transform.DOPause();
             mSpriteRenderer.gameObject.transform.DOLocalMove(Vector3.up * 0.16f, 0.2f);
             mShader.gameObject.transform.DOLocalMove(Vector3.down * 0.08f, 0.2f);
+            mShader.sortingOrder = -99;
+            mSpriteRenderer.sortingOrder = GameEntry.Utils.CartSort;
+            mSpriteRenderer.sortingLayerName = "Controller";
+            mShader.sortingLayerName = "Controller";
             if (Child != null)
                 Child.PickUp();
         }
@@ -204,6 +218,10 @@ namespace GameMain
             mShader.gameObject.transform.DOPause();
             mSpriteRenderer.gameObject.transform.DOLocalMove(Vector3.up * 0.08f, 0.2f);
             mShader.gameObject.transform.DOLocalMove(Vector3.down * 0.04f, 0.2f);
+            mShader.sortingOrder = -99;
+            mSpriteRenderer.sortingOrder = GameEntry.Utils.CartSort;
+            mSpriteRenderer.sortingLayerName = "GamePlay";
+            mShader.sortingLayerName = "GamePlay";
             if (Child != null)
                 Child.PitchOn();
         }
@@ -216,6 +234,10 @@ namespace GameMain
             mShader.gameObject.transform.DOPause();
             mSpriteRenderer.gameObject.transform.DOLocalMove(Vector3.zero, 0.016f);
             mShader.gameObject.transform.DOLocalMove(Vector3.zero, 0.08f);
+            mShader.sortingOrder = -99;
+            mSpriteRenderer.sortingOrder = GameEntry.Utils.CartSort;
+            mSpriteRenderer.sortingLayerName = "GamePlay";
+            mShader.sortingLayerName = "GamePlay";
             if (Child != null)
                 Child.PutDown();
         }
