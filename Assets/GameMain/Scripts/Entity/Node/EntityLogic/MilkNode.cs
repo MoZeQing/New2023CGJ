@@ -23,12 +23,11 @@ namespace GameMain
             IDataTable<DRNode> dtNode = GameEntry.DataTable.GetDataTable<DRNode>();
             DRNode drNode = dtNode.GetDataRow(3);
 
-            SpriteRenderer.sprite = GameEntry.Utils.nodeSprites[(int)m_NodeData.NodeTag];
-            SpriteRenderer.sortingLayerName = drNode.Layer;
-            SpriteRenderer.sortingOrder = drNode.Layerint;
+            mSpriteRenderer.sprite = GameEntry.Utils.nodeSprites[(int)m_NodeData.NodeTag];
+            mSpriteRenderer.sortingLayerName = drNode.Layer;
 
             m_BoxCollider2D = this.GetComponent<BoxCollider2D>();
-            m_BoxCollider2D.size = SpriteRenderer.size;
+            m_BoxCollider2D.size = mSpriteRenderer.size;
 
         }
 

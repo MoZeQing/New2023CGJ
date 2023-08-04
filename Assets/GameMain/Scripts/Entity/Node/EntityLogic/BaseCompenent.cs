@@ -9,11 +9,6 @@ namespace GameMain
 {
     public class BaseCompenent : Entity, IPointerDownHandler,IPointerEnterHandler,IPointerExitHandler,IPointerUpHandler
     {
-        public bool Follow
-        {
-            get;
-            protected set;
-        } = false;
         public BaseCompenent Parent
         {
             get;
@@ -29,56 +24,49 @@ namespace GameMain
             get;
             set;
         } = false;
-        public bool Touch
-        {
-            get;
-            set;
-        } = false;
-        public bool Completed
-        {
-            get;
-            set;
-        } = false;
         public NodeTag NodeTag
         {
             get;
             private set;
         }
-        public NodeState NodeState
-        {
-            get;
-            private set;
-        }
-        protected SpriteRenderer SpriteRenderer
-        {
-            get;
-            set;
-        }
-        protected SpriteRenderer Shader
-        {
-            get;
-            set;
-        }
+        protected SpriteRenderer mSpriteRenderer = null;
+        protected SpriteRenderer mShader = null;
         //当抓取时鼠标与中心点的差距
-        private Vector3 mMouseGap;
+        protected Vector3 mMouseGap;
+        protected NodeData mNodeData = null;
+        protected CompenentData mCompenentData = null;
 
         protected List<BaseCompenent>  mCompenents= new List<BaseCompenent>();
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
-            CompenentData data = (CompenentData)userData;
-            NodeTag = data.NodeData.NodeTag;
-            SpriteRenderer = this.transform.Find("Sprite").GetComponent<SpriteRenderer>();
-            Shader = this.transform.Find("Shader").GetComponent<SpriteRenderer>();
+            mCompenentData = (CompenentData)userData;
+            mNodeData = mCompenentData.NodeData;
+
+            NodeTag = mCompenentData.NodeData.NodeTag;
+            mSpriteRenderer = this.transform.Find("Sprite").GetComponent<SpriteRenderer>();
+            mShader = this.transform.Find("Shader").GetComponent<SpriteRenderer>();
+
+            if (mNodeData.Follow)
+            {
+                GameEntry.Utils.pickUp = true;
+                mShader.sortingOrder = GameEntry.Utils.CartSort;
+                mSpriteRenderer.sortingOrder = GameEntry.Utils.CartSort;
+
+                this.transform.position = MouseToWorld(Input.mousePosition);
+                mMouseGap = Vector3.zero;
+                PickUp();
+            }
         }
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
             if (!Input.GetMouseButton(0))
             {
-                Follow = false;
+                mNodeData.Follow = false;
+                GameEntry.Utils.pickUp = false;
             }
-            if (Follow)
+            if (mNodeData.Follow)
             {
                 //缓动本身没有问题，但现在需要计算鼠标移动来跟踪了
                 this.transform.DOMove(MouseToWorld(Input.mousePosition) - mMouseGap, 0.05f);
@@ -89,11 +77,11 @@ namespace GameMain
             this.transform.position = new Vector3(Mathf.Clamp(this.transform.position.x, -8.8f, 8.8f), Mathf.Clamp(this.transform.position.y, -8f, -1.6f), 0);//限制范围
             //if (Parent == null)
             //    SpriteRenderer.sortingOrder = 0;
-            if (Parent != null && !Follow)
+            if (Parent != null && !mNodeData.Follow)
             {
                 this.transform.DOMove(Parent.transform.position+Vector3.up*0.5f, 0.1f);//吸附节点
-                SpriteRenderer.sortingOrder = Parent.SpriteRenderer.sortingOrder+1;
-                Shader.sortingOrder = -99;
+                mSpriteRenderer.sortingOrder = Parent.mSpriteRenderer.sortingOrder+1;
+                mShader.sortingOrder = -99;
             }
         }
         protected Vector3 MouseToWorld(Vector3 mousePos)
@@ -106,11 +94,10 @@ namespace GameMain
         {
             GameEntry.Sound.PlaySound("Assets/GameMain/Audio/Sounds/Pick_up.mp3", "Sound");
 
-            Follow = true;
+            mNodeData.Follow = true;
             GameEntry.Utils.pickUp = true;
-            Shader.sortingOrder = GameEntry.Utils.CartSort;
-            SpriteRenderer.sortingOrder = GameEntry.Utils.CartSort;
-            NodeState = NodeState.PickUp;
+            mShader.sortingOrder = GameEntry.Utils.CartSort;
+            mSpriteRenderer.sortingOrder = GameEntry.Utils.CartSort;
             //播放拿起的声音
             //抬高卡片
             mMouseGap = MouseToWorld(Input.mousePosition)-this.transform.position;
@@ -118,9 +105,6 @@ namespace GameMain
         }
         public void OnPointerUp(PointerEventData pointerEventData)
         {
-            Follow = false;
-            GameEntry.Utils.pickUp = false;
-            NodeState = NodeState.PitchOn;
             PitchOn();
             if (mCompenents.Count == 0)
                 return;
@@ -136,6 +120,8 @@ namespace GameMain
                 }
             }
             mCompenents.Clear();
+            if (bestCompenent.Child != null)
+                return;
             //避免出现循环
             BaseCompenent parent = bestCompenent;
             //避免出现死循环
@@ -158,7 +144,6 @@ namespace GameMain
                 return;
             if (Parent != null)
                 return;
-            NodeState = NodeState.PitchOn;
             PitchOn();
         }
         public void OnPointerExit(PointerEventData pointerEventData)
@@ -167,17 +152,15 @@ namespace GameMain
                 return;
             if (Parent != null)
                 return;
-            NodeState = NodeState.Idle;
             PutDown();
         }
         private void OnTriggerStay2D(Collider2D collision)
         {
-            if (!Follow)
+            if (!mNodeData.Follow)
                 return;
             BaseCompenent baseCompenent = null;
             if (!collision.TryGetComponent<BaseCompenent>(out baseCompenent))
                 return;
-
             if (!mCompenents.Contains(baseCompenent))
             {
                 mCompenents.Add(baseCompenent);
@@ -185,7 +168,7 @@ namespace GameMain
         }
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (!Follow) 
+            if (!mNodeData.Follow) 
                 return;
             BaseCompenent baseCompenent = null;
             if (!collision.TryGetComponent<BaseCompenent>(out baseCompenent))
@@ -205,10 +188,10 @@ namespace GameMain
         /// </summary>
         public void PickUp()
         {
-            SpriteRenderer.gameObject.transform.DOPause();
-            Shader.gameObject.transform.DOPause();
-            SpriteRenderer.gameObject.transform.DOLocalMove(Vector3.up * 0.16f, 0.2f);
-            Shader.gameObject.transform.DOLocalMove(Vector3.down * 0.08f, 0.2f);
+            mSpriteRenderer.gameObject.transform.DOPause();
+            mShader.gameObject.transform.DOPause();
+            mSpriteRenderer.gameObject.transform.DOLocalMove(Vector3.up * 0.16f, 0.2f);
+            mShader.gameObject.transform.DOLocalMove(Vector3.down * 0.08f, 0.2f);
             if (Child != null)
                 Child.PickUp();
         }
@@ -217,10 +200,10 @@ namespace GameMain
         /// </summary>
         public void PitchOn()
         {
-            SpriteRenderer.gameObject.transform.DOPause();
-            Shader.gameObject.transform.DOPause();
-            SpriteRenderer.gameObject.transform.DOLocalMove(Vector3.up * 0.08f, 0.2f);
-            Shader.gameObject.transform.DOLocalMove(Vector3.down * 0.04f, 0.2f);
+            mSpriteRenderer.gameObject.transform.DOPause();
+            mShader.gameObject.transform.DOPause();
+            mSpriteRenderer.gameObject.transform.DOLocalMove(Vector3.up * 0.08f, 0.2f);
+            mShader.gameObject.transform.DOLocalMove(Vector3.down * 0.04f, 0.2f);
             if (Child != null)
                 Child.PitchOn();
         }
@@ -229,10 +212,10 @@ namespace GameMain
         /// </summary>
         public void PutDown()
         {
-            SpriteRenderer.gameObject.transform.DOPause();
-            Shader.gameObject.transform.DOPause();
-            SpriteRenderer.gameObject.transform.DOLocalMove(Vector3.zero, 0.016f);
-            Shader.gameObject.transform.DOLocalMove(Vector3.zero, 0.08f);
+            mSpriteRenderer.gameObject.transform.DOPause();
+            mShader.gameObject.transform.DOPause();
+            mSpriteRenderer.gameObject.transform.DOLocalMove(Vector3.zero, 0.016f);
+            mShader.gameObject.transform.DOLocalMove(Vector3.zero, 0.08f);
             if (Child != null)
                 Child.PutDown();
         }

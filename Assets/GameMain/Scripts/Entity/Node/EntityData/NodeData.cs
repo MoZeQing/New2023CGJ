@@ -35,6 +35,12 @@ namespace GameMain
             set;
         }
 
+        public bool Follow
+        {
+            get;
+            set;
+        }
+
         public NodeData(int entityId, int typeId, NodeTag node)
             : base(entityId, typeId)
         {
