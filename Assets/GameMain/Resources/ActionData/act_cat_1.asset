@@ -13,11 +13,10 @@ MonoBehaviour:
   m_Name: Chat
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 152, y: -328}
+  position: {x: 248, y: -408}
   ports:
     keys:
     - a
-    - b
     - chatDatas
     - chatDatas 0
     - chatDatas 1
@@ -27,19 +26,10 @@ MonoBehaviour:
       _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
-      - fieldName: click 0
-        node: {fileID: 7645706503363806483}
+      - fieldName: b
+        node: {fileID: -14274278149666859}
         reroutePoints: []
       _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: b
-      _node: {fileID: -8509246987029989596}
-      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
@@ -72,7 +62,6 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 1
   a: 0
-  b: 0
   dialogId: 
   chatDatas:
   - charName: "\u5973\u5B69"
@@ -89,6 +78,61 @@ MonoBehaviour:
       actionTag: 0
       soundTag: 0
     text: "\u600E\u4E48\u4E86\uFF1F"
+--- !u!114 &-14274278149666859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb71f944f76eccc45aa8060a5faa19b5, type: 3}
+  m_Name: Cat Data
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -200, y: -408}
+  ports:
+    keys:
+    - a
+    - b
+    values:
+    - _fieldName: a
+      _node: {fileID: -14274278149666859}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: click 0
+        node: {fileID: 7645706503363806483}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: b
+      _node: {fileID: -14274278149666859}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: a
+        node: {fileID: -8509246987029989596}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  a: 0
+  b: 0
+  catData:
+    favour: 0
+    mood: 0
+    hope: 0
+    love: 0
+    family: 0
+  playerData:
+    energy: 0
+    money: 0
+    time: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,6 +148,7 @@ MonoBehaviour:
   nodes:
   - {fileID: 7645706503363806483}
   - {fileID: -8509246987029989596}
+  - {fileID: -14274278149666859}
   charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
   trigger:
     OR: []
@@ -125,7 +170,7 @@ MonoBehaviour:
   m_Name: Action
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -344, y: -280}
+  position: {x: -728, y: -232}
   ports:
     keys:
     - click
@@ -170,7 +215,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: a
-        node: {fileID: -8509246987029989596}
+        node: {fileID: -14274278149666859}
         reroutePoints: []
       _direction: 1
       _connectionType: 0

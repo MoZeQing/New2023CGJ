@@ -12,7 +12,7 @@ using DG.Tweening;
 
 namespace GameMain
 {
-    public class DialogForm : MonoBehaviour
+    public class DialogForm : UIFormLogic
     {
         [SerializeField] private Text nameText;
         [SerializeField] private Text dialogText;
@@ -460,21 +460,15 @@ namespace GameMain
         {
             character.rectTransform.DOPunchPosition(new Vector3(0, -100, 0),0.4f);
         }
-        private void Start()
+        protected override void OnOpen(object userData)
         {
+            base.OnOpen(userData);
             dialogBtn.onClick.AddListener(Next);
             GameEntry.Event.Subscribe(LevelEventArgs.EventId, SetDialog);
         }
-        private void FixedUpdate()
+        protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
-            if (Input.GetKey(KeyCode.LeftControl))
-                Next();
-            if(Input.GetKeyDown(KeyCode.Space)||Input.GetKeyDown(KeyCode.Return))
-                Next();
-        }
-        //Action相关功能的代码
-        private void Update()
-        {
+            base.OnUpdate(elapseSeconds, realElapseSeconds);
             if (mMainState != MainState.Game)
                 return;
             switch (mActionState)
@@ -487,12 +481,17 @@ namespace GameMain
                 case ActionState.Coffee:
                     break;
             }
+
+            if (Input.GetKey(KeyCode.LeftControl))
+                Next();
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
+                Next();
         }
-        private void OnDestroy()
+        protected override void OnClose(bool isShutdown, object userData)
         {
+            base.OnClose(isShutdown, userData);
             GameEntry.Event.Unsubscribe(LevelEventArgs.EventId, SetDialog);
         }
-
         private void Option_Onclick(object sender,EventArgs e)
         {
             OptionData optionData = (OptionData)sender;

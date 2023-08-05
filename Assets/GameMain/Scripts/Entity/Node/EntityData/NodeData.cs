@@ -41,6 +41,12 @@ namespace GameMain
             set;
         }
 
+        public bool Jump
+        {
+            get;
+            set;
+        }
+
         public NodeData(int entityId, int typeId, NodeTag node)
             : base(entityId, typeId)
         {

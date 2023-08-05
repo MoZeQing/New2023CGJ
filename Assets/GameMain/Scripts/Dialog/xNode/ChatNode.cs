@@ -10,7 +10,6 @@ public class ChatNode : Node
 {
 
     [Input] public float a;
-    [Output] public float b;
 
     public string dialogId;
 

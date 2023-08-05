@@ -37,6 +37,8 @@ namespace GameMain
         protected NodeData mNodeData = null;
         protected CompenentData mCompenentData = null;
 
+        protected float mLength = 2f;
+
         protected List<BaseCompenent>  mCompenents= new List<BaseCompenent>();
         protected override void OnInit(object userData)
         {
@@ -54,12 +56,18 @@ namespace GameMain
             if (mNodeData.Follow)
             {
                 GameEntry.Utils.pickUp = true;
+                mBoxCollider2D.isTrigger = true;
                 mShader.sortingOrder = GameEntry.Utils.CartSort;
                 mSpriteRenderer.sortingOrder = GameEntry.Utils.CartSort;
 
                 this.transform.position = MouseToWorld(Input.mousePosition);
                 mMouseGap = Vector3.zero;
                 PickUp();
+            }
+            if (mNodeData.Jump)
+            {
+                Vector3 newPos = (Vector3)Random.insideUnitCircle;
+                this.transform.DOMove(mNodeData.Position + newPos * mLength, 0.5f).SetEase(Ease.OutExpo);
             }
         }
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)

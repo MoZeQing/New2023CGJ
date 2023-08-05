@@ -15,6 +15,8 @@ namespace GameMain
     {
         [SerializeField] private Button downButton;
         [SerializeField] private Button upButton;
+        [SerializeField] private Button leftButton;
+        [SerializeField] private Button rightButton;
         [SerializeField] private Button catButton;
         [SerializeField] private Button recipeButton;
         [SerializeField] private Button settingButton;
@@ -85,9 +87,11 @@ namespace GameMain
             ProcedureMain main = (ProcedureMain)userData;
             main.MainForm = this;
 
-            upButton.onClick.AddListener(Up);
-            downButton.onClick.AddListener(Down);
-            catButton.onClick.AddListener(Cat);
+            upButton.onClick.AddListener(() => Move(MainFormTag.Up));
+            downButton.onClick.AddListener(() => Move(MainFormTag.Down));
+            leftButton.onClick.AddListener(() => Move(MainFormTag.Left));
+            rightButton.onClick.AddListener(() => Move(MainFormTag.Right));
+            //catButton.onClick.AddListener(Cat);
             recipeButton.onClick.AddListener(Recipe);
             settingButton.onClick.AddListener(() => mSettingForm.SetActive(true));
 
@@ -120,6 +124,26 @@ namespace GameMain
             base.OnClose(isShutdown, userData);
             GameEntry.Event.Unsubscribe(LevelEventArgs.EventId, LevelEvent);
             GameEntry.Event.Unsubscribe(OrderEventArgs.EventId, UpdateOrder);
+        }
+        public void Move(MainFormTag tag)
+        {
+            GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/page_turn.mp3", "Sound");
+            switch (tag)
+            {
+                case MainFormTag.Up:
+                    Camera.main.transform.DOMove(new Vector3(0, 4.6f, -8f), 1f).SetEase(Ease.OutExpo);
+                    break;
+                case MainFormTag.Down:
+                    Camera.main.transform.DOMove(new Vector3(0, -3.4f, -8f), 1f).SetEase(Ease.OutExpo);
+                    break;
+                case MainFormTag.Left:
+                    Camera.main.transform.DOMove(new Vector3(-19.2f, 4.6f, -8f), 1f).SetEase(Ease.OutExpo);
+                    break;
+                case MainFormTag.Right:
+                    Camera.main.transform.DOMove(new Vector3(19.2f, 4.6f, -8f), 1f).SetEase(Ease.OutExpo);
+                    break;
+            }
+            GameEntry.Event.FireNow(this, MainFormEventArgs.Create(tag));
         }
         public void Up()
         {
@@ -218,4 +242,3 @@ namespace GameMain
         }
     }
 }
-
