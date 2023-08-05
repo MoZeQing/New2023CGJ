@@ -11,8 +11,9 @@ using GameFramework.Event;
 
 namespace GameMain
 {
-    public class MainForm : UIFormLogic
+    public partial class MainForm : UIFormLogic
     {
+        [Header("固定区域")]
         [SerializeField] private Button downButton;
         [SerializeField] private Button upButton;
         [SerializeField] private Button leftButton;
@@ -27,13 +28,6 @@ namespace GameMain
         [SerializeField] private GameObject mRecipeForm;
         [SerializeField] private GameObject mSettingForm;
 
-        [SerializeField] private Text EspressoText;
-        [SerializeField] private Text ConPannaText;
-        [SerializeField] private Text MochaText;
-        [SerializeField] private Text WhiteCoffeeText;
-        [SerializeField] private Text CafeAmericanoText;
-        [SerializeField] private Text LatteText;
-
         [SerializeField] private Button mDebugButton;
 
         [SerializeField] private Text Timer;//计时器
@@ -44,43 +38,6 @@ namespace GameMain
         private PlaySoundParams playSoundParams = PlaySoundParams.Create();
         private int m_RandomValue;
 
-        public DialogForm DialogForm
-        {
-            get;
-            private set;
-        }
-        public WorkForm WorkForm
-        {
-            get;
-            private set;
-        }
-        private void Debug()
-        {
-            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.CafeAmericano)
-            {
-                Position = new Vector3(0, -4.8f, 0)
-            });
-            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Latte)
-            {
-                Position = new Vector3(0, -4.8f, 0)
-            });
-            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.ConPanna)
-            {
-                Position = new Vector3(0, -4.8f, 0)
-            });
-            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Espresso)
-            {
-                Position = new Vector3(0, -4.8f, 0)
-            });
-            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Mocha)
-            {
-                Position = new Vector3(0, -4.8f, 0)
-            });
-            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.WhiteCoffee)
-            {
-                Position = new Vector3(0, -4.8f, 0)
-            });
-        }
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
@@ -96,9 +53,6 @@ namespace GameMain
             settingButton.onClick.AddListener(() => mSettingForm.SetActive(true));
 
             mDebugButton.onClick.AddListener(Debug);
-
-            this.DialogForm = GetComponentInChildren<DialogForm>(true);
-            this.WorkForm = GetComponentInChildren<WorkForm>(true);
 
             GameEntry.Sound.PlaySound(19);
 
@@ -131,15 +85,19 @@ namespace GameMain
             switch (tag)
             {
                 case MainFormTag.Up:
+                    canvasTrans.transform.DOMove(new Vector3(0f, 0f, 0f), 1f).SetEase(Ease.OutExpo);
                     Camera.main.transform.DOMove(new Vector3(0, 4.6f, -8f), 1f).SetEase(Ease.OutExpo);
                     break;
                 case MainFormTag.Down:
+                    canvasTrans.transform.DOMove(new Vector3(0f, 800f, 0f), 1f).SetEase(Ease.OutExpo);
                     Camera.main.transform.DOMove(new Vector3(0, -3.4f, -8f), 1f).SetEase(Ease.OutExpo);
                     break;
                 case MainFormTag.Left:
+                    canvasTrans.transform.DOMove(new Vector3(-1920f, 0f, 0f), 1f).SetEase(Ease.OutExpo);
                     Camera.main.transform.DOMove(new Vector3(-19.2f, 4.6f, -8f), 1f).SetEase(Ease.OutExpo);
                     break;
                 case MainFormTag.Right:
+                    canvasTrans.transform.DOMove(new Vector3(1920f, 0f, 0f), 1f).SetEase(Ease.OutExpo);
                     Camera.main.transform.DOMove(new Vector3(19.2f, 4.6f, -8f), 1f).SetEase(Ease.OutExpo);
                     break;
             }
@@ -175,10 +133,7 @@ namespace GameMain
             }
         }
 
-        private void Recipe()
-        {
-            mRecipeForm.gameObject.SetActive(!mRecipeForm.gameObject.activeSelf);
-        }
+        
         /// <summary>
         /// 锁定该界面的UI
         /// </summary>
@@ -225,20 +180,6 @@ namespace GameMain
             }
             dayText.text = string.Format("第：{0}天", args.LevelData.Day.ToString());
             levelText.text= string.Format("第：{0}单", args.LevelData.Index.ToString());
-        }
-
-        private void UpdateOrder(object sender, GameEventArgs e)
-        {
-            OrderEventArgs args = (OrderEventArgs)e;
-            if (args.OrderData.Check())
-                return;
-            OrderData orderData = args.OrderData;
-            EspressoText.text = orderData.Espresso.ToString();
-            ConPannaText.text = orderData.ConPanna.ToString();
-            MochaText.text = orderData.Mocha.ToString();
-            WhiteCoffeeText.text = orderData.WhiteCoffee.ToString();
-            CafeAmericanoText.text = orderData.CafeAmericano.ToString();
-            LatteText.text = orderData.Latte.ToString();
         }
     }
 }

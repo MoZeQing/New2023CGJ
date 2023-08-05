@@ -48,12 +48,12 @@ namespace GameMain
 
         private void Downgrade_OnClick()
         {
-            GameEntry.UI.OpenUIForm(UIFormId.DowngradeForm, m_BuildingData);
+            //GameEntry.UI.OpenUIForm(UIFormId.DowngradeForm, m_BuildingData);
         }
 
         private void Dispatch_OnClick()
         {
-            GameEntry.UI.OpenUIForm(UIFormId.DispatchForm, m_BuildingData);
+            //GameEntry.UI.OpenUIForm(UIFormId.DispatchForm, m_BuildingData);
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)

@@ -21,6 +21,7 @@ namespace GameMain
         public Button playBtn;
         public Button storyBtn;
         public Button cleanBtn;
+
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
@@ -35,6 +36,7 @@ namespace GameMain
         protected override void OnClose(bool isShutdown, object userData)
         {
             base.OnClose(isShutdown, userData);
+            GameEntry.Event.Unsubscribe(MainFormEventArgs.EventId, MainEvent);
         }
 
         private void MainEvent(object sender, GameEventArgs args)
