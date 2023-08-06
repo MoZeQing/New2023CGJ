@@ -61,47 +61,47 @@ namespace GameMain
         { 
             
         }
-        public void SetBehavior(List<TriggerNode> triggers)
+        public void SetBehavior(List<TriggerData> triggers)
         {
-            List<TriggerNode> ans = new List<TriggerNode>();
-            foreach (TriggerNode trigger in triggers)
+            List<TriggerData> ans = new List<TriggerData>();
+            foreach (TriggerData trigger in triggers)
             {
                 if (GameEntry.Utils.Check(trigger))
                     ans.Add(trigger);
             }
             if (ans.Count == 0)
             {
-                Debug.LogError("错误，不存在合法的剧情，请检查{0}", m_ActionGraph.name);
+                //Debug.LogError("错误，不存在合法的剧情，请检查{0}", m_ActionGraph.name.ToString());
                 return;
             }
             else
             {
-                SetBehavior(ans[Random.Range(0, ans.Count - 1)]);
+                //SetBehavior(ans[Random.Range(0, ans.Count - 1)]);
             }
         }
-        public void SetBehavior(ActionTag actionTag)
+        public void SetBehavior(BehaviorTag behaviorTag)
         {
 
-            switch (actionTag)
+            switch (behaviorTag)
             {
-                case ActionTag.Click:
-                    SetBehavior(m_ActionNode.click);
+                case BehaviorTag.Click:
+                    //SetBehavior(m_ActionNode.click);
                     break;
-                case ActionTag.Talk:
+                case BehaviorTag.Talk:
                     break;
-                case ActionTag.Touch:
+                case BehaviorTag.Touch:
                     break;
-                case ActionTag.Play:
+                case BehaviorTag.Play:
                     break;
-                case ActionTag.Story:
+                case BehaviorTag.Story:
                     break;
-                case ActionTag.Sleep:
+                case BehaviorTag.Sleep:
                     break;
             }
         }
     }
     [System.Serializable]
-    public class CatData
+    public class CharStateData
     {
         public int favour = 0;
         public int mood = 0;
@@ -118,11 +118,11 @@ namespace GameMain
     }
     public class Behavior
     {
-        public ActionTag action;
+        public BehaviorTag action;
         public CatData catData;
     }
 
-    public enum ActionTag
+    public enum BehaviorTag
     {
         Click,
         Talk,

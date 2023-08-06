@@ -162,6 +162,19 @@ namespace GameMain
         {
             entityComponent.ShowEntity(typeof(SweetMochaNode), "Coffee", 90, compenentData);
         }
+
+        public static void ShowCat(this EntityComponent entityComponent, EntityData data)
+        {
+            entityComponent.ShowEntity(typeof(Cat), "Cat", 90, data);
+        }
+        public static void ShowLittleCat(this EntityComponent entityComponent, EntityData data)
+        {
+            entityComponent.ShowEntity(typeof(LittleCat), "Cat", 90, data);
+        }
+        public static void ShowOrder(this EntityComponent entityComponent, EntityData data)
+        { 
+            //entityComponent.ShowOrder(typeof())
+        }
         private static void ShowEntity(this EntityComponent entityComponent, Type logicType, string entityGroup, int priority, EntityData data)
         {
             if (data == null)

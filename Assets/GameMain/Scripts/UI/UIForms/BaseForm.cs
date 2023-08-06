@@ -43,7 +43,7 @@ namespace GameMain
 
         private void Building_OnClick()
         {
-            GameEntry.UI.OpenUIForm(UIFormId.BuildingForm, m_BuildingData);
+            //GameEntry.UI.OpenUIForm(UIFormId.BuildingForm, m_BuildingData);
         }
 
         private void Downgrade_OnClick()

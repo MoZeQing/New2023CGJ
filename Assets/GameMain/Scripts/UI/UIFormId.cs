@@ -15,7 +15,7 @@ namespace GameMain
         SettleForm= 6,        
         TeachingForm = 7,
         WorkForm = 8,
-        BuildingForm=9,
+        DialogForm=9,
         AdventureForm=10,
         MapForm=11,
         ReadyForm=12,

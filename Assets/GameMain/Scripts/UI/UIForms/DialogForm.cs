@@ -21,8 +21,6 @@ namespace GameMain
         [SerializeField] private Transform mCanvas;
         [SerializeField] private GameObject mBtnPrefab;
 
-        private ActionState mActionState;
-        private ActionNode mActionNode;
         private CharData mCharData;
         private int _index;
         private DialogueGraph m_Dialogue = null;
@@ -31,6 +29,9 @@ namespace GameMain
         private List<GameObject> m_Btns = new List<GameObject>();
         private bool hasQuestion = false;
         private MainState mMainState;
+
+        private Character mLeftChar;
+        private Character mRightChar;
         // Start is called before the first frame update
         // Update is called once per frame
         public void ShowButtons(List<OptionData> options)
@@ -172,9 +173,8 @@ namespace GameMain
                 }
                 else if (mMainState == MainState.Game)
                 {
-                    mActionState = ActionState.Idle;
                 }
-                //这不是一个好的通信方式，因为事件最好是自己做了什么被监听
+
             }
         }
         private void Next(OptionData optionData)
@@ -319,124 +319,9 @@ namespace GameMain
                 case MainState.Foreword:
                     SetDialog(args.LevelData.Foreword);
                     break;
-                case MainState.Game:
-                    SetAction(args.LevelData.ActionGraph);
-                    break;
                 case MainState.Text:
                     SetDialog(args.LevelData.Text);
                     break;
-            }
-        }
-        private void SetAction(string actionPath)
-        {
-            ActionGraph actionGraph = (ActionGraph)Resources.Load<ActionGraph>(string.Format("ActionData/{0}", actionPath));
-            SetAction(actionGraph);
-        }
-        private void SetAction(ActionGraph action)
-        {
-            foreach (Node node in action.nodes)
-            {
-                if (node.GetType().ToString() == "ActionNode")
-                {
-                    this.mActionNode = (ActionNode)node;
-                    chatTag = ChatTag.Start;
-                }
-            }
-            this.mCharData = action.charSO.charData;
-            this.character.sprite = action.charSO.charData.diffs[(int)DiffTag.Idle];
-            this.character.color = Color.white;
-
-            List<ChatNode> chatNodes= new List<ChatNode>();
-            for (int i = 0; i < mActionNode.idle.Count; i++)
-            {
-                if (GameEntry.Utils.Check(mActionNode.idle[i]))
-                {
-                    if (mActionNode.GetPort(string.Format("idle {0}", i)) != null)
-                    {
-                        NodePort nodePort = mActionNode.GetPort(string.Format("idle {0}", i));
-                        if (nodePort.Connection != null)
-                        {
-                            ChatNode node = (ChatNode)nodePort.Connection.node;
-                            chatNodes.Add(node);
-                        }
-                    }
-                }
-            }
-            if (chatNodes.Count > 0)
-            {
-                ChatNode chatNode = chatNodes[UnityEngine.Random.Range(0, chatNodes.Count)];
-                SetDialog(chatNode);
-                mActionState = ActionState.Idle;
-            }
-            else
-            {
-                Debug.LogWarningFormat("错误，不存在有效的对话文件，请检查文件以及条件，错误文件：{0}", mActionNode.name);
-            }
-        }
-        public void Click_Action()
-        {
-            if (mMainState != MainState.Game)
-                return;
-            if (mActionNode == null)
-                return;
-            if (mActionNode.click != null)
-            {
-                List<ChatNode> chatNodes = new List<ChatNode>();
-                for (int i = 0; i < mActionNode.click.Count; i++)
-                {
-                    if (GameEntry.Utils.Check(mActionNode.click[i]))
-                    {
-                        if (mActionNode.GetPort(string.Format("click {0}", i)) != null)
-                        {
-                            NodePort nodePort = mActionNode.GetPort(string.Format("click {0}", i));
-                            if (nodePort.Connection != null)
-                            {
-                                ChatNode node = (ChatNode)nodePort.Connection.node;
-                                chatNodes.Add(node);
-                            }
-                        }
-                    }
-                }
-                if (chatNodes.Count > 0)
-                {
-                    ChatNode chatNode = chatNodes[UnityEngine.Random.Range(0, chatNodes.Count)];
-                    SetDialog(chatNode);
-                    mActionState = ActionState.Click;
-                }
-                else
-                {
-                    Debug.LogWarningFormat("错误，不存在有效的对话文件，请检查文件以及条件，错误文件：{0}", mActionNode.name);
-                }
-            }
-        }
-        private void Coffee_Action()
-        {
-            if (mActionNode == null)
-                return;
-            if (mActionNode.coffee != null)
-            {
-                List<ChatNode> chatNodes = new List<ChatNode>();
-                for (int i = 0; i < mActionNode.coffee.Count; i++)
-                {
-                    if (GameEntry.Utils.Check(mActionNode.coffee[i]))
-                    {
-                        if (mActionNode.GetPort(string.Format("coffee {0}", i)) != null)
-                        {
-                            NodePort nodePort = mActionNode.GetPort(string.Format("coffee {0}", i));
-                            if (nodePort.Connection != null)
-                            {
-                                ChatNode node = (ChatNode)nodePort.Connection.node;
-                                chatNodes.Add(node);
-                            }
-                        }
-                    }
-                }
-                if (chatNodes.Count > 0)
-                {
-                    ChatNode chatNode = chatNodes[UnityEngine.Random.Range(0, chatNodes.Count)];
-                    SetDialog(chatNode);
-                    mActionState = ActionState.Coffee;
-                }
             }
         }
         /// <summary>
@@ -471,16 +356,6 @@ namespace GameMain
             base.OnUpdate(elapseSeconds, realElapseSeconds);
             if (mMainState != MainState.Game)
                 return;
-            switch (mActionState)
-            {
-                case ActionState.Idle:
-                    Coffee_Action();
-                    break;
-                case ActionState.Click:
-                    break;
-                case ActionState.Coffee:
-                    break;
-            }
 
             if (Input.GetKey(KeyCode.LeftControl))
                 Next();
