@@ -23,8 +23,8 @@ namespace GameMain
         [SerializeField] private Button settingButton;
         [SerializeField] private Text dayText;
         [SerializeField] private Text levelText;
-        [SerializeField] private Transform canvasTrans;
-        [SerializeField] private DialogForm dialogForm;
+        [SerializeField] private Transform workingTrans;
+        [SerializeField] private Transform teachingTrans;
         [SerializeField] private GameObject mRecipeForm;
         [SerializeField] private GameObject mSettingForm;
 
@@ -85,54 +85,27 @@ namespace GameMain
             switch (tag)
             {
                 case MainFormTag.Up:
-                    canvasTrans.transform.DOMove(new Vector3(0f, 0f, 0f), 1f).SetEase(Ease.OutExpo);
+                    teachingTrans.transform.DOLocalMove(new Vector3(0f, 0f, 0f),1f).SetEase(Ease.OutExpo);
+                    workingTrans.transform.DOLocalMove(new Vector3(0f, -800f, 0f), 1f).SetEase(Ease.OutExpo);
                     Camera.main.transform.DOMove(new Vector3(0, 4.6f, -8f), 1f).SetEase(Ease.OutExpo);
                     break;
                 case MainFormTag.Down:
-                    canvasTrans.transform.DOMove(new Vector3(0f, 800f, 0f), 1f).SetEase(Ease.OutExpo);
+                    teachingTrans.transform.DOLocalMove(new Vector3(0f, 800f, 0f), 1f).SetEase(Ease.OutExpo);
+                    workingTrans.transform.DOLocalMove(new Vector3(0f, 0f, 0f), 1f).SetEase(Ease.OutExpo);
                     Camera.main.transform.DOMove(new Vector3(0, -3.4f, -8f), 1f).SetEase(Ease.OutExpo);
                     break;
                 case MainFormTag.Left:
-                    canvasTrans.transform.DOMove(new Vector3(-1920f, 0f, 0f), 1f).SetEase(Ease.OutExpo);
+                    teachingTrans.transform.DOLocalMove(new Vector3(0f, 0f, 0f), 1f).SetEase(Ease.OutExpo);
+                    workingTrans.transform.DOLocalMove(new Vector3(1920f, -800f, 0f), 1f).SetEase(Ease.OutExpo);
                     Camera.main.transform.DOMove(new Vector3(-19.2f, 4.6f, -8f), 1f).SetEase(Ease.OutExpo);
                     break;
                 case MainFormTag.Right:
-                    canvasTrans.transform.DOMove(new Vector3(1920f, 0f, 0f), 1f).SetEase(Ease.OutExpo);
+                    teachingTrans.transform.DOLocalMove(new Vector3(0f, 0f, 0f), 1f).SetEase(Ease.OutExpo);
+                    workingTrans.transform.DOLocalMove(new Vector3(-1920f, -800f, 0f), 1f).SetEase(Ease.OutExpo);
                     Camera.main.transform.DOMove(new Vector3(19.2f, 4.6f, -8f), 1f).SetEase(Ease.OutExpo);
                     break;
             }
-            GameEntry.Event.FireNow(this, MainFormEventArgs.Create(tag));
         }
-        public void Up()
-        {
-            GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/page_turn.mp3", "Sound");
-
-            Camera.main.transform.DOMove(new Vector3(0, 4.6f, -8f), 1f).SetEase(Ease.OutExpo);
-            canvasTrans.transform.DOLocalMove(new Vector3(0, -800, 0), 1f).SetEase(Ease.OutExpo);
-        }
-
-        public void Down()
-        {
-            GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/page_turn.mp3", "Sound");
-
-            Camera.main.transform.DOMove(new Vector3(0, -3.4f, -8f), 1f).SetEase(Ease.OutExpo);
-            canvasTrans.transform.DOLocalMove(new Vector3(0, 0, 0), 1f).SetEase(Ease.OutExpo);
-        }
-
-        private void Cat()
-        {
-            m_RandomValue = Random.Range(0, 30);
-
-            if(m_RandomValue == 0)
-            {
-                GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/Yudachi.mp3", "Sound");
-            }
-            else
-            {
-                GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/cat.mp3", "Sound");
-            }
-        }
-
         
         /// <summary>
         /// 锁定该界面的UI
@@ -161,18 +134,18 @@ namespace GameMain
             {
                 case MainState.Foreword:
                     LockGUI();
-                    Up();
+                    Move(MainFormTag.Up);
                     break;
                 case MainState.Game:
                     mOrderTime = 2000f;
                     mOnOrderTime = true;
                     UnlockGUI();
-                    Down();
+                    Move(MainFormTag.Down);
                     break;
                 case MainState.Text:
                     mOnOrderTime = false;
                     LockGUI();
-                    Up();
+                    Move(MainFormTag.Up);
                     break;
                 case MainState.Change:
                     LockGUI();
