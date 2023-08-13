@@ -6,8 +6,8 @@ using UnityGameFramework.Runtime;
 
 namespace GameMain
 {
-    public class DialogComponent : GameFrameworkComponent
+    public class SaveLoadComponent : GameFrameworkComponent
     {
-         
+
     }
 }

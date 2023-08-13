@@ -109,13 +109,6 @@ namespace GameMain
         public int love = 0;
         public int family = 0;
     }
-    [System.Serializable]
-    public class PlayerData
-    {
-        public int energy;
-        public int money;
-        public int time;
-    }
     public class Behavior
     {
         public BehaviorTag action;

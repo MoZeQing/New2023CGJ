@@ -33,11 +33,19 @@ public class EventData
 public enum TriggerTag
 {
     None,
-    Flag,
-    Davor,//当前角色的好感度
+    Flag,//剧情挂起
+    Favor,//当前角色的好感度
+    Hope,//希望
+    Mood,//心情
+    Love,//爱情
+    Family,//亲情
     Money,//当前拥有的钱
     Coffee,//是否存在咖啡（一旦有咖啡）
     Day,//目前经过的时间
+    Energy,//能量
+    MaxEnergy,//最高能量
+    Ap,//行动力
+    MaxAp,//最大行动力
     Index
 }
 [System.Serializable]

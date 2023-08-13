@@ -23,6 +23,13 @@ namespace GameMain
         private MainState mMainState;
         private OrderManager mOrderManager;
         private OrderData mOrderData = null;
+        //UI
+        private TeachingForm mTeachingForm = null;
+        private DialogForm mDialogForm = null;
+        private MainForm mMainForm = null;
+        private WorkForm mWorkForm = null;
+
+        private Dictionary<string,bool> m_LoadingFlag= new Dictionary<string,bool>();
 
         public MainForm MainForm
         {
@@ -41,32 +48,12 @@ namespace GameMain
 
             // 还原游戏速度
             GameEntry.Base.ResetNormalGameSpeed();
-            IDataTable<DRScene> dtScene = GameEntry.DataTable.GetDataTable<DRScene>();
-            DRScene drScene = dtScene.GetDataRow(2);
-            //加载主界面
-            if (drScene == null)
-            {
-                Log.Warning("Can not load scene '{0}' from data table.", 2.ToString());
-                return;
-            }
-            m_BackGame = false;
-            GameEntry.Scene.LoadScene(AssetUtility.GetSceneAsset(drScene.AssetName), /*Constant.AssetPriority.SceneAsset*/0, this);
-            GameEntry.UI.OpenUIForm(UIFormId.MainForm, this);
+
+
             //初始化信息
-            m_LevelDatas.Clear();
-            IDataTable<DRLevel> dtLevel = GameEntry.DataTable.GetDataTable<DRLevel>();
-            for (int i = 0; i < dtLevel.Count; i++)
-            {
-                DRLevel dRLevel = dtLevel.GetDataRow(i);
-                LevelData level = new LevelData(dRLevel);
-                m_LevelDatas.Add(level);
-            }
-            GameEntry.Event.Subscribe(MaterialEventArgs.EventId, UpdateMaterial);
-            GameEntry.Event.Subscribe(OrderEventArgs.EventId, OrderEvent);
+            InitMain();
+
             GameEntry.Event.Subscribe(DialogEventArgs.EventId, DialogEvent);
-            GameEntry.Event.Subscribe(ChangeEventArgs.EventId, ChangeEvent);
-            GameEntry.Event.Subscribe(ClockEventArgs.EventId, ClockEvent);
-            CheckMaterials();
             
             if(m_LevelData != null)
             {
@@ -94,19 +81,13 @@ namespace GameMain
                 return;
             }
             Debug.Log("Start Load Scene");
-            //GameEntry.Scene.UnloadScene(AssetUtility.GetSceneAsset(drScene.AssetName), this);
 
             GameEntry.UI.CloseAllLoadedUIForms();
             GameEntry.Entity.HideAllLoadedEntities();
             GameEntry.Sound.StopAllLoadingSounds();
             GameEntry.Sound.StopAllLoadedSounds();
 
-
-            GameEntry.Event.Unsubscribe(MaterialEventArgs.EventId, UpdateMaterial);//这里改成监听所有的实体生产的事件
-            GameEntry.Event.Unsubscribe(OrderEventArgs.EventId, OrderEvent);
             GameEntry.Event.Unsubscribe(DialogEventArgs.EventId, DialogEvent);
-            GameEntry.Event.Unsubscribe(ChangeEventArgs.EventId, ChangeEvent);
-            GameEntry.Event.Unsubscribe(ClockEventArgs.EventId, ClockEvent);
         }
 
         protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
@@ -115,6 +96,14 @@ namespace GameMain
             if (m_BackGame)
             {
                 ChangeState<ProcedureMenu>(procedureOwner);
+            }
+
+            foreach (KeyValuePair<string, bool> loadedFlag in m_LoadingFlag)
+            {
+                if (!loadedFlag.Value)
+                {
+                    return;
+                }
             }
         }
         private LevelData GetRandomLevel()
@@ -146,70 +135,46 @@ namespace GameMain
                         break;
                 }
             }
-            int index = Random.Range(1, 3);
-            levelData.Foreword = string.Format("plot_f_wm_{0}", index);
-            levelData.Text = string.Format("plot_wm_{0}", index);
-            levelData.ActionGraph = string.Format("act_wm_{0}", index);
-            levelData.Day= mDay;
-            levelData.Index= mIndex;
             return levelData;
-        }
-        private void ClockEvent(object sender, GameEventArgs e)
-        {
-            ClockEventArgs clock = (ClockEventArgs)e;
-            if (mMainState == MainState.Game)
-            {
-                //强制结算
-                UpdateLevel();
-            }
-        }
-        private void OrderEvent(object sender, GameEventArgs e)
-        {
-            mOrderManager = (OrderManager)sender;
-            OrderEventArgs order = (OrderEventArgs)e;
-            mOrderData= order.OrderData;
-            if (order.OrderData.Check())
-                UpdateLevel();
         }
         private void DialogEvent(object sender,GameEventArgs e)
         {
             DialogEventArgs dialog = (DialogEventArgs)e;
-            //if (dialog.DialogTag == m_LevelData.Foreword || dialog.DialogTag == m_LevelData.Text)
-                UpdateLevel();
-        }
-        private void ChangeEvent(object sender, GameEventArgs e)
-        { 
-            if(mMainState==MainState.Change)
-                UpdateLevel();
-        }
-        private void UpdateLevel()
-        {
-            if (m_LevelData == null)
-            {
-                mMainState = MainState.Change;
-                GetLevel();
-            }
-
             switch (mMainState)
             {
+                case MainState.Dialog:
+                    mMainState= MainState.Teach;
+                    break;
+                case MainState.Text:
+                    mMainState = MainState.Teach;
+                    break;
                 case MainState.Foreword:
                     mMainState = MainState.Game;
                     break;
+            }
+            UpdateLevel();
+        }
+        private void UpdateLevel()
+        {
+            switch (mMainState)
+            {
+                //游戏阶段
+                case MainState.Foreword:
+                    break;
                 case MainState.Game:
-                    if (mDay == 10)
-                    {
-                        GameEntry.UI.OpenUIForm(UIFormId.EndForm,this);
-                    }
-                    mMainState = MainState.Text;
+                    break;
+                case MainState.Settle:
+                    Settle();
                     break;
                 case MainState.Text:
-                    mMainState = MainState.Change;
-                    Settle();
-                    GetLevel();
-                    ChangeScene();
                     break;
+                //养成阶段
+                //当游戏环节结束时自动启动养成环节，当选择睡眠时退出养成阶段
                 case MainState.Change:
-                    mMainState = MainState.Foreword;
+                    break;
+                case MainState.Teach:
+                    break;
+                case MainState.Dialog:
                     break;
             }
             GameEntry.Event.FireNow(this, LevelEventArgs.Create(mMainState, m_LevelData));
@@ -238,9 +203,9 @@ namespace GameMain
             float c = mOrderData.OrderTime;
             float d = m_LevelData.OrderData.OrderTime;
             float e = mOrderData.OrderTips;
-            GameEntry.Utils.Money += (int)(a / b/*  c / d*/ * m_LevelData.OrderData.OrderMoney + e);
+            GameEntry.UI.OpenUIForm(UIFormId.SettleForm, (int)(a / b/*  c / d*/ * m_LevelData.OrderData.OrderMoney + e));
         }
-        private void ChangeScene()
+        private void Change()
         {
             if (m_ChangeDay)
             {
@@ -250,6 +215,51 @@ namespace GameMain
             {
                 GameEntry.UI.OpenUIForm(UIFormId.ChangeForm,mDay );
             }
+        }
+        /// <summary>
+        /// 初始化游戏（测试）
+        /// </summary>
+        private void InitMain()
+        {
+            InitScene();
+            InitUI();
+            InitData();
+        }
+        private void InitScene()
+        {
+            IDataTable<DRScene> dtScene = GameEntry.DataTable.GetDataTable<DRScene>();
+            DRScene drScene = dtScene.GetDataRow(2);
+            //加载主界面
+            if (drScene == null)
+            {
+                Log.Warning("Can not load scene '{0}' from data table.", 2.ToString());
+                return;
+            }
+            m_BackGame = false;
+            //场景加载
+            GameEntry.Scene.LoadScene(AssetUtility.GetSceneAsset(drScene.AssetName), /*Constant.AssetPriority.SceneAsset*/0, this);
+
+            //m_LoadingFlag.Add("LoadScene", false);
+        }
+        private void InitUI()
+        {
+            GameEntry.UI.OpenUIForm(UIFormId.MainForm, this);
+            GameEntry.UI.OpenUIForm(UIFormId.WorkForm, this);
+            GameEntry.UI.OpenUIForm(UIFormId.TeachForm, this);
+
+            //m_LoadingFlag.Add("OpenMainForm", false);
+            //m_LoadingFlag.Add("OpenWorkForm", false);
+            //m_LoadingFlag.Add("OpenTeachForm", false);
+        }
+        private void InitData()
+        {
+            GameEntry.Utils.MaxEnergy = 80;
+            GameEntry.Utils.Energy = 80;
+            GameEntry.Utils.MaxAp = 6;
+            GameEntry.Utils.Ap = 6;
+            GameEntry.Utils.Money = 10000;
+            GameEntry.Utils.Mood = 20;
+            GameEntry.Utils.Favor = 0;
         }
         //更新关卡
         public void GetLevel()//改为装配
@@ -275,112 +285,97 @@ namespace GameMain
             }
             mOrderManager.SetOrder(m_LevelData.OrderData);
         }
-        private void UpdateMaterial(object sender, GameEventArgs e)
-        {
-            MaterialEventArgs args = (MaterialEventArgs)e;
 
-            switch (args.NodeTag)
-            {
-                case NodeTag.Milk:
-                    mMaterialData.Milk += args.Value;
-                    break;
-                case NodeTag.Water:
-                    mMaterialData.Water += args.Value;
-                    break;
-                case NodeTag.Cream:
-                    mMaterialData.Cream += args.Value;
-                    break;
-                case NodeTag.CoffeeBean:
-                    mMaterialData.CoffeeBean += args.Value;
-                    break;
-                case NodeTag.ChocolateSyrup:
-                    mMaterialData.ChocolateSyrup += args.Value;
-                    break;
-                case NodeTag.Ice:
-                    mMaterialData.Ice += args.Value;
-                    break;
-                case NodeTag.Sugar:
-                    mMaterialData.ChocolateSyrup += args.Value;
-                    break;
-            }
-            CheckMaterials();
+        private void GetForm(object sender,GameEventArgs args)
+        { 
+            OpenUIFormSuccessEventArgs openUIForm= (OpenUIFormSuccessEventArgs)args;
+            if (openUIForm.UIForm.TryGetComponent<DialogForm>(out mDialogForm))
+                return;
+            if (openUIForm.UIForm.TryGetComponent<WorkForm>(out mWorkForm))
+                return;
+            if (openUIForm.UIForm.TryGetComponent<MainForm>(out mMainForm))
+                return;
+            if (openUIForm.UIForm.TryGetComponent<TeachingForm>(out mTeachingForm))
+                return;
         }
-        private void CheckMaterials()
-        {
-            //其下的数值改为常数
-            if (mMaterialData.Milk < 3)
-            {
-                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Milk)
-                {
-                    Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
-                });
-                mMaterialData.Milk++;
-            }
-            if (mMaterialData.Milk < 3)
-            {
-                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Milk)
-                {
-                    Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
-                });
-                mMaterialData.Milk++;
-            }
-            if (mMaterialData.Milk < 3)
-            {
-                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Milk)
-                {
-                    Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
-                });
-                mMaterialData.Milk++;
-            }
-            //if (mMaterialData.Cream < 1)
-            //{
-            //    GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Cream)
-            //    {
-            //        Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
-            //    });
-            //    mMaterialData.Cream++;
-            //}
-            //if (mMaterialData.CoffeeBean < 1)
-            //{
-            //    GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.CoffeeBean)
-            //    {
-            //        Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
-            //    });
-            //    mMaterialData.CoffeeBean++;
-            //}
-            //if (mMaterialData.Water < 1)
-            //{
-            //    GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Water)
-            //    {
-            //        Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
-            //    });
-            //    mMaterialData.Water++;
-            //}
-            //if (mMaterialData.ChocolateSyrup < 1)
-            //{
-            //    GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.ChocolateSyrup)
-            //    {
-            //        Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
-            //    });
-            //    mMaterialData.ChocolateSyrup++;
-            //}
-            //if (mMaterialData.Ice < 1)
-            //{
-            //    GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Ice)
-            //    {
-            //        Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
-            //    });
-            //    mMaterialData.Ice++;
-            //}
-            //if (mMaterialData.Sugar < 1)
-            //{
-            //    GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Sugar)
-            //    {
-            //        Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
-            //    });
-            //    mMaterialData.Sugar++;
-            //}
-        }
+        #region
+        //private void CheckMaterials()
+        //{
+        //    其下的数值改为常数
+        //    if (mMaterialData.Milk < 3)
+        //    {
+        //        GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Milk)
+        //        {
+        //            Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
+        //        });
+        //        mMaterialData.Milk++;
+        //    }
+        //    if (mMaterialData.Milk < 3)
+        //    {
+        //        GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Milk)
+        //        {
+        //            Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
+        //        });
+        //        mMaterialData.Milk++;
+        //    }
+        //    if (mMaterialData.Milk < 3)
+        //    {
+        //        GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Milk)
+        //        {
+        //            Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
+        //        });
+        //        mMaterialData.Milk++;
+        //    }
+        //    if (mMaterialData.Cream < 1)
+        //    {
+        //        GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Cream)
+        //        {
+        //            Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
+        //        });
+        //        mMaterialData.Cream++;
+        //    }
+        //    if (mMaterialData.CoffeeBean < 1)
+        //    {
+        //        GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.CoffeeBean)
+        //        {
+        //            Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
+        //        });
+        //        mMaterialData.CoffeeBean++;
+        //    }
+        //    if (mMaterialData.Water < 1)
+        //    {
+        //        GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Water)
+        //        {
+        //            Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
+        //        });
+        //        mMaterialData.Water++;
+        //    }
+        //    if (mMaterialData.ChocolateSyrup < 1)
+        //    {
+        //        GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.ChocolateSyrup)
+        //        {
+        //            Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
+        //        });
+        //        mMaterialData.ChocolateSyrup++;
+        //    }
+        //    if (mMaterialData.Ice < 1)
+        //    {
+        //        GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Ice)
+        //        {
+        //            Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
+        //        });
+        //        mMaterialData.Ice++;
+        //    }
+        //    if (mMaterialData.Sugar < 1)
+        //    {
+        //        GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Sugar)
+        //        {
+        //            Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
+        //        });
+        //        mMaterialData.Sugar++;
+        //    }
+        //}
+        #endregion
     }
     /// <summary>
     /// 目前所处的主游戏状态
@@ -390,6 +385,11 @@ namespace GameMain
         Foreword,//前言
         Game,//做咖啡的游戏时间
         Text,//咖啡结束后的正文时间
-        Change//转场
+        Settle,//结算
+
+        Teach,//养成阶段
+        Behaviour,//选择活动阶段
+        Dialog,//对话节点
+        Change,//切换阶段
     }
 }

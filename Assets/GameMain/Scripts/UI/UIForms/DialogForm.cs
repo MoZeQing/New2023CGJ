@@ -9,6 +9,7 @@ using System;
 using UnityEngine.EventSystems;
 using GameMain;
 using DG.Tweening;
+using System.Runtime.InteropServices;
 
 namespace GameMain
 {
@@ -29,9 +30,10 @@ namespace GameMain
         private List<GameObject> m_Btns = new List<GameObject>();
         private bool hasQuestion = false;
         private MainState mMainState;
+        private Dictionary<CharSO ,BaseCharacter> pairs= new Dictionary<CharSO ,BaseCharacter>();
 
-        private Character mLeftChar;
-        private Character mRightChar;
+        private BaseCharacter mLeftCharacter = null;
+        private BaseCharacter mRightCharacter = null;
         // Start is called before the first frame update
         // Update is called once per frame
         public void ShowButtons(List<OptionData> options)
@@ -103,17 +105,36 @@ namespace GameMain
         {
             if (_index < chatNode.chatDatas.Count)
             {
+                //角色控制
                 ChatData chatData = chatNode.chatDatas[_index];
                 nameText.text = chatData.charName;
                 dialogText.text = chatData.text;
                 if (chatData.charSO != null)
                 {
-                    character.sprite = chatData.charSO.charData.diffs[(int)chatData.actionData.diffTag];
-                    character.color = Color.white;
-                    if (chatData.actionData.soundTag != SoundTag.None)
+                    if (pairs.ContainsKey(chatData.charSO))
                     {
-                        GameEntry.Sound.PlaySound(chatData.charSO.charData.audios[(int)chatData.actionData.soundTag]);
+                        pairs[chatData.charSO].SetAction(chatData.actionData);
+                        if (mLeftCharacter != pairs[chatData.charSO])
+                        {
+                            mLeftCharacter.gameObject.SetActive(false);
+                            pairs[chatData.charSO].gameObject.SetActive(true);
+                        }
+                        //位置判断
                     }
+                    else
+                    {
+                        GameEntry.Entity.ShowCat(new CatData(GameEntry.Entity.GenerateSerialId(), 10008, chatData.charSO)
+                        {
+                            Position = new Vector3(0f, 4.6f),
+                        });
+                        //位置判断
+                    }
+                    //character.sprite = chatData.charSO.charData.diffs[(int)chatData.actionData.diffTag];
+                    //character.color = Color.white;
+                    //if (chatData.actionData.soundTag != SoundTag.None)
+                    //{
+                    //    GameEntry.Sound.PlaySound(chatData.charSO.charData.audios[(int)chatData.actionData.soundTag]);
+                    //}
                 }
                 if (chatData.actionData.actionTag!=ActionTag.None)
                 {
@@ -132,6 +153,7 @@ namespace GameMain
                             break;
                     }
                 }
+                //角色控制
                 if (chatNode.GetPort(string.Format("chatDatas {0}", _index))!=null)
                 {
                     NodePort nodePort = chatNode.GetPort(string.Format("chatDatas {0}", _index));
@@ -166,14 +188,14 @@ namespace GameMain
                 _index= 0;
                 m_Dialogue = null;
                 m_Node = null;
-                if (mMainState == MainState.Foreword || mMainState == MainState.Text)
-                {
-                    character.color = Color.clear;
-                    GameEntry.Event.FireNow(this, DialogEventArgs.Create(""));
-                }
-                else if (mMainState == MainState.Game)
-                {
-                }
+                //if (mMainState == MainState.Foreword || mMainState == MainState.Text)
+                //{
+                //    character.color = Color.clear;
+                //    GameEntry.Event.FireNow(this, DialogEventArgs.Create(""));
+                //}
+                //else if (mMainState == MainState.Game)
+                //{
+                //}
 
             }
         }
@@ -231,7 +253,7 @@ namespace GameMain
                                 GameEntry.Utils.Money += int.Parse(eventData.value);
                                 break;
                             case EventTag.AddFavor:
-                                GameEntry.Utils.CharData.favor += int.Parse(eventData.value);
+                                GameEntry.Utils.Favor += int.Parse(eventData.value);
                                 break;
                             case EventTag.AddFlag:
                                 GameEntry.Utils.AddFlag(eventData.value);
@@ -350,6 +372,10 @@ namespace GameMain
             base.OnOpen(userData);
             dialogBtn.onClick.AddListener(Next);
             GameEntry.Event.Subscribe(LevelEventArgs.EventId, SetDialog);
+            GameEntry.Event.Subscribe(GamePosEventArgs.EventId, GamePosEvent);
+
+            ChatNode chatNode= (ChatNode)userData;
+            SetDialog(chatNode);
         }
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
@@ -366,11 +392,28 @@ namespace GameMain
         {
             base.OnClose(isShutdown, userData);
             GameEntry.Event.Unsubscribe(LevelEventArgs.EventId, SetDialog);
+            GameEntry.Event.Unsubscribe(GamePosEventArgs.EventId, GamePosEvent);
         }
         private void Option_Onclick(object sender,EventArgs e)
         {
             OptionData optionData = (OptionData)sender;
             Next(optionData);
+        }
+        private void GamePosEvent(object sender, GameEventArgs args)
+        {
+            GamePosEventArgs gamePos = (GamePosEventArgs)args;
+            switch (gamePos.GamePos)
+            {
+                case GamePos.Up:
+                    mCanvas.transform.DOLocalMove(new Vector3(0f, 0f, 0f), 1f);
+                    break;
+                case GamePos.Down:
+                    mCanvas.transform.DOLocalMove(new Vector3(0f, 1920f, 0f), 1f);
+                    break;
+                case GamePos.Left:
+                    mCanvas.transform.DOLocalMove(new Vector3(1920f, 0, 0f), 1f);
+                    break;
+            }
         }
     }
 }

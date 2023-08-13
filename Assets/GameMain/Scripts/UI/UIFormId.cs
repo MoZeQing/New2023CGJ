@@ -13,7 +13,7 @@ namespace GameMain
         ChangeForm = 4,
         EndForm =5,
         SettleForm= 6,        
-        TeachingForm = 7,
+        TeachForm = 7,
         WorkForm = 8,
         DialogForm=9,
         AdventureForm=10,

@@ -27,6 +27,7 @@ namespace GameMain
         [SerializeField] private Transform teachingTrans;
         [SerializeField] private GameObject mRecipeForm;
         [SerializeField] private GameObject mSettingForm;
+        [SerializeField] private Transform mCanvas;
 
         [SerializeField] private Button mDebugButton;
 
@@ -44,10 +45,9 @@ namespace GameMain
             ProcedureMain main = (ProcedureMain)userData;
             main.MainForm = this;
 
-            upButton.onClick.AddListener(() => Move(MainFormTag.Up));
-            downButton.onClick.AddListener(() => Move(MainFormTag.Down));
-            leftButton.onClick.AddListener(() => Move(MainFormTag.Left));
-            rightButton.onClick.AddListener(() => Move(MainFormTag.Right));
+            upButton.onClick.AddListener(() => GameEntry.Event.FireNow(this, GamePosEventArgs.Create(GamePos.Up)));
+            downButton.onClick.AddListener(() => GameEntry.Event.FireNow(this, GamePosEventArgs.Create(GamePos.Down)));
+            leftButton.onClick.AddListener(() => GameEntry.Event.FireNow(this, GamePosEventArgs.Create(GamePos.Left)));
             //catButton.onClick.AddListener(Cat);
             recipeButton.onClick.AddListener(Recipe);
             settingButton.onClick.AddListener(() => mSettingForm.SetActive(true));
@@ -79,34 +79,7 @@ namespace GameMain
             GameEntry.Event.Unsubscribe(LevelEventArgs.EventId, LevelEvent);
             GameEntry.Event.Unsubscribe(OrderEventArgs.EventId, UpdateOrder);
         }
-        public void Move(MainFormTag tag)
-        {
-            GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/page_turn.mp3", "Sound");
-            switch (tag)
-            {
-                case MainFormTag.Up:
-                    teachingTrans.transform.DOLocalMove(new Vector3(0f, 0f, 0f),1f).SetEase(Ease.OutExpo);
-                    workingTrans.transform.DOLocalMove(new Vector3(0f, -800f, 0f), 1f).SetEase(Ease.OutExpo);
-                    Camera.main.transform.DOMove(new Vector3(0, 4.6f, -8f), 1f).SetEase(Ease.OutExpo);
-                    break;
-                case MainFormTag.Down:
-                    teachingTrans.transform.DOLocalMove(new Vector3(0f, 800f, 0f), 1f).SetEase(Ease.OutExpo);
-                    workingTrans.transform.DOLocalMove(new Vector3(0f, 0f, 0f), 1f).SetEase(Ease.OutExpo);
-                    Camera.main.transform.DOMove(new Vector3(0, -3.4f, -8f), 1f).SetEase(Ease.OutExpo);
-                    break;
-                case MainFormTag.Left:
-                    teachingTrans.transform.DOLocalMove(new Vector3(0f, 0f, 0f), 1f).SetEase(Ease.OutExpo);
-                    workingTrans.transform.DOLocalMove(new Vector3(1920f, -800f, 0f), 1f).SetEase(Ease.OutExpo);
-                    Camera.main.transform.DOMove(new Vector3(-19.2f, 4.6f, -8f), 1f).SetEase(Ease.OutExpo);
-                    break;
-                case MainFormTag.Right:
-                    teachingTrans.transform.DOLocalMove(new Vector3(0f, 0f, 0f), 1f).SetEase(Ease.OutExpo);
-                    workingTrans.transform.DOLocalMove(new Vector3(-1920f, -800f, 0f), 1f).SetEase(Ease.OutExpo);
-                    Camera.main.transform.DOMove(new Vector3(19.2f, 4.6f, -8f), 1f).SetEase(Ease.OutExpo);
-                    break;
-            }
-        }
-        
+
         /// <summary>
         /// 锁定该界面的UI
         /// </summary>
@@ -128,31 +101,31 @@ namespace GameMain
 
         private void LevelEvent(object sender, GameEventArgs e)
         {
-            LevelEventArgs args = (LevelEventArgs)e;
-            //mOnOrderTime = false;
-            switch (args.MainState)
-            {
-                case MainState.Foreword:
-                    LockGUI();
-                    Move(MainFormTag.Up);
-                    break;
-                case MainState.Game:
-                    mOrderTime = 2000f;
-                    mOnOrderTime = true;
-                    UnlockGUI();
-                    Move(MainFormTag.Down);
-                    break;
-                case MainState.Text:
-                    mOnOrderTime = false;
-                    LockGUI();
-                    Move(MainFormTag.Up);
-                    break;
-                case MainState.Change:
-                    LockGUI();
-                    break;
-            }
-            dayText.text = string.Format("第：{0}天", args.LevelData.Day.ToString());
-            levelText.text= string.Format("第：{0}单", args.LevelData.Index.ToString());
+            //LevelEventArgs args = (LevelEventArgs)e;
+            ////mOnOrderTime = false;
+            //switch (args.MainState)
+            //{
+            //    case MainState.Foreword:
+            //        LockGUI();
+            //        Move(MainFormTag.Up);
+            //        break;
+            //    case MainState.Game:
+            //        mOrderTime = 2000f;
+            //        mOnOrderTime = true;
+            //        UnlockGUI();
+            //        Move(MainFormTag.Down);
+            //        break;
+            //    case MainState.Text:
+            //        mOnOrderTime = false;
+            //        LockGUI();
+            //        Move(MainFormTag.Up);
+            //        break;
+            //    case MainState.Change:
+            //        LockGUI();
+            //        break;
+            //}
+            //dayText.text = string.Format("第：{0}天", args.LevelData.Day.ToString());
+            //levelText.text= string.Format("第：{0}单", args.LevelData.Index.ToString());
         }
     }
 }

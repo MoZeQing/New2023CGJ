@@ -8,9 +8,15 @@ namespace GameMain
     public class Cat :Entity, IPointerClickHandler
     {
         private SpriteRenderer mSpriteRenderer = null;
+        private TeachingForm mTeachingForm = null;
+
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
+            mTeachingForm = (TeachingForm)userData;
+            mSpriteRenderer = GetComponent<SpriteRenderer>();
+
+            HideCat();
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
@@ -25,7 +31,16 @@ namespace GameMain
 
         public void OnPointerClick(PointerEventData pointerEventData)
         {
-            GameEntry.Cat.SetBehavior(BehaviorTag.Click);
+            mTeachingForm.Behaviour(BehaviorTag.Touch);
+        }
+
+        public void HideCat()
+        {
+            this.gameObject.SetActive(false);
+        }
+        public void ShowCat()
+        {
+            this.gameObject.SetActive(true);
         }
     }
 
