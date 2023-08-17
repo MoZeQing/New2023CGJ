@@ -15,6 +15,7 @@ public class Map : MonoBehaviour,IPointerClickHandler
 
     private void OnGameOutingChange()
     {
+        Debug.Log((UIFormId)(12 + (int)mOutingSceneState));
         GameEntry.UI.OpenUIForm((UIFormId)(12 + (int)mOutingSceneState), this);
         GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Outing));
     }

@@ -170,8 +170,6 @@ namespace GameMain
                 GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
             }
         }
-
-
         public OrderData OrderData
         {
             get 
@@ -200,8 +198,6 @@ namespace GameMain
                 _values[TriggerTag.Index] = mLevelData.Index.ToString();
             }
         }
-
-
         public void AddFlag(string flag)
         { 
             if(!_flags.Contains(flag))
@@ -270,6 +266,20 @@ namespace GameMain
                     else
                         return true;
                 }
+            }
+        }
+        public void RunEvent(EventData eventData)
+        {
+            switch (eventData.eventTag)
+            {
+                case EventTag.AddFavor:
+                    break;
+                case EventTag.AddFlag:
+                    break;
+                case EventTag.RemoveFlag:
+                    break;
+                case EventTag.AddMoney:
+                    break;
             }
         }
     }

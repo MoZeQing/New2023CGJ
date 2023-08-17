@@ -18,6 +18,7 @@ namespace GameMain
         DialogForm=9,
         ShopForm=10,
         MapForm=11,
+        GreengrocerForm=12
     }
 }
 
