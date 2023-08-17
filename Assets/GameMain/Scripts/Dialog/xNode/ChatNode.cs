@@ -36,6 +36,8 @@ public class ChatData
     public CharSO charSO;//角色
     [SerializeField]
     public ActionData actionData;//动作数据
+    [SerializeField]
+    public DialogPos dialogPos;
     [TextArea,SerializeField]
     public string text;
 }

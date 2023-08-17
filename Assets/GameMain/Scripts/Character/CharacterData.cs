@@ -8,16 +8,27 @@ namespace GameMain
 {
     public class CharacterData : EntityData
     {
+        public string CharName
+        {
+            get;
+            set;
+        }//½ÇÉ«Ãû³Æ
 
-        public ActionGraph ActionGraph
+        public DialogPos DialogPos
         {
             get;
             set;
         }
-        public CharacterData(int entityId, int typeId,ActionGraph actionGraph)
+        public List<Sprite> diffs = new List<Sprite>();//²î·Ö
+
+        public List<int> audios = new List<int>();
+
+        public CharacterData(int entityId, int typeId,CharSO charSO)
             : base(entityId, typeId)
         {
-            this.ActionGraph= actionGraph;
+            CharName = charSO.charName;
+            diffs = charSO.diffs;
+            audios= charSO.audios;
         }
     }
 }

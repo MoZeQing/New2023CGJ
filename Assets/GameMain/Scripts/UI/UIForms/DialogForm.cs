@@ -22,7 +22,6 @@ namespace GameMain
         [SerializeField] private Transform mCanvas;
         [SerializeField] private GameObject mBtnPrefab;
 
-        private CharData mCharData;
         private int _index;
         private DialogueGraph m_Dialogue = null;
         private ChatTag chatTag;
@@ -30,10 +29,7 @@ namespace GameMain
         private List<GameObject> m_Btns = new List<GameObject>();
         private bool hasQuestion = false;
         private MainState mMainState;
-        private Dictionary<CharSO ,BaseCharacter> pairs= new Dictionary<CharSO ,BaseCharacter>();
-
-        private BaseCharacter mLeftCharacter = null;
-        private BaseCharacter mRightCharacter = null;
+        private DialogStage mDialogStage = null;
         // Start is called before the first frame update
         // Update is called once per frame
         public void ShowButtons(List<OptionData> options)
@@ -109,50 +105,7 @@ namespace GameMain
                 ChatData chatData = chatNode.chatDatas[_index];
                 nameText.text = chatData.charName;
                 dialogText.text = chatData.text;
-                if (chatData.charSO != null)
-                {
-                    if (pairs.ContainsKey(chatData.charSO))
-                    {
-                        pairs[chatData.charSO].SetAction(chatData.actionData);
-                        if (mLeftCharacter != pairs[chatData.charSO])
-                        {
-                            mLeftCharacter.gameObject.SetActive(false);
-                            pairs[chatData.charSO].gameObject.SetActive(true);
-                        }
-                        //位置判断
-                    }
-                    else
-                    {
-                        GameEntry.Entity.ShowCat(new CatData(GameEntry.Entity.GenerateSerialId(), 10008, chatData.charSO)
-                        {
-                            Position = new Vector3(0f, 4.6f),
-                        });
-                        //位置判断
-                    }
-                    //character.sprite = chatData.charSO.charData.diffs[(int)chatData.actionData.diffTag];
-                    //character.color = Color.white;
-                    //if (chatData.actionData.soundTag != SoundTag.None)
-                    //{
-                    //    GameEntry.Sound.PlaySound(chatData.charSO.charData.audios[(int)chatData.actionData.soundTag]);
-                    //}
-                }
-                if (chatData.actionData.actionTag!=ActionTag.None)
-                {
-                    switch (chatData.actionData.actionTag)
-                    {
-                        case ActionTag.Jump:
-                            Jump();
-                            //跳动效果
-                            break;
-                        case ActionTag.Shake:
-                            Shake();
-                            //抖动效果
-                            break;
-                        case ActionTag.Squat:
-                            Squat();
-                            break;
-                    }
-                }
+                mDialogStage.ShowCharacter(chatData);
                 //角色控制
                 if (chatNode.GetPort(string.Format("chatDatas {0}", _index))!=null)
                 {
@@ -334,17 +287,7 @@ namespace GameMain
 
         private void SetDialog(object sender, GameEventArgs e)
         {
-            LevelEventArgs args = (LevelEventArgs)e;
-            mMainState = args.MainState;
-            switch (mMainState)
-            {
-                case MainState.Foreword:
-                    SetDialog(args.LevelData.Foreword);
-                    break;
-                case MainState.Text:
-                    SetDialog(args.LevelData.Text);
-                    break;
-            }
+
         }
         /// <summary>
         /// 上下跳动
@@ -380,8 +323,6 @@ namespace GameMain
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
-            if (mMainState != MainState.Game)
-                return;
 
             if (Input.GetKey(KeyCode.LeftControl))
                 Next();

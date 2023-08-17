@@ -7,29 +7,26 @@ using UnityGameFramework.Runtime;
 
 namespace GameMain
 {
-    public class LittleCat : Entity,IPointerClickHandler
+    public class LittleCat : MonoBehaviour,IPointerClickHandler
     {
         public List<SpriteRenderer> littleCats = new List<SpriteRenderer>();
         public ScenePosTag sceneTag;
 
-        private TeachingForm mTeachingForm = null;
-
-        protected override void OnInit(object userData)
+        private void Start()
         {
-            base.OnInit(userData);
-            LittleCharData littleCharData = (LittleCharData)userData;
-            mTeachingForm = littleCharData.TeachingForm;
-
             littleCats.Clear();
             for (int i = 0; i < this.transform.childCount; i++)
             {
                 littleCats.Add(this.transform.GetChild(i).GetComponent<SpriteRenderer>());
             }
+            //littleCats.Add(this.transform.Find("Cat1").GetComponent<SpriteRenderer>());
+            //littleCats.Add(this.transform.Find("Cat2").GetComponent<SpriteRenderer>());
+            //littleCats.Add(this.transform.Find("Cat3").GetComponent<SpriteRenderer>());
         }
         public void OnPointerClick(PointerEventData pointerEventData)
         {
             //显示对应养成的UI
-            mTeachingForm.Click_Action();
+            GameEntry.Event.FireNow(this, LittleCatEventArgs.Create(sceneTag));
         }
         public void ShowLittleCat(ScenePosTag posTag)
         {

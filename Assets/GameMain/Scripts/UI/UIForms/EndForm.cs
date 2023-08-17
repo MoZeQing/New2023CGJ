@@ -19,7 +19,6 @@ namespace GameMain
         private void Back()
         {
             ProcedureMain main = (ProcedureMain)GameEntry.Procedure.CurrentProcedure;
-            main.BackGame();
         }
     }
 }

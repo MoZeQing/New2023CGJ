@@ -28,8 +28,6 @@ namespace GameMain
             }
             Debug.Log("Start Load Scene");
             GameEntry.Scene.LoadScene(AssetUtility.GetSceneAsset(drScene.AssetName), /*Constant.AssetPriority.SceneAsset*/0, this);
-            Debug.Log(47);
-            GameEntry.UI.OpenUIForm(UIFormId.AdventureForm, this);
         }
 
         protected override void OnLeave(IFsm<IProcedureManager> procedureOwner, bool isShutdown)

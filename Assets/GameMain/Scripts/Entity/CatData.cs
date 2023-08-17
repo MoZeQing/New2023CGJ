@@ -12,10 +12,10 @@ namespace GameMain
             set;
         }
 
-        public CatData(int entityId, int typeId, CharSO charSo)
+        public CatData(int entityId, int typeId)
             : base(entityId, typeId)
         {
-            this.CharSO = charSo;
+
         }
     }
 }

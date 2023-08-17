@@ -16,9 +16,8 @@ namespace GameMain
         TeachForm = 7,
         WorkForm = 8,
         DialogForm=9,
-        AdventureForm=10,
+        ShopForm=10,
         MapForm=11,
-        ReadyForm=12,
     }
 }
 

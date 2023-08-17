@@ -40,7 +40,8 @@ namespace GameMain
 
 public enum GamePos
 { 
-    Up,
-    Down,
-    Left
+    Up,//信息区
+    Down,//工作区
+    Left,//仓库区
+    Right//外出区
 }

@@ -15,13 +15,15 @@ namespace GameMain
         protected override void OnEnter(IFsm<IProcedureManager> procedureOwner)
         {
             base.OnEnter(procedureOwner);
-
+            GameEntry.Entity.HideAllLoadingEntities();
+            GameEntry.Entity.HideAllLoadedEntities();
+            GameEntry.Sound.StopAllLoadingSounds();
+            GameEntry.Sound.StopAllLoadedSounds();
         }
 
         protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
-            Debug.Log(123);
             ChangeState<ProcedureMenu>(procedureOwner);
         }
     }

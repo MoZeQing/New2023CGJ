@@ -18,23 +18,14 @@ namespace GameMain
         [SerializeField] private Button upButton;
         [SerializeField] private Button leftButton;
         [SerializeField] private Button rightButton;
+
         [SerializeField] private Button catButton;
         [SerializeField] private Button recipeButton;
         [SerializeField] private Button settingButton;
         [SerializeField] private Text dayText;
         [SerializeField] private Text levelText;
         [SerializeField] private Transform workingTrans;
-        [SerializeField] private Transform teachingTrans;
-        [SerializeField] private GameObject mRecipeForm;
-        [SerializeField] private GameObject mSettingForm;
         [SerializeField] private Transform mCanvas;
-
-        [SerializeField] private Button mDebugButton;
-
-        [SerializeField] private Text Timer;//计时器
-
-        private float mOrderTime;//倒计时
-        private bool mOnOrderTime;
 
         private PlaySoundParams playSoundParams = PlaySoundParams.Create();
         private int m_RandomValue;
@@ -42,90 +33,42 @@ namespace GameMain
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            ProcedureMain main = (ProcedureMain)userData;
-            main.MainForm = this;
 
             upButton.onClick.AddListener(() => GameEntry.Event.FireNow(this, GamePosEventArgs.Create(GamePos.Up)));
             downButton.onClick.AddListener(() => GameEntry.Event.FireNow(this, GamePosEventArgs.Create(GamePos.Down)));
             leftButton.onClick.AddListener(() => GameEntry.Event.FireNow(this, GamePosEventArgs.Create(GamePos.Left)));
-            //catButton.onClick.AddListener(Cat);
-            recipeButton.onClick.AddListener(Recipe);
-            settingButton.onClick.AddListener(() => mSettingForm.SetActive(true));
+            rightButton.onClick.AddListener(() => GameEntry.Event.FireNow(this, GamePosEventArgs.Create(GamePos.Right)));
 
-            mDebugButton.onClick.AddListener(Debug);
-
-            GameEntry.Sound.PlaySound(19);
-
-            GameEntry.Event.Subscribe(LevelEventArgs.EventId, LevelEvent);
-            GameEntry.Event.Subscribe(OrderEventArgs.EventId, UpdateOrder);
+            GameEntry.Event.Subscribe(GamePosEventArgs.EventId, GamePosEvent);
         }
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
-            if (mOnOrderTime)
-            {
-                mOrderTime -= Time.deltaTime;
-                Timer.text = Mathf.Floor(mOrderTime).ToString();
-                if (mOrderTime < 0)
-                {
-                    GameEntry.Event.FireNow(this, ClockEventArgs.Create(false));
-                    mOnOrderTime = false;
-                }
-            }
         }
         protected override void OnClose(bool isShutdown, object userData)
         {
             base.OnClose(isShutdown, userData);
-            GameEntry.Event.Unsubscribe(LevelEventArgs.EventId, LevelEvent);
-            GameEntry.Event.Unsubscribe(OrderEventArgs.EventId, UpdateOrder);
+            GameEntry.Event.Unsubscribe(GamePosEventArgs.EventId, GamePosEvent);
         }
 
-        /// <summary>
-        /// 锁定该界面的UI
-        /// </summary>
-        public void LockGUI()
+        private void GamePosEvent(object sender, GameEventArgs args)
         {
-            downButton.gameObject.SetActive(false);
-            upButton.gameObject.SetActive(false);
-            settingButton.gameObject.SetActive(false);
-        }
-        /// <summary>
-        /// 解锁该界面的UI
-        /// </summary>
-        public void UnlockGUI()
-        {
-            downButton.gameObject.SetActive(true);
-            upButton.gameObject.SetActive(true);
-            settingButton.gameObject.SetActive(true);
-        }
-
-        private void LevelEvent(object sender, GameEventArgs e)
-        {
-            //LevelEventArgs args = (LevelEventArgs)e;
-            ////mOnOrderTime = false;
-            //switch (args.MainState)
-            //{
-            //    case MainState.Foreword:
-            //        LockGUI();
-            //        Move(MainFormTag.Up);
-            //        break;
-            //    case MainState.Game:
-            //        mOrderTime = 2000f;
-            //        mOnOrderTime = true;
-            //        UnlockGUI();
-            //        Move(MainFormTag.Down);
-            //        break;
-            //    case MainState.Text:
-            //        mOnOrderTime = false;
-            //        LockGUI();
-            //        Move(MainFormTag.Up);
-            //        break;
-            //    case MainState.Change:
-            //        LockGUI();
-            //        break;
-            //}
-            //dayText.text = string.Format("第：{0}天", args.LevelData.Day.ToString());
-            //levelText.text= string.Format("第：{0}单", args.LevelData.Index.ToString());
+            GamePosEventArgs gamePos = (GamePosEventArgs)args;
+            switch (gamePos.GamePos)
+            {
+                case GamePos.Up:
+                    Camera.main.transform.DOMove(new Vector3(0f, 4.6f, -8f), 1f).SetEase(Ease.InOutExpo);
+                    break;
+                case GamePos.Down:
+                    Camera.main.transform.DOMove(new Vector3(0f, -6f, -8f), 1f).SetEase(Ease.InOutExpo);
+                    break;
+                case GamePos.Left:
+                    Camera.main.transform.DOMove(new Vector3(-19.2f, 4.6f, -8f), 1f).SetEase(Ease.InOutExpo);
+                    break;
+                case GamePos.Right:
+                    Camera.main.transform.DOMove(new Vector3(19.2f, 4.6f, -8f), 1f).SetEase(Ease.InOutExpo);
+                    break;
+            }
         }
     }
 }

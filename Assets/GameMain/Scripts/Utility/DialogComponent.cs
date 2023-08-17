@@ -8,6 +8,9 @@ namespace GameMain
 {
     public class DialogComponent : GameFrameworkComponent
     {
-         
+        public void StoryUpdate()
+        { 
+            
+        }
     }
 }

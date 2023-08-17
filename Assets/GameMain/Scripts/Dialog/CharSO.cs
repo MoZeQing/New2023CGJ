@@ -7,8 +7,9 @@ namespace GameMain
     [CreateAssetMenu]
     public class CharSO : ScriptableObject
     {
-        [SerializeField]
-        public CharEntityData charData;
+        public string charName;
+        public List<Sprite> diffs = new List<Sprite>();
+        public List<int> audios = new List<int>();
     }
     [System.Serializable]
     public class CharData
@@ -28,13 +29,6 @@ namespace GameMain
             this.love = love;
             this.family = family;
         }
-    }
-    [System.Serializable]
-    public class CharEntityData
-    {
-        public string charName;//½ÇÉ«Ãû³Æ
-        public List<Sprite> diffs = new List<Sprite>();//²î·Ö
-        public List<int> audios = new List<int>();
     }
 }
 

@@ -10,6 +10,12 @@ namespace GameMain
 {
     public class BaseCharacter : EntityLogic, IPointerDownHandler
     {
+        public DialogPos DialogPos
+        {
+            get;
+            set;
+        }
+
         private CharacterData mCharacterData = null;
         private SpriteRenderer mSpriteRenderer = null;
         private ActionNode mActionNode = null;
@@ -21,6 +27,7 @@ namespace GameMain
         {
             base.OnInit(userData);
             mCharacterData = (CharacterData)userData;
+            DialogPos= mCharacterData.DialogPos;
 
             mSpriteRenderer = this.GetComponent<SpriteRenderer>();
         }

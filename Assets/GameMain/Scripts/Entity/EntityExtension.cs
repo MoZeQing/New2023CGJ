@@ -162,14 +162,25 @@ namespace GameMain
         {
             entityComponent.ShowEntity(typeof(SweetMochaNode), "Coffee", 90, compenentData);
         }
-
         public static void ShowCat(this EntityComponent entityComponent, EntityData data)
         {
             entityComponent.ShowEntity(typeof(Cat), "Cat", 90, data);
         }
-        public static void ShowLittleCat(this EntityComponent entityComponent, EntityData data)
+        public static void ShowLittleChar(this EntityComponent entityComponent, EntityData data)
         {
             entityComponent.ShowEntity(typeof(LittleCat), "Cat", 90, data);
+        }
+        public static void ShowDialogStage(this EntityComponent entityComponent, EntityData data)
+        {
+            entityComponent.ShowEntity(typeof(DialogStage), "Dialog", 90, data);
+        }
+        public static void ShowTeachStage(this EntityComponent entityComponent, EntityData data)
+        {
+            entityComponent.ShowEntity(typeof(TeachStage), "Dialog", 90, data);
+        }
+        public static void ShowCharacter(this EntityComponent entityComponent, EntityData data)
+        {
+            entityComponent.ShowEntity(typeof(BaseCharacter), "Dialog", 90, data);
         }
         public static void ShowOrder(this EntityComponent entityComponent, EntityData data)
         { 

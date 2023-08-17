@@ -32,13 +32,16 @@ namespace GameMain
             switch (gamePos.GamePos)
             {
                 case GamePos.Up:
-                    mCanvas.transform.DOLocalMove(new Vector3(0f, -1080, 0f), 1f).SetEase(Ease.InOutExpo);
+                    mCanvas.transform.DOLocalMove(new Vector3(0f, -1080f, 0f), 1f).SetEase(Ease.InOutExpo);
                     break;
                 case GamePos.Down:
                     mCanvas.transform.DOLocalMove(new Vector3(0f, 0f, 0f), 1f).SetEase(Ease.InOutExpo);
                     break;
                 case GamePos.Left:
-                    mCanvas.transform.DOLocalMove(new Vector3(1920f, -1080, 0f), 1f).SetEase(Ease.InOutExpo);
+                    mCanvas.transform.DOLocalMove(new Vector3(1920f, -1080f, 0f), 1f).SetEase(Ease.InOutExpo);
+                    break;
+                case GamePos.Right:
+                    mCanvas.transform.DOLocalMove(new Vector3(-1920f, -1080f, 0f), 1f).SetEase(Ease.InOutExpo);
                     break;
             }
         }

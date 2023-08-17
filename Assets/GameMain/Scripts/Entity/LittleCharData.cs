@@ -13,7 +13,13 @@ namespace GameMain
             set;
         }
 
-        public LittleCharData(int entityId, int tpyeId)
+        public CharSO CharSO
+        {
+            get;
+            set;
+        }
+
+        public LittleCharData(int entityId, int tpyeId,CharSO charSO)
             :base(entityId, tpyeId)
         { 
 

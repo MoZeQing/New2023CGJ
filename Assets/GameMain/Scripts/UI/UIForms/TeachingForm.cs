@@ -41,39 +41,41 @@ namespace GameMain
         [SerializeField] private Text nameText;
         [SerializeField] private Transform option;
         [Header("主控")]
-        [SerializeField] private Button settingBtn;
-        [SerializeField] private Button saveBtn;
-        [SerializeField] private Button loadBtn;
-        [SerializeField] private GameObject energyObj;
-        [SerializeField] private GameObject apObj;
+        [SerializeField] private Button cupboradBtn;
+        [SerializeField] private Button teachBtn;
+        [SerializeField] private Button outingBtn;
+        [SerializeField] private GameObject energyTips;
+        [SerializeField] private GameObject apTips;
 
         public CharSO charSO;
         private LittleCat mLittleCat = null;
-        private Cat mCat = null;
         private DialogForm mDialogForm = null;
         [SerializeField] private ActionGraph mActionGraph = null;
         private ActionNode mActionNode = null;
         private BehaviorTag mBehaviorTag;
+        private ProcedureMain mProcedureMain = null;
         //Dialog区域
-        private int _index;
-        private DialogueGraph m_Dialogue = null;
-        private ChatTag chatTag;
-        private Node m_Node = null;
         private List<GameObject> m_Btns = new List<GameObject>();
+        private DialogInterpreter m_DialogInterpreter = new DialogInterpreter();
 
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
             dialogBtn.onClick.AddListener(Next);
+            mProcedureMain = (ProcedureMain)userData;
 
             //mActionGraph = (ActionGraph)userData;
             mActionNode = mActionGraph.ActionNode();
             //GameEntry.Event.Subscribe(MainFormEventArgs.EventId, MainEvent);
-            GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, GetCat);
             GameEntry.Event.Subscribe(LevelEventArgs.EventId, LevelEvent);
             GameEntry.Event.Subscribe(GamePosEventArgs.EventId, GamePosEvent);
             GameEntry.Event.Subscribe(CharDataEventArgs.EventId, CharDataEvent);
             GameEntry.Event.Subscribe(PlayerDataEventArgs.EventId, PlayerDataEvent);
+            GameEntry.Event.Subscribe(LittleCatEventArgs.EventId, Click_Action);
+
+            cupboradBtn.onClick.AddListener(() => GameEntry.Event.FireNow(this, GamePosEventArgs.Create(GamePos.Left)));
+            teachBtn.onClick.AddListener(() => GameEntry.Event.FireNow(this, GamePosEventArgs.Create(GamePos.Up)));
+            outingBtn.onClick.AddListener(() => GameEntry.Event.FireNow(this, GamePosEventArgs.Create(GamePos.Right)));
 
             talkBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Talk));
             playBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Play));
@@ -82,17 +84,11 @@ namespace GameMain
 
             mCanvas.transform.localPosition = new Vector3(0f, 0f, 0f);
 
-            //初始化角色
-            GameEntry.Entity.ShowLittleCat(new LittleCharData(GameEntry.Entity.GenerateSerialId(), 10009)
-            {
-                Position = new Vector3(0f, 4.6f),
-                TeachingForm = this
-            });
-            GameEntry.Entity.ShowCat(new LittleCharData(GameEntry.Entity.GenerateSerialId(), 10008)
-            {
-                Position = new Vector3(0f, 4.6f),
-                TeachingForm = this
-            });
+            rightCanvas.gameObject.SetActive(false);
+            leftCanvas.gameObject.SetActive(true);
+            middleCanvas.gameObject.SetActive(false);
+            apTips.gameObject.SetActive(false);
+            energyTips.gameObject.SetActive(false);
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
@@ -110,38 +106,33 @@ namespace GameMain
         {
             base.OnClose(isShutdown, userData);
             //GameEntry.Event.Unsubscribe(MainFormEventArgs.EventId, MainEvent);
-            GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, GetCat);
             GameEntry.Event.Unsubscribe(LevelEventArgs.EventId, LevelEvent);
             GameEntry.Event.Unsubscribe(GamePosEventArgs.EventId, GamePosEvent);
             GameEntry.Event.Unsubscribe(CharDataEventArgs.EventId, CharDataEvent);
             GameEntry.Event.Unsubscribe(PlayerDataEventArgs.EventId, PlayerDataEvent);
+            GameEntry.Event.Unsubscribe(LittleCatEventArgs.EventId, Click_Action);
         }
 
         public void ShowGUI()
         {
             mLittleCat.HideLittleCat();
-            mCat.ShowCat();
+            mProcedureMain.Cat.ShowCat();
             rightCanvas.gameObject.SetActive(true);
             leftCanvas.gameObject.SetActive(true);
             middleCanvas.gameObject.SetActive(false);
-            apObj.gameObject.SetActive(false);
-            energyObj.gameObject.SetActive(false);
+            apTips.gameObject.SetActive(false);
+            energyTips.gameObject.SetActive(false);
         }
 
         public void HideGUI()
         {
             mLittleCat.ShowLittleCat();
-            mCat.HideCat();
+            mProcedureMain.Cat.HideCat();
             rightCanvas.gameObject.SetActive(false);
             leftCanvas.gameObject.SetActive(true);
             middleCanvas.gameObject.SetActive(false);
-            apObj.gameObject.SetActive(false);
-            energyObj.gameObject.SetActive(false);
-        }
-        //单独给点击做一个方法调用
-        public void Click_Action()
-        {
-            Behaviour(BehaviorTag.Click);
+            apTips.gameObject.SetActive(false);
+            energyTips.gameObject.SetActive(false);
         }
         public void Behaviour(BehaviorTag behaviorTag)
         {
@@ -171,16 +162,16 @@ namespace GameMain
             //判断            
             if (GameEntry.Utils.Energy < playerData.energy)
             {
-                energyObj.gameObject.SetActive(true);
+                energyTips.gameObject.SetActive(true);
                 return;
             }
-            energyObj.gameObject.SetActive(false);
+            energyTips.gameObject.SetActive(false);
             if (GameEntry.Utils.Ap < playerData.ap)
             {
-                apObj.gameObject.SetActive(true);
+                apTips.gameObject.SetActive(true);
                 return;//播放错误界面
             }
-            apObj.gameObject.SetActive(false);
+            apTips.gameObject.SetActive(false);
             //结算
             GameEntry.Utils.Energy-=playerData.energy;
             GameEntry.Utils.Money-=playerData.money;
@@ -217,7 +208,7 @@ namespace GameMain
                 leftCanvas.gameObject.SetActive(false);
                 rightCanvas.gameObject.SetActive(false);
                 middleCanvas.gameObject.SetActive(true);
-                mCat.ShowCat();
+                mProcedureMain.Cat.ShowCat();
                 mLittleCat.HideLittleCat();
             }
             else
@@ -241,39 +232,9 @@ namespace GameMain
                 }
             }
         }
-        /// <summary>
-        /// 回调获取对话界面角色（固定单角色）
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="args"></param>
-        private void GetCat(object sender, GameEventArgs args)
-        {
-            ShowEntitySuccessEventArgs showEntity = (ShowEntitySuccessEventArgs)args;
-            LittleCat littleCat = null;
-            if (showEntity.Entity.TryGetComponent<LittleCat>(out littleCat))
-            { 
-                mLittleCat= littleCat;
-            }
-            Cat cat = null;
-            if (showEntity.Entity.TryGetComponent<Cat>(out cat))
-            {
-                mCat = cat;
-            }
-            if (mCat != null && mLittleCat != null)
-            {
-                HideGUI();
-            }
-        }
         private void LevelEvent(object sender, GameEventArgs args)
         {
             LevelEventArgs level = (LevelEventArgs)args;
-            switch (level.MainState)
-            {
-                case MainState.Teach:
-                    break;
-                case MainState.Dialog:
-                    break;
-            }
         }
 
         private void GamePosEvent(object sender, GameEventArgs args)
@@ -289,6 +250,9 @@ namespace GameMain
                     break;
                 case GamePos.Left:
                     mCanvas.transform.DOLocalMove(new Vector3(1920f, 0, 0f), 1f).SetEase(Ease.InOutExpo);
+                    break;
+                case GamePos.Right:
+                    mCanvas.transform.DOLocalMove(new Vector3(-1920f, 0f, 0f), 1f).SetEase(Ease.InOutExpo);
                     break;
             }
         }
@@ -311,6 +275,11 @@ namespace GameMain
             }
             m_Btns.Clear();
         }
+        private int _index;
+        private DialogueGraph m_Dialogue = null;
+        private ChatTag chatTag;
+        private Node m_Node = null;
+
         public void Next()
         {
             if (m_Node == null)
@@ -327,7 +296,6 @@ namespace GameMain
                     break;
                 case ChatTag.Option:
                     OptionNode optionNode = (OptionNode)m_Node;
-                    ShowButtons(optionNode.optionDatas);
                     break;
                 case ChatTag.Trigger:
                     TriggerNode triggerNode = (TriggerNode)m_Node;
@@ -366,24 +334,17 @@ namespace GameMain
                 ChatData chatData = chatNode.chatDatas[_index];
                 nameText.text = chatData.charName;
                 dialogText.text = chatData.text;
-                if (chatData.charSO != null)
-                {
-
-                }
                 if (chatData.actionData.actionTag != ActionTag.None)
                 {
                     switch (chatData.actionData.actionTag)
                     {
                         case ActionTag.Jump:
-                            Jump();
                             //跳动效果
                             break;
                         case ActionTag.Shake:
-                            Shake();
                             //抖动效果
                             break;
                         case ActionTag.Squat:
-                            Squat();
                             break;
                     }
                 }
@@ -558,28 +519,6 @@ namespace GameMain
             Next();
         }
 
-        /// <summary>
-        /// 上下跳动
-        /// </summary>
-        private void Jump()
-        {
-            mCat.transform.DOPunchPosition(new Vector3(0, 0.5f, 0), 0.4f);
-        }
-        /// <summary>
-        /// 左右抖动
-        /// </summary>
-        private void Shake()
-        {
-            mCat.transform.DOShakePosition(0.4f, new Vector3(0.25f, 0, 0));
-        }
-        /// <summary>
-        /// 下蹲
-        /// </summary>
-        private void Squat()
-        {
-            mCat.transform.DOPunchPosition(new Vector3(0, -0.5f, 0), 0.4f);
-        }
-
         private void Option_Onclick(object sender, EventArgs e)
         {
             OptionData optionData = (OptionData)sender;
@@ -601,6 +540,14 @@ namespace GameMain
             APText.text = string.Format("行动点：{0}/{1}", playerData.ap, playerData.maxAp);
             energyText.text = string.Format("体力：{0}/{1}", playerData.energy, playerData.maxEnergy);
             moneyText.text=string.Format("金钱:{0}", playerData.money.ToString());
+        }
+        //单独给点击做一个方法调用
+        public void Click_Action(object sender,GameEventArgs e)
+        {
+            LittleCatEventArgs littleCatEvent = (LittleCatEventArgs)e;
+            mLittleCat = (LittleCat)sender;
+            HideGUI();
+            Behaviour(BehaviorTag.Click);
         }
     }
 }

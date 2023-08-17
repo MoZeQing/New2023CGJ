@@ -38,15 +38,15 @@ namespace GameMain
 
         private void Click()
         {
-            GameEntry.UI.CloseUIForm(this.UIForm);//更改
-            if (mLevelData.Index == 3)
-            {
-                GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, mLevelData.Day+1);
-            }
-            else
-            {
-                GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, 0);
-            }
+            //GameEntry.UI.CloseUIForm(this.UIForm);//更改
+            //if (mLevelData.Index == 3)
+            //{
+            //    GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, mLevelData.Day+1);
+            //}
+            //else
+            //{
+            //    GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, 0);
+            //}
         }
     }
 }

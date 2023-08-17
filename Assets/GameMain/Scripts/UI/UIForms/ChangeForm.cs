@@ -42,7 +42,6 @@ namespace GameMain
             }
             else if (mTime > mDuration)
             {
-                GameEntry.Event.FireNow(this, ChangeEventArgs.Create());
                 GameEntry.UI.CloseUIForm(this.UIForm);
             }
         }
