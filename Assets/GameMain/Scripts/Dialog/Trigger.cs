@@ -46,6 +46,7 @@ public enum TriggerTag
     MaxEnergy,//最高能量
     Ap,//行动力
     MaxAp,//最大行动力
+    Location,
     Index
 }
 [System.Serializable]

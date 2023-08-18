@@ -7,6 +7,7 @@ using GameFramework.Event;
 using UnityGameFramework.Runtime;
 using GameFramework.Fsm;
 using System;
+using DG.Tweening;
 
 namespace GameMain
 {
@@ -16,8 +17,14 @@ namespace GameMain
         public Cat Cat
         {
             get;
-            set;
+            private set;
         } = null;
+
+        public GamePos GamePos
+        {
+            get;
+            private set;
+        }
 
         protected override void OnEnter(IFsm<IProcedureManager> procedureOwner)
         {
@@ -33,6 +40,7 @@ namespace GameMain
         {
             base.OnLeave(procedureOwner, isShutdown);
             GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, LoadCatSuccess);
+            GameEntry.Event.Unsubscribe(MainStateEventArgs.EventId, MainStateEvent);
         }
         protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
@@ -78,6 +86,7 @@ namespace GameMain
             GameEntry.Scene.LoadScene(AssetUtility.GetSceneAsset(drScene.AssetName), /*Constant.AssetPriority.SceneAsset*/0, this);
 
             GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, LoadCatSuccess);
+            GameEntry.Event.Subscribe(MainStateEventArgs.EventId, MainStateEvent);
 
             GameEntry.UI.OpenUIForm(UIFormId.MainForm, this);
             GameEntry.UI.OpenUIForm(UIFormId.TeachForm, this);
@@ -110,6 +119,16 @@ namespace GameMain
             }
             Cat.HideCat();
         }
+        private void MainStateEvent(object sender, GameEventArgs e)
+        { 
+            MainStateEventArgs args= (MainStateEventArgs)e;
+            mMainState = args.MainState;
+        }
+        private void GamePosEvent(object sender, GameEventArgs args)
+        {
+            GamePosEventArgs gamePos = (GamePosEventArgs)args;
+            GamePos = gamePos.GamePos;
+        }
     }
     /// <summary>
     /// 目前所处的主游戏状态
@@ -125,6 +144,7 @@ namespace GameMain
 
     public enum OutingSceneState
     {
+        Home,//家
         Greengrocer,//果蔬商
         Glass,//玻璃仪器店
         Cinema,//电影院

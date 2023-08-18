@@ -37,7 +37,20 @@ namespace GameMain
         private OrderData mSupplyData=new OrderData();
         private LevelData mLevelData= new LevelData();
         private PlayerData mPlayerData = new PlayerData();
+        private OutingSceneState mLocation;
 
+        public OutingSceneState Location
+        {
+            get
+            {
+                return mLocation;
+            }
+            set
+            { 
+                mLocation= value;
+                _values[TriggerTag.Location] = mLocation.ToString();
+            }
+        }
         //∑√Œ PlayerData
         public int Money
         {
@@ -101,6 +114,19 @@ namespace GameMain
             {
                 mPlayerData.ap = value;
                 _values[TriggerTag.Ap] = mPlayerData.ap.ToString();
+                GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
+            }
+        }
+        public int Day
+        {
+            get
+            {
+                return mPlayerData.day;
+            }
+            set
+            {
+                mPlayerData.day = value;
+                _values[TriggerTag.Day] = mPlayerData.ap.ToString();
                 GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
             }
         }
@@ -291,6 +317,7 @@ namespace GameMain
         public int money;
         public int maxAp;
         public int ap;
+        public int day;
         //public int time;
     }
 }

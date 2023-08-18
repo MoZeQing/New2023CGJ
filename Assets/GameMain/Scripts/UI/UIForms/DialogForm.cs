@@ -30,8 +30,41 @@ namespace GameMain
         private bool hasQuestion = false;
         private MainState mMainState;
         private DialogStage mDialogStage = null;
+        private int mChace = 0;
         // Start is called before the first frame update
         // Update is called once per frame
+
+        protected override void OnOpen(object userData)
+        {
+            base.OnOpen(userData);
+            dialogBtn.onClick.AddListener(Next);
+            GameEntry.Event.Subscribe(LevelEventArgs.EventId, SetDialog);
+            GameEntry.Event.Subscribe(GamePosEventArgs.EventId, GamePosEvent);
+
+            DialogueGraph dialogueGraph = (DialogueGraph)userData;
+            SetDialog(dialogueGraph);
+            mChace = GameEntry.Entity.GenerateSerialId();
+
+            GameEntry.Entity.ShowDialogStage(new DialogStageData(mChace, 10010)
+            { 
+                
+            });
+        }
+        protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
+        {
+            base.OnUpdate(elapseSeconds, realElapseSeconds);
+
+            if (Input.GetKey(KeyCode.LeftControl))
+                Next();
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
+                Next();
+        }
+        protected override void OnClose(bool isShutdown, object userData)
+        {
+            base.OnClose(isShutdown, userData);
+            GameEntry.Event.Unsubscribe(LevelEventArgs.EventId, SetDialog);
+            GameEntry.Event.Unsubscribe(GamePosEventArgs.EventId, GamePosEvent);
+        }
         public void ShowButtons(List<OptionData> options)
         {
             ClearButtons();
@@ -310,31 +343,7 @@ namespace GameMain
         {
             character.rectTransform.DOPunchPosition(new Vector3(0, -100, 0),0.4f);
         }
-        protected override void OnOpen(object userData)
-        {
-            base.OnOpen(userData);
-            dialogBtn.onClick.AddListener(Next);
-            GameEntry.Event.Subscribe(LevelEventArgs.EventId, SetDialog);
-            GameEntry.Event.Subscribe(GamePosEventArgs.EventId, GamePosEvent);
-
-            ChatNode chatNode= (ChatNode)userData;
-            SetDialog(chatNode);
-        }
-        protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
-        {
-            base.OnUpdate(elapseSeconds, realElapseSeconds);
-
-            if (Input.GetKey(KeyCode.LeftControl))
-                Next();
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
-                Next();
-        }
-        protected override void OnClose(bool isShutdown, object userData)
-        {
-            base.OnClose(isShutdown, userData);
-            GameEntry.Event.Unsubscribe(LevelEventArgs.EventId, SetDialog);
-            GameEntry.Event.Unsubscribe(GamePosEventArgs.EventId, GamePosEvent);
-        }
+        
         private void Option_Onclick(object sender,EventArgs e)
         {
             OptionData optionData = (OptionData)sender;

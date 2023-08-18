@@ -8,18 +8,21 @@ namespace GameMain
 {
     public class DialogComponent : GameFrameworkComponent
     {
-        public List<TriggerData> triggerDatas;
+        public List<StorySO> stories;
 
+        private void Start()
+        {
+            stories= new List<StorySO>(Resources.LoadAll<StorySO>("StoryData"));
+        }
         public void StoryUpdate()
         {
-            foreach (TriggerData triggerData in triggerDatas)
+            foreach (StorySO story in stories)
             {
-                if (GameEntry.Utils.Check(triggerData))
+                if (GameEntry.Utils.Location != story.outingSceneState)
+                    return;
+                if (GameEntry.Utils.Check(story.trigger))
                 {
-                    foreach (EventData eventData in triggerData.events)
-                    { 
-                        
-                    }
+                    GameEntry.UI.OpenUIForm(UIFormId.DialogForm, story.dialogueGraph);
                 }
             }
         }
