@@ -38,6 +38,14 @@ namespace GameMain
             mDialogForm.SetDialog(mDialogStageData.DialogueGraph, this);
         }
 
+        protected override void OnShow(object userData)
+        {
+            base.OnShow(userData);
+            GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, LoadCharacterSuccess);
+            mDialogStageData = (DialogStageData)userData;
+            mDialogForm.SetDialog(mDialogStageData.DialogueGraph, this);
+        }
+
         //private void OnEnable()
         //{
         //    GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, LoadCharacterSuccess);

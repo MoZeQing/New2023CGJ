@@ -7,6 +7,8 @@ using UnityEngine;
 public class StorySO : ScriptableObject
 {
     [SerializeField]
+    public bool isRemove;
+    [SerializeField]
     public OutingSceneState outingSceneState;
     [SerializeField]
     public Trigger trigger;

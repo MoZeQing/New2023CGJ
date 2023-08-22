@@ -157,10 +157,16 @@ namespace GameMain
             {
                 //播放完毕
                 GameEntry.UI.OpenUIForm(UIFormId.ChangeForm);
-                GameEntry.Dialog.InDialog=false;
-                GameEntry.Entity.HideEntity(mDialogStage.Entity);
+                Invoke(nameof(HideDialog),1f);
             }
         }
+
+        private void HideDialog()
+        {
+            GameEntry.Dialog.InDialog = false;
+            GameEntry.Entity.HideEntity(mDialogStage.Entity);
+        }
+
         private void Next(OptionData optionData)
         {
             if (optionData == null)

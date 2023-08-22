@@ -19,6 +19,7 @@ namespace GameMain
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
+            mMainState = MainState.Outing;
             GameEntry.UI.CloseUIGroup("Default");
             GameEntry.UI.OpenUIForm((UIFormId)(12 + (int)GameEntry.Utils.outSceneState), this);
             GameEntry.Event.Subscribe(MainStateEventArgs.EventId, MainStateEvent);
@@ -27,6 +28,7 @@ namespace GameMain
         {
             base.OnLeave(procedureOwner, isShutdown);
             GameEntry.Event.Unsubscribe(MainStateEventArgs.EventId, MainStateEvent);
+            GameEntry.UI.CloseUIGroup("Default");
         }
         protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
         {

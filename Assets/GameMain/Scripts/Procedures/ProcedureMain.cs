@@ -25,6 +25,7 @@ namespace GameMain
         protected override void OnEnter(IFsm<IProcedureManager> procedureOwner)
         {
             base.OnEnter(procedureOwner);
+            mMainState = MainState.Teach;
             GameEntry.UI.OpenUIForm(UIFormId.MainForm, this);
             //GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, LoadCatSuccess);
             GameEntry.Event.Subscribe(MainStateEventArgs.EventId, MainStateEvent);

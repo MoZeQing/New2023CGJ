@@ -154,29 +154,38 @@ namespace GameMain
                     triggers = mActionNode.Sleep;
                     break;
             }
-            //判断            
-            if (GameEntry.Utils.Energy < playerData.energy)
+            if (behaviorTag != BehaviorTag.Sleep)
             {
-                energyTips.gameObject.SetActive(true);
-                return;
-            }
-            energyTips.gameObject.SetActive(false);
-            if (GameEntry.Utils.Ap < playerData.ap)
-            {
-                apTips.gameObject.SetActive(true);
-                return;//播放错误界面
-            }
-            apTips.gameObject.SetActive(false);
-            //结算
-            GameEntry.Utils.Energy-=playerData.energy;
-            GameEntry.Utils.Money-=playerData.money;
-            GameEntry.Utils.MaxEnergy-=playerData.maxEnergy;
-            GameEntry.Utils.Ap-=playerData.ap;
-            GameEntry.Utils.MaxAp-=playerData.maxAp;
+                if (GameEntry.Utils.Energy < playerData.energy)
+                {
+                    energyTips.gameObject.SetActive(true);
+                    return;
+                }
+                energyTips.gameObject.SetActive(false);
+                if (GameEntry.Utils.Ap < playerData.ap)
+                {
+                    apTips.gameObject.SetActive(true);
+                    return;//播放错误界面
+                }
+                apTips.gameObject.SetActive(false);
+                //结算
+                GameEntry.Utils.Energy -= playerData.energy;
+                GameEntry.Utils.Money -= playerData.money;
+                GameEntry.Utils.MaxEnergy -= playerData.maxEnergy;
+                GameEntry.Utils.Ap -= playerData.ap;
+                GameEntry.Utils.MaxAp -= playerData.maxAp;
 
-            GameEntry.Utils.Mood += 20;
-            GameEntry.Utils.Favor += 2;
-            GameEntry.Utils.Hope+=1;
+                GameEntry.Utils.Mood += 20;
+                GameEntry.Utils.Favor += 2;
+                GameEntry.Utils.Hope += 1;
+            }
+            else
+            {
+                GameEntry.Utils.Energy += 60;
+                GameEntry.Utils.Ap = GameEntry.Utils.MaxAp;
+            }
+            //判断            
+            
             //剧情
 
             //检测正确性
@@ -378,8 +387,16 @@ namespace GameMain
                 _index = 0;
                 m_Dialogue = null;
                 m_Node = null;
+                if (mBehaviorTag == BehaviorTag.Sleep)
+                    Sleep();
                 ShowGUI();
             }
+        }
+        private void Sleep()
+        {
+            GameEntry.Utils.Day++;
+            GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);//用这个this传参来调整黑幕
+            
         }
         private void Next(OptionData optionData)
         {

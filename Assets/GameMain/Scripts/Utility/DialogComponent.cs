@@ -32,6 +32,8 @@ namespace GameMain
                     GameEntry.UI.CloseUIGroup("Default");
                     GameEntry.Entity.ShowDialogStage(new DialogStageData(GameEntry.Entity.GenerateSerialId(), 10010, story.dialogueGraph));
                     InDialog= true;
+                    if (story.isRemove)
+                        stories.Remove(story);
                     return true;
                 }
             }

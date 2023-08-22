@@ -10,10 +10,10 @@ public class Map : MonoBehaviour,IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
-        Invoke(nameof(OnGameOutingChange), 1f);
+        Invoke(nameof(OnGameStateChange), 1f);
     }
 
-    private void OnGameOutingChange()
+    private void OnGameStateChange()
     {
         GameEntry.Utils.Location = mOutingSceneState;
         //GameEntry.UI.OpenUIForm((UIFormId)(12 + (int)mOutingSceneState), this);
