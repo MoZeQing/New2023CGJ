@@ -15,7 +15,7 @@ using System;
 
 namespace GameMain
 {
-    public class TeachingForm : UIFormLogic
+    public class TeachingForm : MonoBehaviour
     {
         [SerializeField] private GameObject mBtnPrefab;
         [SerializeField] private Transform mCanvas;
@@ -46,6 +46,7 @@ namespace GameMain
         [SerializeField] private Button outingBtn;
         [SerializeField] private GameObject energyTips;
         [SerializeField] private GameObject apTips;
+        [SerializeField] private Cat mCat = null;
 
         public CharSO charSO;
         private LittleCat mLittleCat = null;
@@ -58,12 +59,9 @@ namespace GameMain
         private List<GameObject> m_Btns = new List<GameObject>();
         private DialogInterpreter m_DialogInterpreter = new DialogInterpreter();
 
-        protected override void OnOpen(object userData)
+        private void OnEnable()
         {
-            base.OnOpen(userData);
             dialogBtn.onClick.AddListener(Next);
-            mProcedureMain = (ProcedureMain)userData;
-
             //mActionGraph = (ActionGraph)userData;
             mActionNode = mActionGraph.ActionNode();
             //GameEntry.Event.Subscribe(MainFormEventArgs.EventId, MainEvent);
@@ -91,9 +89,8 @@ namespace GameMain
             energyTips.gameObject.SetActive(false);
         }
 
-        protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
+        private void FixedUpdate()
         {
-            base.OnUpdate(elapseSeconds, realElapseSeconds);
             if (Input.GetMouseButtonDown(1))
             {
                 HideGUI();
@@ -102,10 +99,8 @@ namespace GameMain
             }
         }
 
-        protected override void OnClose(bool isShutdown, object userData)
+        private void OnDisable()
         {
-            base.OnClose(isShutdown, userData);
-            //GameEntry.Event.Unsubscribe(MainFormEventArgs.EventId, MainEvent);
             GameEntry.Event.Unsubscribe(LevelEventArgs.EventId, LevelEvent);
             GameEntry.Event.Unsubscribe(GamePosEventArgs.EventId, GamePosEvent);
             GameEntry.Event.Unsubscribe(CharDataEventArgs.EventId, CharDataEvent);
@@ -116,7 +111,7 @@ namespace GameMain
         public void ShowGUI()
         {
             mLittleCat.HideLittleCat();
-            mProcedureMain.Cat.ShowCat();
+            mCat.ShowCat();
             rightCanvas.gameObject.SetActive(true);
             leftCanvas.gameObject.SetActive(true);
             middleCanvas.gameObject.SetActive(false);
@@ -127,7 +122,7 @@ namespace GameMain
         public void HideGUI()
         {
             mLittleCat.ShowLittleCat();
-            mProcedureMain.Cat.HideCat();
+            mCat.HideCat();
             rightCanvas.gameObject.SetActive(false);
             leftCanvas.gameObject.SetActive(true);
             middleCanvas.gameObject.SetActive(false);
@@ -208,7 +203,7 @@ namespace GameMain
                 leftCanvas.gameObject.SetActive(false);
                 rightCanvas.gameObject.SetActive(false);
                 middleCanvas.gameObject.SetActive(true);
-                mProcedureMain.Cat.ShowCat();
+                mCat.ShowCat();
                 mLittleCat.HideLittleCat();
             }
             else

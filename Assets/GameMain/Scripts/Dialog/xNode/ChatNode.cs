@@ -33,7 +33,13 @@ public class ChatData
     [SerializeField]
     public string charName;
     [SerializeField]
-    public CharSO charSO;//角色
+    public CharSO charSO;
+    //[SerializeField]
+    //public CharSO left;//角色
+    //[SerializeField]
+    //public CharSO right;
+    //[SerializeField]
+    //public CharSO middle;
     [SerializeField]
     public ActionData actionData;//动作数据
     [SerializeField]

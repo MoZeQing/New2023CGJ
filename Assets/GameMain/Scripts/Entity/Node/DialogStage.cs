@@ -6,17 +6,19 @@ using UnityGameFramework.Runtime;
 
 namespace GameMain
 {
-    public class DialogStage : EntityLogic
+    public class DialogStage : Entity
     {
         [SerializeField] private SpriteRenderer mBG;
         [SerializeField] private Transform mLeft;
         [SerializeField] private Transform mRight;
+        [SerializeField] private DialogForm mDialogForm = null;
 
         private BaseCharacter mLeftChar = null;
         private BaseCharacter mRightChar = null;
         private BaseCharacter mMiddleChar = null;
 
         private Dictionary<CharSO, BaseCharacter> mCharChace = new Dictionary<CharSO, BaseCharacter>();
+        private DialogStageData mDialogStageData = null;
 
         //ª∫¥Ê«¯
         private Dictionary<int,ChatData> mCharIdChace =new Dictionary<int,ChatData>();
@@ -24,19 +26,44 @@ namespace GameMain
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
+            mDialogStageData=(DialogStageData)userData;
             GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, LoadCharacterSuccess);
+
+            this.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, 0);
+            mBG = this.transform.Find("BGImage").GetComponent<SpriteRenderer>();
+            mLeft = this.transform.Find("Left").GetComponent<Transform>();
+            mRight = this.transform.Find("Right").GetComponent<Transform>();
+            mDialogForm = this.transform.Find("DialogForm").GetComponent<DialogForm>();
+
+            mDialogForm.SetDialog(mDialogStageData.DialogueGraph, this);
         }
 
-        protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
-        {
-            base.OnUpdate(elapseSeconds, realElapseSeconds);
-        }
+        //private void OnEnable()
+        //{
+        //    GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, LoadCharacterSuccess);
+
+        //    this.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, 0);
+        //    mBG = this.transform.Find("BGImage").GetComponent<SpriteRenderer>();
+        //    mLeft = this.transform.Find("Left").GetComponent<Transform>();
+        //    mRight = this.transform.Find("Right").GetComponent<Transform>();
+        //}
 
         protected override void OnHide(bool isShutdown, object userData)
         {
             base.OnHide(isShutdown, userData);
             GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, LoadCharacterSuccess);
+
+            foreach (KeyValuePair<CharSO, BaseCharacter> pair in mCharChace)
+            {
+                GameEntry.Entity.HideEntity(pair.Value.Entity);
+            }
+            mCharChace.Clear();
         }
+
+        //private void OnDisable()
+        //{
+        //    GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, LoadCharacterSuccess);
+        //}
         /// <summary>
         /// …Ë÷√Œª÷√
         /// </summary>
@@ -97,6 +124,7 @@ namespace GameMain
         public void ShowCharacter(ChatData chatData)
         {
             CharSO charSO = chatData.charSO;
+            if (charSO == null) return;
             if (mCharChace.ContainsKey(charSO))
             {
                 SetDialogPos(mCharChace[charSO],chatData.dialogPos);
@@ -121,10 +149,16 @@ namespace GameMain
             if (mCharIdChace.ContainsKey(showEntity.Entity.Id))
             {
                 BaseCharacter baseCharacter= showEntity.Entity.GetComponent<BaseCharacter>();
-                if(baseCharacter.DialogPos==DialogPos.Left)
+                if (baseCharacter.DialogPos == DialogPos.Left)
+                {
                     mLeftChar = baseCharacter;
+                    mLeftChar.transform.position = mLeft.position;
+                }
                 else
+                {
                     mRightChar = baseCharacter;
+                    mRightChar.transform.position = mRight.position;
+                }
                 mCharChace[mCharIdChace[showEntity.Entity.Id].charSO] = baseCharacter;
 
                 SetDialogPos(baseCharacter, mCharIdChace[showEntity.Entity.Id].dialogPos);

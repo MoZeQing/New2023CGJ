@@ -13,7 +13,7 @@ using System.Runtime.InteropServices;
 
 namespace GameMain
 {
-    public class DialogForm : UIFormLogic
+    public class DialogForm : MonoBehaviour
     {
         [SerializeField] private Text nameText;
         [SerializeField] private Text dialogText;
@@ -34,37 +34,24 @@ namespace GameMain
         // Start is called before the first frame update
         // Update is called once per frame
 
-        protected override void OnOpen(object userData)
+        private void OnEnable()
         {
-            base.OnOpen(userData);
             dialogBtn.onClick.AddListener(Next);
             GameEntry.Event.Subscribe(LevelEventArgs.EventId, SetDialog);
             GameEntry.Event.Subscribe(GamePosEventArgs.EventId, GamePosEvent);
-
-            DialogueGraph dialogueGraph = (DialogueGraph)userData;
-            SetDialog(dialogueGraph);
-            mChace = GameEntry.Entity.GenerateSerialId();
-
-            GameEntry.Entity.ShowDialogStage(new DialogStageData(mChace, 10010)
-            { 
-                
-            });
         }
-        protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
+        private void OnDisable()
         {
-            base.OnUpdate(elapseSeconds, realElapseSeconds);
-
+            GameEntry.Event.Unsubscribe(LevelEventArgs.EventId, SetDialog);
+            GameEntry.Event.Unsubscribe(GamePosEventArgs.EventId, GamePosEvent);
+        }
+        private void FixedUpdate()
+        {
             if (Input.GetKey(KeyCode.LeftControl))
                 Next();
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
                 Next();
-        }
-        protected override void OnClose(bool isShutdown, object userData)
-        {
-            base.OnClose(isShutdown, userData);
-            GameEntry.Event.Unsubscribe(LevelEventArgs.EventId, SetDialog);
-            GameEntry.Event.Unsubscribe(GamePosEventArgs.EventId, GamePosEvent);
-        }
+        }     
         public void ShowButtons(List<OptionData> options)
         {
             ClearButtons();
@@ -169,20 +156,9 @@ namespace GameMain
             else
             {
                 //播放完毕
-                nameText.text = string.Empty;
-                dialogText.text = string.Empty;
-                _index= 0;
-                m_Dialogue = null;
-                m_Node = null;
-                //if (mMainState == MainState.Foreword || mMainState == MainState.Text)
-                //{
-                //    character.color = Color.clear;
-                //    GameEntry.Event.FireNow(this, DialogEventArgs.Create(""));
-                //}
-                //else if (mMainState == MainState.Game)
-                //{
-                //}
-
+                GameEntry.UI.OpenUIForm(UIFormId.ChangeForm);
+                GameEntry.Dialog.InDialog=false;
+                GameEntry.Entity.HideEntity(mDialogStage.Entity);
             }
         }
         private void Next(OptionData optionData)
@@ -302,6 +278,11 @@ namespace GameMain
                 }
             }
             Next();
+        }
+        public void SetDialog(DialogueGraph graph, DialogStage stage)
+        { 
+            mDialogStage= stage;
+            SetDialog(graph);
         }
         public void SetDialog(string path)
         {

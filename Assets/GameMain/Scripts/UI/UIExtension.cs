@@ -9,7 +9,22 @@ namespace GameMain
 {
     public static class UIExtension
     {
+
+        public static void CloseUIGroup(this UIComponent uiComponent,string groupName)
+        {
+            IUIGroup uIGroup = uiComponent.GetUIGroup(groupName);
+            IUIForm[] forms = uIGroup.GetAllUIForms();
+            foreach (IUIForm form in forms)
+            {
+                UIForm ui = GameEntry.UI.GetUIForm(form.UIFormAssetName);
+                GameEntry.UI.CloseUIForm(ui);
+            }
+        }
         public static void CloseUIForm(this UIComponent uiComponent, UIFormId uiFormId, object userData = null)
+        {
+
+        }
+        public static void CloseUIForm(this UIComponent uiComponent, int uiFormId, object userData = null)
         { 
             
         }
@@ -79,10 +94,6 @@ namespace GameMain
             if (!uiComponent.HasUIForm(assetName))
                 return null;
             return uiComponent.GetUIForm(assetName);
-        }
-        public static void CloseUIForm(this UIComponent uiComponent, int uiFormId, object userData = null)
-        { 
-
         }
     }
 

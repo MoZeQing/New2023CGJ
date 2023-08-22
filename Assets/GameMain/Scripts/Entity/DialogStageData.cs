@@ -6,16 +6,16 @@ namespace GameMain
 {
     public class DialogStageData : EntityData
     {
-        public CharSO CharSO
+        public DialogueGraph DialogueGraph
         {
             get;
             set;
         }
 
-        public DialogStageData(int entityId, int typeId)
+        public DialogStageData(int entityId, int typeId,DialogueGraph dialogueGraph)
             : base(entityId, typeId)
         {
-
+            DialogueGraph= dialogueGraph;
         }
     }
 }
