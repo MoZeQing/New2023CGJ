@@ -26,7 +26,7 @@ namespace GameMain
             foreach (StorySO story in stories)
             {
                 if (GameEntry.Utils.Location != story.outingSceneState)
-                    return false;
+                    continue;
                 if (GameEntry.Utils.Check(story.trigger))
                 {
                     GameEntry.UI.CloseUIGroup("Default");

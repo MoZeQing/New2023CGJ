@@ -21,12 +21,13 @@ namespace GameMain
             get;
             private set;
         }
-
         protected override void OnEnter(IFsm<IProcedureManager> procedureOwner)
         {
             base.OnEnter(procedureOwner);
             mMainState = MainState.Teach;
+            GameEntry.Utils.Location = OutingSceneState.Home;
             GameEntry.UI.OpenUIForm(UIFormId.MainForm, this);
+            GameEntry.Event.FireNow(this, GamePosEventArgs.Create(GamePos.Up));
             //GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, LoadCatSuccess);
             GameEntry.Event.Subscribe(MainStateEventArgs.EventId, MainStateEvent);
         }
@@ -87,6 +88,7 @@ namespace GameMain
                     break;
                 case MainState.Work:
                     //ÇÐ»»bgm
+                    GameEntry.Utils.TimeTag = TimeTag.ForeWork;
                     GameEntry.Dialog.StoryUpdate();
 
                     break;
@@ -119,6 +121,23 @@ namespace GameMain
         Menu,
         Outing,
         Dialog
+    }
+
+    public enum TimeTag
+    { 
+        ForeWork,
+        AfterWork,
+    }
+
+    public enum Week
+    { 
+        Monday,
+        Tuesday,
+        Wednesday,
+        Thursday,
+        Friday,
+        Saturday,
+        Sunday
     }
 
     public enum OutingSceneState

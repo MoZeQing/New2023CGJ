@@ -38,6 +38,48 @@ namespace GameMain
         private LevelData mLevelData= new LevelData();
         private PlayerData mPlayerData = new PlayerData();
         private OutingSceneState mLocation;
+        private TimeTag mTimeTag;
+        private Week mWeek;
+        private BehaviorTag mBehaviorTag;
+
+        public BehaviorTag BehaviorTag
+        {
+            get
+            {
+                return mBehaviorTag;
+            }
+            set
+            { 
+                mBehaviorTag= value;
+                _values[TriggerTag.BehaviorTag]=mBehaviorTag.ToString();
+            }
+        }
+
+        public Week Week
+        {
+            get
+            {
+                return mWeek;
+            }
+            set
+            { 
+                mWeek= value;
+                _values[TriggerTag.Week] = mWeek.ToString();
+            }
+        }
+
+        public TimeTag TimeTag
+        {
+            get
+            {
+                return mTimeTag;
+            }
+            set
+            { 
+                mTimeTag= value;
+                _values[TriggerTag.TimeTag] = mTimeTag.ToString();
+            }
+        }
 
         public OutingSceneState Location
         {

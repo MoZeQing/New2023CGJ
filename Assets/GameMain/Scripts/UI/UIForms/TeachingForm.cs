@@ -65,11 +65,11 @@ namespace GameMain
             //mActionGraph = (ActionGraph)userData;
             mActionNode = mActionGraph.ActionNode();
             //GameEntry.Event.Subscribe(MainFormEventArgs.EventId, MainEvent);
-            GameEntry.Event.Subscribe(LevelEventArgs.EventId, LevelEvent);
             GameEntry.Event.Subscribe(GamePosEventArgs.EventId, GamePosEvent);
             GameEntry.Event.Subscribe(CharDataEventArgs.EventId, CharDataEvent);
             GameEntry.Event.Subscribe(PlayerDataEventArgs.EventId, PlayerDataEvent);
             GameEntry.Event.Subscribe(LittleCatEventArgs.EventId, Click_Action);
+            GameEntry.Event.Subscribe(MainStateEventArgs.EventId, GameStateEvent);
 
             cupboradBtn.onClick.AddListener(() => GameEntry.Event.FireNow(this, GamePosEventArgs.Create(GamePos.Left)));
             teachBtn.onClick.AddListener(() => GameEntry.Event.FireNow(this, GamePosEventArgs.Create(GamePos.Up)));
@@ -101,11 +101,11 @@ namespace GameMain
 
         private void OnDisable()
         {
-            GameEntry.Event.Unsubscribe(LevelEventArgs.EventId, LevelEvent);
             GameEntry.Event.Unsubscribe(GamePosEventArgs.EventId, GamePosEvent);
             GameEntry.Event.Unsubscribe(CharDataEventArgs.EventId, CharDataEvent);
             GameEntry.Event.Unsubscribe(PlayerDataEventArgs.EventId, PlayerDataEvent);
             GameEntry.Event.Unsubscribe(LittleCatEventArgs.EventId, Click_Action);
+            GameEntry.Event.Unsubscribe(MainStateEventArgs.EventId, GameStateEvent);
         }
 
         public void ShowGUI()
@@ -125,6 +125,17 @@ namespace GameMain
             mCat.HideCat();
             rightCanvas.gameObject.SetActive(false);
             leftCanvas.gameObject.SetActive(true);
+            middleCanvas.gameObject.SetActive(false);
+            apTips.gameObject.SetActive(false);
+            energyTips.gameObject.SetActive(false);
+        }
+
+        public void HideAllGUI()
+        {
+            mLittleCat.HideLittleCat();
+            mCat.HideCat();
+            rightCanvas.gameObject.SetActive(false);
+            leftCanvas.gameObject.SetActive(false);
             middleCanvas.gameObject.SetActive(false);
             apTips.gameObject.SetActive(false);
             energyTips.gameObject.SetActive(false);
@@ -234,30 +245,6 @@ namespace GameMain
                 {
                     this.mActionNode = (ActionNode)node;
                 }
-            }
-        }
-        private void LevelEvent(object sender, GameEventArgs args)
-        {
-            LevelEventArgs level = (LevelEventArgs)args;
-        }
-
-        private void GamePosEvent(object sender, GameEventArgs args)
-        { 
-            GamePosEventArgs gamePos= (GamePosEventArgs)args;
-            switch (gamePos.GamePos)
-            {
-                case GamePos.Up:
-                    mCanvas.transform.DOLocalMove(new Vector3(0f, 0f, 0f), 1f).SetEase(Ease.InOutExpo);
-                    break;
-                case GamePos.Down:
-                    mCanvas.transform.DOLocalMove(new Vector3(0f, 1920f, 0f), 1f).SetEase(Ease.InOutExpo);
-                    break;
-                case GamePos.Left:
-                    mCanvas.transform.DOLocalMove(new Vector3(1920f, 0, 0f), 1f).SetEase(Ease.InOutExpo);
-                    break;
-                case GamePos.Right:
-                    mCanvas.transform.DOLocalMove(new Vector3(-1920f, 0f, 0f), 1f).SetEase(Ease.InOutExpo);
-                    break;
             }
         }
         //Dialog区域
@@ -387,16 +374,37 @@ namespace GameMain
                 _index = 0;
                 m_Dialogue = null;
                 m_Node = null;
+
                 if (mBehaviorTag == BehaviorTag.Sleep)
+                {
                     Sleep();
-                ShowGUI();
+                }
+                else if (mBehaviorTag == BehaviorTag.Talk)
+                {
+                    ShowGUI();
+                }
+                else
+                {
+                    //GameEntry.UI.OpenUIForm(UIFormId.ActionForm, this);
+                    //Invoke(nameof(OnActionFinish), 3f);
+                    ShowGUI();
+                }
             }
+        }
+        private void OnActionFinish()
+        {
+            ShowGUI();
         }
         private void Sleep()
         {
             GameEntry.Utils.Day++;
-            GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);//用这个this传参来调整黑幕
-            
+            GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, GameEntry.Utils.Day);//用这个this传参来调整黑幕
+            HideAllGUI();
+            Invoke(nameof(OnGameStateChange), 1f);
+        }
+        private void OnGameStateChange()
+        {
+            GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Work));
         }
         private void Next(OptionData optionData)
         {
@@ -560,6 +568,35 @@ namespace GameMain
             mLittleCat = (LittleCat)sender;
             HideGUI();
             Behaviour(BehaviorTag.Click);
+        }
+        private void GameStateEvent(object sender, GameEventArgs e)
+        {
+            MainStateEventArgs args = (MainStateEventArgs)e;
+            if (args.MainState == MainState.Teach)
+            {
+                HideGUI();
+            }
+            else
+                HideAllGUI();
+        }
+        private void GamePosEvent(object sender, GameEventArgs args)
+        {
+            GamePosEventArgs gamePos = (GamePosEventArgs)args;
+            switch (gamePos.GamePos)
+            {
+                case GamePos.Up:
+                    mCanvas.transform.DOLocalMove(new Vector3(0f, 0f, 0f), 1f).SetEase(Ease.InOutExpo);
+                    break;
+                case GamePos.Down:
+                    mCanvas.transform.DOLocalMove(new Vector3(0f, 1920f, 0f), 1f).SetEase(Ease.InOutExpo);
+                    break;
+                case GamePos.Left:
+                    mCanvas.transform.DOLocalMove(new Vector3(1920f, 0, 0f), 1f).SetEase(Ease.InOutExpo);
+                    break;
+                case GamePos.Right:
+                    mCanvas.transform.DOLocalMove(new Vector3(-1920f, 0f, 0f), 1f).SetEase(Ease.InOutExpo);
+                    break;
+            }
         }
     }
 }

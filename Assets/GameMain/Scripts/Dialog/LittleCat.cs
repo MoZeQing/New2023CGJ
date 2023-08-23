@@ -23,6 +23,14 @@ namespace GameMain
             //littleCats.Add(this.transform.Find("Cat2").GetComponent<SpriteRenderer>());
             //littleCats.Add(this.transform.Find("Cat3").GetComponent<SpriteRenderer>());
         }
+        private void OnEnable()
+        {
+            GameEntry.Event.Subscribe(MainStateEventArgs.EventId, GameStateEvent);
+        }
+        private void OnDisable()
+        {
+            GameEntry.Event.Unsubscribe(MainStateEventArgs.EventId, GameStateEvent);
+        }
         public void OnPointerClick(PointerEventData pointerEventData)
         {
             //显示对应养成的UI
@@ -45,6 +53,15 @@ namespace GameMain
             { 
                 sprite.gameObject.SetActive(false);
             }
+        }
+
+        private void GameStateEvent(object sender, GameEventArgs e)
+        {
+            MainStateEventArgs args = (MainStateEventArgs)e;
+            if (args.MainState == MainState.Teach)
+                ShowLittleCat();
+            else
+                HideLittleCat();
         }
     }
 

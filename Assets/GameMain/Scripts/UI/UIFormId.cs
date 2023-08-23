@@ -15,7 +15,7 @@ namespace GameMain
         SettleForm= 6,        
         TeachForm = 7,
         WorkForm = 8,
-        DialogForm=9,
+        ActionForm=9,
         ShopForm=10,
         MapForm=11,
         GreengrocerForm=12

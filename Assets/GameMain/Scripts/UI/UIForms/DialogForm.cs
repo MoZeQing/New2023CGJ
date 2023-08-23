@@ -156,6 +156,7 @@ namespace GameMain
             else
             {
                 //播放完毕
+                m_Node = null;
                 GameEntry.UI.OpenUIForm(UIFormId.ChangeForm);
                 Invoke(nameof(HideDialog),1f);
             }

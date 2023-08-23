@@ -26,8 +26,7 @@ namespace GameMain
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
-            mDialogStageData=(DialogStageData)userData;
-            GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, LoadCharacterSuccess);
+            //mDialogStageData=(DialogStageData)userData;
 
             this.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, 0);
             mBG = this.transform.Find("BGImage").GetComponent<SpriteRenderer>();
@@ -35,7 +34,7 @@ namespace GameMain
             mRight = this.transform.Find("Right").GetComponent<Transform>();
             mDialogForm = this.transform.Find("DialogForm").GetComponent<DialogForm>();
 
-            mDialogForm.SetDialog(mDialogStageData.DialogueGraph, this);
+            //mDialogForm.SetDialog(mDialogStageData.DialogueGraph, this);
         }
 
         protected override void OnShow(object userData)

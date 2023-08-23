@@ -18,6 +18,7 @@ namespace GameMain
         [SerializeField] private Button upButton;
         [SerializeField] private Button leftButton;
         [SerializeField] private Button rightButton;
+        [SerializeField] private Button workBtn;
 
         [SerializeField] private Button catButton;
         [SerializeField] private Button recipeButton;
@@ -38,6 +39,7 @@ namespace GameMain
             downButton.onClick.AddListener(() => GameEntry.Event.FireNow(this, GamePosEventArgs.Create(GamePos.Down)));
             leftButton.onClick.AddListener(() => GameEntry.Event.FireNow(this, GamePosEventArgs.Create(GamePos.Left)));
             rightButton.onClick.AddListener(() => GameEntry.Event.FireNow(this, GamePosEventArgs.Create(GamePos.Right)));
+            workBtn.onClick.AddListener(() => GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Teach)));
 
             GameEntry.Event.Subscribe(GamePosEventArgs.EventId, GamePosEvent);
         }

@@ -13,6 +13,12 @@ namespace GameMain
     public class WorkForm : UIFormLogic
     {
         [SerializeField] private Transform mCanvas;
+        [Header("¶Ô»°ÇøÓò")]
+        [SerializeField] private Transform middleCanvas;
+        [SerializeField] private Button dialogBtn;
+        [SerializeField] private Text dialogText;
+        [SerializeField] private Text nameText;
+        [SerializeField] private Transform option;
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
@@ -26,6 +32,16 @@ namespace GameMain
             base.OnClose(isShutdown, userData);
             GameEntry.Event.Unsubscribe(GamePosEventArgs.EventId, GamePosEvent);
         }
+
+        private void FixedUpdate()
+        {
+            if (Input.GetMouseButtonDown(1))
+            {
+                dialogText.text = string.Empty;
+                nameText.text = string.Empty;
+            }
+        }
+
         private void GamePosEvent(object sender, GameEventArgs args)
         {
             GamePosEventArgs gamePos = (GamePosEventArgs)args;
