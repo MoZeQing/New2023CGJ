@@ -9,7 +9,9 @@ namespace GameMain
 {
     public class DialogComponent : GameFrameworkComponent
     {
-        public List<StorySO> stories;
+        [SerializeField] private DialogBox dialogBox= null;
+        [SerializeField] private BaseStage stage = null;
+        [SerializeField] private List<StorySO> stories;
         public bool InDialog
         {
             get;
@@ -30,7 +32,10 @@ namespace GameMain
                 if (GameEntry.Utils.Check(story.trigger))
                 {
                     GameEntry.UI.CloseUIGroup("Default");
-                    GameEntry.Entity.ShowDialogStage(new DialogStageData(GameEntry.Entity.GenerateSerialId(), 10010, story.dialogueGraph));
+                    dialogBox.gameObject.SetActive(true);
+                    dialogBox.SetDialog(story.dialogueGraph);
+                    stage.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, 0f);
+                    //dialogBox.SetComplete();
                     InDialog= true;
                     if (story.isRemove)
                         stories.Remove(story);

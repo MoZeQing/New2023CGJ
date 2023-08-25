@@ -119,62 +119,62 @@ namespace GameMain
         }
         private void Next(ChatNode chatNode)
         {
-            if (_index < chatNode.chatDatas.Count)
-            {
-                //角色控制
-                ChatData chatData = chatNode.chatDatas[_index];
-                nameText.text = chatData.charName;
-                dialogText.text = chatData.text;
-                if (chatData.actionData.actionTag != ActionTag.None)
-                {
-                    switch (chatData.actionData.actionTag)
-                    {
-                        case ActionTag.Jump:
-                            //跳动效果
-                            break;
-                        case ActionTag.Shake:
-                            //抖动效果
-                            break;
-                        case ActionTag.Squat:
-                            break;
-                    }
-                }
-                //角色控制
-                if (chatNode.GetPort(string.Format("chatDatas {0}", _index)) != null)
-                {
-                    NodePort nodePort = chatNode.GetPort(string.Format("chatDatas {0}", _index));
-                    if (nodePort.Connection != null)
-                    {
-                        Node node = nodePort.Connection.node;
-                        switch (node.GetType().ToString())
-                        {
-                            case "ChatNode":
-                                m_Node = node;
-                                chatTag = ChatTag.Chat;
-                                break;
-                            case "OptionNode":
-                                m_Node = node;
-                                chatTag = ChatTag.Option;
-                                break;
-                            case "TriggerNode":
-                                m_Node = node;
-                                chatTag = ChatTag.Trigger;
-                                break;
-                        }
-                        _index = 0;
-                    }
-                }
-                _index++;
-            }
-            else
-            {
-                //播放完毕
-                nameText.text = string.Empty;
-                dialogText.text = string.Empty;
-                _index = 0;
-                m_Dialogue = null;
-                m_Node = null;
-            }
+            //if (_index < chatNode.chatDatas.Count)
+            //{
+            //    //角色控制
+            //    ChatData chatData = chatNode.chatDatas[_index];
+            //    nameText.text = chatData.charName;
+            //    dialogText.text = chatData.text;
+            //    if (chatData.actionData.actionTag != ActionTag.None)
+            //    {
+            //        switch (chatData.actionData.actionTag)
+            //        {
+            //            case ActionTag.Jump:
+            //                //跳动效果
+            //                break;
+            //            case ActionTag.Shake:
+            //                //抖动效果
+            //                break;
+            //            case ActionTag.Squat:
+            //                break;
+            //        }
+            //    }
+            //    //角色控制
+            //    if (chatNode.GetPort(string.Format("chatDatas {0}", _index)) != null)
+            //    {
+            //        NodePort nodePort = chatNode.GetPort(string.Format("chatDatas {0}", _index));
+            //        if (nodePort.Connection != null)
+            //        {
+            //            Node node = nodePort.Connection.node;
+            //            switch (node.GetType().ToString())
+            //            {
+            //                case "ChatNode":
+            //                    m_Node = node;
+            //                    chatTag = ChatTag.Chat;
+            //                    break;
+            //                case "OptionNode":
+            //                    m_Node = node;
+            //                    chatTag = ChatTag.Option;
+            //                    break;
+            //                case "TriggerNode":
+            //                    m_Node = node;
+            //                    chatTag = ChatTag.Trigger;
+            //                    break;
+            //            }
+            //            _index = 0;
+            //        }
+            //    }
+            //    _index++;
+            //}
+            //else
+            //{
+            //    //播放完毕
+            //    nameText.text = string.Empty;
+            //    dialogText.text = string.Empty;
+            //    _index = 0;
+            //    m_Dialogue = null;
+            //    m_Node = null;
+            //}
         }
         private void Next(OptionData optionData)
         {

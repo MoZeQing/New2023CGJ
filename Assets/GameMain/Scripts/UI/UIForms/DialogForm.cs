@@ -165,7 +165,7 @@ namespace GameMain
         private void HideDialog()
         {
             GameEntry.Dialog.InDialog = false;
-            GameEntry.Entity.HideEntity(mDialogStage.Entity);
+            //GameEntry.Entity.HideEntity(mDialogStage.Entity);
         }
 
         private void Next(OptionData optionData)

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
@@ -75,13 +76,8 @@ namespace GameMain
         }
         public void SetAction(ActionData actionData)
         {
-            mSpriteRenderer.sprite = mDiffs[(int)actionData.diffTag];
-            Action(actionData.actionTag);
-        }
-
-        private void Action(ActionTag action)
-        {
-            switch (action)
+            //mSpriteRenderer.sprite = mDiffs[(int)actionData.diffTag];
+            switch (actionData.actionTag)
             {
                 case ActionTag.Jump:
                     break;

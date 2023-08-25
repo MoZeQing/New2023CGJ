@@ -6,7 +6,7 @@ using UnityGameFramework.Runtime;
 
 namespace GameMain
 {
-    public class DialogStage : Entity
+    public class DialogStage : BaseStage
     {
         [SerializeField] private SpriteRenderer mBG;
         [SerializeField] private Transform mLeft;
@@ -23,27 +23,27 @@ namespace GameMain
         //缓存区
         private Dictionary<int,ChatData> mCharIdChace =new Dictionary<int,ChatData>();
 
-        protected override void OnInit(object userData)
-        {
-            base.OnInit(userData);
-            //mDialogStageData=(DialogStageData)userData;
+        //protected override void OnInit(object userData)
+        //{
+        //    base.OnInit(userData);
+        //    //mDialogStageData=(DialogStageData)userData;
 
-            this.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, 0);
-            mBG = this.transform.Find("BGImage").GetComponent<SpriteRenderer>();
-            mLeft = this.transform.Find("Left").GetComponent<Transform>();
-            mRight = this.transform.Find("Right").GetComponent<Transform>();
-            mDialogForm = this.transform.Find("DialogForm").GetComponent<DialogForm>();
+        //    this.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, 0);
+        //    mBG = this.transform.Find("BGImage").GetComponent<SpriteRenderer>();
+        //    mLeft = this.transform.Find("Left").GetComponent<Transform>();
+        //    mRight = this.transform.Find("Right").GetComponent<Transform>();
+        //    mDialogForm = this.transform.Find("DialogForm").GetComponent<DialogForm>();
 
-            //mDialogForm.SetDialog(mDialogStageData.DialogueGraph, this);
-        }
+        //    //mDialogForm.SetDialog(mDialogStageData.DialogueGraph, this);
+        //}
 
-        protected override void OnShow(object userData)
-        {
-            base.OnShow(userData);
-            GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, LoadCharacterSuccess);
-            mDialogStageData = (DialogStageData)userData;
-            mDialogForm.SetDialog(mDialogStageData.DialogueGraph, this);
-        }
+        //protected override void OnShow(object userData)
+        //{
+        //    base.OnShow(userData);
+        //    GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, LoadCharacterSuccess);
+        //    mDialogStageData = (DialogStageData)userData;
+        //    mDialogForm.SetDialog(mDialogStageData.DialogueGraph, this);
+        //}
 
         //private void OnEnable()
         //{
@@ -55,17 +55,17 @@ namespace GameMain
         //    mRight = this.transform.Find("Right").GetComponent<Transform>();
         //}
 
-        protected override void OnHide(bool isShutdown, object userData)
-        {
-            base.OnHide(isShutdown, userData);
-            GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, LoadCharacterSuccess);
+        //protected override void OnHide(bool isShutdown, object userData)
+        //{
+        //    base.OnHide(isShutdown, userData);
+        //    GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, LoadCharacterSuccess);
 
-            foreach (KeyValuePair<CharSO, BaseCharacter> pair in mCharChace)
-            {
-                GameEntry.Entity.HideEntity(pair.Value.Entity);
-            }
-            mCharChace.Clear();
-        }
+        //    foreach (KeyValuePair<CharSO, BaseCharacter> pair in mCharChace)
+        //    {
+        //        GameEntry.Entity.HideEntity(pair.Value.Entity);
+        //    }
+        //    mCharChace.Clear();
+        //}
 
         //private void OnDisable()
         //{
@@ -130,55 +130,55 @@ namespace GameMain
 
         public void ShowCharacter(ChatData chatData)
         {
-            CharSO charSO = chatData.charSO;
-            if (charSO == null) return;
-            if (mCharChace.ContainsKey(charSO))
-            {
-                SetDialogPos(mCharChace[charSO],chatData.dialogPos);
-                SetDialogAction(mCharChace[charSO], chatData.actionData);
-            }
-            else
-            {
-                int entityId = GameEntry.Entity.GenerateSerialId();
-                GameEntry.Entity.ShowCharacter(new CharacterData(entityId, 10009, charSO)
-                {
-                    Position = chatData.dialogPos == DialogPos.Left ? mLeft.position : mRight.position,
-                    DialogPos = chatData.dialogPos
-                });
-                mCharIdChace.Add(entityId, chatData);
-            }
+            //CharSO charSO = chatData.charSO;
+            //if (charSO == null) return;
+            //if (mCharChace.ContainsKey(charSO))
+            //{
+            //    SetDialogPos(mCharChace[charSO],chatData.dialogPos);
+            //    SetDialogAction(mCharChace[charSO], chatData.actionData);
+            //}
+            //else
+            //{
+            //    int entityId = GameEntry.Entity.GenerateSerialId();
+            //    GameEntry.Entity.ShowCharacter(new CharacterData(entityId, 10009, charSO)
+            //    {
+            //        Position = chatData.dialogPos == DialogPos.Left ? mLeft.position : mRight.position,
+            //        DialogPos = chatData.dialogPos
+            //    });
+            //    mCharIdChace.Add(entityId, chatData);
+            //}
             //生成
         }
 
         private void LoadCharacterSuccess(object sender, GameEventArgs args)
         {
-            ShowEntitySuccessEventArgs showEntity = (ShowEntitySuccessEventArgs)args;
-            if (mCharIdChace.ContainsKey(showEntity.Entity.Id))
-            {
-                BaseCharacter baseCharacter= showEntity.Entity.GetComponent<BaseCharacter>();
-                if (baseCharacter.DialogPos == DialogPos.Left)
-                {
-                    mLeftChar = baseCharacter;
-                    mLeftChar.transform.position = mLeft.position;
-                }
-                else
-                {
-                    mRightChar = baseCharacter;
-                    mRightChar.transform.position = mRight.position;
-                }
-                mCharChace[mCharIdChace[showEntity.Entity.Id].charSO] = baseCharacter;
+            //ShowEntitySuccessEventArgs showEntity = (ShowEntitySuccessEventArgs)args;
+            //if (mCharIdChace.ContainsKey(showEntity.Entity.Id))
+            //{
+            //    BaseCharacter baseCharacter = showEntity.Entity.GetComponent<BaseCharacter>();
+            //    if (baseCharacter.DialogPos == DialogPos.Left)
+            //    {
+            //        mLeftChar = baseCharacter;
+            //        mLeftChar.transform.position = mLeft.position;
+            //    }
+            //    else
+            //    {
+            //        mRightChar = baseCharacter;
+            //        mRightChar.transform.position = mRight.position;
+            //    }
+            //    mCharChace[mCharIdChace[showEntity.Entity.Id].charSO] = baseCharacter;
 
-                SetDialogPos(baseCharacter, mCharIdChace[showEntity.Entity.Id].dialogPos);
-                SetDialogAction(baseCharacter, mCharIdChace[showEntity.Entity.Id].actionData);
-                mCharIdChace.Remove(showEntity.Entity.Id);
-            }
+            //    SetDialogPos(baseCharacter, mCharIdChace[showEntity.Entity.Id].dialogPos);
+            //    SetDialogAction(baseCharacter, mCharIdChace[showEntity.Entity.Id].actionData);
+            //    mCharIdChace.Remove(showEntity.Entity.Id);
+            //}
         }
     }
 
     public enum DialogPos
     { 
-        Left,//左侧
-        Right,//两边
-        Middle//中间
+        Left=0,//左侧
+        Middle=1,//中间
+        Right=2//两边
     }
 }

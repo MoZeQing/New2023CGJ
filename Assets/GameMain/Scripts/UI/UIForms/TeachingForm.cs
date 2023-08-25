@@ -1,4 +1,4 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GameFramework;
@@ -8,18 +8,13 @@ using GameFramework.Event;
 using DG.Tweening;
 using XNode;
 using UnityEditor.UI;
-using UnityEditor.SceneManagement;
-using static UnityEditor.ShaderData;
-using System.Reflection;
 using System;
 
 namespace GameMain
 {
     public class TeachingForm : MonoBehaviour
     {
-        [SerializeField] private GameObject mBtnPrefab;
-        [SerializeField] private Transform mCanvas;
-        [Header("◊Û≤‡–≈œ¢¿∏")]
+        [Header("Â∑¶‰æß‰ø°ÊÅØÊ†è")]
         [SerializeField] private Transform leftCanvas;
         [SerializeField] private Text timeText;
         [SerializeField] private Text moneyText;
@@ -27,52 +22,39 @@ namespace GameMain
         [SerializeField] private Text APText;
         [SerializeField] private Text energyText;
         [SerializeField] private Text moodText;
-        [Header("”“≤‡≤Ÿ◊˜¿∏")]
+        [Header("Âè≥‰æßÊìç‰ΩúÊ†è")]
         [SerializeField] private Transform rightCanvas;
         [SerializeField] private Button talkBtn;
         [SerializeField] private Button touchBtn;
         [SerializeField] private Button playBtn;
         [SerializeField] private Button storyBtn;
         [SerializeField] private Button sleepBtn;
-        [Header("∂‘ª∞«¯”Ú")]
-        [SerializeField] private Transform middleCanvas;
-        [SerializeField] private Button dialogBtn;
-        [SerializeField] private Text dialogText;
-        [SerializeField] private Text nameText;
-        [SerializeField] private Transform option;
-        [Header("÷˜øÿ")]
+        [Header("‰∏ªÊéß")]
         [SerializeField] private Button cupboradBtn;
-        [SerializeField] private Button teachBtn;
         [SerializeField] private Button outingBtn;
         [SerializeField] private GameObject energyTips;
         [SerializeField] private GameObject apTips;
-        [SerializeField] private Cat mCat = null;
+        [SerializeField] private DialogBox dialogBox;
+        [SerializeField] private LittleCat mLittleCat = null;
 
-        public CharSO charSO;
-        private LittleCat mLittleCat = null;
         private DialogForm mDialogForm = null;
         [SerializeField] private ActionGraph mActionGraph = null;
         private ActionNode mActionNode = null;
         private BehaviorTag mBehaviorTag;
         private ProcedureMain mProcedureMain = null;
-        //Dialog«¯”Ú
+        //DialogÂå∫Âüü
         private List<GameObject> m_Btns = new List<GameObject>();
-        private DialogInterpreter m_DialogInterpreter = new DialogInterpreter();
 
         private void OnEnable()
         {
-            dialogBtn.onClick.AddListener(Next);
-            //mActionGraph = (ActionGraph)userData;
             mActionNode = mActionGraph.ActionNode();
-            //GameEntry.Event.Subscribe(MainFormEventArgs.EventId, MainEvent);
+
             GameEntry.Event.Subscribe(GamePosEventArgs.EventId, GamePosEvent);
             GameEntry.Event.Subscribe(CharDataEventArgs.EventId, CharDataEvent);
             GameEntry.Event.Subscribe(PlayerDataEventArgs.EventId, PlayerDataEvent);
-            GameEntry.Event.Subscribe(LittleCatEventArgs.EventId, Click_Action);
             GameEntry.Event.Subscribe(MainStateEventArgs.EventId, GameStateEvent);
 
             cupboradBtn.onClick.AddListener(() => GameEntry.Event.FireNow(this, GamePosEventArgs.Create(GamePos.Left)));
-            teachBtn.onClick.AddListener(() => GameEntry.Event.FireNow(this, GamePosEventArgs.Create(GamePos.Up)));
             outingBtn.onClick.AddListener(() => GameEntry.Event.FireNow(this, GamePosEventArgs.Create(GamePos.Right)));
 
             talkBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Talk));
@@ -80,11 +62,10 @@ namespace GameMain
             storyBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Story));
             sleepBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Sleep));
 
-            mCanvas.transform.localPosition = new Vector3(0f, 0f, 0f);
+            this.transform.localPosition = new Vector3(0f, 0f, 0f);
 
             rightCanvas.gameObject.SetActive(false);
             leftCanvas.gameObject.SetActive(true);
-            middleCanvas.gameObject.SetActive(false);
             apTips.gameObject.SetActive(false);
             energyTips.gameObject.SetActive(false);
         }
@@ -93,9 +74,11 @@ namespace GameMain
         {
             if (Input.GetMouseButtonDown(1))
             {
-                HideGUI();
-                dialogText.text = string.Empty;
-                nameText.text = string.Empty;
+                mLittleCat.ShowLittleCat();
+                rightCanvas.gameObject.SetActive(false);
+                leftCanvas.gameObject.SetActive(true);
+                apTips.gameObject.SetActive(false);
+                energyTips.gameObject.SetActive(false);
             }
         }
 
@@ -104,41 +87,7 @@ namespace GameMain
             GameEntry.Event.Unsubscribe(GamePosEventArgs.EventId, GamePosEvent);
             GameEntry.Event.Unsubscribe(CharDataEventArgs.EventId, CharDataEvent);
             GameEntry.Event.Unsubscribe(PlayerDataEventArgs.EventId, PlayerDataEvent);
-            GameEntry.Event.Unsubscribe(LittleCatEventArgs.EventId, Click_Action);
             GameEntry.Event.Unsubscribe(MainStateEventArgs.EventId, GameStateEvent);
-        }
-
-        public void ShowGUI()
-        {
-            mLittleCat.HideLittleCat();
-            mCat.ShowCat();
-            rightCanvas.gameObject.SetActive(true);
-            leftCanvas.gameObject.SetActive(true);
-            middleCanvas.gameObject.SetActive(false);
-            apTips.gameObject.SetActive(false);
-            energyTips.gameObject.SetActive(false);
-        }
-
-        public void HideGUI()
-        {
-            mLittleCat.ShowLittleCat();
-            mCat.HideCat();
-            rightCanvas.gameObject.SetActive(false);
-            leftCanvas.gameObject.SetActive(true);
-            middleCanvas.gameObject.SetActive(false);
-            apTips.gameObject.SetActive(false);
-            energyTips.gameObject.SetActive(false);
-        }
-
-        public void HideAllGUI()
-        {
-            mLittleCat.HideLittleCat();
-            mCat.HideCat();
-            rightCanvas.gameObject.SetActive(false);
-            leftCanvas.gameObject.SetActive(false);
-            middleCanvas.gameObject.SetActive(false);
-            apTips.gameObject.SetActive(false);
-            energyTips.gameObject.SetActive(false);
         }
         public void Behaviour(BehaviorTag behaviorTag)
         {
@@ -176,10 +125,9 @@ namespace GameMain
                 if (GameEntry.Utils.Ap < playerData.ap)
                 {
                     apTips.gameObject.SetActive(true);
-                    return;//≤•∑≈¥ÌŒÛΩÁ√Ê
+                    return;
                 }
                 apTips.gameObject.SetActive(false);
-                //Ω·À„
                 GameEntry.Utils.Energy -= playerData.energy;
                 GameEntry.Utils.Money -= playerData.money;
                 GameEntry.Utils.MaxEnergy -= playerData.maxEnergy;
@@ -195,17 +143,13 @@ namespace GameMain
                 GameEntry.Utils.Energy += 60;
                 GameEntry.Utils.Ap = GameEntry.Utils.MaxAp;
             }
-            //≈–∂œ            
-            
-            //æÁ«È
 
-            //ºÏ≤‚’˝»∑–‘
             List<ChatNode> chatNodes = new List<ChatNode>();
             for (int i = 0; i < triggers.Count; i++)
             {
                 if (GameEntry.Utils.Check(triggers[i]))
                 {
-                    if (mActionNode.GetPort(string.Format("{0} {1}",behaviorTag.ToString(), i)) != null)
+                    if (mActionNode.GetPort(string.Format("{0} {1}", behaviorTag.ToString(), i)) != null)
                     {
                         NodePort nodePort = mActionNode.GetPort(string.Format("{0} {1}", behaviorTag.ToString(), i));
                         if (nodePort.Connection != null)
@@ -219,354 +163,57 @@ namespace GameMain
             if (chatNodes.Count > 0)
             {
                 ChatNode chatNode = chatNodes[UnityEngine.Random.Range(0, chatNodes.Count)];
-                SetDialog(chatNode);
+                dialogBox.gameObject.SetActive(true);
+                dialogBox.SetDialog(chatNode);
+                dialogBox.SetComplete(Sleep);//ÂõûË∞É
                 leftCanvas.gameObject.SetActive(false);
                 rightCanvas.gameObject.SetActive(false);
-                middleCanvas.gameObject.SetActive(true);
-                mCat.ShowCat();
                 mLittleCat.HideLittleCat();
             }
             else
             {
-                Debug.LogWarningFormat("¥ÌŒÛ£¨≤ª¥Ê‘⁄”––ßµƒ∂‘ª∞Œƒº˛£¨«ÎºÏ≤ÈŒƒº˛“‘º∞Ãıº˛£¨¥ÌŒÛŒƒº˛£∫{0}", mActionNode.name);
+                Debug.LogWarningFormat("ÈîôËØØÔºå‰∏çÂ≠òÂú®ÂêàÊ≥ïÁöÑÂØπËØùÂâßÊÉÖÔºåËØ∑Ê£ÄÊü•{0}ÁöÑ{1}", mActionNode.name, behaviorTag.ToString());
             }
 
-        }
-        private void SetAction(string actionPath)
-        {
-            ActionGraph actionGraph = (ActionGraph)Resources.Load<ActionGraph>(string.Format("ActionData/{0}", actionPath));
-            SetAction(actionGraph);
-        }
-        private void SetAction(ActionGraph action)
-        {
-            foreach (Node node in action.nodes)
-            {
-                if (node.GetType().ToString() == "ActionNode")
-                {
-                    this.mActionNode = (ActionNode)node;
-                }
-            }
-        }
-        //Dialog«¯”Ú
-        public void ShowButtons(List<OptionData> options)
-        {
-            ClearButtons();
-            foreach (OptionData option in options)
-            {
-                GameObject go = GameObject.Instantiate(mBtnPrefab, mCanvas);
-                go.GetComponent<OptionItem>().OnInit(option, Option_Onclick);
-                m_Btns.Add(go);
-            }
-        }
-        public void ClearButtons()
-        {
-            foreach (GameObject go in m_Btns)
-            {
-                Destroy(go);
-            }
-            m_Btns.Clear();
-        }
-        private int _index;
-        private DialogueGraph m_Dialogue = null;
-        private ChatTag chatTag;
-        private Node m_Node = null;
-
-        public void Next()
-        {
-            if (m_Node == null)
-                return;
-            switch (chatTag)
-            {
-                case ChatTag.Start:
-                    StartNode startNode = (StartNode)m_Node;
-                    Next(startNode);
-                    break;
-                case ChatTag.Chat:
-                    ChatNode chatNode = (ChatNode)m_Node;
-                    Next(chatNode);
-                    break;
-                case ChatTag.Option:
-                    OptionNode optionNode = (OptionNode)m_Node;
-                    break;
-                case ChatTag.Trigger:
-                    TriggerNode triggerNode = (TriggerNode)m_Node;
-                    Next(triggerNode);
-                    break;
-            }
-        }
-        private void Next(StartNode startNode)
-        {
-            if (startNode.GetOutputPort("start") != null)
-            {
-                var node = startNode.GetOutputPort("start").Connection.node;
-                switch (node.GetType().ToString())
-                {
-                    case "ChatNode":
-                        m_Node = node;
-                        chatTag = ChatTag.Chat;
-                        break;
-                    case "OptionNode":
-                        m_Node = node;
-                        chatTag = ChatTag.Option;
-                        break;
-                    case "TriggerNode":
-                        m_Node = node;
-                        chatTag = ChatTag.Trigger;
-                        break;
-                }
-                Next();
-            }
-        }
-        private void Next(ChatNode chatNode)
-        {
-            if (_index < chatNode.chatDatas.Count)
-            {
-                //Ω«…´øÿ÷∆
-                ChatData chatData = chatNode.chatDatas[_index];
-                nameText.text = chatData.charName;
-                dialogText.text = chatData.text;
-                if (chatData.actionData.actionTag != ActionTag.None)
-                {
-                    switch (chatData.actionData.actionTag)
-                    {
-                        case ActionTag.Jump:
-                            //Ã¯∂Ø–ßπ˚
-                            break;
-                        case ActionTag.Shake:
-                            //∂∂∂Ø–ßπ˚
-                            break;
-                        case ActionTag.Squat:
-                            break;
-                    }
-                }
-                //Ω«…´øÿ÷∆
-                if (chatNode.GetPort(string.Format("chatDatas {0}", _index)) != null)
-                {
-                    NodePort nodePort = chatNode.GetPort(string.Format("chatDatas {0}", _index));
-                    if (nodePort.Connection != null)
-                    {
-                        Node node = nodePort.Connection.node;
-                        switch (node.GetType().ToString())
-                        {
-                            case "ChatNode":
-                                m_Node = node;
-                                chatTag = ChatTag.Chat;
-                                break;
-                            case "OptionNode":
-                                m_Node = node;
-                                chatTag = ChatTag.Option;
-                                break;
-                            case "TriggerNode":
-                                m_Node = node;
-                                chatTag = ChatTag.Trigger;
-                                break;
-                        }
-                        _index = 0;
-                    }
-                }
-                _index++;
-            }
-            else
-            {
-                //≤•∑≈ÕÍ±œ
-                nameText.text = string.Empty;
-                dialogText.text = string.Empty;
-                _index = 0;
-                m_Dialogue = null;
-                m_Node = null;
-
-                if (mBehaviorTag == BehaviorTag.Sleep)
-                {
-                    Sleep();
-                }
-                else if (mBehaviorTag == BehaviorTag.Talk)
-                {
-                    ShowGUI();
-                }
-                else
-                {
-                    //GameEntry.UI.OpenUIForm(UIFormId.ActionForm, this);
-                    //Invoke(nameof(OnActionFinish), 3f);
-                    ShowGUI();
-                }
-            }
-        }
-        private void OnActionFinish()
-        {
-            ShowGUI();
         }
         private void Sleep()
         {
             GameEntry.Utils.Day++;
-            GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, GameEntry.Utils.Day);//”√’‚∏ˆthis¥´≤Œ¿¥µ˜’˚∫⁄ƒª
-            HideAllGUI();
+            GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, GameEntry.Utils.Day);//Áî®Ëøô‰∏™this‰º†ÂèÇÊù•Ë∞ÉÊï¥ÈªëÂπï
+            mLittleCat.HideLittleCat();
+            rightCanvas.gameObject.SetActive(false);
+            leftCanvas.gameObject.SetActive(false);
+            apTips.gameObject.SetActive(false);
+            energyTips.gameObject.SetActive(false);
             Invoke(nameof(OnGameStateChange), 1f);
         }
         private void OnGameStateChange()
         {
             GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Work));
         }
-        private void Next(OptionData optionData)
-        {
-            if (optionData == null)
-                return;
-            ClearButtons();
-            OptionNode optionNode = (OptionNode)m_Node;
-            if (optionNode.GetPort(string.Format("optionDatas {0}", optionData.index)) != null)
-            {
-                NodePort nodePort = optionNode.GetPort(string.Format("optionDatas {0}", optionData.index));
-                if (nodePort.Connection != null)
-                {
-                    Node node = nodePort.Connection.node;
-                    switch (node.GetType().ToString())
-                    {
-                        case "ChatNode":
-                            m_Node = node;
-                            chatTag = ChatTag.Chat;
-                            break;
-                        case "OptionNode":
-                            m_Node = node;
-                            chatTag = ChatTag.Option;
-                            break;
-                        case "TriggerNode":
-                            m_Node = node;
-                            chatTag = ChatTag.Trigger;
-                            break;
-                    }
-                    _index = 0;
-                    Next();
-                }
-            }
-        }
-        private void Next(TriggerNode triggerNode)
-        {
-            if (triggerNode == null)
-                return;
-            string output = "b";
-            for (int i = 0; i < triggerNode.triggerDatas.Count; i++)
-            {
-                TriggerData data = triggerNode.triggerDatas[i];
-                if (GameEntry.Utils.Check(data.trigger))
-                {
-                    foreach (EventData eventData in data.events)
-                    {
-                        switch (eventData.eventTag)
-                        {
-                            case EventTag.Play:
-                                if (eventData.value == string.Empty)
-                                    output = string.Format("triggerDatas {0}", i);
-                                break;
-                            case EventTag.AddMoney:
-                                GameEntry.Utils.Money += int.Parse(eventData.value);
-                                break;
-                            case EventTag.AddFavor:
-                                GameEntry.Utils.Favor += int.Parse(eventData.value);
-                                break;
-                            case EventTag.AddFlag:
-                                GameEntry.Utils.AddFlag(eventData.value);
-                                break;
-                            case EventTag.RemoveFlag:
-                                GameEntry.Utils.RemoveFlag(eventData.value);
-                                break;
-                        }
-                    }
-                }
-            }
-            NextNode(triggerNode, output);
-        }
-        private void NextNode(TriggerNode node, string nodeName)
-        {
-            //»Áπ˚√ª”–÷–ÕæÃ¯◊™
-            if (node.GetPort(nodeName) != null)
-            {
-                NodePort nodePort = node.GetPort(nodeName);
-                if (nodePort.Connection != null)
-                {
-                    Node nextNode = nodePort.Connection.node;
-                    switch (nextNode.GetType().ToString())
-                    {
-                        case "ChatNode":
-                            m_Node = nextNode;
-                            chatTag = ChatTag.Chat;
-                            break;
-                        case "OptionNode":
-                            m_Node = nextNode;
-                            chatTag = ChatTag.Option;
-                            break;
-                        case "TriggerNode":
-                            m_Node = nextNode;
-                            chatTag = ChatTag.Trigger;
-                            break;
-                    }
-                    _index = 0;
-                    Next();
-                }
-            }
-        }
-        public void SetDialog(ChatNode chatNode)
-        {
-            _index = 0;
-            m_Node = chatNode;
-            chatTag = ChatTag.Chat;
-            Next();
-        }
-        public void SetDialog(DialogueGraph graph)
-        {
-            m_Dialogue = graph;
-            _index = 0;
-            foreach (Node node in m_Dialogue.nodes)
-            {
-                if (node.GetType().ToString() == "StartNode")
-                {
-                    m_Node = node;
-                    chatTag = ChatTag.Start;
-                }
-            }
-            Next();
-        }
-        public void SetDialog(string path)
-        {
-            m_Dialogue = (DialogueGraph)Resources.Load<DialogueGraph>(string.Format("DialogData/{0}", path));
-            _index = 0;
-            foreach (Node node in m_Dialogue.nodes)
-            {
-                if (node.GetType().ToString() == "StartNode")
-                {
-                    m_Node = node;
-                    chatTag = ChatTag.Start;
-                }
-            }
-            Next();
-        }
-
-        private void Option_Onclick(object sender, EventArgs e)
-        {
-            OptionData optionData = (OptionData)sender;
-            Next(optionData);
-        }
-
         private void CharDataEvent(object sender, GameEventArgs e) 
         { 
             CharDataEventArgs charDataEvent= (CharDataEventArgs)e;
             CharData charData=charDataEvent.CharData;
-            favorText.text = string.Format("∫√∏–:{0}", charData.favor.ToString());
-            moodText.text= string.Format("–ƒ«È:{0}", charData.mood.ToString());
+            favorText.text = string.Format("Â•ΩÊÑü:{0}", charData.favor.ToString());
+            moodText.text= string.Format("ÂøÉÊÉÖ:{0}", charData.mood.ToString());
         }
-
         private void PlayerDataEvent(object sender, GameEventArgs e)
         { 
             PlayerDataEventArgs playerDataEvent= (PlayerDataEventArgs)e;
             PlayerData playerData= playerDataEvent.PlayerData;
-            APText.text = string.Format("––∂Øµ„£∫{0}/{1}", playerData.ap, playerData.maxAp);
-            energyText.text = string.Format("ÃÂ¡¶£∫{0}/{1}", playerData.energy, playerData.maxEnergy);
-            moneyText.text=string.Format("Ω«Æ:{0}", playerData.money.ToString());
+            APText.text = string.Format("Ë°åÂä®ÁÇπÔºö{0}/{1}", playerData.ap, playerData.maxAp);
+            energyText.text = string.Format("‰ΩìÂäõÔºö{0}/{1}", playerData.energy, playerData.maxEnergy);
+            moneyText.text=string.Format("ÈáëÈí±:{0}", playerData.money.ToString());
         }
-        //µ•∂¿∏¯µ„ª˜◊ˆ“ª∏ˆ∑Ω∑®µ˜”√
-        public void Click_Action(object sender,GameEventArgs e)
+        //ÂçïÁã¨ÁªôÁÇπÂáªÂÅö‰∏Ä‰∏™ÊñπÊ≥ïË∞ÉÁî®
+        public void Click_Action()
         {
-            LittleCatEventArgs littleCatEvent = (LittleCatEventArgs)e;
-            mLittleCat = (LittleCat)sender;
-            HideGUI();
+            mLittleCat.ShowLittleCat();
+            rightCanvas.gameObject.SetActive(false);
+            leftCanvas.gameObject.SetActive(true);
+            apTips.gameObject.SetActive(false);
+            energyTips.gameObject.SetActive(false);
             Behaviour(BehaviorTag.Click);
         }
         private void GameStateEvent(object sender, GameEventArgs e)
@@ -574,10 +221,20 @@ namespace GameMain
             MainStateEventArgs args = (MainStateEventArgs)e;
             if (args.MainState == MainState.Teach)
             {
-                HideGUI();
+                mLittleCat.ShowLittleCat();
+                rightCanvas.gameObject.SetActive(false);
+                leftCanvas.gameObject.SetActive(true);
+                apTips.gameObject.SetActive(false);
+                energyTips.gameObject.SetActive(false);
             }
             else
-                HideAllGUI();
+            {
+                mLittleCat.HideLittleCat();
+                rightCanvas.gameObject.SetActive(false);
+                leftCanvas.gameObject.SetActive(false);
+                apTips.gameObject.SetActive(false);
+                energyTips.gameObject.SetActive(false);
+            }
         }
         private void GamePosEvent(object sender, GameEventArgs args)
         {
@@ -585,16 +242,16 @@ namespace GameMain
             switch (gamePos.GamePos)
             {
                 case GamePos.Up:
-                    mCanvas.transform.DOLocalMove(new Vector3(0f, 0f, 0f), 1f).SetEase(Ease.InOutExpo);
+                    this.transform.DOLocalMove(new Vector3(0f, 0f, 0f), 1f).SetEase(Ease.InOutExpo);
                     break;
                 case GamePos.Down:
-                    mCanvas.transform.DOLocalMove(new Vector3(0f, 1920f, 0f), 1f).SetEase(Ease.InOutExpo);
+                    this.transform.DOLocalMove(new Vector3(0f, 1920f, 0f), 1f).SetEase(Ease.InOutExpo);
                     break;
                 case GamePos.Left:
-                    mCanvas.transform.DOLocalMove(new Vector3(1920f, 0, 0f), 1f).SetEase(Ease.InOutExpo);
+                    this.transform.DOLocalMove(new Vector3(1920f, 0, 0f), 1f).SetEase(Ease.InOutExpo);
                     break;
                 case GamePos.Right:
-                    mCanvas.transform.DOLocalMove(new Vector3(-1920f, 0f, 0f), 1f).SetEase(Ease.InOutExpo);
+                    this.transform.DOLocalMove(new Vector3(-1920f, 0f, 0f), 1f).SetEase(Ease.InOutExpo);
                     break;
             }
         }

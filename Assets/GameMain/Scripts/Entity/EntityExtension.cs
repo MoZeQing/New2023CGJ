@@ -164,7 +164,7 @@ namespace GameMain
         }
         public static void ShowCat(this EntityComponent entityComponent, EntityData data)
         {
-            entityComponent.ShowEntity(typeof(Cat), "Cat", 90, data);
+            //entityComponent.ShowEntity(typeof(Cat), "Cat", 90, data);
         }
         public static void ShowLittleChar(this EntityComponent entityComponent, EntityData data)
         {

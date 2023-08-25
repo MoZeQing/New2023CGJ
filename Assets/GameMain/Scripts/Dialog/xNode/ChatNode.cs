@@ -33,19 +33,21 @@ public class ChatData
     [SerializeField]
     public string charName;
     [SerializeField]
-    public CharSO charSO;
-    //[SerializeField]
-    //public CharSO left;//角色
-    //[SerializeField]
-    //public CharSO right;
-    //[SerializeField]
-    //public CharSO middle;
+    public CharData left;
     [SerializeField]
-    public ActionData actionData;//动作数据
+    public CharData middle; 
     [SerializeField]
-    public DialogPos dialogPos;
+    public CharData right;
     [TextArea,SerializeField]
     public string text;
+}
+[Serializable]
+public class CharData
+{
+    [SerializeField]
+    public CharSO charSO;
+    [SerializeField]
+    public ActionData actionData;
 }
 
 public enum ChatTag
