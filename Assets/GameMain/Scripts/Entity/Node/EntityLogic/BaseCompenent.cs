@@ -49,9 +49,12 @@ namespace GameMain
             NodeTag = mCompenentData.NodeData.NodeTag;
             mSpriteRenderer = this.transform.Find("Sprite").GetComponent<SpriteRenderer>();
             mShader = this.transform.Find("Shader").GetComponent<SpriteRenderer>();
+            mSpriteRenderer.size = new Vector2(1.6f, 2.7f);
 
             mBoxCollider2D = this.GetComponent<BoxCollider2D>();
             mBoxCollider2D.size = mSpriteRenderer.size;
+            
+            Debug.Log(mSpriteRenderer.size);
 
             if (mNodeData.Follow)
             {
@@ -74,7 +77,21 @@ namespace GameMain
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
             if (Parent != null)
+            {
                 mBoxCollider2D.isTrigger = true;
+                
+            }
+            if (Child == null)
+            {
+                mBoxCollider2D.size = mSpriteRenderer.size;
+                mBoxCollider2D.offset = new Vector2(0f, 0f);
+            }
+            if (Child != null)
+            {
+                mBoxCollider2D.size = new Vector2(1.6f, 0.45f);
+                mBoxCollider2D.offset = new Vector2(0f, -1.1f);
+            }
+                
             if (!Input.GetMouseButton(0))
             {
                 mNodeData.Follow = false;
