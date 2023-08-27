@@ -9,14 +9,14 @@ using DG.Tweening;
 using XNode;
 using UnityEditor.UI;
 using System;
+using static UnityEngine.GraphicsBuffer;
 
 namespace GameMain
 {
-    public class TeachingForm : MonoBehaviour
+    public class TeachingForm : UIFormLogic
     {
         [Header("左侧信息栏")]
         [SerializeField] private Transform leftCanvas;
-        [SerializeField] private Text timeText;
         [SerializeField] private Text moneyText;
         [SerializeField] private Text favorText;
         [SerializeField] private Text APText;
@@ -30,12 +30,13 @@ namespace GameMain
         [SerializeField] private Button storyBtn;
         [SerializeField] private Button sleepBtn;
         [Header("主控")]
-        [SerializeField] private Button cupboradBtn;
-        [SerializeField] private Button outingBtn;
+        [SerializeField] private Transform mainCanvas;
         [SerializeField] private GameObject energyTips;
         [SerializeField] private GameObject apTips;
         [SerializeField] private DialogBox dialogBox;
+        [SerializeField] private BaseStage stage;
         [SerializeField] private LittleCat mLittleCat = null;
+        [SerializeField] private RectTransform mCanvas = null;
 
         private DialogForm mDialogForm = null;
         [SerializeField] private ActionGraph mActionGraph = null;
@@ -49,45 +50,39 @@ namespace GameMain
         {
             mActionNode = mActionGraph.ActionNode();
 
-            GameEntry.Event.Subscribe(GamePosEventArgs.EventId, GamePosEvent);
             GameEntry.Event.Subscribe(CharDataEventArgs.EventId, CharDataEvent);
             GameEntry.Event.Subscribe(PlayerDataEventArgs.EventId, PlayerDataEvent);
-            GameEntry.Event.Subscribe(MainStateEventArgs.EventId, GameStateEvent);
-
-            cupboradBtn.onClick.AddListener(() => GameEntry.Event.FireNow(this, GamePosEventArgs.Create(GamePos.Left)));
-            outingBtn.onClick.AddListener(() => GameEntry.Event.FireNow(this, GamePosEventArgs.Create(GamePos.Right)));
 
             talkBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Talk));
             playBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Play));
             storyBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Story));
             sleepBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Sleep));
 
-            this.transform.localPosition = new Vector3(0f, 0f, 0f);
-
-            rightCanvas.gameObject.SetActive(false);
-            leftCanvas.gameObject.SetActive(true);
-            apTips.gameObject.SetActive(false);
-            energyTips.gameObject.SetActive(false);
+            this.transform.localScale = Vector3.one * 0.01f;
         }
-
-        private void FixedUpdate()
+        private void Update()
         {
             if (Input.GetMouseButtonDown(1))
             {
-                mLittleCat.ShowLittleCat();
-                rightCanvas.gameObject.SetActive(false);
+                dialogBox.gameObject.SetActive(false);
+                stage.gameObject.SetActive(false);
                 leftCanvas.gameObject.SetActive(true);
+                rightCanvas.gameObject.SetActive(true);
                 apTips.gameObject.SetActive(false);
                 energyTips.gameObject.SetActive(false);
+                mLittleCat.ShowLittleCat();
             }
         }
-
         private void OnDisable()
         {
-            GameEntry.Event.Unsubscribe(GamePosEventArgs.EventId, GamePosEvent);
+            mLittleCat.ShowLittleCat();
             GameEntry.Event.Unsubscribe(CharDataEventArgs.EventId, CharDataEvent);
             GameEntry.Event.Unsubscribe(PlayerDataEventArgs.EventId, PlayerDataEvent);
-            GameEntry.Event.Unsubscribe(MainStateEventArgs.EventId, GameStateEvent);
+
+            talkBtn.onClick.RemoveAllListeners();
+            playBtn.onClick.RemoveAllListeners();
+            storyBtn.onClick.RemoveAllListeners();
+            sleepBtn.onClick.RemoveAllListeners();
         }
         public void Behaviour(BehaviorTag behaviorTag)
         {
@@ -165,29 +160,51 @@ namespace GameMain
                 ChatNode chatNode = chatNodes[UnityEngine.Random.Range(0, chatNodes.Count)];
                 dialogBox.gameObject.SetActive(true);
                 dialogBox.SetDialog(chatNode);
-                dialogBox.SetComplete(Sleep);//回调
+                if (mBehaviorTag == BehaviorTag.Sleep)
+                    dialogBox.SetComplete(OnSleep);//回调
+                else if (mBehaviorTag == BehaviorTag.Morning)
+                    dialogBox.SetComplete(OnGameChangeState);
+                else
+                    dialogBox.SetComplete(OnComplete);
                 leftCanvas.gameObject.SetActive(false);
                 rightCanvas.gameObject.SetActive(false);
+                stage.gameObject.SetActive(true);
                 mLittleCat.HideLittleCat();
             }
             else
             {
                 Debug.LogWarningFormat("错误，不存在合法的对话剧情，请检查{0}的{1}", mActionNode.name, behaviorTag.ToString());
             }
-
         }
-        private void Sleep()
+        private void OnComplete()
+        {
+            dialogBox.gameObject.SetActive(false);
+            leftCanvas.gameObject.SetActive(true);
+            rightCanvas.gameObject.SetActive(true);
+            apTips.gameObject.SetActive(false);
+            energyTips.gameObject.SetActive(false);
+        }
+        private void OnSleep()
         {
             GameEntry.Utils.Day++;
             GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, GameEntry.Utils.Day);//用这个this传参来调整黑幕
             mLittleCat.HideLittleCat();
+            stage.gameObject.SetActive(false);
             rightCanvas.gameObject.SetActive(false);
             leftCanvas.gameObject.SetActive(false);
             apTips.gameObject.SetActive(false);
             energyTips.gameObject.SetActive(false);
-            Invoke(nameof(OnGameStateChange), 1f);
+            //播放一个睡觉效果
+            Invoke(nameof(OnChangeDay), 1f);
         }
-        private void OnGameStateChange()
+        private void OnChangeDay()
+        {
+            if (!GameEntry.Dialog.StoryUpdate())
+                Behaviour(BehaviorTag.Morning);
+            else
+                OnGameChangeState();
+        }
+        private void OnGameChangeState()
         {
             GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Work));
         }
@@ -215,45 +232,6 @@ namespace GameMain
             apTips.gameObject.SetActive(false);
             energyTips.gameObject.SetActive(false);
             Behaviour(BehaviorTag.Click);
-        }
-        private void GameStateEvent(object sender, GameEventArgs e)
-        {
-            MainStateEventArgs args = (MainStateEventArgs)e;
-            if (args.MainState == MainState.Teach)
-            {
-                mLittleCat.ShowLittleCat();
-                rightCanvas.gameObject.SetActive(false);
-                leftCanvas.gameObject.SetActive(true);
-                apTips.gameObject.SetActive(false);
-                energyTips.gameObject.SetActive(false);
-            }
-            else
-            {
-                mLittleCat.HideLittleCat();
-                rightCanvas.gameObject.SetActive(false);
-                leftCanvas.gameObject.SetActive(false);
-                apTips.gameObject.SetActive(false);
-                energyTips.gameObject.SetActive(false);
-            }
-        }
-        private void GamePosEvent(object sender, GameEventArgs args)
-        {
-            GamePosEventArgs gamePos = (GamePosEventArgs)args;
-            switch (gamePos.GamePos)
-            {
-                case GamePos.Up:
-                    this.transform.DOLocalMove(new Vector3(0f, 0f, 0f), 1f).SetEase(Ease.InOutExpo);
-                    break;
-                case GamePos.Down:
-                    this.transform.DOLocalMove(new Vector3(0f, 1920f, 0f), 1f).SetEase(Ease.InOutExpo);
-                    break;
-                case GamePos.Left:
-                    this.transform.DOLocalMove(new Vector3(1920f, 0, 0f), 1f).SetEase(Ease.InOutExpo);
-                    break;
-                case GamePos.Right:
-                    this.transform.DOLocalMove(new Vector3(-1920f, 0f, 0f), 1f).SetEase(Ease.InOutExpo);
-                    break;
-            }
         }
     }
 }

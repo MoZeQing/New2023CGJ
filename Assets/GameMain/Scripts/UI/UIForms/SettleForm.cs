@@ -19,9 +19,9 @@ namespace GameMain
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            mLevelData=(LevelData)userData;
+            //mLevelData=(LevelData)userData;
 
-            mMoney.text = mLevelData.OrderData.OrderMoney.ToString();
+            //mMoney.text = mLevelData.OrderData.OrderMoney.ToString();
 
             mOKButton.onClick.AddListener(Click);
         }
@@ -38,15 +38,8 @@ namespace GameMain
 
         private void Click()
         {
-            //GameEntry.UI.CloseUIForm(this.UIForm);//¸ü¸Ä
-            //if (mLevelData.Index == 3)
-            //{
-            //    GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, mLevelData.Day+1);
-            //}
-            //else
-            //{
-            //    GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, 0);
-            //}
+            GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Teach));
+            GameEntry.UI.CloseUIForm(this.UIForm);
         }
     }
 }

@@ -18,16 +18,16 @@ namespace GameMain
             }
         }
 
-        public string DialogTag
+        public bool InDialog
         {
             get;
             set;
         }
 
-        public static DialogEventArgs Create(string dialogTag)
+        public static DialogEventArgs Create(bool inDialog)
         {
             DialogEventArgs args = ReferencePool.Acquire<DialogEventArgs>();
-            args.DialogTag = dialogTag;
+            args.InDialog = inDialog;
             return args;
         }
 

@@ -24,10 +24,6 @@ namespace GameMain
         {
 
         }
-        public static void CloseUIForm(this UIComponent uiComponent, int uiFormId, object userData = null)
-        { 
-            
-        }
 
         public static int? OpenUIForm(this UIComponent uiComponent, UIFormId uiFormId, object userData = null)
         {

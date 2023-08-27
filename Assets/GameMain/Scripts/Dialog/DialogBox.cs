@@ -36,6 +36,10 @@ public class DialogBox : MonoBehaviour
             dialogText.text = string.Empty;
             nameText.text = string.Empty;
         }
+        if (Input.GetKey(KeyCode.LeftControl))
+            Next();
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
+            Next();
     }
     public void ShowButtons(List<OptionData> options)
     {
@@ -107,8 +111,9 @@ public class DialogBox : MonoBehaviour
             _index = 0;
             m_Dialogue = null;
             m_Node = null;
-            stage.gameObject.SetActive(false);
-            OnComplete();
+            if(OnComplete!=null)
+                OnComplete();
+            OnComplete=null;
         }
     }
     private void Next(TriggerNode triggerNode)
@@ -193,7 +198,6 @@ public class DialogBox : MonoBehaviour
         _index = 0;
         m_Node = chatNode;
         chatTag = ChatTag.Chat;
-        stage.gameObject.SetActive(true);
         Next();
     }
     public void SetDialog(DialogueGraph graph)
@@ -208,7 +212,6 @@ public class DialogBox : MonoBehaviour
                 chatTag = ChatTag.Start;
             }
         }
-        stage.gameObject.SetActive(true);
         Next();
     }
     public void SetComplete(Action action)

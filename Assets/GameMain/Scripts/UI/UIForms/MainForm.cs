@@ -14,12 +14,8 @@ namespace GameMain
     public partial class MainForm : UIFormLogic
     {
         [Header("¹Ì¶¨ÇøÓò")]
-        [SerializeField] private Button downButton;
-        [SerializeField] private Button upButton;
         [SerializeField] private Button leftButton;
         [SerializeField] private Button rightButton;
-        [SerializeField] private Button workBtn;
-
         [SerializeField] private Button catButton;
         [SerializeField] private Button recipeButton;
         [SerializeField] private Button settingButton;
@@ -27,21 +23,18 @@ namespace GameMain
         [SerializeField] private Text levelText;
         [SerializeField] private Transform workingTrans;
         [SerializeField] private Transform mCanvas;
-
+        [Header("Íâ¹Ò")]
+        [SerializeField] private Button workBtn;
         private PlaySoundParams playSoundParams = PlaySoundParams.Create();
         private int m_RandomValue;
+        private GamePos mGamePos=GamePos.Up;
 
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-
-            upButton.onClick.AddListener(() => GameEntry.Event.FireNow(this, GamePosEventArgs.Create(GamePos.Up)));
-            downButton.onClick.AddListener(() => GameEntry.Event.FireNow(this, GamePosEventArgs.Create(GamePos.Down)));
-            leftButton.onClick.AddListener(() => GameEntry.Event.FireNow(this, GamePosEventArgs.Create(GamePos.Left)));
-            rightButton.onClick.AddListener(() => GameEntry.Event.FireNow(this, GamePosEventArgs.Create(GamePos.Right)));
-            workBtn.onClick.AddListener(() => GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Teach)));
-
-            GameEntry.Event.Subscribe(GamePosEventArgs.EventId, GamePosEvent);
+            leftButton.onClick.AddListener(TurnLeft);
+            rightButton.onClick.AddListener(TurnRight);
+            workBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.SettleForm));
         }
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
@@ -50,27 +43,78 @@ namespace GameMain
         protected override void OnClose(bool isShutdown, object userData)
         {
             base.OnClose(isShutdown, userData);
-            GameEntry.Event.Unsubscribe(GamePosEventArgs.EventId, GamePosEvent);
         }
-
-        private void GamePosEvent(object sender, GameEventArgs args)
+        private void TurnLeft()
         {
-            GamePosEventArgs gamePos = (GamePosEventArgs)args;
-            switch (gamePos.GamePos)
+            switch (GamePosUtility.Instance.GamePos)
             {
                 case GamePos.Up:
-                    Camera.main.transform.DOMove(new Vector3(0f, 4.6f, -8f), 1f).SetEase(Ease.InOutExpo);
-                    break;
-                case GamePos.Down:
-                    Camera.main.transform.DOMove(new Vector3(0f, -6f, -8f), 1f).SetEase(Ease.InOutExpo);
-                    break;
-                case GamePos.Left:
-                    Camera.main.transform.DOMove(new Vector3(-19.2f, 4.6f, -8f), 1f).SetEase(Ease.InOutExpo);
+                    GamePosUtility.Instance.GamePosChange(GamePos.Left);
+                    leftButton.interactable = false;
                     break;
                 case GamePos.Right:
-                    Camera.main.transform.DOMove(new Vector3(19.2f, 4.6f, -8f), 1f).SetEase(Ease.InOutExpo);
+                    GamePosUtility.Instance.GamePosChange(GamePos.Up);
+                    rightButton.interactable = true;
                     break;
             }
+        }
+
+        private void TurnRight() 
+        {
+            switch (GamePosUtility.Instance.GamePos)
+            {
+                case GamePos.Up:
+                    GamePosUtility.Instance.GamePosChange(GamePos.Right);
+                    rightButton.interactable = false;
+                    break;
+                case GamePos.Left:
+                    GamePosUtility.Instance.GamePosChange(GamePos.Up);
+                    leftButton.interactable = true;
+                    break;
+            }
+        }
+    }
+}
+
+public class GamePosUtility
+{
+    private static GamePosUtility instance;
+    private GamePosUtility() { }
+    public static GamePosUtility Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = new GamePosUtility();
+            }
+            return instance;
+        }
+    }
+
+    public GamePos GamePos
+    {
+        get;
+        private set;
+    }
+
+    public void GamePosChange(GamePos gamePos)
+    {
+        GamePos= gamePos;
+        switch (GamePos)
+        {
+            case GamePos.Up:
+                Camera.main.transform.DOMove(new Vector3(0f, 4.6f, -8f), 1f).SetEase(Ease.InOutExpo);
+                break;
+            case GamePos.Down:
+                Camera.main.transform.DOMove(new Vector3(0f, -6f, -8f), 1f).SetEase(Ease.InOutExpo);
+                break;
+            case GamePos.Left:
+                Camera.main.transform.DOMove(new Vector3(-19.2f, 4.6f, -8f), 1f).SetEase(Ease.InOutExpo);
+                break;
+            case GamePos.Right:
+                Camera.main.transform.DOMove(new Vector3(19.2f, 4.6f, -8f), 1f).SetEase(Ease.InOutExpo);
+                break;
         }
     }
 }

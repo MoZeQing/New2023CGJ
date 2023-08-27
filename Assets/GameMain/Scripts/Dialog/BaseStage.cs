@@ -3,14 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.ComTypes;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BaseStage : MonoBehaviour
 {
-    [SerializeField] private SpriteRenderer mBG;
-    [SerializeField] private Transform mCanvas;
-    [SerializeField] private List<Transform> mPositions = new List<Transform>();
-    [SerializeField] private List<BaseCharacter> mChars = new List<BaseCharacter>();
-    private Dictionary<CharSO, BaseCharacter> mCharChace = new Dictionary<CharSO, BaseCharacter>();
+    [SerializeField] protected Image mBG;
+    [SerializeField] protected Transform mCanvas;
+    [SerializeField] protected GameObject mCharacter;
+    [SerializeField] protected List<Transform> mPositions = new List<Transform>();
+    [SerializeField] protected List<BaseCharacter> mChars = new List<BaseCharacter>();
+    protected Dictionary<CharSO, BaseCharacter> mCharChace = new Dictionary<CharSO, BaseCharacter>();
     //»º´æÇø
 
 
@@ -19,7 +21,7 @@ public class BaseStage : MonoBehaviour
     /// </summary>
     /// <param name="baseCharacter"></param>
     /// <param name="dialogPos"></param>
-    private void SetDialogPos(BaseCharacter baseCharacter, DialogPos dialogPos)
+    protected virtual void SetDialogPos(BaseCharacter baseCharacter, DialogPos dialogPos)
     {
         for (int i = 0; i < mChars.Count; i++)
         {
@@ -38,17 +40,17 @@ public class BaseStage : MonoBehaviour
             }
         }
     }
-    public void ShowCharacter(ChatData chatData)
+    public virtual void ShowCharacter(ChatData chatData)
     {
         ShowCharacter(chatData.left, chatData.middle, chatData.right);
     }
-    public void ShowCharacter(CharData left, CharData middle, CharData right)
+    protected virtual void ShowCharacter(CharData left, CharData middle, CharData right)
     {
         ShowCharacter(left, DialogPos.Left);
         ShowCharacter(middle, DialogPos.Middle);
         ShowCharacter(right, DialogPos.Right);
     }
-    public void ShowCharacter(CharData charData,DialogPos pos)
+    protected virtual void ShowCharacter(CharData charData,DialogPos pos)
     {
         CharSO charSO = charData.charSO;
         if (charSO == null)
@@ -60,8 +62,7 @@ public class BaseStage : MonoBehaviour
         }
         if (!mCharChace.ContainsKey(charSO))
         {
-            GameObject obj = Resources.Load<GameObject>(charData.charSO.name);
-            GameObject charObj = BaseCharacter.Instantiate(obj, mCanvas);
+            GameObject charObj = BaseCharacter.Instantiate(mCharacter, mCanvas);
             BaseCharacter baseCharacter = charObj.GetComponent<BaseCharacter>();
             mCharChace.Add(charSO, baseCharacter);
         }

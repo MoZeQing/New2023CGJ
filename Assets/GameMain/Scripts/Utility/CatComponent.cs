@@ -122,6 +122,7 @@ namespace GameMain
         Touch,
         Play,
         Story,
-        Sleep
+        Sleep,
+        Morning
     }
 }

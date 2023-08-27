@@ -18,9 +18,8 @@ namespace GameMain
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
-            GameEntry.UI.OpenUIForm(UIFormId.MainForm);
-            GameEntry.Event.FireNow(this, GamePosEventArgs.Create(GamePos.Down));
-
+            mMainState = MainState.Work;
+            GamePosUtility.Instance.GamePosChange(GamePos.Down);
             GameEntry.Event.Subscribe(MainStateEventArgs.EventId, MainStateEvent);
         }
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
@@ -42,7 +41,6 @@ namespace GameMain
                     //ÇÐ»»bgm
                     break;
                 case MainState.Work:
-                    ChangeState<ProcedureWork>(procedureOwner);
                     //ÇÐ»»bgm
                     break;
                 case MainState.Menu:

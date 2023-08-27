@@ -27,7 +27,7 @@ namespace GameMain
             mMainState = MainState.Teach;
             GameEntry.Utils.Location = OutingSceneState.Home;
             GameEntry.UI.OpenUIForm(UIFormId.MainForm, this);
-            GameEntry.Event.FireNow(this, GamePosEventArgs.Create(GamePos.Up));
+            GamePosUtility.Instance.GamePosChange(GamePos.Up);
             //GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, LoadCatSuccess);
             GameEntry.Event.Subscribe(MainStateEventArgs.EventId, MainStateEvent);
         }
@@ -57,51 +57,15 @@ namespace GameMain
                     ChangeState<ProcedureMenu>(procedureOwner);
                     break;
                 case MainState.Outing:
-                    ChangeState<ProcedureOuting>(procedureOwner);
                     //ÇÐ»»bgm
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
-        //private void LoadCatSuccess(object sender, GameEventArgs e)
-        //{
-        //    ShowEntitySuccessEventArgs showEntitySuccess= (ShowEntitySuccessEventArgs)e;
-        //    Cat cat = null;
-        //    if (showEntitySuccess.Entity.TryGetComponent<Cat>(out cat))
-        //    { 
-        //        Cat= cat;
-        //    }
-        //    Cat.HideCat();
-        //}
         private void MainStateEvent(object sender, GameEventArgs e)
         { 
             MainStateEventArgs args= (MainStateEventArgs)e;
-            switch (args.MainState)
-            {
-                case MainState.Undefined:
-                    break;
-                case MainState.Teach:
-                    //ÇÐ»»bgm
-                    GameEntry.Dialog.StoryUpdate();
-
-                    break;
-                case MainState.Work:
-                    //ÇÐ»»bgm
-                    GameEntry.Utils.TimeTag = TimeTag.ForeWork;
-                    GameEntry.Dialog.StoryUpdate();
-
-                    break;
-                case MainState.Menu:
-                    break;
-                case MainState.Outing:
-                    //ÇÐ»»bgm
-                    GameEntry.Dialog.StoryUpdate();
-
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
             mMainState = args.MainState;
         }
         private void GamePosEvent(object sender, GameEventArgs args)

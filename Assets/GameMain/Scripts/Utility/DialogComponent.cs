@@ -31,12 +31,8 @@ namespace GameMain
                     continue;
                 if (GameEntry.Utils.Check(story.trigger))
                 {
-                    GameEntry.UI.CloseUIGroup("Default");
-                    dialogBox.gameObject.SetActive(true);
-                    dialogBox.SetDialog(story.dialogueGraph);
-                    stage.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, 0f);
-                    //dialogBox.SetComplete();
-                    InDialog= true;
+                    GameEntry.UI.OpenUIForm(UIFormId.DialogForm, story.dialogueGraph);
+                    InDialog = true;
                     if (story.isRemove)
                         stories.Remove(story);
                     return true;

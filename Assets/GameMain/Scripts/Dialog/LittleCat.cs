@@ -10,8 +10,8 @@ namespace GameMain
     public class LittleCat : MonoBehaviour,IPointerClickHandler
     {
         [SerializeField] private List<SpriteRenderer> mLittleCats = new List<SpriteRenderer>();
-        [SerializeField] private TeachingForm mTeachingForm;
         [SerializeField] private ScenePosTag mSceneTag;
+        [SerializeField] private TeachingForm mTeachingForm;
 
         private void Start()
         {

@@ -41,7 +41,7 @@ namespace GameMain
         private void OnGameStateChange()
         {
             GameEntry.Utils.Location = OutingSceneState.Home;
-            GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Teach));
+            GameEntry.UI.CloseUIForm(this.UIForm);
         }
     }
 }
