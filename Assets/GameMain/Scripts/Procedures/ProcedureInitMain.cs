@@ -23,28 +23,15 @@ namespace GameMain
             // 还原游戏速度
             GameEntry.Base.ResetNormalGameSpeed();
             GameEntry.UI.CloseAllLoadedUIForms();
-            GameEntry.UI.CloseAllLoadingUIForms();
-            IDataTable<DRScene> dtScene = GameEntry.DataTable.GetDataTable<DRScene>();
-            DRScene drScene = dtScene.GetDataRow(2);
-            //加载主界面
-            if (drScene == null)
-            {
-                Log.Warning("Can not load scene '{0}' from data table.", 2.ToString());
-                return;
-            }
-            //场景加载
-            GameEntry.Scene.LoadScene(AssetUtility.GetSceneAsset(drScene.AssetName), /*Constant.AssetPriority.SceneAsset*/0, this);
+            GameEntry.UI.CloseAllLoadingUIForms();          
 
             InitData();
+            ChangeState<ProcedureMain>(procedureOwner);
         }
 
         protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
-            if (m_Initialized)
-            {
-                ChangeState<ProcedureMain>(procedureOwner);
-            }
         }
 
         protected override void OnLeave(IFsm<IProcedureManager> procedureOwner, bool isShutdown)

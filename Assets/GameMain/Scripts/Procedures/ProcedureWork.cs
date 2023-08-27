@@ -21,11 +21,26 @@ namespace GameMain
             mMainState = MainState.Work;
             GamePosUtility.Instance.GamePosChange(GamePos.Down);
             GameEntry.Event.Subscribe(MainStateEventArgs.EventId, MainStateEvent);
+            IDataTable<DRScene> dtScene = GameEntry.DataTable.GetDataTable<DRScene>();
+            DRScene drScene = dtScene.GetDataRow(3);
+            //加载主界面
+            if (drScene == null)
+            {
+                Log.Warning("Can not load scene '{0}' from data table.", 3.ToString());
+                return;
+            }
+            //场景加载
+            GameEntry.Scene.LoadScene(AssetUtility.GetSceneAsset(drScene.AssetName), /*Constant.AssetPriority.SceneAsset*/0, this);
         }
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
         {
             base.OnLeave(procedureOwner, isShutdown);
             GameEntry.Event.Unsubscribe(MainStateEventArgs.EventId, MainStateEvent);
+            string[] loadedSceneAssetNames = GameEntry.Scene.GetLoadedSceneAssetNames();
+            for (int i = 0; i < loadedSceneAssetNames.Length; i++)
+            {
+                GameEntry.Scene.UnloadScene(loadedSceneAssetNames[i]);
+            }
         }
         protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
