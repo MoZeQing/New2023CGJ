@@ -60,8 +60,8 @@ namespace GameMain
             Day = dRLevel.Day;
             Index = dRLevel.Index;
             IDataTable<DROrder> dtOrder = GameEntry.DataTable.GetDataTable<DROrder>();
-            OrderData order = new OrderData(dtOrder.GetDataRow(dRLevel.Order));
-            OrderData = order;
+            //OrderData order = new OrderData(dtOrder.GetDataRow(dRLevel.Order));
+            //OrderData = order;
             Foreword=dRLevel.Foreword;
             Text=dRLevel.Text;
             ActionGraph= dRLevel.ActionGraph;

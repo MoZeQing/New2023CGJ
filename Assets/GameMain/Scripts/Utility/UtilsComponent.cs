@@ -14,6 +14,7 @@ namespace GameMain
     {
         public OutingSceneState outSceneState;
         public List<Sprite> nodeSprites = new List<Sprite>();
+        public List<Sprite> nodeImage= new List<Sprite>();
         //规定，第0张默认是黑屏切换（即每一段之间的切换），第1张开始则是每一天的切换
         public List<Sprite> changeSprites= new List<Sprite>();
 

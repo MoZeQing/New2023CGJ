@@ -31,6 +31,7 @@ namespace GameMain
             }
             //≥°æ∞º”‘ÿ
             GameEntry.Scene.LoadScene(AssetUtility.GetSceneAsset(drScene.AssetName), /*Constant.AssetPriority.SceneAsset*/0, this);
+            GameEntry.Utils.TimeTag = TimeTag.ForeWork;
         }
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
         {
@@ -41,6 +42,7 @@ namespace GameMain
             {
                 GameEntry.Scene.UnloadScene(loadedSceneAssetNames[i]);
             }
+            GameEntry.Utils.TimeTag = TimeTag.AfterWork;
         }
         protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
