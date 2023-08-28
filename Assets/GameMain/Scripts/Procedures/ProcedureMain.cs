@@ -45,7 +45,7 @@ namespace GameMain
             base.OnLeave(procedureOwner, isShutdown);
             //GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, LoadCatSuccess);
             GameEntry.Event.Unsubscribe(MainStateEventArgs.EventId, MainStateEvent);
-            GameEntry.UI.CloseAllLoadedUIForms();
+            GameEntry.UI.CloseUIGroup("Default");
             GameEntry.UI.CloseAllLoadingUIForms();
             string[] loadedSceneAssetNames = GameEntry.Scene.GetLoadedSceneAssetNames();
             for (int i = 0; i < loadedSceneAssetNames.Length; i++)
