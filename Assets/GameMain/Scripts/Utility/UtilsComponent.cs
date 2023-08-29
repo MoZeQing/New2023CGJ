@@ -12,8 +12,10 @@ namespace GameMain
 {
     public class UtilsComponent : GameFrameworkComponent
     {
+        public OutingSceneState outSceneState;
         public List<Sprite> nodeSprites = new List<Sprite>();
-        //规定，第0张默认是黑屏切换（即每一段之间的切换），第1张开始则是每一天的奇幻
+        public List<Sprite> nodeImage= new List<Sprite>();
+        //规定，第0张默认是黑屏切换（即每一段之间的切换），第1张开始则是每一天的切换
         public List<Sprite> changeSprites= new List<Sprite>();
 
         public bool pickUp = false;
@@ -29,50 +31,212 @@ namespace GameMain
 
         //数据管理器部分
         private Dictionary<TriggerTag,string> _values= new Dictionary<TriggerTag,string>();
-        private Dictionary<string,int> mCharFavor= new Dictionary<string,int>();
         private List<string> _flags= new List<string>();
 
-        private int mFavor = 0;
-        private CharData mCharData=null;
-        private OrderData mOrderData = null;
-        private OrderData mSupplyData=null;
-        private LevelData mLevelData= null;
-        private int mMoney = 0;
+        private CharData mCharData=new CharData();
+        private OrderData mOrderData =new OrderData();
+        private OrderData mSupplyData=new OrderData();
+        private LevelData mLevelData= new LevelData();
+        private PlayerData mPlayerData = new PlayerData();
+        private OutingSceneState mLocation;
+        private TimeTag mTimeTag;
+        private Week mWeek;
+        private BehaviorTag mBehaviorTag;
+
+        public BehaviorTag BehaviorTag
+        {
+            get
+            {
+                return mBehaviorTag;
+            }
+            set
+            { 
+                mBehaviorTag= value;
+                _values[TriggerTag.BehaviorTag]=mBehaviorTag.ToString();
+            }
+        }
+
+        public Week Week
+        {
+            get
+            {
+                return mWeek;
+            }
+            set
+            { 
+                mWeek= value;
+                _values[TriggerTag.Week] = mWeek.ToString();
+            }
+        }
+
+        public TimeTag TimeTag
+        {
+            get
+            {
+                return mTimeTag;
+            }
+            set
+            { 
+                mTimeTag= value;
+                _values[TriggerTag.TimeTag] = mTimeTag.ToString();
+            }
+        }
+
+        public OutingSceneState Location
+        {
+            get
+            {
+                return mLocation;
+            }
+            set
+            { 
+                mLocation= value;
+                _values[TriggerTag.Location] = mLocation.ToString();
+            }
+        }
+        //访问PlayerData
         public int Money
         {
             get
             {
-                return mMoney;
+                return mPlayerData.money;
             }
             set
             { 
-                mMoney= value;
-                _values[TriggerTag.Money] = mMoney.ToString();
+                mPlayerData.money = value;
+                _values[TriggerTag.Money] = mPlayerData.money.ToString();
+                GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
             }
         }
-        public CharData CharData
+        public int Energy
         {
             get
             {
-                return mCharData;
+                return mPlayerData.energy;
             }
             set
-            { 
-                mCharData= value;
-                mFavor = mCharFavor[mCharData.charName];
-                _values[TriggerTag.Davor] = mFavor.ToString();
+            {
+                mPlayerData.energy = value;
+                _values[TriggerTag.Energy] = mPlayerData.energy.ToString();
+                GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
+            }
+        }
+        public int MaxEnergy
+        {
+            get
+            {
+                return mPlayerData.maxEnergy;
+            }
+            set
+            {
+                mPlayerData.maxEnergy = value;
+                _values[TriggerTag.MaxEnergy] = mPlayerData.maxEnergy.ToString();
+                GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
+            }
+        }
+        public int MaxAp
+        {
+            get
+            {
+                return mPlayerData.maxAp;
+            }
+            set
+            {
+                mPlayerData.maxAp = value;
+                _values[TriggerTag.MaxAp] = mPlayerData.maxAp.ToString();
+                GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
+            }
+        }
+        public int Ap
+        {
+            get
+            {
+                return mPlayerData.ap;
+            }
+            set
+            {
+                mPlayerData.ap = value;
+                _values[TriggerTag.Ap] = mPlayerData.ap.ToString();
+                GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
+            }
+        }
+        public int Day
+        {
+            get
+            {
+                return mPlayerData.day;
+            }
+            set
+            {
+                mPlayerData.day = value;
+                _values[TriggerTag.Day] = mPlayerData.ap.ToString();
+                GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
+            }
+        }
+        //访问CharData
+        public int Mood
+        {
+            get
+            {
+                return mCharData.mood;
+            }
+            set
+            {
+                mCharData.mood = value;
+                _values[TriggerTag.Mood] = mCharData.mood.ToString();
+                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
+            }
+        }
+        public int Hope
+        {
+            get
+            {
+                return mCharData.hope;
+            }
+            set
+            {
+                mCharData.hope = value;
+                _values[TriggerTag.Hope] = mCharData.hope.ToString();
+                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
             }
         }
         public int Favor
         {
             get
             {
-                return mFavor;
+                return mCharData.favor;
             }
             set
-            { 
-                mFavor= value;
-                mCharFavor[mCharData.charName] = mFavor;
+            {
+                mCharData.favor = value;
+                _values[TriggerTag.Favor] = mCharData.favor.ToString();
+                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
+            }
+        }
+        public int Love
+        {
+            get
+            {
+                return mCharData.love;
+            }
+            set
+            {
+                mCharData.love = value;
+                _values[TriggerTag.Love] = mCharData.love.ToString();
+                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
+            }
+        }
+        public int Family
+        {
+            get
+            {
+                return mCharData.family;
+            }
+            set
+            {
+                mCharData.family = value;
+                _values[TriggerTag.Money] = mCharData.family.ToString();
+                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
             }
         }
         public OrderData OrderData
@@ -97,20 +261,17 @@ namespace GameMain
             { 
                 mLevelData= value;
                 ActionGraph actionGraph = Resources.Load<ActionGraph>(string.Format("ActionData/{0}", mLevelData.ActionGraph));
-                mCharData = actionGraph.charSO.charData;
+                //mCharData = actionGraph.charSO.charData;
 
                 _values[TriggerTag.Day] = mLevelData.Day.ToString();
                 _values[TriggerTag.Index] = mLevelData.Index.ToString();
             }
         }
-
-
         public void AddFlag(string flag)
         { 
             if(!_flags.Contains(flag))
                 _flags.Add(flag);
         }
-
         public void RemoveFlag(string flag)
         { 
             if(_flags.Contains(flag))
@@ -120,7 +281,6 @@ namespace GameMain
         {
             return Check(triggerData.trigger);
         }
-
         public bool Check(Trigger trigger)
         {
             if (trigger.key == TriggerTag.Flag)
@@ -177,5 +337,30 @@ namespace GameMain
                 }
             }
         }
+        public void RunEvent(EventData eventData)
+        {
+            switch (eventData.eventTag)
+            {
+                case EventTag.AddFavor:
+                    break;
+                case EventTag.AddFlag:
+                    break;
+                case EventTag.RemoveFlag:
+                    break;
+                case EventTag.AddMoney:
+                    break;
+            }
+        }
+    }
+    [System.Serializable]
+    public class PlayerData
+    {
+        public int maxEnergy;
+        public int energy;
+        public int money;
+        public int maxAp;
+        public int ap;
+        public int day;
+        //public int time;
     }
 }

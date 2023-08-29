@@ -43,9 +43,6 @@ namespace GameMain
             GameEntry.Event.Subscribe(LoadDataTableFailureEventArgs.EventId, OnLoadDataTableFailure);
             GameEntry.Event.Subscribe(LoadDictionarySuccessEventArgs.EventId, OnLoadDictionarySuccess);
             GameEntry.Event.Subscribe(LoadDictionaryFailureEventArgs.EventId, OnLoadDictionaryFailure);
-
-            //m_LoadedFlag.Clear();
-
         }
         private void OnInitResourcesComplete()
         {

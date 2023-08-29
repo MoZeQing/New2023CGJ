@@ -10,4 +10,14 @@ public class ActionGraph : NodeGraph {
 	public CharSO charSO;
 	[SerializeField]
 	public Trigger trigger;
+
+	public ActionNode ActionNode()
+	{
+		foreach (Node node in nodes)
+		{
+			if (node.GetType().ToString() == "ActionNode")
+				return (ActionNode)node;
+		}
+		return null;
+	}
 }

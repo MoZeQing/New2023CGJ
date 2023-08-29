@@ -51,7 +51,7 @@ namespace GameMain
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
             if (m_StartGame)
             {
-                ChangeState<ProcedureMain>(procedureOwner);
+                ChangeState<ProcedureInitMain>(procedureOwner);
             }
         }
         private void OnOpenUIFormSuccess(object sender, GameEventArgs e)

@@ -13,12 +13,12 @@ namespace GameMain
         ChangeForm = 4,
         EndForm =5,
         SettleForm= 6,        
-        DowngradeForm = 7,
-        DispatchForm = 8,
-        BuildingForm=9,
-        AdventureForm=10,
+        CupboradForm = 7,
+        WorkForm = 8,
+        DialogForm=9,
+        ShopForm=10,
         MapForm=11,
-        ReadyForm=12,
+        GreengrocerForm=12
     }
 }
 

@@ -23,8 +23,8 @@ public class MaterialsPlots : MonoBehaviour,IPointerDownHandler
     {
         GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, nodeTag)
         {
-            Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f),
+            Position = this.transform.position,
             Follow = true
-        });
+        }) ;
     }
 }

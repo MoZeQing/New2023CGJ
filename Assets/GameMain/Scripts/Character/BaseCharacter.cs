@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
@@ -10,6 +11,12 @@ namespace GameMain
 {
     public class BaseCharacter : EntityLogic, IPointerDownHandler
     {
+        public DialogPos DialogPos
+        {
+            get;
+            set;
+        }
+
         private CharacterData mCharacterData = null;
         private SpriteRenderer mSpriteRenderer = null;
         private ActionNode mActionNode = null;
@@ -21,6 +28,7 @@ namespace GameMain
         {
             base.OnInit(userData);
             mCharacterData = (CharacterData)userData;
+            DialogPos= mCharacterData.DialogPos;
 
             mSpriteRenderer = this.GetComponent<SpriteRenderer>();
         }
@@ -37,44 +45,39 @@ namespace GameMain
 
         public void OnPointerDown(PointerEventData pointerEventData)
         {
-            mActionState = ActionState.Click;
-            if (mActionNode.click != null)
-            {
-                List<ChatNode> chatNodes = new List<ChatNode>();
-                for (int i = 0; i < mActionNode.click.Count; i++)
-                {
-                    if (GameEntry.Utils.Check(mActionNode.click[i]))
-                    {
-                        if (mActionNode.GetPort(string.Format("click {0}", i)) != null)
-                        {
-                            NodePort nodePort = mActionNode.GetPort(string.Format("click {0}", i));
-                            if (nodePort.Connection != null)
-                            {
-                                ChatNode node = (ChatNode)nodePort.Connection.node;
-                                chatNodes.Add(node);
-                            }
-                        }
-                    }
-                }
-                if (chatNodes.Count > 0)
-                {
-                    ChatNode chatNode = chatNodes[Random.Range(0, chatNodes.Count)];
-                }
-                else
-                {
-                    Debug.LogWarningFormat("错误，不存在有效的对话文件，请检查文件以及条件，错误文件：{0}", mCharacterData.ActionGraph.name);
-                }
-            }
+            //mActionState = ActionState.Click;
+            //if (mActionNode.click != null)
+            //{
+            //    List<ChatNode> chatNodes = new List<ChatNode>();
+            //    for (int i = 0; i < mActionNode.click.Count; i++)
+            //    {
+            //        if (GameEntry.Utils.Check(mActionNode.click[i]))
+            //        {
+            //            if (mActionNode.GetPort(string.Format("click {0}", i)) != null)
+            //            {
+            //                NodePort nodePort = mActionNode.GetPort(string.Format("click {0}", i));
+            //                if (nodePort.Connection != null)
+            //                {
+            //                    ChatNode node = (ChatNode)nodePort.Connection.node;
+            //                    chatNodes.Add(node);
+            //                }
+            //            }
+            //        }
+            //    }
+            //    if (chatNodes.Count > 0)
+            //    {
+            //        ChatNode chatNode = chatNodes[Random.Range(0, chatNodes.Count)];
+            //    }
+            //    else
+            //    {
+            //        Debug.LogWarningFormat("错误，不存在有效的对话文件，请检查文件以及条件，错误文件：{0}", mCharacterData.ActionGraph.name);
+            //    }
+            //}
         }
-        public void SetChar(ActionData actionData)
+        public void SetAction(ActionData actionData)
         {
-            mSpriteRenderer.sprite = mDiffs[(int)actionData.diffTag];
-            Action(actionData.actionTag);
-        }
-
-        private void Action(ActionTag action)
-        {
-            switch (action)
+            //mSpriteRenderer.sprite = mDiffs[(int)actionData.diffTag];
+            switch (actionData.actionTag)
             {
                 case ActionTag.Jump:
                     break;

@@ -2,15 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Character", menuName = "Inventory/New Character")]
-public class Character : ScriptableObject
+namespace GameMain
 {
-    public int ATK;
-    public int life;
-    public int DEF;
-    public int Infection;
-    
-    [TextArea]
-    public string Info;
-    public bool Action;
+    public class Character : Entity
+    {
+
+    }
 }

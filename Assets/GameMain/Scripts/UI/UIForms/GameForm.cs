@@ -59,7 +59,7 @@ namespace GameMain
 
         public void Adventure()
         {
-            GameEntry.UI.OpenUIForm(UIFormId.ReadyForm, this);
+            //GameEntry.UI.OpenUIForm(UIFormId.ReadyForm, this);
         }
     }
 }

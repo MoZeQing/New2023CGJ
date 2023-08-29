@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityGameFramework.Runtime;
 using UnityEngine.UI;
 using GameFramework.Event;
+using System;
 
 namespace GameMain
 {
@@ -12,15 +13,14 @@ namespace GameMain
         private float mTime;
         private float mDuration;
 
+        private bool mFire=false;
+
         [SerializeField] private Image m_Image;
 
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            int index = (int)userData;
-            m_Image.sprite = GameEntry.Utils.changeSprites[index];
-
-            mDuration = 3f;
+            mDuration = 2f;
             mTime = 0;
         }
 
@@ -42,7 +42,6 @@ namespace GameMain
             }
             else if (mTime > mDuration)
             {
-                GameEntry.Event.FireNow(this, ChangeEventArgs.Create());
                 GameEntry.UI.CloseUIForm(this.UIForm);
             }
         }

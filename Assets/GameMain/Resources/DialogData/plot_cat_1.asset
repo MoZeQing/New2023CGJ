@@ -17,7 +17,6 @@ MonoBehaviour:
   ports:
     keys:
     - a
-    - b
     - chatDatas
     - chatDatas 0
     - chatDatas 1
@@ -31,15 +30,6 @@ MonoBehaviour:
         node: {fileID: 5232428848345395840}
         reroutePoints: []
       _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: b
-      _node: {fileID: -5843671204641323493}
-      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
@@ -72,22 +62,47 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 1
   a: 0
-  b: 0
   dialogId: 
   chatDatas:
   - charName: "\u5973\u5B69"
-    charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
-    actionData:
-      diffTag: 1
-      actionTag: 0
-      soundTag: 7
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
     text: "\u8C22\u8C22\u4F60\u3002\u660E\u5929\u6211\u8FD8\u53EF\u4EE5\u6765\u5417\uFF1F"
   - charName: "\u6211"
-    charSO: {fileID: 0}
-    actionData:
-      diffTag: 0
-      actionTag: 0
-      soundTag: 0
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
     text: "\u5BD2\u820D\u968F\u65F6\u606D\u5019\u5149\u4E34\u3002"
 --- !u!114 &-2714339037703481221
 MonoBehaviour:
@@ -106,7 +121,6 @@ MonoBehaviour:
   ports:
     keys:
     - a
-    - b
     - chatDatas
     - chatDatas 0
     - chatDatas 1
@@ -133,15 +147,6 @@ MonoBehaviour:
         node: {fileID: -1925266552821434784}
         reroutePoints: []
       _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: b
-      _node: {fileID: -2714339037703481221}
-      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
@@ -294,113 +299,307 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 1
   a: 0
-  b: 0
   dialogId: 
   chatDatas:
   - charName: "\u6211"
-    charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
-    actionData:
-      diffTag: 0
-      actionTag: 0
-      soundTag: 0
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
     text: "\uFF08\u7CBE\u51C6\u7684\u9012\u4E0A\u5973\u5B69\u9762\u524D\u7684\u684C\u9762\uFF09\u8BF7\u6162\u7528\u3002"
   - charName: "\u5973\u5B69"
-    charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
-    actionData:
-      diffTag: 7
-      actionTag: 1
-      soundTag: 3
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
     text: "\u554A\uFF01"
   - charName: "\u6211"
-    charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
-    actionData:
-      diffTag: 0
-      actionTag: 0
-      soundTag: 0
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
     text: "\u5C0F\u5FC3\u70EB\u3002"
   - charName: "\u5973\u5B69"
-    charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
-    actionData:
-      diffTag: 5
-      actionTag: 2
-      soundTag: 0
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
     text: "\u54E6\u3001\u8C22\u8C22\u3002"
   - charName: "\u6211"
-    charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
-    actionData:
-      diffTag: 5
-      actionTag: 0
-      soundTag: 0
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
     text: "\u8FD9\u4E48\u665A\u4E86\uFF0C\u4E3A\u4EC0\u4E48\u6CA1\u6709\u56DE\u5BB6\u5462\u3002"
   - charName: "\u5973\u5B69"
-    charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
-    actionData:
-      diffTag: 5
-      actionTag: 3
-      soundTag: 0
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
     text: "\u6211\u3001\u6211\u6709\u70B9\u7D2F\uFF0C\u968F\u4FBF\u8D70\u5C31\u8D70\u5230\u8FD9\u91CC\u4E86\u3002"
   - charName: "\u5973\u5B69"
-    charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
-    actionData:
-      diffTag: 5
-      actionTag: 0
-      soundTag: 0
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
     text: "\u5473\u9053\u3002\u3002\u597D\u82E6\u3002"
   - charName: "\u6211"
-    charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
-    actionData:
-      diffTag: 5
-      actionTag: 0
-      soundTag: 0
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
     text: "\u4F60\u662F\u7B2C\u4E00\u6B21\u559D\u5496\u5561\u5417\uFF1F"
   - charName: "\u5973\u5B69"
-    charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
-    actionData:
-      diffTag: 6
-      actionTag: 0
-      soundTag: 2
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
     text: "\u5496\u5561\uFF1F\u90A3\u662F\u4EC0\u4E48\u3002"
   - charName: "\u6211"
-    charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
-    actionData:
-      diffTag: 6
-      actionTag: 0
-      soundTag: 0
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
     text: "\u4F60\u73B0\u5728\u559D\u7684\u5C31\u662F\u5496\u5561\uFF0C\u4E5F\u8BB8\u4F60\u8FD8\u9700\u8981\u66F4\u591A\u65F6\u95F4\u53BB\u4E60\u60EF\u4ED6\u3002"
   - charName: "\u5973\u5B69"
-    charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
-    actionData:
-      diffTag: 1
-      actionTag: 0
-      soundTag: 7
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
     text: "\u6211\u60F3\u6211\u4F1A\u559C\u6B22\u8FD9\u79CD\u4E1C\u897F\uFF1F\u73B0\u5728\u611F\u89C9\u597D\u591A\u4E86\u3002"
   - charName: "\u6211"
-    charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
-    actionData:
-      diffTag: 1
-      actionTag: 0
-      soundTag: 0
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
     text: "\u5496\u5561\u662F\u7ED9\u75B2\u52B3\u7684\u4EBA\u63D0\u795E\u7684\u4E0D\u4E8C\u9009\u62E9\u3002"
   - charName: 
-    charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
-    actionData:
-      diffTag: 0
-      actionTag: 0
-      soundTag: 0
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
     text: "-\u6C89\u9ED8\u8BB8\u4E45\uFF0C\u671F\u95F4\u53EA\u6709\u5973\u5B69\u65AD\u65AD\u7EED\u7EED\u7684\u541E\u54BD\u58F0\u3002"
   - charName: "\u5973\u5B69"
-    charSO: {fileID: 0}
-    actionData:
-      diffTag: 1
-      actionTag: 0
-      soundTag: 0
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
     text: "\u8C22\uFF0C\u8C22\u8C22\u3002"
   - charName: "\u6211"
-    charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
-    actionData:
-      diffTag: 0
-      actionTag: 0
-      soundTag: 0
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
     text: "38\u5143\uFF0C\u8C22\u8C22\u3002"
 --- !u!114 &-1925266552821434784
 MonoBehaviour:
@@ -450,7 +649,6 @@ MonoBehaviour:
   ports:
     keys:
     - a
-    - b
     - chatDatas
     - chatDatas 0
     - chatDatas 1
@@ -465,15 +663,6 @@ MonoBehaviour:
         node: {fileID: 5232428848345395840}
         reroutePoints: []
       _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: b
-      _node: {fileID: -445956062514593659}
-      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
@@ -515,29 +704,67 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 1
   a: 0
-  b: 0
   dialogId: 
   chatDatas:
   - charName: "\u5973\u5B69"
-    charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
-    actionData:
-      diffTag: 5
-      actionTag: 0
-      soundTag: 5
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
     text: "\u62A5\u3002\u3002\u3002\u62B1\u6B49\u3002\u3002\u3002"
   - charName: 
-    charSO: {fileID: 0}
-    actionData:
-      diffTag: 0
-      actionTag: 0
-      soundTag: 0
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
     text: "-\u54ED\u7740\u79BB\u5F00"
   - charName: "\u6211"
-    charSO: {fileID: 0}
-    actionData:
-      diffTag: 0
-      actionTag: 0
-      soundTag: 0
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
     text: "\u6216\u8BB8\u6211\u6709\u4E9B\u592A\u8FC7\u5206\u4E86\uFF1F\u533A\u533A\u5C0F\u94B1\u4E0D\u5E94\u8BE5\u8FD9\u6837\u5BF9\u4E00\u4E2A\u5B69\u5B50\u3002"
 --- !u!114 &11400000
 MonoBehaviour:
@@ -575,7 +802,6 @@ MonoBehaviour:
   ports:
     keys:
     - a
-    - b
     - chatDatas
     - chatDatas 0
     - chatDatas 1
@@ -590,15 +816,6 @@ MonoBehaviour:
         node: {fileID: -2714339037703481221}
         reroutePoints: []
       _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: b
-      _node: {fileID: 4408169225101140408}
-      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
@@ -643,29 +860,67 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 1
   a: 0
-  b: 0
   dialogId: 
   chatDatas:
   - charName: 
-    charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
-    actionData:
-      diffTag: 0
-      actionTag: 0
-      soundTag: 0
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
     text: "-\u5973\u5B69\u6C89\u9ED8"
   - charName: "\u6211"
-    charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
-    actionData:
-      diffTag: 0
-      actionTag: 0
-      soundTag: 0
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
     text: "\u55EF\uFF1F\u4F60\u4ED8\u94B1\u4E86\u5417\uFF1F"
   - charName: "\u5973\u5B69"
-    charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
-    actionData:
-      diffTag: 5
-      actionTag: 0
-      soundTag: 5
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
     text: "\u6211\u3002\u3002\u3002\u6211\u6CA1\u6709\u94B1\u3002"
 --- !u!114 &5232428848345395840
 MonoBehaviour:

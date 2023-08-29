@@ -6,41 +6,29 @@ using GameFramework.DataTable;
 using GameFramework.Event;
 using UnityGameFramework.Runtime;
 using GameFramework.Fsm;
+using System;
+using DG.Tweening;
 
 namespace GameMain
 {
     public class ProcedureMain : ProcedureBase
     {
-        private List<LevelData> m_LevelDatas = new List<LevelData>();
-        private LevelData m_LevelData = null;
-        private MaterialData mMaterialData = new MaterialData();
-
-        private int mDay = 1;//现在天数
-        private int mIndex = 0;//现在关卡数
-        private bool m_BackGame = false;
-        private bool m_ChangeDay = false;
-
         private MainState mMainState;
-        private OrderManager mOrderManager;
-        private OrderData mOrderData = null;
+        private bool mDialog = false;  
 
-        public MainForm MainForm
+        public GamePos GamePos
         {
             get;
-            set;
+            private set;
         }
-
-        public void BackGame()
-        { 
-            m_BackGame=true;
-        }
-
         protected override void OnEnter(IFsm<IProcedureManager> procedureOwner)
         {
             base.OnEnter(procedureOwner);
-
-            // 还原游戏速度
-            GameEntry.Base.ResetNormalGameSpeed();
+            mMainState = MainState.Teach;
+            GameEntry.Utils.Location = OutingSceneState.Home;
+            GameEntry.UI.OpenUIForm(UIFormId.MainForm, this);
+            //GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, LoadCatSuccess);
+            GameEntry.Event.Subscribe(MainStateEventArgs.EventId, MainStateEvent);
             IDataTable<DRScene> dtScene = GameEntry.DataTable.GetDataTable<DRScene>();
             DRScene drScene = dtScene.GetDataRow(2);
             //加载主界面
@@ -49,347 +37,101 @@ namespace GameMain
                 Log.Warning("Can not load scene '{0}' from data table.", 2.ToString());
                 return;
             }
-            m_BackGame = false;
+            //场景加载
             GameEntry.Scene.LoadScene(AssetUtility.GetSceneAsset(drScene.AssetName), /*Constant.AssetPriority.SceneAsset*/0, this);
-            GameEntry.UI.OpenUIForm(UIFormId.MainForm, this);
-            //初始化信息
-            m_LevelDatas.Clear();
-            IDataTable<DRLevel> dtLevel = GameEntry.DataTable.GetDataTable<DRLevel>();
-            for (int i = 0; i < dtLevel.Count; i++)
-            {
-                DRLevel dRLevel = dtLevel.GetDataRow(i);
-                LevelData level = new LevelData(dRLevel);
-                m_LevelDatas.Add(level);
-            }
-            GameEntry.Event.Subscribe(MaterialEventArgs.EventId, UpdateMaterial);
-            GameEntry.Event.Subscribe(OrderEventArgs.EventId, OrderEvent);
-            GameEntry.Event.Subscribe(DialogEventArgs.EventId, DialogEvent);
-            GameEntry.Event.Subscribe(ChangeEventArgs.EventId, ChangeEvent);
-            GameEntry.Event.Subscribe(ClockEventArgs.EventId, ClockEvent);
-            CheckMaterials();
-            
-            if(m_LevelData != null)
-            {
-                m_LevelData = null;
-            }
-            if(mDay != 1)
-            {
-                mDay = 1;
-            }
-            if (mIndex != 0)
-            {
-                mIndex = 0;
-            }
         }
-
         protected override void OnLeave(IFsm<IProcedureManager> procedureOwner, bool isShutdown)
         {
             base.OnLeave(procedureOwner, isShutdown);
-            IDataTable<DRScene> dtScene = GameEntry.DataTable.GetDataTable<DRScene>();
-            DRScene drScene = dtScene.GetDataRow(2);
-            //加载主界面
-            if (drScene == null)
+            //GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, LoadCatSuccess);
+            GameEntry.Event.Unsubscribe(MainStateEventArgs.EventId, MainStateEvent);
+            GameEntry.UI.CloseUIGroup("Default");
+            GameEntry.UI.CloseAllLoadingUIForms();
+            string[] loadedSceneAssetNames = GameEntry.Scene.GetLoadedSceneAssetNames();
+            for (int i = 0; i < loadedSceneAssetNames.Length; i++)
             {
-                Log.Warning("Can not load scene '{0}' from data table.", 2.ToString());
-                return;
+                GameEntry.Scene.UnloadScene(loadedSceneAssetNames[i]);
             }
-            Debug.Log("Start Load Scene");
-            //GameEntry.Scene.UnloadScene(AssetUtility.GetSceneAsset(drScene.AssetName), this);
-
-            GameEntry.UI.CloseAllLoadedUIForms();
-            GameEntry.Entity.HideAllLoadedEntities();
-            GameEntry.Sound.StopAllLoadingSounds();
-            GameEntry.Sound.StopAllLoadedSounds();
-
-
-            GameEntry.Event.Unsubscribe(MaterialEventArgs.EventId, UpdateMaterial);//这里改成监听所有的实体生产的事件
-            GameEntry.Event.Unsubscribe(OrderEventArgs.EventId, OrderEvent);
-            GameEntry.Event.Unsubscribe(DialogEventArgs.EventId, DialogEvent);
-            GameEntry.Event.Unsubscribe(ChangeEventArgs.EventId, ChangeEvent);
-            GameEntry.Event.Unsubscribe(ClockEventArgs.EventId, ClockEvent);
         }
-
         protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
-            if (m_BackGame)
-            {
-                ChangeState<ProcedureMenu>(procedureOwner);
-            }
-        }
-        private LevelData GetRandomLevel()
-        {
-            LevelData levelData = new LevelData();
-            int total = Mathf.Clamp(Random.Range(0, mDay), 1, 3);
-            for (int i = 0; i < total; i++)
-            {
-                int random = Random.Range(1, 6);
-                switch (random)
-                {
-                    case 1:
-                        levelData.OrderData.Latte++;
-                        break;
-                    case 2:
-                        levelData.OrderData.WhiteCoffee++;
-                        break;
-                    case 3:
-                        levelData.OrderData.ConPanna++;
-                        break;
-                    case 4:
-                        levelData.OrderData.CafeAmericano++;
-                        break;
-                    case 5:
-                        levelData.OrderData.Espresso++;
-                        break;
-                    case 6:
-                        levelData.OrderData.Mocha++;
-                        break;
-                }
-            }
-            int index = Random.Range(1, 3);
-            levelData.Foreword = string.Format("plot_f_wm_{0}", index);
-            levelData.Text = string.Format("plot_wm_{0}", index);
-            levelData.ActionGraph = string.Format("act_wm_{0}", index);
-            levelData.Day= mDay;
-            levelData.Index= mIndex;
-            return levelData;
-        }
-        private void ClockEvent(object sender, GameEventArgs e)
-        {
-            ClockEventArgs clock = (ClockEventArgs)e;
-            if (mMainState == MainState.Game)
-            {
-                //强制结算
-                UpdateLevel();
-            }
-        }
-        private void OrderEvent(object sender, GameEventArgs e)
-        {
-            mOrderManager = (OrderManager)sender;
-            OrderEventArgs order = (OrderEventArgs)e;
-            mOrderData= order.OrderData;
-            if (order.OrderData.Check())
-                UpdateLevel();
-        }
-        private void DialogEvent(object sender,GameEventArgs e)
-        {
-            DialogEventArgs dialog = (DialogEventArgs)e;
-            //if (dialog.DialogTag == m_LevelData.Foreword || dialog.DialogTag == m_LevelData.Text)
-                UpdateLevel();
-        }
-        private void ChangeEvent(object sender, GameEventArgs e)
-        { 
-            if(mMainState==MainState.Change)
-                UpdateLevel();
-        }
-        private void UpdateLevel()
-        {
-            if (m_LevelData == null)
-            {
-                mMainState = MainState.Change;
-                GetLevel();
-            }
-
+            if (GameEntry.Dialog.InDialog)
+                return;
             switch (mMainState)
             {
-                case MainState.Foreword:
-                    mMainState = MainState.Game;
+                case MainState.Undefined:
                     break;
-                case MainState.Game:
-                    if (mDay == 10)
-                    {
-                        GameEntry.UI.OpenUIForm(UIFormId.EndForm,this);
-                    }
-                    mMainState = MainState.Text;
+                case MainState.Teach:
+                    //切换bgm
                     break;
-                case MainState.Text:
-                    mMainState = MainState.Change;
-                    Settle();
-                    GetLevel();
-                    ChangeScene();
+                case MainState.Work:
+                    ChangeState<ProcedureWork>(procedureOwner);
+                    //切换bgm
                     break;
-                case MainState.Change:
-                    mMainState = MainState.Foreword;
+                case MainState.Menu:
+                    ChangeState<ProcedureMenu>(procedureOwner);
                     break;
-            }
-            GameEntry.Event.FireNow(this, LevelEventArgs.Create(mMainState, m_LevelData));
-        }
-        /// <summary>
-        /// 结账(计算方法：完成的比例加上时间的奖励和小费的奖励)
-        /// </summary>
-        /// 完成比例*时间奖励*单价+小费
-        /// 其中的时间奖励是当完成时间在限定时间的
-        /*
-         * 小费：
-         * 小费只在非主要剧情中随机，也即除狗狗和猫猫外的剧情中给予
-         * 小费的比例为咖啡费用的 0.01——0.1 倍，向下取整
-         * 
-         * 时间奖励和惩罚：
-         * 时间奖励分为约三个阶段，现假设一杯咖啡的限时为60s
-         * 时间分为如右的三个阶段 |----------|----------|----------|----...
-         *                      0          30         60         90  /s
-         *                        提前完成    准时完成    超时完成
-         *                        1.3倍（+0.3） 1倍（0）  0.5倍（-0.5）/单价，向下取整
-         */
-        private void Settle()
-        {
-            float a = mOrderData.GetValue();
-            float b = m_LevelData.OrderData.GetValue();
-            float c = mOrderData.OrderTime;
-            float d = m_LevelData.OrderData.OrderTime;
-            float e = mOrderData.OrderTips;
-            GameEntry.Utils.Money += (int)(a / b/*  c / d*/ * m_LevelData.OrderData.OrderMoney + e);
-        }
-        private void ChangeScene()
-        {
-            if (m_ChangeDay)
-            {
-                GameEntry.UI.OpenUIForm(UIFormId.SettleForm,mOrderData);
-            }
-            else
-            {
-                GameEntry.UI.OpenUIForm(UIFormId.ChangeForm,mDay );
+                case MainState.Outing:
+                    //切换bgm
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
-        //更新关卡
-        public void GetLevel()//改为装配
-        {
-            mIndex++;
-            if (mIndex > 3)
-            {
-                mDay++;
-                mIndex = 1;
-                m_ChangeDay = true;
-            }
-            else
-                m_ChangeDay= false;
-            m_LevelData = null;
-            foreach (LevelData level in m_LevelDatas)
-            {
-                if (level.Day == mDay && level.Index == mIndex)
-                    m_LevelData = level;
-            }
-            if (m_LevelData == null)
-            {
-                m_LevelData = GetRandomLevel();
-            }
-            mOrderManager.SetOrder(m_LevelData.OrderData);
+        private void MainStateEvent(object sender, GameEventArgs e)
+        { 
+            MainStateEventArgs args= (MainStateEventArgs)e;
+            mMainState = args.MainState;
         }
-        private void UpdateMaterial(object sender, GameEventArgs e)
+        private void GamePosEvent(object sender, GameEventArgs args)
         {
-            MaterialEventArgs args = (MaterialEventArgs)e;
-
-            switch (args.NodeTag)
-            {
-                case NodeTag.Milk:
-                    mMaterialData.Milk += args.Value;
-                    break;
-                case NodeTag.Water:
-                    mMaterialData.Water += args.Value;
-                    break;
-                case NodeTag.Cream:
-                    mMaterialData.Cream += args.Value;
-                    break;
-                case NodeTag.CoffeeBean:
-                    mMaterialData.CoffeeBean += args.Value;
-                    break;
-                case NodeTag.ChocolateSyrup:
-                    mMaterialData.ChocolateSyrup += args.Value;
-                    break;
-                case NodeTag.Ice:
-                    mMaterialData.Ice += args.Value;
-                    break;
-                case NodeTag.Sugar:
-                    mMaterialData.ChocolateSyrup += args.Value;
-                    break;
-            }
-            CheckMaterials();
-        }
-        private void CheckMaterials()
-        {
-            //其下的数值改为常数
-            if (mMaterialData.Milk < 3)
-            {
-                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Milk)
-                {
-                    Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
-                });
-                mMaterialData.Milk++;
-            }
-            if (mMaterialData.Milk < 3)
-            {
-                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Milk)
-                {
-                    Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
-                });
-                mMaterialData.Milk++;
-            }
-            if (mMaterialData.Milk < 3)
-            {
-                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Milk)
-                {
-                    Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
-                });
-                mMaterialData.Milk++;
-            }
-            //if (mMaterialData.Cream < 1)
-            //{
-            //    GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Cream)
-            //    {
-            //        Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
-            //    });
-            //    mMaterialData.Cream++;
-            //}
-            //if (mMaterialData.CoffeeBean < 1)
-            //{
-            //    GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.CoffeeBean)
-            //    {
-            //        Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
-            //    });
-            //    mMaterialData.CoffeeBean++;
-            //}
-            //if (mMaterialData.Water < 1)
-            //{
-            //    GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Water)
-            //    {
-            //        Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
-            //    });
-            //    mMaterialData.Water++;
-            //}
-            //if (mMaterialData.ChocolateSyrup < 1)
-            //{
-            //    GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.ChocolateSyrup)
-            //    {
-            //        Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
-            //    });
-            //    mMaterialData.ChocolateSyrup++;
-            //}
-            //if (mMaterialData.Ice < 1)
-            //{
-            //    GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Ice)
-            //    {
-            //        Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
-            //    });
-            //    mMaterialData.Ice++;
-            //}
-            //if (mMaterialData.Sugar < 1)
-            //{
-            //    GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Sugar)
-            //    {
-            //        Position = new Vector3(Random.Range(-7.18f, 7.18f), Random.Range(-4.76f, 2.84f), 0f)
-            //    });
-            //    mMaterialData.Sugar++;
-            //}
+            GamePosEventArgs gamePos = (GamePosEventArgs)args;
+            GamePos = gamePos.GamePos;
         }
     }
     /// <summary>
     /// 目前所处的主游戏状态
     /// </summary>
     public enum MainState
+    {
+        Undefined,
+        Work,
+        Teach,
+        Menu,
+        Outing,
+        Dialog
+    }
+
+    public enum TimeTag
     { 
-        Foreword,//前言
-        Game,//做咖啡的游戏时间
-        Text,//咖啡结束后的正文时间
-        Change//转场
+        ForeWork,
+        AfterWork,
+    }
+
+    public enum Week
+    { 
+        Monday,
+        Tuesday,
+        Wednesday,
+        Thursday,
+        Friday,
+        Saturday,
+        Sunday
+    }
+
+    public enum OutingSceneState
+    {
+        Home,//家
+        Greengrocer,//果蔬商
+        Glass,//玻璃仪器店
+        Cinema,//电影院
+        Hospital,//医院
+        Restaurant,//餐馆
+        Beach,//海滩
+        Bakery,//烘培店
+        Bookstore,//书店
+        BlackMarket,//黑市
+        Park//公园
     }
 }

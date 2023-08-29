@@ -34,7 +34,6 @@ public class SettingForm : MonoBehaviour
     {
         this.gameObject.SetActive(false);
         ProcedureMain main = (ProcedureMain)GameEntry.Procedure.CurrentProcedure;
-        main.BackGame();
     }
 
     private void OnBGMVolumeChanged(float volume)

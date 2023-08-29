@@ -10,7 +10,6 @@ public class ChatNode : Node
 {
 
     [Input] public float a;
-    [Output] public float b;
 
     public string dialogId;
 
@@ -34,11 +33,21 @@ public class ChatData
     [SerializeField]
     public string charName;
     [SerializeField]
-    public CharSO charSO;//角色
+    public CharData left;
     [SerializeField]
-    public ActionData actionData;//动作数据
+    public CharData middle; 
+    [SerializeField]
+    public CharData right;
     [TextArea,SerializeField]
     public string text;
+}
+[Serializable]
+public class CharData
+{
+    [SerializeField]
+    public CharSO charSO;
+    [SerializeField]
+    public ActionData actionData;
 }
 
 public enum ChatTag

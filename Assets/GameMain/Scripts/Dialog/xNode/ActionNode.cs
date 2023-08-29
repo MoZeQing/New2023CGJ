@@ -1,18 +1,36 @@
-﻿using System.Collections;
+﻿using GameMain;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using XNode;
 
 [NodeWidth(400)]
 public class ActionNode : Node {
+    public PlayerData ClickData;
     [SerializeField, Output(dynamicPortList = true)]
-    public List<Trigger> click;
+    public List<Trigger> Click;
+
+    public PlayerData TalkData;
     [SerializeField, Output(dynamicPortList = true)]
-    public List<Trigger> idle;
+    public List<Trigger> Talk;
+
+    public PlayerData TouchData;
     [SerializeField, Output(dynamicPortList = true)]
-    public List<Trigger> coffee;
-	// Use this for initialization
-	protected override void Init() {
+    public List<Trigger> Touch;
+
+    public PlayerData PlayData;
+    [SerializeField, Output(dynamicPortList = true)]
+    public List<Trigger> Play;
+
+    public PlayerData SleepData;
+    [SerializeField, Output(dynamicPortList = true)]
+    public List<Trigger> Sleep;
+
+    public PlayerData MorningData;
+    [SerializeField, Output(dynamicPortList = true)]
+    public List<Trigger> Morning;
+    // Use this for initialization
+    protected override void Init() {
 		base.Init();
 		
 	}

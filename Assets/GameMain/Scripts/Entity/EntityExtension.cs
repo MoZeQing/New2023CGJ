@@ -18,7 +18,7 @@ namespace GameMain
 
         public static void ShowCharacter(this EntityComponent entityComponent, CharacterData data)
         {
-            entityComponent.ShowEntity(typeof(BaseCharacter), "Coffee", 90, data);
+            entityComponent.ShowEntity(typeof(BaseCharacter), "Dialog", 90, data);
         }
         public static void ShowNode(this EntityComponent entityComponent, NodeData data)
         {
@@ -161,6 +161,10 @@ namespace GameMain
         public static void ShowSweetMochaNode(this EntityComponent entityComponent, CompenentData compenentData)
         {
             entityComponent.ShowEntity(typeof(SweetMochaNode), "Coffee", 90, compenentData);
+        }
+        public static void ShowOrder(this EntityComponent entityComponent, OrderItemData data)
+        {
+            entityComponent.ShowEntity(typeof(OrderItem), "Order", 90, data);
         }
         private static void ShowEntity(this EntityComponent entityComponent, Type logicType, string entityGroup, int priority, EntityData data)
         {

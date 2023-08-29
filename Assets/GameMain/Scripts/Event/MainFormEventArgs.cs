@@ -42,6 +42,8 @@ namespace GameMain
         Lock,
         Unlock,
         Up,
-        Down
+        Down,
+        Left,
+        Right,
     }
 }

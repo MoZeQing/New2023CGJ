@@ -11,211 +11,110 @@ using GameFramework.Event;
 
 namespace GameMain
 {
-    public class MainForm : UIFormLogic
+    public partial class MainForm : UIFormLogic
     {
-        [SerializeField] private Button downButton;
-        [SerializeField] private Button upButton;
+        [Header("固定区域")]
+        [SerializeField] private Button leftButton;
+        [SerializeField] private Button rightButton;
         [SerializeField] private Button catButton;
         [SerializeField] private Button recipeButton;
         [SerializeField] private Button settingButton;
         [SerializeField] private Text dayText;
         [SerializeField] private Text levelText;
-        [SerializeField] private Transform canvasTrans;
-        [SerializeField] private DialogForm dialogForm;
-        [SerializeField] private GameObject mRecipeForm;
-        [SerializeField] private GameObject mSettingForm;
-
-        [SerializeField] private Text EspressoText;
-        [SerializeField] private Text ConPannaText;
-        [SerializeField] private Text MochaText;
-        [SerializeField] private Text WhiteCoffeeText;
-        [SerializeField] private Text CafeAmericanoText;
-        [SerializeField] private Text LatteText;
-
-        [SerializeField] private Button mDebugButton;
-
-        [SerializeField] private Text Timer;//计时器
-
-        private float mOrderTime;//倒计时
-        private bool mOnOrderTime;
-
+        [SerializeField] private Transform workingTrans;
+        [SerializeField] private Transform mCanvas;
+        [Header("外挂")]
+        [SerializeField] private Button workBtn;
         private PlaySoundParams playSoundParams = PlaySoundParams.Create();
         private int m_RandomValue;
+        private GamePos mGamePos=GamePos.Up;
 
-        public DialogForm DialogForm
-        {
-            get;
-            private set;
-        }
-        public WorkForm WorkForm
-        {
-            get;
-            private set;
-        }
-        private void Debug()
-        {
-            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.CafeAmericano)
-            {
-                Position = new Vector3(0, -4.8f, 0)
-            });
-            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Latte)
-            {
-                Position = new Vector3(0, -4.8f, 0)
-            });
-            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.ConPanna)
-            {
-                Position = new Vector3(0, -4.8f, 0)
-            });
-            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Espresso)
-            {
-                Position = new Vector3(0, -4.8f, 0)
-            });
-            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Mocha)
-            {
-                Position = new Vector3(0, -4.8f, 0)
-            });
-            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.WhiteCoffee)
-            {
-                Position = new Vector3(0, -4.8f, 0)
-            });
-        }
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            ProcedureMain main = (ProcedureMain)userData;
-            main.MainForm = this;
-
-            upButton.onClick.AddListener(Up);
-            downButton.onClick.AddListener(Down);
-            catButton.onClick.AddListener(Cat);
-            recipeButton.onClick.AddListener(Recipe);
-            settingButton.onClick.AddListener(() => mSettingForm.SetActive(true));
-
-            mDebugButton.onClick.AddListener(Debug);
-
-            this.DialogForm = GetComponentInChildren<DialogForm>(true);
-            this.WorkForm = GetComponentInChildren<WorkForm>(true);
-
-            GameEntry.Sound.PlaySound(19);
-
-            GameEntry.Event.Subscribe(LevelEventArgs.EventId, LevelEvent);
-            GameEntry.Event.Subscribe(OrderEventArgs.EventId, UpdateOrder);
+            leftButton.onClick.AddListener(TurnLeft);
+            rightButton.onClick.AddListener(TurnRight);
+            workBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.SettleForm));
         }
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
-            if (mOnOrderTime)
-            {
-                mOrderTime -= Time.deltaTime;
-                Timer.text = Mathf.Floor(mOrderTime).ToString();
-                if (mOrderTime < 0)
-                {
-                    GameEntry.Event.FireNow(this, ClockEventArgs.Create(false));
-                    mOnOrderTime = false;
-                }
-            }
         }
         protected override void OnClose(bool isShutdown, object userData)
         {
             base.OnClose(isShutdown, userData);
-            GameEntry.Event.Unsubscribe(LevelEventArgs.EventId, LevelEvent);
-            GameEntry.Event.Unsubscribe(OrderEventArgs.EventId, UpdateOrder);
         }
-        public void Up()
+        private void TurnLeft()
         {
-            GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/page_turn.mp3", "Sound");
-
-            Camera.main.transform.DOMove(new Vector3(0, 4.6f, -8f), 1f).SetEase(Ease.OutExpo);
-            canvasTrans.transform.DOLocalMove(new Vector3(0, -800, 0), 1f).SetEase(Ease.OutExpo);
-        }
-
-        public void Down()
-        {
-            GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/page_turn.mp3", "Sound");
-
-            Camera.main.transform.DOMove(new Vector3(0, -3.4f, -8f), 1f).SetEase(Ease.OutExpo);
-            canvasTrans.transform.DOLocalMove(new Vector3(0, 0, 0), 1f).SetEase(Ease.OutExpo);
-        }
-
-        private void Cat()
-        {
-            m_RandomValue = Random.Range(0, 30);
-
-            if(m_RandomValue == 0)
+            switch (GamePosUtility.Instance.GamePos)
             {
-                GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/Yudachi.mp3", "Sound");
-            }
-            else
-            {
-                GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/Sounds/cat.mp3", "Sound");
+                case GamePos.Up:
+                    GamePosUtility.Instance.GamePosChange(GamePos.Left);
+                    leftButton.interactable = false;
+                    break;
+                case GamePos.Right:
+                    GamePosUtility.Instance.GamePosChange(GamePos.Up);
+                    rightButton.interactable = true;
+                    break;
             }
         }
 
-        private void Recipe()
+        private void TurnRight() 
         {
-            mRecipeForm.gameObject.SetActive(!mRecipeForm.gameObject.activeSelf);
-        }
-        /// <summary>
-        /// 锁定该界面的UI
-        /// </summary>
-        public void LockGUI()
-        {
-            downButton.gameObject.SetActive(false);
-            upButton.gameObject.SetActive(false);
-            settingButton.gameObject.SetActive(false);
-        }
-        /// <summary>
-        /// 解锁该界面的UI
-        /// </summary>
-        public void UnlockGUI()
-        {
-            downButton.gameObject.SetActive(true);
-            upButton.gameObject.SetActive(true);
-            settingButton.gameObject.SetActive(true);
-        }
-
-        private void LevelEvent(object sender, GameEventArgs e)
-        {
-            LevelEventArgs args = (LevelEventArgs)e;
-            //mOnOrderTime = false;
-            switch (args.MainState)
+            switch (GamePosUtility.Instance.GamePos)
             {
-                case MainState.Foreword:
-                    LockGUI();
-                    Up();
+                case GamePos.Up:
+                    GamePosUtility.Instance.GamePosChange(GamePos.Right);
+                    rightButton.interactable = false;
                     break;
-                case MainState.Game:
-                    mOrderTime = 2000f;
-                    mOnOrderTime = true;
-                    UnlockGUI();
-                    Down();
-                    break;
-                case MainState.Text:
-                    mOnOrderTime = false;
-                    LockGUI();
-                    Up();
-                    break;
-                case MainState.Change:
-                    LockGUI();
+                case GamePos.Left:
+                    GamePosUtility.Instance.GamePosChange(GamePos.Up);
+                    leftButton.interactable = true;
                     break;
             }
-            dayText.text = string.Format("第：{0}天", args.LevelData.Day.ToString());
-            levelText.text= string.Format("第：{0}单", args.LevelData.Index.ToString());
-        }
-
-        private void UpdateOrder(object sender, GameEventArgs e)
-        {
-            OrderEventArgs args = (OrderEventArgs)e;
-            if (args.OrderData.Check())
-                return;
-            OrderData orderData = args.OrderData;
-            EspressoText.text = orderData.Espresso.ToString();
-            ConPannaText.text = orderData.ConPanna.ToString();
-            MochaText.text = orderData.Mocha.ToString();
-            WhiteCoffeeText.text = orderData.WhiteCoffee.ToString();
-            CafeAmericanoText.text = orderData.CafeAmericano.ToString();
-            LatteText.text = orderData.Latte.ToString();
         }
     }
 }
 
+public class GamePosUtility
+{
+    private static GamePosUtility instance;
+    private GamePosUtility() { }
+    public static GamePosUtility Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = new GamePosUtility();
+            }
+            return instance;
+        }
+    }
+
+    public GamePos GamePos
+    {
+        get;
+        private set;
+    }
+
+    public void GamePosChange(GamePos gamePos)
+    {
+        GamePos= gamePos;
+        switch (GamePos)
+        {
+            case GamePos.Up:
+                Camera.main.transform.DOMove(new Vector3(0f, 4.6f, -8f), 1f).SetEase(Ease.InOutExpo);
+                break;
+            case GamePos.Down:
+                Camera.main.transform.DOMove(new Vector3(0f, -4.2f, -8f), 1f).SetEase(Ease.InOutExpo);
+                break;
+            case GamePos.Left:
+                Camera.main.transform.DOMove(new Vector3(-19.2f, 4.6f, -8f), 1f).SetEase(Ease.InOutExpo);
+                break;
+            case GamePos.Right:
+                Camera.main.transform.DOMove(new Vector3(19.2f, 4.6f, -8f), 1f).SetEase(Ease.InOutExpo);
+                break;
+        }
+    }
+}

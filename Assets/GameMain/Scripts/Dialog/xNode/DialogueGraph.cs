@@ -1,3 +1,4 @@
+using System.Reflection;
 using UnityEngine;
 using XNode;
 
@@ -8,5 +9,17 @@ public class DialogueGraph : NodeGraph
     {
         get;
         set;
+    }
+
+    public Node GetStartNode()
+    {
+        foreach (Node node in nodes)
+        {
+            if (node.GetType().ToString() == "StartNode")
+            {
+                return node;
+            }
+        }
+        return null;
     }
 }

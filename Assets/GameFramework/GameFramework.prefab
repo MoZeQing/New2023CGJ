@@ -254,7 +254,17 @@ MonoBehaviour:
   m_CustomEntityHelper: {fileID: 0}
   m_EntityGroupHelperTypeName: UnityGameFramework.Runtime.DefaultEntityGroupHelper
   m_CustomEntityGroupHelper: {fileID: 0}
-  m_EntityGroups: []
+  m_EntityGroups:
+  - m_Name: Coffee
+    m_InstanceAutoReleaseInterval: 60
+    m_InstanceCapacity: 16
+    m_InstanceExpireTime: 60
+    m_InstancePriority: 0
+  - m_Name: Cat
+    m_InstanceAutoReleaseInterval: 60
+    m_InstanceCapacity: 16
+    m_InstanceExpireTime: 60
+    m_InstancePriority: 0
 --- !u!1 &116470
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,6 +276,7 @@ GameObject:
   - component: {fileID: 433714}
   - component: {fileID: 11499388}
   - component: {fileID: 11463816}
+  - component: {fileID: 978315666}
   m_Layer: 0
   m_Name: GameFramework
   m_TagString: Untagged
@@ -302,14 +313,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EditorResourceMode: 1
-  m_EditorLanguage: 0
+  m_EditorLanguage: 8
   m_VersionHelperTypeName: UnityGameFramework.Runtime.DefaultVersionHelper
   m_LogHelperTypeName: UnityGameFramework.Runtime.DefaultLogHelper
   m_CompressionHelperTypeName: UnityGameFramework.Runtime.DefaultCompressionHelper
   m_JsonHelperTypeName: UnityGameFramework.Runtime.DefaultJsonHelper
   m_FrameRate: 30
   m_GameSpeed: 1
-  m_RunInBackground: 1
+  m_RunInBackground: 0
   m_NeverSleep: 1
 --- !u!114 &11463816
 MonoBehaviour:
@@ -327,6 +338,18 @@ MonoBehaviour:
   m_LoadAssetCountPerFrame: 1
   m_MinLoadAssetRandomDelaySeconds: 0
   m_MaxLoadAssetRandomDelaySeconds: 0
+--- !u!114 &978315666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 116470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34a77610ac3436248b858cec4af13b19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &118246
 GameObject:
   m_ObjectHideFlags: 0
@@ -621,8 +644,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 959bca2b68d03954897f38b1dbb00303, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AvailableProcedureTypeNames: []
-  m_EntranceProcedureTypeName: 
+  m_AvailableProcedureTypeNames:
+  - GameFrameworkExample.ProcedureExample
+  - GameMain.ProcedureAdventure
+  - GameMain.ProcedureChangeScene
+  - GameMain.ProcedureInitResources
+  - GameMain.ProcedureLaunch
+  - GameMain.ProcedureMain
+  - GameMain.ProcedureMenu
+  - GameMain.ProcedurePreload
+  - GameMain.ProcedureSplash
+  m_EntranceProcedureTypeName: GameMain.ProcedureLaunch
 --- !u!1 &140694
 GameObject:
   m_ObjectHideFlags: 0
@@ -669,14 +701,29 @@ MonoBehaviour:
   m_EnablePlaySoundUpdateEvent: 0
   m_EnablePlaySoundDependencyAssetEvent: 0
   m_InstanceRoot: {fileID: 0}
-  m_AudioMixer: {fileID: 0}
+  m_AudioMixer: {fileID: 24100000, guid: 2d5e3f7651df7b0468a8ddad2e6aed63, type: 2}
   m_SoundHelperTypeName: UnityGameFramework.Runtime.DefaultSoundHelper
   m_CustomSoundHelper: {fileID: 0}
   m_SoundGroupHelperTypeName: UnityGameFramework.Runtime.DefaultSoundGroupHelper
   m_CustomSoundGroupHelper: {fileID: 0}
   m_SoundAgentHelperTypeName: UnityGameFramework.Runtime.DefaultSoundAgentHelper
   m_CustomSoundAgentHelper: {fileID: 0}
-  m_SoundGroups: []
+  m_SoundGroups:
+  - m_Name: Sound
+    m_AvoidBeingReplacedBySamePriority: 0
+    m_Mute: 0
+    m_Volume: 0.5
+    m_AgentHelperCount: 4
+  - m_Name: BGM
+    m_AvoidBeingReplacedBySamePriority: 0
+    m_Mute: 0
+    m_Volume: 0.5
+    m_AgentHelperCount: 2
+  - m_Name: Voice
+    m_AvoidBeingReplacedBySamePriority: 0
+    m_Mute: 0
+    m_Volume: 0.5
+    m_AgentHelperCount: 2
 --- !u!1 &151938
 GameObject:
   m_ObjectHideFlags: 0
@@ -820,7 +867,9 @@ MonoBehaviour:
   m_CustomUIFormHelper: {fileID: 0}
   m_UIGroupHelperTypeName: UnityGameFramework.Runtime.DefaultUIGroupHelper
   m_CustomUIGroupHelper: {fileID: 0}
-  m_UIGroups: []
+  m_UIGroups:
+  - m_Name: Default
+    m_Depth: 0
 --- !u!1 &176370
 GameObject:
   m_ObjectHideFlags: 0
@@ -1043,7 +1092,93 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ae4d40d7e878bc498492dc9c410d071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EnableStrictCheck: 0
+  m_EnableStrictCheck: 3
+--- !u!1 &789719944
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 789719945}
+  - component: {fileID: 789719946}
+  m_Layer: 0
+  m_Name: Dialog
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &789719945
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789719944}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7834783850337708273}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &789719946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789719944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 436039f63e3b79540b886fa00283bff6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &807732007
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 807732008}
+  - component: {fileID: 807732009}
+  m_Layer: 0
+  m_Name: Cat
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &807732008
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 807732007}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7834783850337708273}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &807732009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 807732007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 264f2e9cd7e058d47b67399b153c5caf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3345061919287022868
 GameObject:
   m_ObjectHideFlags: 0
@@ -1072,6 +1207,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6081680458071627041}
+  - {fileID: 789719945}
+  - {fileID: 807732008}
   m_Father: {fileID: 433714}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1168,4 +1305,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35f7b61a17559314b8011a95310951ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeSprites: []
+  nodeSprites:
+  - {fileID: 21300000, guid: a3b82bbce975b96439586426efe2c3e4, type: 3}
+  - {fileID: 21300000, guid: b2638e588aa2c5f4cbba658af440747e, type: 3}
+  - {fileID: 21300000, guid: a047e99bbae5c694f84909b8478e3b7e, type: 3}
+  - {fileID: 21300000, guid: 6c84f3cc1d5ab2a41b286503e590b74b, type: 3}
+  - {fileID: 21300000, guid: 4066fd16a2e5c654d86141f8e3e7713d, type: 3}
+  - {fileID: 21300000, guid: 67ee189b8f248f7469000d5486f1250b, type: 3}
+  - {fileID: 21300000, guid: 21bd3b22d11feaf4bb34f6a8ee7722f4, type: 3}
+  - {fileID: 21300000, guid: 624ec6be8c8fc53418d34a9c2f61c386, type: 3}
+  - {fileID: 21300000, guid: ac6f01335627b9141bd37c769624d308, type: 3}
+  - {fileID: 21300000, guid: 89a6052b40f018c41a0cb1ecec781c55, type: 3}
+  - {fileID: 21300000, guid: 49d93f78a70a6c44bb7d17777c8c819f, type: 3}
+  - {fileID: 21300000, guid: 5c9184eaf1f55a743975703da850432e, type: 3}
+  - {fileID: 21300000, guid: 4a18e408e1435b447b1a26353b84d865, type: 3}
+  - {fileID: 21300000, guid: 3477a76102ffe4f47977ace10f8b30dc, type: 3}
+  - {fileID: 21300000, guid: fd9fbf101e5e84941b6d7e5ad50cc311, type: 3}
+  - {fileID: 21300000, guid: 061e70b66271cbe4ea9ebf792f43500a, type: 3}
+  - {fileID: 0}
+  - {fileID: 21300000, guid: d0bab641fdc55e84592227648eeb4c02, type: 3}
+  - {fileID: 21300000, guid: f786c81680858c94a968d40291604fdd, type: 3}
+  - {fileID: 21300000, guid: ec2327326ed06c74c9f25587acf8c291, type: 3}
+  - {fileID: 21300000, guid: ed850b819748dbb428cf8fe29eccc3e5, type: 3}
+  - {fileID: 21300000, guid: 3435cbe702338ca40ab5168142247aa6, type: 3}
+  - {fileID: 21300000, guid: 8aca970161a94f24d94f3cb6d8efaaea, type: 3}
+  - {fileID: 21300000, guid: d91d111a778dcf54e8573ee0668f99b2, type: 3}
+  - {fileID: 21300000, guid: 89689670639783d4c8a9f2dc4da8f934, type: 3}
+  - {fileID: 21300000, guid: 9fa475d7a47a6f440a5c12ded0782078, type: 3}
+  - {fileID: 21300000, guid: a5b45de133ba05a4db302a7ae885d8c7, type: 3}
+  - {fileID: 21300000, guid: 593b8aeda236e8641a59bbd51debe204, type: 3}
+  - {fileID: 21300000, guid: 6860eb8d26bcf484eaaa689b59a937f4, type: 3}
+  - {fileID: 21300000, guid: 6c3e5ff15753ea94f9fdeb9a4bdc44ae, type: 3}
+  - {fileID: 21300000, guid: a5215f1544241b34ebd84c0e8703ab19, type: 3}
+  - {fileID: 21300000, guid: 3f2d45caf02ee0c458a5f8c18f0a6be5, type: 3}
+  - {fileID: 21300000, guid: e22c1cbbd9404434c822a6b768269c89, type: 3}
+  - {fileID: 21300000, guid: 30b9c445c2e98674780b785f456991d4, type: 3}
+  changeSprites:
+  - {fileID: 21300000, guid: 475fe0332287e074d911fada4cff0da2, type: 3}
+  - {fileID: 21300000, guid: 91182baf989c6de47884d669568a35d8, type: 3}
+  - {fileID: 21300000, guid: d0881df7d89291a45a274724532f324f, type: 3}
+  - {fileID: 21300000, guid: f598ba45e405f524fb31810f54c15eb4, type: 3}
+  - {fileID: 21300000, guid: 6dae1bed7d2569a4390bec4d13a9c3b6, type: 3}
+  - {fileID: 21300000, guid: 1576d91b20db4574ebbecc5cea1c8c80, type: 3}
+  - {fileID: 21300000, guid: fa5de42ea0f1cc244b962e3a9088637f, type: 3}
+  - {fileID: 21300000, guid: 18fd10d353002b041bf30382ac09aad9, type: 3}
+  - {fileID: 21300000, guid: d5bce60f45a5d0445aa5f406d7f98eb9, type: 3}
+  - {fileID: 21300000, guid: d992f9ce9a30c0740b1b27fb727c9e0a, type: 3}
+  - {fileID: 21300000, guid: fd06c111727be1f45ac4c0d03ccf2f1e, type: 3}
+  pickUp: 0
