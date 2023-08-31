@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2023-07-23 20:03:34.969
+// 生成时间：2023-08-29 21:27:17.599
 //------------------------------------------------------------
 
 using GameFramework;
@@ -99,6 +99,24 @@ namespace GameMain
             private set;
         }
 
+        /// <summary>
+        /// 获取价格。
+        /// </summary>
+        public int Price
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取描述。
+        /// </summary>
+        public string Description
+        {
+            get;
+            private set;
+        }
+
         public override bool ParseDataRow(string dataRowString, object userData)
         {
             string[] columnStrings = dataRowString.Split(DataTableExtension.DataSplitSeparators);
@@ -118,6 +136,8 @@ namespace GameMain
             ProducingTime = float.Parse(columnStrings[index++]);
             Layer = columnStrings[index++];
             Layerint = int.Parse(columnStrings[index++]);
+            Price = int.Parse(columnStrings[index++]);
+            Description = columnStrings[index++];
 
             GeneratePropertyArray();
             return true;
@@ -137,6 +157,8 @@ namespace GameMain
                     ProducingTime = binaryReader.ReadSingle();
                     Layer = binaryReader.ReadString();
                     Layerint = binaryReader.Read7BitEncodedInt32();
+                    Price = binaryReader.Read7BitEncodedInt32();
+                    Description = binaryReader.ReadString();
                 }
             }
 

@@ -24,10 +24,17 @@ namespace GameMain
             set;
         }
 
-        public static OrderEventArgs Create(OrderData orderData)
+        public int Income
+        {
+            get;
+            set;
+        }
+
+        public static OrderEventArgs Create(OrderData orderData,int income)
         {
             OrderEventArgs args = ReferencePool.Acquire<OrderEventArgs>();
             args.OrderData = orderData;
+            args.Income = income;
             return args;
         }
 

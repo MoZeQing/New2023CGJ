@@ -18,22 +18,9 @@ namespace GameMain
             }
         }
 
-        public MainState MainState
-        {
-            get;
-            set;
-        }
-        public LevelData LevelData
-        {
-            get;
-            set;
-        }
-
-        public static LevelEventArgs Create(MainState mainState, LevelData levelData)
+        public static LevelEventArgs Create()
         {
             LevelEventArgs args = ReferencePool.Acquire<LevelEventArgs>();
-            args.MainState = mainState;
-            args.LevelData = levelData;
             return args;
         }
 

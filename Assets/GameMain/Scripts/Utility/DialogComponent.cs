@@ -18,9 +18,9 @@ namespace GameMain
             set;
         }
 
-        private void Start()
+        private void OnEnable()
         {
-            stories= new List<StorySO>(Resources.LoadAll<StorySO>("StoryData"));
+            stories = new List<StorySO>(Resources.LoadAll<StorySO>("StoryData"));
         }
 
         public bool StoryUpdate()

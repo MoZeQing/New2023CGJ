@@ -15,24 +15,62 @@ namespace GameMain
         [SerializeField] private Transform canvas;
         [SerializeField] private GameObject orderPre;
 
+        private List<OrderData> finishOrders= new List<OrderData>();
+
+        private bool mIsShowItem = true;
+
+        public bool IsShowItem
+        {
+            get
+            {
+                return mIsShowItem;
+            }
+            set
+            {
+                if (!value) nowTime = 9999f;
+                mIsShowItem = value;
+            }
+        }
+
         private void OnEnable()
         {
             GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, ShowOrderSuccess);
             GameEntry.Event.Subscribe(OrderEventArgs.EventId, OnOrderEvent);
-
-            Invoke(nameof(ShowItem), 2f);
-            Invoke(nameof(ShowItem), 4f);
-            Invoke(nameof(ShowItem), 6f);
-            Invoke(nameof(ShowItem), 8f);
-            Invoke(nameof(ShowItem), 10f);
+            GameEntry.Event.Subscribe(LevelEventArgs.EventId, OnLevelEvent);
         }
-        private void ShowItem() => ShowItem(new OrderData());
+
         private void OnDisable()
         {
             GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, ShowOrderSuccess);
             GameEntry.Event.Unsubscribe(OrderEventArgs.EventId, OnOrderEvent);
+            GameEntry.Event.Unsubscribe(LevelEventArgs.EventId, OnLevelEvent);
         }
 
+        private float nowTime=0f;
+        private float rateTime=2f;
+
+        private void Update()
+        {
+            if (!mIsShowItem) 
+                return;
+            nowTime -= Time.deltaTime;
+            if (nowTime <= 0)
+            {
+                ShowItem();
+                nowTime = rateTime;
+            }
+        }
+        public void ShowItem()
+        {
+            OrderData orderData = new OrderData();
+            orderData.NodeTag = (NodeTag)Random.Range(15, 22);
+            orderData.OrderTime = 10f;
+            orderData.Sugar = Random.Range(0, 2) == 1;
+            orderData.CondensedMilk = Random.Range(0, 2) == 1;
+            orderData.Salt = Random.Range(0, 2) == 1;
+            orderData.NodeName = orderData.NodeTag.ToString();
+            ShowItem(orderData);
+        }
         public void ShowItem(List<OrderData> orderDatas)
         {
             foreach (OrderData orderData in orderDatas) 
@@ -42,6 +80,8 @@ namespace GameMain
         }
         public void ShowItem(OrderData orderData)
         {
+            if (!IsShowItem)
+                return;
             if (orders.Count >= 4)
                 return;
             GameEntry.Entity.ShowOrder(new OrderItemData(GameEntry.Entity.GenerateSerialId(), 10011, orderData)
@@ -50,22 +90,20 @@ namespace GameMain
             });
         }
 
-        public void OnOrderEvent(object sender,GameEventArgs e)
-        {
-            OrderEventArgs args = (OrderEventArgs)e;
-            OrderItem orderItem = (OrderItem)sender;
-            int index = orders.IndexOf(orderItem);
-            orders.Remove(orderItem);
-            GameEntry.Entity.HideEntity(orderItem.Entity);
-            ShowItem(new OrderData());
-        }
-
         private void UpdateList()
         {
             for (int i = 0; i < orders.Count; i++)
             {
                 orders[i].transform.DOMove(plotsCanvas[i].position, 1f).SetEase(Ease.InOutExpo);
             }
+        }
+
+        public void OnOrderEvent(object sender,GameEventArgs e)
+        {
+            OrderEventArgs args = (OrderEventArgs)e;
+            OrderItem orderItem = (OrderItem)sender;
+            int index = orders.IndexOf(orderItem);
+            orders.Remove(orderItem);
         }
 
         private void ShowOrderSuccess(object sender, GameEventArgs e)
@@ -78,6 +116,17 @@ namespace GameMain
                 orders.Add(orderItem);
                 UpdateList();
             }
+        }
+
+        private void OnLevelEvent(object sender, GameEventArgs e)
+        { 
+            LevelEventArgs args= (LevelEventArgs)e;
+            IsShowItem = false;
+            foreach (OrderItem orderItem in orders)
+            {
+                GameEntry.Entity.HideEntity(orderItem.Entity);
+            }
+            orders.Clear();
         }
     }
 
