@@ -45,9 +45,9 @@ namespace GameMain
 
         public void SetOrder(OrderData order)
         {
-            OrderData = order;
-            OrderData.NodeTag = NodeTag.None;
-            GameEntry.Event.Fire(this, OrderEventArgs.Create(mOrderData));//用于更新UI信息的事件，需要保证线程安全
+            //OrderData = order;
+            //OrderData.NodeTag = NodeTag.None;
+            //GameEntry.Event.Fire(this, OrderEventArgs.Create(mOrderData));//用于更新UI信息的事件，需要保证线程安全
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -171,40 +171,16 @@ namespace GameMain
             set;
         }
     }
-
+    [System.Serializable]
     public class OrderData
     {
         //咖啡种类
-        public NodeTag NodeTag
-        {
-            get;
-            set;
-        }
-        public string NodeName
-        {
-            get;
-            set;
-        }
+        public NodeTag NodeTag;
+        public string NodeName;
         //制作咖啡的时间
-        public float OrderTime
-        {
-            get;
-            set;
-        }
-        public bool Sugar
-        {
-            get;
-            set;
-        }
-        public bool CondensedMilk
-        {
-            get;
-            set;
-        }
-        public bool Salt
-        {
-            get;
-            set;
-        }
+        public float OrderTime;
+        public bool Sugar;
+        public bool CondensedMilk;
+        public bool Salt;
     }
 }

@@ -251,22 +251,22 @@ namespace GameMain
                 _values[TriggerTag.Coffee]=mOrderData.NodeTag.ToString();
             }
         }
-        public LevelData LevelData
-        { 
-            get
-            { 
-                return mLevelData;
-            }
-            set
-            { 
-                mLevelData= value;
-                ActionGraph actionGraph = Resources.Load<ActionGraph>(string.Format("ActionData/{0}", mLevelData.ActionGraph));
-                //mCharData = actionGraph.charSO.charData;
+        //public LevelData LevelData
+        //{ 
+        //    get
+        //    { 
+        //        return mLevelData;
+        //    }
+        //    set
+        //    { 
+        //        mLevelData= value;
+        //        ActionGraph actionGraph = Resources.Load<ActionGraph>(string.Format("ActionData/{0}", mLevelData.ActionGraph));
+        //        //mCharData = actionGraph.charSO.charData;
 
-                _values[TriggerTag.Day] = mLevelData.Day.ToString();
-                _values[TriggerTag.Index] = mLevelData.Index.ToString();
-            }
-        }
+        //        _values[TriggerTag.Day] = mLevelData.Day.ToString();
+        //        _values[TriggerTag.Index] = mLevelData.Index.ToString();
+        //    }
+        //}
         public void AddFlag(string flag)
         { 
             if(!_flags.Contains(flag))
@@ -283,31 +283,31 @@ namespace GameMain
         }
         public bool Check(Trigger trigger)
         {
-            if (trigger.key == TriggerTag.Flag)
-                return _flags.Contains(trigger.value);
-            if (trigger == null)
-                return true;
-            if (trigger.And.Count != 0)
-            {
-                foreach (Trigger tr in trigger.And)
-                {
-                    if (!Check(tr))
-                    {
-                        return false;
-                    }
-                }
-            }
-            if (trigger.OR.Count != 0)
-            {
-                foreach (Trigger tr in trigger.OR)
-                {
-                    if (Check(tr))
-                    {
-                        return true;
-                    }
-                }
-                return false;
-            }
+            //if (trigger.key == TriggerTag.Flag)
+            //    return _flags.Contains(trigger.value);
+            //if (trigger == null)
+            //    return true;
+            //if (trigger.And.Count != 0)
+            //{
+            //    foreach (Trigger tr in trigger.And)
+            //    {
+            //        if (!Check(tr))
+            //        {
+            //            return false;
+            //        }
+            //    }
+            //}
+            //if (trigger.OR.Count != 0)
+            //{
+            //    foreach (Trigger tr in trigger.OR)
+            //    {
+            //        if (Check(tr))
+            //        {
+            //            return true;
+            //        }
+            //    }
+            //    return false;
+            //}
             if (trigger.key == TriggerTag.None)
                 return true;
             if (!_values.ContainsKey(trigger.key))

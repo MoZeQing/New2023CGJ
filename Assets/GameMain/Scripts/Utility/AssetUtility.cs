@@ -58,5 +58,10 @@ namespace GameMain
         {
             return Utility.Text.Format("Assets/GameMain/DialogData/{0}.asset", assetName);
         }
+
+        public static string GetRandomDataAsset(string assetName)
+        {
+            return Utility.Text.Format("Assets/GameMain/RandomEvent/{0}.asset", assetName);
+        }
     }
 }

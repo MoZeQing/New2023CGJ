@@ -27,8 +27,25 @@ namespace GameMain
         public NodeTag NodeTag
         {
             get;
-            private set;
+            protected set;
         }
+        public bool Sugar
+        {
+            get;
+            protected set;
+        }
+        public bool CondensedMilk
+        {
+            get;
+            protected set;
+        }
+        public bool Salt
+        {
+            get;
+            protected set;
+        }
+        public List<NodeTag> Materials { get; protected set; }= new List<NodeTag>();
+
         protected SpriteRenderer mSpriteRenderer = null;
         protected SpriteRenderer mShader = null;
         protected BoxCollider2D mBoxCollider2D = null;
@@ -45,6 +62,7 @@ namespace GameMain
             base.OnInit(userData);
             mCompenentData = (CompenentData)userData;
             mNodeData = mCompenentData.NodeData;
+            Materials = mCompenentData.materials;
 
             NodeTag = mCompenentData.NodeData.NodeTag;
             mSpriteRenderer = this.transform.Find("Sprite").GetComponent<SpriteRenderer>();
