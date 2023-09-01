@@ -34,11 +34,18 @@ namespace GameMain
             private set;
         }
 
+        public static SaveLoadComponent SaveLoad
+        {
+            get;
+            private set;    
+        }
+
         private static void InitCustomComponents()
         {
             Utils = UnityGameFramework.Runtime.GameEntry.GetComponent<UtilsComponent>();
             Dialog = UnityGameFramework.Runtime.GameEntry.GetComponent<DialogComponent>();
             Cat = UnityGameFramework.Runtime.GameEntry.GetComponent<CatComponent>();
+            SaveLoad = UnityGameFramework.Runtime.GameEntry.GetComponent<SaveLoadComponent>();
         }
     }
 }

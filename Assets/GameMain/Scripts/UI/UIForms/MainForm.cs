@@ -34,7 +34,11 @@ namespace GameMain
             base.OnOpen(userData);
             leftButton.onClick.AddListener(TurnLeft);
             rightButton.onClick.AddListener(TurnRight);
-            workBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.SettleForm));
+            workBtn.onClick.AddListener(SaveGame);
+        }
+        private void SaveGame()
+        {
+            GameEntry.SaveLoad.SaveGame(0);
         }
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {

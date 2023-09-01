@@ -33,16 +33,48 @@ namespace GameMain
         private Dictionary<TriggerTag,string> _values= new Dictionary<TriggerTag,string>();
         private List<string> _flags= new List<string>();
 
+        private List<WorkData> mWorkDatas= new List<WorkData>();
+
         private CharData mCharData=new CharData();
-        private OrderData mOrderData =new OrderData();
-        private OrderData mSupplyData=new OrderData();
-        private LevelData mLevelData= new LevelData();
         private PlayerData mPlayerData = new PlayerData();
         private OutingSceneState mLocation;
         private TimeTag mTimeTag;
         private Week mWeek;
         private BehaviorTag mBehaviorTag;
 
+        //∑√Œ WorkData
+        public void AddWork(WorkData workData)
+        {
+            mWorkDatas.Add(workData);
+        }
+        public PlayerData PlayerData
+        {
+            get
+            {
+                return mPlayerData;
+            }
+        }
+        public CharData CharData
+        {
+            get
+            {
+                return mCharData;
+            }
+        }
+        public List<string> Flags
+        {
+            get
+            {
+                return _flags;
+            }
+        }
+        public List<WorkData> WorkDatas
+        {
+            get
+            {
+                return mWorkDatas;
+            }
+        }
         public BehaviorTag BehaviorTag
         {
             get
@@ -239,34 +271,6 @@ namespace GameMain
                 GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
             }
         }
-        public OrderData OrderData
-        {
-            get 
-            { 
-                return mOrderData; 
-            }
-            set
-            { 
-                mOrderData= value;
-                _values[TriggerTag.Coffee]=mOrderData.NodeTag.ToString();
-            }
-        }
-        //public LevelData LevelData
-        //{ 
-        //    get
-        //    { 
-        //        return mLevelData;
-        //    }
-        //    set
-        //    { 
-        //        mLevelData= value;
-        //        ActionGraph actionGraph = Resources.Load<ActionGraph>(string.Format("ActionData/{0}", mLevelData.ActionGraph));
-        //        //mCharData = actionGraph.charSO.charData;
-
-        //        _values[TriggerTag.Day] = mLevelData.Day.ToString();
-        //        _values[TriggerTag.Index] = mLevelData.Index.ToString();
-        //    }
-        //}
         public void AddFlag(string flag)
         { 
             if(!_flags.Contains(flag))
@@ -350,6 +354,23 @@ namespace GameMain
                 case EventTag.AddMoney:
                     break;
             }
+        }
+        private void SaveGame(object sender, GameEventArgs e)
+        {
+            SaveGameEventArgs args = (SaveGameEventArgs)e;
+            args.SaveLoadData.charData = mCharData;
+            args.SaveLoadData.playerData = mPlayerData;
+            args.SaveLoadData.flags = _flags;
+            args.SaveLoadData.workDatas = mWorkDatas;
+        }
+
+        private void LoadGame(object sender, GameEventArgs e)
+        {
+            LoadGameEventArgs args = (LoadGameEventArgs)e;
+            mCharData=args.SaveLoadData.charData;
+            mPlayerData= args.SaveLoadData.playerData;
+            _flags= args.SaveLoadData.flags;
+            mWorkDatas=args.SaveLoadData.workDatas;
         }
     }
     [System.Serializable]
