@@ -1,3 +1,4 @@
+using GameFramework.DataTable;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,6 +25,35 @@ namespace GameMain
             //{
             //    Position = new Vector3(6, -4.8f, 0)
             //});
+            /*GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.CoarseGroundCoffee)
+            {
+                Position = new Vector3(6, -4.8f, 0)
+            });
+            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.MidGroundCoffee)
+            {
+                Position = new Vector3(6, -4.8f, 0)
+            });
+            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.FineGroundCoffee)
+            {
+                Position = new Vector3(6, -4.8f, 0)
+            }); GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.ManualGrinder)
+            {
+                Position = new Vector3(6, -4.8f, 0)
+            }); GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.ElectricGrinder)
+            {
+                Position = new Vector3(6, -4.8f, 0)
+            });*/
+            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.CoffeeBean)
+            {
+                Position = this.transform.position,
+                Follow = true
+            });
+            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.ElectricGrinder)
+            {
+                Position = this.transform.position,
+                Follow = true
+            });
+
         }
     }
 }

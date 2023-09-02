@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2023-08-29 21:27:17.667
+// 生成时间：2023-09-02 22:47:24.861
 //------------------------------------------------------------
 
 using GameFramework;
@@ -37,108 +37,36 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取成品名字。
+        /// 获取制作时间。
         /// </summary>
-        public string Product
+        public float ProducingTime
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取咖啡豆。
+        /// 获取制作工具。
         /// </summary>
-        public bool CoffeeBean
+        public string Tool
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取咖啡粉。
+        /// 获取配方表。
         /// </summary>
-        public bool GroundCoffee
+        public List<String> Recipe
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取水。
+        /// 获取成品。
         /// </summary>
-        public bool Water
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取热水。
-        /// </summary>
-        public bool HotWater
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取牛奶。
-        /// </summary>
-        public bool Milk
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取热牛奶。
-        /// </summary>
-        public bool HotMilk
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取奶油。
-        /// </summary>
-        public bool Cream
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取巧克力浆。
-        /// </summary>
-        public bool ChocolateSyrup
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取咖啡液。
-        /// </summary>
-        public bool CoffeeLiquid
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取糖。
-        /// </summary>
-        public bool Sugar
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取浓缩咖啡。
-        /// </summary>
-        public bool Espresso
+        public List<String> Product
         {
             get;
             private set;
@@ -156,18 +84,10 @@ namespace GameMain
             index++;
             m_Id = int.Parse(columnStrings[index++]);
             index++;
-            Product = columnStrings[index++];
-            CoffeeBean = bool.Parse(columnStrings[index++]);
-            GroundCoffee = bool.Parse(columnStrings[index++]);
-            Water = bool.Parse(columnStrings[index++]);
-            HotWater = bool.Parse(columnStrings[index++]);
-            Milk = bool.Parse(columnStrings[index++]);
-            HotMilk = bool.Parse(columnStrings[index++]);
-            Cream = bool.Parse(columnStrings[index++]);
-            ChocolateSyrup = bool.Parse(columnStrings[index++]);
-            CoffeeLiquid = bool.Parse(columnStrings[index++]);
-            Sugar = bool.Parse(columnStrings[index++]);
-            Espresso = bool.Parse(columnStrings[index++]);
+            ProducingTime = float.Parse(columnStrings[index++]);
+            Tool = columnStrings[index++];
+            Recipe = DataTableExtension.ParseListString(columnStrings[index++]);
+            Product = DataTableExtension.ParseListString(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -180,18 +100,10 @@ namespace GameMain
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
-                    Product = binaryReader.ReadString();
-                    CoffeeBean = binaryReader.ReadBoolean();
-                    GroundCoffee = binaryReader.ReadBoolean();
-                    Water = binaryReader.ReadBoolean();
-                    HotWater = binaryReader.ReadBoolean();
-                    Milk = binaryReader.ReadBoolean();
-                    HotMilk = binaryReader.ReadBoolean();
-                    Cream = binaryReader.ReadBoolean();
-                    ChocolateSyrup = binaryReader.ReadBoolean();
-                    CoffeeLiquid = binaryReader.ReadBoolean();
-                    Sugar = binaryReader.ReadBoolean();
-                    Espresso = binaryReader.ReadBoolean();
+                    ProducingTime = binaryReader.ReadSingle();
+                    Tool = binaryReader.ReadString();
+                    Recipe = binaryReader.ReadListString();
+                    Product = binaryReader.ReadListString();
                 }
             }
 

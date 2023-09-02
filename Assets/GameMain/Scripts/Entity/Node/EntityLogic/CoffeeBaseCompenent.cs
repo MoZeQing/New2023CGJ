@@ -105,7 +105,7 @@ namespace GameMain
                             GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, recipe.Product)
                             {
                                 Position = this.transform.position
-                            });
+                            });  
                             BaseCompenent baseCompenent = M_AdsorbSlot.Child;
                             M_AdsorbSlot.Child = null;
                             baseCompenent.Remove();

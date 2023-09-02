@@ -55,7 +55,7 @@ namespace GameMain
 
             RecipeData recipe1 = new RecipeData();
             recipe1.Materials.Add(NodeTag.CoffeeBean);
-            recipe1.Product = NodeTag.GroundCoffee;
+            //recipe1.Product = NodeTag.GroundCoffee;
             recipe1.ProductTime = 10f;
             m_RecipeDatas.Add(recipe1);
         }

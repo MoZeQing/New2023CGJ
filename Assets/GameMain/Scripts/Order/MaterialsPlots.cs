@@ -21,7 +21,7 @@ public class MaterialsPlots : MonoBehaviour,IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, nodeTag)
+        GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.CoffeeBean)
         {
             Position = this.transform.position,
             Follow = true

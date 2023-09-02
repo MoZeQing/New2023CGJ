@@ -7,6 +7,7 @@
 
 using GameFramework.DataTable;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
@@ -86,6 +87,39 @@ namespace GameMain
         {
             string[] splitedValue = value.Split(',');
             return new Vector4(float.Parse(splitedValue[0]), float.Parse(splitedValue[1]), float.Parse(splitedValue[2]), float.Parse(splitedValue[3]));
+        }
+        public static List<NodeTag> ParseListNodeTag(string value)
+        {
+            List<NodeTag> temp = new List<NodeTag>();
+            if (value == "" || value == "empty")
+            {
+                return temp;
+            }
+            string[] values = value.Split(',');
+            foreach (var VarIAble in values)
+            {
+                temp.Add((NodeTag)System.Enum.Parse(typeof(NodeTag), VarIAble));
+            }
+            return temp;
+        }
+        public static NodeTag ParseNodeTag(string value)
+        {
+            return ((NodeTag)System.Enum.Parse(typeof(NodeTag), value));
+        }
+
+        public static List<String> ParseListString(string value)
+        {
+            List<String> temp = new List<String>();
+            if (value == "" || value == "empty")
+            {
+                return temp;
+            }
+            string[] values = value.Split(',');
+            foreach (var VarIAble in values)
+            {
+                temp.Add(VarIAble);
+            }
+            return temp;
         }
     }
 }
