@@ -16,7 +16,7 @@ public class Map : MonoBehaviour,IPointerClickHandler
     private void OnGameStateChange()
     {
         GameEntry.Utils.Location = mOutingSceneState;
-        GameEntry.UI.OpenUIForm((UIFormId)(11 + (int)mOutingSceneState), this);
+        GameEntry.UI.OpenUIForm((UIFormId)(20 + (int)mOutingSceneState), this);
         GameEntry.Dialog.StoryUpdate();
     }
 }

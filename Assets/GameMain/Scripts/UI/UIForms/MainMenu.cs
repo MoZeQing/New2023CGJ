@@ -11,16 +11,32 @@ namespace GameMain
 {
         private ProcedureMenu m_ProcedureMenu;
 
-        [SerializeField] private Button button;
-        [SerializeField] private Button button2;
+        [SerializeField] private Button startBtn;
+        [SerializeField] private Button saveBtn;
+        [SerializeField] private Button loadBtn;
+        [SerializeField] private Button optionBtn;
+        [SerializeField] private Button exitBtn;
 
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
             m_ProcedureMenu = (ProcedureMenu)userData;
 
-            button.onClick.AddListener(m_ProcedureMenu.StartGame);
-            button2.onClick.AddListener(() => UnityGameFramework.Runtime.GameEntry.Shutdown(ShutdownType.Quit));
+            startBtn.onClick.AddListener(m_ProcedureMenu.StartGame);
+            saveBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.SaveForm, this));
+            loadBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.LoadForm, this));
+            optionBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.OptionForm, this));
+            exitBtn.onClick.AddListener(() => UnityGameFramework.Runtime.GameEntry.Shutdown(ShutdownType.Quit));
+        }
+
+        protected override void OnClose(bool isShutdown, object userData)
+        {
+            base.OnClose(isShutdown, userData);
+            startBtn.onClick.RemoveAllListeners();
+            exitBtn.onClick.RemoveAllListeners();
+            loadBtn.onClick.RemoveAllListeners();
+            optionBtn.onClick.RemoveAllListeners();
+            saveBtn.onClick.RemoveAllListeners();
         }
     }
 
