@@ -21,11 +21,8 @@ namespace GameMain
             m_Initialized= false;
             GameEntry.Event.Subscribe(LoadSceneSuccessEventArgs.EventId, LoadSceneSuccess);
             // 还原游戏速度
-            GameEntry.Base.ResetNormalGameSpeed();
-            GameEntry.UI.CloseAllLoadedUIForms();
-            GameEntry.UI.CloseAllLoadingUIForms();          
+        
 
-            InitData();
             ChangeState<ProcedureMain>(procedureOwner);
         }
 
@@ -38,20 +35,6 @@ namespace GameMain
         {
             base.OnLeave(procedureOwner, isShutdown);
             GameEntry.Event.Unsubscribe(LoadSceneSuccessEventArgs.EventId, LoadSceneSuccess);
-        }
-
-        /// <summary>
-        /// 初始化游戏（测试）
-        /// </summary>
-        private void InitData()
-        {
-            GameEntry.Utils.MaxEnergy = 80;
-            GameEntry.Utils.Energy = 80;
-            GameEntry.Utils.MaxAp = 6;
-            GameEntry.Utils.Ap = 6;
-            GameEntry.Utils.Money = 10000;
-            GameEntry.Utils.Mood = 20;
-            GameEntry.Utils.Favor = 0;
         }
 
         private void LoadSceneSuccess(object sender, GameEventArgs e)

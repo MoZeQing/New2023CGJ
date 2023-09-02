@@ -140,7 +140,7 @@ namespace GameMain
             workData.Income += args.Income;
         }
     }
-
+    [System.Serializable]
     public class WorkData
     {
         public int Income

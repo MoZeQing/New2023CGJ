@@ -53,12 +53,20 @@ namespace GameMain
             {
                 return mPlayerData;
             }
+            set 
+            { 
+                mPlayerData= value;
+            }
         }
         public CharData CharData
         {
             get
             {
                 return mCharData;
+            }
+            set
+            {
+                mCharData = value;
             }
         }
         public List<string> Flags
@@ -67,12 +75,20 @@ namespace GameMain
             {
                 return _flags;
             }
+            set
+            { 
+                _flags= value;
+            }
         }
         public List<WorkData> WorkDatas
         {
             get
             {
                 return mWorkDatas;
+            }
+            set
+            {
+                mWorkDatas= value;
             }
         }
         public BehaviorTag BehaviorTag

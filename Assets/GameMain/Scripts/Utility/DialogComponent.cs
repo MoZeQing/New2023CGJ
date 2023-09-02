@@ -64,13 +64,12 @@ namespace GameMain
             args.SaveLoadData.storyData= newStory;
         }
 
-        private void LoadGame(object sender, GameEventArgs e)
+        public void LoadGame(List<string> storyData)
         {
-            LoadGameEventArgs args = (LoadGameEventArgs)e;
             loadedStories.Clear();
             foreach (StorySO storySO in stories)
             {
-                if (args.SaveLoadData.storyData.Contains(storySO.name))
+                if (storyData.Contains(storySO.name))
                 { 
                     loadedStories.Add(storySO);
                 }
