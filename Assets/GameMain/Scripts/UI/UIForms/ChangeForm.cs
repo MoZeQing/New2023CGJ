@@ -22,21 +22,18 @@ namespace GameMain
             base.OnOpen(userData);
             mDuration = 2f;
             mTime = 0;
+            m_Image.color = new Color(1, 1, 1, 3 * mTime / mDuration);
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
             mTime += Time.deltaTime;
-            if (mTime <= mDuration / 3f)
-            {
-                m_Image.color = new Color(1, 1, 1, 3 * mTime / mDuration);
-            }
-            else if (mTime > mDuration / 3f && mTime <= mDuration * 2f / 3f)
+            if (mTime > 0 && mTime <= mDuration/ 2f)
             {
                 m_Image.color = Color.white;
             }
-            else if (mTime > mDuration * 2f / 3f && mTime <= mDuration)
+            else if (mTime > mDuration / 2f  && mTime <= mDuration)
             {
                 m_Image.color = new Color(1, 1, 1,1-( 3 * mTime / mDuration - 2));
             }

@@ -371,22 +371,10 @@ namespace GameMain
                     break;
             }
         }
-        private void SaveGame(object sender, GameEventArgs e)
+        public void UpdateData()
         {
-            SaveGameEventArgs args = (SaveGameEventArgs)e;
-            args.SaveLoadData.charData = mCharData;
-            args.SaveLoadData.playerData = mPlayerData;
-            args.SaveLoadData.flags = _flags;
-            args.SaveLoadData.workDatas = mWorkDatas;
-        }
-
-        private void LoadGame(object sender, GameEventArgs e)
-        {
-            LoadGameEventArgs args = (LoadGameEventArgs)e;
-            mCharData=args.SaveLoadData.charData;
-            mPlayerData= args.SaveLoadData.playerData;
-            _flags= args.SaveLoadData.flags;
-            mWorkDatas=args.SaveLoadData.workDatas;
+            GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
+            GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
         }
     }
     [System.Serializable]

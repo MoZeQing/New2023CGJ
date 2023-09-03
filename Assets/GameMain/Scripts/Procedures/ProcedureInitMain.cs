@@ -21,14 +21,18 @@ namespace GameMain
             m_Initialized= false;
             GameEntry.Event.Subscribe(LoadSceneSuccessEventArgs.EventId, LoadSceneSuccess);
             // 还原游戏速度
-        
-
-            ChangeState<ProcedureMain>(procedureOwner);
         }
 
         protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
+
+            if (GameEntry.Scene.GetLoadedSceneAssetNames().Length == 0 &&
+                GameEntry.Scene.GetLoadingSceneAssetNames().Length == 0)
+            {
+                ChangeState<ProcedureMain>(procedureOwner);
+            }
+
         }
 
         protected override void OnLeave(IFsm<IProcedureManager> procedureOwner, bool isShutdown)

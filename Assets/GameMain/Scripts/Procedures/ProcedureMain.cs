@@ -14,7 +14,8 @@ namespace GameMain
     public class ProcedureMain : ProcedureBase
     {
         private MainState mMainState;
-        private bool mDialog = false;  
+        private bool mDialog = false;
+        private string sceneName;
 
         public GamePos GamePos
         {
@@ -27,7 +28,7 @@ namespace GameMain
             mMainState = MainState.Teach;
             GameEntry.Utils.Location = OutingSceneState.Home;
             GameEntry.UI.OpenUIForm(UIFormId.MainForm, this);
-            //GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, LoadCatSuccess);
+            GameEntry.Event.Subscribe(LoadSceneSuccessEventArgs.EventId, LoadSceneSuccess);
             GameEntry.Event.Subscribe(MainStateEventArgs.EventId, MainStateEvent);
             IDataTable<DRScene> dtScene = GameEntry.DataTable.GetDataTable<DRScene>();
             DRScene drScene = dtScene.GetDataRow(2);
@@ -38,6 +39,7 @@ namespace GameMain
                 return;
             }
             //场景加载
+            sceneName = AssetUtility.GetSceneAsset(drScene.AssetName);
             GameEntry.Scene.LoadScene(AssetUtility.GetSceneAsset(drScene.AssetName), /*Constant.AssetPriority.SceneAsset*/0, this);
         }
         protected override void OnLeave(IFsm<IProcedureManager> procedureOwner, bool isShutdown)
@@ -52,6 +54,8 @@ namespace GameMain
             {
                 GameEntry.Scene.UnloadScene(loadedSceneAssetNames[i]);
             }
+            //等待场景加载后手动初始化一下数据
+            GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
         }
         protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
@@ -84,10 +88,11 @@ namespace GameMain
             MainStateEventArgs args= (MainStateEventArgs)e;
             mMainState = args.MainState;
         }
-        private void GamePosEvent(object sender, GameEventArgs args)
+        private void LoadSceneSuccess(object sender, GameEventArgs e)
         {
-            GamePosEventArgs gamePos = (GamePosEventArgs)args;
-            GamePos = gamePos.GamePos;
+            LoadSceneSuccessEventArgs args = (LoadSceneSuccessEventArgs)e;
+            if (args.SceneAssetName == sceneName)
+                GameEntry.Utils.UpdateData();
         }
     }
     /// <summary>
