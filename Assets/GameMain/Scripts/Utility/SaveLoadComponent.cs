@@ -47,7 +47,7 @@ namespace GameMain
             LoadGame();
             if (mSaveLoadData[index] == null)
             {
-                Debug.LogError("错误，不存在该存档文件");
+                Debug.LogWarning("错误，不存在该存档文件");
                 return null;
             }
             SaveLoadData saveLoadData = mSaveLoadData[index];

@@ -108,6 +108,9 @@ namespace GameMain
                 case BehaviorTag.Sleep:
                     triggers = mActionNode.Sleep;
                     break;
+                case BehaviorTag.Morning:
+                    triggers = mActionNode.Morning;
+                    break;
             }
             if (behaviorTag != BehaviorTag.Sleep)
             {

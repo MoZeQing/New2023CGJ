@@ -40,6 +40,7 @@ namespace GameMain
             GameEntry.Utils.Money = 10000;
             GameEntry.Utils.Mood = 20;
             GameEntry.Utils.Favor = 0;
+            GameEntry.Dialog.LoadGame();
         }
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {

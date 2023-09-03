@@ -75,5 +75,10 @@ namespace GameMain
                 }
             }
         }
+
+        public void LoadGame()
+        {
+            loadedStories = stories;
+        }
     }
 }

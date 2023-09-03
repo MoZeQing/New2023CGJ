@@ -16,15 +16,12 @@ namespace GameMain
         [Header("固定区域")]
         [SerializeField] private Button leftButton;
         [SerializeField] private Button rightButton;
-        [SerializeField] private Button catButton;
-        [SerializeField] private Button recipeButton;
-        [SerializeField] private Button settingButton;
-        [SerializeField] private Text dayText;
-        [SerializeField] private Text levelText;
-        [SerializeField] private Transform workingTrans;
+        [SerializeField] private Text timeText;
         [SerializeField] private Transform mCanvas;
-        [Header("外挂")]
-        [SerializeField] private Button workBtn;
+        [Header("主控")]
+        [SerializeField] private Button loadBtn;
+        [SerializeField] private Button saveBtn;
+        [SerializeField] private Button optionBtn;
         private PlaySoundParams playSoundParams = PlaySoundParams.Create();
         private int m_RandomValue;
         private GamePos mGamePos=GamePos.Up;
@@ -34,11 +31,11 @@ namespace GameMain
             base.OnOpen(userData);
             leftButton.onClick.AddListener(TurnLeft);
             rightButton.onClick.AddListener(TurnRight);
-            workBtn.onClick.AddListener(SaveGame);
-        }
-        private void SaveGame()
-        {
-            GameEntry.SaveLoad.SaveGame(0);
+            loadBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.LoadForm, this));
+            saveBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.SaveForm, this));
+            optionBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.OptionForm, this));
+
+            GameEntry.Event.Subscribe(PlayerDataEventArgs.EventId, OnPlayerDataEvent);
         }
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
@@ -47,6 +44,11 @@ namespace GameMain
         protected override void OnClose(bool isShutdown, object userData)
         {
             base.OnClose(isShutdown, userData);
+            loadBtn.onClick.RemoveAllListeners();
+            saveBtn.onClick.RemoveAllListeners();
+            optionBtn.onClick.RemoveAllListeners();
+
+            GameEntry.Event.Unsubscribe(PlayerDataEventArgs.EventId, OnPlayerDataEvent);
         }
         private void TurnLeft()
         {
@@ -76,6 +78,13 @@ namespace GameMain
                     leftButton.interactable = true;
                     break;
             }
+        }
+
+        private void OnPlayerDataEvent(object sender, GameEventArgs e)
+        {
+            PlayerDataEventArgs args = (PlayerDataEventArgs)e;
+            PlayerData playerData= args.PlayerData;
+            timeText.text = string.Format("第{0}天", playerData.day);
         }
     }
 }
