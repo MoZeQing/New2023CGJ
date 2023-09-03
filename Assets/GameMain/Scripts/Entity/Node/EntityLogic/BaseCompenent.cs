@@ -65,6 +65,7 @@ namespace GameMain
         protected List<NodeTag> mMaterials = new List<NodeTag>();
         protected List<NodeTag> mRecipe = new List<NodeTag>();
         protected List<NodeTag> mProduct = new List<NodeTag>();
+        protected List<NodeTag> mcheckRecipe = new List<NodeTag>();
         protected bool flag = false;
         protected NodeTag Tool = NodeTag.None;
         protected float mProducingTime = 0f;
@@ -144,11 +145,21 @@ namespace GameMain
             {
                 this.transform.DOMove(Parent.transform.position+Vector3.up*0.5f, 0.1f);//Îü¸½½Úµã
             }
-            if(Parent==null&&Child!=null)
-            {
-                mMaterials = GenerateMaterialList();
-            }
+            
+            mMaterials = GenerateMaterialList();
             Compound(dtRecipe);
+            if(!(Parent == null&&Child!=null))
+            {
+                Tool = NodeTag.None;
+                mProducingTime = 0;
+                mTime = 0f;
+                mRecipe.Clear();
+                mProduct.Clear();
+                mProgressBar.gameObject.SetActive(false);
+                mProgressBar.transform.SetLocalScaleX(1);
+                flag = false;
+            }
+
             mProgressBarRenderer.sortingOrder = mSpriteRenderer.sortingOrder + 1;
         }
         protected Vector3 MouseToWorld(Vector3 mousePos)
@@ -343,6 +354,7 @@ namespace GameMain
                             {
                                     flag = true;
                                     mProduct = TransToEnumList(drRecipe.Product);
+                                    mcheckRecipe = mRecipe;
                                     mProducingTime = drRecipe.ProducingTime;
                                     mTime = drRecipe.ProducingTime;
                             }
@@ -355,6 +367,17 @@ namespace GameMain
                 mProgressBar.gameObject.SetActive(true);
                 mProgressBar.transform.SetLocalScaleX(1 - (1 - mProducingTime / mTime));
                 mProducingTime -= Time.deltaTime;
+                if(!(mcheckRecipe.SequenceEqual(mMaterials)))
+                {
+                    Tool = NodeTag.None;
+                    mProducingTime = 0;
+                    mTime = 0f;
+                    mRecipe.Clear();
+                    mProduct.Clear();
+                    mProgressBar.gameObject.SetActive(false);
+                    mProgressBar.transform.SetLocalScaleX(1);
+                    flag = false;
+                }
 
                 if (mProducingTime <= 0)
                 {
@@ -368,10 +391,21 @@ namespace GameMain
                             Position = this.transform.position
                         });
                     }
-
-                    BaseCompenent baseCompenent = Child;
-                    Child = null;
-                    baseCompenent.Remove();
+                    if (Child != null)
+                    {
+                        List<BaseCompenent>mMaterialBaseCompenet= new List<BaseCompenent>();
+                        BaseCompenent child = Child;
+                        while (child != null)
+                        {
+                            mMaterialBaseCompenet.Add(child);
+                            child = child.Child;
+                        }
+                        for (int i = 0; i < mMaterialBaseCompenet.Count; i++)
+                        {
+                            mMaterialBaseCompenet[i].Remove();
+                        }
+                        Child = null;
+                    }
                     Tool = NodeTag.None;
                     mProducingTime = 0;
                     mTime = 0f;
