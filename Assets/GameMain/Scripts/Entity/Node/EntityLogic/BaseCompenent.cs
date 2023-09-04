@@ -148,17 +148,9 @@ namespace GameMain
             
             mMaterials = GenerateMaterialList();
             Compound(dtRecipe);
-            if(!(Parent == null&&Child!=null))
-            {
-                Tool = NodeTag.None;
-                mProducingTime = 0;
-                mTime = 0f;
-                mRecipe.Clear();
-                mProduct.Clear();
-                mProgressBar.gameObject.SetActive(false);
-                mProgressBar.transform.SetLocalScaleX(1);
-                flag = false;
-            }
+            Debug.Log(mMaterials.Count);
+            Debug.Log(mcheckRecipe.Count);
+            
 
             mProgressBarRenderer.sortingOrder = mSpriteRenderer.sortingOrder + 1;
         }
@@ -367,16 +359,31 @@ namespace GameMain
                 mProgressBar.gameObject.SetActive(true);
                 mProgressBar.transform.SetLocalScaleX(1 - (1 - mProducingTime / mTime));
                 mProducingTime -= Time.deltaTime;
-                if(!(mcheckRecipe.SequenceEqual(mMaterials)))
+                if(mcheckRecipe.Count!=mMaterials.Count)
                 {
                     Tool = NodeTag.None;
                     mProducingTime = 0;
                     mTime = 0f;
                     mRecipe.Clear();
                     mProduct.Clear();
+                    mcheckRecipe.Clear();
                     mProgressBar.gameObject.SetActive(false);
                     mProgressBar.transform.SetLocalScaleX(1);
                     flag = false;
+                    return;
+                }
+                if (!(Parent == null && Child != null))
+                {
+                    Tool = NodeTag.None;
+                    mProducingTime = 0;
+                    mTime = 0f;
+                    mRecipe.Clear();
+                    mProduct.Clear();
+                    mcheckRecipe.Clear();
+                    mProgressBar.gameObject.SetActive(false);
+                    mProgressBar.transform.SetLocalScaleX(1);
+                    flag = false;
+                    return;
                 }
 
                 if (mProducingTime <= 0)
@@ -388,8 +395,9 @@ namespace GameMain
                         Debug.Log(mProduct.Count);
                         GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, mProduct[i])
                         {
-                            Position = this.transform.position
-                        });
+                            Position = new Vector2(this.transform.position.x + 5, this.transform.position.y),
+                            Follow = true
+                        }); ;
                     }
                     if (Child != null)
                     {
@@ -413,6 +421,7 @@ namespace GameMain
                     mProduct.Clear();
                     mProgressBar.gameObject.SetActive(false);
                     flag = false;
+                    return;
                 }
             }
         }
