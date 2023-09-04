@@ -166,6 +166,26 @@ namespace GameMain
         {
             entityComponent.ShowEntity(typeof(OrderItem), "Order", 90, data);
         }
+        public static void ShowElectricGrinderNode(this EntityComponent entityComponent, CompenentData compenentData)
+        {
+            entityComponent.ShowEntity(typeof(ElectricGrinderNode), "Coffee", 90, compenentData);
+        }
+        public static void ShowManualGrinderNode(this EntityComponent entityComponent, CompenentData compenentData)
+        {
+            entityComponent.ShowEntity(typeof(ManualGrinderNode), "Coffee", 90, compenentData );
+        }
+        public static void ShowCoarseGroundCoffeeNode(this EntityComponent entityComponent, CompenentData compenentData)
+        {
+            entityComponent.ShowEntity(typeof(CoarseGroundCoffeeNode), "Coffee", 90, compenentData);
+        }
+        public static void ShowMidGroundCoffeeNode(this EntityComponent entityComponent, CompenentData compenentData)
+        {
+            entityComponent.ShowEntity(typeof(MidGroundCoffeeNode), "Coffee", 90, compenentData);
+        }
+        public static void ShowFineGroundCoffeeNode(this EntityComponent entityComponent, CompenentData compenentData)
+        {
+            entityComponent.ShowEntity(typeof(FineGroundCoffeeNode), "Coffee", 90, compenentData);
+        }
         private static void ShowEntity(this EntityComponent entityComponent, Type logicType, string entityGroup, int priority, EntityData data)
         {
             if (data == null)

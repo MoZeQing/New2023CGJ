@@ -1,6 +1,10 @@
 using DG.Tweening;
+using GameFramework.DataTable;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityGameFramework.Runtime;
@@ -48,15 +52,25 @@ namespace GameMain
 
         protected SpriteRenderer mSpriteRenderer = null;
         protected SpriteRenderer mShader = null;
+        protected SpriteRenderer mProgressBarRenderer = null;
         protected BoxCollider2D mBoxCollider2D = null;
         //当抓取时鼠标与中心点的差距
         protected Vector3 mMouseGap;
         protected NodeData mNodeData = null;
         protected CompenentData mCompenentData = null;
-
+        protected Transform mProgressBar = null;
         protected float mLength = 2f;
-
         protected List<BaseCompenent>  mCompenents= new List<BaseCompenent>();
+        protected IDataTable<DRRecipe> dtRecipe = GameEntry.DataTable.GetDataTable<DRRecipe>();
+        protected List<NodeTag> mMaterials = new List<NodeTag>();
+        protected List<NodeTag> mRecipe = new List<NodeTag>();
+        protected List<NodeTag> mProduct = new List<NodeTag>();
+        protected List<NodeTag> mcheckRecipe = new List<NodeTag>();
+        protected bool flag = false;
+        protected NodeTag Tool = NodeTag.None;
+        protected float mProducingTime = 0f;
+        protected float mTime = 0f;
+        protected DRRecipe drRecipe = null;
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
@@ -66,13 +80,13 @@ namespace GameMain
 
             NodeTag = mCompenentData.NodeData.NodeTag;
             mSpriteRenderer = this.transform.Find("Sprite").GetComponent<SpriteRenderer>();
-            mShader = this.transform.Find("Shader").GetComponent<SpriteRenderer>();
             mSpriteRenderer.size = new Vector2(1.6f, 2.7f);
+            mShader = this.transform.Find("Shader").GetComponent<SpriteRenderer>();
+            mProgressBar = this.transform.Find("ProgressBar").GetComponent<Transform>();
+            mProgressBarRenderer = this.transform.Find("ProgressBar").GetComponent<SpriteRenderer>();
 
             mBoxCollider2D = this.GetComponent<BoxCollider2D>();
             mBoxCollider2D.size = mSpriteRenderer.size;
-            
-            Debug.Log(mSpriteRenderer.size);
 
             if (mNodeData.Follow)
             {
@@ -87,7 +101,7 @@ namespace GameMain
             }
             if (mNodeData.Jump)
             {
-                Vector3 newPos = (Vector3)Random.insideUnitCircle;
+                Vector3 newPos = (Vector3)UnityEngine.Random.insideUnitCircle;
                 this.transform.DOMove(mNodeData.Position + newPos * mLength, 0.5f).SetEase(Ease.OutExpo);
             }
         }
@@ -123,6 +137,7 @@ namespace GameMain
                 //卡牌的移动和卡牌被拿起来的效果是放在不一样的层级上面的
                 Producing = false;
             }
+            
             this.transform.position = new Vector3(Mathf.Clamp(this.transform.position.x, -8.8f, 8.8f), Mathf.Clamp(this.transform.position.y, -8f, -1.6f), 0);//限制范围
             //if (Parent == null)
             //    SpriteRenderer.sortingOrder = 0;
@@ -130,6 +145,22 @@ namespace GameMain
             {
                 this.transform.DOMove(Parent.transform.position+Vector3.up*0.5f, 0.1f);//吸附节点
             }
+            
+            mMaterials = GenerateMaterialList();
+            Compound(dtRecipe);
+            if(!(Parent == null&&Child!=null))
+            {
+                Tool = NodeTag.None;
+                mProducingTime = 0;
+                mTime = 0f;
+                mRecipe.Clear();
+                mProduct.Clear();
+                mProgressBar.gameObject.SetActive(false);
+                mProgressBar.transform.SetLocalScaleX(1);
+                flag = false;
+            }
+
+            mProgressBarRenderer.sortingOrder = mSpriteRenderer.sortingOrder + 1;
         }
         protected Vector3 MouseToWorld(Vector3 mousePos)
         {
@@ -292,6 +323,111 @@ namespace GameMain
                 Child.Parent=null;
             GameEntry.Entity.HideEntity(this.transform.parent.GetComponent<BaseNode>().NodeData.Id);
         }
+        public NodeTag TransToEnum(string value)
+        {
+           return (NodeTag)Enum.Parse(typeof(NodeTag), value);
+        }
+
+        public List<NodeTag> TransToEnumList(List<string> valueList)
+        {
+            List<NodeTag> temp = new List<NodeTag>();
+            foreach (var VarIAble in valueList)
+            {
+                temp.Add((NodeTag)Enum.Parse(typeof(NodeTag), VarIAble));
+            }
+            return temp;
+        }
+        public void Compound(IDataTable<DRRecipe> dtRecipe)
+        {  
+            if (!flag)
+            {
+                for (int i = 0; i < 6; i++)
+                {
+                    drRecipe = dtRecipe.GetDataRow(i);
+                    mRecipe = TransToEnumList(drRecipe.Recipe);
+                    Tool = TransToEnum(drRecipe.Tool);
+                    if (Parent == null && Child != null)
+                    {
+                        if (NodeTag == Tool)
+                        {
+                            if (mRecipe.SequenceEqual(mMaterials))
+                            {
+                                    flag = true;
+                                    mProduct = TransToEnumList(drRecipe.Product);
+                                    mcheckRecipe = mRecipe;
+                                    mProducingTime = drRecipe.ProducingTime;
+                                    mTime = drRecipe.ProducingTime;
+                            }
+                        }
+                    }
+                }
+            }
+            if(flag)
+            {
+                mProgressBar.gameObject.SetActive(true);
+                mProgressBar.transform.SetLocalScaleX(1 - (1 - mProducingTime / mTime));
+                mProducingTime -= Time.deltaTime;
+                if(!(mcheckRecipe.SequenceEqual(mMaterials)))
+                {
+                    Tool = NodeTag.None;
+                    mProducingTime = 0;
+                    mTime = 0f;
+                    mRecipe.Clear();
+                    mProduct.Clear();
+                    mProgressBar.gameObject.SetActive(false);
+                    mProgressBar.transform.SetLocalScaleX(1);
+                    flag = false;
+                }
+
+                if (mProducingTime <= 0)
+                {
+
+
+                    for (int i = 0; i < mProduct.Count; i++)
+                    {
+                        Debug.Log(mProduct.Count);
+                        GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, mProduct[i])
+                        {
+                            Position = this.transform.position
+                        });
+                    }
+                    if (Child != null)
+                    {
+                        List<BaseCompenent>mMaterialBaseCompenet= new List<BaseCompenent>();
+                        BaseCompenent child = Child;
+                        while (child != null)
+                        {
+                            mMaterialBaseCompenet.Add(child);
+                            child = child.Child;
+                        }
+                        for (int i = 0; i < mMaterialBaseCompenet.Count; i++)
+                        {
+                            mMaterialBaseCompenet[i].Remove();
+                        }
+                        Child = null;
+                    }
+                    Tool = NodeTag.None;
+                    mProducingTime = 0;
+                    mTime = 0f;
+                    mRecipe.Clear();
+                    mProduct.Clear();
+                    mProgressBar.gameObject.SetActive(false);
+                    flag = false;
+                }
+            }
+        }
+        public  List<NodeTag> GenerateMaterialList()
+        {
+            List<NodeTag> Material = new List<NodeTag>();
+            BaseCompenent child = Child;
+            while (child != null)
+            {
+                Material.Add(child.NodeTag);
+                child = child.Child;
+            }
+            return Material;
+        }
+
     }
 
     public enum NodeState
@@ -305,4 +441,6 @@ namespace GameMain
         //被选中
         PitchOn
     }
+
+    
 }

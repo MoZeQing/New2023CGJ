@@ -49,7 +49,7 @@ namespace GameMain
             m_ProgressBar.gameObject.SetActive(false);
 
             RecipeData recipe1 = new RecipeData();
-            recipe1.Materials.Add(NodeTag.GroundCoffee);
+            //recipe1.Materials.Add(NodeTag.GroundCoffee);
             recipe1.Materials.Add(NodeTag.HotWater);
             recipe1.Product = NodeTag.CoffeeLiquid;
             recipe1.ProductTime = 10f;

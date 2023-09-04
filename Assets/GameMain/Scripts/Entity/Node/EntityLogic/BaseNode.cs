@@ -32,8 +32,14 @@ namespace GameMain
                 case NodeTag.CoffeeBean:
                     GameEntry.Entity.ShowCoffeeBeanNode(data);
                     break;
-                case NodeTag.GroundCoffee:
-                    GameEntry.Entity.ShowGroundCoffeeNode(data);
+                case NodeTag.CoarseGroundCoffee:
+                    GameEntry.Entity.ShowCoarseGroundCoffeeNode(data);
+                    break;
+                case NodeTag.MidGroundCoffee:
+                    GameEntry.Entity.ShowMidGroundCoffeeNode(data);
+                    break;
+                case NodeTag.FineGroundCoffee:
+                    GameEntry.Entity.ShowFineGroundCoffeeNode(data);
                     break;
                 case NodeTag.Water:
                     GameEntry.Entity.ShowWaterNode(data);
@@ -84,9 +90,11 @@ namespace GameMain
                     GameEntry.Entity.ShowConPannaNode(ConPanna);
                     break;
                     //¹¤¾ß
-                case NodeTag.Burnisher:
-                    CompenentData burnisher = new CompenentData(GameEntry.Entity.GenerateSerialId(), 10003, this.Id, NodeData);
-                    GameEntry.Entity.ShowBurnisherNode(burnisher);
+                case NodeTag.ManualGrinder:
+                    GameEntry.Entity.ShowManualGrinderNode(data);
+                    break;
+                case NodeTag.ElectricGrinder:
+                    GameEntry.Entity.ShowElectricGrinderNode(data);
                     break;
                 case NodeTag.Kettle:
                     CompenentData kettle = new CompenentData(GameEntry.Entity.GenerateSerialId(), 10002, this.Id, NodeData);

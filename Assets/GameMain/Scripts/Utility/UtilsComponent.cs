@@ -15,7 +15,7 @@ namespace GameMain
         public OutingSceneState outSceneState;
         public List<Sprite> nodeSprites = new List<Sprite>();
         public List<Sprite> nodeImage= new List<Sprite>();
-        //¹æ¶¨£¬µÚ0ÕÅÄ¬ÈÏÊÇºÚÆÁÇÐ»»£¨¼´Ã¿Ò»¶ÎÖ®¼äµÄÇÐ»»£©£¬µÚ1ÕÅ¿ªÊ¼ÔòÊÇÃ¿Ò»ÌìµÄÇÐ»»
+        //ï¿½æ¶¨ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½Ä¬ï¿½ï¿½ï¿½Çºï¿½ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿Ò»ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½Å¿ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ã¿Ò»ï¿½ï¿½ï¿½ï¿½Ð»ï¿½
         public List<Sprite> changeSprites= new List<Sprite>();
 
         public bool pickUp = false;
@@ -29,7 +29,7 @@ namespace GameMain
             }
         }
 
-        //Êý¾Ý¹ÜÀíÆ÷²¿·Ö
+        //ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         private Dictionary<TriggerTag,string> _values= new Dictionary<TriggerTag,string>();
         private List<string> _flags= new List<string>();
 
@@ -42,7 +42,7 @@ namespace GameMain
         private Week mWeek;
         private BehaviorTag mBehaviorTag;
 
-        //·ÃÎÊWorkData
+        //ï¿½ï¿½ï¿½ï¿½WorkData
         public void AddWork(WorkData workData)
         {
             mWorkDatas.Add(workData);
@@ -142,7 +142,7 @@ namespace GameMain
                 _values[TriggerTag.Location] = mLocation.ToString();
             }
         }
-        //·ÃÎÊPlayerData
+        //ï¿½ï¿½ï¿½ï¿½PlayerData
         public int Money
         {
             get
@@ -221,7 +221,7 @@ namespace GameMain
                 GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
             }
         }
-        //·ÃÎÊCharData
+        //ï¿½ï¿½ï¿½ï¿½CharData
         public int Mood
         {
             get
@@ -341,7 +341,7 @@ namespace GameMain
             }
             else
             {
-                if (trigger.not)//ÅÐ¶ÏÖÁÉÙ
+                if (trigger.not)//ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½
                 {
                     if (int.Parse(_values[trigger.key]) > int.Parse(trigger.value))
                         return false;

@@ -1,14 +1,10 @@
-#	Recipe配置文件													
-#	ID		Product	CoffeeBean	GroundCoffee	Water	HotWater	Milk	HotMilk	Cream	ChocolateSyrup	CoffeeLiquid	Sugar	Espresso
-#	int	string	string	bool	bool	bool	bool	bool	bool	bool	bool	bool	bool	bool
-#	成品ID	策划备注	成品名字	咖啡豆	咖啡粉	水	热水	牛奶	热牛奶	奶油	巧克力浆	咖啡液	糖	浓缩咖啡
-	0	浓缩咖啡	Espresso	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	FALSE
-	1	美式咖啡	CafeAmericano	FALSE	FALSE	TRUE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE
-	2	白咖啡	WhiteCoffee	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE
-	3	拿铁	Latte	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	FALSE	FALSE	FALSE	TRUE
-	4	摩卡	Mocha	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	FALSE	TRUE
-	5	康宝蓝	ConPanna	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	FALSE	FALSE	TRUE
-	6	热水	HotWater	FALSE	FALSE	TRUE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE
-	7	热牛奶	HotMilk	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE
-	8	咖啡粉	GroundCoffee	TRUE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE
-	9	咖啡液	CoffeeLiquid	FALSE	TRUE	FALSE	TRUE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE
+#	Recipe配置文件					
+#	ID		ProducingTime	Tool	Recipe	Product
+#	int	string	float	string	List<String>	List<String>
+#	成品ID	策划备注	制作时间	制作工具	配方表	成品
+	0	粗咖啡粉	10	ManualGrinder	CoffeeBean	CoarseGroundCoffee
+	1	中咖啡粉	10	ManualGrinder	CoarseGroundCoffee	MidGroundCoffee
+	2	细缩咖啡	10	ManualGrinder	MidGroundCoffee	FineGroundCoffee
+	3	粗咖啡粉	6	ElectricGrinder	"CoffeeBean,CoffeeBean"	CoarseGroundCoffee
+	4	中咖啡粉	6	ElectricGrinder	CoarseGroundCoffee	MidGroundCoffee
+	5	细缩咖啡	6	ElectricGrinder	MidGroundCoffee	FineGroundCoffee

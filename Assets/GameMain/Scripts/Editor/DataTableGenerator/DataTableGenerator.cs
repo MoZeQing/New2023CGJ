@@ -168,7 +168,23 @@ namespace GameMain.Editor.DataTableTools
                 }
                 else
                 {
-                    stringBuilder.AppendFormat("            {0} = DataTableExtension.Parse{1}(columnStrings[index++]);", dataTableProcessor.GetName(i), dataTableProcessor.GetType(i).Name).AppendLine();
+                    if (dataTableProcessor.GetLanguageKeyword(i)=="List<NodeTag>")
+                    {
+                        stringBuilder.AppendFormat("            {0} = DataTableExtension.Parse{1}(columnStrings[index++]);", dataTableProcessor.GetName(i),"ListNodeTag") .AppendLine();
+                    }
+                    else if(dataTableProcessor.GetLanguageKeyword(i) == "NodeTag")
+                    {
+                        stringBuilder.AppendFormat("            {0} = DataTableExtension.Parse{1}(columnStrings[index++]);", dataTableProcessor.GetName(i), "NodeTag").AppendLine();
+                    }
+                    else if (dataTableProcessor.GetLanguageKeyword(i) == "List<String>")
+                    {
+                        stringBuilder.AppendFormat("            {0} = DataTableExtension.Parse{1}(columnStrings[index++]);", dataTableProcessor.GetName(i), "ListString").AppendLine();
+                    }
+                    else
+                    {
+                        stringBuilder.AppendFormat("            {0} = DataTableExtension.Parse{1}(columnStrings[index++]);", dataTableProcessor.GetName(i), dataTableProcessor.GetType(i).Name).AppendLine();
+                    }
+                    
                 }
             }
 
@@ -206,7 +222,23 @@ namespace GameMain.Editor.DataTableTools
                 }
                 else
                 {
-                    stringBuilder.AppendFormat("                    {0} = binaryReader.Read{1}();", dataTableProcessor.GetName(i), dataTableProcessor.GetType(i).Name).AppendLine();
+                    if (dataTableProcessor.GetLanguageKeyword(i) == "List<NodeTag>")
+                    {
+                        stringBuilder.AppendFormat("                    {0} = binaryReader.Read{1}();", dataTableProcessor.GetName(i), "ListNodeTag").AppendLine();
+                    }
+                    else if(dataTableProcessor.GetLanguageKeyword(i) == "NodeTag")
+                    {
+                        stringBuilder.AppendFormat("                    {0} = binaryReader.Read{1}();", dataTableProcessor.GetName(i), "NodeTag").AppendLine();
+                    }
+                    else if(dataTableProcessor.GetLanguageKeyword(i) == "List<String>")
+                    {
+                        stringBuilder.AppendFormat("                    {0} = binaryReader.Read{1}();", dataTableProcessor.GetName(i), "ListString").AppendLine();
+                    }
+                    else
+                    {
+                        stringBuilder.AppendFormat("                    {0} = binaryReader.Read{1}();", dataTableProcessor.GetName(i), dataTableProcessor.GetType(i).Name).AppendLine();
+                    }
+                    
                 }
             }
 

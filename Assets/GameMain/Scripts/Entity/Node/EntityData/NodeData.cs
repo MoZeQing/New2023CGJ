@@ -65,7 +65,9 @@ namespace GameMain
     {
         //材料
         CoffeeBean,//咖啡豆
-        GroundCoffee,//咖啡粉
+        CoarseGroundCoffee,//粗咖啡粉
+        MidGroundCoffee,//中咖啡粉
+        FineGroundCoffee,//细咖啡粉
         Water,//水
         HotWater,//热水
         Milk,//牛奶
@@ -76,7 +78,8 @@ namespace GameMain
         Sugar,//糖
         Ice,//冰
         //工具
-        Burnisher,//研磨器
+        ManualGrinder,//手动研磨器
+        ElectricGrinder,//电动研磨器
         Kettle,//加热壶
         FilterBowl,//滤纸式滤杯
         Cup,//咖啡杯
@@ -102,7 +105,6 @@ namespace GameMain
         SweetLatte,//加糖拿铁
         SweetCafeAmericano,//加糖美式咖啡
         SweetMocha,//加糖摩卡
-
         None
     }
 }

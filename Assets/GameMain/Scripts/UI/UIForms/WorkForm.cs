@@ -35,7 +35,7 @@ namespace GameMain
         private void Start()
         {
             workData.Income= 0;
-            levelTime= 180;//3·ÖÖÓ
+            levelTime= 180;//3ï¿½ï¿½ï¿½ï¿½
             nowTime = levelTime;
             isSpecial = false;
             isDialog = false;
