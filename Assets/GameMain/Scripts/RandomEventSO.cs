@@ -12,7 +12,7 @@ public class RandomEventSO : ScriptableObject
 [System.Serializable]
 public class RandomEvent
 {
-    public Trigger trigger;
+    public ParentTrigger trigger;
     public string text;
     public GameMain.CharData charData;
     public PlayerData playerData;

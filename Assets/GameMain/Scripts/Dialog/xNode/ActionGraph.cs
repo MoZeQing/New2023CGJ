@@ -9,7 +9,7 @@ public class ActionGraph : NodeGraph {
 	[SerializeField]
 	public CharSO charSO;
 	[SerializeField]
-	public Trigger trigger;
+	public ParentTrigger trigger;
 
 	public ActionNode ActionNode()
 	{

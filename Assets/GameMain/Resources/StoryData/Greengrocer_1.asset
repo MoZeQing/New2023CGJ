@@ -15,8 +15,28 @@ MonoBehaviour:
   isRemove: 1
   outingSceneState: 1
   trigger:
-    key: 9
+    key: 11
     not: 0
     equals: 0
-    value: 7
+    value: 1
+    and:
+    - key: 10
+      not: 0
+      equals: 0
+      value: 1
+      and: []
+      or:
+      - key: 10
+        not: 0
+        equals: 0
+        value: 100
+        and: []
+        or: []
+      - key: 10
+        not: 0
+        equals: 0
+        value: 1
+        and: []
+        or: []
+    or: []
   dialogueGraph: {fileID: 11400000, guid: 6dfa9ade4c1e9914d85ac9e2d0bd3605, type: 2}

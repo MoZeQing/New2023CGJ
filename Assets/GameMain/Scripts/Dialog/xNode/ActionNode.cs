@@ -8,27 +8,27 @@ using XNode;
 public class ActionNode : Node {
     public PlayerData ClickData;
     [SerializeField, Output(dynamicPortList = true)]
-    public List<Trigger> Click;
+    public List<ParentTrigger> Click;
 
     public PlayerData TalkData;
     [SerializeField, Output(dynamicPortList = true)]
-    public List<Trigger> Talk;
+    public List<ParentTrigger> Talk;
 
     public PlayerData TouchData;
     [SerializeField, Output(dynamicPortList = true)]
-    public List<Trigger> Touch;
+    public List<ParentTrigger> Touch;
 
     public PlayerData PlayData;
     [SerializeField, Output(dynamicPortList = true)]
-    public List<Trigger> Play;
+    public List<ParentTrigger> Play;
 
     public PlayerData SleepData;
     [SerializeField, Output(dynamicPortList = true)]
-    public List<Trigger> Sleep;
+    public List<ParentTrigger> Sleep;
 
     public PlayerData MorningData;
     [SerializeField, Output(dynamicPortList = true)]
-    public List<Trigger> Morning;
+    public List<ParentTrigger> Morning;
     // Use this for initialization
     protected override void Init() {
 		base.Init();

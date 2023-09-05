@@ -9,7 +9,7 @@ public class LevelSO : ScriptableObject
     [SerializeField]
     public Week week;
     [SerializeField]
-    public Trigger trigger;
+    public ParentTrigger trigger;
     [SerializeField]
     public LevelData levelData;
 }

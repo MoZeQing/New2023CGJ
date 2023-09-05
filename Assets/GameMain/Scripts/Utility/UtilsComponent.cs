@@ -303,31 +303,31 @@ namespace GameMain
         }
         public bool Check(Trigger trigger)
         {
-            //if (trigger.key == TriggerTag.Flag)
-            //    return _flags.Contains(trigger.value);
-            //if (trigger == null)
-            //    return true;
-            //if (trigger.And.Count != 0)
-            //{
-            //    foreach (Trigger tr in trigger.And)
-            //    {
-            //        if (!Check(tr))
-            //        {
-            //            return false;
-            //        }
-            //    }
-            //}
-            //if (trigger.OR.Count != 0)
-            //{
-            //    foreach (Trigger tr in trigger.OR)
-            //    {
-            //        if (Check(tr))
-            //        {
-            //            return true;
-            //        }
-            //    }
-            //    return false;
-            //}
+            if (trigger.key == TriggerTag.Flag)
+                return _flags.Contains(trigger.value);
+            if (trigger == null)
+                return true;
+            if (trigger.GetAndTrigger().Count != 0)
+            {
+                foreach (Trigger tr in trigger.GetAndTrigger())
+                {
+                    if (!Check(tr))
+                    {
+                        return false;
+                    }
+                }
+            }
+            if (trigger.GetOrTrigger().Count != 0)
+            {
+                foreach (Trigger tr in trigger.GetOrTrigger())
+                {
+                    if (Check(tr))
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
             if (trigger.key == TriggerTag.None)
                 return true;
             if (!_values.ContainsKey(trigger.key))

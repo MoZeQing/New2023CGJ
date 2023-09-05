@@ -87,7 +87,7 @@ namespace GameMain
         public void Behaviour(BehaviorTag behaviorTag)
         {
             mBehaviorTag = behaviorTag;
-            List<Trigger> triggers = new List<Trigger>();
+            List<ParentTrigger> triggers = new List<ParentTrigger>();
             PlayerData playerData = new PlayerData();
             switch (behaviorTag)
             {
