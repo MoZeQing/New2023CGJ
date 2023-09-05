@@ -20,7 +20,7 @@ namespace GameMain
         public void StartGame()
         {           
             InitData();
-            GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Teach));
+            GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Change));
         }
 
         public void ExitGame()
@@ -72,7 +72,6 @@ namespace GameMain
                 case MainState.Undefined:
                     break;
                 case MainState.Teach:
-                    ChangeState<ProcedureMain>(procedureOwner);
                     //ÇÐ»»bgm
                     break;
                 case MainState.Work:
@@ -83,6 +82,9 @@ namespace GameMain
                     break;
                 case MainState.Outing:
                     //ÇÐ»»bgm
+                    break;
+                case MainState.Change:
+                    ChangeState<ProcedureInitMain>(procedureOwner);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

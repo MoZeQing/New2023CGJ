@@ -56,7 +56,7 @@ namespace GameMain
             GameEntry.Utils.Flags = saveLoadData.flags;
             GameEntry.Utils.WorkDatas = saveLoadData.workDatas;
             GameEntry.Dialog.LoadGame(saveLoadData.storyData);
-            GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Teach));
+            GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Change));
             LoadData();
         }
     }

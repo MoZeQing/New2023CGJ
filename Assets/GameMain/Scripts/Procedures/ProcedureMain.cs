@@ -47,6 +47,7 @@ namespace GameMain
             base.OnLeave(procedureOwner, isShutdown);
             //GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, LoadCatSuccess);
             GameEntry.Event.Unsubscribe(MainStateEventArgs.EventId, MainStateEvent);
+            GameEntry.Event.Unsubscribe(LoadSceneSuccessEventArgs.EventId, LoadSceneSuccess);
             GameEntry.UI.CloseUIGroup("Default");
             GameEntry.UI.CloseAllLoadingUIForms();
             string[] loadedSceneAssetNames = GameEntry.Scene.GetLoadedSceneAssetNames();
@@ -79,6 +80,9 @@ namespace GameMain
                 case MainState.Outing:
                     //ÇÐ»»bgm
                     break;
+                case MainState.Change:
+                    ChangeState<ProcedureInitMain>(procedureOwner);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -105,7 +109,8 @@ namespace GameMain
         Teach,
         Menu,
         Outing,
-        Dialog
+        Dialog,
+        Change
     }
 
     public enum TimeTag
