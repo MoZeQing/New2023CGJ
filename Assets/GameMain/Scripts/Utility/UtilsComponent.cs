@@ -386,7 +386,7 @@ namespace GameMain
         public int maxAp;
         public int ap;
         public int day;
-        public List<Item> items=new List<Item>();
+        public List<ItemData> items=new List<ItemData>();
         //public int time;
     }
 }

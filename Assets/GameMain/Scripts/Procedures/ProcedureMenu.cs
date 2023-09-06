@@ -41,6 +41,15 @@ namespace GameMain
             GameEntry.Utils.Mood = 20;
             GameEntry.Utils.Favor = 0;
             GameEntry.Dialog.LoadGame();
+            IDataTable<DRItem> items= GameEntry.DataTable.GetDataTable<DRItem>();
+            foreach (DRItem item in items) 
+            {
+                ItemData itemData = new ItemData();
+                itemData.itemInfo = item.Info;
+                itemData.price= item.Price;
+                itemData.filterMode = (GameMain.FilterMode)item.FilterMode;
+                GameEntry.Utils.PlayerData.items.Add(itemData);
+            }
         }
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {

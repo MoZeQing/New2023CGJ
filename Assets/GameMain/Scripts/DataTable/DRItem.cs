@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2023-09-06 21:52:55.490
+// 生成时间：2023-09-06 21:52:55.498
 //------------------------------------------------------------
 
 using GameFramework;
@@ -19,14 +19,14 @@ using UnityGameFramework.Runtime;
 namespace GameMain
 {
     /// <summary>
-    /// Node配置文件。
+    /// Item配置文件。
     /// </summary>
-    public class DRNode : DataRowBase
+    public class DRItem : DataRowBase
     {
         private int m_Id = 0;
 
         /// <summary>
-        /// 获取节点ID。
+        /// 获取物品ID。
         /// </summary>
         public override int Id
         {
@@ -34,69 +34,6 @@ namespace GameMain
             {
                 return m_Id;
             }
-        }
-
-        /// <summary>
-        /// 获取资源名称。
-        /// </summary>
-        public string AssetName
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取TRUE。
-        /// </summary>
-        public bool Material
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取FALSE。
-        /// </summary>
-        public bool Tool
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取FALSE。
-        /// </summary>
-        public bool Coffee
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取制作这个成品所需时间。
-        /// </summary>
-        public float ProducingTime
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取所在层。
-        /// </summary>
-        public string Layer
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取所在层级。
-        /// </summary>
-        public int Layerint
-        {
-            get;
-            private set;
         }
 
         /// <summary>
@@ -111,7 +48,16 @@ namespace GameMain
         /// <summary>
         /// 获取描述。
         /// </summary>
-        public string Description
+        public string Info
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取筛选模式。
+        /// </summary>
+        public int FilterMode
         {
             get;
             private set;
@@ -129,15 +75,9 @@ namespace GameMain
             index++;
             m_Id = int.Parse(columnStrings[index++]);
             index++;
-            AssetName = columnStrings[index++];
-            Material = bool.Parse(columnStrings[index++]);
-            Tool = bool.Parse(columnStrings[index++]);
-            Coffee = bool.Parse(columnStrings[index++]);
-            ProducingTime = float.Parse(columnStrings[index++]);
-            Layer = columnStrings[index++];
-            Layerint = int.Parse(columnStrings[index++]);
             Price = int.Parse(columnStrings[index++]);
-            Description = columnStrings[index++];
+            Info = columnStrings[index++];
+            FilterMode = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -150,15 +90,9 @@ namespace GameMain
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
-                    AssetName = binaryReader.ReadString();
-                    Material = binaryReader.ReadBoolean();
-                    Tool = binaryReader.ReadBoolean();
-                    Coffee = binaryReader.ReadBoolean();
-                    ProducingTime = binaryReader.ReadSingle();
-                    Layer = binaryReader.ReadString();
-                    Layerint = binaryReader.Read7BitEncodedInt32();
                     Price = binaryReader.Read7BitEncodedInt32();
-                    Description = binaryReader.ReadString();
+                    Info = binaryReader.ReadString();
+                    FilterMode = binaryReader.Read7BitEncodedInt32();
                 }
             }
 
