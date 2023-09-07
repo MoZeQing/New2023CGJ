@@ -69,7 +69,7 @@ namespace GameMain
             mItems.Clear();
         }
 
-        private void OnClick(ItemData itemData)
+        private void OnClick()
         { 
             //弹出一个确认弹窗
         }

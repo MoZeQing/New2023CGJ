@@ -9,26 +9,38 @@ public class Item : MonoBehaviour
 {
     [SerializeField] private int index;
     [SerializeField] private Image itemImg;
+    [SerializeField] private Image usingImg;
     [SerializeField] private Text itemText;
     [SerializeField] private Text priceText;
     [SerializeField] private Text amountText;
     [SerializeField] private Text itemInfoText;
 
-    public ItemData itemData;
+    private ItemData mItemData;
 
-    private Action<ItemData> mAction;
+    private Action mAction;
 
     public void SetData(ItemData itemData)
     {
+        mItemData = itemData;
         //itemText.text= itemData.itemName.ToString();
         priceText.text = itemData.price.ToString();
         //amountText.text=itemData.itemNum.ToString();
         itemInfoText.text = itemData.itemInfo.ToString();
+        usingImg.gameObject.SetActive(mItemData.equiping);
+        this.GetComponent<Button>().onClick.AddListener(OnClick);
     }
 
-    public void SetClick(Action<ItemData> action)
+    public void SetClick(Action action)
     {
         mAction = action;
+    }
+
+    private void OnClick()
+    {
+        mAction();
+        usingImg.gameObject.SetActive(!usingImg.gameObject.activeSelf);
+        mItemData.equiping = usingImg.gameObject.activeSelf;
+        //·¢ËÍÏûÏ¢
     }
 }
 [System.Serializable]
@@ -39,6 +51,7 @@ public class ItemData
     public int itemNum;
     public int price;
     public GameMain.FilterMode filterMode;
+    public bool equiping;
     [TextArea]
     public string itemInfo;
 }
