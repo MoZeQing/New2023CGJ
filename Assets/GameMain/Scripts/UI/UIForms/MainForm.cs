@@ -36,6 +36,7 @@ namespace GameMain
             optionBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.OptionForm, this));
 
             GameEntry.Event.Subscribe(PlayerDataEventArgs.EventId, OnPlayerDataEvent);
+            GameEntry.Event.Subscribe(MainFormEventArgs.EventId, OnMainFormEvent);
         }
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
@@ -49,6 +50,7 @@ namespace GameMain
             optionBtn.onClick.RemoveAllListeners();
 
             GameEntry.Event.Unsubscribe(PlayerDataEventArgs.EventId, OnPlayerDataEvent);
+            GameEntry.Event.Unsubscribe(MainFormEventArgs.EventId, OnMainFormEvent);
         }
         private void TurnLeft()
         {
@@ -85,6 +87,15 @@ namespace GameMain
             PlayerDataEventArgs args = (PlayerDataEventArgs)e;
             PlayerData playerData= args.PlayerData;
             timeText.text = string.Format("µÚ{0}Ìì", playerData.day);
+        }
+
+        private void OnMainFormEvent(object sender, GameEventArgs e) 
+        {
+            MainFormEventArgs args= (MainFormEventArgs)e;
+            if (args.MainFormTag == MainFormTag.Lock)
+                mCanvas.gameObject.SetActive(false);
+            else
+                mCanvas.gameObject.SetActive(true);
         }
     }
 }

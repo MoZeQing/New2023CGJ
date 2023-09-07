@@ -40,10 +40,6 @@ namespace GameMain
     public enum MainFormTag
     { 
         Lock,
-        Unlock,
-        Up,
-        Down,
-        Left,
-        Right,
+        Unlock
     }
 }

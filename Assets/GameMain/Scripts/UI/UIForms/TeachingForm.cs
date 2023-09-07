@@ -43,6 +43,7 @@ namespace GameMain
         private ActionNode mActionNode = null;
         private BehaviorTag mBehaviorTag;
         private ProcedureMain mProcedureMain = null;
+        private bool InDialog;
         //Dialog区域
         private List<GameObject> m_Btns = new List<GameObject>();
 
@@ -62,12 +63,13 @@ namespace GameMain
         }
         private void Update()
         {
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButtonDown(1)&&!InDialog)
             {
+                GameEntry.Event.FireNow(this, MainFormEventArgs.Create(MainFormTag.Unlock));
                 dialogBox.gameObject.SetActive(false);
                 stage.gameObject.SetActive(false);
                 leftCanvas.gameObject.SetActive(true);
-                rightCanvas.gameObject.SetActive(true);
+                rightCanvas.gameObject.SetActive(false);
                 apTips.gameObject.SetActive(false);
                 energyTips.gameObject.SetActive(false);
                 mLittleCat.ShowLittleCat();
@@ -163,6 +165,7 @@ namespace GameMain
                 ChatNode chatNode = chatNodes[UnityEngine.Random.Range(0, chatNodes.Count)];
                 dialogBox.gameObject.SetActive(true);
                 dialogBox.SetDialog(chatNode);
+                InDialog = true;
                 if (mBehaviorTag == BehaviorTag.Sleep)
                     dialogBox.SetComplete(OnSleep);//回调
                 else if (mBehaviorTag == BehaviorTag.Morning)
@@ -181,6 +184,7 @@ namespace GameMain
         }
         private void OnComplete()
         {
+            InDialog=false;
             dialogBox.gameObject.SetActive(false);
             leftCanvas.gameObject.SetActive(true);
             rightCanvas.gameObject.SetActive(true);
@@ -189,6 +193,8 @@ namespace GameMain
         }
         private void OnSleep()
         {
+            GameEntry.Event.FireNow(this, MainFormEventArgs.Create(MainFormTag.Unlock));
+            InDialog = false;
             GameEntry.Utils.Day++;
             GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, GameEntry.Utils.Day);//用这个this传参来调整黑幕
             mLittleCat.HideLittleCat();
@@ -202,6 +208,7 @@ namespace GameMain
         }
         private void OnChangeDay()
         {
+            InDialog = false;
             if (!GameEntry.Dialog.StoryUpdate())
                 Behaviour(BehaviorTag.Morning);
             else
@@ -229,6 +236,7 @@ namespace GameMain
         //单独给点击做一个方法调用
         public void Click_Action()
         {
+            GameEntry.Event.FireNow(this, MainFormEventArgs.Create(MainFormTag.Lock));
             mLittleCat.ShowLittleCat();
             rightCanvas.gameObject.SetActive(false);
             leftCanvas.gameObject.SetActive(true);

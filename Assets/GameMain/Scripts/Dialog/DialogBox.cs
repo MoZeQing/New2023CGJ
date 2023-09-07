@@ -31,11 +31,6 @@ public class DialogBox : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (Input.GetMouseButtonDown(1))
-        {
-            dialogText.text = string.Empty;
-            nameText.text = string.Empty;
-        }
         if (Input.GetKey(KeyCode.LeftControl))
             Next();
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
