@@ -35,7 +35,9 @@ namespace GameMain
         private void OnExit()
         {
             GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
-            Invoke(nameof(OnGameStateChange), 1f);
+            GameEntry.Utils.outingBefore = false;
+            GameEntry.Dialog.StoryUpdate();
+            OnGameStateChange();
         }
 
         private void OnGameStateChange()

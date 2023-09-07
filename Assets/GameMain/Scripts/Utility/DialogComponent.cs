@@ -41,6 +41,9 @@ namespace GameMain
             {
                 if (GameEntry.Utils.Location != story.outingSceneState)
                     continue;
+                if (GameEntry.Utils.outingBefore != story.outingBefore)
+                    if (GameEntry.Utils.Location == OutingSceneState.Home)
+                        continue;
                 if (GameEntry.Utils.Check(story.trigger))
                 {
                     GameEntry.UI.OpenUIForm(UIFormId.DialogForm, story.dialogueGraph);

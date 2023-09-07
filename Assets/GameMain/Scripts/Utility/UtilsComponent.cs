@@ -42,6 +42,8 @@ namespace GameMain
         private Week mWeek;
         private BehaviorTag mBehaviorTag;
 
+        public bool outingBefore;
+
         //����WorkData
         public void AddWork(WorkData workData)
         {

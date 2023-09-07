@@ -11,6 +11,8 @@ public class StorySO : ScriptableObject
     [SerializeField]
     public OutingSceneState outingSceneState;
     [SerializeField]
+    public bool outingBefore;
+    [SerializeField]
     public ParentTrigger trigger;
     [SerializeField]
     public DialogueGraph dialogueGraph;
