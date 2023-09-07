@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2023-09-06 21:52:55.498
+// 生成时间：2023-09-07 21:13:24.319
 //------------------------------------------------------------
 
 using GameFramework;
@@ -63,6 +63,15 @@ namespace GameMain
             private set;
         }
 
+        /// <summary>
+        /// 获取可被装备。
+        /// </summary>
+        public bool Equipable
+        {
+            get;
+            private set;
+        }
+
         public override bool ParseDataRow(string dataRowString, object userData)
         {
             string[] columnStrings = dataRowString.Split(DataTableExtension.DataSplitSeparators);
@@ -78,6 +87,7 @@ namespace GameMain
             Price = int.Parse(columnStrings[index++]);
             Info = columnStrings[index++];
             FilterMode = int.Parse(columnStrings[index++]);
+            Equipable = bool.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -93,6 +103,7 @@ namespace GameMain
                     Price = binaryReader.Read7BitEncodedInt32();
                     Info = binaryReader.ReadString();
                     FilterMode = binaryReader.Read7BitEncodedInt32();
+                    Equipable = binaryReader.ReadBoolean();
                 }
             }
 

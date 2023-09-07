@@ -26,7 +26,8 @@ public class Item : MonoBehaviour
         priceText.text = itemData.price.ToString();
         //amountText.text=itemData.itemNum.ToString();
         itemInfoText.text = itemData.itemInfo.ToString();
-        usingImg.gameObject.SetActive(mItemData.equiping);
+        if(mItemData.equipable)
+            usingImg.gameObject.SetActive(mItemData.equiping);
         this.GetComponent<Button>().onClick.AddListener(OnClick);
     }
 
@@ -38,8 +39,11 @@ public class Item : MonoBehaviour
     private void OnClick()
     {
         mAction();
-        usingImg.gameObject.SetActive(!usingImg.gameObject.activeSelf);
-        mItemData.equiping = usingImg.gameObject.activeSelf;
+        if (mItemData.equipable)
+        {
+            usingImg.gameObject.SetActive(!usingImg.gameObject.activeSelf);
+            mItemData.equiping = usingImg.gameObject.activeSelf;
+        }
         //·¢ËÍÏûÏ¢
     }
 }
@@ -52,6 +56,7 @@ public class ItemData
     public int price;
     public GameMain.FilterMode filterMode;
     public bool equiping;
+    public bool equipable;
     [TextArea]
     public string itemInfo;
 }

@@ -48,6 +48,7 @@ namespace GameMain
                 itemData.itemInfo = item.Info;
                 itemData.price= item.Price;
                 itemData.filterMode = (GameMain.FilterMode)item.FilterMode;
+                itemData.equipable=item.Equipable;
                 GameEntry.Utils.PlayerData.items.Add(itemData);
             }
         }
