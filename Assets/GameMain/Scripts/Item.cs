@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [System.Serializable]
-public class Item:MonoBehaviour
+public class Item : MonoBehaviour
 {
     [SerializeField] private int index;
     [SerializeField] private Image itemImg;
@@ -19,16 +19,16 @@ public class Item:MonoBehaviour
     private Action<ItemData> mAction;
 
     public void SetData(ItemData itemData)
-    { 
+    {
         //itemText.text= itemData.itemName.ToString();
-        priceText.text= itemData.price.ToString();
+        priceText.text = itemData.price.ToString();
         //amountText.text=itemData.itemNum.ToString();
-        itemInfoText.text=itemData.itemInfo.ToString();
+        itemInfoText.text = itemData.itemInfo.ToString();
     }
 
     public void SetClick(Action<ItemData> action)
-    { 
-        mAction= action;
+    {
+        mAction = action;
     }
 }
 [System.Serializable]
@@ -42,3 +42,4 @@ public class ItemData
     [TextArea]
     public string itemInfo;
 }
+
