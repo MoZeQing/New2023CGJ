@@ -29,7 +29,7 @@ namespace GameMain
 
 
 
-        protected override void OnInit(object userData)
+        /*protected override void OnInit(object userData)
         {
             base.OnInit(userData);
             m_CompenentData = (CompenentData)userData;

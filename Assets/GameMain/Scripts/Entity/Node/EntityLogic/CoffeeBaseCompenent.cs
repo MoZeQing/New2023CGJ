@@ -5,9 +5,9 @@ using UnityEngine.EventSystems;
 
 namespace GameMain
 {
-    public class CoffeeBaseCompenent : Entity, IPointerDownHandler
+    public class CoffeeBaseCompenent : BaseCompenent
     {
-        public bool Follow
+        /*public bool Follow
         {
             get;
             protected set;
@@ -136,5 +136,38 @@ namespace GameMain
             this.ProducingTime = producingTime;
             this.M_RecipeDatas = m_RecipeDatas;
         }*/
+
+        public CoffeeLevel Level
+        {
+            get;
+            set;
+        }
+
+        public CoffeeState State
+        {
+            get;
+            set;
+        }
+
+
+
+
     }
+    public enum CoffeeLevel
+    {
+        C,//低廉
+        B,//普通
+        A,//低廉
+        S,//杰作
+        None//初始
+    }
+
+    public enum CoffeeState
+    {
+        Sweet,//有糖的
+        Icey,//有冰的
+        Condensed,//加炼乳
+        None//初始
+    }
+
 }

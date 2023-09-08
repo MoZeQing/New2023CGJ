@@ -1,17 +1,14 @@
 using DG.Tweening;
 using GameFramework.DataTable;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityGameFramework.Runtime;
 
 namespace GameMain
 {
-    public class BaseCompenent : Entity, IPointerDownHandler,IPointerEnterHandler,IPointerExitHandler,IPointerUpHandler
+    public class BaseCompenent : Entity, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler
     {
         public BaseCompenent Parent
         {
@@ -48,7 +45,7 @@ namespace GameMain
             get;
             protected set;
         }
-        public List<NodeTag> Materials { get; protected set; }= new List<NodeTag>();
+        public List<NodeTag> Materials { get; protected set; } = new List<NodeTag>();
 
         protected SpriteRenderer mSpriteRenderer = null;
         protected SpriteRenderer mShader = null;
@@ -60,13 +57,12 @@ namespace GameMain
         protected CompenentData mCompenentData = null;
         protected Transform mProgressBar = null;
         protected float mLength = 2f;
-        protected List<BaseCompenent>  mCompenents= new List<BaseCompenent>();
+        protected List<BaseCompenent> mCompenents = new List<BaseCompenent>();
         protected IDataTable<DRRecipe> dtRecipe = GameEntry.DataTable.GetDataTable<DRRecipe>();
         protected List<NodeTag> mMaterials = new List<NodeTag>();
         protected List<NodeTag> mRecipe = new List<NodeTag>();
         protected List<NodeTag> mProduct = new List<NodeTag>();
         protected List<NodeTag> mcheckRecipe = new List<NodeTag>();
-        protected bool flag = false;
         protected NodeTag Tool = NodeTag.None;
         protected float mProducingTime = 0f;
         protected float mTime = 0f;
@@ -111,7 +107,7 @@ namespace GameMain
             if (Parent != null)
             {
                 mBoxCollider2D.isTrigger = true;
-                
+
             }
             if (Child == null)
             {
@@ -123,7 +119,7 @@ namespace GameMain
                 mBoxCollider2D.size = new Vector2(1.6f, 0.45f);
                 mBoxCollider2D.offset = new Vector2(0f, -1.1f);
             }
-                
+
             if (!Input.GetMouseButton(0))
             {
                 mNodeData.Follow = false;
@@ -136,22 +132,26 @@ namespace GameMain
                 //this.transform.position=MouseToWorld(Input.mousePosition);
                 //卡牌的移动和卡牌被拿起来的效果是放在不一样的层级上面的
                 Producing = false;
+                Tool = NodeTag.None;
+                mProducingTime = 0;
+                mTime = 0f;
+                mRecipe.Clear();
+                mProduct.Clear();
+                mcheckRecipe.Clear();
+                mProgressBar.gameObject.SetActive(false);
+                mProgressBar.transform.SetLocalScaleX(1);
             }
-            
+
             this.transform.position = new Vector3(Mathf.Clamp(this.transform.position.x, -8.8f, 8.8f), Mathf.Clamp(this.transform.position.y, -8f, -1.6f), 0);//限制范围
             //if (Parent == null)
             //    SpriteRenderer.sortingOrder = 0;
             if (Parent != null && !mNodeData.Follow)
             {
-                this.transform.DOMove(Parent.transform.position+Vector3.up*0.5f, 0.1f);//吸附节点
+                this.transform.DOMove(Parent.transform.position + Vector3.up * 0.5f, 0.1f);//吸附节点
             }
-            
+
             mMaterials = GenerateMaterialList();
             Compound(dtRecipe);
-            Debug.Log(mMaterials.Count);
-            Debug.Log(mcheckRecipe.Count);
-            
-
             mProgressBarRenderer.sortingOrder = mSpriteRenderer.sortingOrder + 1;
         }
         protected Vector3 MouseToWorld(Vector3 mousePos)
@@ -173,7 +173,7 @@ namespace GameMain
             mShader.sortingLayerName = "Controller";
             //播放拿起的声音
             //抬高卡片
-            mMouseGap = MouseToWorld(Input.mousePosition)-this.transform.position;
+            mMouseGap = MouseToWorld(Input.mousePosition) - this.transform.position;
             PickUp();
         }
         public void OnPointerUp(PointerEventData pointerEventData)
@@ -191,8 +191,8 @@ namespace GameMain
             foreach (BaseCompenent baseCompenent in mCompenents)
             {
                 if ((baseCompenent.transform.position - this.transform.position).magnitude < (bestCompenent.transform.position - this.transform.position).magnitude)
-                { 
-                    bestCompenent= baseCompenent;
+                {
+                    bestCompenent = baseCompenent;
                 }
             }
             mCompenents.Clear();
@@ -212,7 +212,7 @@ namespace GameMain
                     return;
             }
             Parent = bestCompenent;
-            Parent.Child= this;
+            Parent.Child = this;
         }
         public void OnPointerEnter(PointerEventData pointerEventData)
         {
@@ -244,15 +244,15 @@ namespace GameMain
         }
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (!mNodeData.Follow) 
+            if (!mNodeData.Follow)
                 return;
             BaseCompenent baseCompenent = null;
             if (!collision.TryGetComponent<BaseCompenent>(out baseCompenent))
                 return;
             if (Parent == baseCompenent)
-            {   
-                Parent.Child= null;
-                Parent = null; 
+            {
+                Parent.Child = null;
+                Parent = null;
             }
             if (mCompenents.Contains(baseCompenent))
             {
@@ -308,16 +308,16 @@ namespace GameMain
                 Child.PutDown();
         }
         public void Remove()
-        { 
-            if(Parent!=null)
-                Parent.Child=null;
-            if(Child!=null)
-                Child.Parent=null;
+        {
+            if (Parent != null)
+                Parent.Child = null;
+            if (Child != null)
+                Child.Parent = null;
             GameEntry.Entity.HideEntity(this.transform.parent.GetComponent<BaseNode>().NodeData.Id);
         }
         public NodeTag TransToEnum(string value)
         {
-           return (NodeTag)Enum.Parse(typeof(NodeTag), value);
+            return (NodeTag)Enum.Parse(typeof(NodeTag), value);
         }
 
         public List<NodeTag> TransToEnumList(List<string> valueList)
@@ -330,8 +330,8 @@ namespace GameMain
             return temp;
         }
         public void Compound(IDataTable<DRRecipe> dtRecipe)
-        {  
-            if (!flag)
+        {
+            if (!Producing)
             {
                 for (int i = 0; i < 6; i++)
                 {
@@ -344,22 +344,22 @@ namespace GameMain
                         {
                             if (mRecipe.SequenceEqual(mMaterials))
                             {
-                                    flag = true;
-                                    mProduct = TransToEnumList(drRecipe.Product);
-                                    mcheckRecipe = mRecipe;
-                                    mProducingTime = drRecipe.ProducingTime;
-                                    mTime = drRecipe.ProducingTime;
+                                Producing = true;
+                                mProduct = TransToEnumList(drRecipe.Product);
+                                mcheckRecipe = mRecipe;
+                                mProducingTime = drRecipe.ProducingTime;
+                                mTime = drRecipe.ProducingTime;
                             }
                         }
                     }
                 }
             }
-            if(flag)
+            else
             {
                 mProgressBar.gameObject.SetActive(true);
                 mProgressBar.transform.SetLocalScaleX(1 - (1 - mProducingTime / mTime));
                 mProducingTime -= Time.deltaTime;
-                if(mcheckRecipe.Count!=mMaterials.Count)
+                if (mcheckRecipe.Count != mMaterials.Count)
                 {
                     Tool = NodeTag.None;
                     mProducingTime = 0;
@@ -369,7 +369,7 @@ namespace GameMain
                     mcheckRecipe.Clear();
                     mProgressBar.gameObject.SetActive(false);
                     mProgressBar.transform.SetLocalScaleX(1);
-                    flag = false;
+                    Producing = false;
                     return;
                 }
                 if (!(Parent == null && Child != null))
@@ -382,7 +382,7 @@ namespace GameMain
                     mcheckRecipe.Clear();
                     mProgressBar.gameObject.SetActive(false);
                     mProgressBar.transform.SetLocalScaleX(1);
-                    flag = false;
+                    Producing = false;
                     return;
                 }
 
@@ -395,13 +395,17 @@ namespace GameMain
                         Debug.Log(mProduct.Count);
                         GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, mProduct[i])
                         {
-                            Position = new Vector2(this.transform.position.x + 5, this.transform.position.y),
+                            Position = this.transform.position,
                             Follow = true
-                        }); ;
+                        });
+                    }
+                    if(this.NodeTag==NodeTag.Cup)
+                    {
+                        this.Remove();
                     }
                     if (Child != null)
                     {
-                        List<BaseCompenent>mMaterialBaseCompenet= new List<BaseCompenent>();
+                        List<BaseCompenent> mMaterialBaseCompenet = new List<BaseCompenent>();
                         BaseCompenent child = Child;
                         while (child != null)
                         {
@@ -412,6 +416,7 @@ namespace GameMain
                         {
                             mMaterialBaseCompenet[i].Remove();
                         }
+                        Child.Remove();
                         Child = null;
                     }
                     Tool = NodeTag.None;
@@ -420,12 +425,12 @@ namespace GameMain
                     mRecipe.Clear();
                     mProduct.Clear();
                     mProgressBar.gameObject.SetActive(false);
-                    flag = false;
+                    Producing = false;
                     return;
                 }
             }
         }
-        public  List<NodeTag> GenerateMaterialList()
+        public List<NodeTag> GenerateMaterialList()
         {
             List<NodeTag> Material = new List<NodeTag>();
             BaseCompenent child = Child;
@@ -437,10 +442,66 @@ namespace GameMain
             return Material;
         }
 
+        public void GenerateCoffeeLevel(CoffeeLevel coffeeLevel, NodeTag nodeTag)
+        {
+            if(LuckyDraw(1000,5))
+            {
+
+            }
+            else
+            {
+                if(coffeeLevel==CoffeeLevel.C)
+                {
+                    if(LuckyDraw(100, 5))
+                    {
+                        if(LuckyDraw(100, 2))
+                        {
+
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                    else
+                    {
+
+                    }
+                }
+                else if(coffeeLevel == CoffeeLevel.B)
+                {
+                    if (LuckyDraw(100, 2))
+                    {
+
+                    }
+                    else
+                    {
+
+                    }
+                }
+                else if (coffeeLevel == CoffeeLevel.A)
+                {
+
+                }
+            }
+        }
+        public bool LuckyDraw(int rangeNum, int checkNum)
+        {
+            int randomNum = 0;
+            randomNum = UnityEngine.Random.Range(0, rangeNum);
+            if (randomNum<checkNum)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 
     public enum NodeState
-    { 
+    {
         //未激活
         InActive,
         //激活
@@ -451,5 +512,5 @@ namespace GameMain
         PitchOn
     }
 
-    
+
 }
