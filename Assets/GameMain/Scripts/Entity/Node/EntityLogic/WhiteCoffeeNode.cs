@@ -25,10 +25,12 @@ namespace GameMain
         private List<NodeTag> m_ChildNodes = new List<NodeTag>();
 
         private bool m_Follow = false;
+    }
+}
 
 
 
-        protected override void OnInit(object userData)
+        /*protected override void OnInit(object userData)
         {
             base.OnInit(userData);
             m_CompenentData = (CompenentData)userData;
@@ -62,4 +64,4 @@ namespace GameMain
             M_RecipeDatas.Add(recipe2);
         }
     }
-}
+}*/

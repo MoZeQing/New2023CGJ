@@ -28,7 +28,7 @@ namespace GameMain
 
 
 
-        protected override void OnInit(object userData)
+        /*protected override void OnInit(object userData)
         {
             base.OnInit(userData);
             m_CompenentData = (CompenentData)userData;
@@ -60,6 +60,6 @@ namespace GameMain
             recipe2.Product = NodeTag.SweetMocha;
             recipe2.ProductTime = 10f;
             M_RecipeDatas.Add(recipe2);
-        }
+        }*/
     }
 }
