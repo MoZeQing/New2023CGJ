@@ -38,6 +38,8 @@ public class ChatData
     public CharData middle; 
     [SerializeField]
     public CharData right;
+    [SerializeField]
+    public Sprite background;
     [TextArea,SerializeField]
     public string text;
 }

@@ -305,8 +305,6 @@ namespace GameMain
         }
         public bool Check(Trigger trigger)
         {
-            if (trigger.key == TriggerTag.Flag)
-                return _flags.Contains(trigger.value);
             if (trigger == null)
                 return true;
             if (trigger.GetAndTrigger().Count != 0)
@@ -332,6 +330,8 @@ namespace GameMain
             }
             if (trigger.key == TriggerTag.None)
                 return true;
+            if (trigger.key == TriggerTag.Flag)
+                return _flags.Contains(trigger.value)!=trigger.not;
             if (!_values.ContainsKey(trigger.key))
                 return false;
             if (trigger.equals)
@@ -370,6 +370,8 @@ namespace GameMain
                 case EventTag.RemoveFlag:
                     break;
                 case EventTag.AddMoney:
+                    break;
+                case EventTag.NextDay:
                     break;
             }
         }

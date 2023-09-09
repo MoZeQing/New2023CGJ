@@ -118,10 +118,14 @@ namespace GameMain
     public enum BehaviorTag
     {
         Click,
-        Talk,
-        Touch,
+        Clean,
         Play,
+        Talk,
+        Bath,
+        TV,
         Story,
+        Touch,
+        Rest,
         Sleep,
         Morning
     }

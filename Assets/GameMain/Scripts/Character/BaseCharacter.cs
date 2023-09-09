@@ -103,7 +103,7 @@ namespace GameMain
         Cry,//¿ÞÆü
         Shy,//º¦Ðß
         Amazed,//¾ªÑÈ
-        Scare//¿Ö¾å
+        Scare,//¿Ö¾å
     }
     //¶¯×÷Tag
     public enum ActionTag

@@ -24,6 +24,8 @@ namespace GameMain
 
         [SerializeField] private Button testBtn;
 
+        [SerializeField] private bool IsGuide;
+
         private List<LevelSO> levelSOs= new List<LevelSO>();
         private LevelData mLevelData;
         private WorkData workData=new WorkData();
@@ -39,6 +41,11 @@ namespace GameMain
             nowTime = levelTime;
             isSpecial = false;
             isDialog = false;
+            if (IsGuide == true)
+            {
+                orderList.IsShowItem = false;
+                isDialog = true;
+            }
         }
 
         private void OnEnable()

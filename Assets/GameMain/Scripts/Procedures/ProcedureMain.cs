@@ -110,7 +110,8 @@ namespace GameMain
         Menu,
         Outing,
         Dialog,
-        Change
+        Change,
+        Guide
     }
 
     public enum TimeTag

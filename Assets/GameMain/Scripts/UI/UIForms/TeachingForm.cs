@@ -24,10 +24,14 @@ namespace GameMain
         [SerializeField] private Text moodText;
         [Header("右侧操作栏")]
         [SerializeField] private Transform rightCanvas;
-        [SerializeField] private Button talkBtn;
-        [SerializeField] private Button touchBtn;
+        [SerializeField] private Button cleanBtn;
         [SerializeField] private Button playBtn;
+        [SerializeField] private Button talkBtn;
+        [SerializeField] private Button bathBtn;
+        [SerializeField] private Button tvBtn;
         [SerializeField] private Button storyBtn;
+        [SerializeField] private Button touchBtn;
+        [SerializeField] private Button restBtn;
         [SerializeField] private Button sleepBtn;
         [Header("主控")]
         [SerializeField] private Transform mainCanvas;
@@ -55,9 +59,14 @@ namespace GameMain
             GameEntry.Event.Subscribe(PlayerDataEventArgs.EventId, PlayerDataEvent);
 
             talkBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Talk));
+            cleanBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Clean));
+            touchBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Touch));
             playBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Play));
             storyBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Story));
             sleepBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Sleep));
+            bathBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Bath));
+            restBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Rest));
+            tvBtn.onClick.AddListener(() => Behaviour(BehaviorTag.TV));
 
             this.transform.localScale = Vector3.one * 0.01f;
         }
@@ -82,9 +91,14 @@ namespace GameMain
             GameEntry.Event.Unsubscribe(PlayerDataEventArgs.EventId, PlayerDataEvent);
 
             talkBtn.onClick.RemoveAllListeners();
+            touchBtn.onClick.RemoveAllListeners();
             playBtn.onClick.RemoveAllListeners();
             storyBtn.onClick.RemoveAllListeners();
             sleepBtn.onClick.RemoveAllListeners();
+            cleanBtn.onClick.RemoveAllListeners();
+            tvBtn.onClick.RemoveAllListeners();
+            restBtn.onClick.RemoveAllListeners();
+            bathBtn.onClick.RemoveAllListeners();
         }
         public void Behaviour(BehaviorTag behaviorTag)
         {
@@ -97,15 +111,33 @@ namespace GameMain
                     triggers = mActionNode.Click;
                     playerData = mActionNode.ClickData;
                     break;
+                case BehaviorTag.Clean:
+                    triggers = mActionNode.Clean;
+                    playerData= mActionNode.CleanData;
+                    break;
+                case BehaviorTag.Bath:
+                    triggers = mActionNode.Bath;
+                    playerData= mActionNode.BathData;
+                    break;
+                case BehaviorTag.Rest:
+                    triggers = mActionNode.Rest;
+                    playerData= mActionNode.RestData;
+                    break;
+                case BehaviorTag.TV:
+                    triggers = mActionNode.TV;
+                    playerData= mActionNode.TVData;
+                    break;
                 case BehaviorTag.Talk:
                     triggers = mActionNode.Talk;
                     playerData = mActionNode.TalkData;
                     break;
                 case BehaviorTag.Touch:
                     triggers = mActionNode.Touch;
+                    playerData = mActionNode.TouchData;
                     break;
                 case BehaviorTag.Play:
                     triggers = mActionNode.Play;
+                    playerData = mActionNode.PlayData;
                     break;
                 case BehaviorTag.Sleep:
                     triggers = mActionNode.Sleep;

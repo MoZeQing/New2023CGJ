@@ -56,6 +56,22 @@ namespace GameMain
             return false;
         }
 
+        public bool PlayStory(string tag)
+        {
+            foreach (StorySO story in loadedStories)
+            {
+                if (story.name == tag)
+                {
+                    GameEntry.UI.OpenUIForm(UIFormId.DialogForm, story.dialogueGraph);
+                    InDialog = true;
+                    if (story.isRemove)
+                        loadedStories.Remove(story);
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private void SaveGame(object sender, GameEventArgs e)
         {
             SaveGameEventArgs args = (SaveGameEventArgs)e;

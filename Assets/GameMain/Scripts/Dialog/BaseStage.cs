@@ -15,7 +15,6 @@ public class BaseStage : MonoBehaviour
     protected Dictionary<CharSO, BaseCharacter> mCharChace = new Dictionary<CharSO, BaseCharacter>();
     //缓存区
 
-
     /// <summary>
     /// 设置位置
     /// </summary>
@@ -70,5 +69,16 @@ public class BaseStage : MonoBehaviour
         mCharChace[charSO].SetAction(charData.actionData);
         mChars[(int)pos] = mCharChace[charSO];
         //生成
+    }
+
+    public virtual void SetBackground(Sprite sprite)
+    { 
+        if(sprite!=null)
+            mBG.sprite = sprite;
+    }   
+
+    public virtual void SetBackground(string path) 
+    { 
+        
     }
 }

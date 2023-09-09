@@ -80,7 +80,12 @@ public class DialogBox : MonoBehaviour
     }
     private void Next(StartNode startNode)
     {
-        NextNode(startNode, "start");
+        if (!NextNode(startNode, "start"))
+        {
+            if (OnComplete != null)
+                OnComplete();
+            OnComplete = null;
+        }
     }
     private void Next(ChatNode chatNode)
     {
@@ -90,6 +95,7 @@ public class DialogBox : MonoBehaviour
             ChatData chatData = chatNode.chatDatas[_index];
 
             stage.ShowCharacter(chatData);
+            stage.SetBackground(chatData.background);
 
             nameText.text = chatData.charName;
             dialogText.text = chatData.text;
@@ -145,10 +151,15 @@ public class DialogBox : MonoBehaviour
                 }
             }
         }
-        NextNode(triggerNode, output);
+        if (!NextNode(triggerNode, output))
+        {
+            if (OnComplete != null)
+                OnComplete();
+            OnComplete = null;
+        }
     }
 
-    private void NextNode(Node node, string nodeName)
+    private bool NextNode(Node node, string nodeName)
     {
         //如果没有中途跳转
         if (node.GetPort(nodeName) != null)
@@ -174,8 +185,10 @@ public class DialogBox : MonoBehaviour
                 }
                 _index = 0;
                 Next();
+                return true;
             }
         }
+        return false;
     }
 
     public void SetDialog(ChatNode chatNode, Action action)

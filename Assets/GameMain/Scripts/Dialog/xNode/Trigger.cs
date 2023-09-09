@@ -187,5 +187,6 @@ public enum EventTag
     AddFavor,//增加好感度（参数为角色ID）
     AddMoney,//增加金钱（参数为金钱数量）
     AddFlag,//增加旗子
-    RemoveFlag//移除旗子
+    RemoveFlag,//移除旗子
+    NextDay//跳转至下一天
 }

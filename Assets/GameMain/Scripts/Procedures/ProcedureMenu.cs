@@ -40,6 +40,8 @@ namespace GameMain
             GameEntry.Utils.Money = 10000;
             GameEntry.Utils.Mood = 20;
             GameEntry.Utils.Favor = 0;
+            GameEntry.Utils.Love = 0;
+            GameEntry.Utils.Family= 0;
             GameEntry.Dialog.LoadGame();
             IDataTable<DRItem> items= GameEntry.DataTable.GetDataTable<DRItem>();
             foreach (DRItem item in items) 
@@ -95,6 +97,9 @@ namespace GameMain
                     break;
                 case MainState.Change:
                     ChangeState<ProcedureInitMain>(procedureOwner);
+                    break;
+                case MainState.Guide:
+                    ChangeState<ProcedureGuide>(procedureOwner);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

@@ -23,4 +23,14 @@ public class TeachStage : BaseStage
     {
         baseCharacter.SetAction(chatData.middle.actionData);
     }
+
+    public override void SetBackground(Sprite sprite)
+    {
+        
+    }
+
+    public override void SetBackground(string path)
+    {
+        
+    }
 }
