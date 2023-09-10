@@ -7,13 +7,13 @@ using GameFramework.Event;
 
 namespace GameMain
 {
-    public class GreengrocerForm : UIFormLogic
+    public class BookStoreForm : UIFormLogic
     {
         [SerializeField] private Button exitBtn;
         [SerializeField] private Button buyBtn;
         [SerializeField] private Transform canvas;
         [SerializeField] private GameObject shopItemPre;
-        
+
 
 
         //private List<>
@@ -27,7 +27,7 @@ namespace GameMain
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
-            
+
         }
 
         protected override void OnClose(bool isShutdown, object userData)
@@ -48,7 +48,6 @@ namespace GameMain
             GameEntry.Utils.Location = OutingSceneState.Home;
             GameEntry.UI.CloseUIForm(this.UIForm);
         }
-        
+
     }
 }
-

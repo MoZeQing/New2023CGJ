@@ -333,7 +333,7 @@ namespace GameMain
         {
             if (!Producing)
             {
-                for (int i = 0; i < 6; i++)
+                for (int i = 0; i < 8; i++)
                 {
                     drRecipe = dtRecipe.GetDataRow(i);
                     mRecipe = TransToEnumList(drRecipe.Recipe);

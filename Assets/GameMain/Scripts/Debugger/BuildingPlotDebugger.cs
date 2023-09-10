@@ -53,6 +53,21 @@ namespace GameMain
                 Position = this.transform.position,
                 Follow = true
             });
+            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Kettle)
+            {
+                Position = this.transform.position,
+                Follow = true
+            });
+            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Water)
+            {
+                Position = this.transform.position,
+                Follow = true
+            });
+            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Milk)
+            {
+                Position = this.transform.position,
+                Follow = true
+            });
 
         }
     }

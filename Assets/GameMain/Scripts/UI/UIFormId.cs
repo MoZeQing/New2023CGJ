@@ -21,7 +21,8 @@ namespace GameMain
         SaveForm=12,
         LoadForm=13,
         OptionForm=14,
-        GreengrocerForm=21
+        GreengrocerForm=21,
+        BakeryForm = 22
     }
 }
 

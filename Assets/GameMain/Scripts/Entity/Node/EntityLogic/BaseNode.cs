@@ -97,8 +97,7 @@ namespace GameMain
                     GameEntry.Entity.ShowElectricGrinderNode(data);
                     break;
                 case NodeTag.Kettle:
-                    CompenentData kettle = new CompenentData(GameEntry.Entity.GenerateSerialId(), 10002, this.Id, NodeData);
-                    GameEntry.Entity.ShowKettleNode(kettle);
+                    GameEntry.Entity.ShowKettleNode(data);
                     break;
                 case NodeTag.FilterBowl:
                     CompenentData filterBowl = new CompenentData(GameEntry.Entity.GenerateSerialId(), 10004, this.Id, NodeData);

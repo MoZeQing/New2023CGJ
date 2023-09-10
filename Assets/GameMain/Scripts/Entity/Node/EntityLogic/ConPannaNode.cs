@@ -19,8 +19,6 @@ namespace GameMain
         private Transform m_ProgressBar = null;
         private float m_ProducingTime = 0f;
 
-        private List<RecipeData> m_RecipeDatas = new List<RecipeData>();
-
         private List<BaseCompenent> m_ChildDatas = new List<BaseCompenent>();
         private List<NodeTag> m_ChildNodes = new List<NodeTag>();
 
