@@ -151,7 +151,7 @@ namespace GameMain
             }
 
             mMaterials = GenerateMaterialList();
-            Compound(dtRecipe);
+            Compound();
             mProgressBarRenderer.sortingOrder = mSpriteRenderer.sortingOrder + 1;
         }
         protected Vector3 MouseToWorld(Vector3 mousePos)
@@ -329,7 +329,7 @@ namespace GameMain
             }
             return temp;
         }
-        public void Compound(IDataTable<DRRecipe> dtRecipe)
+        public void Compound()
         {
             if (!Producing)
             {
@@ -416,8 +416,6 @@ namespace GameMain
                         {
                             mMaterialBaseCompenet[i].Remove();
                         }
-                        Child.Remove();
-                        Child = null;
                     }
                     Tool = NodeTag.None;
                     mProducingTime = 0;
