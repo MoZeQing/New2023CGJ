@@ -164,6 +164,11 @@ namespace GameMain
         {
             GameEntry.Sound.PlaySound("Assets/GameMain/Audio/Sounds/Pick_up.mp3", "Sound");
 
+            if (Parent != null)
+            {
+                Parent.Child = null;
+                Parent = null;
+            }
             mNodeData.Follow = true;
             GameEntry.Utils.pickUp = true;
             mBoxCollider2D.isTrigger = true;
@@ -192,12 +197,13 @@ namespace GameMain
             {
                 if ((baseCompenent.transform.position - this.transform.position).magnitude < (bestCompenent.transform.position - this.transform.position).magnitude)
                 {
+                    if (baseCompenent.Child != null)
+                        continue;
                     bestCompenent = baseCompenent;
                 }
             }
             mCompenents.Clear();
-            if (bestCompenent.Child != null)
-                return;
+
             //避免出现循环
             BaseCompenent parent = bestCompenent;
             //避免出现死循环
