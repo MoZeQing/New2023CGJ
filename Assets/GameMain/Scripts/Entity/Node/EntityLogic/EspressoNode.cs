@@ -1,9 +1,9 @@
 ﻿using GameFramework.DataTable;
+using GameMain;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-
 
 namespace GameMain
 {
@@ -11,21 +11,26 @@ namespace GameMain
     {
         private CompenentData m_CompenentData;
         private NodeData m_NodeData;
-        private SpriteRenderer m_SpriteRenderer;
-        private BoxCollider2D m_BoxCollider2D;
+        protected override void OnInit(object userData)
+        {
+            base.OnInit(userData);
+            m_CompenentData = (CompenentData)userData;
+            m_NodeData = m_CompenentData.NodeData;
+            GameEntry.Entity.AttachEntity(this.Id, m_CompenentData.OwnerId);
 
-        private AdsorbSlot m_AdsorbSlot;//��λ1
+            IDataTable<DRNode> dtNode = GameEntry.DataTable.GetDataTable<DRNode>();
+            DRNode drNode = dtNode.GetDataRow(3);
 
-        private Transform m_ProgressBar = null;
-        private float m_ProducingTime = 0f;
+            mSpriteRenderer.sprite = GameEntry.Utils.nodeSprites[(int)m_NodeData.NodeTag];
+        }
 
-
-        private List<BaseCompenent> m_ChildDatas = new List<BaseCompenent>();
-        private List<NodeTag> m_ChildNodes = new List<NodeTag>();
-
-        private bool m_Follow = false;
-
-
+        protected override void OnHide(bool isShutdown, object userData)
+        {
+            base.OnHide(isShutdown, userData);
+            GameEntry.Event.FireNow(this, MaterialEventArgs.Create(m_NodeData.NodeTag, -1));
+        }
+    }
+}
 
         /*protected override void OnInit(object userData)
         {
@@ -60,5 +65,3 @@ namespace GameMain
             recipe2.ProductTime = 10f;
             M_RecipeDatas.Add(recipe2);
         }*/
-    }
-}

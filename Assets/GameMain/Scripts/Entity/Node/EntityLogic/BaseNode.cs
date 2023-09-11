@@ -100,12 +100,10 @@ namespace GameMain
                     GameEntry.Entity.ShowKettleNode(data);
                     break;
                 case NodeTag.FilterBowl:
-                    CompenentData filterBowl = new CompenentData(GameEntry.Entity.GenerateSerialId(), 10004, this.Id, NodeData);
-                    GameEntry.Entity.ShowFilterBowlNode(filterBowl);
+                    GameEntry.Entity.ShowFilterBowlNode(data);
                     break;
                 case NodeTag.Espresso:
-                    CompenentData espresso = new CompenentData(GameEntry.Entity.GenerateSerialId(), 10006, this.Id, NodeData);
-                    GameEntry.Entity.ShowEspressoNode(espresso);
+                    GameEntry.Entity.ShowEspressoNode(data);
                     break;
                 case NodeTag.Cup:
                     CompenentData cup = new CompenentData(GameEntry.Entity.GenerateSerialId(), 10005, this.Id, NodeData);

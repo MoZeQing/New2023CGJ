@@ -46,14 +46,28 @@ namespace GameMain
             GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.ElectricGrinder)
             {
                 Position = this.transform.position,
-                Follow = true
+                Follow = false
             });
             GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.CoffeeBean)
             {
                 Position = this.transform.position,
-                Follow = true
+                Follow = false
             });
-
+            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Water)
+            {
+                Position = this.transform.position,
+                Follow = false
+            });
+            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Kettle)
+            {
+                Position = this.transform.position,
+                Follow = false
+            });
+            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.FilterBowl)
+            {
+                Position = this.transform.position,
+                Follow = false
+            });
 
         }
     }

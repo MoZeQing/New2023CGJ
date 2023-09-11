@@ -62,8 +62,8 @@ namespace GameMain
         protected List<NodeTag> mMaterials = new List<NodeTag>();
         protected List<NodeTag> mRecipe = new List<NodeTag>();
         protected List<NodeTag> mProduct = new List<NodeTag>();
-        protected List<NodeTag> mcheckRecipe = new List<NodeTag>();
-        protected NodeTag Tool = NodeTag.None;
+        protected List<NodeTag> mCheckRecipe = new List<NodeTag>();
+        protected NodeTag tool = NodeTag.None;
         protected float mProducingTime = 0f;
         protected float mTime = 0f;
         protected DRRecipe drRecipe = null;
@@ -132,12 +132,12 @@ namespace GameMain
                 //this.transform.position=MouseToWorld(Input.mousePosition);
                 //卡牌的移动和卡牌被拿起来的效果是放在不一样的层级上面的
                 Producing = false;
-                Tool = NodeTag.None;
+                tool = NodeTag.None;
                 mProducingTime = 0;
                 mTime = 0f;
                 mRecipe.Clear();
                 mProduct.Clear();
-                mcheckRecipe.Clear();
+                mCheckRecipe.Clear();
                 mProgressBar.gameObject.SetActive(false);
                 mProgressBar.transform.SetLocalScaleX(1);
             }
@@ -339,20 +339,20 @@ namespace GameMain
         {
             if (!Producing)
             {
-                for (int i = 0; i < 8; i++)
+                for (int i = 0; i < 9; i++)
                 {
                     drRecipe = dtRecipe.GetDataRow(i);
                     mRecipe = TransToEnumList(drRecipe.Recipe);
-                    Tool = TransToEnum(drRecipe.Tool);
+                    tool = TransToEnum(drRecipe.Tool);
                     if (Parent == null && Child != null)
                     {
-                        if (NodeTag == Tool)
+                        if (NodeTag == tool)
                         {
                             if (mRecipe.SequenceEqual(mMaterials))
                             {
                                 Producing = true;
                                 mProduct = TransToEnumList(drRecipe.Product);
-                                mcheckRecipe = mRecipe;
+                                mCheckRecipe = mRecipe;
                                 mProducingTime = drRecipe.ProducingTime;
                                 mTime = drRecipe.ProducingTime;
                             }
@@ -365,14 +365,14 @@ namespace GameMain
                 mProgressBar.gameObject.SetActive(true);
                 mProgressBar.transform.SetLocalScaleX(1 - (1 - mProducingTime / mTime));
                 mProducingTime -= Time.deltaTime;
-                if (mcheckRecipe.Count != mMaterials.Count)
+                if (mCheckRecipe.Count != mMaterials.Count)
                 {
-                    Tool = NodeTag.None;
+                    tool = NodeTag.None;
                     mProducingTime = 0;
                     mTime = 0f;
                     mRecipe.Clear();
                     mProduct.Clear();
-                    mcheckRecipe.Clear();
+                    mCheckRecipe.Clear();
                     mProgressBar.gameObject.SetActive(false);
                     mProgressBar.transform.SetLocalScaleX(1);
                     Producing = false;
@@ -380,12 +380,12 @@ namespace GameMain
                 }
                 if (!(Parent == null && Child != null))
                 {
-                    Tool = NodeTag.None;
+                    tool = NodeTag.None;
                     mProducingTime = 0;
                     mTime = 0f;
                     mRecipe.Clear();
                     mProduct.Clear();
-                    mcheckRecipe.Clear();
+                    mCheckRecipe.Clear();
                     mProgressBar.gameObject.SetActive(false);
                     mProgressBar.transform.SetLocalScaleX(1);
                     Producing = false;
@@ -402,8 +402,8 @@ namespace GameMain
                         GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, mProduct[i])
                         {
                             Position = this.transform.position,
-                            Follow = true
-                        });
+                            Follow = false
+                        }) ;
                     }
                     if(this.NodeTag==NodeTag.Cup)
                     {
@@ -423,7 +423,7 @@ namespace GameMain
                             mMaterialBaseCompenet[i].Remove();
                         }
                     }
-                    Tool = NodeTag.None;
+                    tool = NodeTag.None;
                     mProducingTime = 0;
                     mTime = 0f;
                     mRecipe.Clear();
@@ -431,6 +431,7 @@ namespace GameMain
                     mProgressBar.gameObject.SetActive(false);
                     Producing = false;
                     return;
+
                 }
             }
         }
