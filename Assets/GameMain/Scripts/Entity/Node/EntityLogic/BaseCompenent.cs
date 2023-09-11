@@ -76,14 +76,16 @@ namespace GameMain
 
             NodeTag = mCompenentData.NodeData.NodeTag;
             mSpriteRenderer = this.transform.Find("Sprite").GetComponent<SpriteRenderer>();
-            mSpriteRenderer.size = new Vector2(1.6f, 2.7f);
+            mSpriteRenderer.sortingLayerName = "GamePlay";
             mShader = this.transform.Find("Shader").GetComponent<SpriteRenderer>();
             mProgressBar = this.transform.Find("ProgressBar").GetComponent<Transform>();
             mProgressBarRenderer = this.transform.Find("ProgressBar").GetComponent<SpriteRenderer>();
 
             mBoxCollider2D = this.GetComponent<BoxCollider2D>();
-            mBoxCollider2D.size = mSpriteRenderer.size;
-
+        }
+        protected override void OnShow(object userData)
+        {
+            base.OnShow(userData);
             if (mNodeData.Follow)
             {
                 GameEntry.Utils.pickUp = true;
