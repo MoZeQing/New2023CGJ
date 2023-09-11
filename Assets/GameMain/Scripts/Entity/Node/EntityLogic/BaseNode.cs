@@ -68,28 +68,35 @@ namespace GameMain
                 case NodeTag.Ice:
                     GameEntry.Entity.ShowIceNode(data);
                     break;
+                case NodeTag.LowFoamingMilk:
+                    GameEntry.Entity.ShowLowFoamingMilkNode(data);
+                    break;
+                case NodeTag.HighFoamingMilk:
+                    GameEntry.Entity.ShowHighFoamingMilkNode(data);
+                    break;
                 //咖啡
-                case NodeTag.CafeAmericano:
-                    CompenentData CafeAmericano = new CompenentData(GameEntry.Entity.GenerateSerialId(), 10007, this.Id, NodeData);
-                    GameEntry.Entity.ShowCafeAmericanoNode(CafeAmericano);
+                case NodeTag.HotCafeAmericano:
+                    GameEntry.Entity.ShowHotCafeAmericanoNode(data);
                     break;
                 case NodeTag.WhiteCoffee:
-                    CompenentData WhiteCoffee = new CompenentData(GameEntry.Entity.GenerateSerialId(), 10007, this.Id, NodeData);
-                    GameEntry.Entity.ShowWhiteCoffeeNode(WhiteCoffee);
+                    GameEntry.Entity.ShowWhiteCoffeeNode(data);
                     break;
-                case NodeTag.Latte:
-                    CompenentData Latte = new CompenentData(GameEntry.Entity.GenerateSerialId(), 10007, this.Id, NodeData);
-                    GameEntry.Entity.ShowLatteNode(Latte);
+                case NodeTag.HotLatte:
+                    GameEntry.Entity.ShowHotLatteNode(data);
                     break;
-                case NodeTag.Mocha:
-                    CompenentData Mocha = new CompenentData(GameEntry.Entity.GenerateSerialId(), 10007, this.Id, NodeData);
-                    GameEntry.Entity.ShowMochaNode(Mocha);
+                case NodeTag.HotMocha:
+                    GameEntry.Entity.ShowHotMochaNode(data);
                     break;
                 case NodeTag.ConPanna:
-                    CompenentData ConPanna = new CompenentData(GameEntry.Entity.GenerateSerialId(), 10007, this.Id, NodeData);
-                    GameEntry.Entity.ShowConPannaNode(ConPanna);
+                    GameEntry.Entity.ShowConPannaNode(data);
                     break;
-                    //工具
+                case NodeTag.Kapuziner:
+                    GameEntry.Entity.ShowKapuzinerNode(data);
+                    break;
+                case NodeTag.FlatWhite:
+                    GameEntry.Entity.ShowFlatWhiteNode(data);
+                    break;
+                //工具
                 case NodeTag.ManualGrinder:
                     GameEntry.Entity.ShowManualGrinderNode(data);
                     break;
@@ -106,8 +113,10 @@ namespace GameMain
                     GameEntry.Entity.ShowEspressoNode(data);
                     break;
                 case NodeTag.Cup:
-                    CompenentData cup = new CompenentData(GameEntry.Entity.GenerateSerialId(), 10005, this.Id, NodeData);
-                    GameEntry.Entity.ShowCupNode(cup);
+                    GameEntry.Entity.ShowCupNode(data);
+                    break;
+                case NodeTag.Stirrer:
+                    GameEntry.Entity.ShowStirrerNode(data);
                     break;
                 //冰咖啡
                 case NodeTag.IceEspresso:

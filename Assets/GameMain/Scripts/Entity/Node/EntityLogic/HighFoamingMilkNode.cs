@@ -1,4 +1,4 @@
-using GameFramework.DataTable;
+﻿using GameFramework.DataTable;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 namespace GameMain
 {
-    public class IceLatteNode : CoffeeBaseCompenent, IPointerDownHandler
+    public class HighFoamingMilkNode : BaseCompenent, IPointerDownHandler
     {
         private CompenentData m_CompenentData;
         private NodeData m_NodeData;

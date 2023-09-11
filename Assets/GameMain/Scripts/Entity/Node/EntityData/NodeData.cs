@@ -77,20 +77,25 @@ namespace GameMain
         CoffeeLiquid,//咖啡液
         Sugar,//糖
         Ice,//冰
+        LowFoamingMilk,//低泡牛奶
+        HighFoamingMilk,//高泡牛奶
         //工具
         ManualGrinder,//手动研磨器
         ElectricGrinder,//电动研磨器
         Kettle,//加热壶
         FilterBowl,//滤纸式滤杯
         Cup,//咖啡杯
+        Stirrer,//搅拌器
         //咖啡
         Espresso,//浓缩咖啡
         Coffee,//咖啡
-        CafeAmericano,//美式咖啡
+        HotCafeAmericano,//热美式
         WhiteCoffee,//白咖啡
-        Latte,//拿铁
-        Mocha,//摩卡
+        HotLatte,//热拿铁
+        HotMocha,//热摩卡
         ConPanna,//康宝蓝
+        Kapuziner,//卡布奇诺
+        FlatWhite,//澳白
         //冰咖啡
         IceEspresso,//冰浓缩咖啡
         IceWhiteCoffee,//冰白咖啡

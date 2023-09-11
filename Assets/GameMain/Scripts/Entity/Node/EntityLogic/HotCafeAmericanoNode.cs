@@ -8,7 +8,7 @@ using UnityGameFramework.Runtime;
 
 namespace GameMain
 {
-    public class CafeAmericanoNode : CoffeeBaseCompenent, IPointerDownHandler
+    public class HotCafeAmericanoNode : CoffeeBaseCompenent, IPointerDownHandler
     {
         private CompenentData m_CompenentData;
         private NodeData m_NodeData;

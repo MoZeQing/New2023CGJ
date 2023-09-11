@@ -339,7 +339,7 @@ namespace GameMain
         {
             if (!Producing)
             {
-                for (int i = 0; i < 9; i++)
+                for (int i = 0; i < 19; i++)
                 {
                     drRecipe = dtRecipe.GetDataRow(i);
                     mRecipe = TransToEnumList(drRecipe.Recipe);
@@ -405,10 +405,6 @@ namespace GameMain
                             Follow = false
                         }) ;
                     }
-                    if(this.NodeTag==NodeTag.Cup)
-                    {
-                        this.Remove();
-                    }
                     if (Child != null)
                     {
                         List<BaseCompenent> mMaterialBaseCompenet = new List<BaseCompenent>();
@@ -422,6 +418,10 @@ namespace GameMain
                         {
                             mMaterialBaseCompenet[i].Remove();
                         }
+                    }
+                    if (this.NodeTag == NodeTag.Cup)
+                    {
+                        this.Remove();
                     }
                     tool = NodeTag.None;
                     mProducingTime = 0;
