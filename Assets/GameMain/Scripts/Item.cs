@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 [System.Serializable]
-public class Item : MonoBehaviour
+public class Item : MonoBehaviour,IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private int index;
     [SerializeField] private Image itemImg;
@@ -17,7 +18,8 @@ public class Item : MonoBehaviour
 
     private ItemData mItemData;
 
-    private Action mAction;
+    private Action<ItemData> mAction;
+    private Action<bool,ItemData> mTouchAction;
 
     public void SetData(ItemData itemData)
     {
@@ -31,14 +33,29 @@ public class Item : MonoBehaviour
         this.GetComponent<Button>().onClick.AddListener(OnClick);
     }
 
-    public void SetClick(Action action)
+    public void SetClick(Action<ItemData> action)
     {
         mAction = action;
     }
 
+    public void SetTouch(Action<bool,ItemData> action)
+    {
+        mTouchAction = action;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        mTouchAction(true, mItemData);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        mTouchAction(false, mItemData);
+    }
+
     private void OnClick()
     {
-        mAction();
+        mAction(mItemData);
         if (mItemData.equipable)
         {
             usingImg.gameObject.SetActive(!usingImg.gameObject.activeSelf);
