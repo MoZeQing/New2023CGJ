@@ -137,37 +137,29 @@ namespace GameMain
             this.M_RecipeDatas = m_RecipeDatas;
         }*/
 
-        public CoffeeLevel Level
+
+
+        protected override void OnInit(object userData)
         {
-            get;
-            set;
+            base.OnInit(userData);
+
+
+        }
+        protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
+        {
+            base.OnUpdate(elapseSeconds, realElapseSeconds);
         }
 
-        public CoffeeState State
+
+
+
+        public enum CoffeeLevel
         {
-            get;
-            set;
+            C,//低廉
+            B,//普通
+            A,//低廉
+            S,//杰作
+            None//初始
         }
-
-
-
-
     }
-    public enum CoffeeLevel
-    {
-        C,//低廉
-        B,//普通
-        A,//低廉
-        S,//杰作
-        None//初始
-    }
-
-    public enum CoffeeState
-    {
-        Sweet,//有糖的
-        Icey,//有冰的
-        Condensed,//加炼乳
-        None//初始
-    }
-
 }

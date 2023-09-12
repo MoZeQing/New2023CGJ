@@ -45,22 +45,27 @@ namespace GameMain
             });*/
             GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.ElectricGrinder)
             {
-                Position = this.transform.position,
+                Position = new Vector3(6.073708f, -6.272577f, 0),
                 Follow = false
             });
             GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Kettle)
             {
-                Position = this.transform.position,
+                Position = new Vector3(3.926076f, -6.51359f, 0),
                 Follow = false
             });
             GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.FilterBowl)
             {
-                Position = this.transform.position,
+                Position = new Vector3(-0.2130438f, -6.361422f, 0),
                 Follow = false
             });
             GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Stirrer)
             {
-                Position = this.transform.position,
+                Position = new Vector3(-3.477277f, -6.092597f, 0),
+                Follow = false
+            });
+            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Espresso)
+            {
+                Position = new Vector3(-3.477277f, -6.092597f, 0),
                 Follow = false
             });
         }

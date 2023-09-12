@@ -34,17 +34,28 @@ namespace GameMain
         {
             get;
             protected set;
-        }
+        } = false;
         public bool CondensedMilk
         {
             get;
             protected set;
-        }
+        } = false;
         public bool Salt
         {
             get;
             protected set;
+        } = false;
+
+        public int Level
+        {
+            get;
+            protected set;
         }
+        public bool Ice
+        {
+            get;
+            protected set;
+        } = false;
         public List<NodeTag> Materials { get; protected set; } = new List<NodeTag>();
 
         protected SpriteRenderer mSpriteRenderer = null;
@@ -67,6 +78,13 @@ namespace GameMain
         protected float mProducingTime = 0f;
         protected float mTime = 0f;
         protected DRRecipe drRecipe = null;
+
+        private SpriteRenderer mIcePoint = null;
+        private SpriteRenderer mSugarPoint = null;
+        private SpriteRenderer mSaltPoint = null;
+        private float mAddMaterialsTime = 0f;
+        private float mProTime = 0f;
+        private bool flag = false;
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
@@ -82,6 +100,11 @@ namespace GameMain
             mProgressBarRenderer = this.transform.Find("ProgressBar").GetComponent<SpriteRenderer>();
 
             mBoxCollider2D = this.GetComponent<BoxCollider2D>();
+
+            mIcePoint = this.transform.Find("Ice").GetComponent<SpriteRenderer>();
+            mSugarPoint = this.transform.Find("Sugar").GetComponent<SpriteRenderer>();
+            mSaltPoint = this.transform.Find("Salt").GetComponent<SpriteRenderer>();
+            mAddMaterialsTime = 5f;
         }
         protected override void OnShow(object userData)
         {
@@ -95,7 +118,11 @@ namespace GameMain
 
                 this.transform.position = MouseToWorld(Input.mousePosition);
                 mMouseGap = Vector3.zero;
+                mSpriteRenderer.sortingLayerName = "Controller";
+                mShader.sortingLayerName = "Controller";
                 PickUp();
+
+
             }
             if (mNodeData.Jump)
             {
@@ -154,6 +181,7 @@ namespace GameMain
 
             mMaterials = GenerateMaterialList();
             Compound();
+            AddMaterials();
             mProgressBarRenderer.sortingOrder = mSpriteRenderer.sortingOrder + 1;
         }
         protected Vector3 MouseToWorld(Vector3 mousePos)
@@ -403,9 +431,9 @@ namespace GameMain
                         Debug.Log(mProduct.Count);
                         GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, mProduct[i])
                         {
-                            Position = this.transform.position+new Vector3(0.5f,0,0),
+                            Position = this.transform.position + new Vector3(0.5f, 0, 0),
                             Follow = false
-                        }) ;
+                        });
                     }
                     if (Child != null)
                     {
@@ -449,7 +477,7 @@ namespace GameMain
             return Material;
         }
 
-        public void GenerateCoffeeLevel(CoffeeLevel coffeeLevel, NodeTag nodeTag)
+        /*public void GenerateCoffeeLevel(CoffeeLevel coffeeLevel, NodeTag nodeTag)
         {
             if(LuckyDraw(1000,5))
             {
@@ -490,13 +518,78 @@ namespace GameMain
                 {
 
                 }
+        }*/
+        public void AddMaterials()
+        {
+
+            if (Parent == null && Child != null && Child.Child == null && flag == false)
+            {
+                if (Child.NodeTag == NodeTag.Ice)
+                {
+                    Ice = true;
+                    flag = true;
+                    mProTime = mAddMaterialsTime;
+                }
+                else if (Child.NodeTag == NodeTag.Sugar)
+                {
+                    Sugar = true;
+                    flag = true;
+                    mProTime = mAddMaterialsTime;
+                }
+            }
+            if (flag == true)
+            {
+                if (Ice && !mIcePoint.gameObject.activeSelf)
+                {
+                    mProgressBar.gameObject.SetActive(true);
+                    mProgressBar.transform.SetLocalScaleX(1 - (1 - mProTime / mAddMaterialsTime));
+                    mProTime -= Time.deltaTime;
+                    if (Parent != null || Child == null)
+                    {
+                        flag = false;
+                        mProgressBar.gameObject.SetActive(false);
+                        mProgressBar.transform.SetLocalScaleX(1);
+                        return;
+                    }
+                    if (mProTime <= 0)
+                    {
+                        mIcePoint.gameObject.SetActive(true);
+                        if (Child != null)
+                        {
+                            Child.Remove();
+                        }
+                        Ice = false;
+                    }
+                }
+                else if (Sugar && !mSugarPoint.gameObject.activeSelf)
+                {
+                    mProgressBar.gameObject.SetActive(true);
+                    mProgressBar.transform.SetLocalScaleX(1 - (1 - mProTime / mAddMaterialsTime));
+                    mProTime -= Time.deltaTime;
+                    if (Parent != null || Child == null)
+                    {
+                        flag = false;
+                        mProgressBar.gameObject.SetActive(false);
+                        mProgressBar.transform.SetLocalScaleX(1);
+                        return;
+                    }
+                    if (mProTime <= 0)
+                    {
+                        mSugarPoint.gameObject.SetActive(true);
+                        if (Child != null)
+                        {
+                            Child.Remove();
+                        }
+                        Sugar = false;
+                    }
+                }
             }
         }
         public bool LuckyDraw(int rangeNum, int checkNum)
         {
             int randomNum = 0;
             randomNum = UnityEngine.Random.Range(0, rangeNum);
-            if (randomNum<checkNum)
+            if (randomNum < checkNum)
             {
                 return true;
             }
@@ -518,6 +611,6 @@ namespace GameMain
         //±»Ñ¡ÖÐ
         PitchOn
     }
-
-
 }
+
+
