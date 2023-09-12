@@ -114,12 +114,12 @@ namespace GameMain
             if (Child == null)
             {
                 mBoxCollider2D.size = mSpriteRenderer.size;
-                mBoxCollider2D.offset = new Vector2(0f, 0f);
+                mBoxCollider2D.offset = new Vector2(0, 0.04449272f);
             }
             if (Child != null)
             {
-                mBoxCollider2D.size = new Vector2(1.6f, 0.45f);
-                mBoxCollider2D.offset = new Vector2(0f, -1.1f);
+                mBoxCollider2D.size = new Vector2(1.366413f, 0.583478f);
+                mBoxCollider2D.offset = new Vector2(-0.005561709f, -0.6995664f);
             }
 
             if (!Input.GetMouseButton(0))
@@ -403,7 +403,7 @@ namespace GameMain
                         Debug.Log(mProduct.Count);
                         GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, mProduct[i])
                         {
-                            Position = this.transform.position,
+                            Position = this.transform.position+new Vector3(0.5f,0,0),
                             Follow = false
                         }) ;
                     }

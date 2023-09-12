@@ -58,7 +58,11 @@ namespace GameMain
                 Position = this.transform.position,
                 Follow = false
             });
-
+            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Stirrer)
+            {
+                Position = this.transform.position,
+                Follow = false
+            });
         }
     }
 }

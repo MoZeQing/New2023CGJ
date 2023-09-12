@@ -10,9 +10,6 @@ namespace GameMain
     {
         private CompenentData m_CompenentData;
         private NodeData m_NodeData;
-        private SpriteRenderer m_SpriteRenderer;
-        private BoxCollider2D m_BoxCollider2D;
-
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
@@ -20,18 +17,7 @@ namespace GameMain
             m_NodeData = m_CompenentData.NodeData;
             GameEntry.Entity.AttachEntity(this.Id, m_CompenentData.OwnerId);
 
-            //获取到表
-            IDataTable<DRNode> dtNode = GameEntry.DataTable.GetDataTable<DRNode>();
-            DRNode drNode = dtNode.GetDataRow(0);
-
-            m_SpriteRenderer = this.GetComponent<SpriteRenderer>();
-            m_SpriteRenderer.sprite = GameEntry.Utils.nodeSprites[(int)m_NodeData.NodeTag];
-            m_SpriteRenderer.sortingLayerName = drNode.Layer;
-            m_SpriteRenderer.sortingOrder = drNode.Layerint;
-
-            m_BoxCollider2D = this.GetComponent<BoxCollider2D>();
-            m_BoxCollider2D.size = m_SpriteRenderer.size;
-
+            mSpriteRenderer.sprite = GameEntry.Utils.nodeSprites[(int)m_NodeData.NodeTag];
         }
 
         protected override void OnHide(bool isShutdown, object userData)
