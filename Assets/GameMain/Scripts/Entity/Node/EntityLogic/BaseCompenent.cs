@@ -83,8 +83,11 @@ namespace GameMain
         private SpriteRenderer mSugarPoint = null;
         private SpriteRenderer mSaltPoint = null;
         private float mAddMaterialsTime = 0f;
-        private float mProTime = 0f;
+        private float mAddTime = 0f;
         private bool flag = false;
+        private int mLevel = 0;
+        private int mEspressoLevel = 0;
+        private bool isCoffee = false;
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
@@ -101,10 +104,11 @@ namespace GameMain
 
             mBoxCollider2D = this.GetComponent<BoxCollider2D>();
 
-            mIcePoint = this.transform.Find("Ice").GetComponent<SpriteRenderer>();
-            mSugarPoint = this.transform.Find("Sugar").GetComponent<SpriteRenderer>();
-            mSaltPoint = this.transform.Find("Salt").GetComponent<SpriteRenderer>();
+            mIcePoint = mSpriteRenderer.gameObject.transform.Find("Ice").GetComponent<SpriteRenderer>();
+            mSugarPoint = mSpriteRenderer.gameObject.transform.Find("Sugar").GetComponent<SpriteRenderer>();
+            mSaltPoint = mSpriteRenderer.gameObject.transform.Find("Salt").GetComponent<SpriteRenderer>();
             mAddMaterialsTime = 5f;
+            Level = mNodeData.MLevel;
         }
         protected override void OnShow(object userData)
         {
@@ -182,6 +186,7 @@ namespace GameMain
             mMaterials = GenerateMaterialList();
             Compound();
             AddMaterials();
+            ShowMyLevel();
             mProgressBarRenderer.sortingOrder = mSpriteRenderer.sortingOrder + 1;
         }
         protected Vector3 MouseToWorld(Vector3 mousePos)
@@ -385,6 +390,8 @@ namespace GameMain
                                 mCheckRecipe = mRecipe;
                                 mProducingTime = drRecipe.ProducingTime;
                                 mTime = drRecipe.ProducingTime;
+                                mLevel = drRecipe.CoffeeLevel;
+                                isCoffee = drRecipe.IsCoffee;
                             }
                         }
                     }
@@ -424,16 +431,35 @@ namespace GameMain
 
                 if (mProducingTime <= 0)
                 {
-
-
                     for (int i = 0; i < mProduct.Count; i++)
                     {
                         Debug.Log(mProduct.Count);
-                        GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, mProduct[i])
+                        if (mProduct[i] == NodeTag.Espresso)
                         {
-                            Position = this.transform.position + new Vector3(0.5f, 0, 0),
-                            Follow = false
-                        });
+                            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, mProduct[i],mLevel)
+                            {
+                                Position = this.transform.position + new Vector3(0.5f, 0, 0),
+                                Follow = false
+                            });
+                        }
+                        else if(isCoffee)
+                        {
+                            FindMyEspressoLevel();
+                            GenerateCoffeeLevel();
+                            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, mProduct[i], mLevel)
+                            {
+                                Position = this.transform.position + new Vector3(0.5f, 0, 0),
+                                Follow = false
+                            });
+                        }
+                        else
+                        {
+                            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, mProduct[i])
+                            {
+                                Position = this.transform.position + new Vector3(0.5f, 0, 0),
+                                Follow = false
+                            });
+                        }
                     }
                     if (Child != null)
                     {
@@ -449,6 +475,7 @@ namespace GameMain
                             mMaterialBaseCompenet[i].Remove();
                         }
                     }
+                    Materials.Clear();
                     if (this.NodeTag == NodeTag.Cup)
                     {
                         this.Remove();
@@ -477,48 +504,50 @@ namespace GameMain
             return Material;
         }
 
-        /*public void GenerateCoffeeLevel(CoffeeLevel coffeeLevel, NodeTag nodeTag)
+        public void GenerateCoffeeLevel()
         {
-            if(LuckyDraw(1000,5))
+            if (LuckyDraw(1000, 5))
             {
-
+                mLevel = 4;
             }
             else
             {
-                if(coffeeLevel==CoffeeLevel.C)
+                if (mLevel==1)
                 {
-                    if(LuckyDraw(100, 5))
+                    if (LuckyDraw(100, 5))
                     {
-                        if(LuckyDraw(100, 2))
+                        if (LuckyDraw(100, 2))
                         {
-
+                            mLevel = 3;
                         }
                         else
                         {
-
+                            mLevel = 2;
                         }
                     }
                     else
                     {
-
+                        mLevel = 1;
                     }
                 }
-                else if(coffeeLevel == CoffeeLevel.B)
+                else if (mLevel == 2)
                 {
                     if (LuckyDraw(100, 2))
                     {
+                        mLevel = 3;
 
                     }
                     else
                     {
-
+                        mLevel = 2;
                     }
                 }
-                else if (coffeeLevel == CoffeeLevel.A)
+                else if (mLevel == 3)
                 {
-
+                    mLevel = 3;
                 }
-        }*/
+            }
+        }
         public void AddMaterials()
         {
 
@@ -526,61 +555,67 @@ namespace GameMain
             {
                 if (Child.NodeTag == NodeTag.Ice)
                 {
-                    Ice = true;
                     flag = true;
-                    mProTime = mAddMaterialsTime;
+                    Ice = true;
+                    mAddTime = mAddMaterialsTime;
                 }
                 else if (Child.NodeTag == NodeTag.Sugar)
                 {
-                    Sugar = true;
                     flag = true;
-                    mProTime = mAddMaterialsTime;
+                    Sugar = true;
+                    mAddTime = mAddMaterialsTime;
                 }
             }
             if (flag == true)
             {
-                if (Ice && !mIcePoint.gameObject.activeSelf)
+                if (Ice==true&&!mIcePoint.gameObject.activeSelf)
                 {
                     mProgressBar.gameObject.SetActive(true);
-                    mProgressBar.transform.SetLocalScaleX(1 - (1 - mProTime / mAddMaterialsTime));
-                    mProTime -= Time.deltaTime;
-                    if (Parent != null || Child == null)
+                    mProgressBar.transform.SetLocalScaleX(1 - (1 - mAddTime / mAddMaterialsTime));
+                    mAddTime -= Time.deltaTime;
+                    if (Parent != null || Child == null||Child.Child!=null)
                     {
                         flag = false;
+                        Ice = false;
                         mProgressBar.gameObject.SetActive(false);
                         mProgressBar.transform.SetLocalScaleX(1);
                         return;
                     }
-                    if (mProTime <= 0)
+                    if (mAddTime <= 0)
                     {
+                        mProgressBar.gameObject.SetActive(false);
                         mIcePoint.gameObject.SetActive(true);
                         if (Child != null)
                         {
                             Child.Remove();
                         }
-                        Ice = false;
+                        Ice = true;
+                        flag = false;
                     }
                 }
-                else if (Sugar && !mSugarPoint.gameObject.activeSelf)
+                else if (Sugar==true&&!mSugarPoint.gameObject.activeSelf)
                 {
                     mProgressBar.gameObject.SetActive(true);
-                    mProgressBar.transform.SetLocalScaleX(1 - (1 - mProTime / mAddMaterialsTime));
-                    mProTime -= Time.deltaTime;
+                    mProgressBar.transform.SetLocalScaleX(1 - (1 - mAddTime / mAddMaterialsTime));
+                    mAddTime -= Time.deltaTime;
                     if (Parent != null || Child == null)
                     {
                         flag = false;
+                        Sugar = false; ;
                         mProgressBar.gameObject.SetActive(false);
                         mProgressBar.transform.SetLocalScaleX(1);
                         return;
                     }
-                    if (mProTime <= 0)
+                    if (mAddTime <= 0)
                     {
+                        mProgressBar.gameObject.SetActive(false);
                         mSugarPoint.gameObject.SetActive(true);
                         if (Child != null)
                         {
                             Child.Remove();
                         }
-                        Sugar = false;
+                        Sugar = true;
+                        flag = false;
                     }
                 }
             }
@@ -597,6 +632,43 @@ namespace GameMain
             {
                 return false;
             }
+        }
+
+        /*public void MixMaterials()
+        {
+            for (int i = 0; i < mMaterials.Count; i++)
+            {
+                Materials.Add(mMaterials[i]);
+            }
+            BaseCompenent child = Child;
+            while (child != null)
+            {
+                for (int i = 0; i < child.mNodeData.MDeliverMaterials.Count; i++)
+                {
+                    Materials.Add(child.mNodeData.MDeliverMaterials[i]);
+                }
+                child = child.Child;
+            }
+        }*/
+        public void FindMyEspressoLevel()
+        {
+            BaseCompenent child = Child;
+            List<int> levelList = new List<int>();
+            while (child != null)
+            {
+                if(child.NodeTag==NodeTag.Espresso)
+                {
+                    levelList.Add(child.Level);
+                }
+                child = child.Child;
+            }
+            levelList.Sort();
+            mLevel = levelList[0];
+        }
+
+        public void ShowMyLevel()
+        {
+            Debug.Log(Level);
         }
     }
 

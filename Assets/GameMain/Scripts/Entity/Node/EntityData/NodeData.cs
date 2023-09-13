@@ -40,7 +40,11 @@ namespace GameMain
             get;
             set;
         }
-
+        public int MLevel
+        {
+            get;
+            set;
+        } = 0;
         public bool Jump
         {
             get;
@@ -51,6 +55,12 @@ namespace GameMain
             : base(entityId, typeId)
         {
             this.NodeTag = node;
+        }
+        public NodeData(int entityId, int typeId, NodeTag node,int level)
+            : base(entityId, typeId)
+        {
+            this.NodeTag = node;
+            this.MLevel = level;
         }
     }
 

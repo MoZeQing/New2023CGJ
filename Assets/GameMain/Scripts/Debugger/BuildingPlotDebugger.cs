@@ -63,11 +63,11 @@ namespace GameMain
                 Position = new Vector3(-3.477277f, -6.092597f, 0),
                 Follow = false
             });
-            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Espresso)
+            /*GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Espresso)
             {
                 Position = new Vector3(-3.477277f, -6.092597f, 0),
                 Follow = false
-            });
+            });*/
         }
     }
 }
