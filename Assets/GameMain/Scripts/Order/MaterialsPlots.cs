@@ -24,7 +24,7 @@ public class MaterialsPlots : MonoBehaviour,IPointerDownHandler
         GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, nodeTag)
         {
             Position = this.transform.position,
-            Follow = true
-        }) ;
+            Jump = true
+        }); 
     }
 }

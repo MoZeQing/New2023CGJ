@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2023-09-13 20:49:11.215
+// 生成时间：2023-09-14 15:37:11.099
 //------------------------------------------------------------
 
 using GameFramework;
@@ -72,6 +72,15 @@ namespace GameMain
             private set;
         }
 
+        /// <summary>
+        /// 获取最大数值。
+        /// </summary>
+        public int MaxNum
+        {
+            get;
+            private set;
+        }
+
         public override bool ParseDataRow(string dataRowString, object userData)
         {
             string[] columnStrings = dataRowString.Split(DataTableExtension.DataSplitSeparators);
@@ -88,6 +97,7 @@ namespace GameMain
             Info = columnStrings[index++];
             FilterMode = int.Parse(columnStrings[index++]);
             Equipable = bool.Parse(columnStrings[index++]);
+            MaxNum = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -104,6 +114,7 @@ namespace GameMain
                     Info = binaryReader.ReadString();
                     FilterMode = binaryReader.Read7BitEncodedInt32();
                     Equipable = binaryReader.ReadBoolean();
+                    MaxNum = binaryReader.Read7BitEncodedInt32();
                 }
             }
 

@@ -56,6 +56,7 @@ namespace GameMain
             testBtn.onClick.AddListener(OnLevel);
 
             levelSOs = new List<LevelSO>(Resources.LoadAll<LevelSO>("LevelData"));
+            GameEntry.Event.Subscribe(OrderEventArgs.EventId, OnOrderEvent);
         }
 
         private void OnDisable()
@@ -63,6 +64,8 @@ namespace GameMain
             upBtn.onClick.RemoveAllListeners();
             downBtn.onClick.RemoveAllListeners();
             recipeBtn.onClick.RemoveAllListeners();
+
+            GameEntry.Event.Unsubscribe(OrderEventArgs.EventId, OnOrderEvent);
         }
 
         private void Update()
@@ -83,6 +86,7 @@ namespace GameMain
                     GamePosUtility.Instance.GamePosChange(GamePos.Up);
                     dialogBox.SetDialog(mLevelData.failWork);
                     dialogBox.SetComplete(OnAfterWorkComplete);
+                    GameEntry.Utils.Money += workData.Income;
                     isDialog= true;
                 }
                 else
@@ -135,12 +139,12 @@ namespace GameMain
         private void OnOrderEvent(object sender, GameEventArgs e)
         { 
             OrderEventArgs args= (OrderEventArgs)e;
-            if (mLevelData.orderData == args.OrderData)
-            {
-                GamePosUtility.Instance.GamePosChange(GamePos.Up);
-                dialogBox.SetDialog(mLevelData.afterWork);
-                dialogBox.SetComplete(OnAfterWorkComplete);
-            }
+            //if (mLevelData.orderData == args.OrderData)
+            //{
+            //    GamePosUtility.Instance.GamePosChange(GamePos.Up);
+            //    dialogBox.SetDialog(mLevelData.afterWork);
+            //    dialogBox.SetComplete(OnAfterWorkComplete);
+            //}
             if (args.Income == 0)
                 return;
             workData.orderDatas.Add(args.OrderData);
@@ -151,6 +155,24 @@ namespace GameMain
     public class WorkData
     {
         public int Income
+        {
+            get;
+            set;
+        }
+
+        public int Cost
+        {
+            get;
+            set;
+        }
+
+        public int Administration
+        {
+            get;
+            set;
+        }
+
+        public int Financial
         {
             get;
             set;

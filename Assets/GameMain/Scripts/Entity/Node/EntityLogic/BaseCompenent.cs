@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityGameFramework.Runtime;
 
 namespace GameMain
 {
@@ -62,7 +63,7 @@ namespace GameMain
         protected SpriteRenderer mShader = null;
         protected SpriteRenderer mProgressBarRenderer = null;
         protected BoxCollider2D mBoxCollider2D = null;
-        //µ±×¥È¡Ê±Êó±êÓëÖÐÐÄµãµÄ²î¾à
+        //ï¿½ï¿½×¥È¡Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½Ä²ï¿½ï¿½
         protected Vector3 mMouseGap;
         protected NodeData mNodeData = null;
         protected CompenentData mCompenentData = null;
@@ -94,7 +95,6 @@ namespace GameMain
             mCompenentData = (CompenentData)userData;
             mNodeData = mCompenentData.NodeData;
             Materials = mCompenentData.materials;
-
             NodeTag = mCompenentData.NodeData.NodeTag;
             mSpriteRenderer = this.transform.Find("Sprite").GetComponent<SpriteRenderer>();
             mSpriteRenderer.sortingLayerName = "GamePlay";
@@ -113,25 +113,26 @@ namespace GameMain
         protected override void OnShow(object userData)
         {
             base.OnShow(userData);
-            if (mNodeData.Follow)
+            //if (mNodeData.Follow)
+            //{
+            //    GameEntry.Utils.pickUp = true;
+            //    mBoxCollider2D.isTrigger = true;
+            //    mShader.sortingOrder = GameEntry.Utils.CartSort;
+            //    mSpriteRenderer.sortingOrder = GameEntry.Utils.CartSort;
+            //    firstFollow = true;
+            //    this.transform.position = MouseToWorld(Input.mousePosition);
+            //    mMouseGap = Vector3.zero;
+            //    PickUp();
+            //}
+            if (mNodeData.RamdonJump)
             {
-                GameEntry.Utils.pickUp = true;
-                mBoxCollider2D.isTrigger = true;
-                mShader.sortingOrder = GameEntry.Utils.CartSort;
-                mSpriteRenderer.sortingOrder = GameEntry.Utils.CartSort;
-
-                this.transform.position = MouseToWorld(Input.mousePosition);
-                mMouseGap = Vector3.zero;
-                mSpriteRenderer.sortingLayerName = "Controller";
-                mShader.sortingLayerName = "Controller";
-                PickUp();
-
-
+                Vector3 newPos = UnityEngine.Random.insideUnitCircle;
+                this.transform.DOMove(mNodeData.Position + newPos * 2f, 0.5f).SetEase(Ease.OutExpo);
             }
             if (mNodeData.Jump)
             {
-                Vector3 newPos = (Vector3)UnityEngine.Random.insideUnitCircle;
-                this.transform.DOMove(mNodeData.Position + newPos * mLength, 0.5f).SetEase(Ease.OutExpo);
+                Vector3 newPos = -(mNodeData.Position - Vector3.down * 4.2f).normalized;
+                this.transform.DOMove(mNodeData.Position + newPos * 3f, 0.5f).SetEase(Ease.OutExpo);
             }
         }
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
@@ -157,13 +158,53 @@ namespace GameMain
             {
                 mNodeData.Follow = false;
                 GameEntry.Utils.pickUp = false;
+                //if (firstFollow)
+                //{
+                //    mSpriteRenderer.sortingLayerName = "GamePlay";
+                //    mShader.sortingLayerName = "GamePlay";
+                //    //mBoxCollider2D.isTrigger = false;
+                //    PitchOn();
+                //    if (mCompenents.Count == 0)
+                //        return;
+                //    if (Parent != null)
+                //        return;
+
+                //    BaseCompenent bestCompenent = mCompenents[0];
+                //    foreach (BaseCompenent baseCompenent in mCompenents)
+                //    {
+                //        if ((baseCompenent.transform.position - this.transform.position).magnitude < (bestCompenent.transform.position - this.transform.position).magnitude)
+                //        {
+                //            if (baseCompenent.Child != null)
+                //                continue;
+                //            bestCompenent = baseCompenent;
+                //        }
+                //    }
+                //    mCompenents.Clear();
+
+                //    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½
+                //    BaseCompenent parent = bestCompenent;
+                //    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½
+                //    int block = 1000;
+                //    while (parent != null)
+                //    {
+                //        parent = parent.Parent;
+                //        if (parent == this)
+                //            return;
+                //        block--;
+                //        if (block < 0)
+                //            return;
+                //    }
+                //    Parent = bestCompenent;
+                //    Parent.Child = this;
+                //    firstFollow = false;
+                //}
             }
             if (mNodeData.Follow)
             {
-                //»º¶¯±¾ÉíÃ»ÓÐÎÊÌâ£¬µ«ÏÖÔÚÐèÒª¼ÆËãÊó±êÒÆ¶¯À´¸ú×ÙÁË
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½â£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 this.transform.DOMove(MouseToWorld(Input.mousePosition) - mMouseGap, 0.05f);
                 //this.transform.position=MouseToWorld(Input.mousePosition);
-                //¿¨ÅÆµÄÒÆ¶¯ºÍ¿¨ÅÆ±»ÄÃÆðÀ´µÄÐ§¹ûÊÇ·ÅÔÚ²»Ò»ÑùµÄ²ã¼¶ÉÏÃæµÄ
+                //ï¿½ï¿½ï¿½Æµï¿½ï¿½Æ¶ï¿½ï¿½Í¿ï¿½ï¿½Æ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ú²ï¿½Ò»ï¿½ï¿½ï¿½Ä²ã¼¶ï¿½ï¿½ï¿½ï¿½ï¿½
                 Producing = false;
                 tool = NodeTag.None;
                 mProducingTime = 0;
@@ -175,12 +216,12 @@ namespace GameMain
                 mProgressBar.transform.SetLocalScaleX(1);
             }
 
-            this.transform.position = new Vector3(Mathf.Clamp(this.transform.position.x, -8.8f, 8.8f), Mathf.Clamp(this.transform.position.y, -8f, -1.6f), 0);//ÏÞÖÆ·¶Î§
+            this.transform.position = new Vector3(Mathf.Clamp(this.transform.position.x, -8.8f, 8.8f), Mathf.Clamp(this.transform.position.y, -8f, -1.6f), 0);//ï¿½ï¿½ï¿½Æ·ï¿½Î§
             //if (Parent == null)
             //    SpriteRenderer.sortingOrder = 0;
             if (Parent != null && !mNodeData.Follow)
             {
-                this.transform.DOMove(Parent.transform.position + Vector3.up * 0.5f, 0.1f);//Îü¸½½Úµã
+                this.transform.DOMove(Parent.transform.position + Vector3.up * 0.5f, 0.1f);//ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½
             }
 
             mMaterials = GenerateMaterialList();
@@ -211,8 +252,8 @@ namespace GameMain
             mSpriteRenderer.sortingOrder = GameEntry.Utils.CartSort;
             mSpriteRenderer.sortingLayerName = "Controller";
             mShader.sortingLayerName = "Controller";
-            //²¥·ÅÄÃÆðµÄÉùÒô
-            //Ì§¸ß¿¨Æ¬
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            //Ì§ï¿½ß¿ï¿½Æ¬
             mMouseGap = MouseToWorld(Input.mousePosition) - this.transform.position;
             PickUp();
         }
@@ -239,9 +280,9 @@ namespace GameMain
             }
             mCompenents.Clear();
 
-            //±ÜÃâ³öÏÖÑ­»·
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½
             BaseCompenent parent = bestCompenent;
-            //±ÜÃâ³öÏÖËÀÑ­»·
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½
             int block = 1000;
             while (parent != null)
             {
@@ -301,7 +342,7 @@ namespace GameMain
             }
         }
         /// <summary>
-        /// ÄÃÆð×´Ì¬
+        /// ï¿½ï¿½ï¿½ï¿½×´Ì¬
         /// </summary>
         public void PickUp()
         {
@@ -317,7 +358,7 @@ namespace GameMain
                 Child.PickUp();
         }
         /// <summary>
-        /// Ñ¡ÖÐ
+        /// Ñ¡ï¿½ï¿½
         /// </summary>
         public void PitchOn()
         {
@@ -333,7 +374,7 @@ namespace GameMain
                 Child.PitchOn();
         }
         /// <summary>
-        /// ·ÅÏÂ
+        /// ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         public void PutDown()
         {
@@ -439,7 +480,7 @@ namespace GameMain
                             GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, mProduct[i],mLevel)
                             {
                                 Position = this.transform.position + new Vector3(0.5f, 0, 0),
-                                Follow = false
+                                RamdonJump = true
                             });
                         }
                         else if(isCoffee)
@@ -449,7 +490,7 @@ namespace GameMain
                             GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, mProduct[i], mLevel)
                             {
                                 Position = this.transform.position + new Vector3(0.5f, 0, 0),
-                                Follow = false
+                                RamdonJump = true
                             });
                         }
                         else
@@ -457,7 +498,7 @@ namespace GameMain
                             GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, mProduct[i])
                             {
                                 Position = this.transform.position + new Vector3(0.5f, 0, 0),
-                                Follow = false
+                                RamdonJump = true
                             });
                         }
                     }
@@ -674,13 +715,13 @@ namespace GameMain
 
     public enum NodeState
     {
-        //Î´¼¤»î
+        //Î´ï¿½ï¿½ï¿½ï¿½
         InActive,
-        //¼¤»î
+        //ï¿½ï¿½ï¿½ï¿½
         Idle,
-        //±»ÄÃÆð
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         PickUp,
-        //±»Ñ¡ÖÐ
+        //ï¿½ï¿½Ñ¡ï¿½ï¿½
         PitchOn
     }
 }

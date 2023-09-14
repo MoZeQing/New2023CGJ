@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 namespace GameMain
 {
@@ -14,8 +15,10 @@ namespace GameMain
         [SerializeField] private Button superMinusPlusBtn;
         [SerializeField] private Button exitPurchaseFormBtn;
         [SerializeField] private Button PurchaseFormBuyBtn;
+        [SerializeField] private GameObject tips;
 
-
+        private ShopItemData mShopItemData;
+        private Action<int> mAction;
         private int purchaseNumber;
 
         void Start()
@@ -26,24 +29,45 @@ namespace GameMain
             minusBtn.onClick.AddListener(Minus);
             superMinusPlusBtn.onClick.AddListener(SuperMinus);
             PurchaseFormBuyBtn.onClick.AddListener(PurchaseComfirm); ;
-            purchaseNumber = 6;
+            purchaseNumber = 1;
             purchaseNum.text = purchaseNumber.ToString();
         }
         void Update()
         {
             purchaseNum.text = purchaseNumber.ToString();
         }
+        private void OnEnable()
+        {
+            if (GameEntry.Utils.Money < mShopItemData.price * purchaseNumber)
+            {
+                tips.gameObject.SetActive(true);
+                PurchaseFormBuyBtn.interactable = false;
+            }
+        }
+        public void SetData(ShopItemData shopItemData)
+        {
+            mShopItemData = shopItemData;
+        }
+        public void SetClick(Action<int> action)
+        {
+            mAction = action;
+        }
 
         private void ExitPurchaseForm()
         {
-            purchaseNum.text = 5.ToString();
-            purchaseNumber = 5;
+            purchaseNum.text = 1.ToString();
+            purchaseNumber = 1;
             this.gameObject.SetActive(false);
         }
         private void PurchaseComfirm()
         {
-            purchaseNum.text = 5.ToString();
-            purchaseNumber = 5;
+            if (GameEntry.Utils.Money >= mShopItemData.price * purchaseNumber)
+            {
+                GameEntry.Utils.AddPlayerItem(mShopItemData, purchaseNumber);
+                GameEntry.Utils.Money -= mShopItemData.price * purchaseNumber;
+            }
+            purchaseNum.text = 1.ToString();
+            purchaseNumber = 1;
             this.gameObject.SetActive(false);
         }
         private void Plus()
@@ -56,7 +80,11 @@ namespace GameMain
             {
                 purchaseNumber = 99;
             }
-
+            if (GameEntry.Utils.Money < mShopItemData.price * purchaseNumber)
+            {
+                tips.gameObject.SetActive(true);
+                PurchaseFormBuyBtn.interactable = false;
+            }
         }
         private void SuperPlus()
         {
@@ -68,7 +96,11 @@ namespace GameMain
             {
                 purchaseNumber = 99;
             }
-
+            if (GameEntry.Utils.Money < mShopItemData.price * purchaseNumber)
+            {
+                tips.gameObject.SetActive(true);
+                PurchaseFormBuyBtn.interactable = false;
+            }
         }
         private void Minus()
         {
@@ -80,7 +112,11 @@ namespace GameMain
             {
                 purchaseNumber = 0;
             }
-
+            if (GameEntry.Utils.Money >= mShopItemData.price * purchaseNumber)
+            {
+                tips.gameObject.SetActive(false);
+                PurchaseFormBuyBtn.interactable = true;
+            }
         }
         private void SuperMinus()
         {
@@ -91,6 +127,11 @@ namespace GameMain
             if (purchaseNumber < 0)
             {
                 purchaseNumber = 0;
+            }
+            if (GameEntry.Utils.Money >= mShopItemData.price * purchaseNumber)
+            {
+                tips.gameObject.SetActive(false);
+                PurchaseFormBuyBtn.interactable = true;
             }
         }
 

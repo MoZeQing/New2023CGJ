@@ -18,7 +18,7 @@ namespace GameMain
         [SerializeField] private Toggle onceItemToggle;
 
         private List<Item> mItems = new List<Item>();
-        private List<ItemData> mItemDatas=new List<ItemData>();
+        private List<PlayerItemData> mItemDatas=new List<PlayerItemData>();
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
@@ -48,9 +48,9 @@ namespace GameMain
             ShowItems(mItemDatas);
         }
 
-        public void ShowItems(List<ItemData> itemDatas)
+        public void ShowItems(List<PlayerItemData> itemDatas)
         {
-            foreach (ItemData itemData in itemDatas)
+            foreach (PlayerItemData itemData in itemDatas)
             {
                 GameObject go = Instantiate(itemItem, mCanvas);
                 Item item =go.GetComponent<Item>();
@@ -97,8 +97,8 @@ namespace GameMain
         private void OnFilterChange(FilterMode filterMode)
         { 
             ClearItems();
-            List<ItemData> newItems=new List<ItemData>();
-            foreach (ItemData itemData in mItemDatas)
+            List<PlayerItemData> newItems=new List<PlayerItemData>();
+            foreach (PlayerItemData itemData in mItemDatas)
             {
                 if (itemData.filterMode == filterMode)
                 {

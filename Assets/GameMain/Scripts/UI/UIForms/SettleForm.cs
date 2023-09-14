@@ -33,6 +33,7 @@ namespace GameMain
 
             mOKButton.onClick.AddListener(OnClick);
             ShowRandomEvent();
+            ShowSettleData();
         }
 
         private void OnEnable()
@@ -53,22 +54,23 @@ namespace GameMain
 
         private void ShowRandomEvent()
         {
-            //RandomEventSO[] randomEvents = Resources.LoadAll<RandomEventSO>("RandomEvent");
-            //List<RandomEvent> newEvents= new List<RandomEvent>();
-            //foreach (RandomEventSO random in randomEvents)
-            //{
-            //    if (GameEntry.Utils.Check(random.randomEvent.trigger))
-            //    { 
-            //        newEvents.Add(random.randomEvent);
-            //    }
-            //}
-            //RandomEvent randomEvent = newEvents[Random.Range(0, newEvents.Count-1)];
-            //randomText.text = randomEvent.text;
-            //mWorkData.RandomEvent = randomEvent;
+            RandomEventSO[] randomEvents = Resources.LoadAll<RandomEventSO>("RandomEvent");
+            List<RandomEvent> newEvents = new List<RandomEvent>();
+            foreach (RandomEventSO random in randomEvents)
+            {
+                if (GameEntry.Utils.Check(random.randomEvent.trigger))
+                {
+                    newEvents.Add(random.randomEvent);
+                }
+            }
+            RandomEvent randomEvent = newEvents[Random.Range(0, newEvents.Count - 1)];
+            randomText.text = randomEvent.text;
+            mWorkData.RandomEvent = randomEvent;
         }
 
         private void ShowSettleData()
         {
+            //咖啡列表
             coffeeText.text = string.Empty;
             catText.text = string.Empty;
             settleText.text = string.Empty;
@@ -81,7 +83,14 @@ namespace GameMain
                 if (order.Salt) sb.Append("(盐)");
                 coffeeText.text += (sb.ToString() + "\n");
             }
-            //catText
+            //小猫列表
+
+            //订单总体列表
+            settleText.text += string.Format("主营业务收入：{0}\n", mWorkData.Income);
+            settleText.text += string.Format("主营业务成本:{0}\n", mWorkData.Cost);
+            settleText.text += string.Format("当期管理费用:{0}\n", mWorkData.Administration);
+            settleText.text += string.Format("当期财务成本:{0}\n", mWorkData.Financial);
+            settleText.text += string.Format("当期净利润:{0}\n", mWorkData.Income - mWorkData.Cost - mWorkData.Administration - mWorkData.Financial);
         }
 
         private void OnClick()

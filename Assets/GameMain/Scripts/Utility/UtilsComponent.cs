@@ -18,6 +18,10 @@ namespace GameMain
         //�涨����0��Ĭ���Ǻ����л�����ÿһ��֮����л�������1�ſ�ʼ����ÿһ����л�
         public List<Sprite> changeSprites= new List<Sprite>();
 
+        public List<ShopItemData> greengrocerItemDatas = new List<ShopItemData>();
+        public List<ItemData> itemDatas = new List<ItemData>();
+        public Dictionary<int, int> shopItems = new Dictionary<int, int>();
+
         public bool pickUp = false;
         private int mCarfSort = 99;
 
@@ -44,6 +48,26 @@ namespace GameMain
 
         public bool outingBefore;
 
+        public void AddPlayerItem(ItemData itemData, int num)
+        {
+            if (GetPlayerItem(itemData.itemTag) == null)
+            {
+                mPlayerData.items.Add(new PlayerItemData(itemData, num));
+            }
+            else
+            {
+                GetPlayerItem(itemData.itemTag).itemNum += num;
+            }
+        }
+        public PlayerItemData GetPlayerItem(ItemTag itemTag)
+        {
+            foreach (PlayerItemData itemData in mPlayerData.items)
+            {
+                if (itemData.itemTag == itemTag)
+                    return itemData;
+            }
+            return null;
+        }
         //����WorkData
         public void AddWork(WorkData workData)
         {
@@ -390,7 +414,7 @@ namespace GameMain
         public int maxAp;
         public int ap;
         public int day;
-        public List<ItemData> items=new List<ItemData>();
+        public List<PlayerItemData> items=new List<PlayerItemData>();
         //public int time;
     }
 }

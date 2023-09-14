@@ -119,43 +119,43 @@ namespace GameMain
                     GameEntry.Entity.ShowStirrerNode(data);
                     break;
                 //±ù¿§·È
-                case NodeTag.IceEspresso:
-                    GameEntry.Entity.ShowIceEspressoNode(data);
-                    break;
-                case NodeTag.IceWhiteCoffee:
-                    GameEntry.Entity.ShowIceWhiteCoffeeNode(data);
-                    break;
-                case NodeTag.IceConPanna:
-                    GameEntry.Entity.ShowIceConPannaNode(data);
-                    break;
-                case NodeTag.IceLatte:
-                    GameEntry.Entity.ShowIceLatteNode(data);
-                    break;
-                case NodeTag.IceCafeAmericano:
-                    GameEntry.Entity.ShowIceCafeAmericanoNode(data);
-                    break;
-                case NodeTag.IceMocha:
-                    GameEntry.Entity.ShowIceMochaNode(data);
-                    break;
-                //¼ÓÌÇ¿§·È
-                case NodeTag.SweetEspresso:
-                    GameEntry.Entity.ShowSweetEspressoNode(data);
-                    break;
-                case NodeTag.SweetWhiteCoffee:
-                    GameEntry.Entity.ShowSweetWhiteCofffeeNode(data);
-                    break;
-                case NodeTag.SweetConPanna:
-                    GameEntry.Entity.ShowSweetConPannaNode(data);
-                    break;
-                case NodeTag.SweetLatte:
-                    GameEntry.Entity.ShowSweetLatteNode(data);
-                    break;
-                case NodeTag.SweetCafeAmericano:
-                    GameEntry.Entity.ShowSweetCafeAmericanoNode(data);
-                    break;
-                case NodeTag.SweetMocha:
-                    GameEntry.Entity.ShowSweetMochaNode(data);
-                    break;
+                //case NodeTag.IceEspresso:
+                //    GameEntry.Entity.ShowIceEspressoNode(data);
+                //    break;
+                //case NodeTag.IceWhiteCoffee:
+                //    GameEntry.Entity.ShowIceWhiteCoffeeNode(data);
+                //    break;
+                //case NodeTag.IceConPanna:
+                //    GameEntry.Entity.ShowIceConPannaNode(data);
+                //    break;
+                //case NodeTag.IceLatte:
+                //    GameEntry.Entity.ShowIceLatteNode(data);
+                //    break;
+                //case NodeTag.IceCafeAmericano:
+                //    GameEntry.Entity.ShowIceCafeAmericanoNode(data);
+                //    break;
+                //case NodeTag.IceMocha:
+                //    GameEntry.Entity.ShowIceMochaNode(data);
+                //    break;
+                ////¼ÓÌÇ¿§·È
+                //case NodeTag.SweetEspresso:
+                //    GameEntry.Entity.ShowSweetEspressoNode(data);
+                //    break;
+                //case NodeTag.SweetWhiteCoffee:
+                //    GameEntry.Entity.ShowSweetWhiteCofffeeNode(data);
+                //    break;
+                //case NodeTag.SweetConPanna:
+                //    GameEntry.Entity.ShowSweetConPannaNode(data);
+                //    break;
+                //case NodeTag.SweetLatte:
+                //    GameEntry.Entity.ShowSweetLatteNode(data);
+                //    break;
+                //case NodeTag.SweetCafeAmericano:
+                //    GameEntry.Entity.ShowSweetCafeAmericanoNode(data);
+                //    break;
+                //case NodeTag.SweetMocha:
+                //    GameEntry.Entity.ShowSweetMochaNode(data);
+                //    break;
 
 
             }

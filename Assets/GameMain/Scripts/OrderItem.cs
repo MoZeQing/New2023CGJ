@@ -74,12 +74,12 @@ public class OrderItem : Entity
         {
             if (baseCompenent.NodeTag == mOrderData.NodeTag)
             {
-                if (baseCompenent.Sugar != mOrderData.Sugar)
-                    return;
-                if (baseCompenent.CondensedMilk != mOrderData.CondensedMilk)
-                    return;
-                if (baseCompenent.Salt != mOrderData.Salt)
-                    return;
+                //if (baseCompenent.Sugar != mOrderData.Sugar)
+                //    return;
+                //if (baseCompenent.CondensedMilk != mOrderData.CondensedMilk)
+                //    return;
+                //if (baseCompenent.Salt != mOrderData.Salt)
+                //    return;
                 //计算收入
                 int income = 0;
                 IDataTable<DRNode> dtNode=GameEntry.DataTable.GetDataTable<DRNode>();
@@ -90,9 +90,11 @@ public class OrderItem : Entity
                 income += mOrderData.Sugar ? 2 : 0;
                 income += mOrderData.CondensedMilk ? 5 : 0;
                 income += mOrderData.Salt ? 3 : 0;
+                Debug.LogFormat("完成订单，订单收入:{0}", income);
                 //计算收入
                 GameEntry.Event.FireNow(this, OrderEventArgs.Create(mOrderData, income));
                 GameEntry.Entity.HideEntity(baseCompenent.transform.parent.GetComponent<BaseNode>().Entity);
+                GameEntry.Entity.HideEntity(this.Entity);
             }
         }
     }

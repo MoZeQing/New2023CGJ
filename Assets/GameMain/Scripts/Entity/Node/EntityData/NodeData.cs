@@ -51,6 +51,12 @@ namespace GameMain
             set;
         }
 
+        public bool RamdonJump
+        {
+            get;
+            set;
+        }
+
         public NodeData(int entityId, int typeId, NodeTag node)
             : base(entityId, typeId)
         {
@@ -106,20 +112,6 @@ namespace GameMain
         ConPanna,//¿µ±¦À¶
         Kapuziner,//¿¨²¼ÆæÅµ
         FlatWhite,//°Ä°×
-        //±ù¿§·È
-        IceEspresso,//±ùÅ¨Ëõ¿§·È
-        IceWhiteCoffee,//±ù°×¿§·È
-        IceConPanna,//±ù¿µ±¦À¶
-        IceLatte,//±ùÄÃÌú
-        IceCafeAmericano,//±ùÃÀÊ½¿§·È
-        IceMocha,//±ùÄ¦¿¨
-        //¼ÓÌÇ
-        SweetEspresso,//¼ÓÌÇÅ¨Ëõ¿§·È
-        SweetWhiteCoffee,//¼ÓÌÇ°×¿§·È
-        SweetConPanna,//¼ÓÌÇ¿µ±¦À¶
-        SweetLatte,//¼ÓÌÇÄÃÌú
-        SweetCafeAmericano,//¼ÓÌÇÃÀÊ½¿§·È
-        SweetMocha,//¼ÓÌÇÄ¦¿¨
         None
     }
 }

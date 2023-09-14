@@ -15,16 +15,18 @@ namespace GameMain
         [SerializeField] private GameObject shopItemPre;
         [SerializeField] private Text headerField;
         [SerializeField] private Text contentField;
-        [SerializeField] private GameObject moneyTips;
+        [SerializeField] private PurchaseForm purchaseForm;
 
-        private Dictionary<string, int> shopItems = new Dictionary<string, int>();
-        private Dictionary<ItemData, int> shopItemsData = new Dictionary<ItemData, int>();
-        private List<Item> items = new List<Item>();
+        private List<Item> mItems = new List<Item>();
+        private List<ShopItemData> mItemDatas = new List<ShopItemData>();
+        private ShopItemData mItemData = new ShopItemData();
 
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
+            mItemDatas = GameEntry.Utils.greengrocerItemDatas;
             exitBtn.onClick.AddListener(OnExit);
+            ShowItems(mItemDatas);
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
@@ -38,30 +40,22 @@ namespace GameMain
             exitBtn.onClick.RemoveAllListeners();
         }
 
-        private void ShowItems(List<ItemData> itemDatas)
+        private void ShowItems(List<ShopItemData> itemDatas)
         {
-            foreach (ItemData itemData in itemDatas)
+            foreach (ShopItemData itemData in itemDatas)
             {
                 GameObject go = Instantiate(shopItemPre, canvas);
-                Item item = go.GetComponent<Item>();
+                ShopItem item = go.GetComponent<ShopItem>();
                 item.SetData(itemData);
                 item.SetClick(OnClick);
                 item.SetTouch(OnTouch);
             }
         }
-        private void OnClick(ItemData itemData)
+        private void OnClick(ShopItemData itemData)
         {
-            if (GameEntry.Utils.Money < itemData.price)
-            {
-                moneyTips.gameObject.SetActive(true);
-            }
-            else
-            {
-                GameEntry.Utils.Money -= itemData.price;
-
-            }
+            purchaseForm.SetData(itemData);
+            purchaseForm.gameObject.SetActive(true);
         }
-
         private void OnTouch(bool flag,ItemData itemData)
         {
             if (flag)
@@ -77,11 +71,11 @@ namespace GameMain
         }
         private void ClearItems()
         {
-            foreach (Item item in items)
+            foreach (Item item in mItems)
             {
                 Destroy(item.gameObject);
             }
-            items.Clear();
+            mItems.Clear();
         }
 
         private void OnExit()
@@ -99,5 +93,10 @@ namespace GameMain
         }
         
     }
+}
+public class ShopItemData : ItemData
+{
+    public int maxNum;
+    public int itemNum;
 }
 

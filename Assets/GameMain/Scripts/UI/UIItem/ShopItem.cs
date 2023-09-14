@@ -2,28 +2,58 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using System;
 
 namespace GameMain
 {
-    public class ShopItem : MonoBehaviour
+    public class ShopItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField] private Image itemImage;
         [SerializeField] private Text priceText;
         [SerializeField] private Text inventoryText;
         [SerializeField] private Button subBtn;
-        [SerializeField] private Button PurchaseButton;
-        [SerializeField] private GameObject PurchaseForm;
+        [SerializeField] private Button purchaseButton;
+
+        private ShopItemData mShopItemData;
+        private Action<ShopItemData> mAction;
+        private Action<bool, ShopItemData> mTouchAction;
 
         void Start()
         {
-            PurchaseButton.onClick.AddListener(Purchase);
+            purchaseButton.onClick.AddListener(()=>mAction(mShopItemData));
         }
 
-        private void Purchase()
+        public void SetData(ShopItemData itemData)
         {
-            PurchaseForm.SetActive(true);
+            mShopItemData = itemData;
+            priceText.text = itemData.price.ToString();
+            inventoryText.text = itemData.itemNum.ToString();
+
+            if (GameEntry.Utils.GetPlayerItem(itemData.itemTag).itemNum >= itemData.maxNum)
+            {
+                purchaseButton.interactable = false;
+            }
         }
 
+        public void SetClick(Action<ShopItemData> action)
+        {
+            mAction = action;
+        }
 
+        public void SetTouch(Action<bool, ShopItemData> action)
+        {
+            mTouchAction = action;
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            mTouchAction(true, mShopItemData);
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            mTouchAction(false, mShopItemData);
+        }
     }
 }

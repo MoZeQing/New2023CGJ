@@ -46,12 +46,22 @@ namespace GameMain
             IDataTable<DRItem> items= GameEntry.DataTable.GetDataTable<DRItem>();
             foreach (DRItem item in items) 
             {
-                ItemData itemData = new ItemData();
+                PlayerItemData itemData = new PlayerItemData();
                 itemData.itemInfo = item.Info;
                 itemData.price= item.Price;
                 itemData.filterMode = (GameMain.FilterMode)item.FilterMode;
                 itemData.equipable=item.Equipable;
                 GameEntry.Utils.PlayerData.items.Add(itemData);
+            }
+            foreach (DRItem item in items)
+            {
+                ShopItemData itemData = new ShopItemData();
+                itemData.itemInfo = item.Info;
+                itemData.price = item.Price;
+                itemData.filterMode = (GameMain.FilterMode)item.FilterMode;
+                itemData.equipable = item.Equipable;
+                itemData.maxNum = item.MaxNum;
+                GameEntry.Utils.greengrocerItemDatas.Add(itemData);
             }
         }
         protected override void OnEnter(ProcedureOwner procedureOwner)
