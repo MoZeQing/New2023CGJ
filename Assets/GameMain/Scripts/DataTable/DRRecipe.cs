@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2023-09-11 21:29:41.145
+// 生成时间：2023-09-13 20:49:11.214
 //------------------------------------------------------------
 
 using GameFramework;
@@ -75,7 +75,16 @@ namespace GameMain
         /// <summary>
         /// 获取生成咖啡等级。
         /// </summary>
-        public string CoffeeLevel
+        public int CoffeeLevel
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取是否为除浓缩咖啡以外的其它咖啡。
+        /// </summary>
+        public bool IsCoffee
         {
             get;
             private set;
@@ -97,7 +106,8 @@ namespace GameMain
             Tool = columnStrings[index++];
             Recipe = DataTableExtension.ParseListString(columnStrings[index++]);
             Product = DataTableExtension.ParseListString(columnStrings[index++]);
-            CoffeeLevel = columnStrings[index++];
+            CoffeeLevel = int.Parse(columnStrings[index++]);
+            IsCoffee = bool.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -114,7 +124,8 @@ namespace GameMain
                     Tool = binaryReader.ReadString();
                     Recipe = binaryReader.ReadListString();
                     Product = binaryReader.ReadListString();
-                    CoffeeLevel = binaryReader.ReadString();
+                    CoffeeLevel = binaryReader.Read7BitEncodedInt32();
+                    IsCoffee = binaryReader.ReadBoolean();
                 }
             }
 

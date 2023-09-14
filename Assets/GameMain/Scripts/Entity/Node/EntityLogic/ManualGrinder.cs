@@ -17,9 +17,6 @@ namespace GameMain
             m_NodeData = m_CompenentData.NodeData;
             GameEntry.Entity.AttachEntity(this.Id, m_CompenentData.OwnerId);
 
-            IDataTable<DRNode> dtNode = GameEntry.DataTable.GetDataTable<DRNode>();
-            DRNode drNode = dtNode.GetDataRow(3);
-
             mSpriteRenderer.sprite = GameEntry.Utils.nodeSprites[(int)m_NodeData.NodeTag];
         }
 

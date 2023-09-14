@@ -136,7 +136,11 @@ namespace GameMain
             this.ProducingTime = producingTime;
             this.M_RecipeDatas = m_RecipeDatas;
         }*/
-
+        public bool Flag
+        {
+            get;
+            private set;
+        }
 
 
         protected override void OnInit(object userData)
