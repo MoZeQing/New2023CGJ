@@ -96,14 +96,22 @@ namespace GameMain
     //差分Tag
     public enum DiffTag
     {
-        Idle,//静止
-        Laugh,//高兴
-        Anger,//愤怒
-        Lose,//失落
-        Cry,//哭泣
-        Shy,//害羞
-        Amazed,//惊讶
-        Scare,//恐惧
+        moren,//默认表情
+        shengqi,//生气
+        haixiu,//害羞
+        anxiang,
+        yun,
+        chang,
+        oo,
+        danxin,
+        qieyi,
+        o,
+        ai,
+        yinandexiao,
+        xiaoqi,
+        zhongjingya,
+        weixiao,
+        xiaojingya
     }
     //动作Tag
     public enum ActionTag
