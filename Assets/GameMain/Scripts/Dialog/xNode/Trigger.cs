@@ -188,5 +188,6 @@ public enum EventTag
     AddMoney,//增加金钱（参数为金钱数量）
     AddFlag,//增加旗子
     RemoveFlag,//移除旗子
-    NextDay//跳转至下一天
+    NextDay,//跳转至下一天
+    PlayBgm//播放bgm
 }

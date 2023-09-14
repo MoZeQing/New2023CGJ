@@ -40,6 +40,8 @@ public class ChatData
     public CharData right;
     [SerializeField]
     public Sprite background;
+    [SerializeField]
+    public List<EventData> eventDatas;
     [TextArea,SerializeField]
     public string text;
 }
