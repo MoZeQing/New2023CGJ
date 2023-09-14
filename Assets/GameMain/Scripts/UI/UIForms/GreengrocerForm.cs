@@ -17,7 +17,7 @@ namespace GameMain
         [SerializeField] private Text contentField;
         [SerializeField] private PurchaseForm purchaseForm;
 
-        private List<Item> mItems = new List<Item>();
+        private List<ShopItem> mItems = new List<ShopItem>();
         private List<ShopItemData> mItemDatas = new List<ShopItemData>();
         private ShopItemData mItemData = new ShopItemData();
 
@@ -26,6 +26,7 @@ namespace GameMain
             base.OnOpen(userData);
             mItemDatas = GameEntry.Utils.greengrocerItemDatas;
             exitBtn.onClick.AddListener(OnExit);
+            ClearItems();
             ShowItems(mItemDatas);
         }
 
@@ -49,6 +50,7 @@ namespace GameMain
                 item.SetData(itemData);
                 item.SetClick(OnClick);
                 item.SetTouch(OnTouch);
+                mItems.Add(item);
             }
         }
         private void OnClick(ShopItemData itemData)
@@ -71,7 +73,7 @@ namespace GameMain
         }
         private void ClearItems()
         {
-            foreach (Item item in mItems)
+            foreach (ShopItem item in mItems)
             {
                 Destroy(item.gameObject);
             }

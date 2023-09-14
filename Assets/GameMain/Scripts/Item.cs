@@ -51,6 +51,7 @@ public class Item : MonoBehaviour
 public class ItemData
 {
     public ItemTag itemTag;
+    public ItemKind itemKind;
     public string itemName;
     public int price;
     public GameMain.FilterMode filterMode;
@@ -76,8 +77,27 @@ public class PlayerItemData : ItemData
         this.itemNum = num;
     }
 }
-
-public enum ItemTag
+public enum ItemKind
 { 
-
+    Materials=0,
+    Item=1,
+    Instrument=2,
+    Book=3,
+    Cake=4
+}
+public enum ItemTag
+{
+    CoffeeBean,//©╖╥х╤╧
+    Water,//к╝
+    Milk,//еёдл
+    Cream,//длсм
+    ChocolateSyrup,//ги©ка╕╫╛
+    Sugar,//лг
+    Ice,//╠Ы
+    Salt,//ян
+    Book1=10,
+    Book2=11,
+    Book3=12,
+    Book4=13,
+    Book5=14,
 }

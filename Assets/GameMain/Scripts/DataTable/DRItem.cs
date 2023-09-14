@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2023-09-14 15:37:11.099
+// 生成时间：2023-09-14 19:04:51.805
 //------------------------------------------------------------
 
 using GameFramework;
@@ -34,6 +34,15 @@ namespace GameMain
             {
                 return m_Id;
             }
+        }
+
+        /// <summary>
+        /// 获取名称。
+        /// </summary>
+        public string Name
+        {
+            get;
+            private set;
         }
 
         /// <summary>
@@ -81,6 +90,15 @@ namespace GameMain
             private set;
         }
 
+        /// <summary>
+        /// 获取物品种类。
+        /// </summary>
+        public int Kind
+        {
+            get;
+            private set;
+        }
+
         public override bool ParseDataRow(string dataRowString, object userData)
         {
             string[] columnStrings = dataRowString.Split(DataTableExtension.DataSplitSeparators);
@@ -93,11 +111,13 @@ namespace GameMain
             index++;
             m_Id = int.Parse(columnStrings[index++]);
             index++;
+            Name = columnStrings[index++];
             Price = int.Parse(columnStrings[index++]);
             Info = columnStrings[index++];
             FilterMode = int.Parse(columnStrings[index++]);
             Equipable = bool.Parse(columnStrings[index++]);
             MaxNum = int.Parse(columnStrings[index++]);
+            Kind = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -110,11 +130,13 @@ namespace GameMain
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
+                    Name = binaryReader.ReadString();
                     Price = binaryReader.Read7BitEncodedInt32();
                     Info = binaryReader.ReadString();
                     FilterMode = binaryReader.Read7BitEncodedInt32();
                     Equipable = binaryReader.ReadBoolean();
                     MaxNum = binaryReader.Read7BitEncodedInt32();
+                    Kind = binaryReader.Read7BitEncodedInt32();
                 }
             }
 

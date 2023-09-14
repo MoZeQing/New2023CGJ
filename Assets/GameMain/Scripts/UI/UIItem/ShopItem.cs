@@ -36,22 +36,22 @@ namespace GameMain
             }
         }
 
-        public void SetClick(Action<ShopItemData> action)
+        public virtual void SetClick(Action<ShopItemData> action)
         {
             mAction = action;
         }
 
-        public void SetTouch(Action<bool, ShopItemData> action)
+        public virtual void SetTouch(Action<bool, ShopItemData> action)
         {
             mTouchAction = action;
         }
 
-        public void OnPointerEnter(PointerEventData eventData)
+        public virtual void OnPointerEnter(PointerEventData eventData)
         {
             mTouchAction(true, mShopItemData);
         }
 
-        public void OnPointerExit(PointerEventData eventData)
+        public virtual void OnPointerExit(PointerEventData eventData)
         {
             mTouchAction(false, mShopItemData);
         }

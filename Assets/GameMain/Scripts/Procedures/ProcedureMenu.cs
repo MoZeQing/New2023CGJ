@@ -46,7 +46,10 @@ namespace GameMain
             IDataTable<DRItem> items= GameEntry.DataTable.GetDataTable<DRItem>();
             foreach (DRItem item in items) 
             {
+                if (item.Kind != (int)ItemKind.Materials)
+                    continue;
                 PlayerItemData itemData = new PlayerItemData();
+                itemData.itemTag = (ItemTag)item.Id;
                 itemData.itemInfo = item.Info;
                 itemData.price= item.Price;
                 itemData.filterMode = (GameMain.FilterMode)item.FilterMode;
@@ -55,7 +58,10 @@ namespace GameMain
             }
             foreach (DRItem item in items)
             {
+                if (item.Kind != (int)ItemKind.Materials)
+                    continue;
                 ShopItemData itemData = new ShopItemData();
+                itemData.itemTag = (ItemTag)item.Id;
                 itemData.itemInfo = item.Info;
                 itemData.price = item.Price;
                 itemData.filterMode = (GameMain.FilterMode)item.FilterMode;
@@ -63,6 +69,20 @@ namespace GameMain
                 itemData.maxNum = item.MaxNum;
                 GameEntry.Utils.greengrocerItemDatas.Add(itemData);
             }
+            foreach (DRItem item in items)
+            {
+                if (item.Kind != (int)ItemKind.Book)
+                    continue;
+                ShopItemData itemData = new ShopItemData();
+                itemData.itemTag = (ItemTag)item.Id;
+                itemData.itemInfo = item.Info;
+                itemData.price = item.Price;
+                itemData.filterMode = (GameMain.FilterMode)item.FilterMode;
+                itemData.equipable = item.Equipable;
+                itemData.maxNum = item.MaxNum;
+                GameEntry.Utils.bookstoreItemDatas.Add(itemData);
+            }
+
         }
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
