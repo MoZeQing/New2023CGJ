@@ -100,6 +100,8 @@ namespace GameMain
         shengqi,//ЩњЦј
         haixiu,//КІап
         anxiang,
+        cuoe,
+        no,
         yun,
         chang,
         oo,
