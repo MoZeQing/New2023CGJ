@@ -59,14 +59,17 @@ namespace GameMain
                 case NodeTag.ChocolateSyrup:
                     GameEntry.Entity.ShowChocolateSyrupNode(data);
                     break;
-                case NodeTag.CoffeeLiquid:
-                    GameEntry.Entity.ShowCoffeeLiquidNode(data);
+                case NodeTag.Ice:
+                    GameEntry.Entity.ShowIceNode(data);
                     break;
                 case NodeTag.Sugar:
                     GameEntry.Entity.ShowSugarNode(data);
                     break;
-                case NodeTag.Ice:
-                    GameEntry.Entity.ShowIceNode(data);
+                case NodeTag.Salt:
+                    GameEntry.Entity.ShowSaltNode(data);
+                    break;
+                case NodeTag.CondensedMilk:
+                    GameEntry.Entity.ShowCondensedMilkNode(data);
                     break;
                 case NodeTag.LowFoamingMilk:
                     GameEntry.Entity.ShowLowFoamingMilkNode(data);
@@ -75,20 +78,26 @@ namespace GameMain
                     GameEntry.Entity.ShowHighFoamingMilkNode(data);
                     break;
                 //¿§·È
+                case NodeTag.Espresso:
+                    GameEntry.Entity.ShowEspressoNode(data);
+                    break;
                 case NodeTag.HotCafeAmericano:
                     GameEntry.Entity.ShowHotCafeAmericanoNode(data);
                     break;
-                case NodeTag.WhiteCoffee:
-                    GameEntry.Entity.ShowWhiteCoffeeNode(data);
+                case NodeTag.IceCafeAmericano:
+                    GameEntry.Entity.ShowIceCafeAmericanoNode(data);
                     break;
                 case NodeTag.HotLatte:
                     GameEntry.Entity.ShowHotLatteNode(data);
                     break;
+                case NodeTag.IceLatte:
+                    GameEntry.Entity.ShowIceLatteNode(data);
+                    break;
                 case NodeTag.HotMocha:
                     GameEntry.Entity.ShowHotMochaNode(data);
                     break;
-                case NodeTag.ConPanna:
-                    GameEntry.Entity.ShowConPannaNode(data);
+                case NodeTag.IceMocha:
+                    GameEntry.Entity.ShowIceMochaNode(data);
                     break;
                 case NodeTag.Kapuziner:
                     GameEntry.Entity.ShowKapuzinerNode(data);
@@ -100,17 +109,26 @@ namespace GameMain
                 case NodeTag.ManualGrinder:
                     GameEntry.Entity.ShowManualGrinderNode(data);
                     break;
+                case NodeTag.Extractor:
+                    GameEntry.Entity.ShowExtractorNode(data);
+                    break;
                 case NodeTag.ElectricGrinder:
                     GameEntry.Entity.ShowElectricGrinderNode(data);
+                    break;
+                case NodeTag.Heater:
+                    GameEntry.Entity.ShowHeaterNode(data);
+                    break;
+                case NodeTag.Syphon:
+                    GameEntry.Entity.ShowSyphonNode(data);
+                    break;
+                case NodeTag.FrenchPress:
+                    GameEntry.Entity.ShowFrenchPressNode(data);
                     break;
                 case NodeTag.Kettle:
                     GameEntry.Entity.ShowKettleNode(data);
                     break;
                 case NodeTag.FilterBowl:
                     GameEntry.Entity.ShowFilterBowlNode(data);
-                    break;
-                case NodeTag.Espresso:
-                    GameEntry.Entity.ShowEspressoNode(data);
                     break;
                 case NodeTag.Cup:
                     GameEntry.Entity.ShowCupNode(data);

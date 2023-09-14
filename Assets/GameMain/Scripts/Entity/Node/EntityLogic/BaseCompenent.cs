@@ -52,11 +52,6 @@ namespace GameMain
             get;
             protected set;
         }
-        public bool Ice
-        {
-            get;
-            protected set;
-        } = false;
         public List<NodeTag> Materials { get; protected set; } = new List<NodeTag>();
 
         protected SpriteRenderer mSpriteRenderer = null;
@@ -80,9 +75,15 @@ namespace GameMain
         protected float mTime = 0f;
         protected DRRecipe drRecipe = null;
 
-        private SpriteRenderer mIcePoint = null;
+        private SpriteRenderer mCondensedMilkPoint = null;
         private SpriteRenderer mSugarPoint = null;
         private SpriteRenderer mSaltPoint = null;
+
+        private SpriteRenderer mRangerC = null;
+        private SpriteRenderer mRangerB = null;
+        private SpriteRenderer mRangerA = null;
+        private SpriteRenderer mRangerS = null;
+
         private float mAddMaterialsTime = 0f;
         private float mAddTime = 0f;
         private bool flag = false;
@@ -104,9 +105,15 @@ namespace GameMain
 
             mBoxCollider2D = this.GetComponent<BoxCollider2D>();
 
-            mIcePoint = mSpriteRenderer.gameObject.transform.Find("Ice").GetComponent<SpriteRenderer>();
+            mCondensedMilkPoint = mSpriteRenderer.gameObject.transform.Find("CondensedMilk").GetComponent<SpriteRenderer>();
             mSugarPoint = mSpriteRenderer.gameObject.transform.Find("Sugar").GetComponent<SpriteRenderer>();
             mSaltPoint = mSpriteRenderer.gameObject.transform.Find("Salt").GetComponent<SpriteRenderer>();
+
+            mRangerC = mSpriteRenderer.gameObject.transform.Find("RangeC").GetComponent<SpriteRenderer>();
+            mRangerB = mSpriteRenderer.gameObject.transform.Find("RangeB").GetComponent<SpriteRenderer>();
+            mRangerA = mSpriteRenderer.gameObject.transform.Find("RangeA").GetComponent<SpriteRenderer>();
+            mRangerS = mSpriteRenderer.gameObject.transform.Find("RangeS").GetComponent<SpriteRenderer>();
+
             mAddMaterialsTime = 5f;
             Level = mNodeData.MLevel;
         }
@@ -150,61 +157,58 @@ namespace GameMain
             }
             if (Child != null)
             {
-                mBoxCollider2D.size = new Vector2(1.366413f, 0.583478f);
-                mBoxCollider2D.offset = new Vector2(-0.005561709f, -0.6995664f);
+                mBoxCollider2D.size = new Vector2(1.36f, 0.47594f);
+                mBoxCollider2D.offset = new Vector2(0f, -0.7279919f);
             }
 
             if (!Input.GetMouseButton(0))
             {
                 mNodeData.Follow = false;
                 GameEntry.Utils.pickUp = false;
-                //if (firstFollow)
-                //{
-                //    mSpriteRenderer.sortingLayerName = "GamePlay";
-                //    mShader.sortingLayerName = "GamePlay";
-                //    //mBoxCollider2D.isTrigger = false;
-                //    PitchOn();
-                //    if (mCompenents.Count == 0)
-                //        return;
-                //    if (Parent != null)
-                //        return;
+                /*if (firstFollow)
+                
+                    mSpriteRenderer.sortingLayerName = "GamePlay";
+                    mShader.sortingLayerName = "GamePlay";
+                    mBoxCollider2D.isTrigger = false;
+                    PitchOn();
+                    if (mCompenents.Count == 0)
+                        return;
+                    if (Parent != null)
+                        return;
 
-                //    BaseCompenent bestCompenent = mCompenents[0];
-                //    foreach (BaseCompenent baseCompenent in mCompenents)
-                //    {
-                //        if ((baseCompenent.transform.position - this.transform.position).magnitude < (bestCompenent.transform.position - this.transform.position).magnitude)
-                //        {
-                //            if (baseCompenent.Child != null)
-                //                continue;
-                //            bestCompenent = baseCompenent;
-                //        }
-                //    }
-                //    mCompenents.Clear();
+                    BaseCompenent bestCompenent = mCompenents[0];
+                    foreach (BaseCompenent baseCompenent in mCompenents)
+                    {
+                        if ((baseCompenent.transform.position - this.transform.position).magnitude < (bestCompenent.transform.position - this.transform.position).magnitude)
+                        {
+                            if (baseCompenent.Child != null)
+                                continue;
+                            bestCompenent = baseCompenent;
+                        }
+                    }
+                    mCompenents.Clear();
 
-                //    //�������ѭ��
-                //    BaseCompenent parent = bestCompenent;
-                //    //���������ѭ��
-                //    int block = 1000;
-                //    while (parent != null)
-                //    {
-                //        parent = parent.Parent;
-                //        if (parent == this)
-                //            return;
-                //        block--;
-                //        if (block < 0)
-                //            return;
-                //    }
-                //    Parent = bestCompenent;
-                //    Parent.Child = this;
-                //    firstFollow = false;
-                //}
+                    BaseCompenent parent = bestCompenent;
+
+                    int block = 1000;
+                    while (parent != null)
+                    {
+                        parent = parent.Parent;
+                        if (parent == this)
+                            return;
+                        block--;
+                        if (block < 0)
+                            return;
+                    }
+                    Parent = bestCompenent;
+                    Parent.Child = this;
+                    firstFollow = false;
+                }*/
             }
             if (mNodeData.Follow)
             {
-                //��������û�����⣬��������Ҫ��������ƶ���������
                 this.transform.DOMove(MouseToWorld(Input.mousePosition) - mMouseGap, 0.05f);
                 //this.transform.position=MouseToWorld(Input.mousePosition);
-                //���Ƶ��ƶ��Ϳ��Ʊ���������Ч���Ƿ��ڲ�һ���Ĳ㼶�����
                 Producing = false;
                 tool = NodeTag.None;
                 mProducingTime = 0;
@@ -226,9 +230,11 @@ namespace GameMain
 
             mMaterials = GenerateMaterialList();
             Compound();
-            AddMaterials();
+            if(mNodeData.IsCoffee==true)
+            {
+                AddMaterials();
+            }
             ShowMyLevel();
-            mProgressBarRenderer.sortingOrder = mSpriteRenderer.sortingOrder + 1;
         }
         protected Vector3 MouseToWorld(Vector3 mousePos)
         {
@@ -252,8 +258,7 @@ namespace GameMain
             mSpriteRenderer.sortingOrder = GameEntry.Utils.CartSort;
             mSpriteRenderer.sortingLayerName = "Controller";
             mShader.sortingLayerName = "Controller";
-            //�������������
-            //̧�߿�Ƭ
+
             mMouseGap = MouseToWorld(Input.mousePosition) - this.transform.position;
             PickUp();
         }
@@ -280,9 +285,8 @@ namespace GameMain
             }
             mCompenents.Clear();
 
-            //�������ѭ��
             BaseCompenent parent = bestCompenent;
-            //���������ѭ��
+
             int block = 1000;
             while (parent != null)
             {
@@ -413,9 +417,11 @@ namespace GameMain
         }
         public void Compound()
         {
+            mProgressBarRenderer.sortingOrder = mSpriteRenderer.sortingOrder + 1;
+            mProgressBarRenderer.sortingLayerName = mSpriteRenderer.sortingLayerName;
             if (!Producing)
             {
-                for (int i = 0; i < 19; i++)
+                for (int i = 0; i < 23; i++)
                 {
                     drRecipe = dtRecipe.GetDataRow(i);
                     mRecipe = TransToEnumList(drRecipe.Recipe);
@@ -477,7 +483,7 @@ namespace GameMain
                         Debug.Log(mProduct.Count);
                         if (mProduct[i] == NodeTag.Espresso)
                         {
-                            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, mProduct[i],mLevel)
+                            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, mProduct[i],mLevel,true)
                             {
                                 Position = this.transform.position + new Vector3(0.5f, 0, 0),
                                 RamdonJump = true
@@ -487,7 +493,7 @@ namespace GameMain
                         {
                             FindMyEspressoLevel();
                             GenerateCoffeeLevel();
-                            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, mProduct[i], mLevel)
+                            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, mProduct[i], mLevel,true)
                             {
                                 Position = this.transform.position + new Vector3(0.5f, 0, 0),
                                 RamdonJump = true
@@ -591,13 +597,27 @@ namespace GameMain
         }
         public void AddMaterials()
         {
-
+            if(Child!=null)
+            {
+                mCondensedMilkPoint.sortingOrder = Child.mSpriteRenderer.sortingOrder - 1;
+                mSaltPoint.sortingOrder = Child.mSpriteRenderer.sortingOrder - 1;
+                mSugarPoint.sortingOrder = Child.mSpriteRenderer.sortingOrder - 1;
+            }
+            if(Child==null)
+            {
+                mCondensedMilkPoint.sortingOrder = mSpriteRenderer.sortingOrder + 1;
+                mSaltPoint.sortingOrder = mSpriteRenderer.sortingOrder + 1;
+                mSugarPoint.sortingOrder = mSpriteRenderer.sortingOrder + 1;
+            }
+            mCondensedMilkPoint.sortingLayerName = mSpriteRenderer.sortingLayerName;
+            mSaltPoint.sortingLayerName = mSpriteRenderer.sortingLayerName;
+            mSugarPoint.sortingLayerName = mSpriteRenderer.sortingLayerName;
             if (Parent == null && Child != null && Child.Child == null && flag == false)
             {
-                if (Child.NodeTag == NodeTag.Ice)
+                if (Child.NodeTag == NodeTag.CondensedMilk)
                 {
                     flag = true;
-                    Ice = true;
+                    CondensedMilk = true;
                     mAddTime = mAddMaterialsTime;
                 }
                 else if (Child.NodeTag == NodeTag.Sugar)
@@ -606,10 +626,16 @@ namespace GameMain
                     Sugar = true;
                     mAddTime = mAddMaterialsTime;
                 }
+                else if (Child.NodeTag == NodeTag.Salt)
+                {
+                    flag = true;
+                    Salt = true;
+                    mAddTime = mAddMaterialsTime;
+                }
             }
             if (flag == true)
             {
-                if (Ice==true&&!mIcePoint.gameObject.activeSelf)
+                if (CondensedMilk ==true&&!mCondensedMilkPoint.gameObject.activeSelf)
                 {
                     mProgressBar.gameObject.SetActive(true);
                     mProgressBar.transform.SetLocalScaleX(1 - (1 - mAddTime / mAddMaterialsTime));
@@ -617,7 +643,7 @@ namespace GameMain
                     if (Parent != null || Child == null||Child.Child!=null)
                     {
                         flag = false;
-                        Ice = false;
+                        CondensedMilk = false;
                         mProgressBar.gameObject.SetActive(false);
                         mProgressBar.transform.SetLocalScaleX(1);
                         return;
@@ -625,12 +651,12 @@ namespace GameMain
                     if (mAddTime <= 0)
                     {
                         mProgressBar.gameObject.SetActive(false);
-                        mIcePoint.gameObject.SetActive(true);
+                        mCondensedMilkPoint.gameObject.SetActive(true);
                         if (Child != null)
                         {
                             Child.Remove();
                         }
-                        Ice = true;
+                        CondensedMilk = true;
                         flag = false;
                     }
                 }
@@ -656,6 +682,31 @@ namespace GameMain
                             Child.Remove();
                         }
                         Sugar = true;
+                        flag = false;
+                    }
+                }
+                else if (Salt == true && !mSaltPoint.gameObject.activeSelf)
+                {
+                    mProgressBar.gameObject.SetActive(true);
+                    mProgressBar.transform.SetLocalScaleX(1 - (1 - mAddTime / mAddMaterialsTime));
+                    mAddTime -= Time.deltaTime;
+                    if (Parent != null || Child == null)
+                    {
+                        flag = false;
+                        Salt = false; ;
+                        mProgressBar.gameObject.SetActive(false);
+                        mProgressBar.transform.SetLocalScaleX(1);
+                        return;
+                    }
+                    if (mAddTime <= 0)
+                    {
+                        mProgressBar.gameObject.SetActive(false);
+                        mSaltPoint.gameObject.SetActive(true);
+                        if (Child != null)
+                        {
+                            Child.Remove();
+                        }
+                        Salt = true;
                         flag = false;
                     }
                 }
@@ -709,7 +760,52 @@ namespace GameMain
 
         public void ShowMyLevel()
         {
-            Debug.Log(Level);
+            if (Child != null)
+            {
+                mRangerC.sortingOrder = Child.mSpriteRenderer.sortingOrder - 1;
+                mRangerB.sortingOrder = Child.mSpriteRenderer.sortingOrder - 1;
+                mRangerA.sortingOrder = Child.mSpriteRenderer.sortingOrder - 1;
+                mRangerS.sortingOrder = Child.mSpriteRenderer.sortingOrder - 1;
+            }
+            if (Child == null)
+            {
+                mRangerC.sortingOrder = mSpriteRenderer.sortingOrder + 1;
+                mRangerB.sortingOrder = mSpriteRenderer.sortingOrder + 1;
+                mRangerA.sortingOrder = mSpriteRenderer.sortingOrder + 1;
+                mRangerS.sortingOrder = mSpriteRenderer.sortingOrder + 1;
+            }
+            mRangerC.sortingLayerName = mSpriteRenderer.sortingLayerName;
+            mRangerB.sortingLayerName = mSpriteRenderer.sortingLayerName;
+            mRangerA.sortingLayerName = mSpriteRenderer.sortingLayerName;
+            mRangerS.sortingLayerName = mSpriteRenderer.sortingLayerName;
+            if (Level==1)
+            {
+                mRangerC.gameObject.SetActive(true);
+                mRangerB.gameObject.SetActive(false);
+                mRangerA.gameObject.SetActive(false);
+                mRangerS.gameObject.SetActive(false);
+            }
+            else if (Level == 2)
+            {
+                mRangerC.gameObject.SetActive(false);
+                mRangerB.gameObject.SetActive(true);
+                mRangerA.gameObject.SetActive(false);
+                mRangerS.gameObject.SetActive(false);
+            }
+            else if (Level == 3)
+            {
+                mRangerC.gameObject.SetActive(false);
+                mRangerB.gameObject.SetActive(false);
+                mRangerA.gameObject.SetActive(true);
+                mRangerS.gameObject.SetActive(false);
+            }
+            else if (Level == 4)
+            {
+                mRangerC.gameObject.SetActive(false);
+                mRangerB.gameObject.SetActive(false);
+                mRangerA.gameObject.SetActive(false);
+                mRangerS.gameObject.SetActive(true);
+            }
         }
     }
 

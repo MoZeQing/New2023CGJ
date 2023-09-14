@@ -56,6 +56,11 @@ namespace GameMain
             get;
             set;
         }
+        public bool IsCoffee
+        {
+            get;
+            set;
+        } = false;
 
         public NodeData(int entityId, int typeId, NodeTag node)
             : base(entityId, typeId)
@@ -67,6 +72,13 @@ namespace GameMain
         {
             this.NodeTag = node;
             this.MLevel = level;
+        }
+        public NodeData(int entityId, int typeId, NodeTag node, int level,bool isCoffee)
+            : base(entityId, typeId)
+        {
+            this.NodeTag = node;
+            this.MLevel = level;
+            this.IsCoffee = isCoffee;
         }
     }
 
@@ -90,26 +102,31 @@ namespace GameMain
         HotMilk,//热牛奶
         Cream,//奶油
         ChocolateSyrup,//巧克力浆
-        CoffeeLiquid,//咖啡液
-        Sugar,//糖
         Ice,//冰
+        Sugar,//糖
+        Salt,//盐
+        CondensedMilk,//炼乳
         LowFoamingMilk,//低泡牛奶
         HighFoamingMilk,//高泡牛奶
         //工具
         ManualGrinder,//手动研磨器
+        Extractor,//电动萃取
         ElectricGrinder,//电动研磨器
-        Kettle,//加热壶
+        Heater,//加热器
+        Syphon,//虹吸壶
+        FrenchPress,//法压壶
+        Kettle,//浸泡壶
         FilterBowl,//滤纸式滤杯
         Cup,//咖啡杯
         Stirrer,//搅拌器
         //咖啡
         Espresso,//浓缩咖啡
-        Coffee,//咖啡
         HotCafeAmericano,//热美式
-        WhiteCoffee,//白咖啡
+        IceCafeAmericano,//冷美式
         HotLatte,//热拿铁
+        IceLatte,//冰拿铁
         HotMocha,//热摩卡
-        ConPanna,//康宝蓝
+        IceMocha,//热摩卡
         Kapuziner,//卡布奇诺
         FlatWhite,//澳白
         None

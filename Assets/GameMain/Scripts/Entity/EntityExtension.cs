@@ -29,58 +29,21 @@ namespace GameMain
         {
             entityComponent.ShowEntity(typeof(CoffeeBeanNode), "Coffee", 90, compenentData);
         }
-
+        public static void ShowCoarseGroundCoffeeNode(this EntityComponent entityComponent, CompenentData compenentData)
+        {
+            entityComponent.ShowEntity(typeof(CoarseGroundCoffeeNode), "Coffee", 90, compenentData);
+        }
+        public static void ShowMidGroundCoffeeNode(this EntityComponent entityComponent, CompenentData compenentData)
+        {
+            entityComponent.ShowEntity(typeof(MidGroundCoffeeNode), "Coffee", 90, compenentData);
+        }
+        public static void ShowFineGroundCoffeeNode(this EntityComponent entityComponent, CompenentData compenentData)
+        {
+            entityComponent.ShowEntity(typeof(FineGroundCoffeeNode), "Coffee", 90, compenentData);
+        }
         public static void ShowWaterNode(this EntityComponent entityComponent, CompenentData compenentData)
         {
             entityComponent.ShowEntity(typeof(WaterNode), "Coffee", 90, compenentData);
-        }
-        public static void ShowSugarNode(this EntityComponent entityComponent, CompenentData compenentData)
-        {
-            entityComponent.ShowEntity(typeof(SugarNode), "Coffee", 90, compenentData);
-        }
-        public static void ShowIceNode(this EntityComponent entityComponent, CompenentData compenentData)
-        {
-            entityComponent.ShowEntity(typeof(IceNode), "Coffee", 90, compenentData);
-        }
-        public static void ShowLowFoamingMilkNode(this EntityComponent entityComponent, CompenentData compenentData)
-        {
-            entityComponent.ShowEntity(typeof(LowFoamingMilkNode), "Coffee", 90, compenentData);
-        }
-        public static void ShowHighFoamingMilkNode(this EntityComponent entityComponent, CompenentData compenentData)
-        {
-            entityComponent.ShowEntity(typeof(HighFoamingMilkNode), "Coffee", 90, compenentData);
-        }
-        public static void ShowGroundCoffeeNode(this EntityComponent entityComponent, CompenentData compenentData)
-        {
-            entityComponent.ShowEntity(typeof(GroundCoffeeNode), "Coffee", 90, compenentData);
-        }
-        public static void ShowBurnisherNode(this EntityComponent entityComponent, CompenentData compenentData)
-        {
-            entityComponent.ShowEntity(typeof(BurnisherNode), "Coffee", 90, compenentData);
-        }
-        public static void ShowCupNode(this EntityComponent entityComponent, CompenentData compenentData)
-        {
-            entityComponent.ShowEntity(typeof(CupNode), "Coffee", 90, compenentData);
-        }
-        public static void ShowStirrerNode(this EntityComponent entityComponent, CompenentData compenentData)
-        {
-            entityComponent.ShowEntity(typeof(StirrerNode), "Coffee", 90, compenentData);
-        }
-        public static void ShowEspressoNode(this EntityComponent entityComponent, CompenentData compenentData)
-        {
-            entityComponent.ShowEntity(typeof(EspressoNode), "Coffee", 90, compenentData);
-        }
-        public static void ShowCoffeeNode(this EntityComponent entityComponent, CompenentData compenentData)
-        {
-            entityComponent.ShowEntity(typeof(CoffeeNode), "Coffee", 90, compenentData);
-        }
-        public static void ShowKettleNode(this EntityComponent entityComponent, CompenentData compenentData)
-        {
-            entityComponent.ShowEntity(typeof(KettleNode), "Coffee", 90, compenentData);
-        }
-        public static void ShowFilterBowlNode(this EntityComponent entityComponent, CompenentData compenentData)
-        {
-            entityComponent.ShowEntity(typeof(FilterBowlNode), "Coffee", 90, compenentData);
         }
         public static void ShowHotWaterNode(this EntityComponent entityComponent, CompenentData compenentData)
         {
@@ -102,109 +65,109 @@ namespace GameMain
         {
             entityComponent.ShowEntity(typeof(ChocolateSyrupNode), "Coffee", 90, compenentData);
         }
-        public static void ShowCoffeeLiquidNode(this EntityComponent entityComponent, CompenentData compenentData)
+        public static void ShowIceNode(this EntityComponent entityComponent, CompenentData compenentData)
         {
-            entityComponent.ShowEntity(typeof(CoffeeLiquidNode), "Coffee", 90, compenentData);
+            entityComponent.ShowEntity(typeof(IceNode), "Coffee", 90, compenentData);
         }
-        public static void ShowHotCafeAmericanoNode(this EntityComponent entityComponent, CompenentData compenentData)
+        public static void ShowSugarNode(this EntityComponent entityComponent, CompenentData compenentData)
         {
-            entityComponent.ShowEntity(typeof(HotCafeAmericanoNode), "Coffee", 90, compenentData);
+            entityComponent.ShowEntity(typeof(SugarNode), "Coffee", 90, compenentData);
         }
-        public static void ShowKapuzinerNode(this EntityComponent entityComponent, CompenentData compenentData)
+        public static void ShowSaltNode(this EntityComponent entityComponent, CompenentData compenentData)
         {
-            entityComponent.ShowEntity(typeof(KapuzinerNode), "Coffee", 90, compenentData);
+            entityComponent.ShowEntity(typeof(SaltNode), "Coffee", 90, compenentData);
         }
-        public static void ShowWhiteCoffeeNode(this EntityComponent entityComponent, CompenentData compenentData)
+        public static void ShowCondensedMilkNode(this EntityComponent entityComponent, CompenentData compenentData)
         {
-            entityComponent.ShowEntity(typeof(WhiteCoffeeNode), "Coffee", 90, compenentData);
+            entityComponent.ShowEntity(typeof(CondensedMilkNode), "Coffee", 90, compenentData);
         }
-        public static void ShowHotLatteNode(this EntityComponent entityComponent, CompenentData compenentData)
+        public static void ShowLowFoamingMilkNode(this EntityComponent entityComponent, CompenentData compenentData)
         {
-            entityComponent.ShowEntity(typeof(HotLatteNode), "Coffee", 90, compenentData);
+            entityComponent.ShowEntity(typeof(LowFoamingMilkNode), "Coffee", 90, compenentData);
         }
-        public static void ShowHotMochaNode(this EntityComponent entityComponent, CompenentData compenentData)
+        public static void ShowHighFoamingMilkNode(this EntityComponent entityComponent, CompenentData compenentData)
         {
-            entityComponent.ShowEntity(typeof(HotMochaNode), "Coffee", 90, compenentData);
+            entityComponent.ShowEntity(typeof(HighFoamingMilkNode), "Coffee", 90, compenentData);
         }
-        public static void ShowFlatWhiteNode(this EntityComponent entityComponent, CompenentData compenentData)
+        public static void ShowManualGrinderNode(this EntityComponent entityComponent, CompenentData compenentData)
         {
-            entityComponent.ShowEntity(typeof(FlatWhiteNode), "Coffee", 90, compenentData);
+            entityComponent.ShowEntity(typeof(ManualGrinderNode), "Coffee", 90, compenentData);
         }
-        public static void ShowConPannaNode(this EntityComponent entityComponent, CompenentData compenentData)
+        public static void ShowExtractorNode(this EntityComponent entityComponent, CompenentData compenentData)
         {
-            entityComponent.ShowEntity(typeof(ConPannaNode), "Coffee", 90, compenentData);
-        }
-        public static void ShowIceCafeAmericanoNode(this EntityComponent entityComponent, CompenentData compenentData)
-        {
-            entityComponent.ShowEntity(typeof(ConPannaNode), "Coffee", 90, compenentData);
-        }
-        public static void ShowSweetCafeAmericanoNode(this EntityComponent entityComponent, CompenentData compenentData)
-        {
-            entityComponent.ShowEntity(typeof(ConPannaNode), "Coffee", 90, compenentData);
-        }
-        public static void ShowIceEspressoNode(this EntityComponent entityComponent, CompenentData compenentData)
-        {
-            entityComponent.ShowEntity(typeof(IceEspressoNode), "Coffee", 90, compenentData);
-        }
-        public static void ShowSweetEspressoNode(this EntityComponent entityComponent, CompenentData compenentData)
-        {
-            entityComponent.ShowEntity(typeof(SweetEspressoNode), "Coffee", 90, compenentData);
-        }
-        public static void ShowIceWhiteCoffeeNode(this EntityComponent entityComponent, CompenentData compenentData)
-        {
-            entityComponent.ShowEntity(typeof(IceWhiteCoffeeNode), "Coffee", 90, compenentData);
-        }
-        public static void ShowSweetWhiteCofffeeNode(this EntityComponent entityComponent, CompenentData compenentData)
-        {
-            entityComponent.ShowEntity(typeof(SweetWhiteCoffeeNode), "Coffee", 90, compenentData);
-        }
-        public static void ShowIceConPannaNode(this EntityComponent entityComponent, CompenentData compenentData)
-        {
-            entityComponent.ShowEntity(typeof(IceConPannaNode), "Coffee", 90, compenentData);
-        }
-        public static void ShowSweetConPannaNode(this EntityComponent entityComponent, CompenentData compenentData)
-        {
-            entityComponent.ShowEntity(typeof(SweetConPannaNode), "Coffee", 90, compenentData);
-        }
-        public static void ShowIceLatteNode(this EntityComponent entityComponent, CompenentData compenentData)
-        {
-            entityComponent.ShowEntity(typeof(IceLatteNode), "Coffee", 90, compenentData);
-        }
-        public static void ShowSweetLatteNode(this EntityComponent entityComponent, CompenentData compenentData)
-        {
-            entityComponent.ShowEntity(typeof(SweetLatteNode), "Coffee", 90, compenentData);
-        }
-        public static void ShowIceMochaNode(this EntityComponent entityComponent, CompenentData compenentData)
-        {
-            entityComponent.ShowEntity(typeof(IceMochaNode), "Coffee", 90, compenentData);
-        }
-        public static void ShowSweetMochaNode(this EntityComponent entityComponent, CompenentData compenentData)
-        {
-            entityComponent.ShowEntity(typeof(SweetMochaNode), "Coffee", 90, compenentData);
-        }
-        public static void ShowOrder(this EntityComponent entityComponent, OrderItemData data)
-        {
-            entityComponent.ShowEntity(typeof(OrderItem), "Order", 90, data);
+            entityComponent.ShowEntity(typeof(ExtractorNode), "Coffee", 90, compenentData);
         }
         public static void ShowElectricGrinderNode(this EntityComponent entityComponent, CompenentData compenentData)
         {
             entityComponent.ShowEntity(typeof(ElectricGrinderNode), "Coffee", 90, compenentData);
         }
-        public static void ShowManualGrinderNode(this EntityComponent entityComponent, CompenentData compenentData)
+        public static void ShowHeaterNode(this EntityComponent entityComponent, CompenentData compenentData)
         {
-            entityComponent.ShowEntity(typeof(ManualGrinderNode), "Coffee", 90, compenentData );
+            entityComponent.ShowEntity(typeof(HeaterNode), "Coffee", 90, compenentData);
         }
-        public static void ShowCoarseGroundCoffeeNode(this EntityComponent entityComponent, CompenentData compenentData)
+        public static void ShowSyphonNode(this EntityComponent entityComponent, CompenentData compenentData)
         {
-            entityComponent.ShowEntity(typeof(CoarseGroundCoffeeNode), "Coffee", 90, compenentData);
+            entityComponent.ShowEntity(typeof(SyphonNode), "Coffee", 90, compenentData);
         }
-        public static void ShowMidGroundCoffeeNode(this EntityComponent entityComponent, CompenentData compenentData)
+        public static void ShowFrenchPressNode(this EntityComponent entityComponent, CompenentData compenentData)
         {
-            entityComponent.ShowEntity(typeof(MidGroundCoffeeNode), "Coffee", 90, compenentData);
+            entityComponent.ShowEntity(typeof(FrenchPressNode), "Coffee", 90, compenentData);
         }
-        public static void ShowFineGroundCoffeeNode(this EntityComponent entityComponent, CompenentData compenentData)
+        public static void ShowKettleNode(this EntityComponent entityComponent, CompenentData compenentData)
         {
-            entityComponent.ShowEntity(typeof(FineGroundCoffeeNode), "Coffee", 90, compenentData);
+            entityComponent.ShowEntity(typeof(KettleNode), "Coffee", 90, compenentData);
+        }
+        public static void ShowFilterBowlNode(this EntityComponent entityComponent, CompenentData compenentData)
+        {
+            entityComponent.ShowEntity(typeof(FilterBowlNode), "Coffee", 90, compenentData);
+        }
+        public static void ShowCupNode(this EntityComponent entityComponent, CompenentData compenentData)
+        {
+            entityComponent.ShowEntity(typeof(CupNode), "Coffee", 90, compenentData);
+        }
+        public static void ShowStirrerNode(this EntityComponent entityComponent, CompenentData compenentData)
+        {
+            entityComponent.ShowEntity(typeof(StirrerNode), "Coffee", 90, compenentData);
+        }
+        public static void ShowEspressoNode(this EntityComponent entityComponent, CompenentData compenentData)
+        {
+            entityComponent.ShowEntity(typeof(EspressoNode), "Coffee", 90, compenentData);
+        }
+        public static void ShowHotCafeAmericanoNode(this EntityComponent entityComponent, CompenentData compenentData)
+        {
+            entityComponent.ShowEntity(typeof(HotCafeAmericanoNode), "Coffee", 90, compenentData);
+        }
+        public static void ShowIceCafeAmericanoNode(this EntityComponent entityComponent, CompenentData compenentData)
+        {
+            entityComponent.ShowEntity(typeof(ConPannaNode), "Coffee", 90, compenentData);
+        }
+        public static void ShowHotLatteNode(this EntityComponent entityComponent, CompenentData compenentData)
+        {
+            entityComponent.ShowEntity(typeof(HotLatteNode), "Coffee", 90, compenentData);
+        }
+        public static void ShowIceLatteNode(this EntityComponent entityComponent, CompenentData compenentData)
+        {
+            entityComponent.ShowEntity(typeof(IceLatteNode), "Coffee", 90, compenentData);
+        }
+        public static void ShowHotMochaNode(this EntityComponent entityComponent, CompenentData compenentData)
+        {
+            entityComponent.ShowEntity(typeof(HotMochaNode), "Coffee", 90, compenentData);
+        }
+        public static void ShowIceMochaNode(this EntityComponent entityComponent, CompenentData compenentData)
+        {
+            entityComponent.ShowEntity(typeof(IceMochaNode), "Coffee", 90, compenentData);
+        }
+        public static void ShowKapuzinerNode(this EntityComponent entityComponent, CompenentData compenentData)
+        {
+            entityComponent.ShowEntity(typeof(KapuzinerNode), "Coffee", 90, compenentData);
+        }
+        public static void ShowFlatWhiteNode(this EntityComponent entityComponent, CompenentData compenentData)
+        {
+            entityComponent.ShowEntity(typeof(FlatWhiteNode), "Coffee", 90, compenentData);
+        }
+        public static void ShowOrder(this EntityComponent entityComponent, OrderItemData data)
+        {
+            entityComponent.ShowEntity(typeof(OrderItem), "Order", 90, data);
         }
         private static void ShowEntity(this EntityComponent entityComponent, Type logicType, string entityGroup, int priority, EntityData data)
         {

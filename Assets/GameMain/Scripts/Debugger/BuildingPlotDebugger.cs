@@ -48,6 +48,16 @@ namespace GameMain
                 Position = new Vector3(6.073708f, -6.272577f, 0),
                 Follow = false
             });
+            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.ManualGrinder)
+            {
+                Position = new Vector3(6.073708f, -6.272577f, 0),
+                Follow = false
+            });
+            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Extractor)
+            {
+                Position = new Vector3(6.073708f, -6.272577f, 0),
+                Follow = false
+            });
             GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Kettle)
             {
                 Position = new Vector3(3.926076f, -6.51359f, 0),
@@ -59,6 +69,21 @@ namespace GameMain
                 Follow = false
             });
             GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Stirrer)
+            {
+                Position = new Vector3(-3.477277f, -6.092597f, 0),
+                Follow = false
+            });
+            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Heater)
+            {
+                Position = new Vector3(-3.477277f, -6.092597f, 0),
+                Follow = false
+            });
+            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Syphon)
+            {
+                Position = new Vector3(-3.477277f, -6.092597f, 0),
+                Follow = false
+            });
+            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.FrenchPress)
             {
                 Position = new Vector3(-3.477277f, -6.092597f, 0),
                 Follow = false
