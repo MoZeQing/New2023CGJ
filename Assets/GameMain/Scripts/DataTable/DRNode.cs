@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2023-09-15 15:26:49.783
+// 生成时间：2023-09-15 16:08:12.894
 //------------------------------------------------------------
 
 using GameFramework;
@@ -73,15 +73,6 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取制作这个成品所需时间。
-        /// </summary>
-        public float ProducingTime
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
         /// 获取所在层。
         /// </summary>
         public string Layer
@@ -133,7 +124,6 @@ namespace GameMain
             Material = bool.Parse(columnStrings[index++]);
             Tool = bool.Parse(columnStrings[index++]);
             Coffee = bool.Parse(columnStrings[index++]);
-            ProducingTime = float.Parse(columnStrings[index++]);
             Layer = columnStrings[index++];
             Layerint = int.Parse(columnStrings[index++]);
             Price = int.Parse(columnStrings[index++]);
@@ -154,7 +144,6 @@ namespace GameMain
                     Material = binaryReader.ReadBoolean();
                     Tool = binaryReader.ReadBoolean();
                     Coffee = binaryReader.ReadBoolean();
-                    ProducingTime = binaryReader.ReadSingle();
                     Layer = binaryReader.ReadString();
                     Layerint = binaryReader.Read7BitEncodedInt32();
                     Price = binaryReader.Read7BitEncodedInt32();
