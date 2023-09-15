@@ -1,27 +1,27 @@
-#	Recipe配置文件							
-#	ID		ProducingTime	Tool	Recipe	Product	CoffeeLevel	IsCoffee
-#	int	string	float	string	List<String>	List<String>	int	bool
-#	成品ID	策划备注	制作时间	制作工具	配方表	成品	生成咖啡等级	是否为除浓缩咖啡以外的其它咖啡
-	0	粗咖啡粉	1	ManualGrinder	CoffeeBean	CoarseGroundCoffee	0	FALSE
-	1	中咖啡粉	1	ManualGrinder	CoarseGroundCoffee	MidGroundCoffee	0	FALSE
-	2	细缩咖啡	1	ManualGrinder	MidGroundCoffee	FineGroundCoffee	0	FALSE
-	3	粗咖啡粉	1	ElectricGrinder	CoffeeBean	CoarseGroundCoffee	0	FALSE
-	4	中咖啡粉	1	ElectricGrinder	CoarseGroundCoffee	MidGroundCoffee	0	FALSE
-	5	细缩咖啡	1	ElectricGrinder	MidGroundCoffee	FineGroundCoffee	0	FALSE
-	6	热水	1	Heater	Water	HotWater	0	FALSE
-	7	热牛奶	1	Heater	Milk	HotMilk	0	FALSE
-	8	浓缩咖啡	1	FilterBowl	"MidGroundCoffee,HotWater"	Espresso	2	FALSE
-	9	低泡牛奶	1	Stirrer	Milk	LowFoamingMilk	0	FALSE
-	10	高泡牛奶	1	Stirrer	LowFoamingMilk	HighFoamingMilk	0	FALSE
-	11	热美式	1	Cup	"HotWater,Espresso"	HotCafeAmericano	0	TRUE
-	12	冰美式	1	Cup	"Ice,Water,Espresso"	IceCafeAmericano	0	TRUE
-	13	热摩卡	1	Cup	"ChocolateSyrup,Espresso,LowFoamingMilk,Cream,ChocolateSyrup"	HotMocha	0	TRUE
-	14	冰摩卡	1	Cup	"Ice,ChocolateSyrup,Espresso,LowFoamingMilk,Cream,ChocolateSyrup"	IceMocha	0	TRUE
-	15	卡布奇诺	1	Cup	"Espresso,HighFoamingMilk"	Kapuziner	0	TRUE
-	16	热拿铁	1	Cup	"Espresso,LowFoamingMilk"	HotLatte	0	TRUE
-	17	冰拿铁	1	Cup	"Ice,LowFoamingMilk,Espresso"	IceLatte	0	TRUE
-	18	澳白	1	Cup	"Espresso,Espresso,Milk"	FlatWhite	0	TRUE
-	19	浓缩咖啡	1	Kettle	"HotWater,FineGroundCoffee"	Espresso	1	TRUE
-	20	浓缩咖啡	1	Syphon	"Water,Water,Water,FineGroundCoffee"	"Espresso,Espresso,Espresso"	1	TRUE
-	21	浓缩咖啡	1	Extractor	"MidGroundCoffee,MidGroundCoffee,HotWater"	Espresso	3	TRUE
-	22	浓缩咖啡	1	FrenchPress	"HotWater,HotWater,CoarseGroundCoffee"	"Espresso,Espresso"	2	TRUE
+#	Recipe配置文件								
+#	ID		ProducingTime	Tool	Recipe	Product	CoffeeLevel	IsCoffee	Materials
+#	int	string	float	string	List<String>	List<String>	int	bool	List<String>
+#	成品ID	策划备注	制作时间	制作工具	配方表	成品	生成咖啡等级	是否为除浓缩咖啡以外的其它咖啡	生产所需要的原材料
+	0	粗咖啡粉	1	ManualGrinder	CoffeeBean	CoarseGroundCoffee	0	FALSE	
+	1	中咖啡粉	1	ManualGrinder	CoarseGroundCoffee	MidGroundCoffee	0	FALSE	
+	2	细缩咖啡	1	ManualGrinder	MidGroundCoffee	FineGroundCoffee	0	FALSE	
+	3	粗咖啡粉	1	ElectricGrinder	CoffeeBean	CoarseGroundCoffee	0	FALSE	
+	4	中咖啡粉	1	ElectricGrinder	CoarseGroundCoffee	MidGroundCoffee	0	FALSE	
+	5	细缩咖啡	1	ElectricGrinder	MidGroundCoffee	FineGroundCoffee	0	FALSE	
+	6	热水	1	Heater	Water	HotWater	0	FALSE	
+	7	热牛奶	1	Heater	Milk	HotMilk	0	FALSE	
+	8	浓缩咖啡	1	FilterBowl	"MidGroundCoffee,HotWater"	Espresso	2	FALSE	"Water,CoffeeBean"
+	9	低泡牛奶	1	Stirrer	Milk	LowFoamingMilk	0	FALSE	
+	10	高泡牛奶	1	Stirrer	LowFoamingMilk	HighFoamingMilk	0	FALSE	
+	11	热美式	1	Cup	"HotWater,Espresso"	HotCafeAmericano	0	TRUE	Water
+	12	冰美式	1	Cup	"Ice,Water,Espresso"	IceCafeAmericano	0	TRUE	"Ice,Water"
+	13	热摩卡	1	Cup	"ChocolateSyrup,Espresso,LowFoamingMilk,Cream,ChocolateSyrup"	HotMocha	0	TRUE	"ChocolateSyrup,Milk,Cream,ChocolateSyrup"
+	14	冰摩卡	1	Cup	"Ice,ChocolateSyrup,Espresso,LowFoamingMilk,Cream,ChocolateSyrup"	IceMocha	0	TRUE	"ChocolateSyrup,Milk,Cream,ChocolateSyrup,Ice"
+	15	卡布奇诺	1	Cup	"Espresso,HighFoamingMilk"	Kapuziner	0	TRUE	Milk
+	16	热拿铁	1	Cup	"Espresso,LowFoamingMilk"	HotLatte	0	TRUE	Milk
+	17	冰拿铁	1	Cup	"Ice,LowFoamingMilk,Espresso"	IceLatte	0	TRUE	"Ice,Milk"
+	18	澳白	1	Cup	"Espresso,Espresso,Milk"	FlatWhite	0	TRUE	Milk
+	19	浓缩咖啡	1	Kettle	"HotWater,FineGroundCoffee"	Espresso	1	FALSE	"Water,CoffeeBean"
+	20	浓缩咖啡	1	Syphon	"Water,Water,Water,FineGroundCoffee"	"Espresso,Espresso,Espresso"	1	FALSE	"Water,Water,Water,CoffeeBean"
+	21	浓缩咖啡	1	Extractor	"MidGroundCoffee,MidGroundCoffee,HotWater"	Espresso	3	FALSE	"CoffeeBean,CoffeeBean,Water"
+	22	浓缩咖啡	1	FrenchPress	"HotWater,HotWater,CoarseGroundCoffee"	"Espresso,Espresso"	2	FALSE	"Water,Water,CoffeeBean"

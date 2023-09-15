@@ -139,7 +139,7 @@ namespace GameMain
         }
         public static void ShowIceCafeAmericanoNode(this EntityComponent entityComponent, CompenentData compenentData)
         {
-            entityComponent.ShowEntity(typeof(ConPannaNode), "Coffee", 90, compenentData);
+            entityComponent.ShowEntity(typeof(IceCafeAmericanoNode), "Coffee", 90, compenentData);
         }
         public static void ShowHotLatteNode(this EntityComponent entityComponent, CompenentData compenentData)
         {

@@ -52,13 +52,16 @@ namespace GameMain
             get;
             protected set;
         }
-        public List<NodeTag> Materials { get; protected set; } = new List<NodeTag>();
+        public List<NodeTag> Materials 
+        {   get; 
+            protected set; 
+        } = new List<NodeTag>();
 
         protected SpriteRenderer mSpriteRenderer = null;
         protected SpriteRenderer mShader = null;
         protected SpriteRenderer mProgressBarRenderer = null;
         protected BoxCollider2D mBoxCollider2D = null;
-        //��ץȡʱ��������ĵ�Ĳ��
+
         protected Vector3 mMouseGap;
         protected NodeData mNodeData = null;
         protected CompenentData mCompenentData = null;
@@ -70,6 +73,7 @@ namespace GameMain
         protected List<NodeTag> mRecipe = new List<NodeTag>();
         protected List<NodeTag> mProduct = new List<NodeTag>();
         protected List<NodeTag> mCheckRecipe = new List<NodeTag>();
+        protected List<NodeTag> mProMaterials = new List<NodeTag>();
         protected NodeTag tool = NodeTag.None;
         protected float mProducingTime = 0f;
         protected float mTime = 0f;
@@ -116,6 +120,8 @@ namespace GameMain
 
             mAddMaterialsTime = 5f;
             Level = mNodeData.MLevel;
+
+            Materials = mNodeData.M_Materials;
         }
         protected override void OnShow(object userData)
         {
@@ -233,6 +239,10 @@ namespace GameMain
             if(mNodeData.IsCoffee==true)
             {
                 AddMaterials();
+            }
+            for (int i = 0; i < Materials.Count; i++)
+            {
+                Debug.Log(Materials[i]);
             }
             ShowMyLevel();
         }
@@ -434,6 +444,7 @@ namespace GameMain
                             {
                                 Producing = true;
                                 mProduct = TransToEnumList(drRecipe.Product);
+                                mProMaterials = TransToEnumList(drRecipe.Materials);
                                 mCheckRecipe = mRecipe;
                                 mProducingTime = drRecipe.ProducingTime;
                                 mTime = drRecipe.ProducingTime;
@@ -480,10 +491,9 @@ namespace GameMain
                 {
                     for (int i = 0; i < mProduct.Count; i++)
                     {
-                        Debug.Log(mProduct.Count);
                         if (mProduct[i] == NodeTag.Espresso)
                         {
-                            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, mProduct[i],mLevel,true)
+                            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, mProduct[i],mLevel,true,mProMaterials)
                             {
                                 Position = this.transform.position + new Vector3(0.5f, 0, 0),
                                 RamdonJump = true
@@ -493,7 +503,8 @@ namespace GameMain
                         {
                             FindMyEspressoLevel();
                             GenerateCoffeeLevel();
-                            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, mProduct[i], mLevel,true)
+                            MixMaterials();
+                            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, mProduct[i], mLevel,true,mProMaterials)
                             {
                                 Position = this.transform.position + new Vector3(0.5f, 0, 0),
                                 RamdonJump = true
@@ -726,22 +737,21 @@ namespace GameMain
             }
         }
 
-        /*public void MixMaterials()
+        public void MixMaterials()
         {
-            for (int i = 0; i < mMaterials.Count; i++)
-            {
-                Materials.Add(mMaterials[i]);
-            }
             BaseCompenent child = Child;
             while (child != null)
             {
-                for (int i = 0; i < child.mNodeData.MDeliverMaterials.Count; i++)
+                if (child.NodeTag == NodeTag.Espresso)
                 {
-                    Materials.Add(child.mNodeData.MDeliverMaterials[i]);
+                    for (int i = 0; i < child.Materials.Count; i++)
+                    {
+                        mProMaterials.Add(child.Materials[i]);
+                    }
                 }
                 child = child.Child;
             }
-        }*/
+        }
         public void FindMyEspressoLevel()
         {
             BaseCompenent child = Child;

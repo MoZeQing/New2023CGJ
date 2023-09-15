@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2023-09-14 19:04:51.799
+// 生成时间：2023-09-15 15:26:49.792
 //------------------------------------------------------------
 
 using GameFramework;
@@ -90,6 +90,15 @@ namespace GameMain
             private set;
         }
 
+        /// <summary>
+        /// 获取生产所需要的原材料。
+        /// </summary>
+        public List<String> Materials
+        {
+            get;
+            private set;
+        }
+
         public override bool ParseDataRow(string dataRowString, object userData)
         {
             string[] columnStrings = dataRowString.Split(DataTableExtension.DataSplitSeparators);
@@ -108,6 +117,7 @@ namespace GameMain
             Product = DataTableExtension.ParseListString(columnStrings[index++]);
             CoffeeLevel = int.Parse(columnStrings[index++]);
             IsCoffee = bool.Parse(columnStrings[index++]);
+            Materials = DataTableExtension.ParseListString(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -126,6 +136,7 @@ namespace GameMain
                     Product = binaryReader.ReadListString();
                     CoffeeLevel = binaryReader.Read7BitEncodedInt32();
                     IsCoffee = binaryReader.ReadBoolean();
+                    Materials = binaryReader.ReadListString();
                 }
             }
 

@@ -56,6 +56,11 @@ namespace GameMain
             get;
             set;
         }
+        public List<NodeTag> M_Materials
+        {
+            get;
+            set;
+        } = new List<NodeTag>();
         public bool IsCoffee
         {
             get;
@@ -79,6 +84,14 @@ namespace GameMain
             this.NodeTag = node;
             this.MLevel = level;
             this.IsCoffee = isCoffee;
+        }
+        public NodeData(int entityId, int typeId, NodeTag node, int level, bool isCoffee,List<NodeTag> materials)
+            : base(entityId, typeId)
+        {
+            this.NodeTag = node;
+            this.MLevel = level;
+            this.IsCoffee = isCoffee;
+            this.M_Materials = materials;
         }
     }
 
@@ -126,7 +139,7 @@ namespace GameMain
         HotLatte,//ÈÈÄÃÌú
         IceLatte,//±ùÄÃÌú
         HotMocha,//ÈÈÄ¦¿¨
-        IceMocha,//ÈÈÄ¦¿¨
+        IceMocha,//ÀäÄ¦¿¨
         Kapuziner,//¿¨²¼ÆæÅµ
         FlatWhite,//°Ä°×
         None
