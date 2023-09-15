@@ -10,15 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9d3fe38b58a1ff4cbfd1f6e24dcdd50, type: 3}
-  m_Name: New Story SO
+  m_Name: AA_Main_3
   m_EditorClassIdentifier: 
-  isRemove: 0
+  isRemove: 1
   outingSceneState: 0
+  outingBefore: 0
   trigger:
-    OR: []
-    And: []
-    key: 0
+    key: 9
     not: 0
-    equals: 0
-    value: 
-  dialogueGraph: {fileID: 11400000, guid: 5ec6336956dbe534e995c96afb0789ad, type: 2}
+    equals: 1
+    value: 2
+    and:
+    - key: 1
+      not: 1
+      equals: 1
+      value: COME
+      and: []
+      or: []
+    - key: 15
+      not: 0
+      equals: 1
+      value: Afternoon
+      and: []
+      or: []
+    or: []
+  dialogueGraph: {fileID: 11400000, guid: 1358e65fcbd979148b47b48130431b7d, type: 2}
