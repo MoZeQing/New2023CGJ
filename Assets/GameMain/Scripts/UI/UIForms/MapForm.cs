@@ -32,7 +32,7 @@ namespace GameMain
 
             mGreengrocerBtn.onClick.AddListener(() => Outing(OutingSceneState.Greengrocer));
             mGlassBtn.onClick.AddListener(() => Outing(OutingSceneState.Glass));
-            mCinemaBtn.onClick.AddListener(() => Outing(OutingSceneState.Cinema));
+            mCinemaBtn.onClick.AddListener(() => Outing(OutingSceneState.MusicHall));
             mHospitalBtn.onClick.AddListener(() => Outing(OutingSceneState.Hospital));
             mRestaurantBtn.onClick.AddListener(() => Outing(OutingSceneState.Restaurant));
             mBeachBtn.onClick.AddListener(() => Outing(OutingSceneState.Beach));

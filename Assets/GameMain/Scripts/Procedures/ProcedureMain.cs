@@ -136,7 +136,7 @@ namespace GameMain
         Home,//家
         Greengrocer,//果蔬商
         Glass,//玻璃仪器店
-        Cinema,//电影院
+        MusicHall,//电影院
         Hospital,//医院
         Restaurant,//餐馆
         Beach,//海滩

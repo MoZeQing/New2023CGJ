@@ -15,11 +15,13 @@ namespace GameMain
         public OutingSceneState outSceneState;
         public List<Sprite> nodeSprites = new List<Sprite>();
         public List<Sprite> nodeImage= new List<Sprite>();
+        public List<Sprite> ItemSprites = new List<Sprite>();
         //�涨����0��Ĭ���Ǻ����л�����ÿһ��֮����л�������1�ſ�ʼ����ÿһ����л�
         public List<Sprite> changeSprites= new List<Sprite>();
 
         public List<ShopItemData> bookstoreItemDatas= new List<ShopItemData>();
         public List<ShopItemData> greengrocerItemDatas = new List<ShopItemData>();
+        public List<MusicItemData> musicHallItemDatas = new List<MusicItemData>();
         public List<ItemData> itemDatas = new List<ItemData>();
         public Dictionary<int, int> shopItems = new Dictionary<int, int>();
 

@@ -431,7 +431,7 @@ namespace GameMain
             mProgressBarRenderer.sortingLayerName = mSpriteRenderer.sortingLayerName;
             if (!Producing)
             {
-                for (int i = 0; i < 23; i++)
+                for (int i = 0; i < dtRecipe.Count; i++)
                 {
                     drRecipe = dtRecipe.GetDataRow(i);
                     mRecipe = TransToEnumList(drRecipe.Recipe);

@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2023-09-14 19:04:51.805
+// 生成时间：2023-09-16 21:04:45.348
 //------------------------------------------------------------
 
 using GameFramework;
@@ -99,6 +99,15 @@ namespace GameMain
             private set;
         }
 
+        /// <summary>
+        /// 获取加值描述。
+        /// </summary>
+        public string AMInfo
+        {
+            get;
+            private set;
+        }
+
         public override bool ParseDataRow(string dataRowString, object userData)
         {
             string[] columnStrings = dataRowString.Split(DataTableExtension.DataSplitSeparators);
@@ -118,6 +127,7 @@ namespace GameMain
             Equipable = bool.Parse(columnStrings[index++]);
             MaxNum = int.Parse(columnStrings[index++]);
             Kind = int.Parse(columnStrings[index++]);
+            AMInfo = columnStrings[index++];
 
             GeneratePropertyArray();
             return true;
@@ -137,6 +147,7 @@ namespace GameMain
                     Equipable = binaryReader.ReadBoolean();
                     MaxNum = binaryReader.Read7BitEncodedInt32();
                     Kind = binaryReader.Read7BitEncodedInt32();
+                    AMInfo = binaryReader.ReadString();
                 }
             }
 

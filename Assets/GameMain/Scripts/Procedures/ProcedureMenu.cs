@@ -82,6 +82,19 @@ namespace GameMain
                 itemData.maxNum = item.MaxNum;
                 GameEntry.Utils.bookstoreItemDatas.Add(itemData);
             }
+            foreach (DRItem item in items)
+            {
+                if (item.Kind != (int)ItemKind.Music)
+                    continue;
+                MusicItemData itemData = new MusicItemData();
+                itemData.itemTag = (ItemTag)item.Id;
+                itemData.itemInfo = item.Info;
+                itemData.AbilityModifier = item.AMInfo;
+                itemData.price = item.Price;
+                itemData.filterMode = (GameMain.FilterMode)item.FilterMode;
+                itemData.equipable = item.Equipable;
+                GameEntry.Utils.musicHallItemDatas.Add(itemData);
+            }
 
         }
         protected override void OnEnter(ProcedureOwner procedureOwner)
