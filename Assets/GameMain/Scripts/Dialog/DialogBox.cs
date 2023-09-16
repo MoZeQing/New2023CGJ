@@ -25,6 +25,7 @@ public class DialogBox : MonoBehaviour
     private Action OnComplete;
     private Dictionary<CharSO, BaseCharacter> mCharChace = new Dictionary<CharSO, BaseCharacter>();
 
+    public bool IsNext { get; set; } = true;
     private void Start()
     {
         dialogBtn.onClick.AddListener(Next);
@@ -56,6 +57,8 @@ public class DialogBox : MonoBehaviour
     }
     public void Next()
     {
+        if (IsNext == false)
+            return;
         if (m_Node == null)
             return;
         switch (chatTag)
@@ -99,7 +102,10 @@ public class DialogBox : MonoBehaviour
 
             nameText.text = chatData.charName;
             dialogText.text = chatData.text;
-
+            for (int i = 0; i < chatData.eventDatas.Count; i++)
+            {
+                GameEntry.Utils.RunEvent(chatData.eventDatas[i]);
+            }
             //角色控制
             NextNode(chatNode, string.Format("chatDatas {0}", _index));
             _index++;
@@ -129,25 +135,12 @@ public class DialogBox : MonoBehaviour
             {
                 foreach (EventData eventData in data.events)
                 {
-                    switch (eventData.eventTag)
+                    if (eventData.eventTag == EventTag.Play)
                     {
-                        case EventTag.Play:
-                            if (eventData.value == string.Empty)
-                                output = string.Format("triggerDatas {0}", i);
-                            break;
-                        case EventTag.AddMoney:
-                            GameEntry.Utils.Money += int.Parse(eventData.value);
-                            break;
-                        case EventTag.AddFavor:
-                            GameEntry.Utils.Favor += int.Parse(eventData.value);
-                            break;
-                        case EventTag.AddFlag:
-                            GameEntry.Utils.AddFlag(eventData.value);
-                            break;
-                        case EventTag.RemoveFlag:
-                            GameEntry.Utils.RemoveFlag(eventData.value);
-                            break;
+                        if (eventData.value == string.Empty)
+                            output = string.Format("triggerDatas {0}", i);
                     }
+                    GameEntry.Utils.RunEvent(eventData);
                 }
             }
         }
@@ -158,7 +151,6 @@ public class DialogBox : MonoBehaviour
             OnComplete = null;
         }
     }
-
     private bool NextNode(Node node, string nodeName)
     {
         //如果没有中途跳转
@@ -190,7 +182,6 @@ public class DialogBox : MonoBehaviour
         }
         return false;
     }
-
     public void SetDialog(ChatNode chatNode, Action action)
     {
         SetComplete(action);

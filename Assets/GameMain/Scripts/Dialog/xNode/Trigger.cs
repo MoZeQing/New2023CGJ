@@ -156,6 +156,17 @@ public class EventData
 {
     public EventTag eventTag;
     public string value;
+
+    public EventData() { }
+    public EventData(EventTag eventTag)
+    { 
+        this.eventTag= eventTag;
+    }
+    public EventData(EventTag eventTag, string value)
+    {
+        this.eventTag= eventTag;   
+        this.value= value;
+    }
 }
 [System.Serializable]
 public enum TriggerTag

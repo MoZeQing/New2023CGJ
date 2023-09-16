@@ -15,6 +15,14 @@ public class Map : MonoBehaviour,IPointerClickHandler
 
     private void OnGameStateChange()
     {
+        if (GameEntry.Utils.Ap >= 2)
+        {
+            GameEntry.Utils.Ap -= 2;
+        }
+        else
+        {
+            return;
+        }
         GameEntry.Utils.Location = mOutingSceneState;
         GameEntry.UI.OpenUIForm((UIFormId)(20 + (int)mOutingSceneState), this);
         GameEntry.Utils.outingBefore = true;

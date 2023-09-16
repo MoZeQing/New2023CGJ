@@ -46,6 +46,27 @@ namespace GameMain
             GameEntry.Event.Unsubscribe(LevelEventArgs.EventId, OnLevelEvent);
         }
 
+        //protected override void OnInit(object userData)
+        //{
+        //    base.OnInit(userData);
+        //}
+
+        //protected override void OnShow(object userData)
+        //{
+        //    base.OnShow(userData);
+        //    GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, ShowOrderSuccess);
+        //    GameEntry.Event.Subscribe(OrderEventArgs.EventId, OnOrderEvent);
+        //    GameEntry.Event.Subscribe(LevelEventArgs.EventId, OnLevelEvent);
+        //}
+
+        //protected override void OnHide(bool isShutdown, object userData)
+        //{
+        //    base.OnHide(isShutdown, userData);
+        //    GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, ShowOrderSuccess);
+        //    GameEntry.Event.Unsubscribe(OrderEventArgs.EventId, OnOrderEvent);
+        //    GameEntry.Event.Unsubscribe(LevelEventArgs.EventId, OnLevelEvent);
+        //}
+
         private float nowTime=0f;
         private float rateTime=2f;
 
@@ -71,7 +92,7 @@ namespace GameMain
             orderData.NodeName = orderData.NodeTag.ToString();
             ShowItem(orderData);
         }
-        public void ShowItem(List<OrderData> orderDatas)
+        public void ShowItems(List<OrderData> orderDatas)
         {
             foreach (OrderData orderData in orderDatas) 
             {
@@ -88,6 +109,15 @@ namespace GameMain
             {
                 Position = plotsCanvas[4].position
             });
+        }
+
+        public void ClearItems()
+        {
+            foreach (OrderItem orderItem in orders)
+            {
+                GameEntry.Entity.HideEntity(orderItem.Entity);
+            }
+            orders.Clear();
         }
 
         private void UpdateList()
@@ -122,11 +152,7 @@ namespace GameMain
         { 
             LevelEventArgs args= (LevelEventArgs)e;
             IsShowItem = false;
-            foreach (OrderItem orderItem in orders)
-            {
-                GameEntry.Entity.HideEntity(orderItem.Entity);
-            }
-            orders.Clear();
+            ClearItems();
         }
     }
 

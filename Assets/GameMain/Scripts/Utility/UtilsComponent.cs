@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro.EditorUtilities;
+using UnityEditor;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 using XNode;
@@ -132,7 +133,6 @@ namespace GameMain
                 _values[TriggerTag.BehaviorTag]=mBehaviorTag.ToString();
             }
         }
-
         public Week Week
         {
             get
@@ -145,7 +145,6 @@ namespace GameMain
                 _values[TriggerTag.Week] = mWeek.ToString();
             }
         }
-
         public TimeTag TimeTag
         {
             get
@@ -158,7 +157,6 @@ namespace GameMain
                 _values[TriggerTag.TimeTag] = mTimeTag.ToString();
             }
         }
-
         public OutingSceneState Location
         {
             get
@@ -390,15 +388,26 @@ namespace GameMain
         {
             switch (eventData.eventTag)
             {
+                case EventTag.AddMoney:
+                    GameEntry.Utils.Money += int.Parse(eventData.value);
+                    break;
                 case EventTag.AddFavor:
+                    GameEntry.Utils.Favor += int.Parse(eventData.value);
                     break;
                 case EventTag.AddFlag:
+                    GameEntry.Utils.AddFlag(eventData.value);
                     break;
                 case EventTag.RemoveFlag:
-                    break;
-                case EventTag.AddMoney:
+                    GameEntry.Utils.RemoveFlag(eventData.value);
                     break;
                 case EventTag.NextDay:
+                    TimeTag = TimeTag.Morning;
+                    GameEntry.Event.FireNow(this, MainFormEventArgs.Create(MainFormTag.Unlock));
+                    GameEntry.Utils.Day++;
+                    GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, GameEntry.Utils.Day);//用这个this传参来调整黑幕
+                    GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Work));
+                    break;
+                case EventTag.PlayBgm:
                     break;
             }
         }

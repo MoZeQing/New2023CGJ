@@ -46,17 +46,20 @@ public class OrderItem : Entity
         sugar.color = new Color(0f, 0f, 0f, mOrderData.Sugar ? 1f : 0.5f);
         condensedMilk.color = new Color(0f, 0f, 0f, mOrderData.CondensedMilk ? 1f : 0.5f);
         salt.color = new Color(0f, 0f, 0f, mOrderData.Salt ? 1f : 0.5f);
-        nowTime = 30f;
+        nowTime = mOrderData.OrderTime;
     }
 
     protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
     {
         base.OnUpdate(elapseSeconds, realElapseSeconds);
         nowTime-=Time.deltaTime;
-        orderTime.text = Mathf.Floor(nowTime).ToString();
-        if (nowTime <= 0)
+        if (nowTime < 0)
+            orderTime.text = "¡Þ";
+        else
+            orderTime.text = Mathf.Floor(nowTime).ToString();
+        if (nowTime <= 0f&&nowTime>-1f)
         {
-            nowTime = 999;
+            nowTime = -1;
             OnExit();
         }
     }

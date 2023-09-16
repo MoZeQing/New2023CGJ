@@ -48,6 +48,7 @@ namespace GameMain
                 {
                     GameEntry.UI.OpenUIForm(UIFormId.DialogForm, story.dialogueGraph);
                     InDialog = true;
+                    GameEntry.Event.FireNow(this, DialogEventArgs.Create(InDialog, story.dialogueGraph.name));
                     if (story.isRemove)
                         loadedStories.Remove(story);
                     return true;
@@ -64,6 +65,7 @@ namespace GameMain
                 {
                     GameEntry.UI.OpenUIForm(UIFormId.DialogForm, story.dialogueGraph);
                     InDialog = true;
+                    GameEntry.Event.FireNow(this, DialogEventArgs.Create(InDialog, story.dialogueGraph.name));
                     if (story.isRemove)
                         loadedStories.Remove(story);
                     return true;

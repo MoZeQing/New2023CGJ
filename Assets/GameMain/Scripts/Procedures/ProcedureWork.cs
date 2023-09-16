@@ -15,12 +15,15 @@ namespace GameMain
     public class ProcedureWork : ProcedureBase
     {
         private MainState mMainState;
+        private WorkData workData;
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
             mMainState = MainState.Work;
+            workData= new WorkData();
             GamePosUtility.Instance.GamePosChange(GamePos.Down);
             GameEntry.Event.Subscribe(MainStateEventArgs.EventId, MainStateEvent);
+            GameEntry.Event.Subscribe(OrderEventArgs.EventId, OnOrderEvent);
             IDataTable<DRScene> dtScene = GameEntry.DataTable.GetDataTable<DRScene>();
             DRScene drScene = dtScene.GetDataRow(3);
             //加载主界面
@@ -37,6 +40,7 @@ namespace GameMain
         {
             base.OnLeave(procedureOwner, isShutdown);
             GameEntry.Event.Unsubscribe(MainStateEventArgs.EventId, MainStateEvent);
+            GameEntry.Event.Unsubscribe(OrderEventArgs.EventId, OnOrderEvent);
             string[] loadedSceneAssetNames = GameEntry.Scene.GetLoadedSceneAssetNames();
             for (int i = 0; i < loadedSceneAssetNames.Length; i++)
             {
@@ -83,10 +87,27 @@ namespace GameMain
                     GameEntry.Utils.TimeTag = TimeTag.AfterWork;
                     GameEntry.Dialog.StoryUpdate();
                     break;
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
             mMainState = args.MainState;
+        }
+        private void OnOrderEvent(object sender, GameEventArgs e)
+        {
+            OrderEventArgs args = (OrderEventArgs)e;
+            //if (mLevelData.orderData == args.OrderData)
+            //{
+            //    GamePosUtility.Instance.GamePosChange(GamePos.Up);
+            //    dialogBox.SetDialog(mLevelData.afterWork);
+            //    dialogBox.SetComplete(OnAfterWorkComplete);
+            //}
+            if (args.Income == 0)
+                return;
+            workData.orderDatas.Add(args.OrderData);
+            workData.Income += args.Income;
+        }
+        private void OnGameState(object sender, GameEventArgs e)
+        { 
+            GameEventArgs args = (GameEventArgs)e;
+            GameEntry.UI.OpenUIForm(UIFormId.SettleForm, workData);
         }
     }
 }

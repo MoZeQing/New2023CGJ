@@ -10,6 +10,7 @@ using UnityEngine.EventSystems;
 using GameMain;
 using DG.Tweening;
 using System.Runtime.InteropServices;
+using UnityEngine.SocialPlatforms.Impl;
 
 namespace GameMain
 {
@@ -18,10 +19,12 @@ namespace GameMain
         [SerializeField] private DialogBox mDialogBox;
         [SerializeField] private BaseStage mStage;
 
+        private DialogueGraph dialogueGraph;
+
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            DialogueGraph dialogueGraph = (DialogueGraph)userData;
+            dialogueGraph = (DialogueGraph)userData;
             mDialogBox.SetDialog(dialogueGraph);
             mDialogBox.SetComplete(OnComplete);
         }
@@ -34,6 +37,7 @@ namespace GameMain
         private void CloseForm()
         {
             GameEntry.Dialog.InDialog = false;
+            GameEntry.Event.FireNow(this, DialogEventArgs.Create(GameEntry.Dialog.InDialog, dialogueGraph.name));
             GameEntry.UI.CloseUIForm(this.UIForm);
         } 
     }

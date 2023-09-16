@@ -116,8 +116,11 @@ namespace GameMain
 
     public enum TimeTag
     { 
+        Morning,
         ForeWork,
         AfterWork,
+        Afternoon,
+        Night
     }
 
     public enum Week
