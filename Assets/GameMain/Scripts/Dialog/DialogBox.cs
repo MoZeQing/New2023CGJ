@@ -118,9 +118,9 @@ public class DialogBox : MonoBehaviour
             _index = 0;
             m_Dialogue = null;
             m_Node = null;
-            if(OnComplete!=null)
+            if (OnComplete != null)
                 OnComplete();
-            OnComplete=null;
+            OnComplete = null;
         }
     }
     private void Next(TriggerNode triggerNode)

@@ -59,6 +59,9 @@ namespace GameMain
             GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, OnGameStateEvent);
             GameEntry.Event.Unsubscribe(DialogEventArgs.EventId, OnDialogEvent);
 
+            GameEntry.Entity.HideAllLoadedEntities();
+            GameEntry.Entity.HideAllLoadingEntities();
+
             GameEntry.UI.CloseAllLoadedUIForms();
             GameEntry.UI.CloseAllLoadingUIForms();
             string[] loadedSceneAssetNames = GameEntry.Scene.GetLoadedSceneAssetNames();
@@ -128,23 +131,27 @@ namespace GameMain
                     mWorkForm.OnLevel("Guide_1");
                     GameEntry.Dialog.PlayStory("Guide_1");//播放剧情
                     mIndex++;
+                    GameEntry.Utils.Day++;
                 }
                 else if (mIndex == 2)
                 {
-                    mWorkForm.OnLevel("Guide_2");
-                    GameEntry.Dialog.PlayStory("Guide_1");//播放剧情
-                    mIndex++;
+                    GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
+                    InGuide = false;
+                    //mWorkForm.OnLevel("Guide_2");
+                    //GameEntry.Dialog.PlayStory("Guide_1");//播放剧情
+                    //mIndex++;
+                    //GameEntry.Utils.Day++;
                 }
                 else if (mIndex == 3)
                 {
                     mWorkForm.OnLevel("Guide_3");
                     GameEntry.Dialog.PlayStory("Guide_1");//播放剧情
                     mIndex++;
+                    GameEntry.Utils.Day++;
                 }
                 else
                 {
-                    GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
-                    InGuide = false;
+
                 }
             }
         }

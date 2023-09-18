@@ -38,7 +38,7 @@ namespace GameMain
 
         private void OnEnable()
         {
-            ShowRandomEvent();
+
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)

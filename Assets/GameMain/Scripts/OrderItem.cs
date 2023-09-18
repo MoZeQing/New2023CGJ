@@ -64,6 +64,12 @@ public class OrderItem : Entity
         }
     }
 
+    protected override void OnHide(bool isShutdown, object userData)
+    {
+        base.OnHide(isShutdown, userData);
+        nowTime = 9999f;
+    }
+
     private void OnExit()
     {
         GameEntry.Event.FireNow(this, OrderEventArgs.Create(mOrderData, 0));

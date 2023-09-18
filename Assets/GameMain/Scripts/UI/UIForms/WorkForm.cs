@@ -62,6 +62,7 @@ namespace GameMain
             //test2Btn.onClick.AddListener(() => GameEntry.Utils.RunEvent(new EventData(EventTag.NextDay)));
 
             levelSOs = new List<LevelSO>(Resources.LoadAll<LevelSO>("LevelData"));
+            mLevelData = levelSOs[0].levelData;
             GameEntry.Event.Subscribe(OrderEventArgs.EventId, OnOrderEvent);
 
         }
@@ -90,7 +91,7 @@ namespace GameMain
                 timeText.text = Math.Floor(nowTime).ToString();
             else
                 timeText.text = "∞";
-            if (nowTime <= 0)
+            if (nowTime <= 0&&nowTime>-1)
             {
                 if (isSpecial)
                 {
@@ -166,12 +167,15 @@ namespace GameMain
         private void OnOrderEvent(object sender, GameEventArgs e)
         {
             OrderEventArgs args = (OrderEventArgs)e;
-            if (mLevelData.orderData == args.OrderData)
+            if (mLevelData != null)
             {
-                GamePosUtility.Instance.GamePosChange(GamePos.Up);
-                dialogBox.SetDialog(mLevelData.afterWork);
-                dialogBox.SetComplete(OnAfterWorkComplete);
-            }
+                if (mLevelData.orderData == args.OrderData)
+                {
+                    GamePosUtility.Instance.GamePosChange(GamePos.Up);
+                    dialogBox.SetDialog(mLevelData.afterWork);
+                    dialogBox.SetComplete(OnAfterWorkComplete);
+                }
+            }  
         }
     }
     [System.Serializable]
@@ -204,7 +208,7 @@ namespace GameMain
         {
             get;
             set;
-        }
+        } = new RandomEvent();
         public List<OrderData> orderDatas = new List<OrderData>();
     }
 }

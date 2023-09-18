@@ -20,10 +20,11 @@ namespace GameMain
         {
             base.OnEnter(procedureOwner);
             mMainState = MainState.Work;
-            workData= new WorkData();
+            workData = new WorkData();
             GamePosUtility.Instance.GamePosChange(GamePos.Down);
             GameEntry.Event.Subscribe(MainStateEventArgs.EventId, MainStateEvent);
             GameEntry.Event.Subscribe(OrderEventArgs.EventId, OnOrderEvent);
+            GameEntry.Event.Subscribe(GameStateEventArgs.EventId, OnGameStateEvent);
             IDataTable<DRScene> dtScene = GameEntry.DataTable.GetDataTable<DRScene>();
             DRScene drScene = dtScene.GetDataRow(3);
             //加载主界面
@@ -41,6 +42,11 @@ namespace GameMain
             base.OnLeave(procedureOwner, isShutdown);
             GameEntry.Event.Unsubscribe(MainStateEventArgs.EventId, MainStateEvent);
             GameEntry.Event.Unsubscribe(OrderEventArgs.EventId, OnOrderEvent);
+            GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, OnGameStateEvent);
+
+            GameEntry.Entity.HideAllLoadedEntities();
+            GameEntry.Entity.HideAllLoadingEntities();
+
             string[] loadedSceneAssetNames = GameEntry.Scene.GetLoadedSceneAssetNames();
             for (int i = 0; i < loadedSceneAssetNames.Length; i++)
             {
@@ -104,10 +110,11 @@ namespace GameMain
             workData.orderDatas.Add(args.OrderData);
             workData.Income += args.Income;
         }
-        private void OnGameState(object sender, GameEventArgs e)
-        { 
-            GameEventArgs args = (GameEventArgs)e;
-            GameEntry.UI.OpenUIForm(UIFormId.SettleForm, workData);
+        private void OnGameStateEvent(object sender, GameEventArgs e)
+        {
+            GameStateEventArgs args = (GameStateEventArgs)e;
+            if (args.GameState == GameState.AfterSpecial)
+                GameEntry.UI.OpenUIForm(UIFormId.SettleForm, workData);
         }
     }
 }

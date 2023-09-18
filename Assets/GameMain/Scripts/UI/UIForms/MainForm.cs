@@ -86,7 +86,7 @@ namespace GameMain
         {
             PlayerDataEventArgs args = (PlayerDataEventArgs)e;
             PlayerData playerData= args.PlayerData;
-            timeText.text = string.Format("第{0}天", playerData.day);
+            timeText.text = string.Format("{0}月{1}日 星期{2}", 5 + (playerData.day + 20) / 28, (playerData.day + 20) % 28, AssetUtility.GetWeekCN((playerData.day + 20) % 7));
         }
 
         private void OnMainFormEvent(object sender, GameEventArgs e) 
