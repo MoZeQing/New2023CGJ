@@ -19,6 +19,7 @@ namespace GameMain
         public int hope;//Ï£Íû
         public int love;//°®Çé
         public int family;//Ç×Çé
+        public int ability;
 
         public CharData() { }
         public CharData(int favor, int mood, int hope, int love, int family)

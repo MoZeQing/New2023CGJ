@@ -312,7 +312,20 @@ namespace GameMain
             set
             {
                 mCharData.family = value;
-                _values[TriggerTag.Money] = mCharData.family.ToString();
+                _values[TriggerTag.Family] = mCharData.family.ToString();
+                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
+            }
+        }
+        public int Ability
+        {
+            get
+            {
+                return mCharData.ability;
+            }
+            set
+            {
+                mCharData.ability = value;
+                _values[TriggerTag.Ability] = mCharData.ability.ToString();
                 GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
             }
         }
@@ -395,6 +408,27 @@ namespace GameMain
                     break;
                 case EventTag.AddFavor:
                     GameEntry.Utils.Favor += int.Parse(eventData.value);
+                    break;
+                case EventTag.AddMood:
+                    GameEntry.Utils.Mood+= int.Parse(eventData.value);
+                    break;
+                case EventTag.AddHope:
+                    GameEntry.Utils.Hope += int.Parse(eventData.value);
+                    break;
+                case EventTag.AddLove:
+                    GameEntry.Utils.Love+= int.Parse(eventData.value);  
+                    break;
+                case EventTag.AddAbility:
+                    GameEntry.Utils.Love += int.Parse(eventData.value);
+                    break;
+                case EventTag.AddEnergy:
+                    GameEntry.Utils.Energy += int.Parse(eventData.value);
+                    break;
+                case EventTag.AddAp:
+                    GameEntry.Utils.Ap+= int.Parse(eventData.value);
+                    break;
+                case EventTag.AddItem:
+                    GameEntry.Utils.AddPlayerItem(new ItemData((ItemTag)Enum.Parse(typeof(ItemTag), eventData.value)),1);
                     break;
                 case EventTag.AddFlag:
                     GameEntry.Utils.AddFlag(eventData.value);

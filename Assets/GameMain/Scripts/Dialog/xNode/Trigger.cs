@@ -178,6 +178,7 @@ public enum TriggerTag
     Mood,//心情
     Love,//爱情
     Family,//亲情
+    Ability,
     Money,//当前拥有的钱
     Coffee,//是否存在咖啡（一旦有咖啡）
     Day,//目前经过的时间
@@ -196,7 +197,16 @@ public enum EventTag
 {
     Play,//播放剧情（在有链接时默认播放链接剧情，否则播放参数指定的剧情）
     AddFavor,//增加好感度（参数为角色ID）
+    AddLove,
+    AddHope,
+    AddFamily,
+    AddMood,
+    AddAbility,
+    AddEnergy,
+    AddMaxEnergy,
+    AddAp,
     AddMoney,//增加金钱（参数为金钱数量）
+    AddItem,//增加道具
     AddFlag,//增加旗子
     RemoveFlag,//移除旗子
     NextDay,//跳转至下一天
