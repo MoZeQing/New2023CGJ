@@ -122,6 +122,8 @@ namespace GameMain
             Level = mNodeData.MLevel;
 
             Materials = mNodeData.M_Materials;
+
+            GameEntry.Entity.AttachEntity(this.Id, mCompenentData.OwnerId);
         }
         protected override void OnShow(object userData)
         {
@@ -245,6 +247,10 @@ namespace GameMain
                 Debug.Log(Materials[i]);
             }
             ShowMyLevel();
+            for (int i = 0; i < Materials.Count; i++)
+            {
+                Debug.Log(Materials[i]);
+            }
         }
         protected Vector3 MouseToWorld(Vector3 mousePos)
         {
@@ -409,7 +415,7 @@ namespace GameMain
                 Parent.Child = null;
             if (Child != null)
                 Child.Parent = null;
-            GameEntry.Entity.HideEntity(this.transform.parent.GetComponent<BaseNode>().NodeData.Id);
+            GameEntry.Entity.HideEntity(mNodeData.Id);
         }
         public NodeTag TransToEnum(string value)
         {
@@ -676,7 +682,7 @@ namespace GameMain
                     mProgressBar.gameObject.SetActive(true);
                     mProgressBar.transform.SetLocalScaleX(1 - (1 - mAddTime / mAddMaterialsTime));
                     mAddTime -= Time.deltaTime;
-                    if (Parent != null || Child == null)
+                    if (Parent != null || Child == null || Child.Child != null)
                     {
                         flag = false;
                         Sugar = false; ;
@@ -701,7 +707,7 @@ namespace GameMain
                     mProgressBar.gameObject.SetActive(true);
                     mProgressBar.transform.SetLocalScaleX(1 - (1 - mAddTime / mAddMaterialsTime));
                     mAddTime -= Time.deltaTime;
-                    if (Parent != null || Child == null)
+                    if (Parent != null || Child == null || Child.Child != null)
                     {
                         flag = false;
                         Salt = false; ;

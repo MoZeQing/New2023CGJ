@@ -93,6 +93,7 @@ namespace GameMain
                 itemData.price = item.Price;
                 itemData.filterMode = (GameMain.FilterMode)item.FilterMode;
                 itemData.equipable = item.Equipable;
+                itemData.Favor = item.Favor;
                 GameEntry.Utils.musicHallItemDatas.Add(itemData);
             }
             GameEntry.Utils.AddPlayerItem(new PlayerItemData(new ItemData(ItemTag.Closet1), 1), 1);

@@ -49,7 +49,7 @@ namespace GameMain
             if (GameEntry.Utils.Money >= mMusicItemData.price)
             {
                 GameEntry.Utils.Money -= mMusicItemData.price;
-                GameEntry.Utils.Favor += 2;
+                GameEntry.Utils.Favor += mMusicItemData.Favor;
                 GameEntry.Dialog.PlayStory(mMusicItemData.itemTag.ToString());
             }
         }
