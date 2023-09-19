@@ -13,16 +13,16 @@ namespace GameMain
         [SerializeField] private Transform up;
         [SerializeField] private Transform down;
         [SerializeField] private GameObject lockOn;
+        [SerializeField] private GameObject equipOn;
         [SerializeField] private Image img;
         [SerializeField] private ClosetForm closetForm;
         [SerializeField] private ItemTag closetTag;
-
 
         private ClosetItemState state;
 
         private void Start()
         {
-            img.color = new Color(0.5f, 0.5f, 0.5f, 1f);
+            Check();
             if (GameEntry.Utils.GetPlayerItem(closetTag) == null ||
                 GameEntry.Utils.GetPlayerItem(closetTag).itemNum == 0)
             {
@@ -35,9 +35,25 @@ namespace GameMain
             }
         }
 
+        public void Check()
+        {
+            if ((ItemTag)GameEntry.Utils.closet == closetTag)
+            {
+                equipOn.SetActive(true);
+                img.color = Color.white;
+            }
+            else
+            {
+                equipOn.SetActive(false);
+                img.color = new Color(0.5f, 0.5f, 0.5f, 1f);
+            }
+        }
+
         public void SetState(ClosetItemState state)
         {
             this.state = state;
+            this.transform.DOLocalMove(down.localPosition, 0.5f).SetEase(Ease.OutExpo);
+            Check();
         }
 
         public void OnPointerEnter(PointerEventData pointerEventData)
@@ -46,6 +62,7 @@ namespace GameMain
             {
                 state = ClosetItemState.PickUp;
                 this.transform.DOPause();
+                Check();
                 if (GameEntry.Utils.GetPlayerItem(closetTag) == null ||
                     GameEntry.Utils.GetPlayerItem(closetTag).itemNum == 0)
                 {
@@ -57,7 +74,6 @@ namespace GameMain
                 {
                     closetForm.SetData(GameEntry.Utils.GetPlayerItem(closetTag));
                     lockOn.SetActive(false);
-                    img.color = Color.white;
                 }
                 this.transform.DOLocalMove(up.localPosition, 0.5f).SetEase(Ease.OutExpo);
             }
@@ -71,7 +87,7 @@ namespace GameMain
                 this.transform.DOPause();
                 this.transform.DOLocalMove(down.localPosition, 0.5f).SetEase(Ease.OutExpo);
                 closetForm.SetData(null);
-                img.color = new Color(0.5f, 0.5f, 0.5f, 1f);
+                Check();
             }
         }
 

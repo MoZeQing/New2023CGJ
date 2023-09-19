@@ -22,7 +22,10 @@ namespace GameMain
         {
             base.OnOpen(userData);
             exitBtn.onClick.AddListener(() => GameEntry.UI.CloseUIForm(this.UIForm));
+            okBtn.onClick.AddListener(OkBtn);
             cancelBtn.onClick.AddListener(CancelData);
+            cancelBtn.interactable = false;
+            okBtn.interactable = false;
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
@@ -35,6 +38,7 @@ namespace GameMain
             base.OnClose(isShutdown, userData);
             exitBtn.onClick.RemoveAllListeners();
             cancelBtn.onClick.RemoveAllListeners();
+            okBtn.onClick.RemoveAllListeners();
         }
 
         public void SetData(ItemData itemData)
@@ -47,7 +51,7 @@ namespace GameMain
             else
             {
                 closetImg.color = Color.white;
-                closetImg.sprite = GameEntry.Utils.closet[(int)itemData.itemTag - 101];
+                closetImg.sprite = GameEntry.Utils.closets[(int)itemData.itemTag - 101];
                 infoText.text = itemData.itemInfo;
             }
         }
@@ -62,6 +66,8 @@ namespace GameMain
                     item.SetState(ClosetItemState.Freeze);
                 }
             }
+            cancelBtn.interactable = true;
+            okBtn.interactable = true;
         }
 
         public void CancelData()
@@ -71,6 +77,20 @@ namespace GameMain
             foreach (ClosetItem item in closetItems)
             {
                 item.SetState(ClosetItemState.Idle);
+            }
+            cancelBtn.interactable = false;
+            okBtn.interactable = false;
+        }
+
+        public void OkBtn()
+        {
+            if (mItemData == null)
+                return;
+            GameEntry.Utils.closet = (int)mItemData.itemTag;
+            CancelData();
+            foreach (ClosetItem item in closetItems)
+            {
+                item.Check();
             }
         }
     }

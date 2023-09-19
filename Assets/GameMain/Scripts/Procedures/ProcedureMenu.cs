@@ -42,6 +42,7 @@ namespace GameMain
             GameEntry.Utils.Favor = 0;
             GameEntry.Utils.Love = 0;
             GameEntry.Utils.Family= 0;
+            GameEntry.Utils.closet = 101;
             GameEntry.Dialog.LoadGame();
             IDataTable<DRItem> items= GameEntry.DataTable.GetDataTable<DRItem>();
             foreach (DRItem item in items) 
