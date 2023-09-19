@@ -103,4 +103,5 @@ public class MusicItemData : ItemData
     public Sprite Poster;
     public string AbilityModifier;
     public int AbilityModifierNum;
+    public int Favor;
 }

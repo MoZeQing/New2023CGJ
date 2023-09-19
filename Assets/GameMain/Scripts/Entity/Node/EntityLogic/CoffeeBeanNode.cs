@@ -15,7 +15,7 @@ namespace GameMain
             base.OnInit(userData);
             m_CompenentData = (CompenentData)userData;
             m_NodeData = m_CompenentData.NodeData;
-            GameEntry.Entity.AttachEntity(this.Id, m_CompenentData.OwnerId);
+            
 
             mSpriteRenderer.sprite = GameEntry.Utils.nodeSprites[(int)m_NodeData.NodeTag];
         }

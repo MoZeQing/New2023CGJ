@@ -9,45 +9,12 @@ namespace GameMain
     {      
         void Start()
         {
-            /*GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Burnisher)
-            {
-                Position = new Vector3(-6, -4.8f, 0)
-            });
-            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.FilterBowl)
-            {
-                Position = new Vector3(-2, -4.8f, 0)
-            });
-            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Kettle)
-            {
-                Position = new Vector3(2, -4.8f, 0)
-            });
-            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Cup)
-            {
-                Position = new Vector3(6, -4.8f, 0)
-            });
-            /*GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.CoarseGroundCoffee)
-            {
-                Position = new Vector3(6, -4.8f, 0)
-            });
-            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.MidGroundCoffee)
-            {
-                Position = new Vector3(6, -4.8f, 0)
-            });
-            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.FineGroundCoffee)
-            {
-                Position = new Vector3(6, -4.8f, 0)
-            }); GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.ManualGrinder)
-            {
-                Position = new Vector3(6, -4.8f, 0)
-            }); GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.ElectricGrinder)
-            {
-                Position = new Vector3(6, -4.8f, 0)
-            });*/
             GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.ElectricGrinder)
             {
                 Position = new Vector3(6.073708f, -6.272577f, 0),
                 Follow = false
             });
+            
             GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.ManualGrinder)
             {
                 Position = new Vector3(6.073708f, -6.272577f, 0),
@@ -88,11 +55,6 @@ namespace GameMain
                 Position = new Vector3(-3.477277f, -6.092597f, 0),
                 Follow = false
             });
-            /*GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Espresso)
-            {
-                Position = new Vector3(-3.477277f, -6.092597f, 0),
-                Follow = false
-            });*/
         }
     }
 }

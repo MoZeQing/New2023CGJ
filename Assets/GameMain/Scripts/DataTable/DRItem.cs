@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2023-09-16 21:04:45.348
+// 生成时间：2023-09-19 17:11:30.830
 //------------------------------------------------------------
 
 using GameFramework;
@@ -108,6 +108,69 @@ namespace GameMain
             private set;
         }
 
+        /// <summary>
+        /// 获取。
+        /// </summary>
+        public int Family
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取。
+        /// </summary>
+        public int Love
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取。
+        /// </summary>
+        public int Favor
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取。
+        /// </summary>
+        public int Hope
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取。
+        /// </summary>
+        public int Mood
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取。
+        /// </summary>
+        public int Energy
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取。
+        /// </summary>
+        public int Ap
+        {
+            get;
+            private set;
+        }
+
         public override bool ParseDataRow(string dataRowString, object userData)
         {
             string[] columnStrings = dataRowString.Split(DataTableExtension.DataSplitSeparators);
@@ -128,6 +191,13 @@ namespace GameMain
             MaxNum = int.Parse(columnStrings[index++]);
             Kind = int.Parse(columnStrings[index++]);
             AMInfo = columnStrings[index++];
+            Family = int.Parse(columnStrings[index++]);
+            Love = int.Parse(columnStrings[index++]);
+            Favor = int.Parse(columnStrings[index++]);
+            Hope = int.Parse(columnStrings[index++]);
+            Mood = int.Parse(columnStrings[index++]);
+            Energy = int.Parse(columnStrings[index++]);
+            Ap = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -148,6 +218,13 @@ namespace GameMain
                     MaxNum = binaryReader.Read7BitEncodedInt32();
                     Kind = binaryReader.Read7BitEncodedInt32();
                     AMInfo = binaryReader.ReadString();
+                    Family = binaryReader.Read7BitEncodedInt32();
+                    Love = binaryReader.Read7BitEncodedInt32();
+                    Favor = binaryReader.Read7BitEncodedInt32();
+                    Hope = binaryReader.Read7BitEncodedInt32();
+                    Mood = binaryReader.Read7BitEncodedInt32();
+                    Energy = binaryReader.Read7BitEncodedInt32();
+                    Ap = binaryReader.Read7BitEncodedInt32();
                 }
             }
 
