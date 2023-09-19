@@ -122,8 +122,8 @@ namespace GameMain
             Level = mNodeData.MLevel;
 
             Materials = mNodeData.M_Materials;
-
             GameEntry.Entity.AttachEntity(this.Id, mCompenentData.OwnerId);
+            Debug.Log(this.transform.position);
         }
         protected override void OnShow(object userData)
         {
@@ -139,6 +139,11 @@ namespace GameMain
             //    mMouseGap = Vector3.zero;
             //    PickUp();
             //}
+            mCompenentData = (CompenentData)userData;
+            mNodeData = mCompenentData.NodeData;
+            Materials = mCompenentData.materials;
+            NodeTag = mCompenentData.NodeData.NodeTag;
+            GameEntry.Entity.AttachEntity(this.Id, mCompenentData.OwnerId);
             if (mNodeData.RamdonJump)
             {
                 Vector3 newPos = UnityEngine.Random.insideUnitCircle;
@@ -277,6 +282,18 @@ namespace GameMain
 
             mMouseGap = MouseToWorld(Input.mousePosition) - this.transform.position;
             PickUp();
+        }
+        protected override void OnHide(bool isShutdown, object userData)
+        {
+            base.OnHide(isShutdown, userData);
+            if (Parent != null)
+            {
+                Parent = null;
+            }
+            if (Child != null)
+            {
+                Child = null;
+            }
         }
         public void OnPointerUp(PointerEventData pointerEventData)
         {
