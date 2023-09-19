@@ -58,6 +58,12 @@ public class ItemData
     public bool equipable;
     [TextArea]
     public string itemInfo;
+
+    public ItemData() { }
+    public ItemData(ItemTag itemTag)
+    {
+        this.itemTag = itemTag;
+    }
 }
 
 public class PlayerItemData : ItemData
@@ -104,4 +110,7 @@ public enum ItemTag
     Music1 = 15,
     Music2 = 16,
     Music3 = 17,
+    Closet1=101,
+    Closet2=102,
+    Closet3=103,
 }

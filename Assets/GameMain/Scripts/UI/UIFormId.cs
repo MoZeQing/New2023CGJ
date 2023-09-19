@@ -24,7 +24,8 @@ namespace GameMain
         GreengrocerForm=21,
         BakeryForm = 22,
         MusicHallForm=23,
-        GuideForm=15
+        GuideForm=15,
+        ClosetForm=16,
     }
 }
 

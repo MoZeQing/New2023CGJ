@@ -95,7 +95,8 @@ namespace GameMain
                 itemData.equipable = item.Equipable;
                 GameEntry.Utils.musicHallItemDatas.Add(itemData);
             }
-
+            GameEntry.Utils.AddPlayerItem(new PlayerItemData(new ItemData(ItemTag.Closet1), 1), 1);
+            GameEntry.Utils.AddPlayerItem(new PlayerItemData(new ItemData(ItemTag.Closet2), 1), 1);
         }
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {

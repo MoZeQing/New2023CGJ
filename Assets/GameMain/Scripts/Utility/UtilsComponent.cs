@@ -25,6 +25,7 @@ namespace GameMain
         public List<MusicItemData> musicHallItemDatas = new List<MusicItemData>();
         public List<ItemData> itemDatas = new List<ItemData>();
         public Dictionary<int, int> shopItems = new Dictionary<int, int>();
+        public List<Sprite> closet = new List<Sprite>();
 
         public bool pickUp = false;
         private int mCarfSort = 99;
