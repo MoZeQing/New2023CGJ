@@ -94,14 +94,14 @@ public enum ItemKind
 }
 public enum ItemTag
 {
-    CoffeeBean,//©╖╥х╤╧
-    Water,//к╝
-    Milk,//еёдл
-    Cream,//длсм
-    ChocolateSyrup,//ги©ка╕╫╛
-    Sugar,//лг
-    Ice,//╠Ы
-    Salt,//ян
+    CoffeeBean=0,//©╖╥х╤╧
+    Water=4,//к╝
+    Milk=3,//еёдл
+    Cream=4,//длсм
+    ChocolateSyrup=5,//ги©ка╕╫╛
+    Sugar=6,//лг
+    Ice=7,//╠Ы
+    Salt=8,//ян
     Book1=10,
     Book2=11,
     Book3=12,
