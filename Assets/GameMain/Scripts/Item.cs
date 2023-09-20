@@ -11,7 +11,6 @@ public class Item : MonoBehaviour
     [SerializeField] private int index;
     [SerializeField] private Image itemImg;
     [SerializeField] private Image usingImg;
-    [SerializeField] private Text itemText;
     [SerializeField] private Text priceText;
     [SerializeField] private Text amountText;
     [SerializeField] private Text itemInfoText;
@@ -25,7 +24,6 @@ public class Item : MonoBehaviour
         //itemText.text= itemData.itemName.ToString();
         priceText.text = itemData.price.ToString();
         amountText.text = itemData.itemNum.ToString();
-        itemInfoText.text = itemData.itemInfo.ToString();
         if(mItemData.equipable)
             //usingImg.gameObject.SetActive(mItemData.equiping);
         this.GetComponent<Button>().onClick.AddListener(OnClick);

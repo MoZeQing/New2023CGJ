@@ -16,7 +16,6 @@ namespace GameMain
         [Header("固定区域")]
         [SerializeField] private Button leftButton;
         [SerializeField] private Button rightButton;
-        [SerializeField] private Text timeText;
         [SerializeField] private Transform mCanvas;
         [Header("主控")]
         [SerializeField] private Button loadBtn;
@@ -35,7 +34,6 @@ namespace GameMain
             saveBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.SaveForm, this));
             optionBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.OptionForm, this));
 
-            GameEntry.Event.Subscribe(PlayerDataEventArgs.EventId, OnPlayerDataEvent);
             GameEntry.Event.Subscribe(MainFormEventArgs.EventId, OnMainFormEvent);
         }
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
@@ -49,7 +47,6 @@ namespace GameMain
             saveBtn.onClick.RemoveAllListeners();
             optionBtn.onClick.RemoveAllListeners();
 
-            GameEntry.Event.Unsubscribe(PlayerDataEventArgs.EventId, OnPlayerDataEvent);
             GameEntry.Event.Unsubscribe(MainFormEventArgs.EventId, OnMainFormEvent);
         }
         private void TurnLeft()
@@ -80,13 +77,6 @@ namespace GameMain
                     leftButton.interactable = true;
                     break;
             }
-        }
-
-        private void OnPlayerDataEvent(object sender, GameEventArgs e)
-        {
-            PlayerDataEventArgs args = (PlayerDataEventArgs)e;
-            PlayerData playerData= args.PlayerData;
-            timeText.text = string.Format("{0}月{1}日 星期{2}", 5 + (playerData.day + 20) / 28, (playerData.day + 20) % 28, AssetUtility.GetWeekCN((playerData.day + 20) % 7));
         }
 
         private void OnMainFormEvent(object sender, GameEventArgs e) 

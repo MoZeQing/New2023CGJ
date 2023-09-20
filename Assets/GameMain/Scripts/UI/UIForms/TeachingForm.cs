@@ -22,6 +22,7 @@ namespace GameMain
         [SerializeField] private Text APText;
         [SerializeField] private Text energyText;
         [SerializeField] private Text moodText;
+        [SerializeField] private Text timeText;
         [Header("右侧操作栏")]
         [SerializeField] private Transform rightCanvas;
         [SerializeField] private Button cleanBtn;
@@ -264,6 +265,7 @@ namespace GameMain
             APText.text = string.Format("行动点：{0}/{1}", playerData.ap, playerData.maxAp);
             energyText.text = string.Format("体力：{0}/{1}", playerData.energy, playerData.maxEnergy);
             moneyText.text=string.Format("金钱:{0}", playerData.money.ToString());
+            timeText.text = string.Format("{0}月{1}日 星期{2}", 5 + (playerData.day + 20) / 28, (playerData.day + 20) % 28, AssetUtility.GetWeekCN((playerData.day + 20) % 7));
         }
         //单独给点击做一个方法调用
         public void Click_Action()
