@@ -104,12 +104,7 @@ namespace GameMain
         {
             base.OnEnter(procedureOwner);
             Debug.Log("Menu");
-            string[] loadedSceneAssetNames = GameEntry.Scene.GetLoadedSceneAssetNames();
-            for (int i = 0; i < loadedSceneAssetNames.Length; i++)
-            {
-                GameEntry.Scene.UnloadScene(loadedSceneAssetNames[i]);
-            }
-            //Ð¶ÔØËùÓÐ³¡¾°
+            mMainState = MainState.Menu;
             GameEntry.Event.Subscribe(MainStateEventArgs.EventId, MainStateEvent);
             GameEntry.UI.OpenUIForm(UIFormId.MenuForm, this);
         }
@@ -130,6 +125,7 @@ namespace GameMain
                 case MainState.Undefined:
                     break;
                 case MainState.Teach:
+                    ChangeState<ProcedureMain>(procedureOwner);
                     //ÇÐ»»bgm
                     break;
                 case MainState.Work:

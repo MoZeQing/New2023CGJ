@@ -445,6 +445,9 @@ namespace GameMain
                     break;
                 case EventTag.PlayBgm:
                     break;
+                case EventTag.EndGame:
+                    GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Menu));
+                    break;
             }
         }
         public void UpdateData()

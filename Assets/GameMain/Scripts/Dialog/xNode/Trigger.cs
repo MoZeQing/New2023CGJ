@@ -210,5 +210,6 @@ public enum EventTag
     AddFlag,//增加旗子
     RemoveFlag,//移除旗子
     NextDay,//跳转至下一天
-    PlayBgm//播放bgm
+    PlayBgm,//播放bgm
+    EndGame,//结束游戏
 }

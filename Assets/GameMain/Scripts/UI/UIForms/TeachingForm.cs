@@ -27,10 +27,8 @@ namespace GameMain
         [SerializeField] private Transform rightCanvas;
         [SerializeField] private Button cleanBtn;
         [SerializeField] private Button playBtn;
-        [SerializeField] private Button talkBtn;
         [SerializeField] private Button bathBtn;
         [SerializeField] private Button tvBtn;
-        [SerializeField] private Button storyBtn;
         [SerializeField] private Button touchBtn;
         [SerializeField] private Button restBtn;
         [SerializeField] private Button sleepBtn;
@@ -59,11 +57,9 @@ namespace GameMain
             GameEntry.Event.Subscribe(CharDataEventArgs.EventId, CharDataEvent);
             GameEntry.Event.Subscribe(PlayerDataEventArgs.EventId, PlayerDataEvent);
 
-            talkBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Talk));
             cleanBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Clean));
             touchBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Touch));
             playBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Play));
-            storyBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Story));
             sleepBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Sleep));
             bathBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Bath));
             restBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Rest));
@@ -78,7 +74,7 @@ namespace GameMain
                 GameEntry.Event.FireNow(this, MainFormEventArgs.Create(MainFormTag.Unlock));
                 dialogBox.gameObject.SetActive(false);
                 stage.gameObject.SetActive(false);
-                leftCanvas.gameObject.SetActive(true);
+                leftCanvas.gameObject.SetActive(false);
                 rightCanvas.gameObject.SetActive(false);
                 apTips.gameObject.SetActive(false);
                 energyTips.gameObject.SetActive(false);
@@ -91,10 +87,8 @@ namespace GameMain
             GameEntry.Event.Unsubscribe(CharDataEventArgs.EventId, CharDataEvent);
             GameEntry.Event.Unsubscribe(PlayerDataEventArgs.EventId, PlayerDataEvent);
 
-            talkBtn.onClick.RemoveAllListeners();
             touchBtn.onClick.RemoveAllListeners();
             playBtn.onClick.RemoveAllListeners();
-            storyBtn.onClick.RemoveAllListeners();
             sleepBtn.onClick.RemoveAllListeners();
             cleanBtn.onClick.RemoveAllListeners();
             tvBtn.onClick.RemoveAllListeners();

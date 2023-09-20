@@ -23,6 +23,7 @@ namespace GameMain
         private LevelData levelData3;
 
         private int mIndex;
+        private MainState mMainState;
 
         public bool InGuide { get; set; } = true;
 
@@ -35,6 +36,7 @@ namespace GameMain
             GameEntry.Event.Subscribe(LoadSceneSuccessEventArgs.EventId, OnLoadSceneSuccess);
             GameEntry.Event.Subscribe(GameStateEventArgs.EventId, OnGameStateEvent);
             GameEntry.Event.Subscribe(DialogEventArgs.EventId, OnDialogEvent);
+            GameEntry.Event.Subscribe(MainStateEventArgs.EventId, OnMainStateEvent);
             // 还原游戏速度
             GameEntry.Base.ResetNormalGameSpeed();
             IDataTable<DRScene> dtScene = GameEntry.DataTable.GetDataTable<DRScene>();
@@ -58,6 +60,7 @@ namespace GameMain
             GameEntry.Event.Unsubscribe(LoadSceneSuccessEventArgs.EventId, OnLoadSceneSuccess);
             GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, OnGameStateEvent);
             GameEntry.Event.Unsubscribe(DialogEventArgs.EventId, OnDialogEvent);
+            GameEntry.Event.Unsubscribe(MainStateEventArgs.EventId, OnMainStateEvent);
 
             GameEntry.Entity.HideAllLoadedEntities();
             GameEntry.Entity.HideAllLoadingEntities();
@@ -80,11 +83,21 @@ namespace GameMain
             {
                 ChangeState<ProcedureMain>(procedureOwner);
             }
+            if (mMainState == MainState.Menu)
+            {
+                ChangeState<ProcedureMenu>(procedureOwner);
+            }
         }
 
         public void OnComptele()
         {
 
+        }
+
+        public void OnMainStateEvent(object sender, GameEventArgs e)
+        {
+            MainStateEventArgs args = (MainStateEventArgs)e;
+            mMainState = args.MainState;
         }
 
         private void OnLoadSceneSuccess(object sender,GameEventArgs e)
@@ -136,22 +149,24 @@ namespace GameMain
                 else if (mIndex == 2)
                 {
                     GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
-                    InGuide = false;
-                    //mWorkForm.OnLevel("Guide_2");
-                    //GameEntry.Dialog.PlayStory("Guide_1");//播放剧情
-                    //mIndex++;
-                    //GameEntry.Utils.Day++;
+                    GameEntry.Dialog.PlayStory("Guide_2");//播放剧情
+                    mWorkForm.OnLevel("Guide_2");
+                    //GameEntry.Dialog.PlayStory("Guide_2");//播放剧情
+                    mIndex++;
+                    GameEntry.Utils.Day++;
                 }
                 else if (mIndex == 3)
                 {
-                    mWorkForm.OnLevel("Guide_3");
-                    GameEntry.Dialog.PlayStory("Guide_1");//播放剧情
+                    GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
+                    GameEntry.Dialog.PlayStory("Guide_2");//播放剧情
+                    GameEntry.Dialog.PlayStory("Guide_2");//播放剧情
                     mIndex++;
                     GameEntry.Utils.Day++;
                 }
                 else
                 {
-
+                    GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
+                    InGuide = false;
                 }
             }
         }
