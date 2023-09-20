@@ -25,7 +25,6 @@ public class BookItem : MonoBehaviour
     public void SetData(ShopItemData shopItemData)
     { 
         mShopItemData= shopItemData;
-        //bookImg=
         bookText.text = shopItemData.itemName;
         priceText.text = shopItemData.price.ToString();
         okBtn.interactable=GameEntry.Utils.GetPlayerItem(mShopItemData.itemTag) == null;

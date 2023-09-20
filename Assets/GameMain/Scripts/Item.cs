@@ -88,7 +88,9 @@ public enum ItemKind
     Instrument=2,
     Book=3,
     Cake=4,
-    Music = 5
+    Music = 5,
+    Glass = 6,
+    Dishes = 7,
 }
 public enum ItemTag
 {
@@ -108,7 +110,13 @@ public enum ItemTag
     Music1 = 15,
     Music2 = 16,
     Music3 = 17,
-    Closet1=101,
+    Glass1 = 18,
+    Glass2 = 19,
+    Glass3 = 20,
+    Dishes1 = 21,
+    Dishes2 = 22,
+    Dishes3 = 23,
+    Closet1 =101,
     Closet2=102,
     Closet3=103,
 }

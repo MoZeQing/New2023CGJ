@@ -29,10 +29,12 @@ namespace GameMain
             mShopItemData = itemData;
             priceText.text = itemData.price.ToString();
             inventoryText.text = itemData.itemNum.ToString();
-
-            if (GameEntry.Utils.GetPlayerItem(itemData.itemTag).itemNum >= itemData.maxNum)
+            if (GameEntry.Utils.GetPlayerItem(itemData.itemTag) != null)
             {
-                purchaseButton.interactable = false;
+                if (GameEntry.Utils.GetPlayerItem(itemData.itemTag).itemNum >= itemData.maxNum)
+                {
+                    purchaseButton.interactable = false;
+                }
             }
         }
 

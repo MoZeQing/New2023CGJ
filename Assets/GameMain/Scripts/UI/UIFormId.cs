@@ -22,9 +22,11 @@ namespace GameMain
         LoadForm=13,
         OptionForm=14,
         GreengrocerForm=21,
-        BakeryForm = 22,
-        MusicHallForm=23,
-        GuideForm=15,
+        BakeryForm = 27,
+        RestaurantFrom=25,
+        MusicHallForm =23,
+        GlassFrom=22,
+        GuideForm =15,
         ClosetForm=16,
     }
 }

@@ -23,6 +23,8 @@ namespace GameMain
         public List<ShopItemData> bookstoreItemDatas= new List<ShopItemData>();
         public List<ShopItemData> greengrocerItemDatas = new List<ShopItemData>();
         public List<MusicItemData> musicHallItemDatas = new List<MusicItemData>();
+        public List<ShopItemData> glassItemDatas = new List<ShopItemData>();
+        public List<ShopItemData> restaurantItemDatas = new List<ShopItemData>();
         public List<ItemData> itemDatas = new List<ItemData>();
         public Dictionary<int, int> shopItems = new Dictionary<int, int>();
         public List<Sprite> closets = new List<Sprite>();

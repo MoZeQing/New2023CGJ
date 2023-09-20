@@ -20,7 +20,7 @@ namespace GameMain
         public void StartGame()
         {           
             InitData();
-            GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Guide));
+            GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Teach));
         }
 
         public void ExitGame()
@@ -55,6 +55,30 @@ namespace GameMain
                 itemData.price= item.Price;
                 itemData.filterMode = (GameMain.FilterMode)item.FilterMode;
                 itemData.equipable=item.Equipable;
+                GameEntry.Utils.PlayerData.items.Add(itemData);
+            }
+            foreach (DRItem item in items)
+            {
+                if (item.Kind != (int)ItemKind.Glass)
+                    continue;
+                PlayerItemData itemData = new PlayerItemData();
+                itemData.itemTag = (ItemTag)item.Id;
+                itemData.itemInfo = item.Info;
+                itemData.price = item.Price;
+                itemData.filterMode = (GameMain.FilterMode)item.FilterMode;
+                itemData.equipable = item.Equipable;
+                GameEntry.Utils.PlayerData.items.Add(itemData);
+            }
+            foreach (DRItem item in items)
+            {
+                if (item.Kind != (int)ItemKind.Dishes)
+                    continue;
+                PlayerItemData itemData = new PlayerItemData();
+                itemData.itemTag = (ItemTag)item.Id;
+                itemData.itemInfo = item.Info;
+                itemData.price = item.Price;
+                itemData.filterMode = (GameMain.FilterMode)item.FilterMode;
+                itemData.equipable = item.Equipable;
                 GameEntry.Utils.PlayerData.items.Add(itemData);
             }
             foreach (DRItem item in items)
@@ -96,6 +120,32 @@ namespace GameMain
                 itemData.equipable = item.Equipable;
                 itemData.Favor = item.Favor;
                 GameEntry.Utils.musicHallItemDatas.Add(itemData);
+            }
+            foreach (DRItem item in items)
+            {
+                if (item.Kind != (int)ItemKind.Glass)
+                    continue;
+                ShopItemData itemData = new ShopItemData();
+                itemData.itemTag = (ItemTag)item.Id;
+                itemData.itemInfo = item.Info;
+                itemData.price = item.Price;
+                itemData.filterMode = (GameMain.FilterMode)item.FilterMode;
+                itemData.equipable = item.Equipable;
+                itemData.maxNum = item.MaxNum;
+                GameEntry.Utils.glassItemDatas.Add(itemData);
+            }
+            foreach (DRItem item in items)
+            {
+                if (item.Kind != (int)ItemKind.Dishes)
+                    continue;
+                ShopItemData itemData = new ShopItemData();
+                itemData.itemTag = (ItemTag)item.Id;
+                itemData.itemInfo = item.Info;
+                itemData.price = item.Price;
+                itemData.filterMode = (GameMain.FilterMode)item.FilterMode;
+                itemData.equipable = item.Equipable;
+                itemData.maxNum = item.MaxNum;
+                GameEntry.Utils.restaurantItemDatas.Add(itemData);
             }
             GameEntry.Utils.AddPlayerItem(new PlayerItemData(new ItemData(ItemTag.Closet1), 1), 1);
             GameEntry.Utils.AddPlayerItem(new PlayerItemData(new ItemData(ItemTag.Closet2), 1), 1);
