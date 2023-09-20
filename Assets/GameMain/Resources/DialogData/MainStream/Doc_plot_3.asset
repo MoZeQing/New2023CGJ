@@ -119,51 +119,6 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   start: 0
---- !u!114 &-2390161996609262569
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a506e63094815a84ba01622d0aa2f277, type: 3}
-  m_Name: Event
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: 3192, y: 6600}
-  ports:
-    keys:
-    - a
-    - b
-    values:
-    - _fieldName: a
-      _node: {fileID: -2390161996609262569}
-      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: chatDatas 17
-        node: {fileID: -865058938940490931}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: b
-      _node: {fileID: -2390161996609262569}
-      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-  a: 0
-  b: 0
-  eventData:
-    eventTag: 3
-    value: DOC3
 --- !u!114 &-2336910602535403985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -590,10 +545,7 @@ MonoBehaviour:
       _node: {fileID: -865058938940490931}
       _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      connections:
-      - fieldName: a
-        node: {fileID: -2390161996609262569}
-        reroutePoints: []
+      connections: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
@@ -995,7 +947,11 @@ MonoBehaviour:
         actionTag: 0
         soundTag: 0
     background: {fileID: 0}
-    eventDatas: []
+    eventDatas:
+    - eventTag: 3
+      value: 10
+    - eventTag: 12
+      value: DOC3
     text: " \u5988\u5988\u2026\u2026\uFF1F"
 --- !u!114 &-35470061016149117
 MonoBehaviour:
@@ -1578,7 +1534,6 @@ MonoBehaviour:
   - {fileID: -2336910602535403985}
   - {fileID: 6867863936362675679}
   - {fileID: -865058938940490931}
-  - {fileID: -2390161996609262569}
   - {fileID: 7980897487599899933}
 --- !u!114 &1108738541194949063
 MonoBehaviour:
