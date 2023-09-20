@@ -47,38 +47,14 @@ namespace GameMain
             IDataTable<DRItem> items= GameEntry.DataTable.GetDataTable<DRItem>();
             foreach (DRItem item in items) 
             {
-                if (item.Kind != (int)ItemKind.Materials)
-                    continue;
+                //if (item.Kind != (int)ItemKind.Materials)
+                //continue;
                 PlayerItemData itemData = new PlayerItemData();
                 itemData.itemTag = (ItemTag)item.Id;
                 itemData.itemInfo = item.Info;
                 itemData.price= item.Price;
                 itemData.filterMode = (GameMain.FilterMode)item.FilterMode;
                 itemData.equipable=item.Equipable;
-                GameEntry.Utils.PlayerData.items.Add(itemData);
-            }
-            foreach (DRItem item in items)
-            {
-                if (item.Kind != (int)ItemKind.Glass)
-                    continue;
-                PlayerItemData itemData = new PlayerItemData();
-                itemData.itemTag = (ItemTag)item.Id;
-                itemData.itemInfo = item.Info;
-                itemData.price = item.Price;
-                itemData.filterMode = (GameMain.FilterMode)item.FilterMode;
-                itemData.equipable = item.Equipable;
-                GameEntry.Utils.PlayerData.items.Add(itemData);
-            }
-            foreach (DRItem item in items)
-            {
-                if (item.Kind != (int)ItemKind.Dishes)
-                    continue;
-                PlayerItemData itemData = new PlayerItemData();
-                itemData.itemTag = (ItemTag)item.Id;
-                itemData.itemInfo = item.Info;
-                itemData.price = item.Price;
-                itemData.filterMode = (GameMain.FilterMode)item.FilterMode;
-                itemData.equipable = item.Equipable;
                 GameEntry.Utils.PlayerData.items.Add(itemData);
             }
             foreach (DRItem item in items)
