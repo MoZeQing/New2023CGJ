@@ -91,7 +91,7 @@ public enum ItemKind
     Music = 5,
     Glass = 6,
     Dishes = 7,
-    Food=8
+    Food = 8
 }
 public enum ItemTag
 {
