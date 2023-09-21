@@ -18,16 +18,9 @@ namespace GameMain
             }
         }
 
-        public ScenePosTag ScenePosTag
-        {
-            get;
-            set;
-        }
-
-        public static LittleCatEventArgs Create(ScenePosTag scenePosTag)
+        public static LittleCatEventArgs Create()
         {
             LittleCatEventArgs args = ReferencePool.Acquire<LittleCatEventArgs>();
-            args.ScenePosTag = scenePosTag;
             return args;
         }
 

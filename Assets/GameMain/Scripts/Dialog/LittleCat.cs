@@ -10,7 +10,6 @@ namespace GameMain
     public class LittleCat : MonoBehaviour,IPointerClickHandler
     {
         [SerializeField] private List<SpriteRenderer> mLittleCats = new List<SpriteRenderer>();
-        [SerializeField] private ScenePosTag mSceneTag;
         [SerializeField] private TeachingForm mTeachingForm;
 
         private void Start()
@@ -20,6 +19,7 @@ namespace GameMain
             {
                 mLittleCats.Add(this.transform.GetChild(i).GetComponent<SpriteRenderer>());
             }
+            ShowLittleCat();
         }
         private void OnEnable()
         {
@@ -34,16 +34,10 @@ namespace GameMain
             //显示对应养成的UI
             mTeachingForm.Click_Action();
         }
-        public void ShowLittleCat(ScenePosTag posTag)
-        {
-            HideLittleCat();
-            mSceneTag= posTag;
-            mLittleCats[(int)mSceneTag].gameObject.SetActive(true);
-        }
         public void ShowLittleCat()
         {
             HideLittleCat();
-            mLittleCats[(int)mSceneTag].gameObject.SetActive(true);
+            mLittleCats[Random.Range(0, mLittleCats.Count - 1)].gameObject.SetActive(true);
         }
         public void HideLittleCat()
         {
@@ -61,12 +55,5 @@ namespace GameMain
         //    else
         //        HideLittleCat();
         //}
-    }
-
-    public enum ScenePosTag
-    { 
-        Left,//左
-        Middle,//中
-        Right//右
     }
 }
