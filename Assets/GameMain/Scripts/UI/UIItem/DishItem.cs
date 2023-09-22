@@ -24,7 +24,7 @@ public class DishItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     }
     private void Update()
     {
-
+        
             if (GameEntry.Utils.Money >= mShopItemData.price)
             {
                 okBtn.interactable = true;
