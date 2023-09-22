@@ -32,6 +32,7 @@ namespace GameMain
             base.OnEnter(procedureOwner);
             mIndex = 1;
             InGuide = true;
+            mMainState = MainState.Undefined;
 
             GameEntry.Event.Subscribe(LoadSceneSuccessEventArgs.EventId, OnLoadSceneSuccess);
             GameEntry.Event.Subscribe(GameStateEventArgs.EventId, OnGameStateEvent);
@@ -113,6 +114,7 @@ namespace GameMain
                 mWorkForm.IsNext = false;
                 mWorkForm.OnLevel("Guide_1");
                 GameEntry.Dialog.PlayStory("Guide_1");//播放剧情
+                GameEntry.Utils.Day++;
                 mIndex++;
             }
         }
@@ -142,26 +144,29 @@ namespace GameMain
                 if (mIndex == 1)
                 {
                     mWorkForm.OnLevel("Guide_1");
-                    GameEntry.Dialog.PlayStory("Guide_1");//播放剧情
+                    GameEntry.Dialog.StoryUpdate();
                     mIndex++;
                     GameEntry.Utils.Day++;
+                    Debug.Log(GameEntry.Utils.Day);
                 }
                 else if (mIndex == 2)
                 {
                     GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
-                    GameEntry.Dialog.PlayStory("Guide_2");//播放剧情
+                    GameEntry.Dialog.StoryUpdate();
                     mWorkForm.OnLevel("Guide_2");
-                    //GameEntry.Dialog.PlayStory("Guide_2");//播放剧情
                     mIndex++;
                     GameEntry.Utils.Day++;
+                    Debug.Log(GameEntry.Utils.Day);
                 }
                 else if (mIndex == 3)
                 {
                     GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
-                    GameEntry.Dialog.PlayStory("Guide_2");//播放剧情
-                    GameEntry.Dialog.PlayStory("Guide_2");//播放剧情
+                    GameEntry.Dialog.StoryUpdate();
+                    mWorkForm.OnLevel("Guide_3");
                     mIndex++;
                     GameEntry.Utils.Day++;
+
+                    Debug.Log(GameEntry.Utils.Day);
                 }
                 else
                 {

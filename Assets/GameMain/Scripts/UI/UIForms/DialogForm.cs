@@ -24,7 +24,12 @@ namespace GameMain
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            dialogueGraph = (DialogueGraph)userData;
+            SetData((DialogueGraph)userData);
+        }
+
+        public void SetData(DialogueGraph dialogue)
+        {
+            dialogueGraph= dialogue;
             mDialogBox.SetDialog(dialogueGraph);
             mDialogBox.SetComplete(OnComplete);
         }
@@ -32,7 +37,7 @@ namespace GameMain
         private void OnComplete()
         {
             GameEntry.UI.OpenUIForm(UIFormId.ChangeForm);
-            Invoke(nameof(CloseForm), 1f);
+            CloseForm();
         }
         private void CloseForm()
         {

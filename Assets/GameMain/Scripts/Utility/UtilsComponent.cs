@@ -249,7 +249,7 @@ namespace GameMain
             set
             {
                 mPlayerData.day = value;
-                _values[TriggerTag.Day] = mPlayerData.ap.ToString();
+                _values[TriggerTag.Day] = mPlayerData.day.ToString();
                 GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
             }
         }
@@ -342,6 +342,11 @@ namespace GameMain
             if(_flags.Contains(flag))
                 _flags.Remove(flag);
         }
+
+        public void ClearFlag()
+        {
+            _flags.Clear();
+        }
         public bool Check(TriggerData triggerData)
         {
             return Check(triggerData.trigger);
@@ -406,6 +411,9 @@ namespace GameMain
         {
             switch (eventData.eventTag)
             {
+                case EventTag.Play:
+                    GameEntry.Dialog.PlayStory(eventData.value);
+                    break;
                 case EventTag.AddMoney:
                     GameEntry.Utils.Money += int.Parse(eventData.value);
                     break;

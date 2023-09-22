@@ -63,7 +63,15 @@ namespace GameMain
             {
                 if (story.name == tag)
                 {
-                    GameEntry.UI.OpenUIForm(UIFormId.DialogForm, story.dialogueGraph);
+                    if (GameEntry.UI.HasUIForm(UIFormId.DialogForm))
+                    {
+                        DialogForm df = GameEntry.UI.GetUIForm(UIFormId.DialogForm).GetComponent<DialogForm>();
+                        df.SetData(story.dialogueGraph);
+                    }
+                    else
+                    {
+                        GameEntry.UI.OpenUIForm(UIFormId.DialogForm, story.dialogueGraph);
+                    }
                     InDialog = true;
                     GameEntry.Event.FireNow(this, DialogEventArgs.Create(InDialog, story.dialogueGraph.name));
                     if (story.isRemove)
@@ -99,7 +107,7 @@ namespace GameMain
 
         public void LoadGame()
         {
-            loadedStories = stories;
+            loadedStories = new List<StorySO>(stories);
         }
     }
 }

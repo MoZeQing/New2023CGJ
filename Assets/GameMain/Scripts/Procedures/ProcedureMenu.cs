@@ -20,7 +20,7 @@ namespace GameMain
         public void StartGame()
         {           
             InitData();
-            GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Teach));
+            GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Guide));
         }
 
         public void ExitGame()
@@ -42,7 +42,9 @@ namespace GameMain
             GameEntry.Utils.Favor = 0;
             GameEntry.Utils.Love = 0;
             GameEntry.Utils.Family= 0;
+            GameEntry.Utils.Day = 0;
             GameEntry.Utils.closet = 101;
+            GameEntry.Utils.ClearFlag();
             GameEntry.Dialog.LoadGame();
             IDataTable<DRItem> items= GameEntry.DataTable.GetDataTable<DRItem>();
             foreach (DRItem item in items) 

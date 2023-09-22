@@ -98,6 +98,7 @@ namespace GameMain
                     GameEntry.Event.FireNow(this, LevelEventArgs.Create());
                     GamePosUtility.Instance.GamePosChange(GamePos.Up);
                     dialogBox.SetDialog(mLevelData.failWork);
+                    dialogBox.Next();
                     dialogBox.SetComplete(OnAfterWorkComplete);
                     IsDialog= true;
                 }
@@ -143,6 +144,7 @@ namespace GameMain
             mLevelData= levelData;
             GamePosUtility.Instance.GamePosChange(GamePos.Up);
             dialogBox.SetDialog(mLevelData.foreWork);
+            dialogBox.Next();
             dialogBox.SetComplete(OnForeWorkComplete);
             GameEntry.Event.Fire(this, GameStateEventArgs.Create(GameState.ForeSpecial));
         }
@@ -173,6 +175,7 @@ namespace GameMain
                 {
                     GamePosUtility.Instance.GamePosChange(GamePos.Up);
                     dialogBox.SetDialog(mLevelData.afterWork);
+                    dialogBox.Next();
                     dialogBox.SetComplete(OnAfterWorkComplete);
                 }
             }  

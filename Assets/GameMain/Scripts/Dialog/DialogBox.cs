@@ -107,11 +107,12 @@ public class DialogBox : MonoBehaviour
                 GameEntry.Utils.RunEvent(chatData.eventDatas[i]);
             }
             //角色控制
-            NextNode(chatNode, string.Format("chatDatas {0}", _index));
             _index++;
         }
         else
         {
+            if (NextNode(chatNode, string.Format("chatDatas {0}", _index-1)))
+                return;
             //播放完毕
             nameText.text = string.Empty;
             dialogText.text = string.Empty;
