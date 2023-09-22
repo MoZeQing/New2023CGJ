@@ -24,6 +24,7 @@ namespace GameMain
         }
         void Update()
         {
+            Debug.Log(GameEntry.Utils.Money);
             if (GameEntry.Utils.Money >= mMusicItemData.price)
             {
                 purchaseButton.interactable = true;

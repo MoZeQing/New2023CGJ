@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityGameFramework.Runtime;
 using UnityEngine.UI;
 using GameFramework.Event;
+using static UnityEditor.Progress;
 
 namespace GameMain
 {
@@ -12,51 +13,43 @@ namespace GameMain
         [SerializeField] private Button exitBtn;
         [SerializeField] private Button buyBtn;
         [SerializeField] private Transform canvas;
-        [SerializeField] private GameObject shopItemPre;
+        [SerializeField] private GameObject glassItemPre;
         [SerializeField] private Text headerField;
         [SerializeField] private Text contentField;
-        [SerializeField] private PurchaseForm purchaseForm;
 
-        private List<ShopItem> mItems = new List<ShopItem>();
-        private List<ShopItemData> mItemDatas = new List<ShopItemData>();
-        private ShopItemData mItemData = new ShopItemData();
+        private List<ShopItemData> mShopItemDatas = new List<ShopItemData>();
+        private List<GlassItem> mItems = new List<GlassItem>();
 
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            mItemDatas = GameEntry.Utils.glassItemDatas;
+            mShopItemDatas = GameEntry.Utils.glassItemDatas;
             exitBtn.onClick.AddListener(OnExit);
             ClearItems();
-            ShowItems(mItemDatas);
+            ShowItems(mShopItemDatas);
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
+
         }
 
         protected override void OnClose(bool isShutdown, object userData)
         {
             base.OnClose(isShutdown, userData);
-            exitBtn.onClick.RemoveAllListeners();
         }
 
         private void ShowItems(List<ShopItemData> itemDatas)
         {
             foreach (ShopItemData itemData in itemDatas)
             {
-                GameObject go = Instantiate(shopItemPre, canvas);
-                ShopItem item = go.GetComponent<ShopItem>();
+                GameObject go = Instantiate(glassItemPre, canvas);
+                GlassItem item = go.GetComponent<GlassItem>();
                 item.SetData(itemData);
-                item.SetClick(OnClick);
                 item.SetTouch(OnTouch);
                 mItems.Add(item);
             }
-        }
-        private void OnClick(ShopItemData itemData)
-        {
-            purchaseForm.SetData(itemData);
-            purchaseForm.gameObject.SetActive(true);
         }
         private void OnTouch(bool flag, ItemData itemData)
         {
@@ -73,12 +66,13 @@ namespace GameMain
         }
         private void ClearItems()
         {
-            foreach (ShopItem item in mItems)
+            foreach (GlassItem item in mItems)
             {
                 Destroy(item.gameObject);
             }
             mItems.Clear();
         }
+
 
         private void OnExit()
         {
@@ -93,6 +87,5 @@ namespace GameMain
             GameEntry.Utils.Location = OutingSceneState.Home;
             GameEntry.UI.CloseUIForm(this.UIForm);
         }
-
     }
 }
