@@ -11,6 +11,8 @@ public class BookItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [SerializeField] private Image bookImg;
     [SerializeField] private Text bookText;
     [SerializeField] private Text priceText;
+    [SerializeField] private Text warningPriceText;
+    [SerializeField] private Text warningNumText;
     [SerializeField] private Button okBtn;
 
     private ShopItemData mShopItemData;
@@ -22,12 +24,37 @@ public class BookItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         okBtn.onClick.AddListener(OnClick);
     }
 
+    private void Update()
+    {
+        if (GameEntry.Utils.GetPlayerItem(mShopItemData.itemTag) != null)
+        {
+            if (GameEntry.Utils.GetPlayerItem(mShopItemData.itemTag).itemNum >= mShopItemData.maxNum)
+            {
+                okBtn.interactable = false;
+                warningNumText.gameObject.SetActive(true);
+            }
+        }
+        if (warningNumText.gameObject.activeSelf == false)
+        {
+            if (GameEntry.Utils.Money >= mShopItemData.price)
+            {
+                okBtn.interactable = true;
+                warningPriceText.gameObject.SetActive(false);
+            }
+            if (GameEntry.Utils.Money < mShopItemData.price)
+            {
+                okBtn.interactable = false;
+                warningPriceText.gameObject.SetActive(true);
+            }
+        }
+    }
+
     public void SetData(ShopItemData shopItemData)
     { 
         mShopItemData= shopItemData;
         bookText.text = shopItemData.itemName;
         priceText.text = shopItemData.price.ToString();
-        okBtn.interactable=GameEntry.Utils.GetPlayerItem(mShopItemData.itemTag) == null;
+        okBtn.interactable=!(GameEntry.Utils.GetPlayerItem(mShopItemData.itemTag) == null);
     }
 
     private void OnClick()

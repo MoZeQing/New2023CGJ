@@ -12,6 +12,8 @@ public class GlassItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     [SerializeField] private Text glassText;
     [SerializeField] private Text priceText;
     [SerializeField] private Button okBtn;
+    [SerializeField] private Text warningPriceText;
+    [SerializeField] private Text warningNumText;
 
     private ShopItemData mShopItemData;
     private Action<bool, ShopItemData> mTouchAction;
@@ -21,6 +23,32 @@ public class GlassItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     {
         okBtn.onClick.AddListener(OnClick);
     }
+    private void Update()
+    {
+        if (GameEntry.Utils.GetPlayerItem(mShopItemData.itemTag) != null)
+        {
+            if (GameEntry.Utils.GetPlayerItem(mShopItemData.itemTag).itemNum >= mShopItemData.maxNum)
+            {
+                okBtn.interactable = false;
+                warningNumText.gameObject.SetActive(true);
+            }
+        }
+        if (warningNumText.gameObject.activeSelf == false)
+        {
+            if (GameEntry.Utils.Money >= mShopItemData.price)
+            {
+                okBtn.interactable = true;
+                warningPriceText.gameObject.SetActive(false);
+            }
+            if (GameEntry.Utils.Money < mShopItemData.price)
+            {
+                okBtn.interactable = false;
+                warningPriceText.gameObject.SetActive(true);
+            }
+        }
+    }
+
+
 
     public void SetData(ShopItemData shopItemData)
     {
