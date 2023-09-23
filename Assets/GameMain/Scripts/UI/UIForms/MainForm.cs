@@ -46,6 +46,8 @@ namespace GameMain
             loadBtn.onClick.RemoveAllListeners();
             saveBtn.onClick.RemoveAllListeners();
             optionBtn.onClick.RemoveAllListeners();
+            leftButton.onClick.RemoveAllListeners();
+            rightButton.onClick.RemoveAllListeners();
 
             GameEntry.Event.Unsubscribe(MainFormEventArgs.EventId, OnMainFormEvent);
         }

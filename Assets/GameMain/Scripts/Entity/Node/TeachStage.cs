@@ -21,6 +21,10 @@ public class TeachStage : BaseStage
 
     public override void ShowCharacter(ChatData chatData)
     {
+        if (chatData.middle.charSO != null)
+        {
+            baseCharacter.SetData(chatData.middle.charSO);
+        }
         baseCharacter.SetAction(chatData.middle.actionData);
     }
 

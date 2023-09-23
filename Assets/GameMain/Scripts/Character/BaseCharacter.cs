@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using UnityGameFramework.Runtime;
 using XNode;
 
@@ -18,11 +19,20 @@ namespace GameMain
         }
 
         private CharacterData mCharacterData = null;
-        private SpriteRenderer mSpriteRenderer = null;
+        private Image mImage = null;
         private ActionNode mActionNode = null;
 
         private List<Sprite> mDiffs = new List<Sprite>();//²î·Ö
         private ActionState mActionState;
+
+        private void Start()
+        {
+            mImage = this.GetComponent<Image>();
+        }
+        private void OnEnable()
+        {
+            mImage = this.GetComponent<Image>();
+        }
 
         protected override void OnInit(object userData)
         {
@@ -30,7 +40,7 @@ namespace GameMain
             mCharacterData = (CharacterData)userData;
             DialogPos= mCharacterData.DialogPos;
 
-            mSpriteRenderer = this.GetComponent<SpriteRenderer>();
+            mImage = this.GetComponent<Image>();
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
@@ -76,7 +86,9 @@ namespace GameMain
         }
         public void SetAction(ActionData actionData)
         {
-            //mSpriteRenderer.sprite = mDiffs[(int)actionData.diffTag];
+            Debug.Log(this.gameObject.name);
+            mImage = this.GetComponent<Image>();
+            mImage.sprite = mDiffs[(int)actionData.diffTag];
             switch (actionData.actionTag)
             {
                 case ActionTag.Jump:
@@ -84,6 +96,11 @@ namespace GameMain
                 case ActionTag.Shake:
                     break;
             }
+        }
+
+        public void SetData(CharSO charSO)
+        {
+            mDiffs = charSO.diffs;
         }
     }
     [System.Serializable]

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9d3fe38b58a1ff4cbfd1f6e24dcdd50, type: 3}
-  m_Name: Chapter2_3
+  m_Name: Chapter2_99
   m_EditorClassIdentifier: 
   isRemove: 1
   outingSceneState: -1
@@ -20,6 +20,18 @@ MonoBehaviour:
     not: 0
     equals: 1
     value: MONEY
-    and: []
+    and:
+    - key: 1
+      not: 0
+      equals: 1
+      value: Chapter2
+      and: []
+      or: []
+    - key: 16
+      not: 0
+      equals: 1
+      value: Morning
+      and: []
+      or: []
     or: []
   dialogueGraph: {fileID: 11400000, guid: 5ccaf7e6b2fd7814cbb5839c5ae8beb9, type: 2}

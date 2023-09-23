@@ -63,6 +63,7 @@ public class BaseStage : MonoBehaviour
         {
             GameObject charObj = BaseCharacter.Instantiate(mCharacter, mCanvas);
             BaseCharacter baseCharacter = charObj.GetComponent<BaseCharacter>();
+            baseCharacter.SetData(charSO);
             mCharChace.Add(charSO, baseCharacter);
         }
         SetDialogPos(mCharChace[charSO], pos);

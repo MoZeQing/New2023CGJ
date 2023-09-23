@@ -18,8 +18,14 @@ MonoBehaviour:
   trigger:
     key: 10
     not: 0
-    equals: 1
+    equals: 0
     value: 4
-    and: []
+    and:
+    - key: 16
+      not: 0
+      equals: 1
+      value: Afternoon
+      and: []
+      or: []
     or: []
   dialogueGraph: {fileID: 11400000, guid: 23d6d835989222847b65b00ff94b1cdf, type: 2}
