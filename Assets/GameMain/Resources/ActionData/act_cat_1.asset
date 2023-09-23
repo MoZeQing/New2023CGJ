@@ -2202,11 +2202,13 @@ MonoBehaviour:
   m_Name: Chat
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1240, y: 760}
+  position: {x: -1528, y: 808}
   ports:
     keys:
     - a
     - chatDatas
+    - chatDatas 0
+    - chatDatas 1
     values:
     - _fieldName: a
       _node: {fileID: 1019035920759000937}
@@ -2230,9 +2232,71 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+    - _fieldName: chatDatas 0
+      _node: {fileID: 1019035920759000937}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: chatDatas 1
+      _node: {fileID: 1019035920759000937}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
   a: 0
   dialogId: 
-  chatDatas: []
+  chatDatas:
+  - charName: 
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    background: {fileID: 0}
+    eventDatas: []
+    text: 1
+  - charName: 
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    background: {fileID: 0}
+    eventDatas: []
+    text: 11
 --- !u!114 &1419670117849178866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3470,7 +3534,7 @@ MonoBehaviour:
   m_Name: Chat
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1640, y: 472}
+  position: {x: -1096, y: 536}
   ports:
     keys:
     - a
@@ -4104,7 +4168,7 @@ MonoBehaviour:
   m_Name: Action
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -2104, y: -104}
+  position: {x: -2392, y: -104}
   ports:
     keys:
     - Touch
@@ -4703,7 +4767,7 @@ MonoBehaviour:
   m_Name: Chat
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1720, y: -264}
+  position: {x: -696, y: -312}
   ports:
     keys:
     - a
