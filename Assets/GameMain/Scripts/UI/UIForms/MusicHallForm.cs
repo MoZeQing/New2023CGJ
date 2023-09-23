@@ -18,7 +18,6 @@ namespace GameMain
         private List<MusicItemData> mItemDatas = new List<MusicItemData>();
         private MusicItemData mItemData = new MusicItemData();
         private int itemId;
-        private bool flag=true;
         private int changeNum=0;
 
         protected override void OnOpen(object userData)
@@ -27,7 +26,7 @@ namespace GameMain
             mItemDatas = GameEntry.Utils.musicHallItemDatas;
             exitBtn.onClick.AddListener(OnExit);
             ClearItems();
-            if (GameEntry.Utils.Week == Week.Monday&&flag==true)
+            /*if (GameEntry.Utils.Week == Week.Monday&&flag==true)
             {
                 DrawLots();
                 flag =false;
@@ -35,7 +34,7 @@ namespace GameMain
             if(GameEntry.Utils.Week != Week.Monday)
             {
                 flag = true;
-            }
+            }*/
                 ShowItems(mItemDatas);
         }
 
@@ -54,7 +53,7 @@ namespace GameMain
         {
             foreach (MusicItemData itemData in itemDatas)
             {
-                if((int)itemData.itemTag== itemId)
+                if((int)itemData.itemTag== GameEntry.Utils.musicHallItemID)
                 {
                     GameObject go = Instantiate(shopItemPre, canvas);
                     MusicItem item = go.GetComponent<MusicItem>();
@@ -86,15 +85,6 @@ namespace GameMain
         {
             GameEntry.Utils.Location = OutingSceneState.Home;
             GameEntry.UI.CloseUIForm(this.UIForm);
-        }
-        private void DrawLots()
-        {
-            itemId=Random.Range(15, 18);
-            while(itemId==changeNum)
-            {
-                itemId = Random.Range(15, 18);
-            }
-            changeNum = itemId;
         }
     }
 }
