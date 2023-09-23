@@ -2,6 +2,7 @@ using GameFramework.Event;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
@@ -66,6 +67,9 @@ namespace GameMain
         {
             foreach (StorySO story in loadedStories)
             {
+                Debug.Log(Encoding.UTF8.GetString(Encoding.UTF8.GetBytes(story.name.ToString())));
+                Debug.Log(Encoding.UTF8.GetString(Encoding.ASCII.GetBytes(tag.ToString())));
+                Debug.Log(story.name.ToString()==tag.ToString());
                 if (story.name == tag)
                 {
                     if (GameEntry.UI.HasUIForm(UIFormId.DialogForm))
