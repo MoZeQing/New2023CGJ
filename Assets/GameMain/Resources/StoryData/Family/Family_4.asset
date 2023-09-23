@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9d3fe38b58a1ff4cbfd1f6e24dcdd50, type: 3}
+  m_Name: Family_4
+  m_EditorClassIdentifier: 
+  isRemove: 1
+  outingSceneState: 0
+  outingBefore: 0
+  trigger:
+    key: 6
+    not: 0
+    equals: 0
+    value: 100
+    and:
+    - key: 1
+      not: 1
+      equals: 1
+      value: LOVE
+      and: []
+      or: []
+    or: []
+  dialogueGraph: {fileID: 11400000, guid: 24863b78f984b7040a7dbc87f05a30e9, type: 2}
+  eventDatas:
+  - eventTag: 12
+    value: FAMILY

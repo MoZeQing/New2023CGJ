@@ -16,4 +16,6 @@ public class StorySO : ScriptableObject
     public ParentTrigger trigger;
     [SerializeField]
     public DialogueGraph dialogueGraph;
+    [SerializeField]
+    public List<EventData> eventDatas= new List<EventData>();
 }

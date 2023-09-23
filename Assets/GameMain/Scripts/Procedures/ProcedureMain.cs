@@ -29,7 +29,7 @@ namespace GameMain
             GameEntry.Utils.Location = OutingSceneState.Home;
             GameEntry.UI.OpenUIForm(UIFormId.MainForm, this);
             GameEntry.Dialog.StoryUpdate();
-            GameEntry.Utils.TimeTag = TimeTag.Night;
+            GameEntry.Utils.TimeTag = TimeTag.Evening;
             GameEntry.Event.Subscribe(LoadSceneSuccessEventArgs.EventId, LoadSceneSuccess);
             GameEntry.Event.Subscribe(MainStateEventArgs.EventId, MainStateEvent);
             IDataTable<DRScene> dtScene = GameEntry.DataTable.GetDataTable<DRScene>();
@@ -122,7 +122,8 @@ namespace GameMain
         ForeWork,
         AfterWork,
         Afternoon,
-        Night
+        Evening,
+        Night,
     }
 
     public enum Week

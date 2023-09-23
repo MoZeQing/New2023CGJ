@@ -50,6 +50,10 @@ namespace GameMain
                     GameEntry.UI.OpenUIForm(UIFormId.DialogForm, story.dialogueGraph);
                     InDialog = true;
                     GameEntry.Event.FireNow(this, DialogEventArgs.Create(InDialog, story.dialogueGraph.name));
+                    foreach (EventData eventData in story.eventDatas)
+                    {
+                        GameEntry.Utils.RunEvent(eventData);
+                    }
                     if (story.isRemove)
                         loadedStories.Remove(story);
                     return true;

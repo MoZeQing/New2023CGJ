@@ -18,10 +18,12 @@ namespace GameMain
         [Header("左侧信息栏")]
         [SerializeField] private Transform leftCanvas;
         [SerializeField] private Text moneyText;
-        [SerializeField] private Text favorText;
         [SerializeField] private Text APText;
         [SerializeField] private Text energyText;
         [SerializeField] private Text moodText;
+        [SerializeField] private Text favorText;
+        [SerializeField] private Text loveText;
+        [SerializeField] private Text familyText;
         [SerializeField] private Text timeText;
         [Header("右侧操作栏")]
         [SerializeField] private Transform rightCanvas;
@@ -56,11 +58,12 @@ namespace GameMain
 
             GameEntry.Event.Subscribe(CharDataEventArgs.EventId, CharDataEvent);
             GameEntry.Event.Subscribe(PlayerDataEventArgs.EventId, PlayerDataEvent);
+            GameEntry.Utils.UpdateData();
 
             cleanBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Clean));
             touchBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Touch));
             playBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Play));
-            sleepBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Sleep));
+            sleepBtn.onClick.AddListener(Sleep);
             bathBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Bath));
             restBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Rest));
             tvBtn.onClick.AddListener(() => Behaviour(BehaviorTag.TV));
@@ -209,6 +212,15 @@ namespace GameMain
                 Debug.LogWarningFormat("错误，不存在合法的对话剧情，请检查{0}的{1}", mActionNode.name, behaviorTag.ToString());
             }
         }
+        private void Sleep()
+        {
+            InDialog = false;
+            GameEntry.Utils.TimeTag = TimeTag.Night;
+            if (!GameEntry.Dialog.StoryUpdate())
+                Behaviour(BehaviorTag.Sleep);
+            else
+                OnGameChangeState();
+        }
         private void OnComplete()
         {
             InDialog=false;
@@ -252,6 +264,8 @@ namespace GameMain
             CharData charData=charDataEvent.CharData;
             favorText.text = string.Format("好感:{0}", charData.favor.ToString());
             moodText.text= string.Format("心情:{0}", charData.mood.ToString());
+            loveText.text = string.Format("爱情:{0}", charData.love.ToString());
+            familyText.text = string.Format("亲情:{0}", charData.family.ToString());
         }
         private void PlayerDataEvent(object sender, GameEventArgs e)
         { 
