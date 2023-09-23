@@ -236,6 +236,7 @@ namespace GameMain
         private void OnChangeDay()
         {
             InDialog = false;
+            GameEntry.Utils.TimeTag = TimeTag.Morning;
             if (!GameEntry.Dialog.StoryUpdate())
                 Behaviour(BehaviorTag.Morning);
             else

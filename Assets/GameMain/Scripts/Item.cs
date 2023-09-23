@@ -11,6 +11,7 @@ public class Item : MonoBehaviour
     [SerializeField] private int index;
     [SerializeField] private Image itemImg;
     [SerializeField] private Image usingImg;
+    [SerializeField] private Text itemText;
     [SerializeField] private Text priceText;
     [SerializeField] private Text amountText;
     [SerializeField] private Text itemInfoText;
@@ -21,9 +22,9 @@ public class Item : MonoBehaviour
     public void SetData(PlayerItemData itemData)
     {
         mItemData = itemData;
-        //itemText.text= itemData.itemName.ToString();
-        priceText.text = itemData.price.ToString();
-        amountText.text = itemData.itemNum.ToString();
+        itemText.text= itemData.itemName.ToString();
+        priceText.text = string.Format("╪ш╦Я:{0}", itemData.price.ToString());
+        amountText.text = string.Format("©Б╢Ф:{0}", itemData.itemNum.ToString());
         if(mItemData.equipable)
             //usingImg.gameObject.SetActive(mItemData.equiping);
         this.GetComponent<Button>().onClick.AddListener(OnClick);
@@ -98,7 +99,7 @@ public enum ItemTag
     CoffeeBean=0,//©╖╥х╤╧
     Water=4,//к╝
     Milk=3,//еёдл
-    Cream=4,//длсм
+    Cream=9,//длсм
     ChocolateSyrup=5,//ги©ка╕╫╛
     Sugar=6,//лг
     Ice=7,//╠Ы

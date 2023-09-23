@@ -37,7 +37,7 @@ namespace GameMain
         public void ShowLittleCat()
         {
             HideLittleCat();
-            mLittleCats[Random.Range(0, mLittleCats.Count - 1)].gameObject.SetActive(true);
+            mLittleCats[Random.Range(0, mLittleCats.Count)].gameObject.SetActive(true);
         }
         public void HideLittleCat()
         {
