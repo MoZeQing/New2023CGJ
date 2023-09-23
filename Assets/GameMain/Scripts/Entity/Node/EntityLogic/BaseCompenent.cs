@@ -123,7 +123,6 @@ namespace GameMain
 
             Materials = mNodeData.M_Materials;
             GameEntry.Entity.AttachEntity(this.Id, mCompenentData.OwnerId);
-            Debug.Log(this.transform.position);
         }
         protected override void OnShow(object userData)
         {

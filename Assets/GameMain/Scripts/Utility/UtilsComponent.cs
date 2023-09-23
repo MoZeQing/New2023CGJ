@@ -34,6 +34,7 @@ namespace GameMain
         public bool pickUp = false;
         public int musicHallItemID;
         public int changeMusicHallItemID;
+        public bool musicChangeFlag;
         private int mCarfSort = 99;
 
         public int CartSort
