@@ -10,6 +10,7 @@ namespace GameMain
     public class ShopItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField] private Image itemImage;
+        [SerializeField] private Text nameText; 
         [SerializeField] private Text priceText;
         [SerializeField] private Text inventoryText;
         [SerializeField] private Button subBtn;
@@ -27,8 +28,12 @@ namespace GameMain
         public void SetData(ShopItemData itemData)
         {
             mShopItemData = itemData;
-            priceText.text = itemData.price.ToString();
-            inventoryText.text = itemData.itemNum.ToString();
+            nameText.text = itemData.itemName.ToString();
+            priceText.text = string.Format("¼Û¸ñ:{0}",itemData.price.ToString());
+            if(GameEntry.Utils.GetPlayerItem(mShopItemData.itemTag)!=null)
+                inventoryText.text = string.Format("¿â´æ:{0}", GameEntry.Utils.GetPlayerItem(mShopItemData.itemTag).itemNum.ToString()); 
+            else
+                inventoryText.text = string.Format("¿â´æ:{0}", 0);
             if (GameEntry.Utils.GetPlayerItem(itemData.itemTag) != null)
             {
                 if (GameEntry.Utils.GetPlayerItem(itemData.itemTag).itemNum >= itemData.maxNum)

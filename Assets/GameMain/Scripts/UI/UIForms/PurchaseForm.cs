@@ -18,7 +18,7 @@ namespace GameMain
         [SerializeField] private GameObject tips;
 
         private ShopItemData mShopItemData;
-        private Action<int> mAction;
+        private Action mAction;
         private int purchaseNumber;
 
         void Start()
@@ -48,7 +48,7 @@ namespace GameMain
         {
             mShopItemData = shopItemData;
         }
-        public void SetClick(Action<int> action)
+        public void SetClick(Action action)
         {
             mAction = action;
         }
@@ -68,6 +68,7 @@ namespace GameMain
             }
             purchaseNum.text = 1.ToString();
             purchaseNumber = 1;
+            mAction();
             this.gameObject.SetActive(false);
         }
         private void Plus()

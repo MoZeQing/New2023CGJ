@@ -28,6 +28,7 @@ namespace GameMain
             mMainState = MainState.Teach;
             GameEntry.Utils.Location = OutingSceneState.Home;
             GameEntry.UI.OpenUIForm(UIFormId.MainForm, this);
+            GameEntry.Dialog.StoryUpdate();
             GameEntry.Event.Subscribe(LoadSceneSuccessEventArgs.EventId, LoadSceneSuccess);
             GameEntry.Event.Subscribe(MainStateEventArgs.EventId, MainStateEvent);
             IDataTable<DRScene> dtScene = GameEntry.DataTable.GetDataTable<DRScene>();
@@ -136,6 +137,7 @@ namespace GameMain
 
     public enum OutingSceneState
     {
+        Main=-1,
         Home,//¼Ò
         Greengrocer,//¹ûÊßÉÌ
         Glass,//²£Á§ÒÇÆ÷µê

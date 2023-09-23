@@ -109,7 +109,7 @@ namespace GameMain
         CoarseGroundCoffee,//粗咖啡粉
         MidGroundCoffee,//中咖啡粉
         FineGroundCoffee,//细咖啡粉
-        Water,//水
+        Water=4,//水
         HotWater,//热水
         Milk,//牛奶
         HotMilk,//热牛奶

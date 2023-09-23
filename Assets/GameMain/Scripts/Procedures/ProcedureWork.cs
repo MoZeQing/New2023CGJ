@@ -35,7 +35,6 @@ namespace GameMain
             }
             //≥°æ∞º”‘ÿ
             GameEntry.Scene.LoadScene(AssetUtility.GetSceneAsset(drScene.AssetName), /*Constant.AssetPriority.SceneAsset*/0, this);
-            GameEntry.Utils.TimeTag = TimeTag.ForeWork;
         }
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
         {
@@ -47,12 +46,16 @@ namespace GameMain
             GameEntry.Entity.HideAllLoadedEntities();
             GameEntry.Entity.HideAllLoadingEntities();
 
+            GameEntry.UI.CloseAllLoadingUIForms();
+            GameEntry.UI.CloseUIGroup("Default");
+            GameEntry.UI.OpenUIForm(UIFormId.ChangeForm);
+
             string[] loadedSceneAssetNames = GameEntry.Scene.GetLoadedSceneAssetNames();
             for (int i = 0; i < loadedSceneAssetNames.Length; i++)
             {
                 GameEntry.Scene.UnloadScene(loadedSceneAssetNames[i]);
             }
-            GameEntry.Utils.TimeTag = TimeTag.AfterWork;
+            GameEntry.Utils.TimeTag = TimeTag.Afternoon;
         }
         protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
@@ -90,8 +93,6 @@ namespace GameMain
                     break;
                 case MainState.Teach:
                     //«–ªªbgm
-                    GameEntry.Utils.TimeTag = TimeTag.AfterWork;
-                    GameEntry.Dialog.StoryUpdate();
                     break;
             }
             mMainState = args.MainState;

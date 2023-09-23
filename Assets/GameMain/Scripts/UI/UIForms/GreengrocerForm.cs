@@ -57,6 +57,12 @@ namespace GameMain
         {
             purchaseForm.SetData(itemData);
             purchaseForm.gameObject.SetActive(true);
+            purchaseForm.SetClick(UpdateItem);
+        }
+        private void UpdateItem()
+        {
+            ClearItems();
+            ShowItems(mItemDatas);
         }
         private void OnTouch(bool flag,ItemData itemData)
         {

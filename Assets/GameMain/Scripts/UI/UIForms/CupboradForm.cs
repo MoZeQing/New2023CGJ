@@ -52,6 +52,10 @@ namespace GameMain
         {
             foreach (PlayerItemData itemData in itemDatas)
             {
+                if ((int)itemData.itemTag > 100)
+                    return;
+                if (itemData.itemNum <= 0)
+                    return;
                 GameObject go = Instantiate(itemItem, mCanvas);
                 Item item =go.GetComponent<Item>();
                 item.SetData(itemData);
