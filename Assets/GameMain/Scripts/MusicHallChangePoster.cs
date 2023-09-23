@@ -7,7 +7,6 @@ namespace GameMain
     public class MusicHallChangePoster : MonoBehaviour
     {
         // Start is called before the first frame update
-        private bool flag = true;
         private int itemId;
         void Start()
         {
@@ -17,14 +16,17 @@ namespace GameMain
         // Update is called once per frame
         void Update()
         {
-            if (GameEntry.Utils.Week == Week.Monday && flag == true)
+            if(GameEntry.Utils.musicHallItemID == 0)
             {
                 DrawLots();
-                flag = false;
             }
-            if (GameEntry.Utils.Week != Week.Monday)
+            if ((((GameEntry.Utils.PlayerData.day + 20) %7) == 0 )&& GameEntry.Utils.musicChangeFlag== true)
             {
-                flag = true;
+                DrawLots();
+            }
+            if (((GameEntry.Utils.PlayerData.day + 20) %7) != 0 )
+            {
+                GameEntry.Utils.musicChangeFlag = true;
             }
         }
 
@@ -37,6 +39,7 @@ namespace GameMain
             }
             GameEntry.Utils.changeMusicHallItemID = itemId;
             GameEntry.Utils.musicHallItemID = itemId;
+            GameEntry.Utils.musicChangeFlag = false;
         }
     }
 }
