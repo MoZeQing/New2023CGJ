@@ -32,6 +32,8 @@ namespace GameMain
         public int closet;
 
         public bool pickUp = false;
+        public int musicHallItemID;
+        public int changeMusicHallItemID;
         private int mCarfSort = 99;
 
         public int CartSort
