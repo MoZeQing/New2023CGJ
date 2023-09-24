@@ -51,41 +51,21 @@ namespace GameMain
             {
                 //if (item.Kind != (int)ItemKind.Materials)
                 //continue;
-                PlayerItemData itemData = new PlayerItemData();
-                itemData.itemName = item.Name;
-                itemData.itemTag = (ItemTag)item.Id;
-                itemData.itemInfo = item.Info;
-                itemData.price= item.Price;
-                itemData.filterMode = (GameMain.FilterMode)item.FilterMode;
-                itemData.equipable=item.Equipable;
+                PlayerItemData itemData = new PlayerItemData((ItemTag)item.Id,5);
                 GameEntry.Utils.PlayerData.items.Add(itemData);
             }
             foreach (DRItem item in items)
             {
                 if (item.Kind != (int)ItemKind.Materials)
                     continue;
-                ShopItemData itemData = new ShopItemData();
-                itemData.itemName = item.Name;
-                itemData.itemTag = (ItemTag)item.Id;
-                itemData.itemInfo = item.Info;
-                itemData.price = item.Price;
-                itemData.filterMode = (GameMain.FilterMode)item.FilterMode;
-                itemData.equipable = item.Equipable;
-                itemData.maxNum = item.MaxNum;
+                ShopItemData itemData = new ShopItemData((ItemTag)item.Id);
                 GameEntry.Utils.greengrocerItemDatas.Add(itemData);
             }
             foreach (DRItem item in items)
             {
                 if (item.Kind != (int)ItemKind.Book)
                     continue;
-                ShopItemData itemData = new ShopItemData();
-                itemData.itemName = item.Name;
-                itemData.itemTag = (ItemTag)item.Id;
-                itemData.itemInfo = item.Info;
-                itemData.price = item.Price;
-                itemData.filterMode = (GameMain.FilterMode)item.FilterMode;
-                itemData.equipable = item.Equipable;
-                itemData.maxNum = item.MaxNum;
+                ShopItemData itemData = new ShopItemData((ItemTag)item.Id);
                 GameEntry.Utils.bookstoreItemDatas.Add(itemData);
             }
             foreach (DRItem item in items)
@@ -93,60 +73,33 @@ namespace GameMain
                 if (item.Kind != (int)ItemKind.Music)
                     continue;
                 MusicItemData itemData = new MusicItemData();
-                itemData.itemName = item.Name;
-                itemData.itemTag = (ItemTag)item.Id;
-                itemData.itemInfo = item.Info;
-                itemData.AbilityModifier = item.AMInfo;
-                itemData.price = item.Price;
-                itemData.filterMode = (GameMain.FilterMode)item.FilterMode;
-                itemData.equipable = item.Equipable;
-                itemData.Favor = item.Favor;
                 GameEntry.Utils.musicHallItemDatas.Add(itemData);
             }
             foreach (DRItem item in items)
             {
                 if (item.Kind != (int)ItemKind.Glass)
                     continue;
-                ShopItemData itemData = new ShopItemData();
-                itemData.itemName = item.Name;
-                itemData.itemTag = (ItemTag)item.Id;
-                itemData.itemInfo = item.Info;
-                itemData.price = item.Price;
-                itemData.filterMode = (GameMain.FilterMode)item.FilterMode;
-                itemData.equipable = item.Equipable;
-                itemData.maxNum = item.MaxNum;
+                ShopItemData itemData = new ShopItemData((ItemTag)item.Id);
                 GameEntry.Utils.glassItemDatas.Add(itemData);
             }
             foreach (DRItem item in items)
             {
                 if (item.Kind != (int)ItemKind.Dishes)
                     continue;
-                ShopItemData itemData = new ShopItemData();
-                itemData.itemName = item.Name;
-                itemData.itemTag = (ItemTag)item.Id;
-                itemData.itemInfo = item.Info;
-                itemData.price = item.Price;
-                itemData.filterMode = (GameMain.FilterMode)item.FilterMode;
-                itemData.equipable = item.Equipable;
-                itemData.maxNum = item.MaxNum;
+                ShopItemData itemData = new ShopItemData((ItemTag)item.Id);
                 GameEntry.Utils.restaurantItemDatas.Add(itemData);
             }
             foreach (DRItem item in items)
             {
                 if (item.Kind != (int)ItemKind.Food)
                     continue;
-                ShopItemData itemData = new ShopItemData();
-                itemData.itemName = item.Name;
-                itemData.itemTag = (ItemTag)item.Id;
-                itemData.itemInfo = item.Info;
-                itemData.price = item.Price;
-                itemData.filterMode = (GameMain.FilterMode)item.FilterMode;
-                itemData.equipable = item.Equipable;
-                itemData.maxNum = item.MaxNum;
+                ShopItemData itemData = new ShopItemData((ItemTag)item.Id);
                 GameEntry.Utils.bakeryItemDatas.Add(itemData);
             }
-            GameEntry.Utils.AddPlayerItem(new PlayerItemData(new ItemData(ItemTag.Closet1), 1), 1);
-            GameEntry.Utils.AddPlayerItem(new PlayerItemData(new ItemData(ItemTag.Closet2), 1), 1);
+            GameEntry.Utils.AddPlayerItem(new ItemData(ItemTag.Closet1), 1);
+            GameEntry.Utils.AddPlayerItem(new ItemData(ItemTag.Closet2), 1);
+            GameEntry.Utils.AddPlayerItem(new ItemData(ItemTag.CoffeeBean), 5);
+            GameEntry.Utils.AddPlayerItem(new ItemData(ItemTag.Water), 5);
         }
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {

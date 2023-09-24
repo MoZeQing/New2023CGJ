@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using static UnityEditor.Progress;
+using GameFramework.DataTable;
+using GameMain;
 
 [System.Serializable]
 public class Item : MonoBehaviour
@@ -22,12 +25,12 @@ public class Item : MonoBehaviour
     public void SetData(PlayerItemData itemData)
     {
         mItemData = itemData;
-        itemText.text= itemData.itemName.ToString();
+        itemText.text = itemData.itemName.ToString();
         priceText.text = string.Format("¼Û¸ñ:{0}", itemData.price.ToString());
         amountText.text = string.Format("¿â´æ:{0}", itemData.itemNum.ToString());
-        if(mItemData.equipable)
+        if (mItemData.equipable)
             //usingImg.gameObject.SetActive(mItemData.equiping);
-        this.GetComponent<Button>().onClick.AddListener(OnClick);
+            this.GetComponent<Button>().onClick.AddListener(OnClick);
     }
 
     public void SetClick(Action<ItemData> action)
@@ -62,6 +65,14 @@ public class ItemData
     public ItemData(ItemTag itemTag)
     {
         this.itemTag = itemTag;
+        IDataTable<DRItem> items = GameEntry.DataTable.GetDataTable<DRItem>();
+        DRItem item = items.GetDataRow((int)itemTag);
+        itemName = item.Name;
+        itemTag = (ItemTag)item.Id;
+        itemInfo = item.Info;
+        price = item.Price;
+        filterMode = (GameMain.FilterMode)item.FilterMode;
+        equipable = item.Equipable;
     }
 }
 
@@ -71,17 +82,24 @@ public class PlayerItemData : ItemData
     public bool equiping;
 
     public PlayerItemData() { }
-    public PlayerItemData(ItemData itemData, int num)
+    public PlayerItemData(ItemTag itemTag, int num)
+        :base(itemTag) 
     {
-        this.itemTag = itemData.itemTag;
-        this.itemName = itemData.itemName;
-        this.price = itemData.price;
-        this.filterMode = itemData.filterMode;
-        this.equipable = itemData.equipable;
-        this.itemInfo = itemData.itemInfo;
         this.itemNum = num;
     }
+
+    public PlayerItemData(ItemData itemData, int num)
+    {
+        itemTag = itemData.itemTag;
+        itemName = itemData.itemName;
+        price = itemData.price;
+        filterMode = itemData.filterMode;
+        equipable = itemData.equipable;
+        itemInfo = itemData.itemInfo;     
+        itemNum = num;
+    }
 }
+
 public enum ItemKind
 { 
     Materials=0,

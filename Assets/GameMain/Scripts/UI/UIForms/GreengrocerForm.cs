@@ -106,5 +106,13 @@ public class ShopItemData : ItemData
 {
     public int maxNum;
     public int itemNum;
+
+    public ShopItemData() { }
+
+    public ShopItemData(ItemTag itemTag)
+        : base(itemTag)
+    { 
+        
+    }
 }
 
