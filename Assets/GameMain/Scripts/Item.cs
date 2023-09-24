@@ -63,6 +63,8 @@ public class ItemData
     public int mood;
     public int love;
     public int favor;
+    public int ability;
+    public int maxNum;
     [TextArea]
     public string itemInfo;
 
@@ -81,6 +83,8 @@ public class ItemData
         mood = item.Mood;
         love = item.Love;
         favor = item.Favor;
+        ability = item.Ap;
+        maxNum = item.MaxNum;
         filterMode = (GameMain.FilterMode)item.FilterMode;
         equipable = item.Equipable;
     }

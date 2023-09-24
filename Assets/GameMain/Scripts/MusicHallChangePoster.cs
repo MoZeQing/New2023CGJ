@@ -32,10 +32,10 @@ namespace GameMain
 
         private void DrawLots()
         {
-            itemId = Random.Range(15, 18);
+            itemId = Random.Range(40, 43);
             while (itemId == GameEntry.Utils.changeMusicHallItemID)
             {
-                itemId = Random.Range(15, 18);
+                itemId = Random.Range(40, 43);
             }
             GameEntry.Utils.changeMusicHallItemID = itemId;
             GameEntry.Utils.musicHallItemID = itemId;

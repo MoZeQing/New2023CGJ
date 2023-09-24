@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityGameFramework.Runtime;
 using UnityEngine.UI;
 using GameFramework.Event;
+using GameFramework.DataTable;
 
 namespace GameMain
 {
@@ -87,11 +88,36 @@ namespace GameMain
             GameEntry.UI.CloseUIForm(this.UIForm);
         }
     }
+    public class MusicItemData : ItemData
+    {
+        public Sprite Poster;
+        public string AbilityModifier;
+
+        public MusicItemData(ItemTag itemTag)
+        {
+            this.itemTag = itemTag;
+            IDataTable<DRItem> items = GameEntry.DataTable.GetDataTable<DRItem>();
+            DRItem item = items.GetDataRow((int)itemTag);
+            itemName = item.Name;
+            itemTag = (ItemTag)item.Id;
+            itemInfo = item.Info;
+            price = item.Price;
+            family = item.Family;
+            hope = item.Hope;
+            mood = item.Mood;
+            love = item.Love;
+            favor = item.Favor;
+            filterMode = (GameMain.FilterMode)item.FilterMode;
+            equipable = item.Equipable;
+            AbilityModifier = item.AMInfo;
+
+        }
+        public MusicItemData()
+        {
+
+        }
+    }
 }
-public class MusicItemData : ItemData
-{
-    public Sprite Poster;
-    public string AbilityModifier;
-    public int AbilityModifierNum;
-    public int Favor;
-}
+
+
+
