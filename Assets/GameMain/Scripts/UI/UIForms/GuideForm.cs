@@ -8,18 +8,27 @@ namespace GameMain
 {
     public class GuideForm : UIFormLogic
     {
-        [SerializeField] private Text text;
-        [SerializeField] private List<string> dialogs;
+        [SerializeField] private Image image;
+        [SerializeField] private List<Sprite> dialogs1=new List<Sprite>();
+        [SerializeField] private List<Sprite> dialogs2=new List<Sprite>();
+        [SerializeField] private List<Sprite> dialogs3=new List<Sprite>();
 
+        private List<Sprite> dialogs = new List<Sprite>();
         private int index;
         private ProcedureGuide mProcedureGuide;
 
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            mProcedureGuide= (ProcedureGuide)userData;
-            text.text = dialogs[0];
-            index = 1;
+            int i = (int)userData;
+            switch (i-1)
+            {
+                case 1:dialogs = dialogs1;break;
+                case 2:dialogs = dialogs2;break;
+                case 3:dialogs = dialogs3;break;
+            }
+            index = 0;
+            image.sprite = dialogs[index];
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
@@ -30,10 +39,9 @@ namespace GameMain
                 if (index >= dialogs.Count)
                 {
                     GameEntry.UI.CloseUIForm(this.UIForm);
-                    mProcedureGuide.OnComptele();
                     return;
                 }
-                text.text = dialogs[index];
+                image.sprite = dialogs[index];
                 index++;
             }
         }

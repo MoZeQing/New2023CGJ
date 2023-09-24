@@ -133,7 +133,7 @@ namespace GameMain
             }
             if (args.GameState == GameState.Special)
             {
-                GameEntry.UI.OpenUIForm(UIFormId.GuideForm, this);
+                GameEntry.UI.OpenUIForm(UIFormId.GuideForm, mIndex);
 
             }
             if (args.GameState == GameState.AfterSpecial)
