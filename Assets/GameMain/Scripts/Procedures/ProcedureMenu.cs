@@ -72,7 +72,7 @@ namespace GameMain
             {
                 if (item.Kind != (int)ItemKind.Music)
                     continue;
-                MusicItemData itemData = new MusicItemData();
+                MusicItemData itemData = new MusicItemData((ItemTag)item.Id);
                 GameEntry.Utils.musicHallItemDatas.Add(itemData);
             }
             foreach (DRItem item in items)
