@@ -20,7 +20,7 @@ namespace GameMain
         public void StartGame()
         {           
             InitData();
-            GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Guide));
+            GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Teach));
         }
 
         public void ExitGame()

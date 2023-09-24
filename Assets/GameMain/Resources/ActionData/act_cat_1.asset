@@ -906,15 +906,13 @@ MonoBehaviour:
   m_Name: Trigger
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -456, y: 1096}
+  position: {x: -184, y: 888}
   ports:
     keys:
     - a
     - b
     - triggerDatas
     - triggerDatas 0
-    - triggerDatas 1
-    - triggerDatas 2
     values:
     - _fieldName: a
       _node: {fileID: -1646647808709646857}
@@ -956,24 +954,6 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 1
-    - _fieldName: triggerDatas 1
-      _node: {fileID: -1646647808709646857}
-      _typeQualifiedName: TriggerData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 1
-    - _fieldName: triggerDatas 2
-      _node: {fileID: -1646647808709646857}
-      _typeQualifiedName: TriggerData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 1
   a: 0
   b: 0
   triggerDatas:
@@ -987,30 +967,6 @@ MonoBehaviour:
     events:
     - eventTag: 12
       value: Flag_Blind_Play
-  - trigger:
-      key: 0
-      not: 0
-      equals: 0
-      value: 
-      and: []
-      or: []
-    events:
-    - eventTag: 3
-      value: Flag_Blind_Play
-    - eventTag: 0
-      value: 
-  - trigger:
-      key: 0
-      not: 0
-      equals: 0
-      value: 
-      and: []
-      or: []
-    events:
-    - eventTag: 3
-      value: Flag_Blind_Play
-    - eventTag: 0
-      value: 
 --- !u!114 &-1262612929529884546
 MonoBehaviour:
   m_ObjectHideFlags: 0

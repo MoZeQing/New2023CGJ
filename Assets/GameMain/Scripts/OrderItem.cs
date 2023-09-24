@@ -83,12 +83,12 @@ public class OrderItem : Entity
         {
             if (baseCompenent.NodeTag == mOrderData.NodeTag)
             {
-                //if (baseCompenent.Sugar != mOrderData.Sugar)
-                //    return;
-                //if (baseCompenent.CondensedMilk != mOrderData.CondensedMilk)
-                //    return;
-                //if (baseCompenent.Salt != mOrderData.Salt)
-                //    return;
+                if (baseCompenent.Sugar != mOrderData.Sugar)
+                    return;
+                if (baseCompenent.CondensedMilk != mOrderData.CondensedMilk)
+                    return;
+                if (baseCompenent.Salt != mOrderData.Salt)
+                    return;
                 //¼ÆËãÊÕÈë
                 int income = 0;
                 IDataTable<DRNode> dtNode=GameEntry.DataTable.GetDataTable<DRNode>();
