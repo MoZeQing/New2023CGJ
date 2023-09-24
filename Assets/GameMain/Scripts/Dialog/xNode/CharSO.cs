@@ -7,6 +7,7 @@ namespace GameMain
     [CreateAssetMenu]
     public class CharSO : ScriptableObject
     {
+        public bool isMain;
         public string charName;
         public List<Sprite> diffs = new List<Sprite>();
         public List<int> audios = new List<int>();

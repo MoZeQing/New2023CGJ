@@ -21,6 +21,7 @@ namespace GameMain
         private CharacterData mCharacterData = null;
         private Image mImage = null;
         private ActionNode mActionNode = null;
+        private CharSO mCharSO = null;
 
         private List<Sprite> mDiffs = new List<Sprite>();//²î·Ö
         private ActionState mActionState;
@@ -86,9 +87,11 @@ namespace GameMain
         }
         public void SetAction(ActionData actionData)
         {
-            Debug.Log(this.gameObject.name);
             mImage = this.GetComponent<Image>();
-            mImage.sprite = mDiffs[(int)actionData.diffTag];
+            if (mCharSO.isMain)
+                mImage.sprite = mDiffs[(GameEntry.Utils.closet - 101) * 18 + (int)actionData.diffTag];
+            else
+                mImage.sprite = mDiffs[(int)actionData.diffTag];
             switch (actionData.actionTag)
             {
                 case ActionTag.Jump:
@@ -100,6 +103,7 @@ namespace GameMain
 
         public void SetData(CharSO charSO)
         {
+            mCharSO= charSO;
             mDiffs = charSO.diffs;
         }
     }
