@@ -55,8 +55,8 @@ namespace GameMain
 
         private void OnEnable()
         {
-            upBtn.onClick.AddListener(()=>GamePosUtility.Instance.GamePosChange(GamePos.Up));
-            downBtn.onClick.AddListener(() => GamePosUtility.Instance.GamePosChange(GamePos.Down));
+            //upBtn.onClick.AddListener(()=>GamePosUtility.Instance.GamePosChange(GamePos.Up));
+            //downBtn.onClick.AddListener(() => GamePosUtility.Instance.GamePosChange(GamePos.Down));
             recipeBtn.onClick.AddListener(() => recipeCanvas.gameObject.SetActive(true));
             testBtn.onClick.AddListener(OnLevel);
             //test2Btn.onClick.AddListener(() => GameEntry.Utils.RunEvent(new EventData(EventTag.NextDay)));
@@ -69,8 +69,8 @@ namespace GameMain
 
         private void OnDisable()
         {
-            upBtn.onClick.RemoveAllListeners();
-            downBtn.onClick.RemoveAllListeners();
+            //upBtn.onClick.RemoveAllListeners();
+            //downBtn.onClick.RemoveAllListeners();
             recipeBtn.onClick.RemoveAllListeners();
 
             GameEntry.Event.Unsubscribe(OrderEventArgs.EventId, OnOrderEvent);

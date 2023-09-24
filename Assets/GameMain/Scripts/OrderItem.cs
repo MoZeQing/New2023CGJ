@@ -30,10 +30,10 @@ public class OrderItem : Entity
         condensedMilk = orderCanvas.Find("CondensedMilk").GetComponent<Text>();
         salt = orderCanvas.Find("Salt").GetComponent<Text>();
         orderTime=orderCanvas.Find("TimeText").GetComponent<Text>();
-        exitBtn = orderCanvas.Find("Exit").GetComponent<Button>();
+        //exitBtn = orderCanvas.Find("Exit").GetComponent<Button>();
         coffeeName = orderCanvas.Find("ItemText").GetComponent<Text>();
 
-        exitBtn.onClick.AddListener(OnExit);
+        //exitBtn.onClick.AddListener(OnExit);
     }
     protected override void OnShow(object userData)
     {
@@ -42,7 +42,7 @@ public class OrderItem : Entity
         mOrderData = mOrderItemData.OrderData;
 
         //coffeeItem.sprite = GameEntry.Utils.nodeImage[(int)mOrderData.NodeTag];
-        coffeeName.text = mOrderData.NodeName;
+        //coffeeName.text = mOrderData.NodeName;
         sugar.color = new Color(0f, 0f, 0f, mOrderData.Sugar ? 1f : 0.5f);
         condensedMilk.color = new Color(0f, 0f, 0f, mOrderData.CondensedMilk ? 1f : 0.5f);
         salt.color = new Color(0f, 0f, 0f, mOrderData.Salt ? 1f : 0.5f);

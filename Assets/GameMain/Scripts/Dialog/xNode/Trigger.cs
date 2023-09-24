@@ -212,4 +212,5 @@ public enum EventTag
     NextDay,//跳转至下一天
     PlayBgm,//播放bgm
     EndGame,//结束游戏
+    AddDay,//增加时间
 }

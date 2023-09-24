@@ -462,6 +462,9 @@ namespace GameMain
                 case EventTag.EndGame:
                     GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Menu));
                     break;
+                case EventTag.AddDay:
+                    GameEntry.Utils.Day += int.Parse(eventData.value);
+                    break;
             }
         }
         public void UpdateData()
