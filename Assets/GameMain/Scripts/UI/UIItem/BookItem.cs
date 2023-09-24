@@ -63,6 +63,12 @@ public class BookItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             mAction();
             GameEntry.Utils.Money -= mShopItemData.price;
+            GameEntry.Utils.Favor += mShopItemData.favor;
+            GameEntry.Utils.Love += mShopItemData.love;
+            GameEntry.Utils.Family += mShopItemData.family;
+            GameEntry.Utils.Mood += mShopItemData.mood;
+            GameEntry.Utils.Hope += mShopItemData.hope;
+            GameEntry.Utils.Ability += mShopItemData.ability;
             GameEntry.Utils.AddPlayerItem(mShopItemData,1);
             GameEntry.Dialog.PlayStory(mShopItemData.itemTag.ToString());
         }
