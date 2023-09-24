@@ -37,8 +37,8 @@ namespace GameMain
             GameEntry.Utils.Energy = 80;
             GameEntry.Utils.MaxAp = 6;
             GameEntry.Utils.Ap = 6;
-            GameEntry.Utils.Money = 10000;
-            GameEntry.Utils.Mood = 20;
+            GameEntry.Utils.Money = 3000;
+            GameEntry.Utils.Mood = 0;
             GameEntry.Utils.Favor = 0;
             GameEntry.Utils.Love = 0;
             GameEntry.Utils.Family= 0;
@@ -49,8 +49,8 @@ namespace GameMain
             IDataTable<DRItem> items= GameEntry.DataTable.GetDataTable<DRItem>();
             foreach (DRItem item in items) 
             {
-                //if (item.Kind != (int)ItemKind.Materials)
-                //continue;
+                if (item.Kind != (int)ItemKind.Materials)
+                    continue;
                 PlayerItemData itemData = new PlayerItemData((ItemTag)item.Id,5);
                 GameEntry.Utils.PlayerData.items.Add(itemData);
             }

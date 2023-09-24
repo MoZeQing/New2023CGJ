@@ -85,7 +85,7 @@ namespace GameMain
         {
             OrderData orderData = new OrderData();
             orderData.NodeTag = (NodeTag)Random.Range(26, 34);
-            orderData.OrderTime = 45f;
+            orderData.OrderTime = 60f;
             orderData.Sugar = Random.Range(0, 2) == 1;
             orderData.CondensedMilk = Random.Range(0, 2) == 1;
             orderData.Salt = Random.Range(0, 2) == 1;
