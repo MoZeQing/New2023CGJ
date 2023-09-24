@@ -123,7 +123,7 @@ public class GamePosUtility
                 Camera.main.transform.DOMove(new Vector3(0f, 4.6f, -8f), 1f).SetEase(Ease.InOutExpo);
                 break;
             case GamePos.Down:
-                Camera.main.transform.DOMove(new Vector3(0f, -4.2f, -8f), 1f).SetEase(Ease.InOutExpo);
+                Camera.main.transform.DOMove(new Vector3(0f, -6.2f, -8f), 1f).SetEase(Ease.InOutExpo);
                 break;
             case GamePos.Left:
                 Camera.main.transform.DOMove(new Vector3(-19.2f, 4.6f, -8f), 1f).SetEase(Ease.InOutExpo);
