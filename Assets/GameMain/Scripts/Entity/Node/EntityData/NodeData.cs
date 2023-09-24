@@ -105,11 +105,11 @@ namespace GameMain
     public enum NodeTag
     {
         //²ÄÁÏ
-        CoffeeBean=0,//¿§·È¶¹
+        CoffeeBean,//¿§·È¶¹
         CoarseGroundCoffee,//´Ö¿§·È·Û
         MidGroundCoffee,//ÖĞ¿§·È·Û
         FineGroundCoffee,//Ï¸¿§·È·Û
-        Water=4,//Ë®
+        Water,//Ë®
         HotWater,//ÈÈË®
         Milk,//Å£ÄÌ
         HotMilk,//ÈÈÅ£ÄÌ

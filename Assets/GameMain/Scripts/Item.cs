@@ -127,36 +127,52 @@ public enum ItemTag
 {
     CoffeeBean=0,//咖啡豆
     Water=4,//水
-    Milk=3,//牛奶
-    Cream=9,//奶油
-    ChocolateSyrup=5,//巧克力浆
-    Sugar=6,//糖
-    Ice=7,//冰
-    Salt=8,//盐
-    Book1=10,
-    Book2=11,
-    Book3=12,
-    Book4=13,
-    Book5=14,
-    Music1 = 15,
-    Music2 = 16,
-    Music3 = 17,
-    Extractor=20,//电动萃取
-    ElectricGrinder=19,//电动研磨器
-    Syphon=22,//虹吸壶
-    FrenchPress=23,//法压壶
-    FilterBowl=25,//滤纸式滤杯
-    Dishes1 = 27,
-    Dishes2 = 28,
-    Dishes3 = 29,
-    Dishes4 = 30,
-    Dishes5 = 31,
-    Food1 = 32,
-    Food2 = 33,
-    Food3 = 34,
-    Food4 = 35,
-    Food5 = 36,
-    Closet1 =101,
-    Closet2=102,
-    Closet3=103,
+    Milk=6,//牛奶
+    Cream=8,//奶油
+    ChocolateSyrup=9,//巧克力浆
+    Sugar=11,//糖
+    Ice=10,//冰
+    Salt=12,//盐
+    CondensedMilk=13,
+    ManualGrinder=16,//手动研磨器
+    Extractor=17,//电动萃取
+    ElectricGrinder=18,//电动研磨器
+    Heater=19,//加热器
+    Syphon=20,//虹吸壶
+    FrenchPress=21,//法压壶
+    Kettle=22,//浸泡壶
+    FilterBowl=23,//滤纸式滤杯
+    Cup=24,//咖啡杯
+    Stirrer=25,//搅拌器
+    Espresso,//浓缩咖啡
+    HotCafeAmericano,//热美式
+    IceCafeAmericano,//冷美式
+    HotLatte,//热拿铁
+    IceLatte,//冰拿铁
+    HotMocha,//热摩卡
+    IceMocha,//冷摩卡
+    Kapuziner,//卡布奇诺
+    FlatWhite,//澳白
+    Book1 =30,
+    Book2=31,
+    Book3=32,
+    Book4=33,
+    Book5=34,
+    Music1 = 40,
+    Music2 = 41,
+    Music3 = 42,
+    Dishes1 = 50,
+    Dishes2 = 51,
+    Dishes3 = 52,
+    Dishes4 = 53,
+    Dishes5 = 54,
+    Food1 = 60,
+    Food2 = 61,
+    Food3 = 62,
+    Food4 = 63,
+    Food5 = 64,
+    Closet1 = 101,
+    Closet2 = 102,
+    Closet3 = 103,
+    Closet4 = 104,
 }
