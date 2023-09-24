@@ -16,11 +16,17 @@ MonoBehaviour:
   outingSceneState: 0
   outingBefore: 0
   trigger:
-    key: 1
+    key: 10
     not: 0
     equals: 1
-    value: 456
-    and: []
+    value: 32
+    and:
+    - key: 16
+      not: 0
+      equals: 1
+      value: Afternoon
+      and: []
+      or: []
     or: []
   dialogueGraph: {fileID: 11400000, guid: d837f9f6539f85b4a85c69cefea81f08, type: 2}
   eventDatas: []
