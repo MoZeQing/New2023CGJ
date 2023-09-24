@@ -329,8 +329,12 @@ namespace GameMain
                 if (block < 0)
                     return;
             }
-            Parent = bestCompenent;
-            Parent.Child = this;
+            if(bestCompenent.Child==null)
+            {
+                Parent = bestCompenent;
+                Parent.Child = this;
+            }
+           
         }
         public void OnPointerEnter(PointerEventData pointerEventData)
         {
