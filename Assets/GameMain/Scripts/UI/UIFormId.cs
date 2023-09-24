@@ -28,7 +28,7 @@ namespace GameMain
         GlassFrom=22,
         GuideForm =15,
         ClosetForm=16,
-        BookStoreForm = 29,
+        BookStoreForm=29,
         ConsoleForm=50
     }
 }

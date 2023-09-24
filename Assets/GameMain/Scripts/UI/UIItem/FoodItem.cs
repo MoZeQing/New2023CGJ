@@ -50,6 +50,11 @@ public class FoodItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             mAction();
             GameEntry.Utils.Money -= mShopItemData.price;
+            GameEntry.Utils.Favor += mShopItemData.favor;
+            GameEntry.Utils.Love += mShopItemData.love;
+            GameEntry.Utils.Family += mShopItemData.family;
+            GameEntry.Utils.Mood += mShopItemData.mood;
+            GameEntry.Utils.Hope += mShopItemData.hope;
             GameEntry.Dialog.PlayStory(mShopItemData.itemTag.ToString());
         }
     }

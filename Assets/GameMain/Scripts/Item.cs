@@ -58,6 +58,11 @@ public class ItemData
     public int price;
     public GameMain.FilterMode filterMode;
     public bool equipable;
+    public int family;
+    public int hope;
+    public int mood;
+    public int love;
+    public int favor;
     [TextArea]
     public string itemInfo;
 
@@ -71,6 +76,11 @@ public class ItemData
         itemTag = (ItemTag)item.Id;
         itemInfo = item.Info;
         price = item.Price;
+        family = item.Family;
+        hope = item.Hope;
+        mood = item.Mood;
+        love = item.Love;
+        favor = item.Favor;
         filterMode = (GameMain.FilterMode)item.FilterMode;
         equipable = item.Equipable;
     }
@@ -110,7 +120,8 @@ public enum ItemKind
     Music = 5,
     Glass = 6,
     Dishes = 7,
-    Food = 8
+    Food = 8,
+    Clothes=9,
 }
 public enum ItemTag
 {
@@ -130,9 +141,11 @@ public enum ItemTag
     Music1 = 15,
     Music2 = 16,
     Music3 = 17,
-    Glass1 = 18,
-    Glass2 = 19,
-    Glass3 = 20,
+    Extractor=20,//电动萃取
+    ElectricGrinder=19,//电动研磨器
+    Syphon=22,//虹吸壶
+    FrenchPress=23,//法压壶
+    FilterBowl=25,//滤纸式滤杯
     Dishes1 = 27,
     Dishes2 = 28,
     Dishes3 = 29,

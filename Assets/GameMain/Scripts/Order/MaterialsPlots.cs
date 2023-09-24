@@ -12,7 +12,16 @@ public class MaterialsPlots : MonoBehaviour,IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (!IsGuide)
+        if(nodeTag==NodeTag.Cup)
+        {
+            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, nodeTag)
+            {
+                Position = this.transform.position,
+                Jump = true
+            });
+            return;
+        }
+        else if (!IsGuide)
         {
             if (GameEntry.Utils.GetPlayerItem((ItemTag)(int)nodeTag).itemNum <= 0)
             {
