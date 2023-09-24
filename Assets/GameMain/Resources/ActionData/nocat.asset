@@ -1,0 +1,538 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-1602745708761635424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d2f46806851fa94f83f2f914748a21c, type: 3}
+  m_Name: Chat
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 272.861, y: 666.94086}
+  ports:
+    keys:
+    - a
+    - chatDatas
+    - chatDatas 0
+    values:
+    - _fieldName: a
+      _node: {fileID: -1602745708761635424}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: Sleep 0
+        node: {fileID: 884661240681585221}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: chatDatas
+      _node: {fileID: -1602745708761635424}
+      _typeQualifiedName: System.Collections.Generic.List`1[[ChatData, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
+        Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: chatDatas 0
+      _node: {fileID: -1602745708761635424}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+  a: 0
+  dialogId: 
+  chatDatas:
+  - charName: 
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    background: {fileID: 0}
+    eventDatas: []
+    text: "\u7761\u4E86"
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51133024182a97943a8c174ae1a8395e, type: 3}
+  m_Name: nocat
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: 884661240681585221}
+  - {fileID: 2402439664738502563}
+  - {fileID: -1602745708761635424}
+  charSO: {fileID: 0}
+  trigger:
+    key: 0
+    not: 0
+    equals: 0
+    value: 
+    and: []
+    or: []
+--- !u!114 &884661240681585221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2facc3750fb6bc94d8bcd748c210e50d, type: 3}
+  m_Name: Action
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -276, y: -202}
+  ports:
+    keys:
+    - Click
+    - Clean
+    - Play
+    - Talk
+    - Bath
+    - TV
+    - Story
+    - Touch
+    - Rest
+    - Sleep
+    - Morning
+    - Comfort
+    - Morning 0
+    - Sleep 0
+    values:
+    - _fieldName: Click
+      _node: {fileID: 884661240681585221}
+      _typeQualifiedName: System.Collections.Generic.List`1[[ParentTrigger, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
+        Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Clean
+      _node: {fileID: 884661240681585221}
+      _typeQualifiedName: System.Collections.Generic.List`1[[ParentTrigger, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
+        Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Play
+      _node: {fileID: 884661240681585221}
+      _typeQualifiedName: System.Collections.Generic.List`1[[ParentTrigger, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
+        Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Talk
+      _node: {fileID: 884661240681585221}
+      _typeQualifiedName: System.Collections.Generic.List`1[[ParentTrigger, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
+        Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Bath
+      _node: {fileID: 884661240681585221}
+      _typeQualifiedName: System.Collections.Generic.List`1[[ParentTrigger, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
+        Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: TV
+      _node: {fileID: 884661240681585221}
+      _typeQualifiedName: System.Collections.Generic.List`1[[ParentTrigger, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
+        Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Story
+      _node: {fileID: 884661240681585221}
+      _typeQualifiedName: System.Collections.Generic.List`1[[ParentTrigger, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
+        Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Touch
+      _node: {fileID: 884661240681585221}
+      _typeQualifiedName: System.Collections.Generic.List`1[[ParentTrigger, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
+        Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Rest
+      _node: {fileID: 884661240681585221}
+      _typeQualifiedName: System.Collections.Generic.List`1[[ParentTrigger, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
+        Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Sleep
+      _node: {fileID: 884661240681585221}
+      _typeQualifiedName: System.Collections.Generic.List`1[[ParentTrigger, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
+        Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Morning
+      _node: {fileID: 884661240681585221}
+      _typeQualifiedName: System.Collections.Generic.List`1[[ParentTrigger, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
+        Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Comfort
+      _node: {fileID: 884661240681585221}
+      _typeQualifiedName: System.Collections.Generic.List`1[[ParentTrigger, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
+        Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Morning 0
+      _node: {fileID: 884661240681585221}
+      _typeQualifiedName: ParentTrigger, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: a
+        node: {fileID: 2402439664738502563}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: Sleep 0
+      _node: {fileID: 884661240681585221}
+      _typeQualifiedName: ParentTrigger, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: a
+        node: {fileID: -1602745708761635424}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+  ClickData:
+    maxEnergy: 0
+    energy: 0
+    money: 0
+    maxAp: 0
+    ap: 0
+    day: 0
+  Click: []
+  ClickCharData:
+    favor: 0
+    mood: 0
+    hope: 0
+    love: 0
+    family: 0
+    ability: 0
+  CleanData:
+    maxEnergy: 0
+    energy: 0
+    money: 0
+    maxAp: 0
+    ap: 0
+    day: 0
+  Clean: []
+  CleanCharData:
+    favor: 0
+    mood: 0
+    hope: 0
+    love: 0
+    family: 0
+    ability: 0
+  PlayData:
+    maxEnergy: 0
+    energy: 0
+    money: 0
+    maxAp: 0
+    ap: 0
+    day: 0
+  Play: []
+  PlayCharData:
+    favor: 0
+    mood: 0
+    hope: 0
+    love: 0
+    family: 0
+    ability: 0
+  TalkData:
+    maxEnergy: 0
+    energy: 0
+    money: 0
+    maxAp: 0
+    ap: 0
+    day: 0
+  Talk: []
+  TalkCharData:
+    favor: 0
+    mood: 0
+    hope: 0
+    love: 0
+    family: 0
+    ability: 0
+  BathData:
+    maxEnergy: 0
+    energy: 0
+    money: 0
+    maxAp: 0
+    ap: 0
+    day: 0
+  Bath: []
+  BathCharData:
+    favor: 0
+    mood: 0
+    hope: 0
+    love: 0
+    family: 0
+    ability: 0
+  TVData:
+    maxEnergy: 0
+    energy: 0
+    money: 0
+    maxAp: 0
+    ap: 0
+    day: 0
+  TV: []
+  TVCharData:
+    favor: 0
+    mood: 0
+    hope: 0
+    love: 0
+    family: 0
+    ability: 0
+  StoryData:
+    maxEnergy: 0
+    energy: 0
+    money: 0
+    maxAp: 0
+    ap: 0
+    day: 0
+  Story: []
+  StoryCharData:
+    favor: 0
+    mood: 0
+    hope: 0
+    love: 0
+    family: 0
+    ability: 0
+  TouchData:
+    maxEnergy: 0
+    energy: 0
+    money: 0
+    maxAp: 0
+    ap: 0
+    day: 0
+  Touch: []
+  TouchCharData:
+    favor: 0
+    mood: 0
+    hope: 0
+    love: 0
+    family: 0
+    ability: 0
+  RestData:
+    maxEnergy: 0
+    energy: 0
+    money: 0
+    maxAp: 0
+    ap: 0
+    day: 0
+  Rest: []
+  RestCharData:
+    favor: 0
+    mood: 0
+    hope: 0
+    love: 0
+    family: 0
+    ability: 0
+  SleepData:
+    maxEnergy: 0
+    energy: 0
+    money: 0
+    maxAp: 0
+    ap: 0
+    day: 0
+  Sleep:
+  - key: 0
+    not: 0
+    equals: 0
+    value: 
+    and: []
+    or: []
+  SleepCharData:
+    favor: 0
+    mood: 0
+    hope: 0
+    love: 0
+    family: 0
+    ability: 0
+  Morning:
+  - key: 0
+    not: 0
+    equals: 0
+    value: 
+    and: []
+    or: []
+  MorningCharData:
+    favor: 0
+    mood: 0
+    hope: 0
+    love: 0
+    family: 0
+    ability: 0
+  ComfortData:
+    maxEnergy: 0
+    energy: 0
+    money: 0
+    maxAp: 0
+    ap: 0
+    day: 0
+  Comfort: []
+  ComfortCharData:
+    favor: 0
+    mood: 0
+    hope: 0
+    love: 0
+    family: 0
+    ability: 0
+--- !u!114 &2402439664738502563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d2f46806851fa94f83f2f914748a21c, type: 3}
+  m_Name: Chat
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 201.011, y: 1030.551}
+  ports:
+    keys:
+    - a
+    - chatDatas
+    - chatDatas 0
+    values:
+    - _fieldName: a
+      _node: {fileID: 2402439664738502563}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: Morning 0
+        node: {fileID: 884661240681585221}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: chatDatas
+      _node: {fileID: 2402439664738502563}
+      _typeQualifiedName: System.Collections.Generic.List`1[[ChatData, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
+        Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: chatDatas 0
+      _node: {fileID: 2402439664738502563}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+  a: 0
+  dialogId: 
+  chatDatas:
+  - charName: 
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    background: {fileID: 0}
+    eventDatas: []
+    text: "\u9192\u4E86"

@@ -24,8 +24,8 @@ public class TeachStage : BaseStage
         if (chatData.middle.charSO != null)
         {
             baseCharacter.SetData(chatData.middle.charSO);
+            baseCharacter.SetAction(chatData.middle.actionData);
         }
-        baseCharacter.SetAction(chatData.middle.actionData);
     }
 
     public override void SetBackground(Sprite sprite)

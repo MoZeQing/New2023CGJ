@@ -15,7 +15,8 @@ namespace GameMain
         [SerializeField] private BaseStage stage;
         [SerializeField] private DialogBox dialogBox;
         [SerializeField] private Transform mCanvas;
-        [SerializeField] private Transform recipeCanvas;
+        [SerializeField] private Transform recipeCanvas1;
+        [SerializeField] private Transform recipeCanvas2;
         [SerializeField] private Button upBtn;
         [SerializeField] private Button downBtn;
         [SerializeField] private Button recipeBtn;
@@ -57,7 +58,7 @@ namespace GameMain
         {
             //upBtn.onClick.AddListener(()=>GamePosUtility.Instance.GamePosChange(GamePos.Up));
             //downBtn.onClick.AddListener(() => GamePosUtility.Instance.GamePosChange(GamePos.Down));
-            recipeBtn.onClick.AddListener(() => recipeCanvas.gameObject.SetActive(true));
+            recipeBtn.onClick.AddListener(OnRecipe);
             //testBtn.onClick.AddListener(OnLevel);
             //test2Btn.onClick.AddListener(() => GameEntry.Utils.RunEvent(new EventData(EventTag.NextDay)));
 
@@ -80,7 +81,8 @@ namespace GameMain
         {
             if (Input.GetMouseButtonDown(1))
             {
-                recipeCanvas.gameObject.SetActive(false);
+                recipeCanvas1.gameObject.SetActive(false);
+                recipeCanvas2.gameObject.SetActive(false);
             }
             if (IsGuide)
                 return;
@@ -110,6 +112,12 @@ namespace GameMain
             }
         }
 
+        private void OnRecipe()
+        {
+            bool flag = recipeCanvas1.gameObject.activeSelf;
+            recipeCanvas1.gameObject.SetActive(!flag);
+            recipeCanvas2.gameObject.SetActive(flag);
+        }
         private void OnLevel()
         {
             GameEntry.Event.FireNow(this, LevelEventArgs.Create());

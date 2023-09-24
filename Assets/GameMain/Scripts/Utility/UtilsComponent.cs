@@ -30,6 +30,7 @@ namespace GameMain
         public Dictionary<int, int> shopItems = new Dictionary<int, int>();
         public List<Sprite> closets = new List<Sprite>();
         public int closet;
+        public string actionName; 
 
         public bool pickUp = false;
         public int musicHallItemID;
@@ -335,6 +336,10 @@ namespace GameMain
                 GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
             }
         }
+        public bool CheckFlag(string key)
+        { 
+            return _flags.Contains(key);
+        }
         public void AddFlag(string flag)
         { 
             if(!_flags.Contains(flag))
@@ -464,6 +469,9 @@ namespace GameMain
                     break;
                 case EventTag.AddDay:
                     GameEntry.Utils.Day += int.Parse(eventData.value);
+                    break;
+                case EventTag.AddAction:
+                    GameEntry.Utils.actionName= eventData.value;
                     break;
             }
         }

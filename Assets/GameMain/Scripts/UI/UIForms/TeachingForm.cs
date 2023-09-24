@@ -43,8 +43,10 @@ namespace GameMain
         [SerializeField] private LittleCat mLittleCat = null;
         [SerializeField] private RectTransform mCanvas = null;
 
+        [SerializeField] private Button sleepBtn2;
+
         private DialogForm mDialogForm = null;
-        [SerializeField] private ActionGraph mActionGraph = null;
+        [SerializeField] public ActionGraph mActionGraph = null;
         private ActionNode mActionNode = null;
         private BehaviorTag mBehaviorTag;
         private ProcedureMain mProcedureMain = null;
@@ -54,8 +56,6 @@ namespace GameMain
 
         private void OnEnable()
         {
-            mActionNode = mActionGraph.ActionNode();
-
             GameEntry.Event.Subscribe(CharDataEventArgs.EventId, CharDataEvent);
             GameEntry.Event.Subscribe(PlayerDataEventArgs.EventId, PlayerDataEvent);
             GameEntry.Utils.UpdateData();
@@ -67,6 +67,7 @@ namespace GameMain
             bathBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Bath));
             restBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Rest));
             tvBtn.onClick.AddListener(() => Behaviour(BehaviorTag.TV));
+            sleepBtn2.onClick.AddListener(Sleep);
 
             this.transform.localScale = Vector3.one * 0.01f;
         }
@@ -100,6 +101,7 @@ namespace GameMain
         }
         public void Behaviour(BehaviorTag behaviorTag)
         {
+            mActionNode = mActionGraph.ActionNode();
             mBehaviorTag = behaviorTag;
             List<ParentTrigger> triggers = new List<ParentTrigger>();
             PlayerData playerData = new PlayerData();

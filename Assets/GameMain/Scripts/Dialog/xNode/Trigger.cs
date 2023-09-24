@@ -213,4 +213,5 @@ public enum EventTag
     PlayBgm,//播放bgm
     EndGame,//结束游戏
     AddDay,//增加时间
+    AddAction,//增加Action
 }
