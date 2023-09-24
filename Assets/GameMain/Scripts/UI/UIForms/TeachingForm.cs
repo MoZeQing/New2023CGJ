@@ -103,45 +103,56 @@ namespace GameMain
             mBehaviorTag = behaviorTag;
             List<ParentTrigger> triggers = new List<ParentTrigger>();
             PlayerData playerData = new PlayerData();
+            CharData charData = new CharData();
             switch (behaviorTag)
             {
                 case BehaviorTag.Click:
                     triggers = mActionNode.Click;
                     playerData = mActionNode.ClickData;
+                    charData = mActionNode.ClickCharData;
                     break;
                 case BehaviorTag.Clean:
                     triggers = mActionNode.Clean;
                     playerData= mActionNode.CleanData;
+                    charData= mActionNode.CleanCharData;
                     break;
                 case BehaviorTag.Bath:
                     triggers = mActionNode.Bath;
                     playerData= mActionNode.BathData;
+                    charData= mActionNode.BathCharData;
                     break;
                 case BehaviorTag.Rest:
                     triggers = mActionNode.Rest;
                     playerData= mActionNode.RestData;
+                    charData= mActionNode.RestCharData;
                     break;
                 case BehaviorTag.TV:
                     triggers = mActionNode.TV;
                     playerData= mActionNode.TVData;
+                    charData= mActionNode.TVCharData;
                     break;
                 case BehaviorTag.Talk:
                     triggers = mActionNode.Talk;
                     playerData = mActionNode.TalkData;
+                    charData= mActionNode.TalkCharData;
                     break;
                 case BehaviorTag.Touch:
                     triggers = mActionNode.Touch;
                     playerData = mActionNode.TouchData;
+                    charData= mActionNode.TouchCharData;
                     break;
                 case BehaviorTag.Play:
                     triggers = mActionNode.Play;
                     playerData = mActionNode.PlayData;
+                    charData= mActionNode.PlayCharData;
                     break;
                 case BehaviorTag.Sleep:
                     triggers = mActionNode.Sleep;
+                    charData= mActionNode.SleepCharData;
                     break;
                 case BehaviorTag.Morning:
                     triggers = mActionNode.Morning;
+                    charData=mActionNode.MorningCharData;
                     break;
             }
             if (behaviorTag != BehaviorTag.Sleep)
@@ -164,9 +175,11 @@ namespace GameMain
                 GameEntry.Utils.Ap -= playerData.ap;
                 GameEntry.Utils.MaxAp -= playerData.maxAp;
 
-                GameEntry.Utils.Mood += 20;
-                GameEntry.Utils.Favor += 2;
-                GameEntry.Utils.Hope += 1;
+                GameEntry.Utils.Mood += charData.mood;
+                GameEntry.Utils.Favor += charData.favor;
+                GameEntry.Utils.Hope += charData.hope;
+                GameEntry.Utils.Love+= charData.love;
+                GameEntry.Utils.Family += charData.family;
             }
             else
             {

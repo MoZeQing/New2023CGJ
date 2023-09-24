@@ -2229,7 +2229,7 @@ MonoBehaviour:
         soundTag: 0
     background: {fileID: 0}
     eventDatas: []
-    text: 1
+    text: "\u7741\u5F00\u773C\u775B"
   - charName: 
     left:
       charSO: {fileID: 0}
@@ -2251,7 +2251,7 @@ MonoBehaviour:
         soundTag: 0
     background: {fileID: 0}
     eventDatas: []
-    text: 11
+    text: "\u53C8\u662F\u65B0\u7684\u4E00\u5929"
 --- !u!114 &1419670117849178866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4439,12 +4439,19 @@ MonoBehaviour:
     value: 
     and: []
     or: []
+  ClickCharData:
+    favor: 0
+    mood: 0
+    hope: 0
+    love: 0
+    family: 0
+    ability: 0
   CleanData:
     maxEnergy: 0
-    energy: 0
+    energy: 5
     money: 0
     maxAp: 0
-    ap: 0
+    ap: 1
     day: 0
   Clean:
   - key: 0
@@ -4453,12 +4460,19 @@ MonoBehaviour:
     value: 
     and: []
     or: []
+  CleanCharData:
+    favor: 2
+    mood: 5
+    hope: 5
+    love: 0
+    family: 0
+    ability: 4
   PlayData:
     maxEnergy: 0
-    energy: 0
+    energy: 10
     money: 0
     maxAp: 0
-    ap: 0
+    ap: 1
     day: 0
   Play:
   - key: 1
@@ -4473,12 +4487,19 @@ MonoBehaviour:
     value: Flag_Blind_Play
     and: []
     or: []
+  PlayCharData:
+    favor: 2
+    mood: 0
+    hope: 0
+    love: 1
+    family: 2
+    ability: 2
   TalkData:
     maxEnergy: 0
-    energy: 0
+    energy: 5
     money: 0
     maxAp: 0
-    ap: 0
+    ap: 1
     day: 0
   Talk:
   - key: 2
@@ -4493,12 +4514,19 @@ MonoBehaviour:
     value: 50
     and: []
     or: []
+  TalkCharData:
+    favor: 5
+    mood: 2
+    hope: 6
+    love: 2
+    family: 1
+    ability: 3
   BathData:
     maxEnergy: 0
-    energy: 0
+    energy: -10
     money: 0
     maxAp: 0
-    ap: 0
+    ap: 1
     day: 0
   Bath:
   - key: 0
@@ -4507,12 +4535,19 @@ MonoBehaviour:
     value: 
     and: []
     or: []
+  BathCharData:
+    favor: 6
+    mood: 4
+    hope: 2
+    love: 4
+    family: 2
+    ability: 0
   TVData:
     maxEnergy: 0
-    energy: 0
+    energy: 5
     money: 0
     maxAp: 0
-    ap: 0
+    ap: 1
     day: 0
   TV:
   - key: 0
@@ -4521,6 +4556,13 @@ MonoBehaviour:
     value: 
     and: []
     or: []
+  TVCharData:
+    favor: 3
+    mood: 8
+    hope: 1
+    love: 0
+    family: 2
+    ability: 1
   StoryData:
     maxEnergy: 0
     energy: 0
@@ -4541,12 +4583,19 @@ MonoBehaviour:
     value: 60
     and: []
     or: []
+  StoryCharData:
+    favor: 0
+    mood: 0
+    hope: 0
+    love: 0
+    family: 0
+    ability: 0
   TouchData:
     maxEnergy: 0
     energy: 0
     money: 0
     maxAp: 0
-    ap: 0
+    ap: 1
     day: 0
   Touch:
   - key: 5
@@ -4561,6 +4610,13 @@ MonoBehaviour:
     value: 70
     and: []
     or: []
+  TouchCharData:
+    favor: 2
+    mood: 0
+    hope: 10
+    love: 3
+    family: 1
+    ability: 1
   RestData:
     maxEnergy: 0
     energy: 0
@@ -4575,6 +4631,13 @@ MonoBehaviour:
     value: 
     and: []
     or: []
+  RestCharData:
+    favor: 0
+    mood: 0
+    hope: 0
+    love: 0
+    family: 0
+    ability: 0
   SleepData:
     maxEnergy: 0
     energy: 0
@@ -4613,6 +4676,13 @@ MonoBehaviour:
       value: 50
       and: []
       or: []
+  SleepCharData:
+    favor: 0
+    mood: 0
+    hope: 0
+    love: 0
+    family: 0
+    ability: 0
   Morning:
   - key: 0
     not: 0
@@ -4620,6 +4690,13 @@ MonoBehaviour:
     value: 
     and: []
     or: []
+  MorningCharData:
+    favor: 0
+    mood: 0
+    hope: 0
+    love: 0
+    family: 0
+    ability: 0
   ComfortData:
     maxEnergy: 0
     energy: 0
@@ -4634,6 +4711,13 @@ MonoBehaviour:
     value: 
     and: []
     or: []
+  ComfortCharData:
+    favor: 0
+    mood: 0
+    hope: 0
+    love: 0
+    family: 0
+    ability: 0
 --- !u!114 &8744114035562399264
 MonoBehaviour:
   m_ObjectHideFlags: 0
