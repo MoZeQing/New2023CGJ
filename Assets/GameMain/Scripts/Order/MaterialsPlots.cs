@@ -4,11 +4,33 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class MaterialsPlots : MonoBehaviour,IPointerDownHandler
 {
-    public NodeTag nodeTag;
-    public bool IsGuide;
+    [SerializeField] private NodeTag nodeTag;
+    [SerializeField] private bool IsGuide;
+    [SerializeField] private Text text;
+
+    public void Start()
+    {
+        if (IsGuide)
+        {
+            text.text = "∞";
+        }
+        else
+        {
+            if (GameEntry.Utils.GetPlayerItem((ItemTag)(int)nodeTag) == null)
+            {
+                text.text = "0";
+                return;
+            }    
+            if (GameEntry.Utils.GetPlayerItem((ItemTag)(int)nodeTag).itemNum <= 99)
+                text.text = GameEntry.Utils.GetPlayerItem((ItemTag)(int)nodeTag).itemNum.ToString();
+            else
+                text.text = "99+";
+        }
+    }
 
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -19,13 +41,20 @@ public class MaterialsPlots : MonoBehaviour,IPointerDownHandler
                 Position = this.transform.position,
                 Jump = true
             });
+            text.text = "∞";
             return;
         }
         else if (!IsGuide)
         {
+            if (GameEntry.Utils.GetPlayerItem((ItemTag)(int)nodeTag) == null)
+            {
+                text.text = "0";
+                return;
+            }
             if (GameEntry.Utils.GetPlayerItem((ItemTag)(int)nodeTag).itemNum <= 0)
             {
-                //发送原材料不足的消息进行显示
+                text.text = GameEntry.Utils.GetPlayerItem((ItemTag)(int)nodeTag).itemNum.ToString();
+                text.color = Color.red;
                 return;
             }
         }
