@@ -109,10 +109,10 @@ public class ShopItemData : ItemData
 
     public ShopItemData() { }
 
-    public ShopItemData(ItemTag itemTag)
+    public ShopItemData(ItemTag itemTag,int maxNum)
         : base(itemTag)
-    { 
-        
+    {
+        this.maxNum = maxNum;
     }
 }
 

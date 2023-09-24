@@ -40,6 +40,14 @@ namespace GameMain
                 {
                     purchaseButton.interactable = false;
                 }
+                else
+                {
+                    purchaseButton.interactable = true;
+                }
+            }
+            else
+            {
+                purchaseButton.interactable = true;
             }
         }
 
