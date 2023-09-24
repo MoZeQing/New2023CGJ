@@ -42,7 +42,7 @@ namespace GameMain
             GameEntry.Utils.Favor = 0;
             GameEntry.Utils.Love = 0;
             GameEntry.Utils.Family= 0;
-            GameEntry.Utils.Day = 3;
+            GameEntry.Utils.Day = 0;
             GameEntry.Utils.closet = 101;
             GameEntry.Utils.ClearFlag();
             GameEntry.Dialog.LoadGame();
@@ -93,7 +93,7 @@ namespace GameMain
             {
                 if (item.Kind != (int)ItemKind.Food)
                     continue;
-                ShopItemData itemData = new ShopItemData((ItemTag)item.Id);
+                ShopItemData itemData = new ShopItemData((ItemTag)item.Id,item.MaxNum);
                 GameEntry.Utils.bakeryItemDatas.Add(itemData);
             }
             GameEntry.Utils.AddPlayerItem(new ItemData(ItemTag.Closet1), 1);
