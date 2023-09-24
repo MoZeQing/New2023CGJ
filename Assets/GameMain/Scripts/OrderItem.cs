@@ -42,7 +42,7 @@ public class OrderItem : Entity
         mOrderData = mOrderItemData.OrderData;
 
         //coffeeItem.sprite = GameEntry.Utils.nodeImage[(int)mOrderData.NodeTag];
-        //coffeeName.text = mOrderData.NodeName;
+        coffeeName.text = mOrderData.NodeName;
         sugar.color = new Color(0f, 0f, 0f, mOrderData.Sugar ? 1f : 0.5f);
         condensedMilk.color = new Color(0f, 0f, 0f, mOrderData.CondensedMilk ? 1f : 0.5f);
         salt.color = new Color(0f, 0f, 0f, mOrderData.Salt ? 1f : 0.5f);
@@ -83,12 +83,12 @@ public class OrderItem : Entity
         {
             if (baseCompenent.NodeTag == mOrderData.NodeTag)
             {
-                //if (baseCompenent.Sugar != mOrderData.Sugar)
-                //    return;
-                //if (baseCompenent.CondensedMilk != mOrderData.CondensedMilk)
-                //    return;
-                //if (baseCompenent.Salt != mOrderData.Salt)
-                //    return;
+                if (baseCompenent.Sugar != mOrderData.Sugar)
+                    return;
+                if (baseCompenent.CondensedMilk != mOrderData.CondensedMilk)
+                    return;
+                if (baseCompenent.Salt != mOrderData.Salt)
+                    return;
                 //º∆À„ ’»Î
                 int income = 0;
                 IDataTable<DRNode> dtNode=GameEntry.DataTable.GetDataTable<DRNode>();

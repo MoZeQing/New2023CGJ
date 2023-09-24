@@ -26,6 +26,8 @@ public class BaseStage : MonoBehaviour
         {
             if (i == (int)dialogPos)
             {
+                if (mChars[i] != baseCharacter && mChars[i]!=null)
+                    mChars[i].gameObject.SetActive(false);
                 if (mChars[i] == baseCharacter)
                     continue;
                 mChars[i] = baseCharacter;

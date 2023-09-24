@@ -58,14 +58,14 @@ namespace GameMain
             {
                 if (item.Kind != (int)ItemKind.Materials)
                     continue;
-                ShopItemData itemData = new ShopItemData((ItemTag)item.Id);
+                ShopItemData itemData = new ShopItemData((ItemTag)item.Id,item.MaxNum);
                 GameEntry.Utils.greengrocerItemDatas.Add(itemData);
             }
             foreach (DRItem item in items)
             {
                 if (item.Kind != (int)ItemKind.Book)
                     continue;
-                ShopItemData itemData = new ShopItemData((ItemTag)item.Id);
+                ShopItemData itemData = new ShopItemData((ItemTag)item.Id, item.MaxNum);
                 GameEntry.Utils.bookstoreItemDatas.Add(itemData);
             }
             foreach (DRItem item in items)
@@ -79,21 +79,21 @@ namespace GameMain
             {
                 if (item.Kind != (int)ItemKind.Glass)
                     continue;
-                ShopItemData itemData = new ShopItemData((ItemTag)item.Id);
+                ShopItemData itemData = new ShopItemData((ItemTag)item.Id, item.MaxNum);
                 GameEntry.Utils.glassItemDatas.Add(itemData);
             }
             foreach (DRItem item in items)
             {
                 if (item.Kind != (int)ItemKind.Dishes)
                     continue;
-                ShopItemData itemData = new ShopItemData((ItemTag)item.Id);
+                ShopItemData itemData = new ShopItemData((ItemTag)item.Id, item.MaxNum);
                 GameEntry.Utils.restaurantItemDatas.Add(itemData);
             }
             foreach (DRItem item in items)
             {
                 if (item.Kind != (int)ItemKind.Food)
                     continue;
-                ShopItemData itemData = new ShopItemData((ItemTag)item.Id);
+                ShopItemData itemData = new ShopItemData((ItemTag)item.Id,item.MaxNum);
                 GameEntry.Utils.bakeryItemDatas.Add(itemData);
             }
             GameEntry.Utils.AddPlayerItem(new ItemData(ItemTag.Closet1), 1);

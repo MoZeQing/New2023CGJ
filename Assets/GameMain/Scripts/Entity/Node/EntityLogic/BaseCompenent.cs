@@ -232,7 +232,7 @@ namespace GameMain
                 mProgressBar.transform.SetLocalScaleX(1);
             }
 
-            this.transform.position = new Vector3(Mathf.Clamp(this.transform.position.x, -8f, 8f), Mathf.Clamp(this.transform.position.y, -8f, -2f), 0);//���Ʒ�Χ
+            this.transform.position = new Vector3(Mathf.Clamp(this.transform.position.x, -8f, 8f), Mathf.Clamp(this.transform.position.y, -10f, -4f), 0);//���Ʒ�Χ
             //if (Parent == null)
             //    SpriteRenderer.sortingOrder = 0;
             if (Parent != null && !mNodeData.Follow)
