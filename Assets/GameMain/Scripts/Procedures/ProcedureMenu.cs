@@ -42,7 +42,7 @@ namespace GameMain
             GameEntry.Utils.Favor = 0;
             GameEntry.Utils.Love = 0;
             GameEntry.Utils.Family= 0;
-            GameEntry.Utils.Day = 0;
+            GameEntry.Utils.Day = 3;
             GameEntry.Utils.closet = 101;
             GameEntry.Utils.ClearFlag();
             GameEntry.Dialog.LoadGame();
