@@ -20,7 +20,7 @@ namespace GameMain
         public void StartGame()
         {           
             InitData();
-            GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Teach));
+            GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Guide));
         }
 
         public void ExitGame()
@@ -42,7 +42,7 @@ namespace GameMain
             GameEntry.Utils.Favor = 0;
             GameEntry.Utils.Love = 0;
             GameEntry.Utils.Family= 0;
-            GameEntry.Utils.Day = 3;
+            GameEntry.Utils.Day = 0;
             GameEntry.Utils.closet = 101;
             GameEntry.Utils.ClearFlag();
             GameEntry.Dialog.LoadGame();
@@ -98,6 +98,7 @@ namespace GameMain
             }
             GameEntry.Utils.AddPlayerItem(new ItemData(ItemTag.Closet1), 1);
             GameEntry.Utils.AddPlayerItem(new ItemData(ItemTag.Closet2), 1);
+            GameEntry.Utils.AddPlayerItem(new ItemData(ItemTag.Closet3), 1);
             GameEntry.Utils.AddPlayerItem(new ItemData(ItemTag.CoffeeBean), 5);
             GameEntry.Utils.AddPlayerItem(new ItemData(ItemTag.Water), 5);
         }

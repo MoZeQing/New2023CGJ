@@ -277,18 +277,18 @@ namespace GameMain
         { 
             CharDataEventArgs charDataEvent= (CharDataEventArgs)e;
             CharData charData=charDataEvent.CharData;
-            favorText.text = string.Format("好感:{0}", charData.favor.ToString());
-            moodText.text= string.Format("心情:{0}", charData.mood.ToString());
-            loveText.text = string.Format("爱情:{0}", charData.love.ToString());
-            familyText.text = string.Format("亲情:{0}", charData.family.ToString());
+            favorText.text = charData.favor.ToString();
+            moodText.text= charData.mood.ToString();
+            loveText.text =  charData.love.ToString();
+            familyText.text =  charData.family.ToString();
         }
         private void PlayerDataEvent(object sender, GameEventArgs e)
         { 
             PlayerDataEventArgs playerDataEvent= (PlayerDataEventArgs)e;
             PlayerData playerData= playerDataEvent.PlayerData;
-            APText.text = string.Format("行动点：{0}/{1}", playerData.ap, playerData.maxAp);
-            energyText.text = string.Format("体力：{0}/{1}", playerData.energy, playerData.maxEnergy);
-            moneyText.text=string.Format("金钱:{0}", playerData.money.ToString());
+            APText.text = string.Format("{0}/{1}", playerData.ap, playerData.maxAp);
+            energyText.text = string.Format("{0}/{1}", playerData.energy, playerData.maxEnergy);
+            moneyText.text=string.Format("{0}", playerData.money.ToString());
             timeText.text = string.Format("{0}月{1}日 星期{2}", 5 + (playerData.day + 20) / 28, (playerData.day + 20) % 28, AssetUtility.GetWeekCN((playerData.day + 20) % 7));
         }
         //单独给点击做一个方法调用

@@ -9,15 +9,26 @@ namespace GameMain
 {
     public class LittleCat : MonoBehaviour,IPointerClickHandler
     {
-        [SerializeField] private List<SpriteRenderer> mLittleCats = new List<SpriteRenderer>();
+        [SerializeField] private List<SpriteRenderer> mLittleCats1 = new List<SpriteRenderer>();
+        [SerializeField] private List<SpriteRenderer> mLittleCats2 = new List<SpriteRenderer>();
+        [SerializeField] private List<SpriteRenderer> mLittleCats3 = new List<SpriteRenderer>();
         [SerializeField] private TeachingForm mTeachingForm;
+
+        private List<SpriteRenderer> mLittleCats = new List<SpriteRenderer>();
 
         private void Start()
         {
-            mLittleCats.Clear();
-            for (int i = 0; i < this.transform.childCount; i++)
+            switch (GameEntry.Utils.closet - 100)
             {
-                mLittleCats.Add(this.transform.GetChild(i).GetComponent<SpriteRenderer>());
+                case 1:
+                    mLittleCats = mLittleCats1;
+                    break;
+                case 2:
+                    mLittleCats= mLittleCats2;
+                    break; 
+                case 3:
+                    mLittleCats = mLittleCats3;
+                    break;
             }
             ShowLittleCat();
         }
@@ -37,6 +48,18 @@ namespace GameMain
         public void ShowLittleCat()
         {
             HideLittleCat();
+            switch (GameEntry.Utils.closet - 100)
+            {
+                case 1:
+                    mLittleCats = mLittleCats1;
+                    break;
+                case 2:
+                    mLittleCats = mLittleCats2;
+                    break;
+                case 3:
+                    mLittleCats = mLittleCats3;
+                    break;
+            }
             mLittleCats[Random.Range(0, mLittleCats.Count)].gameObject.SetActive(true);
         }
         public void HideLittleCat()
