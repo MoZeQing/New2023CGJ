@@ -142,6 +142,9 @@ namespace GameMain
             mNodeData = mCompenentData.NodeData;
             Materials = mCompenentData.materials;
             NodeTag = mCompenentData.NodeData.NodeTag;
+            Salt = false;
+            Sugar= false;
+            CondensedMilk= false;
             GameEntry.Entity.AttachEntity(this.Id, mCompenentData.OwnerId);
             if (mNodeData.RamdonJump)
             {
