@@ -74,9 +74,10 @@ namespace GameMain
             catText.text = string.Empty;
             settleText.text = string.Empty;
             foreach (OrderData order in mWorkData.orderDatas)
-            { 
+            {
+                DRNode dRNode = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)order.NodeTag);
                 StringBuilder sb= new StringBuilder();
-                sb.Append(order.NodeName.ToString());
+                sb.Append(dRNode.Description.ToString());
                 if (order.Sugar) sb.Append("(糖)");
                 if (order.CondensedMilk) sb.Append("(炼乳)");
                 if (order.Salt) sb.Append("(盐)");
@@ -88,6 +89,8 @@ namespace GameMain
             settleText.text += string.Format("主营业务收入：{0}\n", mWorkData.Income);
             settleText.text += string.Format("主营业务成本:{0}\n", mWorkData.Cost);
             settleText.text += string.Format("当期净利润:{0}\n", mWorkData.Income - mWorkData.Cost - mWorkData.Administration - mWorkData.Financial);
+
+            GameEntry.Utils.Money += mWorkData.Income;
         }
 
         private void OnClick()

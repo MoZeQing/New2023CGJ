@@ -34,7 +34,7 @@ public class MaterialsPlots : MonoBehaviour,IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if(nodeTag==NodeTag.Cup)
+        if (nodeTag == NodeTag.Cup)
         {
             GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, nodeTag)
             {
@@ -57,9 +57,13 @@ public class MaterialsPlots : MonoBehaviour,IPointerDownHandler
                 text.color = Color.red;
                 return;
             }
+            GameEntry.Utils.GetPlayerItem((ItemTag)(int)nodeTag).itemNum--;
+            text.text = GameEntry.Utils.GetPlayerItem((ItemTag)(int)nodeTag).itemNum.ToString();
         }
-        GameEntry.Utils.GetPlayerItem((ItemTag)(int)nodeTag).itemNum--;
-        text.text = GameEntry.Utils.GetPlayerItem((ItemTag)(int)nodeTag).itemNum.ToString();
+        else
+        {
+            text.text = "¡Þ";
+        }
         GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, nodeTag)
         {
             Position = this.transform.position,

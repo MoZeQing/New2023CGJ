@@ -59,7 +59,7 @@ namespace GameMain
             //upBtn.onClick.AddListener(()=>GamePosUtility.Instance.GamePosChange(GamePos.Up));
             //downBtn.onClick.AddListener(() => GamePosUtility.Instance.GamePosChange(GamePos.Down));
             recipeBtn.onClick.AddListener(OnRecipe);
-            //testBtn.onClick.AddListener(OnLevel);
+            testBtn.onClick.AddListener(OnLevel);
             //test2Btn.onClick.AddListener(() => GameEntry.Utils.RunEvent(new EventData(EventTag.NextDay)));
 
             levelSOs = new List<LevelSO>(Resources.LoadAll<LevelSO>("LevelData"));
