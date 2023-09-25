@@ -1,9 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityGameFramework.Runtime;
 
-public class OptionForm : UIFormLogic
+namespace GameMain
 {
+    public class OptionForm : UIFormLogic
+    {
+        [SerializeField] private Button exit;
+        [SerializeField] private Button main;
 
+        protected override void OnOpen(object userData)
+        {
+            base.OnOpen(userData);
+            exit.onClick.AddListener(()=>GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Menu)));
+            main.onClick.AddListener(() => GameEntry.UI.CloseUIForm(this.UIForm));
+    }
+
+        protected override void OnClose(bool isShutdown, object userData)
+        {
+            base.OnClose(isShutdown, userData);
+            exit.onClick.RemoveAllListeners();
+            main.onClick.RemoveAllListeners();
+        }
+    }
 }
+
