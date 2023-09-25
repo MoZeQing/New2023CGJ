@@ -20,11 +20,12 @@ namespace GameMain
         [SerializeField] private Text moneyText;
         [SerializeField] private Text APText;
         [SerializeField] private Text energyText;
-        [SerializeField] private Text moodText;
+        [SerializeField] private Text hopeText;
         [SerializeField] private Text favorText;
         [SerializeField] private Text loveText;
         [SerializeField] private Text familyText;
         [SerializeField] private Text timeText;
+        [SerializeField] private Text abilityText;
         [Header("右侧操作栏")]
         [SerializeField] private Transform rightCanvas;
         [SerializeField] private Button cleanBtn;
@@ -278,9 +279,10 @@ namespace GameMain
             CharDataEventArgs charDataEvent= (CharDataEventArgs)e;
             CharData charData=charDataEvent.CharData;
             favorText.text = charData.favor.ToString();
-            moodText.text= charData.mood.ToString();
+            hopeText.text= charData.hope.ToString();
             loveText.text =  charData.love.ToString();
             familyText.text =  charData.family.ToString();
+            abilityText.text=charData.ability.ToString();
         }
         private void PlayerDataEvent(object sender, GameEventArgs e)
         { 

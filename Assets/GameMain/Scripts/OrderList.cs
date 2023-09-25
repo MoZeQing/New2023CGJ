@@ -68,7 +68,7 @@ namespace GameMain
         //}
 
         private float nowTime=0f;
-        private float rateTime=15f;
+        private float rateTime=30f;
 
         private void Update()
         {
@@ -85,7 +85,7 @@ namespace GameMain
         {
             OrderData orderData = new OrderData();
             orderData.NodeTag = (NodeTag)Random.Range(26, 34);
-            orderData.OrderTime = 60f;
+            orderData.OrderTime = 90f;
             orderData.Sugar = Random.Range(0, 2) == 1;
             orderData.CondensedMilk = Random.Range(0, 2) == 1;
             orderData.Salt = Random.Range(0, 2) == 1;
