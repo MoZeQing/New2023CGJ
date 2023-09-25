@@ -58,6 +58,7 @@ public class MaterialsPlots : MonoBehaviour,IPointerDownHandler
                 return;
             }
         }
+        GameEntry.Utils.GetPlayerItem((ItemTag)(int)nodeTag).itemNum--;
         GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, nodeTag)
         {
             Position = this.transform.position,
