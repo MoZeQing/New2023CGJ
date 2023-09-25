@@ -1,22 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87cdaf258b51efa4e889ba2918b1a700, type: 3}
-  m_Name: Bookshop-f-1
-  m_EditorClassIdentifier: 
-  nodes:
-  - {fileID: 8863915274847563183}
-  - {fileID: 4032815028345831648}
-  - {fileID: 2481714370113167271}
---- !u!114 &2481714370113167271
+--- !u!114 &-7561107946886413377
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -29,27 +13,29 @@ MonoBehaviour:
   m_Name: Chat
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 2952, y: 3544}
+  position: {x: 802.6858, y: 2676.2114}
   ports:
     keys:
     - a
     - chatDatas
     - chatDatas 0
+    - chatDatas 1
+    - chatDatas 2
     values:
     - _fieldName: a
-      _node: {fileID: 2481714370113167271}
+      _node: {fileID: -7561107946886413377}
       _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: chatDatas 8
-        node: {fileID: 4032815028345831648}
+        node: {fileID: 1438889210802736068}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: chatDatas
-      _node: {fileID: 2481714370113167271}
+      _node: {fileID: -7561107946886413377}
       _typeQualifiedName: System.Collections.Generic.List`1[[ChatData, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
         Culture=neutral, PublicKeyToken=b77a5c561934e089
@@ -59,7 +45,25 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: chatDatas 0
-      _node: {fileID: 2481714370113167271}
+      _node: {fileID: -7561107946886413377}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: chatDatas 1
+      _node: {fileID: -7561107946886413377}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: chatDatas 2
+      _node: {fileID: -7561107946886413377}
       _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections: []
@@ -70,6 +74,28 @@ MonoBehaviour:
   a: 0
   dialogId: 
   chatDatas:
+  - charName: "\u6211"
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
+      actionData:
+        diffTag: 7
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    background: {fileID: 21300000, guid: 306eca84ad57e614e88a6c78a47cc1fe, type: 3}
+    eventDatas: []
+    text: "\u90A3\uFF0C\u90A3\u662F\u56E0\u4E3A\u62C9\u9762\u5DE5\u5320\u4ECA\u5929\u4F11\u606F\uFF0C\u6240\u4EE5\u5403\u4E0D\u5230\u5566\u3002\u4E0B\u6B21\u6765\u4E00\u5B9A\u8BF7\u7231\u4E3D\u4E1D\u5403\u597D\u4E0D\u597D\uFF1F"
   - charName: "\u7231\u4E3D\u4E1D"
     left:
       charSO: {fileID: 0}
@@ -80,7 +106,7 @@ MonoBehaviour:
     middle:
       charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
       actionData:
-        diffTag: 10
+        diffTag: 7
         actionTag: 0
         soundTag: 0
     right:
@@ -89,10 +115,48 @@ MonoBehaviour:
         diffTag: 0
         actionTag: 0
         soundTag: 0
-    background: {fileID: 21300000, guid: bdeb31c8434db5045985085046da814d, type: 3}
+    background: {fileID: 21300000, guid: 306eca84ad57e614e88a6c78a47cc1fe, type: 3}
     eventDatas: []
-    text: "\u3002"
---- !u!114 &4032815028345831648
+    text: "\u771F\u7684\u5417\uFF1F"
+  - charName: "\u6211"
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
+      actionData:
+        diffTag: 7
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    background: {fileID: 21300000, guid: 306eca84ad57e614e88a6c78a47cc1fe, type: 3}
+    eventDatas: []
+    text: "\u771F\u7684\u771F\u7684"
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87cdaf258b51efa4e889ba2918b1a700, type: 3}
+  m_Name: Restaurant-f-f-1
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: 5542090845170739941}
+  - {fileID: 1438889210802736068}
+  - {fileID: -7561107946886413377}
+--- !u!114 &1438889210802736068
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -105,7 +169,7 @@ MonoBehaviour:
   m_Name: Chat
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 632, y: -216}
+  position: {x: 241.91945, y: 10.761138}
   ports:
     keys:
     - a
@@ -121,19 +185,19 @@ MonoBehaviour:
     - chatDatas 8
     values:
     - _fieldName: a
-      _node: {fileID: 4032815028345831648}
+      _node: {fileID: 1438889210802736068}
       _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: start
-        node: {fileID: 8863915274847563183}
+        node: {fileID: 5542090845170739941}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: chatDatas
-      _node: {fileID: 4032815028345831648}
+      _node: {fileID: 1438889210802736068}
       _typeQualifiedName: System.Collections.Generic.List`1[[ChatData, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
         Culture=neutral, PublicKeyToken=b77a5c561934e089
@@ -143,7 +207,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: chatDatas 0
-      _node: {fileID: 4032815028345831648}
+      _node: {fileID: 1438889210802736068}
       _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections: []
@@ -152,7 +216,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 1
     - _fieldName: chatDatas 1
-      _node: {fileID: 4032815028345831648}
+      _node: {fileID: 1438889210802736068}
       _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections: []
@@ -161,7 +225,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 1
     - _fieldName: chatDatas 2
-      _node: {fileID: 4032815028345831648}
+      _node: {fileID: 1438889210802736068}
       _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections: []
@@ -170,7 +234,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 1
     - _fieldName: chatDatas 3
-      _node: {fileID: 4032815028345831648}
+      _node: {fileID: 1438889210802736068}
       _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections: []
@@ -179,7 +243,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 1
     - _fieldName: chatDatas 4
-      _node: {fileID: 4032815028345831648}
+      _node: {fileID: 1438889210802736068}
       _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections: []
@@ -188,7 +252,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 1
     - _fieldName: chatDatas 5
-      _node: {fileID: 4032815028345831648}
+      _node: {fileID: 1438889210802736068}
       _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections: []
@@ -197,7 +261,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 1
     - _fieldName: chatDatas 6
-      _node: {fileID: 4032815028345831648}
+      _node: {fileID: 1438889210802736068}
       _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections: []
@@ -206,7 +270,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 1
     - _fieldName: chatDatas 7
-      _node: {fileID: 4032815028345831648}
+      _node: {fileID: 1438889210802736068}
       _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections: []
@@ -215,12 +279,12 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 1
     - _fieldName: chatDatas 8
-      _node: {fileID: 4032815028345831648}
+      _node: {fileID: 1438889210802736068}
       _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
       - fieldName: a
-        node: {fileID: 2481714370113167271}
+        node: {fileID: -7561107946886413377}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -229,28 +293,6 @@ MonoBehaviour:
   a: 0
   dialogId: 
   chatDatas:
-  - charName: 
-    left:
-      charSO: {fileID: 0}
-      actionData:
-        diffTag: 0
-        actionTag: 0
-        soundTag: 0
-    middle:
-      charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
-      actionData:
-        diffTag: 17
-        actionTag: 0
-        soundTag: 0
-    right:
-      charSO: {fileID: 0}
-      actionData:
-        diffTag: 0
-        actionTag: 0
-        soundTag: 0
-    background: {fileID: 21300000, guid: bdeb31c8434db5045985085046da814d, type: 3}
-    eventDatas: []
-    text: "\u6700\u8FD1\uFF0C\u7231\u4E3D\u4E1D\u7684\u5B66\u4E60\u8FDB\u5EA6\u559C\u4EBA\uFF0C\u6211\u5BFB\u601D\u7740\u53EF\u4EE5\u8FC7\u6765\u8865\u5145\u4E00\u4E9B\u8BFE\u672C\uFF0C\u8FD9\u6837\u7231\u4E3D\u4E1D\u53C8\u6709\u65B0\u4E1C\u897F\u53EF\u4EE5\u5B66\u4E86\u3002"
   - charName: "\u6211"
     left:
       charSO: {fileID: 0}
@@ -261,7 +303,7 @@ MonoBehaviour:
     middle:
       charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
       actionData:
-        diffTag: 7
+        diffTag: 5
         actionTag: 0
         soundTag: 0
     right:
@@ -270,10 +312,10 @@ MonoBehaviour:
         diffTag: 0
         actionTag: 0
         soundTag: 0
-    background: {fileID: 21300000, guid: bdeb31c8434db5045985085046da814d, type: 3}
+    background: {fileID: 21300000, guid: 306eca84ad57e614e88a6c78a47cc1fe, type: 3}
     eventDatas: []
-    text: "\u8BA9\u6211\u770B\u4E00\u4E0B\u3002\u3002\u3002\u9AD8\u7B49\u6570\u5B66\uFF1F\u8FD9\u5BF9\u7231\u4E3D\u4E1D\u800C\u8A00\u592A\u65E9\u4E86\u4E00\u4E9B\u3002"
-  - charName: 
+    text: "\u7231\u4E3D\u4E1D\uFF0C\u7B49\u4F1A\u513F\u60F3\u5403\u4EC0\u4E48\uFF1F"
+  - charName: "\u7231\u4E3D\u4E1D"
     left:
       charSO: {fileID: 0}
       actionData:
@@ -283,7 +325,7 @@ MonoBehaviour:
     middle:
       charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
       actionData:
-        diffTag: 7
+        diffTag: 5
         actionTag: 0
         soundTag: 0
     right:
@@ -292,9 +334,9 @@ MonoBehaviour:
         diffTag: 0
         actionTag: 0
         soundTag: 0
-    background: {fileID: 21300000, guid: bdeb31c8434db5045985085046da814d, type: 3}
+    background: {fileID: 21300000, guid: 306eca84ad57e614e88a6c78a47cc1fe, type: 3}
     eventDatas: []
-    text: "\u7231\u4E3D\u4E1D\u626F\u4E86\u626F\u6211\u7684\u8863\u89D2\u3002"
+    text: "\u98DE\u5929\u610F\u9762\u3002"
   - charName: "\u6211"
     left:
       charSO: {fileID: 0}
@@ -305,7 +347,7 @@ MonoBehaviour:
     middle:
       charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
       actionData:
-        diffTag: 7
+        diffTag: 5
         actionTag: 0
         soundTag: 0
     right:
@@ -314,9 +356,9 @@ MonoBehaviour:
         diffTag: 0
         actionTag: 0
         soundTag: 0
-    background: {fileID: 21300000, guid: bdeb31c8434db5045985085046da814d, type: 3}
+    background: {fileID: 21300000, guid: 306eca84ad57e614e88a6c78a47cc1fe, type: 3}
     eventDatas: []
-    text: "\u8FD9\u4E2A\u662F\u3002\u3002\u3002\u5F92\u751F\u7AE5\u8BDD\uFF1F\u611F\u89C9\u53EF\u4EE5\u3002"
+    text: "\u54C8\uFF1F"
   - charName: 
     left:
       charSO: {fileID: 0}
@@ -327,8 +369,8 @@ MonoBehaviour:
     middle:
       charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
       actionData:
-        diffTag: 7
-        actionTag: 2
+        diffTag: 5
+        actionTag: 0
         soundTag: 0
     right:
       charSO: {fileID: 0}
@@ -336,9 +378,31 @@ MonoBehaviour:
         diffTag: 0
         actionTag: 0
         soundTag: 0
-    background: {fileID: 21300000, guid: bdeb31c8434db5045985085046da814d, type: 3}
+    background: {fileID: 21300000, guid: 306eca84ad57e614e88a6c78a47cc1fe, type: 3}
     eventDatas: []
-    text: "\u7231\u4E3D\u4E1D\u7528\u529B\u626F\u4E86\u626F\u6211\u7684\u8863\u89D2\u3002"
+    text: "\u6211\u7A81\u7136\u53CD\u5E94\u8FC7\u6765\uFF0C\u8FD9\u4E0D\u662F\u6211\u6628\u5929\u8BB2\u7684\u7AE5\u8BDD\u6545\u4E8B\u5417\uFF1F"
+  - charName: 
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
+      actionData:
+        diffTag: 5
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    background: {fileID: 21300000, guid: 306eca84ad57e614e88a6c78a47cc1fe, type: 3}
+    eventDatas: []
+    text: "\u91CC\u9762\u7684\u52C7\u8005\u5C31\u662F\u5403\u4E86\u62C9\u9762\u5DE5\u5320\u953B\u9020\u51FA\u6765\u7684\u98DE\u5929\u610F\u9762\u83B7\u5F97\u4E86\u98DE\u884C\u80FD\u529B\uFF0C\u4F9D\u9760\u8FD9\u4E2A\u624D\u98DE\u8D8A\u9ECF\u7CCA\u7CCA\u5CE1\u8C37\uFF0C\u627E\u5230\u547D\u8FD0\u5973\u795E\u7559\u4E0B\u7684u\u76D8\uFF0C\u63ED\u793A\u4E86\u5077\u4E95\u76D6\u9B54\u738B\u7684\u4F4D\u7F6E\u3002"
   - charName: "\u6211"
     left:
       charSO: {fileID: 0}
@@ -349,7 +413,7 @@ MonoBehaviour:
     middle:
       charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
       actionData:
-        diffTag: 7
+        diffTag: 5
         actionTag: 0
         soundTag: 0
     right:
@@ -358,9 +422,9 @@ MonoBehaviour:
         diffTag: 0
         actionTag: 0
         soundTag: 0
-    background: {fileID: 21300000, guid: bdeb31c8434db5045985085046da814d, type: 3}
+    background: {fileID: 21300000, guid: 306eca84ad57e614e88a6c78a47cc1fe, type: 3}
     eventDatas: []
-    text: "\u600E\u4E48\u4E86\uFF1F\u7231\u4E3D\u4E1D\u3002"
+    text: "\u7231\u4E3D\u4E1D\uFF0C\u8FD9\u5BB6\u5E97\u91CC\u6CA1\u6709\u98DE\u5929\u610F\u9762\u5566\u3002"
   - charName: "\u7231\u4E3D\u4E1D"
     left:
       charSO: {fileID: 0}
@@ -380,10 +444,10 @@ MonoBehaviour:
         diffTag: 0
         actionTag: 0
         soundTag: 0
-    background: {fileID: 21300000, guid: bdeb31c8434db5045985085046da814d, type: 3}
+    background: {fileID: 21300000, guid: 306eca84ad57e614e88a6c78a47cc1fe, type: 3}
     eventDatas: []
-    text: "\u7231\u4E3D\u4E1D\u89C9\u5F97\uFF0C\u7231\u4E3D\u4E1D\u4E0D\u7528\u5B66\u8FD9\u4E48\u591A\u3002\uFF08\u5C0F\u58F0\uFF09"
-  - charName: "\u6211"
+    text: "\u53EF\u662F\uFF0C\u5E97\u957F\u660E\u660E\u6628\u5929\u624D\u8BF4\u8FC7\u3002\u3002"
+  - charName: 
     left:
       charSO: {fileID: 0}
       actionData:
@@ -393,7 +457,7 @@ MonoBehaviour:
     middle:
       charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
       actionData:
-        diffTag: 16
+        diffTag: 7
         actionTag: 0
         soundTag: 0
     right:
@@ -402,10 +466,10 @@ MonoBehaviour:
         diffTag: 0
         actionTag: 0
         soundTag: 0
-    background: {fileID: 21300000, guid: bdeb31c8434db5045985085046da814d, type: 3}
+    background: {fileID: 21300000, guid: 306eca84ad57e614e88a6c78a47cc1fe, type: 3}
     eventDatas: []
-    text: "\u554A\uFF1F\u7231\u4E3D\u4E1D\u60F3\u8981\u5B66\u7684\u66F4\u591A\uFF1F"
-  - charName: "\u6211"
+    text: "\u554A\uFF0C\u6211\u597D\u50CF\u968F\u4FBF\u62FF\u9644\u8FD1\u7684\u5730\u540D\u6765\u7F16\u6545\u4E8B\u4E86\u3002"
+  - charName: 
     left:
       charSO: {fileID: 0}
       actionData:
@@ -415,7 +479,7 @@ MonoBehaviour:
     middle:
       charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
       actionData:
-        diffTag: 2
+        diffTag: 7
         actionTag: 0
         soundTag: 0
     right:
@@ -424,10 +488,10 @@ MonoBehaviour:
         diffTag: 0
         actionTag: 0
         soundTag: 0
-    background: {fileID: 21300000, guid: bdeb31c8434db5045985085046da814d, type: 3}
+    background: {fileID: 21300000, guid: 306eca84ad57e614e88a6c78a47cc1fe, type: 3}
     eventDatas: []
-    text: "\u597D\u597D\u597D\u3002"
---- !u!114 &8863915274847563183
+    text: "\u7231\u4E3D\u4E1D\u7684\u773C\u775B\u9010\u6E10\u53D8\u5F97\u6E7F\u6DA6\u3002"
+--- !u!114 &5542090845170739941
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -440,18 +504,18 @@ MonoBehaviour:
   m_Name: Start
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -104, y: -40}
+  position: {x: -24, y: 0}
   ports:
     keys:
     - start
     values:
     - _fieldName: start
-      _node: {fileID: 8863915274847563183}
+      _node: {fileID: 5542090845170739941}
       _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: a
-        node: {fileID: 4032815028345831648}
+        node: {fileID: 1438889210802736068}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
