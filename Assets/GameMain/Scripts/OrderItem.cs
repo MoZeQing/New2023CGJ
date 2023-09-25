@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using GameFramework.DataTable;
 using UnityEngine.SocialPlatforms;
+using XNode.Examples.RuntimeMathNodes;
 
 public class OrderItem : Entity
 {
@@ -92,10 +93,12 @@ public class OrderItem : Entity
                 //º∆À„ ’»Î
                 int income = 0;
                 IDataTable<DRNode> dtNode=GameEntry.DataTable.GetDataTable<DRNode>();
-                foreach (NodeTag nodeTag in baseCompenent.Materials)
-                {
-                    income += dtNode.GetDataRow((int)nodeTag).Price;
-                }
+                //foreach (NodeTag nodeTag in baseCompenent.Materials)
+                //{
+                //    income += dtNode.GetDataRow((int)nodeTag).Price;
+                //}
+                //income=dtNode.GetDataRow((int)baseCompenent.NodeTag).Price;
+                income = 50;
                 income += mOrderData.Sugar ? 2 : 0;
                 income += mOrderData.CondensedMilk ? 5 : 0;
                 income += mOrderData.Salt ? 3 : 0;

@@ -28,11 +28,10 @@ namespace GameMain
             mWorkData = (WorkData)userData;
             mIsRandom = false;
 
-            randomCanvas.gameObject.SetActive(true);
-            settleCanvas.gameObject.SetActive(false);
+            settleCanvas.gameObject.SetActive(true);
 
             mOKButton.onClick.AddListener(OnClick);
-            ShowRandomEvent();
+            //ShowRandomEvent();
             ShowSettleData();
         }
 
@@ -88,24 +87,22 @@ namespace GameMain
             //订单总体列表
             settleText.text += string.Format("主营业务收入：{0}\n", mWorkData.Income);
             settleText.text += string.Format("主营业务成本:{0}\n", mWorkData.Cost);
-            settleText.text += string.Format("当期管理费用:{0}\n", mWorkData.Administration);
-            settleText.text += string.Format("当期财务成本:{0}\n", mWorkData.Financial);
             settleText.text += string.Format("当期净利润:{0}\n", mWorkData.Income - mWorkData.Cost - mWorkData.Administration - mWorkData.Financial);
         }
 
         private void OnClick()
         {
-            if (mIsRandom)
-            {
+            //if (mIsRandom)
+            //{
                 GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Teach));
                 GameEntry.UI.CloseUIForm(this.UIForm);
-            }
-            else
-            { 
-                mIsRandom= true;
-                randomCanvas.gameObject.SetActive(false);
-                settleCanvas.gameObject.SetActive(true);
-            }
+            //}
+            //else
+            //{ 
+            //    mIsRandom= true;
+            //    randomCanvas.gameObject.SetActive(false);
+            //    settleCanvas.gameObject.SetActive(true);
+            //}
         }
     }
 }

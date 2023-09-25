@@ -59,6 +59,7 @@ public class MaterialsPlots : MonoBehaviour,IPointerDownHandler
             }
         }
         GameEntry.Utils.GetPlayerItem((ItemTag)(int)nodeTag).itemNum--;
+        text.text = GameEntry.Utils.GetPlayerItem((ItemTag)(int)nodeTag).itemNum.ToString();
         GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, nodeTag)
         {
             Position = this.transform.position,
