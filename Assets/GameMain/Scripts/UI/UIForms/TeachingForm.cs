@@ -210,12 +210,7 @@ namespace GameMain
                 dialogBox.gameObject.SetActive(true);
                 dialogBox.SetDialog(chatNode);
                 InDialog = true;
-                if (mBehaviorTag == BehaviorTag.Sleep)
-                    dialogBox.SetComplete(OnSleep);//回调
-                else if (mBehaviorTag == BehaviorTag.Morning)
-                    dialogBox.SetComplete(OnGameChangeState);
-                else
-                    dialogBox.SetComplete(OnComplete);
+                dialogBox.SetComplete(OnComplete);
                 leftCanvas.gameObject.SetActive(false);
                 rightCanvas.gameObject.SetActive(false);
                 stage.gameObject.SetActive(true);
@@ -230,47 +225,38 @@ namespace GameMain
         {
             InDialog = false;
             GameEntry.Utils.TimeTag = TimeTag.Night;
+            GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Night));
             if (!GameEntry.Dialog.StoryUpdate())
                 Behaviour(BehaviorTag.Sleep);
-            else
-                OnGameChangeState();
         }
         private void OnComplete()
         {
             InDialog=false;
             dialogBox.gameObject.SetActive(false);
-            leftCanvas.gameObject.SetActive(true);
-            rightCanvas.gameObject.SetActive(true);
             apTips.gameObject.SetActive(false);
             energyTips.gameObject.SetActive(false);
-        }
-        private void OnSleep()
-        {
-            GameEntry.Event.FireNow(this, MainFormEventArgs.Create(MainFormTag.Unlock));
-            InDialog = false;
-            GameEntry.Utils.Day++;
-            GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, GameEntry.Utils.Day);//用这个this传参来调整黑幕
-            mLittleCat.HideLittleCat();
-            stage.gameObject.SetActive(false);
-            rightCanvas.gameObject.SetActive(false);
-            leftCanvas.gameObject.SetActive(false);
-            apTips.gameObject.SetActive(false);
-            energyTips.gameObject.SetActive(false);
-            //播放一个睡觉效果
-            Invoke(nameof(OnChangeDay), 1f);
-        }
-        private void OnChangeDay()
-        {
-            InDialog = false;
-            GameEntry.Utils.TimeTag = TimeTag.Morning;
-            if (!GameEntry.Dialog.StoryUpdate())
-                Behaviour(BehaviorTag.Morning);
+            if (mBehaviorTag == BehaviorTag.Sleep)
+            {
+                rightCanvas.gameObject.SetActive(false);
+                leftCanvas.gameObject.SetActive(false);
+                GameEntry.Utils.Day++;
+                GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, GameEntry.Utils.Day);//用这个this传参来调整黑幕
+                GameEntry.Utils.TimeTag = TimeTag.Morning;
+                GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Morning));
+                if (!GameEntry.Dialog.StoryUpdate())
+                    Behaviour(BehaviorTag.Morning);
+                else
+                    GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Work));
+            }
+            else if (mBehaviorTag == BehaviorTag.Morning)
+            {
+                GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Work));
+            }
             else
-                OnGameChangeState();
-        }
-        private void OnGameChangeState()
-        {
-            GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Work));
+            {
+                leftCanvas.gameObject.SetActive(true);
+                rightCanvas.gameObject.SetActive(true);
+            }
         }
         private void CharDataEvent(object sender, GameEventArgs e) 
         { 

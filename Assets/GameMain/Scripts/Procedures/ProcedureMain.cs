@@ -14,14 +14,8 @@ namespace GameMain
     public class ProcedureMain : ProcedureBase
     {
         private MainState mMainState;
-        private bool mDialog = false;
         private string sceneName;
 
-        public GamePos GamePos
-        {
-            get;
-            private set;
-        }
         protected override void OnEnter(IFsm<IProcedureManager> procedureOwner)
         {
             base.OnEnter(procedureOwner);
@@ -42,12 +36,11 @@ namespace GameMain
             }
             //≥°æ∞º”‘ÿ
             sceneName = AssetUtility.GetSceneAsset(drScene.AssetName);
-            GameEntry.Scene.LoadScene(AssetUtility.GetSceneAsset(drScene.AssetName), /*Constant.AssetPriority.SceneAsset*/0, this);
+            GameEntry.Scene.LoadScene(AssetUtility.GetSceneAsset(drScene.AssetName), 0, this);
         }
         protected override void OnLeave(IFsm<IProcedureManager> procedureOwner, bool isShutdown)
         {
             base.OnLeave(procedureOwner, isShutdown);
-            //GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, LoadCatSuccess);
             GameEntry.Event.Unsubscribe(MainStateEventArgs.EventId, MainStateEvent);
             GameEntry.Event.Unsubscribe(LoadSceneSuccessEventArgs.EventId, LoadSceneSuccess);
             GameEntry.UI.CloseUIGroup("Default");
@@ -78,9 +71,6 @@ namespace GameMain
                     break;
                 case MainState.Menu:
                     ChangeState<ProcedureMenu>(procedureOwner);
-                    break;
-                case MainState.Outing:
-                    //«–ªªbgm
                     break;
                 case MainState.Change:
                     ChangeState<ProcedureInitMain>(procedureOwner);

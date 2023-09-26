@@ -141,9 +141,19 @@ namespace GameMain
             mNodeData = mCompenentData.NodeData;
             Materials = mCompenentData.materials;
             NodeTag = mCompenentData.NodeData.NodeTag;
+
             Salt = false;
             Sugar= false;
             CondensedMilk= false;
+
+            mRangerC.gameObject.SetActive(false);
+            mRangerB.gameObject.SetActive(false);
+            mRangerA.gameObject.SetActive(false);
+            mRangerS.gameObject.SetActive(false);
+
+            mCondensedMilkPoint.gameObject.SetActive(false);
+            mSugarPoint.gameObject.SetActive(false);
+            mSaltPoint.gameObject.SetActive(false);
             GameEntry.Entity.AttachEntity(this.Id, mCompenentData.OwnerId);
             if (mNodeData.RamdonJump)
             {

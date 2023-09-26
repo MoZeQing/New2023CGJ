@@ -87,7 +87,6 @@ public class DialogBox : MonoBehaviour
         {
             if (OnComplete != null)
                 OnComplete();
-            OnComplete = null;
         }
     }
     private void Next(ChatNode chatNode)
@@ -121,7 +120,6 @@ public class DialogBox : MonoBehaviour
             m_Node = null;
             if (OnComplete != null)
                 OnComplete();
-            OnComplete = null;
         }
     }
     private void Next(TriggerNode triggerNode)
@@ -149,7 +147,6 @@ public class DialogBox : MonoBehaviour
         {
             if (OnComplete != null)
                 OnComplete();
-            OnComplete = null;
         }
     }
     private bool NextNode(Node node, string nodeName)
@@ -185,16 +182,19 @@ public class DialogBox : MonoBehaviour
     }
     public void SetDialog(ChatNode chatNode, Action action)
     {
+        OnComplete = null;
         SetComplete(action);
         SetDialog(chatNode);
     }
     public void SetDialog(DialogueGraph dialogueGraph, Action action)
     {
+        OnComplete = null;
         SetComplete(action);
         SetDialog(dialogueGraph);
     }
     public void SetDialog(ChatNode chatNode)
     {
+        OnComplete = null;
         _index = 0;
         m_Node = chatNode;
         chatTag = ChatTag.Chat;
@@ -202,6 +202,7 @@ public class DialogBox : MonoBehaviour
     }
     public void SetDialog(DialogueGraph graph)
     {
+        OnComplete = null;
         m_Dialogue = graph;
         _index = 0;
         foreach (Node node in m_Dialogue.nodes)
