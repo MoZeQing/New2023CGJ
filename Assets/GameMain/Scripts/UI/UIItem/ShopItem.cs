@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
+using UnityEditor;
+using System.Reflection;
 
 namespace GameMain
 {
@@ -28,6 +30,8 @@ namespace GameMain
         public void SetData(ShopItemData itemData)
         {
             mShopItemData = itemData;
+            string path = string.Format("Assets/GameMain/ArtWork/Icon/{0}.png", itemData.itemTag.ToString());
+            itemImage.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
             nameText.text = itemData.itemName.ToString();
             priceText.text = string.Format("¼Û¸ñ:{0}",itemData.price.ToString());
             if(GameEntry.Utils.GetPlayerItem(mShopItemData.itemTag)!=null)
