@@ -68,7 +68,6 @@ namespace GameMain
         protected Transform mProgressBar = null;
         protected float mLength = 2f;
         protected List<BaseCompenent> mCompenents = new List<BaseCompenent>();
-        protected IDataTable<DRRecipe> dtRecipe = GameEntry.DataTable.GetDataTable<DRRecipe>();
         protected List<NodeTag> mMaterials = new List<NodeTag>();
         protected List<NodeTag> mRecipe = new List<NodeTag>();
         protected List<NodeTag> mProduct = new List<NodeTag>();
@@ -460,9 +459,9 @@ namespace GameMain
             mProgressBarRenderer.sortingLayerName = mSpriteRenderer.sortingLayerName;
             if (!Producing)
             {
-                for (int i = 0; i < dtRecipe.Count; i++)
+                for (int i = 0; i < GameEntry.DataTable.GetDataTable<DRRecipe>().Count; i++)
                 {
-                    drRecipe = dtRecipe.GetDataRow(i);
+                    drRecipe = GameEntry.DataTable.GetDataTable<DRRecipe>().GetDataRow(i);
                     mRecipe = TransToEnumList(drRecipe.Recipe);
                     tool = TransToEnum(drRecipe.Tool);
                     if (Parent == null && Child != null)

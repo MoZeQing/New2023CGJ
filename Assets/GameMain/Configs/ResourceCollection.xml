@@ -2,6 +2,13 @@
 <UnityGameFramework>
   <ResourceCollection>
     <Resources>
+      <Resource Name="Animation/ChangeScene" LoadType="0" Packed="False" />
+      <Resource Name="Animation/FadeIn" LoadType="0" Packed="False" />
+      <Resource Name="Animation/FadeOut" LoadType="0" Packed="False" />
+      <Resource Name="Art/20230925-005104" LoadType="0" Packed="False" />
+      <Resource Name="Art/20230925-102531" LoadType="0" Packed="False" />
+      <Resource Name="Art/20230925-102537" LoadType="0" Packed="False" />
+      <Resource Name="Art/20230925-120018" LoadType="0" Packed="False" />
       <Resource Name="Art/danglushugeng" LoadType="0" Packed="False" />
       <Resource Name="Art/frontground" LoadType="0" Packed="False" />
       <Resource Name="Art/frontground_2" LoadType="0" Packed="False" />
@@ -18,19 +25,67 @@
       <Resource Name="Art/shade_op" LoadType="0" Packed="False" />
       <Resource Name="Art/shushu" LoadType="0" Packed="False" />
       <Resource Name="Art/UIBG/uiBG" LoadType="0" Packed="False" />
-      <Resource Name="ArtWork/CoffeesIcon/espresso" LoadType="0" Packed="False" />
-      <Resource Name="ArtWork/CoffeesIcon/lankangbao" LoadType="0" Packed="False" />
-      <Resource Name="ArtWork/CoffeesIcon/meishi" LoadType="0" Packed="False" />
-      <Resource Name="ArtWork/CoffeesIcon/mocha" LoadType="0" Packed="False" />
-      <Resource Name="ArtWork/CoffeesIcon/natie" LoadType="0" Packed="False" />
-      <Resource Name="ArtWork/CoffeesIcon/white" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/Background/AfternoonCoffeeShop" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/Background/BakingHouse" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/Background/BookShop" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/Background/ClothesShop" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/Background/Flash" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/Background/GlassShop" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/Background/GreenGroser" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/Background/Hollow" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/Background/Map" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/Background/MorningCoffeeShop" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/Background/MusicHall" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/Background/NightCoffeeShop" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/Background/OldMemory" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/Background/Rain" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/Background/Restrant" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/Background/Sea" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/Background/Sea_2" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/Background/Street" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/Background/Warehouse" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CG/BadEnding_1" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CG/BadEnding_2" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CG/Family100" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CG/HappyEnding" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CG/Independence" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CG/Love100" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CG/LoveAndFamily" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CG/LoveAndFamily_1" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CG/LoveAndFamily_2" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CG/TrueEnding" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CG/Trust100" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/Characters/NewCharacters/20230925-113656" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/Characters/NewCharacters/CatDad/20230923-103537" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/Characters/NewCharacters/Doc/20230923-103515" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/Characters/NewCharacters/Money/20230923-103455" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/Characters/NewCharacters/OldFriend/20230923-103522" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/Characters/NewCharacters/Police_1/20230923-103547" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/Characters/NewCharacters/Police_2/20230923-103554" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CoffeeCard/cappuccino" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CoffeeCard/ColdCafeAmericano" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CoffeeCard/ColdLatte" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CoffeeCard/ColdMocha" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CoffeeCard/CondensedMilkAdd" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CoffeeCard/espresso" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CoffeeCard/FlatWhite" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CoffeeCard/HotCafeAmericano" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CoffeeCard/HotLatte" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CoffeeCard/HotMocha" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CoffeeCard/RangeA" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CoffeeCard/RangeB" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CoffeeCard/RangeC" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CoffeeCard/RangeS" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CoffeeCard/SaltAdd" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CoffeeCard/SugerAdd" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/CraftingCards/baikafei" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/CraftingCards/Burnisher" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CraftingCards/card_shader" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/CraftingCards/chocolate" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CraftingCards/Coarse_Ground_Coffee" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/CraftingCards/coffee" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/CraftingCards/coffee_bean" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/CraftingCards/coffee_power" LoadType="0" Packed="False" />
-      <Resource Name="ArtWork/CraftingCards/cold_milk" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/CraftingCards/cream" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/CraftingCards/cup" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/CraftingCards/espresso" LoadType="0" Packed="False" />
@@ -38,24 +93,89 @@
       <Resource Name="ArtWork/CraftingCards/heater" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/CraftingCards/hot_milk" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/CraftingCards/hot_water" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CraftingCards/ice" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CraftingCards/ice_baikafei" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CraftingCards/ice_espresso" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CraftingCards/ice_kangbaolan" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CraftingCards/ice_meishi" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CraftingCards/ice_moka" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CraftingCards/ice_natie" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/CraftingCards/kangbaolan" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CraftingCards/Medium_Ground_Coffee" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/CraftingCards/meishi" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/CraftingCards/moka" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/CraftingCards/natie" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/CraftingCards/row_water" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CraftingCards/Slimsy_Ground_Coffee" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/CraftingCards/suger" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CraftingCards/sweet_baikafei" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CraftingCards/sweet_espresso" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CraftingCards/sweet_kangbaolan" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CraftingCards/sweet_meishi" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CraftingCards/sweet_moka" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/CraftingCards/sweet_natie" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/MaterialsCard/Chocolate" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/MaterialsCard/CoffeeBean" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/MaterialsCard/ColdMilk" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/MaterialsCard/ColdWater" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/MaterialsCard/CondensedMilk" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/MaterialsCard/Cream" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/MaterialsCard/FoamedMilkL" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/MaterialsCard/FoamedMilkS" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/MaterialsCard/GroundCoffeeL" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/MaterialsCard/GroundCoffeeM" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/MaterialsCard/GroundCoffeeS" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/MaterialsCard/HotMilk" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/MaterialsCard/HotWater" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/MaterialsCard/Ice" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/MaterialsCard/Salt" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/MaterialsCard/Suger" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/mouse_shade" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/mouse_shade_spposite" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/Poster/Music" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/Poster/Musician" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/Poster/Musician1" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/Poster/Musician3" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/SenceCombination/Maid/20230925-093259" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/SenceCombination/Maid/20230925-093303" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/SenceCombination/Maid/20230925-093306" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/SenceCombination/Maid/20230925-093309" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/SenceCombination/Maid/20230925-093311" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/SenceCombination/Maid/20230925-093313" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/SenceCombination/Maid/20230925-093315" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/SenceCombination/Suit/CatA" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/SenceCombination/Suit/CatB" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/SenceCombination/Suit/CatC" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/SenceCombination/Suit/CatD" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/SenceCombination/Suit/CatDemonstrate" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/SenceCombination/Suit/CatE" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/SenceCombination/Suit/CatF" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/ToolsCard/Burnisher" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/ToolsCard/Cup" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/ToolsCard/E_burnisher" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/ToolsCard/Extractor" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/ToolsCard/Filter" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/ToolsCard/French_Press" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/ToolsCard/Heater" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/ToolsCard/Kettle" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/ToolsCard/Stirrer" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/ToolsCard/Syphon" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/UIPictures/afternoon" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/UIPictures/BackButton" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/UIPictures/bell" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/UIPictures/bgm" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/UIPictures/books" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/UIPictures/BusinessPoint" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/UIPictures/CraftingGuid" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/UIPictures/DeskCat" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/UIPictures/eighthDay" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/UIPictures/fifthDay" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/UIPictures/forthDay" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/UIPictures/loadingRamp" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/UIPictures/MissionFram" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/UIPictures/morning" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/UIPictures/night" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/UIPictures/ninthDay" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/UIPictures/PlayerManuBoard" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/UIPictures/PlayerManuDevide1" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/UIPictures/PlayerManuDevide2" LoadType="0" Packed="False" />
@@ -65,10 +185,14 @@
       <Resource Name="ArtWork/UIPictures/selectFram" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/UIPictures/setting" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/UIPictures/SettingBG" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/UIPictures/seventhDay" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/UIPictures/sisthDay" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/UIPictures/SourceHanSerifSC-Heavy" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/UIPictures/talkingFram" LoadType="0" Packed="False" />
+      <Resource Name="ArtWork/UIPictures/tenthDay" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/UIPictures/thirdDay" LoadType="0" Packed="False" />
       <Resource Name="ArtWork/UIPictures/TransformSwitch" LoadType="0" Packed="False" />
+      <Resource Name="Audio/BGM/MainTheme" LoadType="0" Packed="False" />
       <Resource Name="Audio/BGM/maou_bgm_acoustic52" LoadType="0" Packed="False" />
       <Resource Name="Audio/BGM/maou_bgm_piano27" LoadType="0" Packed="False" />
       <Resource Name="Audio/BGM/maou_bgm_piano40" LoadType="0" Packed="False" />
@@ -92,9 +216,24 @@
       <Resource Name="Audio/Sounds/step02" LoadType="0" Packed="False" />
       <Resource Name="Audio/Sounds/water" LoadType="0" Packed="False" />
       <Resource Name="Audio/Sounds/Yudachi" LoadType="0" Packed="False" />
+      <Resource Name="Audio/Voice/Cat/Doubt_M" LoadType="0" Packed="False" />
+      <Resource Name="Audio/Voice/Cat/Doubt_S" LoadType="0" Packed="False" />
+      <Resource Name="Audio/Voice/Cat/Happy" LoadType="0" Packed="False" />
+      <Resource Name="Audio/Voice/Cat/Hesitate" LoadType="0" Packed="False" />
+      <Resource Name="Audio/Voice/Cat/Scare" LoadType="0" Packed="False" />
+      <Resource Name="Audio/Voice/Cat/Speechless" LoadType="0" Packed="False" />
+      <Resource Name="Audio/Voice/Dog/Approve" LoadType="0" Packed="False" />
+      <Resource Name="Audio/Voice/Dog/Doubt_L" LoadType="0" Packed="False" />
+      <Resource Name="Audio/Voice/Dog/Doubt_M" LoadType="0" Packed="False" />
+      <Resource Name="Audio/Voice/Dog/Doubt_S" LoadType="0" Packed="False" />
+      <Resource Name="Audio/Voice/Dog/Happy" LoadType="0" Packed="False" />
+      <Resource Name="Audio/Voice/Dog/Hesitate" LoadType="0" Packed="False" />
+      <Resource Name="Audio/Voice/Dog/Reluctantly" LoadType="0" Packed="False" />
+      <Resource Name="Audio/Voice/Dog/Speechless" LoadType="0" Packed="False" />
       <Resource Name="Configs" LoadType="0" Packed="True" />
       <Resource Name="DataTables/Building" LoadType="0" Packed="False" />
       <Resource Name="DataTables/Entity" LoadType="0" Packed="False" />
+      <Resource Name="DataTables/Item" LoadType="0" Packed="False" />
       <Resource Name="DataTables/Level" LoadType="0" Packed="False" />
       <Resource Name="DataTables/Node" LoadType="0" Packed="False" />
       <Resource Name="DataTables/Order" LoadType="0" Packed="False" />
@@ -103,205 +242,864 @@
       <Resource Name="DataTables/Sound" LoadType="0" Packed="False" />
       <Resource Name="DataTables/UIForms" LoadType="0" Packed="False" />
       <Resource Name="Entities/Burnisher" LoadType="0" Packed="False" />
+      <Resource Name="Entities/Cat" LoadType="0" Packed="False" />
+      <Resource Name="Entities/Character" LoadType="0" Packed="False" />
+      <Resource Name="Entities/Coffee" LoadType="0" Packed="False" />
       <Resource Name="Entities/Compenent" LoadType="0" Packed="False" />
       <Resource Name="Entities/Cup" LoadType="0" Packed="False" />
+      <Resource Name="Entities/DialogStage" LoadType="0" Packed="False" />
+      <Resource Name="Entities/Espresso" LoadType="0" Packed="False" />
       <Resource Name="Entities/FilterBowl" LoadType="0" Packed="False" />
       <Resource Name="Entities/Kettle" LoadType="0" Packed="False" />
+      <Resource Name="Entities/LittleCat" LoadType="0" Packed="False" />
       <Resource Name="Entities/Node" LoadType="0" Packed="False" />
+      <Resource Name="Entities/OrderItem" LoadType="0" Packed="False" />
+      <Resource Name="Entities/OrderList" LoadType="0" Packed="False" />
+      <Resource Name="Entities/OutingStage" LoadType="0" Packed="False" />
+      <Resource Name="Entities/TeachStage" LoadType="0" Packed="False" />
+      <Resource Name="Entities/WorkStage" LoadType="0" Packed="False" />
       <Resource Name="Fonts/LiberationSans" LoadType="0" Packed="False" />
       <Resource Name="Fonts/SmileySans-Oblique" LoadType="0" Packed="False" />
       <Resource Name="Fonts/SourceHanSerifSC-Heavy" LoadType="0" Packed="False" />
       <Resource Name="Fonts/SourceHanSerifSC-VF" LoadType="0" Packed="False" />
-      <Resource Name="Resources/DialogData/plot_cat_1" LoadType="0" Packed="False" />
-      <Resource Name="Resources/DialogData/plot_cat_2" LoadType="0" Packed="False" />
-      <Resource Name="Resources/DialogData/plot_cat_3" LoadType="0" Packed="False" />
-      <Resource Name="Resources/DialogData/plot_cat_4" LoadType="0" Packed="False" />
-      <Resource Name="Resources/DialogData/plot_cat_5" LoadType="0" Packed="False" />
-      <Resource Name="Resources/DialogData/plot_dog_1" LoadType="0" Packed="False" />
-      <Resource Name="Resources/DialogData/plot_dog_2" LoadType="0" Packed="False" />
-      <Resource Name="Resources/DialogData/plot_dog_3" LoadType="0" Packed="False" />
-      <Resource Name="Resources/DialogData/plot_dog_4" LoadType="0" Packed="False" />
-      <Resource Name="Resources/DialogData/plot_f_cat_1" LoadType="0" Packed="False" />
-      <Resource Name="Resources/DialogData/plot_f_cat_2" LoadType="0" Packed="False" />
-      <Resource Name="Resources/DialogData/plot_f_cat_3" LoadType="0" Packed="False" />
-      <Resource Name="Resources/DialogData/plot_f_cat_4" LoadType="0" Packed="False" />
-      <Resource Name="Resources/DialogData/plot_f_cat_5" LoadType="0" Packed="False" />
-      <Resource Name="Resources/DialogData/plot_f_wm_1" LoadType="0" Packed="False" />
-      <Resource Name="Resources/DialogData/plot_f_wm_2" LoadType="0" Packed="False" />
-      <Resource Name="Resources/DialogData/plot_f_wm_3" LoadType="0" Packed="False" />
-      <Resource Name="Resources/DialogData/plot_wm_1" LoadType="0" Packed="False" />
-      <Resource Name="Resources/DialogData/plot_wm_2" LoadType="0" Packed="False" />
-      <Resource Name="Resources/DialogData/plot_wm_3" LoadType="0" Packed="False" />
+      <Resource Name="Resources/ActionData/act_cat_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/ActionData/act_cat_10" LoadType="0" Packed="False" />
+      <Resource Name="Resources/ActionData/act_cat_2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/ActionData/act_cat_6" LoadType="0" Packed="False" />
+      <Resource Name="Resources/ActionData/act_cat_7" LoadType="0" Packed="False" />
+      <Resource Name="Resources/ActionData/act_cat_8" LoadType="0" Packed="False" />
+      <Resource Name="Resources/ActionData/act_cat_9" LoadType="0" Packed="False" />
+      <Resource Name="Resources/ActionData/act_dog_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/ActionData/act_dog_2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/ActionData/act_dog_3" LoadType="0" Packed="False" />
+      <Resource Name="Resources/ActionData/act_dog_4" LoadType="0" Packed="False" />
+      <Resource Name="Resources/ActionData/act_dog_5" LoadType="0" Packed="False" />
+      <Resource Name="Resources/ActionData/act_dog_6" LoadType="0" Packed="False" />
+      <Resource Name="Resources/ActionData/act_dog_9" LoadType="0" Packed="False" />
+      <Resource Name="Resources/ActionData/act_wm_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/ActionData/act_wm_2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/ActionData/act_wm_3" LoadType="0" Packed="False" />
+      <Resource Name="Resources/ActionData/act_wm_7" LoadType="0" Packed="False" />
+      <Resource Name="Resources/ActionData/cat" LoadType="0" Packed="False" />
+      <Resource Name="Resources/ActionData/nocat" LoadType="0" Packed="False" />
+      <Resource Name="Resources/CharData/Cat_0" LoadType="0" Packed="False" />
+      <Resource Name="Resources/CharData/Cat_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/CharData/Cat_2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/CharData/Cat_3" LoadType="0" Packed="False" />
+      <Resource Name="Resources/CharData/Cat_4" LoadType="0" Packed="False" />
+      <Resource Name="Resources/CharData/CatDad" LoadType="0" Packed="False" />
+      <Resource Name="Resources/CharData/Doc" LoadType="0" Packed="False" />
+      <Resource Name="Resources/CharData/Money" LoadType="0" Packed="False" />
+      <Resource Name="Resources/CharData/OldFriend" LoadType="0" Packed="False" />
+      <Resource Name="Resources/CharData/Police_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/CharData/Police_2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Chapter1/M1_plot_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Chapter1/M1_plot_2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Chapter1/M1_plot_3" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Chapter1/M1_plot_4" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Chapter1/M1_plot_4_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Chapter1/M1_plot_5" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Chapter1/M1_plot_6" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Chapter1/M1_plot_7" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Chapter1/M1_plot_8" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Chapter1/M1_plot_9" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Chapter2/M2_plot_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Chapter2/M2_plot_2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Chapter2/M2_plot_3" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Chapter2/M2_plot_4" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Chapter2/M2_plot_5" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Chapter2/M2_plot_6" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Chapter2/M2_plot_7" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Chapter2/M2_plot_8" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Chapter2/M2_plot_9" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Chapter3/M3_plot_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Chapter3/M3_plot_2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Chapter3/M3_plot_3" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Chapter3/M3_plot_4" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Chapter4/M4_plot_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Chapter4/M4_plot_2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Chapter4/M4_plot_3" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Chapter4/M4_plot_4" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Chapter4/M4_plot_5" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Chapter4/M4_plot_6" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Chapter4/M4_plot_7" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Chapter4/M4_plot_8" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Doc/Doc_plot_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Doc/Doc_plot_2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Doc/Doc_plot_3" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Doc/Doc_plot_4" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Family/Family_plot_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Family/Family_plot_2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Family/Family_plot_4" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Family/Family_plot_5" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Friend/Friend_plot_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Friend/Friend_plot_2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Friend/Friend_plot_3_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Friend/Friend_plot_3_2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Friend/Friend_plot_4" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Love/Love_plot_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Love/Love_plot_2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Love/Love_plot_3" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Love/Love_plot_4" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/MainStream/BE" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/MainStream/F_plot_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/MainStream/F_plot_2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/MainStream/F_plot_3" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/MainStream/F_plot_4" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/MainStream/Family_plot_3" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/MainStream/FamilyAndLove_plot_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/MainStream/FamilyAndLove_plot_2_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/MainStream/FamilyAndLove_plot_2_2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/MainStream/FinalGameEndlessEnd" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/MainStream/HE" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/MainStream/TE" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/Guide_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_cat_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_cat_10" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_cat_2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_cat_3" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_cat_4" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_cat_5" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_cat_6" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_cat_7" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_cat_8" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_cat_9" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_dog_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_dog_10" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_dog_2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_dog_3" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_dog_4" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_dog_5" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_dog_6" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_dog_7" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_dog_8" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_dog_9" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_f_cat_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_f_cat_10" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_f_cat_2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_f_cat_3" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_f_cat_4" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_f_cat_5" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_f_cat_6" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_f_cat_7" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_f_cat_8" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_f_cat_9" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_f_dog_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_f_dog_10" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_f_dog_2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_f_dog_3" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_f_dog_4" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_f_dog_5" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_f_dog_6" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_f_dog_7" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_f_dog_8" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_f_dog_9" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_f_wm_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_f_wm_2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_f_wm_3" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_f_wm_4" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_f_wm_5" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_f_wm_7" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_wm_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_wm_2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_wm_3" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_wm_4" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_wm_5" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/OldDialog/plot_wm_7" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Other/Maid_plot_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Out/Bakinghouse-a-2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Out/Bakinghouse-f-1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Out/Bookshop-a-2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Out/Bookshop-f-1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Out/Glassshop-a-2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Out/Glassshop-f-1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Out/GreenGroser-a-2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Out/GreenGroser-f-1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Out/Musichall-a-2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Out/Musichall_f_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Out/Restaurant-a-2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Out/Restaurant-f-1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Trust/Trust_plot_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Trust/Trust_plot_2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Trust/Trust_plot_3" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Trust/Trust_plot_4" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Trust/Trust_plot_5" LoadType="0" Packed="False" />
+      <Resource Name="Resources/DialogData/Trust/Trust_plot_6" LoadType="0" Packed="False" />
+      <Resource Name="Resources/LevelData/Friend_plot_3" LoadType="0" Packed="False" />
+      <Resource Name="Resources/LevelData/Guide_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/LevelData/Guide_2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/LevelData/Guide_3" LoadType="0" Packed="False" />
+      <Resource Name="Resources/LevelData/L11" LoadType="0" Packed="False" />
+      <Resource Name="Resources/LevelData/L12" LoadType="0" Packed="False" />
+      <Resource Name="Resources/LevelData/levelData_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/LevelData/levelData_2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/LevelData/levelData_3" LoadType="0" Packed="False" />
+      <Resource Name="Resources/LevelData/levelData_4" LoadType="0" Packed="False" />
+      <Resource Name="Resources/LevelData/levelData_5" LoadType="0" Packed="False" />
+      <Resource Name="Resources/LevelData/levelData_6" LoadType="0" Packed="False" />
+      <Resource Name="Resources/LevelData/levelData_7" LoadType="0" Packed="False" />
+      <Resource Name="Resources/RandomEvent/Random_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Chapter1/Guide_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Chapter1/Guide_2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Chapter1/Guide_2_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Chapter1/Guide_3" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Chapter2/Chapter2_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Chapter2/Chapter2_2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Chapter2/Chapter2_4" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Chapter2/Chapter2_5" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Chapter2/Chapter2_6" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Chapter2/Chapter2_7" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Chapter2/Chapter2_8" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Chapter2/Chapter2_9" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Chapter2/Chapter2_99" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Chapter3/Chapter3_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Chapter3/Chapter3_2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Chapter3/Chapter3_3" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Chapter3/Chapter3_4" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Chapter3/Chapter3_5" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Chapter3/Chapter3_6" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Chapter3/Chapter3_7" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Chapter4/Chapter4_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Chapter4/Chapter4_2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Chapter4/Chapter4_3" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Chapter4/Chapter4_4" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Chapter4/Chapter4_5" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Chapter4/Chapter4_6" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Chapter4/Chapter4_7" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Chapter4/Chapter4_8" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Chapter4/Chapter4_9" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Doc/Doc_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Doc/Doc_2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Doc/Doc_3" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Doc/Doc_4" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Family/Family_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Family/Family_2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Family/Family_3" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Family/Family_4" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Family/Family_5" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Finally/11" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Finally/ChapterFinal_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Finally/ChapterFinal_2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Finally/DialogueGraph" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Love/Love_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Love/Love_2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Love/Love_3" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Love/Love_4" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Other/Maid_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Trust/Trust_1" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Trust/Trust_2" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Trust/Trust_3" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Trust/Trust_4" LoadType="0" Packed="False" />
+      <Resource Name="Resources/StoryData/Trust/Trust_5" LoadType="0" Packed="False" />
+      <Resource Name="Scenes/Dialog" LoadType="0" Packed="False" />
+      <Resource Name="Scenes/Guide" LoadType="0" Packed="False" />
       <Resource Name="Scenes/Main" LoadType="0" Packed="False" />
       <Resource Name="Scenes/Menu" LoadType="0" Packed="False" />
+      <Resource Name="Scenes/Work" LoadType="0" Packed="False" />
+      <Resource Name="Scripts/Dialog/BaseStage" LoadType="0" Packed="False" />
+      <Resource Name="Scripts/Dialog/Character" LoadType="0" Packed="False" />
+      <Resource Name="Scripts/Dialog/DialogBox" LoadType="0" Packed="False" />
+      <Resource Name="Scripts/Dialog/Resources/Character" LoadType="0" Packed="False" />
+      <Resource Name="Timeline/Guide_1" LoadType="0" Packed="False" />
       <Resource Name="UI/BG" LoadType="0" Packed="False" />
       <Resource Name="UI/exit" LoadType="0" Packed="False" />
       <Resource Name="UI/MainManuButton" LoadType="0" Packed="False" />
       <Resource Name="UI/setting" LoadType="0" Packed="False" />
       <Resource Name="UI/stare" LoadType="0" Packed="False" />
       <Resource Name="UI/title" LoadType="0" Packed="False" />
+      <Resource Name="UI/UIForms/ActionForm" LoadType="0" Packed="False" />
+      <Resource Name="UI/UIForms/BakeryForm" LoadType="0" Packed="False" />
+      <Resource Name="UI/UIForms/BookStoreForm" LoadType="0" Packed="False" />
       <Resource Name="UI/UIForms/ChangeForm" LoadType="0" Packed="False" />
+      <Resource Name="UI/UIForms/ClosetForm" LoadType="0" Packed="False" />
+      <Resource Name="UI/UIForms/ConsoleForm" LoadType="0" Packed="False" />
+      <Resource Name="UI/UIForms/CupboradForm" LoadType="0" Packed="False" />
+      <Resource Name="UI/UIForms/DialogForm" LoadType="0" Packed="False" />
+      <Resource Name="UI/UIForms/EndForm" LoadType="0" Packed="False" />
+      <Resource Name="UI/UIForms/GalleryForm" LoadType="0" Packed="False" />
+      <Resource Name="UI/UIForms/GlassForm" LoadType="0" Packed="False" />
+      <Resource Name="UI/UIForms/GreengrocerForm" LoadType="0" Packed="False" />
+      <Resource Name="UI/UIForms/GuideForm" LoadType="0" Packed="False" />
+      <Resource Name="UI/UIForms/LoadForm" LoadType="0" Packed="False" />
       <Resource Name="UI/UIForms/MainForm" LoadType="0" Packed="False" />
+      <Resource Name="UI/UIForms/MapForm" LoadType="0" Packed="False" />
       <Resource Name="UI/UIForms/MenuForm" LoadType="0" Packed="False" />
+      <Resource Name="UI/UIForms/MusicHallForm" LoadType="0" Packed="False" />
+      <Resource Name="UI/UIForms/OptionForm" LoadType="0" Packed="False" />
+      <Resource Name="UI/UIForms/OutingForm" LoadType="0" Packed="False" />
       <Resource Name="UI/UIForms/RecipeMenu" LoadType="0" Packed="False" />
+      <Resource Name="UI/UIForms/RestaurantForm" LoadType="0" Packed="False" />
+      <Resource Name="UI/UIForms/SaveForm" LoadType="0" Packed="False" />
+      <Resource Name="UI/UIForms/SettleForm" LoadType="0" Packed="False" />
+      <Resource Name="UI/UIForms/ShopForm" LoadType="0" Packed="False" />
+      <Resource Name="UI/UIForms/TeachForm" LoadType="0" Packed="False" />
+      <Resource Name="UI/UIForms/WorkForm" LoadType="0" Packed="False" />
+      <Resource Name="UI/UIItems/BookItem" LoadType="0" Packed="False" />
       <Resource Name="UI/UIItems/Button" LoadType="0" Packed="False" />
+      <Resource Name="UI/UIItems/DishesItem" LoadType="0" Packed="False" />
+      <Resource Name="UI/UIItems/FoodItem" LoadType="0" Packed="False" />
+      <Resource Name="UI/UIItems/GameObject" LoadType="0" Packed="False" />
+      <Resource Name="UI/UIItems/GlassItem" LoadType="0" Packed="False" />
+      <Resource Name="UI/UIItems/ItemItem" LoadType="0" Packed="False" />
+      <Resource Name="UI/UIItems/MusicItem" LoadType="0" Packed="False" />
+      <Resource Name="UI/UIItems/ShopItem" LoadType="0" Packed="False" />
     </Resources>
     <Assets>
+      <Asset Guid="01e70acc1069df44baeda753919d62dc" ResourceName="ArtWork/MaterialsCard/HotWater" />
+      <Asset Guid="0243c09cabcd39e4a862d05489e95cd3" ResourceName="ArtWork/SenceCombination/Suit/CatA" />
       <Asset Guid="02a695fc81ec25047a852d6c3152d6db" ResourceName="ArtWork/UIPictures/BusinessPoint" />
+      <Asset Guid="0345f1fbaefe5c94fa5de3c2277fbb3f" ResourceName="ArtWork/Background/MusicHall" />
+      <Asset Guid="0365945e4b4555648bdd88822a859334" ResourceName="Scenes/Guide" />
+      <Asset Guid="03ed1013df08f0946a8ce77cbcee31bb" ResourceName="ArtWork/CraftingCards/card_shader" />
+      <Asset Guid="04348b1b5d3ee4640838a8a616c43209" ResourceName="ArtWork/ToolsCard/Heater" />
+      <Asset Guid="04d8823b3e924684d8e04bf8a46ca970" ResourceName="Resources/StoryData/Chapter2/Chapter2_8" />
       <Asset Guid="04ee6f76987078d42b6a58ceaa98fac9" ResourceName="Audio/Sounds/page_turn" />
       <Asset Guid="052c84f6736a79846a181712ed4275fc" ResourceName="DataTables/Order" />
-      <Asset Guid="0593ae22cbbbb074d93fa2c5998ce4ac" ResourceName="Resources/DialogData/plot_f_cat_2" />
+      <Asset Guid="0593ae22cbbbb074d93fa2c5998ce4ac" ResourceName="Resources/DialogData/OldDialog/plot_f_cat_2" />
+      <Asset Guid="05e44f17f0941bd458eead8988944494" ResourceName="Audio/Voice/Dog/Doubt_M" />
       <Asset Guid="061e70b66271cbe4ea9ebf792f43500a" ResourceName="ArtWork/CraftingCards/coffee" />
+      <Asset Guid="06a2baa556c3c5245b67c10ab9297196" ResourceName="Audio/Voice/Cat/Doubt_M" />
+      <Asset Guid="07597ea7421232f4ab7fc1a4d088071d" ResourceName="Resources/DialogData/OldDialog/plot_dog_6" />
+      <Asset Guid="07bcfceb78020f945a43e7748d1989e5" ResourceName="Resources/DialogData/OldDialog/plot_wm_7" />
+      <Asset Guid="098e3465ee1a7274fbb3e402d4d874d1" ResourceName="Resources/DialogData/OldDialog/plot_dog_10" />
       <Asset Guid="0a1ee4adc9be5fb43b2a0f7947890e9e" ResourceName="DataTables/Order" />
+      <Asset Guid="0a7c1adcccf79474787498a6f30b9b97" ResourceName="Resources/StoryData/Chapter4/Chapter4_2" />
+      <Asset Guid="0b7cc250857f33943829ceafe106b58e" ResourceName="Animation/FadeOut" />
       <Asset Guid="0bceb956a63c9174cb25a6a791943c80" ResourceName="Entities/Burnisher" />
+      <Asset Guid="0cbe83e868999cb45b530b72492a3d73" ResourceName="Resources/DialogData/Doc/Doc_plot_2" />
+      <Asset Guid="0cf12a28b8ccf3a4d96709e0afcb2e34" ResourceName="ArtWork/CG/TrueEnding" />
       <Asset Guid="0e32bb5285b09034aaaecf273cb0ca0a" ResourceName="Audio/BGM/maou_bgm_piano41" />
-      <Asset Guid="11b74f3ee0bb7034197d084de43d0f91" ResourceName="ArtWork/CoffeesIcon/mocha" />
+      <Asset Guid="0e3ea86f208908a488bf9579ae73fef3" ResourceName="Resources/DialogData/Friend/Friend_plot_1" />
+      <Asset Guid="0e4d6135866048442ad52f2aad28c897" ResourceName="ArtWork/SenceCombination/Maid/20230925-093303" />
+      <Asset Guid="0e7293bf6e42f6c45ada0d44d7104e7b" ResourceName="Resources/StoryData/Doc/Doc_1" />
+      <Asset Guid="104603eab53bc2e4ba45437992b134ae" ResourceName="UI/UIItems/GameObject" />
+      <Asset Guid="1123717e3f1445a4abff65b764ec866a" ResourceName="Resources/DialogData/OldDialog/plot_f_dog_6" />
+      <Asset Guid="144be85873892764288883e080daf704" ResourceName="Resources/DialogData/Trust/Trust_plot_5" />
+      <Asset Guid="14a3ed3338d22e44fa1b4d62dcd57460" ResourceName="ArtWork/MaterialsCard/GroundCoffeeM" />
+      <Asset Guid="14a6153e97b1ff543bddafe5aa4bdaec" ResourceName="ArtWork/UIPictures/bell" />
       <Asset Guid="1576d91b20db4574ebbecc5cea1c8c80" ResourceName="Art/LevelBG/fifthDay" />
+      <Asset Guid="157a298501a214344a9ee7daf69e63a7" ResourceName="ArtWork/Poster/Music" />
+      <Asset Guid="15cf5aa8cf09bcc42b82c225c8611af9" ResourceName="Resources/DialogData/Chapter2/M2_plot_2" />
+      <Asset Guid="15da50855e805e643b71999ebbc313bd" ResourceName="Resources/ActionData/act_cat_7" />
+      <Asset Guid="15dc119b5cf1d9642902fe0caf1d45e1" ResourceName="Audio/Voice/Cat/Speechless" />
+      <Asset Guid="167095f772a898244b64a255b5fc80d8" ResourceName="Resources/StoryData/Chapter3/Chapter3_6" />
+      <Asset Guid="1676c305035b20844901912dd91bb4d9" ResourceName="Resources/LevelData/levelData_6" />
+      <Asset Guid="16918e164a2fada44bd64ad45c6a8b8c" ResourceName="ArtWork/Characters/NewCharacters/Police_2/20230923-103554" />
+      <Asset Guid="16e3368fddfa66840863d9b58f28ff5f" ResourceName="Resources/DialogData/OldDialog/plot_dog_3" />
+      <Asset Guid="170529fffdf87b4438127e7893e1a872" ResourceName="Resources/ActionData/cat" />
+      <Asset Guid="1708883411af6f248b4669abeb10a287" ResourceName="Resources/DialogData/Love/Love_plot_4" />
+      <Asset Guid="1805d09cbac86fe4fa994af56000baf9" ResourceName="Resources/DialogData/OldDialog/plot_f_dog_10" />
+      <Asset Guid="180707b4f7815ab448b782a28cd07613" ResourceName="Resources/DialogData/Out/Bakinghouse-a-2" />
+      <Asset Guid="1816aab694a6ba54aa0f31bbd225531b" ResourceName="Resources/ActionData/act_cat_8" />
+      <Asset Guid="18fd10d353002b041bf30382ac09aad9" ResourceName="ArtWork/UIPictures/seventhDay" />
+      <Asset Guid="19d06b1a274d8784d9197a6a996de945" ResourceName="ArtWork/CoffeeCard/FlatWhite" />
+      <Asset Guid="1b42a917d2da21248a6dd3c1a6169395" ResourceName="Resources/StoryData/Trust/Trust_2" />
+      <Asset Guid="1be7ac766014ec3459617461f3cce1a8" ResourceName="Resources/DialogData/Out/Restaurant-f-1" />
+      <Asset Guid="1c0b3c594a47b174bbaf7d06f5c0ce22" ResourceName="Resources/StoryData/Other/Maid_1" />
+      <Asset Guid="1c236dee3a935d345b832188eb7b7afe" ResourceName="Resources/StoryData/Chapter2/Chapter2_4" />
+      <Asset Guid="1c727b18a39b0d04b80aae91b37f9880" ResourceName="Art/20230925-102531" />
       <Asset Guid="1d02f5d3f5f2e6c4a8acc5d54703c9b7" ResourceName="ArtWork/UIPictures/forthDay" />
-      <Asset Guid="1d984de3516a8ce41b3eb4e9068703d5" ResourceName="Resources/DialogData/plot_dog_1" />
+      <Asset Guid="1d984de3516a8ce41b3eb4e9068703d5" ResourceName="Resources/DialogData/OldDialog/plot_f_dog_1" />
       <Asset Guid="1dd84a3ec50b72c4684c19f6b1938d27" ResourceName="DataTables/Level" />
-      <Asset Guid="1ed0027e00fa9a2449b50f4cd4fe769e" ResourceName="Resources/DialogData/plot_wm_1" />
+      <Asset Guid="1e152b163c393c445b6dda4d6dbd4424" ResourceName="ArtWork/CG/Love100" />
+      <Asset Guid="1ed0027e00fa9a2449b50f4cd4fe769e" ResourceName="Resources/DialogData/OldDialog/plot_wm_1" />
       <Asset Guid="1fd45ee8b7f6a4d41b11e1ba06b1fddf" ResourceName="Entities/Cup" />
+      <Asset Guid="20ae80374a7cc574db718c8efafd5d15" ResourceName="Resources/LevelData/levelData_3" />
+      <Asset Guid="215cf5964e4e8794fb632586620a6316" ResourceName="Resources/StoryData/Chapter2/Chapter2_2" />
+      <Asset Guid="218134826a3512b4dad6856ef89f00b0" ResourceName="Resources/DialogData/Chapter2/M2_plot_8" />
       <Asset Guid="21bd3b22d11feaf4bb34f6a8ee7722f4" ResourceName="ArtWork/CraftingCards/cream" />
-      <Asset Guid="24e3b63c4250d4745b79c1391b065877" ResourceName="Resources/DialogData/plot_dog_2" />
+      <Asset Guid="21d1457a881752b4788e3e438bf76b5d" ResourceName="Art/20230925-005104" />
+      <Asset Guid="227a7dd0c3f4bfc4ba5d53d4ee776bbd" ResourceName="UI/UIForms/GlassForm" />
+      <Asset Guid="2280bfc7b3ef0b245a4179f9e1808f71" ResourceName="ArtWork/MaterialsCard/GroundCoffeeS" />
+      <Asset Guid="22dde1fedbd424948935cfd3c2c1f9a5" ResourceName="Resources/StoryData/Chapter1/Guide_1" />
+      <Asset Guid="236707b363542974d9b0070166e123bf" ResourceName="Resources/LevelData/Guide_3" />
+      <Asset Guid="23929c81bdeed674093a6ac015b7b462" ResourceName="Resources/DialogData/Chapter4/M4_plot_8" />
+      <Asset Guid="23a4fcda8aeada440abfc2a93e610a70" ResourceName="Resources/DialogData/Chapter3/M3_plot_1" />
+      <Asset Guid="23b726f586bcf2a468309ede737d4ee9" ResourceName="Resources/ActionData/act_cat_9" />
+      <Asset Guid="23d6d835989222847b65b00ff94b1cdf" ResourceName="Resources/DialogData/Chapter2/M2_plot_1" />
+      <Asset Guid="23f1b8adda36f824fb971a423dbea0a3" ResourceName="Resources/DialogData/Out/Bakinghouse-f-1" />
+      <Asset Guid="240b2c53f409504489bbda4d62e419ee" ResourceName="Audio/Voice/Cat/Hesitate" />
+      <Asset Guid="24757f7940dbe3444a61e4fcb5b12e70" ResourceName="ArtWork/CG/BadEnding_1" />
+      <Asset Guid="24863b78f984b7040a7dbc87f05a30e9" ResourceName="Resources/DialogData/Family/Family_plot_4" />
+      <Asset Guid="24e3b63c4250d4745b79c1391b065877" ResourceName="Resources/DialogData/OldDialog/plot_f_dog_2" />
+      <Asset Guid="2554458780e10cc46aede065c0c1a2d2" ResourceName="ArtWork/CoffeeCard/HotMocha" />
+      <Asset Guid="260f86eeb76130b43b0c8995af1c95ee" ResourceName="Resources/StoryData/Chapter4/Chapter4_9" />
+      <Asset Guid="266ed10f970b7c4419aaf9ed45276137" ResourceName="Resources/LevelData/L11" />
+      <Asset Guid="269f94902a897d24ea7efb4392282759" ResourceName="Resources/DialogData/Trust/Trust_plot_1" />
+      <Asset Guid="26b8ff514fa42da48944ad5840600929" ResourceName="Resources/DialogData/Chapter1/M1_plot_8" />
       <Asset Guid="26bf183e09ac22c4bb8338acb67a01c2" ResourceName="ArtWork/mouse_shade_spposite" />
       <Asset Guid="26fba2906ddfdaa4496a85cf56659558" ResourceName="Scenes/Menu" />
-      <Asset Guid="2a7690162d9b6a144b22e3a2794f5937" ResourceName="Resources/DialogData/plot_cat_4" />
+      <Asset Guid="27e807527fcf4ab42b5653c13ecaaa51" ResourceName="ArtWork/Background/Rain" />
+      <Asset Guid="28386af668090dc4e8a4daf20da5d807" ResourceName="Resources/DialogData/Family/Family_plot_1" />
+      <Asset Guid="28902230bd4ba1047a3042f07bbd79ed" ResourceName="ArtWork/CoffeeCard/HotLatte" />
+      <Asset Guid="292a0e7b6a539524a8a9c6b8a71d227e" ResourceName="Resources/StoryData/Chapter2/Chapter2_1" />
+      <Asset Guid="29be1a6db5116ac48a437236efda6ec6" ResourceName="ArtWork/Characters/NewCharacters/Police_1/20230923-103547" />
+      <Asset Guid="2a5254017e7778442905ecebb2d8cb83" ResourceName="Resources/DialogData/Out/GreenGroser-f-1" />
+      <Asset Guid="2a7690162d9b6a144b22e3a2794f5937" ResourceName="Resources/DialogData/OldDialog/plot_cat_4" />
+      <Asset Guid="2a888533d5b7924429c7bd7d5081d3e4" ResourceName="Resources/CharData/Cat_3" />
+      <Asset Guid="2a93e9b50bf487d4ba8bc9c7816aa2f7" ResourceName="Audio/Voice/Cat/Happy" />
+      <Asset Guid="2a986824a8d4d6c4c9189f8473f582a5" ResourceName="Resources/DialogData/Chapter4/M4_plot_2" />
+      <Asset Guid="2bbc4c5b38969364598d0e53eebb4e97" ResourceName="ArtWork/Poster/Musician" />
+      <Asset Guid="2c8aedce72a733949bdc031c0a099049" ResourceName="ArtWork/CG/BadEnding_2" />
+      <Asset Guid="2cc2cf542de77834cb7cb28c4d53f337" ResourceName="Resources/StoryData/Chapter3/Chapter3_3" />
+      <Asset Guid="2d1d55a470c48bb45a980355836f05ac" ResourceName="UI/UIItems/BookItem" />
+      <Asset Guid="2e0aa15ad55ddde408a79541d8fe5cd1" ResourceName="Entities/OrderList" />
+      <Asset Guid="2e45ccbb7b672fb4fb08800bceee2e08" ResourceName="Scripts/Dialog/DialogBox" />
+      <Asset Guid="2ea2e80cd4a8a1d4b9fc4cbe166f416f" ResourceName="ArtWork/CG/LoveAndFamily_1" />
+      <Asset Guid="2ec1c94df385abb4592bde3768868b82" ResourceName="Audio/Voice/Dog/Happy" />
+      <Asset Guid="2f9b2c0e9e0d38543a61ddcc8d56c229" ResourceName="ArtWork/Poster/Musician3" />
+      <Asset Guid="2fb59fc182c45134588e6cc74a52952f" ResourceName="Audio/Voice/Dog/Approve" />
+      <Asset Guid="306eca84ad57e614e88a6c78a47cc1fe" ResourceName="ArtWork/Background/Street" />
+      <Asset Guid="30a8318393b8d804ea33e522f73ef751" ResourceName="Resources/StoryData/Doc/Doc_3" />
+      <Asset Guid="30b9c445c2e98674780b785f456991d4" ResourceName="ArtWork/CraftingCards/sweet_moka" />
+      <Asset Guid="30d1cc1955db408409e8263d182cca1d" ResourceName="Resources/DialogData/Chapter2/M2_plot_4" />
+      <Asset Guid="31bed627bd3a4194186c9ec11c3bfe79" ResourceName="Resources/StoryData/Chapter3/Chapter3_4" />
+      <Asset Guid="3207cffd98e909d45a8585c5c72d33b1" ResourceName="ArtWork/Background/BakingHouse" />
       <Asset Guid="325e6fce25126eb4c95ba2bd494f23f7" ResourceName="Audio/Sounds/Yudachi" />
+      <Asset Guid="32e43d3168b0b884f99cc6e5c3d8db3f" ResourceName="Resources/StoryData/Chapter3/Chapter3_1" />
       <Asset Guid="32f54c4188d481e43a2eeffaf31be277" ResourceName="UI/UIForms/MenuForm" />
+      <Asset Guid="33bc7cbb1f4e10845b11a4271a4e0d3a" ResourceName="UI/UIItems/ItemItem" />
       <Asset Guid="3435cbe702338ca40ab5168142247aa6" ResourceName="ArtWork/CraftingCards/kangbaolan" />
       <Asset Guid="34373d14fa5486a4599337883e36e6c6" ResourceName="Audio/Sounds/Pick_up" />
+      <Asset Guid="345425fd2f8f4e645a36fb19e44f2d82" ResourceName="UI/UIForms/DialogForm" />
       <Asset Guid="3477a76102ffe4f47977ace10f8b30dc" ResourceName="ArtWork/CraftingCards/filter" />
+      <Asset Guid="34d209adb3fec1d40a324018bd957997" ResourceName="Resources/DialogData/OldDialog/plot_dog_7" />
+      <Asset Guid="355dc97cb61066c4a8a4d6563cb6ac3b" ResourceName="Resources/DialogData/MainStream/Family_plot_3" />
+      <Asset Guid="35cd2c1da9bf9584b8c42726b7450e1a" ResourceName="Resources/StoryData/Doc/Doc_4" />
+      <Asset Guid="35ce06c9a06ab4743a98c40d48d04984" ResourceName="UI/UIForms/EndForm" />
       <Asset Guid="366a9ef1ff497774892de7b11c89add2" ResourceName="Art/jingdutiao" />
+      <Asset Guid="3684a5045a9b90a48821f4030e5d95a1" ResourceName="Entities/Coffee" />
+      <Asset Guid="37c72aa913d3f0b40bae44dd063c34cf" ResourceName="ArtWork/MaterialsCard/FoamedMilkL" />
+      <Asset Guid="380290fe6c460eb41bcbab82e70c2291" ResourceName="Resources/DialogData/Out/GreenGroser-a-2" />
+      <Asset Guid="39b778c9aceb1e049859c27c16b06976" ResourceName="Resources/ActionData/act_dog_6" />
+      <Asset Guid="39d937929c4cdcf48b517ea6d9e8dd21" ResourceName="Resources/DialogData/Out/Bookshop-f-1" />
       <Asset Guid="39ea674c2eba40f45885a80a30b79ab6" ResourceName="Art/UIBG/uiBG" />
-      <Asset Guid="3a5ecc5d65f6ccb43986e535c95b6458" ResourceName="Resources/DialogData/plot_f_cat_1" />
+      <Asset Guid="39f8e6c7d6941804b9500dad64c9ed13" ResourceName="Resources/DialogData/OldDialog/plot_cat_5" />
+      <Asset Guid="3a5ecc5d65f6ccb43986e535c95b6458" ResourceName="Resources/DialogData/OldDialog/plot_f_cat_1" />
+      <Asset Guid="3a66e691f9cd2a94f8c9bd8d84a3006c" ResourceName="ArtWork/UIPictures/morning" />
       <Asset Guid="3b43acbfcf9b55b4d8ec63219921d34c" ResourceName="DataTables/Node" />
+      <Asset Guid="3b9087a6500d88e4d89e2cfa4859e7e9" ResourceName="ArtWork/SenceCombination/Maid/20230925-093259" />
       <Asset Guid="3bdac68bff74d714a80194938290fd1f" ResourceName="UI/title" />
       <Asset Guid="3bebf183213509444bb4830810efc7de" ResourceName="Audio/Sounds/step02" />
+      <Asset Guid="3c283a020a2e4e04c91e1ac072f5cb79" ResourceName="ArtWork/CG/LoveAndFamily" />
+      <Asset Guid="3ca287e730f337543a5d4f02e520e8eb" ResourceName="Resources/StoryData/Family/Family_5" />
+      <Asset Guid="3cbc0f0acb9fe4045a7a5379059fb12e" ResourceName="Scripts/Dialog/Resources/Character" />
+      <Asset Guid="3cf643dd5fa2e6c498bed870160c9f50" ResourceName="ArtWork/ToolsCard/Filter" />
+      <Asset Guid="3d16b15fd3784c3469364eddd541baee" ResourceName="Resources/ActionData/act_dog_2" />
+      <Asset Guid="3d418a67b2f43c54482489beefcffed6" ResourceName="Resources/StoryData/Finally/ChapterFinal_2" />
+      <Asset Guid="3daf70366c41e8343987c6aeb88c99b2" ResourceName="Resources/DialogData/MainStream/BE" />
+      <Asset Guid="3debf4b89344e4943bc6be541106d57e" ResourceName="Audio/BGM/MainTheme" />
       <Asset Guid="3dff99305dea29249b5a1b3679fa50d0" ResourceName="ArtWork/UIPictures/SourceHanSerifSC-Heavy" />
       <Asset Guid="3eedacead805c76459dcd04f6f209928" ResourceName="DataTables/UIForms" />
+      <Asset Guid="3f12e7b19299dd14b9cfd767a4957272" ResourceName="ArtWork/SenceCombination/Suit/CatE" />
+      <Asset Guid="3f2d45caf02ee0c458a5f8c18f0a6be5" ResourceName="ArtWork/CraftingCards/sweet_natie" />
+      <Asset Guid="3f7598cc1cd4b9e4395e30b74ddeae3a" ResourceName="Entities/LittleCat" />
       <Asset Guid="3f8a5cec1b317e74eb78d4f45409afc0" ResourceName="Audio/BGM/maou_bgm_piano27" />
-      <Asset Guid="4066fd16a2e5c654d86141f8e3e7713d" ResourceName="ArtWork/CraftingCards/cold_milk" />
+      <Asset Guid="4027fd7ad87c4e54489d4062d084308f" ResourceName="Resources/DialogData/Trust/Trust_plot_3" />
+      <Asset Guid="40a7483131c034846bf1eef242debae3" ResourceName="ArtWork/CG/Trust100" />
       <Asset Guid="40d936f5c43d1824ba67fd901ceb4622" ResourceName="Audio/Sounds/fresh_and_bone" />
+      <Asset Guid="412c3bdc00f8b33468c9ffba6bbb4209" ResourceName="UI/UIItems/GlassItem" />
+      <Asset Guid="41ac8fe9b5382894582246ac386e34d2" ResourceName="Resources/DialogData/OldDialog/plot_cat_8" />
+      <Asset Guid="4200ecee4bf6cfa4ba981e9b675bb116" ResourceName="UI/UIForms/TeachForm" />
+      <Asset Guid="42ec4da7a4b90fd42869dc3ea3f804fe" ResourceName="Resources/StoryData/Chapter1/Guide_2_1" />
       <Asset Guid="44a01cc091fa37d4b99fcce75ae4f940" ResourceName="UI/UIForms/ChangeForm" />
-      <Asset Guid="452e4bc0597502049b924a935236d4b2" ResourceName="ArtWork/CoffeesIcon/white" />
+      <Asset Guid="44add259c4963f0478f33ef8df0136f0" ResourceName="ArtWork/MaterialsCard/HotMilk" />
+      <Asset Guid="45e0e075a45825147aada4a47366f290" ResourceName="Resources/StoryData/Chapter4/Chapter4_3" />
+      <Asset Guid="46254a2811b5ef84498611dc858a9d9c" ResourceName="ArtWork/SenceCombination/Suit/CatB" />
+      <Asset Guid="4664bc7b9fc9f6443b9c622bbb44faf0" ResourceName="Resources/StoryData/Chapter3/Chapter3_7" />
       <Asset Guid="475fe0332287e074d911fada4cff0da2" ResourceName="Art/frontground" />
+      <Asset Guid="49d93f78a70a6c44bb7d17777c8c819f" ResourceName="ArtWork/CraftingCards/ice" />
+      <Asset Guid="49e825273ab4a544ea426a3040d2885c" ResourceName="ArtWork/UIPictures/afternoon" />
+      <Asset Guid="4a0c0a0336225154b80c7c2b7376ac2a" ResourceName="Resources/DialogData/MainStream/TE" />
       <Asset Guid="4a18e408e1435b447b1a26353b84d865" ResourceName="ArtWork/CraftingCards/heater" />
+      <Asset Guid="4b1bce18a1ae2c0449b37ea6f946ac47" ResourceName="Entities/DialogStage" />
       <Asset Guid="4b54ebf4dc5e7eb40a0873a6c54a0d3c" ResourceName="UI/MainManuButton" />
       <Asset Guid="4c05a15e60152a949afdcca8ff35a05a" ResourceName="ArtWork/UIPictures/talkingFram" />
+      <Asset Guid="4c27bc8d4f3f69f4ead5965434f8de61" ResourceName="Animation/ChangeScene" />
+      <Asset Guid="4d9332695eee92841abf1802f0d110bb" ResourceName="Resources/DialogData/Chapter3/M3_plot_3" />
       <Asset Guid="4e7239c30309ff94ca21883d0f24fbff" ResourceName="Fonts/SourceHanSerifSC-VF" />
+      <Asset Guid="4e9ab392ff16586458b7615b4bcfbe63" ResourceName="Resources/DialogData/MainStream/FinalGameEndlessEnd" />
+      <Asset Guid="4ebd898ffc4c1cc4da0b28c755e4599b" ResourceName="Resources/DialogData/Chapter1/M1_plot_6" />
       <Asset Guid="4ec056752df24c447a1b64c7119af32a" ResourceName="ArtWork/UIPictures/books" />
       <Asset Guid="4f379fddc1cd64747a1c4bc844938fab" ResourceName="ArtWork/UIPictures/thirdDay" />
       <Asset Guid="5070977a08eaef94a969909f58408214" ResourceName="UI/exit" />
+      <Asset Guid="50f8da0be51f8ff4bb1222b946bc84c7" ResourceName="Resources/CharData/Cat_1" />
       <Asset Guid="51163ae7efb9a394bab73a1f6425cb3c" ResourceName="Art/frontground_4" />
       <Asset Guid="52abd3b826f6db84f976c00e841b7294" ResourceName="Entities/Compenent" />
+      <Asset Guid="531409f0b6a4f084ca4408ee4e0b85a7" ResourceName="Resources/DialogData/OldDialog/plot_f_dog_5" />
+      <Asset Guid="55c8f345e2f9fae4d907d13beef4165a" ResourceName="Resources/ActionData/act_wm_3" />
+      <Asset Guid="563d08990ddc4844b85f946e10c65fac" ResourceName="Resources/StoryData/Chapter4/Chapter4_4" />
       <Asset Guid="5798667bd00387242a2b9335e1f77f9a" ResourceName="Configs" />
+      <Asset Guid="579f048d0d0e4eb43b058d8fc81fede2" ResourceName="Scenes/Dialog" />
+      <Asset Guid="58cf36278af005147bbd147c6b074606" ResourceName="UI/UIForms/ClosetForm" />
+      <Asset Guid="593b8aeda236e8641a59bbd51debe204" ResourceName="ArtWork/CraftingCards/ice_moka" />
+      <Asset Guid="5a1e72cf593d8344782bfd07d386ce3d" ResourceName="DataTables/Recipe" />
+      <Asset Guid="5a9477957f1607147832d82c4a26eee1" ResourceName="ArtWork/CoffeeCard/HotCafeAmericano" />
+      <Asset Guid="5af8185745f49c7459420466a1381403" ResourceName="Resources/StoryData/Chapter4/Chapter4_7" />
+      <Asset Guid="5b03f0d2359e8804e8c8b8a18a03bc27" ResourceName="Resources/DialogData/Doc/Doc_plot_4" />
+      <Asset Guid="5b3a5564cc299d345a58e1168a1bceb4" ResourceName="Resources/DialogData/OldDialog/plot_dog_1" />
+      <Asset Guid="5baae3a3d7c7d7048ae376243e51a415" ResourceName="Entities/TeachStage" />
       <Asset Guid="5c2fb9d7bcc0bbe4dabf57c228a3f3e0" ResourceName="Configs" />
+      <Asset Guid="5c5daa1c7fa37bc429d1784670ea84b9" ResourceName="ArtWork/CraftingCards/Medium_Ground_Coffee" />
       <Asset Guid="5c9184eaf1f55a743975703da850432e" ResourceName="ArtWork/CraftingCards/Burnisher" />
-      <Asset Guid="5ec6336956dbe534e995c96afb0789ad" ResourceName="Resources/DialogData/plot_cat_2" />
-      <Asset Guid="60de47a858413db499b53c39c2d4144b" ResourceName="Resources/DialogData/plot_dog_4" />
+      <Asset Guid="5ccaf7e6b2fd7814cbb5839c5ae8beb9" ResourceName="Resources/DialogData/Chapter2/M2_plot_3" />
+      <Asset Guid="5ec6336956dbe534e995c96afb0789ad" ResourceName="Resources/DialogData/OldDialog/plot_cat_2" />
+      <Asset Guid="5f0fe08e6e26ae249b155400fd8a9152" ResourceName="Resources/CharData/Police_2" />
+      <Asset Guid="606621d4179e5d042854b80b0b9817a1" ResourceName="ArtWork/ToolsCard/E_burnisher" />
+      <Asset Guid="60de47a858413db499b53c39c2d4144b" ResourceName="Resources/DialogData/OldDialog/plot_f_dog_4" />
+      <Asset Guid="621da523610bae747bad35de58cbe314" ResourceName="ArtWork/CoffeeCard/ColdLatte" />
       <Asset Guid="62292dadbd5975c4aa7770c2898492c1" ResourceName="UI/BG" />
       <Asset Guid="624ec6be8c8fc53418d34a9c2f61c386" ResourceName="ArtWork/CraftingCards/chocolate" />
+      <Asset Guid="643f5133f8d939c42863068585f9a444" ResourceName="Resources/DialogData/OldDialog/plot_f_cat_7" />
+      <Asset Guid="645e56ce1c2c45b48b6746cf4a7324ba" ResourceName="ArtWork/CoffeeCard/CondensedMilkAdd" />
+      <Asset Guid="64c5048d576aa31419b17931ab55edcd" ResourceName="ArtWork/Background/NightCoffeeShop" />
+      <Asset Guid="6562470b9f85ee4479c90bcaaef24251" ResourceName="Resources/LevelData/Guide_1" />
+      <Asset Guid="65a9d14832e82024a8c2e1b1e6b56018" ResourceName="Resources/StoryData/Chapter2/Chapter2_9" />
+      <Asset Guid="65f41afec85352c4c901444ab46c77fd" ResourceName="Resources/CharData/CatDad" />
       <Asset Guid="675132e5aa2db00449af341df273acb6" ResourceName="Art/niuniu" />
       <Asset Guid="67ee189b8f248f7469000d5486f1250b" ResourceName="ArtWork/CraftingCards/hot_milk" />
+      <Asset Guid="6860eb8d26bcf484eaaa689b59a937f4" ResourceName="ArtWork/CraftingCards/sweet_espresso" />
       <Asset Guid="68c6cd80c007c2f41b3682e3af18d996" ResourceName="Audio/Sounds/door_opening" />
+      <Asset Guid="68d805d4dd55d8946ad06b3c6fdc16d9" ResourceName="UI/UIForms/BookStoreForm" />
+      <Asset Guid="691ac6723e418074797dfaf8d46b90b7" ResourceName="Resources/LevelData/L12" />
       <Asset Guid="6a84360ad00e4dc48835f3a261ce6476" ResourceName="Audio/Sounds/drop01" />
       <Asset Guid="6a9c87fc3a3facc41984509b56e649b6" ResourceName="DataTables/Sound" />
+      <Asset Guid="6bb6476c3de5dfe4cafeade7a80e125a" ResourceName="Resources/StoryData/Chapter3/Chapter3_2" />
+      <Asset Guid="6c3e5ff15753ea94f9fdeb9a4bdc44ae" ResourceName="ArtWork/CraftingCards/sweet_baikafei" />
       <Asset Guid="6c84f3cc1d5ab2a41b286503e590b74b" ResourceName="ArtWork/CraftingCards/hot_water" />
+      <Asset Guid="6cd14e4e26714bf459b15e9d09e8ac5f" ResourceName="ArtWork/CoffeeCard/RangeA" />
       <Asset Guid="6dae1bed7d2569a4390bec4d13a9c3b6" ResourceName="Art/LevelBG/forthDay" />
-      <Asset Guid="6dfa9ade4c1e9914d85ac9e2d0bd3605" ResourceName="Resources/DialogData/plot_cat_1" />
-      <Asset Guid="718a93a7ddfe2e4418bc026b5245803a" ResourceName="Resources/DialogData/plot_f_cat_4" />
+      <Asset Guid="6dbec609dfddcdc4ab4e8521dff8f9bf" ResourceName="Resources/DialogData/OldDialog/plot_cat_7" />
+      <Asset Guid="6dfa9ade4c1e9914d85ac9e2d0bd3605" ResourceName="Resources/DialogData/OldDialog/plot_cat_1" />
+      <Asset Guid="6e2d5e062bf9cf04f8a2efee6d5ae23d" ResourceName="Resources/ActionData/act_dog_9" />
+      <Asset Guid="6e35c3ba57b8b244ab8bcfa6bce3f930" ResourceName="ArtWork/SenceCombination/Suit/CatD" />
+      <Asset Guid="6eb92c6331031884787644f2fd8f86f3" ResourceName="Resources/DialogData/OldDialog/plot_wm_5" />
+      <Asset Guid="6ef6563444baf6e43b4fcc53a157736e" ResourceName="Resources/LevelData/levelData_5" />
+      <Asset Guid="6fb898a6eaa9fd0478f80e1c82f54781" ResourceName="ArtWork/ToolsCard/Burnisher" />
+      <Asset Guid="6fd0ce1a007717c499a03b32f1fdb742" ResourceName="Resources/StoryData/Finally/ChapterFinal_1" />
+      <Asset Guid="6ff82476599c96d499f47203eb01f7c4" ResourceName="UI/UIForms/CupboradForm" />
+      <Asset Guid="70611e26376c758468842c81ea262d2a" ResourceName="Resources/LevelData/Guide_2" />
+      <Asset Guid="706e444de8f186840a8a393c986d7623" ResourceName="Resources/DialogData/Out/Bookshop-a-2" />
+      <Asset Guid="707cdb300d5504047bd7d25e77f89ee3" ResourceName="Resources/ActionData/act_dog_4" />
+      <Asset Guid="70943a9a6d008a248a2fecb362e514dd" ResourceName="Resources/StoryData/Chapter1/Guide_2" />
+      <Asset Guid="70d239dac5923b6408b9cbc7901355ff" ResourceName="Resources/DialogData/Chapter1/M1_plot_5" />
+      <Asset Guid="718a93a7ddfe2e4418bc026b5245803a" ResourceName="Resources/DialogData/OldDialog/plot_f_cat_4" />
+      <Asset Guid="71a104d08f8a34d44830a031ae030ff7" ResourceName="ArtWork/Background/Hollow" />
+      <Asset Guid="71ece66133053e84eb6f481011b113ae" ResourceName="ArtWork/CoffeeCard/ColdCafeAmericano" />
+      <Asset Guid="7260df73953cbef45a7a89c99101895b" ResourceName="Audio/Voice/Dog/Reluctantly" />
+      <Asset Guid="72de940a336911c42a52e00f0ef36bb1" ResourceName="Resources/RandomEvent/Random_1" />
+      <Asset Guid="72f1dd00c99d21d4ba9ffd43e035e05d" ResourceName="Resources/DialogData/Trust/Trust_plot_2" />
+      <Asset Guid="733bce4d6cbfc064ab78ff863cf66fe8" ResourceName="Resources/DialogData/Friend/Friend_plot_3_1" />
+      <Asset Guid="7346f7f0fe778a248b9ef2e5c4826a4c" ResourceName="Resources/StoryData/Love/Love_2" />
+      <Asset Guid="73cb523cfffd73e4aa49ea904ff94035" ResourceName="Resources/DialogData/Family/Family_plot_5" />
       <Asset Guid="7401079dc15eae74cb50050402ec9f58" ResourceName="Audio/Sounds/drinkng" />
       <Asset Guid="7430fed5104c7f5489eff4df31e384bd" ResourceName="DataTables/Entity" />
+      <Asset Guid="74c97904b50d4da4085f6d2635bd0394" ResourceName="Entities/Cat" />
+      <Asset Guid="74cb3529249b5cf49a09ee5c233294bc" ResourceName="ArtWork/Background/OldMemory" />
       <Asset Guid="7526af26f00a07a43afa7dbc63fc5ab8" ResourceName="Audio/Sounds/water" />
+      <Asset Guid="76b9dba690827ee4f854b25aabd1b2e4" ResourceName="UI/UIForms/WorkForm" />
+      <Asset Guid="76f7810b9a5fdd04eb89aa4b00af2e98" ResourceName="Resources/CharData/Police_1" />
       <Asset Guid="7945a9d0884e5dc41acf75f6cfa3fb56" ResourceName="Audio/Sounds/reminding02" />
-      <Asset Guid="7daf6666fc12ca64fa2047aeed86f960" ResourceName="Resources/DialogData/plot_cat_5" />
+      <Asset Guid="794ad2e7aa9273049a8c6c35cefb1545" ResourceName="ArtWork/MaterialsCard/CoffeeBean" />
+      <Asset Guid="7a8fbb0f28147ac4880fc404a5270dd4" ResourceName="Resources/LevelData/levelData_7" />
+      <Asset Guid="7b63a33e941e8fd4eadd64a89edf75ad" ResourceName="Resources/LevelData/levelData_2" />
+      <Asset Guid="7c377e7ae8bab8a40aa5b04efba14687" ResourceName="Resources/StoryData/Finally/11" />
+      <Asset Guid="7c58f303400548b45bc67bcf4f31f24d" ResourceName="ArtWork/CoffeeCard/ColdMocha" />
+      <Asset Guid="7d08460879249794abc343f194debdf4" ResourceName="ArtWork/Characters/NewCharacters/20230925-113656" />
+      <Asset Guid="7daf6666fc12ca64fa2047aeed86f960" ResourceName="Resources/DialogData/OldDialog/plot_f_cat_5" />
+      <Asset Guid="7e355da698eec0642a00fe955f89dadb" ResourceName="Resources/DialogData/MainStream/HE" />
+      <Asset Guid="7e68bba0410f531469409d2af56a0ccc" ResourceName="Entities/OrderItem" />
+      <Asset Guid="8012f9124187c5c40bd3bf20183a3677" ResourceName="Audio/Voice/Dog/Speechless" />
+      <Asset Guid="8027d470631237b469fe5540662557b2" ResourceName="Audio/Voice/Dog/Hesitate" />
+      <Asset Guid="807578663d351d841b7ac7107c682a9a" ResourceName="Resources/StoryData/Trust/Trust_4" />
+      <Asset Guid="80e1db149db91944face80bba378089f" ResourceName="Resources/DialogData/OldDialog/plot_dog_5" />
+      <Asset Guid="81243887fec2dd24bb9342f2e57acd7c" ResourceName="Scenes/Work" />
+      <Asset Guid="818028d1239963249a2814ac91e21b22" ResourceName="Scripts/Dialog/Character" />
+      <Asset Guid="826012bf5c1182843a5419fe394e9002" ResourceName="Entities/Character" />
+      <Asset Guid="82944f71fa551044baf24dfb83d34c47" ResourceName="Resources/DialogData/Trust/Trust_plot_6" />
+      <Asset Guid="82c46231981e9ef459bde959bccfa04f" ResourceName="ArtWork/MaterialsCard/ColdMilk" />
+      <Asset Guid="82ffe829364b65f4e9b82163235f8f2a" ResourceName="Resources/DialogData/Doc/Doc_plot_1" />
       <Asset Guid="8326936e9b930a646b5a6ad5f4239fb2" ResourceName="DataTables/Level" />
+      <Asset Guid="833d6193ed7b16645b0c728b5e58a0f9" ResourceName="ArtWork/CoffeeCard/RangeS" />
+      <Asset Guid="8372fc01fb447be4185eeb590cae9269" ResourceName="ArtWork/CoffeeCard/cappuccino" />
       <Asset Guid="842bc2431dbaa26458bea24f24fe57fe" ResourceName="UI/UIForms/MainForm" />
+      <Asset Guid="84a02566d98cbcd4aa4e41f3210695bd" ResourceName="Resources/DialogData/Chapter4/M4_plot_1" />
+      <Asset Guid="85182427ea1dfab4f82992815c824cb3" ResourceName="ArtWork/MaterialsCard/GroundCoffeeL" />
+      <Asset Guid="8548696054316ff4bad2955135cd959d" ResourceName="Resources/DialogData/Chapter1/M1_plot_1" />
       <Asset Guid="860c497573bcabc498174d10697fda5d" ResourceName="ArtWork/UIPictures/MissionFram" />
       <Asset Guid="86db35945a2b71046b2c0b67d3478552" ResourceName="ArtWork/UIPictures/CraftingGuid" />
+      <Asset Guid="86f59b8019f8bdc4e95b91dd9376d718" ResourceName="Resources/ActionData/act_cat_2" />
+      <Asset Guid="8733fb976dafa0e4b9d78b260bcd280a" ResourceName="Resources/DialogData/OldDialog/plot_dog_9" />
+      <Asset Guid="87360dc10b415df44885905c3048ed54" ResourceName="ArtWork/CoffeeCard/RangeC" />
+      <Asset Guid="87ce983e5c9bf344f981bf8b68b2e7ae" ResourceName="ArtWork/SenceCombination/Maid/20230925-093313" />
       <Asset Guid="889024d397bd1f04dac80531177b795b" ResourceName="ArtWork/UIPictures/rollingBar" />
-      <Asset Guid="88d22b71a0bdd5e4d8af92145b5c078d" ResourceName="ArtWork/CoffeesIcon/natie" />
+      <Asset Guid="88b1da509452b7a4c9a8180111f112cf" ResourceName="Audio/Voice/Dog/Doubt_L" />
+      <Asset Guid="89642d70ab532534690972cbd8961899" ResourceName="Resources/DialogData/Chapter3/M3_plot_4" />
+      <Asset Guid="89689670639783d4c8a9f2dc4da8f934" ResourceName="ArtWork/CraftingCards/ice_kangbaolan" />
       <Asset Guid="89a6052b40f018c41a0cb1ecec781c55" ResourceName="ArtWork/CraftingCards/suger" />
+      <Asset Guid="89e1b71b32da9de428e95f3ae567c12d" ResourceName="UI/UIItems/FoodItem" />
+      <Asset Guid="8aca970161a94f24d94f3cb6d8efaaea" ResourceName="ArtWork/CraftingCards/ice_espresso" />
+      <Asset Guid="8b16cb479dd42cb40a2c07ba1fc1e699" ResourceName="Resources/DialogData/Chapter2/M2_plot_7" />
+      <Asset Guid="8da4f4617314e7d41983ba8cf021260f" ResourceName="ArtWork/SenceCombination/Maid/20230925-093315" />
+      <Asset Guid="8e17492978a7ee5439b32ad09d2aedbd" ResourceName="Resources/DialogData/OldDialog/plot_cat_6" />
+      <Asset Guid="8e314fab67178ab48be150253c7dc4d8" ResourceName="Art/20230925-102537" />
+      <Asset Guid="8ec73ee4820b17441830ce85afb5b1d3" ResourceName="ArtWork/Background/Sea" />
+      <Asset Guid="8f6fa473002bc99459d4116c8b254964" ResourceName="ArtWork/MaterialsCard/Cream" />
       <Asset Guid="91057d35b239d63438a716b89c2ed6bf" ResourceName="Scenes/Main" />
       <Asset Guid="91182baf989c6de47884d669568a35d8" ResourceName="Art/LevelBG/FirstDay" />
+      <Asset Guid="91c9fcb061cc32e498872cd51a35e130" ResourceName="Resources/DialogData/MainStream/F_plot_2" />
+      <Asset Guid="92431c993e5cf3f4aad98d350b46f06b" ResourceName="ArtWork/CoffeeCard/SugerAdd" />
+      <Asset Guid="92c7f08cf24af4e488982745f4599ec4" ResourceName="UI/UIItems/DishesItem" />
+      <Asset Guid="92f64ab8bf15129469b4a6c3da6d9290" ResourceName="Resources/DialogData/Chapter1/M1_plot_7" />
+      <Asset Guid="93b3edf4c0fb2ad49a5ca77d2e041c9d" ResourceName="Resources/DialogData/Out/Glassshop-f-1" />
+      <Asset Guid="940b574409c9c56428240cd9ecfa7a13" ResourceName="ArtWork/ToolsCard/Cup" />
       <Asset Guid="94973d3829c07ae49a7b6fdae4c2b5ab" ResourceName="Art/frontground_5" />
       <Asset Guid="94c9563c19c30294db6caa3670935756" ResourceName="Audio/Sounds/paper_crashing" />
+      <Asset Guid="9628494d5c1a52844a1640f630691fac" ResourceName="ArtWork/MaterialsCard/Chocolate" />
       <Asset Guid="96e3ab7a73b03be41a7e1e85d7087961" ResourceName="ArtWork/UIPictures/BackButton" />
+      <Asset Guid="9700b372bf68c6743b3e8efd9e74671b" ResourceName="Audio/Voice/Dog/Doubt_S" />
+      <Asset Guid="9857437592dec8b4cbbd7064b8c4dafb" ResourceName="UI/UIForms/ActionForm" />
+      <Asset Guid="9896c7e347a6f0d45906686086a78b3a" ResourceName="Resources/DialogData/Chapter1/M1_plot_2" />
+      <Asset Guid="98e4172ba38adbe4e921971a8edaf3be" ResourceName="Resources/StoryData/Chapter3/Chapter3_5" />
+      <Asset Guid="9992cac7868506c4a899ee94cb9f705c" ResourceName="UI/UIForms/GuideForm" />
+      <Asset Guid="9a3174d489f95d74ab46c44e4182b9c0" ResourceName="ArtWork/Background/ClothesShop" />
       <Asset Guid="9a393973b25337b4785b830c216eb600" ResourceName="Entities/FilterBowl" />
+      <Asset Guid="9a8368ef4ebb6674e82c8c974e3a8337" ResourceName="ArtWork/MaterialsCard/Suger" />
       <Asset Guid="9ab81ad1f90093849a0db11e71fead7c" ResourceName="DataTables/Recipe" />
+      <Asset Guid="9ad540ac547942c4da0e1e5894b4841d" ResourceName="Resources/StoryData/Chapter4/Chapter4_6" />
+      <Asset Guid="9b5fc2386796a884f96462010db817d3" ResourceName="Entities/OutingStage" />
+      <Asset Guid="9bb0e8c7b5f1f8849acf2e7d74782266" ResourceName="ArtWork/CG/Independence" />
+      <Asset Guid="9c1c3e8313fe60c4aa954119c790d28b" ResourceName="Resources/DialogData/Chapter4/M4_plot_6" />
+      <Asset Guid="9c4ddb73bb2eeac40a92e5e4805e79c7" ResourceName="Resources/ActionData/nocat" />
+      <Asset Guid="9c795ff610cc35f45b30a88f845fd90c" ResourceName="Resources/DialogData/Friend/Friend_plot_4" />
+      <Asset Guid="9d63d4e01d9b5e1409e31ece42c73efa" ResourceName="Resources/StoryData/Trust/Trust_3" />
+      <Asset Guid="9e095203865d47a4c8aca09b02703218" ResourceName="UI/UIForms/GreengrocerForm" />
+      <Asset Guid="9e3205b48011c1243a4369ec9a5f2044" ResourceName="Resources/LevelData/levelData_1" />
+      <Asset Guid="9ea071942fac0814ca131f3f8f7ff91c" ResourceName="ArtWork/CG/LoveAndFamily_2" />
+      <Asset Guid="9fa475d7a47a6f440a5c12ded0782078" ResourceName="ArtWork/CraftingCards/ice_natie" />
       <Asset Guid="9fc5c755c0ef7e04985e8ea55ba61e1c" ResourceName="Entities/Node" />
       <Asset Guid="a024850ae0b5ff34283c4872dea628cb" ResourceName="ArtWork/UIPictures/selectFram" />
+      <Asset Guid="a025e2d5704c5644686f9f09ef289239" ResourceName="Resources/DialogData/OldDialog/plot_f_wm_5" />
+      <Asset Guid="a04142ef89e7f8f43b7e82285fe9e7b9" ResourceName="Resources/DialogData/OldDialog/plot_f_wm_7" />
       <Asset Guid="a047e99bbae5c694f84909b8478e3b7e" ResourceName="ArtWork/CraftingCards/row_water" />
+      <Asset Guid="a0b58ed9072741c4aa1ab1b37de32ccb" ResourceName="DataTables/Item" />
+      <Asset Guid="a0d89af9d5a839c4bb41374441ef4aca" ResourceName="Resources/DialogData/Chapter1/M1_plot_4_1" />
+      <Asset Guid="a0e5db8c18a4060409eb4daf8febec7b" ResourceName="UI/UIForms/OptionForm" />
       <Asset Guid="a11176b67eb158b41bcd305d845fde46" ResourceName="ArtWork/UIPictures/TransformSwitch" />
+      <Asset Guid="a145e7122f72a5644b4cb8b51ed92478" ResourceName="Resources/StoryData/Family/Family_3" />
       <Asset Guid="a36c5455758d2f749ad67549ef0400cd" ResourceName="Configs" />
       <Asset Guid="a3b82bbce975b96439586426efe2c3e4" ResourceName="ArtWork/CraftingCards/coffee_bean" />
+      <Asset Guid="a3bcc1dcf6270a84bafeb98ab42df73c" ResourceName="Resources/DialogData/Trust/Trust_plot_4" />
       <Asset Guid="a44aec9f62e931143a6e87e05c9a8fc5" ResourceName="ArtWork/UIPictures/PlayerManuDevide2" />
       <Asset Guid="a4d0f771813006443b7f8bbc037ac7c6" ResourceName="ArtWork/UIPictures/PlayerManuDevide1" />
       <Asset Guid="a4f220b4ac01a2d40bd5754a418103c7" ResourceName="DataTables/Building" />
+      <Asset Guid="a51f8d28aa4f8ae4eade9d176d5c125a" ResourceName="Resources/DialogData/OldDialog/plot_dog_8" />
+      <Asset Guid="a5215f1544241b34ebd84c0e8703ab19" ResourceName="ArtWork/CraftingCards/sweet_kangbaolan" />
+      <Asset Guid="a526e57c49f75b645a3901a98d3e1e0b" ResourceName="Resources/ActionData/act_wm_7" />
+      <Asset Guid="a5b45de133ba05a4db302a7ae885d8c7" ResourceName="ArtWork/CraftingCards/ice_meishi" />
+      <Asset Guid="a69829cc2a99fd94bae099268f1b4433" ResourceName="UI/UIForms/GalleryForm" />
       <Asset Guid="a69d7df4065b06e49a4d01d11a9a83b9" ResourceName="Audio/Sounds/cat" />
+      <Asset Guid="a8f8c5193fc0fcc48b7f1a69b5c603ae" ResourceName="Resources/LevelData/Friend_plot_3" />
       <Asset Guid="a90914798131f1242a6a7eaf49947af4" ResourceName="ArtWork/UIPictures/SettingBG" />
       <Asset Guid="a9b9844f8d56eda4e8cd0708529cee6c" ResourceName="ArtWork/UIPictures/PlayerManuBoard" />
-      <Asset Guid="a9d418cfa83ca0d4885adf89d580129e" ResourceName="Resources/DialogData/plot_wm_2" />
+      <Asset Guid="a9d418cfa83ca0d4885adf89d580129e" ResourceName="Resources/DialogData/OldDialog/plot_wm_2" />
+      <Asset Guid="aa2bf4a553f0a2349bf99d2272dfc0ff" ResourceName="UI/UIForms/OutingForm" />
       <Asset Guid="aa30cbf9002219f4fa7b4f616af26339" ResourceName="Entities/Kettle" />
+      <Asset Guid="aafd82e2c1dfa8f43a29b58b2d36f6d2" ResourceName="Entities/WorkStage" />
       <Asset Guid="ac6f01335627b9141bd37c769624d308" ResourceName="ArtWork/CraftingCards/espresso" />
+      <Asset Guid="acefa70eda1eced419113b8fd2af43da" ResourceName="DataTables/Item" />
       <Asset Guid="ad23b09562201564aaf48b04b8b3eb42" ResourceName="ArtWork/UIPictures/loadingRamp" />
       <Asset Guid="ae4552844381a404a95845f6b1a00943" ResourceName="Art/shade" />
+      <Asset Guid="ae5f3ef3a5c8f6149b22b290256852db" ResourceName="Resources/StoryData/Chapter2/Chapter2_7" />
+      <Asset Guid="aed0531734b5c524c954ac2e2cf3207b" ResourceName="ArtWork/ToolsCard/French_Press" />
+      <Asset Guid="af7cf98f337426249ad9f6b69d8baeac" ResourceName="Resources/DialogData/Chapter4/M4_plot_4" />
+      <Asset Guid="afdfba2e0f3f9364182c36edb2f2b941" ResourceName="Resources/StoryData/Chapter2/Chapter2_99" />
+      <Asset Guid="b123a7e89d7ec164c91d86a11b0640f4" ResourceName="ArtWork/Background/Warehouse" />
+      <Asset Guid="b1625c4aa31133b49ab3e815fcfb6f09" ResourceName="Resources/ActionData/act_dog_5" />
       <Asset Guid="b2638e588aa2c5f4cbba658af440747e" ResourceName="ArtWork/CraftingCards/coffee_power" />
+      <Asset Guid="b27fe651b60db2840adc45632158553b" ResourceName="Resources/DialogData/MainStream/F_plot_3" />
+      <Asset Guid="b438a61f68b1fa844b4d9a5aebc483fb" ResourceName="Resources/DialogData/MainStream/FamilyAndLove_plot_2_1" />
+      <Asset Guid="b49e59080ecf53446ae777a885a28108" ResourceName="Resources/ActionData/act_dog_1" />
+      <Asset Guid="b4d0215f9ff7d1545b723d4fbe38b3ac" ResourceName="Resources/DialogData/Chapter2/M2_plot_5" />
+      <Asset Guid="b5050047c94658e46b647c3def265028" ResourceName="Resources/DialogData/Chapter3/M3_plot_2" />
+      <Asset Guid="b506b98276ab2bd449b3fab90266718c" ResourceName="UI/UIForms/SaveForm" />
       <Asset Guid="b52db35f4a0d03d4dbacec5868d80d0d" ResourceName="Art/frontground_2" />
+      <Asset Guid="b6086e7a74245fd43ad88dea47385946" ResourceName="Resources/DialogData/Out/Glassshop-a-2" />
+      <Asset Guid="b6139b9b3b4a46549a83174c2e09e597" ResourceName="Resources/DialogData/Love/Love_plot_1" />
       <Asset Guid="b6ebe72d3ba6a71458f2c5693d0dc9bb" ResourceName="Fonts/SmileySans-Oblique" />
+      <Asset Guid="b7331679ada548847bc36ecd24f3516b" ResourceName="Resources/StoryData/Doc/Doc_2" />
+      <Asset Guid="b8e8ae609e1f6a74288577e658f6c33f" ResourceName="Resources/LevelData/levelData_4" />
+      <Asset Guid="b97055d927130cc43a39497941796344" ResourceName="Scripts/Dialog/BaseStage" />
+      <Asset Guid="b9832a976ece21540975e36ac79afed6" ResourceName="ArtWork/Characters/NewCharacters/Money/20230923-103455" />
       <Asset Guid="b989027a6b493be4d8bdc5d180bfe254" ResourceName="Audio/Sounds/door_closing" />
+      <Asset Guid="ba1a2137e8d7ff84184f112d89200db4" ResourceName="Resources/StoryData/Love/Love_3" />
       <Asset Guid="ba6df7aab49ddb941867262ed8e985dc" ResourceName="ArtWork/UIPictures/PlayerManuPreview" />
+      <Asset Guid="bb425f73387d93f42b9fa0041d88c01a" ResourceName="Resources/ActionData/act_dog_3" />
+      <Asset Guid="bb5b228ec5d99a54aaa503da445b136c" ResourceName="ArtWork/MaterialsCard/Salt" />
+      <Asset Guid="bc1f4759d99a57842aaa4317a4971567" ResourceName="Resources/ActionData/act_wm_2" />
+      <Asset Guid="bc738a67b7299cb49bbafeafc3d6d1ab" ResourceName="Resources/DialogData/OldDialog/plot_f_cat_9" />
+      <Asset Guid="bd0c0227466fd07488c183bf681fd7f9" ResourceName="Resources/StoryData/Chapter2/Chapter2_5" />
+      <Asset Guid="bdae4db9409a32f4b9a459a773390aaf" ResourceName="Resources/DialogData/Chapter2/M2_plot_6" />
+      <Asset Guid="bdeb31c8434db5045985085046da814d" ResourceName="ArtWork/Background/BookShop" />
+      <Asset Guid="bf3e29652aaf9ab40a00b0509152d643" ResourceName="ArtWork/CG/Family100" />
+      <Asset Guid="bf61a6d85da9f9448a644aa12dc730d6" ResourceName="Resources/StoryData/Chapter1/Guide_3" />
       <Asset Guid="c0725af433ed4bb478d5937fd5de9589" ResourceName="DataTables/UIForms" />
+      <Asset Guid="c0ffa66e5b45b0d4e99e142a23672185" ResourceName="Animation/FadeIn" />
       <Asset Guid="c15e736f542a1d84b8bc87407c8ee7c2" ResourceName="DataTables/Entity" />
+      <Asset Guid="c15fcc606ee369c48837050a51a936e3" ResourceName="ArtWork/ToolsCard/Syphon" />
+      <Asset Guid="c179d7e10d17dcb4b968de2b588eabd8" ResourceName="Resources/StoryData/Family/Family_2" />
+      <Asset Guid="c1f8a59ee909e7d4aabf6197eaa7d625" ResourceName="ArtWork/CraftingCards/Coarse_Ground_Coffee" />
       <Asset Guid="c2ad627cc6e9f9447984ead2f21f0c47" ResourceName="ArtWork/UIPictures/DeskCat" />
+      <Asset Guid="c35b4dd58c996c54fa1c13a9c65b5edd" ResourceName="Resources/StoryData/Family/Family_4" />
       <Asset Guid="c3a180628c337094a8051b588cd14100" ResourceName="Configs" />
-      <Asset Guid="c3cfe368715ca0243b54568885335c73" ResourceName="Resources/DialogData/plot_f_wm_2" />
+      <Asset Guid="c3c92435e08260f48ad919c800757b2e" ResourceName="Resources/StoryData/Chapter4/Chapter4_5" />
+      <Asset Guid="c3cfe368715ca0243b54568885335c73" ResourceName="Resources/DialogData/OldDialog/plot_f_wm_2" />
       <Asset Guid="c40a104bccb9ff6418200f2c631b5ab9" ResourceName="Art/shade_op" />
       <Asset Guid="c40cdde68bc8a954ca4e8dfd291befab" ResourceName="Fonts/SourceHanSerifSC-Heavy" />
-      <Asset Guid="c4346f00aacab5343ab709cbbb20e7e3" ResourceName="Resources/DialogData/plot_f_wm_1" />
+      <Asset Guid="c41ae3982daa3144393b2de7c6e70450" ResourceName="Resources/DialogData/Out/Musichall-a-2" />
+      <Asset Guid="c4346f00aacab5343ab709cbbb20e7e3" ResourceName="Resources/DialogData/OldDialog/plot_f_wm_1" />
+      <Asset Guid="c46f7140caec871469cd44a7b684ccdf" ResourceName="ArtWork/SenceCombination/Suit/CatF" />
+      <Asset Guid="c4b148c8a21275245a36324a7dd045c8" ResourceName="UI/UIForms/LoadForm" />
+      <Asset Guid="c4e925aa638e1aa41ac12fffe4f2e354" ResourceName="ArtWork/Background/GlassShop" />
+      <Asset Guid="c51f0374a1a12404f8348a860d4b9b36" ResourceName="Resources/DialogData/OldDialog/plot_f_cat_8" />
       <Asset Guid="c5ce5e9ebd2c79e47b1a79a8f288c786" ResourceName="Art/shushu" />
-      <Asset Guid="c63b8dc2497b81c408e690ca65d7a54a" ResourceName="Resources/DialogData/plot_wm_3" />
-      <Asset Guid="c69fb6f8dc5fb1b47bf7792183308ff6" ResourceName="ArtWork/CoffeesIcon/meishi" />
+      <Asset Guid="c63b8dc2497b81c408e690ca65d7a54a" ResourceName="Resources/DialogData/OldDialog/plot_wm_3" />
       <Asset Guid="c6bcc8f1c025b474aa650aaf45558044" ResourceName="Audio/BGM/maou_bgm_piano40" />
-      <Asset Guid="c6f4bf46577e11c409332eceee06faca" ResourceName="Resources/DialogData/plot_f_cat_5" />
-      <Asset Guid="c87e9667c3ba0ed4da1338ea42fbad19" ResourceName="Resources/DialogData/plot_cat_3" />
+      <Asset Guid="c87e335478fe5f24c8ceccd85c59d30e" ResourceName="ArtWork/SenceCombination/Maid/20230925-093306" />
+      <Asset Guid="c87e9667c3ba0ed4da1338ea42fbad19" ResourceName="Resources/DialogData/OldDialog/plot_cat_3" />
       <Asset Guid="c8db22764e854a34cbf6069877c770d3" ResourceName="Audio/Sounds/Button1" />
+      <Asset Guid="c96e89721a305994fb980ee3cddbd706" ResourceName="Resources/DialogData/Chapter4/M4_plot_7" />
       <Asset Guid="c9f306ffd871b96449cce3f0d6aa5ac2" ResourceName="ArtWork/UIPictures/bgm" />
+      <Asset Guid="cacad696faa4bb64bbf26cdcd1b8f31d" ResourceName="ArtWork/MaterialsCard/CondensedMilk" />
+      <Asset Guid="cb0db8ed7ff3d7243bff128a0cfdb213" ResourceName="Resources/DialogData/Doc/Doc_plot_3" />
+      <Asset Guid="cbb004dd969a2a4449de5efbf9ec808d" ResourceName="ArtWork/Background/Flash" />
+      <Asset Guid="cbcd34bceef74434594eccc4e3c0ffa5" ResourceName="Resources/DialogData/Love/Love_plot_2" />
+      <Asset Guid="cca82dc1b31a47b4c86e335b777e695b" ResourceName="Resources/DialogData/MainStream/FamilyAndLove_plot_1" />
+      <Asset Guid="ceba5eb0f3fed6b46b67d227261456c4" ResourceName="ArtWork/Characters/NewCharacters/OldFriend/20230923-103522" />
+      <Asset Guid="ced7b934ba298a447af97f6e02d8748d" ResourceName="ArtWork/CoffeeCard/espresso" />
+      <Asset Guid="cf2ac57316f30f24599c2bb5abe30ff3" ResourceName="Resources/DialogData/OldDialog/plot_cat_10" />
+      <Asset Guid="cf647693aeb5cf946a7a62c909c0c9b9" ResourceName="ArtWork/Characters/NewCharacters/CatDad/20230923-103537" />
       <Asset Guid="d0881df7d89291a45a274724532f324f" ResourceName="Art/LevelBG/secondDay" />
+      <Asset Guid="d0ab86c54185efa43940c8b1147e9343" ResourceName="Resources/StoryData/Love/Love_1" />
       <Asset Guid="d0bab641fdc55e84592227648eeb4c02" ResourceName="ArtWork/CraftingCards/meishi" />
+      <Asset Guid="d0c3412800761ec45945586760ebdb10" ResourceName="ArtWork/CG/HappyEnding" />
       <Asset Guid="d0ea3e87c25237a49adc81ba2fa17517" ResourceName="Audio/Sounds/Heater" />
       <Asset Guid="d276e9ac9e40bc54984d0d4504c20996" ResourceName="UI/UIItems/Button" />
+      <Asset Guid="d28b1d2496a0e334ab6e0c838ce07076" ResourceName="UI/UIForms/ShopForm" />
       <Asset Guid="d34b06e5fb0b4ac4d952fcf7830482e1" ResourceName="ArtWork/mouse_shade" />
+      <Asset Guid="d39cdc63ebe48784c93437fa77f395ae" ResourceName="ArtWork/Background/GreenGroser" />
+      <Asset Guid="d4e1ae6a313258e4081334adb2a85cc8" ResourceName="UI/UIForms/SettleForm" />
+      <Asset Guid="d5bce60f45a5d0445aa5f406d7f98eb9" ResourceName="ArtWork/UIPictures/eighthDay" />
       <Asset Guid="d64913803fa4d5f4ba9ef18134262ed4" ResourceName="UI/setting" />
-      <Asset Guid="d75c60a971cc0ec41ad9767cfd1429bd" ResourceName="DataTables/Sound" />
+      <Asset Guid="d6ce61f2c5a63ea42837549cff921fdf" ResourceName="Resources/CharData/Cat_0" />
       <Asset Guid="d80e08161ad0f32498d42b5b6dc28fa8" ResourceName="UI/stare" />
+      <Asset Guid="d837f9f6539f85b4a85c69cefea81f08" ResourceName="Resources/DialogData/Other/Maid_plot_1" />
+      <Asset Guid="d872990310139a74890d13ec9a44ab27" ResourceName="Resources/CharData/OldFriend" />
+      <Asset Guid="d91d111a778dcf54e8573ee0668f99b2" ResourceName="ArtWork/CraftingCards/ice_baikafei" />
+      <Asset Guid="d992f9ce9a30c0740b1b27fb727c9e0a" ResourceName="ArtWork/UIPictures/ninthDay" />
+      <Asset Guid="d9f1e4f2191b96b44b23a6fc5db415d6" ResourceName="Resources/ActionData/act_cat_6" />
+      <Asset Guid="da4a783b50a4ec544abc3f542eed8e4b" ResourceName="Resources/DialogData/OldDialog/plot_f_wm_4" />
+      <Asset Guid="da5a674c978507f43b1fd63b22406ab7" ResourceName="Resources/StoryData/Finally/DialogueGraph" />
+      <Asset Guid="dafad60fe85e3d442ab63f48504a6801" ResourceName="UI/UIForms/MapForm" />
       <Asset Guid="db3ea27a387b5d442b41ea151c750918" ResourceName="DataTables/Node" />
-      <Asset Guid="dd465ef5bfcab374b8b64a7772d3d639" ResourceName="Resources/DialogData/plot_f_cat_3" />
-      <Asset Guid="deaa90756377079468a17548578dbc83" ResourceName="ArtWork/CoffeesIcon/lankangbao" />
+      <Asset Guid="dc06fcb66e51c8f4f832d25ebe1cb306" ResourceName="ArtWork/CoffeeCard/RangeB" />
+      <Asset Guid="dc7fead849a09af409058c0db0918aff" ResourceName="UI/UIForms/RestaurantForm" />
+      <Asset Guid="dd465ef5bfcab374b8b64a7772d3d639" ResourceName="Resources/DialogData/OldDialog/plot_f_cat_3" />
+      <Asset Guid="de046fc3db0527c4db7cf0d75827909b" ResourceName="Audio/Voice/Cat/Doubt_S" />
+      <Asset Guid="de913a61b7cec8547aecac1305022578" ResourceName="ArtWork/CoffeeCard/SaltAdd" />
+      <Asset Guid="de94fbdb19ee85b41be94c4f95530816" ResourceName="Art/20230925-120018" />
       <Asset Guid="e006e1ecc05a6a442a4af9d4112a7c99" ResourceName="Configs" />
+      <Asset Guid="e03a649f737326a41a31f0bd5359c168" ResourceName="Resources/DialogData/Out/Musichall_f_1" />
+      <Asset Guid="e056dd582c38f5349be2d3672908a414" ResourceName="ArtWork/MaterialsCard/Ice" />
+      <Asset Guid="e09526c21a50d0047b4b87758ae84934" ResourceName="Resources/DialogData/OldDialog/plot_cat_9" />
+      <Asset Guid="e0d965a7ed32648409bee57a45ff12f8" ResourceName="ArtWork/Background/Sea_2" />
+      <Asset Guid="e1b6a4a0ddf508f438f724887a20fb30" ResourceName="Resources/StoryData/Chapter4/Chapter4_1" />
+      <Asset Guid="e1dacf1549fb3d44aa8480a592862341" ResourceName="ArtWork/Background/MorningCoffeeShop" />
       <Asset Guid="e204e4a59fcf87744a22b41b13e19a83" ResourceName="ArtWork/UIPictures/fifthDay" />
+      <Asset Guid="e221e4b913a42594bb09cb890d496de7" ResourceName="Resources/DialogData/OldDialog/plot_f_cat_10" />
+      <Asset Guid="e22c1cbbd9404434c822a6b768269c89" ResourceName="ArtWork/CraftingCards/sweet_meishi" />
+      <Asset Guid="e2b0b51289bd8af45982e37a78d7ed86" ResourceName="Resources/DialogData/OldDialog/plot_f_cat_6" />
       <Asset Guid="e3265ab4bf004d28a9537516768c1c75" ResourceName="Fonts/LiberationSans" />
+      <Asset Guid="e32cedd2457420149a289aa539dab747" ResourceName="Resources/DialogData/OldDialog/plot_f_dog_8" />
+      <Asset Guid="e345e97d135b9ca469d1eab85c0a34cc" ResourceName="ArtWork/SenceCombination/Suit/CatC" />
+      <Asset Guid="e3eea22a2f82f8241bb7adcefb6332f7" ResourceName="Timeline/Guide_1" />
+      <Asset Guid="e41da1a69f34e564fafec9f0e476d528" ResourceName="ArtWork/ToolsCard/Extractor" />
       <Asset Guid="e41e6d1efafee6947a4882711c453a93" ResourceName="Art/danglushugeng" />
       <Asset Guid="e52e640b41190484ea3f6f8db495bb22" ResourceName="UI/UIForms/RecipeMenu" />
+      <Asset Guid="e5b37d3b21827d54688ff5c2f1650dfc" ResourceName="ArtWork/ToolsCard/Kettle" />
+      <Asset Guid="e615ef6f5c220ad4ba80f2438b35cd71" ResourceName="Resources/DialogData/Chapter1/M1_plot_9" />
+      <Asset Guid="e7045954eaafe6542955721d1f9c4c8b" ResourceName="Resources/DialogData/OldDialog/plot_dog_4" />
+      <Asset Guid="e734467ee9058cb4eb420f158bbbd2c2" ResourceName="Resources/DialogData/Friend/Friend_plot_2" />
+      <Asset Guid="e86a23230b794e244ad84fd418a2bec4" ResourceName="Resources/DialogData/Chapter1/M1_plot_3" />
       <Asset Guid="e88f59c7631fd8e4abcff5d09d8f3b80" ResourceName="Audio/Sounds/reminding01" />
+      <Asset Guid="e8c0748085aa8cb42a1c73cce3972957" ResourceName="Resources/CharData/Cat_4" />
+      <Asset Guid="e8d4408258ef72f42b94f8ca602f1848" ResourceName="Resources/DialogData/OldDialog/plot_dog_2" />
+      <Asset Guid="e8ff10ef3a33f644091f2879313a695e" ResourceName="ArtWork/SenceCombination/Maid/20230925-093311" />
+      <Asset Guid="e9c3805302ae05043b0073ac408d64d1" ResourceName="Resources/CharData/Doc" />
+      <Asset Guid="ea34f8bd82c8e8746bbe4037816b078e" ResourceName="Resources/DialogData/Friend/Friend_plot_3_2" />
+      <Asset Guid="ea9a09c54fc23de45bbb95dc3bb59d04" ResourceName="Resources/DialogData/Out/Restaurant-a-2" />
+      <Asset Guid="eafaa17904045934da0fa2faddfdfb9b" ResourceName="Resources/DialogData/Family/Family_plot_2" />
+      <Asset Guid="eba4146d308d01a47aeb2b6cc528163d" ResourceName="ArtWork/CraftingCards/Slimsy_Ground_Coffee" />
+      <Asset Guid="ebddf62997871a7408d0f324f5d72895" ResourceName="Resources/CharData/Cat_2" />
       <Asset Guid="ec2327326ed06c74c9f25587acf8c291" ResourceName="ArtWork/CraftingCards/natie" />
+      <Asset Guid="ec60169e13617914c9d370edb663d4e6" ResourceName="Resources/StoryData/Family/Family_1" />
       <Asset Guid="ed850b819748dbb428cf8fe29eccc3e5" ResourceName="ArtWork/CraftingCards/moka" />
+      <Asset Guid="edaa496c4a3e90b4f94d4371364fb4d4" ResourceName="Resources/ActionData/act_cat_1" />
+      <Asset Guid="edb4b49458d217246b93f3d195b4a892" ResourceName="UI/UIItems/MusicItem" />
+      <Asset Guid="ee23085d8b6d4074cb6e47fbd3b4d7ec" ResourceName="Resources/DialogData/Love/Love_plot_3" />
+      <Asset Guid="eee82acdd3be99447b2e3fbb8846feff" ResourceName="UI/UIForms/MusicHallForm" />
       <Asset Guid="ef038e392f13aaa4c8e334cfaa92ab2f" ResourceName="Audio/Sounds/drop02" />
-      <Asset Guid="ef486edc0b177f9448bb90b56b463a01" ResourceName="ArtWork/CoffeesIcon/espresso" />
-      <Asset Guid="f2484e8d4dac89d4aa70f411b27a4cbd" ResourceName="Resources/DialogData/plot_f_wm_3" />
+      <Asset Guid="ef4e86c808ff8594cba3ecc3e54145bb" ResourceName="ArtWork/Background/Map" />
+      <Asset Guid="effe6749e11c24f418f0c2b2f3e01153" ResourceName="Resources/DialogData/OldDialog/plot_f_dog_7" />
+      <Asset Guid="f00e6e94627bc2d459f67bc038b62872" ResourceName="Resources/ActionData/act_wm_1" />
+      <Asset Guid="f06ad41b613c6534684dacd9da87d0a8" ResourceName="ArtWork/Poster/Musician1" />
+      <Asset Guid="f154d8fe22ca0954799fc37a0d8d126b" ResourceName="ArtWork/Background/AfternoonCoffeeShop" />
+      <Asset Guid="f1a9799f3f399db4f88688d5b82fa1f3" ResourceName="ArtWork/SenceCombination/Maid/20230925-093309" />
+      <Asset Guid="f1af37d47ead74f4cb69409fb575db30" ResourceName="Audio/Voice/Cat/Scare" />
+      <Asset Guid="f20255978b3467945a3173519537e934" ResourceName="Resources/DialogData/Chapter2/M2_plot_9" />
+      <Asset Guid="f2484e8d4dac89d4aa70f411b27a4cbd" ResourceName="Resources/DialogData/OldDialog/plot_f_wm_3" />
+      <Asset Guid="f26ee70a5eb0f344d8d4b86b4e6e4cbb" ResourceName="Resources/StoryData/Chapter2/Chapter2_6" />
       <Asset Guid="f29145adfaf0e2b4292107f4cf9d2263" ResourceName="DataTables/Building" />
+      <Asset Guid="f29f0474e2cbf0d4ea619157b6b4e49a" ResourceName="Resources/StoryData/Trust/Trust_1" />
+      <Asset Guid="f3641426cb100454aaf1ab2dc9e17dfa" ResourceName="Resources/ActionData/act_cat_10" />
       <Asset Guid="f3b4d968a601a73428d315a73257403d" ResourceName="ArtWork/UIPictures/setting" />
+      <Asset Guid="f3d91e9e02fbfc44cb6e79fa3bafdb20" ResourceName="Resources/DialogData/OldDialog/plot_f_dog_9" />
       <Asset Guid="f43ccf19fc458ae44afedc9222e159d5" ResourceName="Audio/BGM/maou_bgm_acoustic52" />
+      <Asset Guid="f4c52bac9bcabc5409eeb7cec6188ad0" ResourceName="Resources/DialogData/Chapter1/M1_plot_4" />
       <Asset Guid="f598ba45e405f524fb31810f54c15eb4" ResourceName="Art/LevelBG/thirdDay" />
+      <Asset Guid="f62fc93d7a159a8489a9c0c0bcdac1d8" ResourceName="Resources/DialogData/OldDialog/Guide_1" />
+      <Asset Guid="f69fca630ce63b34fbb88c2baa17d946" ResourceName="Resources/DialogData/Chapter4/M4_plot_5" />
+      <Asset Guid="f72b98869eb1ccb4a8c632f2563640b8" ResourceName="Resources/DialogData/MainStream/F_plot_4" />
+      <Asset Guid="f7643223dfd8fbe41945e4507e80d720" ResourceName="ArtWork/SenceCombination/Suit/CatDemonstrate" />
       <Asset Guid="f7775777bf929454d89c55bdd97fa1a5" ResourceName="Audio/Sounds/step01" />
       <Asset Guid="f786c81680858c94a968d40291604fdd" ResourceName="ArtWork/CraftingCards/baikafei" />
-      <Asset Guid="f92dbd8707e4b884abfc0ff640ac9d4c" ResourceName="Resources/DialogData/plot_dog_3" />
+      <Asset Guid="f789d02877435d4439bbb21eb7965702" ResourceName="UI/UIForms/ConsoleForm" />
+      <Asset Guid="f7c1ee461cdb6fd4bab8454d39f15c7a" ResourceName="Entities/Espresso" />
+      <Asset Guid="f7dde90cf80940b498caecb0788c44bd" ResourceName="UI/UIItems/ShopItem" />
+      <Asset Guid="f92dbd8707e4b884abfc0ff640ac9d4c" ResourceName="Resources/DialogData/OldDialog/plot_f_dog_3" />
       <Asset Guid="f99b92404c11a394697a36e981dc59a2" ResourceName="ArtWork/UIPictures/secondDay" />
+      <Asset Guid="f9cdd23a27776fe4588f91317d99fd22" ResourceName="ArtWork/ToolsCard/Stirrer" />
+      <Asset Guid="f9f79cc86fccc2147a3aa7a64f3bc963" ResourceName="Resources/StoryData/Love/Love_4" />
+      <Asset Guid="fa0c29979fffa9c45a4358409c4ac716" ResourceName="ArtWork/MaterialsCard/FoamedMilkS" />
+      <Asset Guid="fa5de42ea0f1cc244b962e3a9088637f" ResourceName="ArtWork/UIPictures/sisthDay" />
+      <Asset Guid="faae1702f0fef0a4fa84740e7f6c8cd3" ResourceName="Resources/StoryData/Trust/Trust_5" />
+      <Asset Guid="fad8ce61c31a81841b638f1d9494b300" ResourceName="Resources/DialogData/MainStream/F_plot_1" />
+      <Asset Guid="faddf56266805734caa75f9dcccd0276" ResourceName="Resources/DialogData/MainStream/FamilyAndLove_plot_2_2" />
+      <Asset Guid="fbe08fd594d9bff4da01a18ab44a8c96" ResourceName="Resources/CharData/Money" />
+      <Asset Guid="fc3cda46bfe619e42a286f162d149da9" ResourceName="ArtWork/MaterialsCard/ColdWater" />
+      <Asset Guid="fc9db5b5682a00d4998387465757d2e4" ResourceName="ArtWork/Background/Restrant" />
       <Asset Guid="fcc876a40c5f0f549ad2a02a8de1fa34" ResourceName="DataTables/Scene" />
       <Asset Guid="fcf2a76d005ff3244835e8293322b713" ResourceName="Audio/Sounds/Burnisher" />
+      <Asset Guid="fd06c111727be1f45ac4c0d03ccf2f1e" ResourceName="ArtWork/UIPictures/tenthDay" />
+      <Asset Guid="fd75d05c157400642add0eed25330b2e" ResourceName="Resources/DialogData/OldDialog/plot_wm_4" />
       <Asset Guid="fd9fbf101e5e84941b6d7e5ad50cc311" ResourceName="ArtWork/CraftingCards/cup" />
+      <Asset Guid="fdb9667757aa7fb4bb0047b9f4099749" ResourceName="DataTables/Sound" />
+      <Asset Guid="fdceed16835eaac4eb0da89d9f657e8c" ResourceName="Resources/StoryData/Chapter4/Chapter4_8" />
       <Asset Guid="fefbc09b58426cb488fa57a46cfb37d8" ResourceName="DataTables/Scene" />
+      <Asset Guid="ff1a1f339f18c9a47961b3c405ff0ae7" ResourceName="ArtWork/UIPictures/night" />
+      <Asset Guid="ff7c8dfa3f43ecd4ab6031db7a27fbb8" ResourceName="Resources/DialogData/Chapter4/M4_plot_3" />
+      <Asset Guid="ff86cbe10310f474ebae751c44e663b9" ResourceName="UI/UIForms/BakeryForm" />
+      <Asset Guid="ff95e1f01bc211a48aba621fd196032c" ResourceName="ArtWork/Characters/NewCharacters/Doc/20230923-103515" />
     </Assets>
   </ResourceCollection>
 </UnityGameFramework>

@@ -121,15 +121,23 @@ namespace GameMain
         private void OnLevel()
         {
             GameEntry.Event.FireNow(this, LevelEventArgs.Create());
+            List<LevelSO> levels = new List<LevelSO>();
             foreach (LevelSO level in levelSOs)
             {
                 //if (level.week != GameEntry.Utils.Week)
                 //    continue;
                 if (GameEntry.Utils.Check(level.trigger))
                 {
-                    OnLevel(level.levelData);
-                    return;
+                    levels.Add(level);
                 }
+            }
+            if (levels.Count != 0)
+            {
+                OnLevel(levelSOs[UnityEngine.Random.Range(0, levelSOs.Count)].levelData);
+            }
+            else
+            {
+                OnLevel(levelSOs[0].levelData);
             }
         }
 

@@ -24,6 +24,7 @@ namespace GameMain
             "Order",
             "Level",
             "Sound",
+            "Recipe",
             "Item"
         };
 

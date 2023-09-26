@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityGameFramework.Runtime;
 using UnityEngine.UI;
 using GameFramework.Event;
-using static UnityEditor.Progress;
 
 namespace GameMain
 {

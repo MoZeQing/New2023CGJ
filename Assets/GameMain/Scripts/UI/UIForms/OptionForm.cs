@@ -14,8 +14,8 @@ namespace GameMain
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            exit.onClick.AddListener(()=>GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Menu)));
-            main.onClick.AddListener(() => GameEntry.UI.CloseUIForm(this.UIForm));
+            exit.onClick.AddListener(()=> GameEntry.UI.CloseUIForm(this.UIForm));
+            main.onClick.AddListener(() => GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Menu)));
     }
 
         protected override void OnClose(bool isShutdown, object userData)

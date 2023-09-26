@@ -67,7 +67,7 @@ namespace GameMain
         //    GameEntry.Event.Unsubscribe(LevelEventArgs.EventId, OnLevelEvent);
         //}
 
-        private float nowTime=0f;
+        private float nowTime=5f;
         private float rateTime=30f;
 
         private void Update()

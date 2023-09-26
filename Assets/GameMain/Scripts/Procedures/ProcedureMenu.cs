@@ -8,7 +8,6 @@ using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedure
 using UnityGameFramework.Runtime;
 using GameFramework.Fsm;
 using System;
-using UnityEditor.SceneManagement;
 
 namespace GameMain
 {
@@ -20,7 +19,7 @@ namespace GameMain
         public void StartGame()
         {           
             InitData();
-            GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Guide));
+            GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Teach));
         }
 
         public void ExitGame()
@@ -42,7 +41,7 @@ namespace GameMain
             GameEntry.Utils.Favor = 0;
             GameEntry.Utils.Love = 0;
             GameEntry.Utils.Family= 0;
-            GameEntry.Utils.Day = 0;
+            GameEntry.Utils.Day = 3;
             GameEntry.Utils.closet = 101;
             GameEntry.Utils.ClearFlag();
             GameEntry.Dialog.LoadGame();

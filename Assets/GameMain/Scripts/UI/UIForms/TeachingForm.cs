@@ -7,9 +7,7 @@ using UnityEngine.UI;
 using GameFramework.Event;
 using DG.Tweening;
 using XNode;
-using UnityEditor.UI;
 using System;
-using static UnityEngine.GraphicsBuffer;
 
 namespace GameMain
 {
