@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityGameFramework.Runtime;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace GameMain
 {
@@ -24,6 +25,7 @@ namespace GameMain
             DateTime dateTime= DateTime.Now;
             saveLoadData.dataTime = dateTime.ToString("yyyy-MM-dd HH:mm:ss");
             saveLoadData.day = GameEntry.Utils.Day;
+            saveLoadData.closet = GameEntry.Utils.closet;
             saveLoadData.playerData = GameEntry.Utils.PlayerData;
             saveLoadData.charData= GameEntry.Utils.CharData;
             saveLoadData.flags= GameEntry.Utils.Flags;
@@ -65,6 +67,27 @@ namespace GameMain
                 fs.Close();
             }
         }
+        //摄屏
+        public Texture2D ScreenShot(Camera camera, Rect rect)
+        {
+            RenderTexture rt = new RenderTexture((int)rect.width, (int)rect.height,0);
+            camera.targetTexture= rt;
+            camera.Render();
+            RenderTexture.active = rt;
+            Texture2D screenShot = new Texture2D((int)rect.width, (int)rect.height, TextureFormat.RGB24, false);
+            screenShot.ReadPixels(rect, 0, 0);
+            screenShot.Apply();
+            camera.targetTexture = null;
+            RenderTexture.active = null;
+            GameObject.Destroy(rt);
+            byte[] bytes = screenShot.EncodeToPNG();
+            string path = Application.dataPath + "/ Resources / ScreenShot / screenshot.png";
+            System.IO.File.WriteAllBytes(path, bytes);
+#if UNITY_EDITOR
+            UnityEditor.AssetDatabase.Refresh();
+#endif
+            return screenShot;
+        }
     }
     /// <summary>
     /// 需要保存的数据
@@ -74,6 +97,7 @@ namespace GameMain
     {
         public string dataTime;
         public int day;
+        public int closet;
         public CharData charData;
         public PlayerData playerData;
         public List<string> storyData = new List<string>();

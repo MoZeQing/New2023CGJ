@@ -88,7 +88,7 @@ public class ItemData
         equipable = item.Equipable;
     }
 }
-
+[System.Serializable]
 public class PlayerItemData : ItemData
 {
     public int itemNum;
