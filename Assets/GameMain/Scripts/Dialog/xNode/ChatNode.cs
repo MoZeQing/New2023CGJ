@@ -48,7 +48,7 @@ public class ChatData
     [TextArea,SerializeField]
     public string text;
 
-
+#if UNITY_EDITOR
     [MenuItem("Data/Plot/Excel×ª»»Îª¾çÇé")]
     public static void ExcelToPlot()
     {
@@ -191,6 +191,7 @@ public class ChatData
         //    stream.Close();
         //}
     }
+#endif
 }
 
 public class StoryCSVData

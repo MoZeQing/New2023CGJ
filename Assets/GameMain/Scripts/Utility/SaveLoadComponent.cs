@@ -6,6 +6,8 @@ using UnityGameFramework.Runtime;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.InteropServices.ComTypes;
+using GameFramework.DataTable;
+using GameMain;
 
 namespace GameMain
 {
@@ -13,8 +15,31 @@ namespace GameMain
     {
         //规定，其中0为自动存档、1~4为玩家手动存档的位置
         private SaveLoadData[] mSaveLoadData = new SaveLoadData[5];
+        //初始化数据
+        public MainState mainState;
+        public int maxEnergy = 80;
+        public int energy = 80;
+        public int maxAp = 6;
+        public int ap = 6;
+        public int money = 3000;
+        public int mood = 0;
+        public int favor = 0;
+        public int love = 0;
+        public int family= 0;
+        public int day = 0;
+        public int closet = 101;
+        public List<string> clearFlags;
+        public List<ItemTag> playerItems = new List<ItemTag>();
+        public List<ItemTag> greengrocerItemDatas=new List<ItemTag>();
+        public List<ItemTag> bookstoreItemDatas = new List<ItemTag>();
+        public List<ItemTag> musicHallItemDatas = new List<ItemTag>();
+        public List<ItemTag> glassItemDatas = new List<ItemTag>();
+        public List<ItemTag> restaurantItemDatas = new List<ItemTag>();
+        public List<ItemTag> bakeryItemDatas = new List<ItemTag>();
+        //初始化数据
 
-        private void Start()
+
+private void Start()
         {
             LoadGame();
         }
