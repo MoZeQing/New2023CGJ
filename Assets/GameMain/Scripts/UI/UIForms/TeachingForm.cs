@@ -41,8 +41,7 @@ namespace GameMain
         [SerializeField] private BaseStage stage;
         [SerializeField] private LittleCat mLittleCat = null;
         [SerializeField] private RectTransform mCanvas = null;
-
-        [SerializeField] private Button sleepBtn2;
+        [SerializeField] private CanvasGroup mCanvasGroup = null;
 
         private DialogForm mDialogForm = null;
         [SerializeField] public ActionGraph mActionGraph = null;
@@ -62,12 +61,12 @@ namespace GameMain
             cleanBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Clean));
             touchBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Touch));
             playBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Play));
-            sleepBtn.onClick.AddListener(Sleep);
+            sleepBtn.onClick.AddListener(OnSleep);
             bathBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Bath));
             restBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Rest));
             tvBtn.onClick.AddListener(() => Behaviour(BehaviorTag.TV));
-            sleepBtn2.onClick.AddListener(Sleep);
 
+            mCanvasGroup = this.GetComponent<CanvasGroup>();
             this.transform.localScale = Vector3.one * 0.01f;
         }
         private void Update()
@@ -82,6 +81,10 @@ namespace GameMain
                 apTips.gameObject.SetActive(false);
                 energyTips.gameObject.SetActive(false);
                 mLittleCat.ShowLittleCat();
+            }
+            if (mCanvasGroup.alpha < 1)
+            {
+                mCanvasGroup.alpha = Mathf.Lerp(mCanvasGroup.alpha, 1, 0.3f);
             }
         }
         private void OnDisable()
@@ -221,13 +224,22 @@ namespace GameMain
                 Debug.LogWarningFormat("错误，不存在合法的对话剧情，请检查{0}的{1}", mActionNode.name, behaviorTag.ToString());
             }
         }
-        private void Sleep()
+        //不允许在回调中再设置回调，会导致回调错误
+        //也就是说，在SetComplete方法中设置的方法不能有Behaviour等会设置回调的方法
+        private void OnSleep()
         {
             InDialog = false;
             GameEntry.Utils.TimeTag = TimeTag.Night;
             GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Night));
             if (!GameEntry.Dialog.StoryUpdate())
                 Behaviour(BehaviorTag.Sleep);
+        }
+        private void OnMorning()
+        {
+            if (!GameEntry.Dialog.StoryUpdate())
+                Behaviour(BehaviorTag.Morning);
+            else
+                GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Night));
         }
         private void OnComplete()
         {
@@ -240,13 +252,10 @@ namespace GameMain
                 rightCanvas.gameObject.SetActive(false);
                 leftCanvas.gameObject.SetActive(false);
                 GameEntry.Utils.Day++;
-                GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, GameEntry.Utils.Day);//用这个this传参来调整黑幕
+                GameEntry.UI.OpenUIForm(UIFormId.PassDayForm);//用这个this传参来调整黑幕
                 GameEntry.Utils.TimeTag = TimeTag.Morning;
                 GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Morning));
-                if (!GameEntry.Dialog.StoryUpdate())
-                    Behaviour(BehaviorTag.Morning);
-                else
-                    GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Work));
+                Invoke(nameof(OnFaded), 4f);
             }
             else if (mBehaviorTag == BehaviorTag.Morning)
             {
@@ -257,6 +266,11 @@ namespace GameMain
                 leftCanvas.gameObject.SetActive(true);
                 rightCanvas.gameObject.SetActive(true);
             }
+        }
+        private void OnFaded()
+        {
+            mCanvasGroup.alpha = 0;
+            Behaviour(BehaviorTag.Morning);
         }
         private void CharDataEvent(object sender, GameEventArgs e) 
         { 

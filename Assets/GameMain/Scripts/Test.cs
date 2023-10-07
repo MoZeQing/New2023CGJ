@@ -8,20 +8,11 @@ namespace GameMain
 {
     public class Test : MonoBehaviour
     {
-        private bool flag=false;
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape)&&!GameEntry.UI.HasUIForm(UIFormId.ConsoleForm))
             {
-                flag = !flag;
-                if (flag)
-                {
-                    GameEntry.UI.OpenUIForm(UIFormId.ConsoleForm, this);
-                }
-                else
-                {
-                    GameEntry.UI.CloseUIForm(UIFormId.ConsoleForm);
-                }
+                GameEntry.UI.OpenUIForm(UIFormId.ConsoleForm, this);
             }
         }
     }

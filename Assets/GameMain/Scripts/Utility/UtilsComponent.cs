@@ -414,65 +414,66 @@ namespace GameMain
                 }
             }
         }
-        public void RunEvent(EventData eventData)
+        public bool RunEvent(EventData eventData)
         {
             switch (eventData.eventTag)
             {
                 case EventTag.Play:
                     GameEntry.Dialog.PlayStory(eventData.value);
-                    break;
+                    return true;
                 case EventTag.AddMoney:
                     GameEntry.Utils.Money += int.Parse(eventData.value);
-                    break;
+                    return true;
                 case EventTag.AddFavor:
                     GameEntry.Utils.Favor += int.Parse(eventData.value);
-                    break;
+                    return true;
                 case EventTag.AddMood:
                     GameEntry.Utils.Mood+= int.Parse(eventData.value);
-                    break;
+                    return true;
                 case EventTag.AddHope:
                     GameEntry.Utils.Hope += int.Parse(eventData.value);
-                    break;
+                    return true;
                 case EventTag.AddLove:
                     GameEntry.Utils.Love+= int.Parse(eventData.value);  
-                    break;
+                    return true;
                 case EventTag.AddAbility:
                     GameEntry.Utils.Love += int.Parse(eventData.value);
-                    break;
+                    return true;
                 case EventTag.AddEnergy:
                     GameEntry.Utils.Energy += int.Parse(eventData.value);
-                    break;
+                    return true;
                 case EventTag.AddAp:
                     GameEntry.Utils.Ap+= int.Parse(eventData.value);
-                    break;
+                    return true;
                 case EventTag.AddItem:
                     GameEntry.Utils.AddPlayerItem(new ItemData((ItemTag)Enum.Parse(typeof(ItemTag), eventData.value)),1);
-                    break;
+                    return true;
                 case EventTag.AddFlag:
                     GameEntry.Utils.AddFlag(eventData.value);
-                    break;
+                    return true;
                 case EventTag.RemoveFlag:
                     GameEntry.Utils.RemoveFlag(eventData.value);
-                    break;
+                    return true;
                 case EventTag.NextDay:
                     TimeTag = TimeTag.Morning;
                     GameEntry.Event.FireNow(this, MainFormEventArgs.Create(MainFormTag.Unlock));
                     GameEntry.Utils.Day++;
                     GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, GameEntry.Utils.Day);//用这个this传参来调整黑幕
                     GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Work));
-                    break;
+                    return true;
                 case EventTag.PlayBgm:
-                    break;
+                    return true;
                 case EventTag.EndGame:
                     GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Menu));
-                    break;
+                    return true;
                 case EventTag.AddDay:
                     GameEntry.Utils.Day += int.Parse(eventData.value);
-                    break;
+                    return true;
                 case EventTag.AddAction:
                     GameEntry.Utils.actionName= eventData.value;
-                    break;
+                    return true;
             }
+            return false;
         }
         public void UpdateData()
         {

@@ -87,6 +87,7 @@ public class DialogBox : MonoBehaviour
         {
             if (OnComplete != null)
                 OnComplete();
+            OnComplete = null;
         }
     }
     private void Next(ChatNode chatNode)
@@ -120,6 +121,7 @@ public class DialogBox : MonoBehaviour
             m_Node = null;
             if (OnComplete != null)
                 OnComplete();
+            OnComplete = null;
         }
     }
     private void Next(TriggerNode triggerNode)
@@ -147,6 +149,7 @@ public class DialogBox : MonoBehaviour
         {
             if (OnComplete != null)
                 OnComplete();
+            OnComplete = null;
         }
     }
     private bool NextNode(Node node, string nodeName)

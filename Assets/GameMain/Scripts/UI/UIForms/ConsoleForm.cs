@@ -33,6 +33,10 @@ namespace GameMain
             {
                 OnClick();
             }
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                GameEntry.UI.CloseUIForm(this.UIForm);
+            }
         }
         public void OnClick()
         {
@@ -46,6 +50,10 @@ namespace GameMain
             if (inputText.text == string.Empty)
             {
                 text.text += "«Î ‰»Î√¸¡Ó\n";
+            }
+            else if (inputText.text == "Clear")
+            {
+                text.text = string.Empty;
             }
             else
             {
@@ -72,7 +80,7 @@ namespace GameMain
 
             }
             Debug.LogFormat("≤‚ ‘£¨√∂æŸ£∫{0}£¨÷µ£∫{1}", console[0], console[1]);
-            GameEntry.Utils.RunEvent(eventData);
+            text.text += GameEntry.Utils.RunEvent(eventData) ? "command is success\n" : "command is fail\n";
         }
     }
 }

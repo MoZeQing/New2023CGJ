@@ -30,7 +30,8 @@ namespace GameMain
         ClosetForm=16,
         BookStoreForm=29,
         ConsoleForm=50,
-        GalleryForm = 51
+        GalleryForm = 51,
+        PassDayForm=52,
     }
 }
 

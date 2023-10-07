@@ -47,5 +47,6 @@ public enum GameState
     AfterSpecial,//特殊客人后轮次
     Afternoon,//下午轮次
     Night,//傍晚轮次
-    Midnight//晚上轮次
+    Midnight,//晚上轮次
+    Sleep
 }
