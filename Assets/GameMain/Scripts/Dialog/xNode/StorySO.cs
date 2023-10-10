@@ -18,6 +18,8 @@ public class StorySO : ScriptableObject
     [SerializeField]
     public bool outingBefore;
     [SerializeField]
+    public TimeTag timeTag;
+    [SerializeField]
     public ParentTrigger trigger;
     [SerializeField]
     public DialogueGraph dialogueGraph;

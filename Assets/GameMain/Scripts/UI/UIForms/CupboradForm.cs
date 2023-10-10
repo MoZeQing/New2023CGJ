@@ -27,7 +27,7 @@ namespace GameMain
             allToggle.onValueChanged.AddListener(OnAllChange);
             materialsToggle.onValueChanged.AddListener(OnMaterialsChange);
             itemToggle.onValueChanged.AddListener(OnItemChange);
-            onceItemToggle.onValueChanged.AddListener(OnOnceItemChange);
+            onceItemToggle.onValueChanged.AddListener(OnInstrumentChange);
             exitBtn.onClick.AddListener(OnExit);
             ShowItems();
         }
@@ -53,9 +53,9 @@ namespace GameMain
             foreach (PlayerItemData itemData in itemDatas)
             {
                 if ((int)itemData.itemTag > 100)
-                    return;
+                    continue;
                 if (itemData.itemNum <= 0)
-                    return;
+                    continue;
                 GameObject go = Instantiate(itemItem, mCanvas);
                 Item item =go.GetComponent<Item>();
                 item.SetData(itemData);
@@ -80,42 +80,45 @@ namespace GameMain
 
         private void OnAllChange(bool value)
         {
-            OnFilterChange(FilterMode.All);
+            if(value)
+                OnFilterChange(ItemKind.None);
         }
 
         private void OnMaterialsChange(bool value) 
         {
-            OnFilterChange(FilterMode.Materials);
+            if (value)
+                OnFilterChange(ItemKind.Materials);
         }
 
         private void OnItemChange(bool value)
         {
-            OnFilterChange(FilterMode.Item);
+            if (value)
+                OnFilterChange(ItemKind.Item);
         }
 
-        private void OnOnceItemChange(bool value)
+        private void OnInstrumentChange(bool value)
         {
-            OnFilterChange(FilterMode.OnceItem);
+            if (value)
+                OnFilterChange(ItemKind.Instrument);
         }
 
-        private void OnFilterChange(FilterMode filterMode)
+        private void OnFilterChange(ItemKind kind)
         { 
             ClearItems();
             List<PlayerItemData> newItems=new List<PlayerItemData>();
             foreach (PlayerItemData itemData in mItemDatas)
             {
-                if (itemData.filterMode == filterMode)
+                if (itemData.itemKind == kind)
                 {
                     newItems.Add(itemData);
                     continue;
                 }
-                if (filterMode==FilterMode.All)
+                if (kind==ItemKind.None)
                 {
                     newItems.Add(itemData);
                     continue;
                 }
             }
-            ClearItems();
             ShowItems(newItems);
         }
 
@@ -123,13 +126,5 @@ namespace GameMain
         {
             GameEntry.UI.CloseUIForm(this.UIForm);
         }
-    }
-
-    public enum FilterMode
-    { 
-        All,
-        Materials,
-        Item,
-        OnceItem
     }
 }

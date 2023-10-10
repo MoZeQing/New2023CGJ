@@ -76,7 +76,7 @@ namespace GameMain
             }
             foreach (DRItem item in items)
             {
-                if (item.Kind != (int)ItemKind.Glass)
+                if (item.Kind != (int)ItemKind.Instrument)
                     continue;
                 ShopItemData itemData = new ShopItemData((ItemTag)item.Id, item.MaxNum);
                 GameEntry.Utils.glassItemDatas.Add(itemData);

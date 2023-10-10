@@ -231,8 +231,20 @@ namespace GameMain
             InDialog = false;
             GameEntry.Utils.TimeTag = TimeTag.Night;
             GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Night));
-            if (!GameEntry.Dialog.StoryUpdate())
+            if (!GameEntry.Dialog.StoryUpdate(PassDay))
                 Behaviour(BehaviorTag.Sleep);
+        }
+        private void PassDay()
+        {
+            GameEntry.Utils.Energy += 60;
+            GameEntry.Utils.Ap = GameEntry.Utils.MaxAp;
+            rightCanvas.gameObject.SetActive(false);
+            leftCanvas.gameObject.SetActive(false);
+            GameEntry.Utils.Day++;
+            GameEntry.UI.OpenUIForm(UIFormId.PassDayForm);//用这个this传参来调整黑幕
+            GameEntry.Utils.TimeTag = TimeTag.Morning;
+            GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Morning));
+            Invoke(nameof(OnFaded), 4f);
         }
         private void OnMorning()
         {
@@ -289,7 +301,7 @@ namespace GameMain
             APText.text = string.Format("{0}/{1}", playerData.ap, playerData.maxAp);
             energyText.text = string.Format("{0}/{1}", playerData.energy, playerData.maxEnergy);
             moneyText.text=string.Format("{0}", playerData.money.ToString());
-            timeText.text = string.Format("{0}月{1}日 星期{2}", 5 + (playerData.day + 20) / 28, (playerData.day + 20) % 28, AssetUtility.GetWeekCN((playerData.day + 20) % 7));
+            timeText.text = string.Format("{0}月{1}日 星期{2}", (4 + (playerData.day + 20) / 28) % 12 + 1, (playerData.day + 19) % 28 + 1, AssetUtility.GetWeekCN((playerData.day + 20) % 7));
         }
         //单独给点击做一个方法调用
         public void Click_Action()

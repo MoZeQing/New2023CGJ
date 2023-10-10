@@ -133,7 +133,7 @@ namespace GameMain
             }
             if (levels.Count != 0)
             {
-                OnLevel(levelSOs[UnityEngine.Random.Range(0, levelSOs.Count)].levelData);
+                OnLevel(levels[UnityEngine.Random.Range(0, levels.Count)].levelData);
             }
             else
             {

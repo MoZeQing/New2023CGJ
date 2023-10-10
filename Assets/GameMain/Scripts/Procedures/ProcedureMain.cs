@@ -108,6 +108,7 @@ namespace GameMain
 
     public enum TimeTag
     { 
+        None,
         Morning,
         ForeWork,
         AfterWork,

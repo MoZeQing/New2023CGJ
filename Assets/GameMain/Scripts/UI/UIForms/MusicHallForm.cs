@@ -107,7 +107,6 @@ namespace GameMain
             mood = item.Mood;
             love = item.Love;
             favor = item.Favor;
-            filterMode = (GameMain.FilterMode)item.FilterMode;
             equipable = item.Equipable;
             AbilityModifier = item.AMInfo;
 

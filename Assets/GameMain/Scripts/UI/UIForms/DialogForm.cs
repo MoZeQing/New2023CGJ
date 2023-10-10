@@ -20,7 +20,6 @@ namespace GameMain
         [SerializeField] private BaseStage mStage;
 
         private DialogueGraph dialogueGraph;
-
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
@@ -31,19 +30,19 @@ namespace GameMain
         {
             dialogueGraph= dialogue;
             mDialogBox.SetDialog(dialogueGraph);
-            mDialogBox.SetComplete(OnComplete);
+            mDialogBox.SetComplete(CloseForm);
         }
-
         private void OnComplete()
         {
-            GameEntry.UI.OpenUIForm(UIFormId.ChangeForm);
-            CloseForm();
+            GameEntry.Dialog.OnComplete();
         }
         private void CloseForm()
         {
+            GameEntry.UI.OpenUIForm(UIFormId.ChangeForm);
             GameEntry.Dialog.InDialog = false;
+            Invoke(nameof(OnComplete), 1f);
             GameEntry.Event.FireNow(this, DialogEventArgs.Create(GameEntry.Dialog.InDialog, dialogueGraph.name));
             GameEntry.UI.CloseUIForm(this.UIForm);
-        } 
+        }
     }
 }

@@ -13,6 +13,8 @@ namespace GameMain
         private List<StorySO> stories=new List<StorySO>();
         private List<StorySO> loadedStories=new List<StorySO>();
 
+        private Action mAction;
+
         public List<string> LoadedStories
         { 
             get
@@ -36,6 +38,17 @@ namespace GameMain
             stories=new List<StorySO>(Resources.LoadAll<StorySO>("StoryData"));
         }
 
+        public void OnComplete()
+        {
+            mAction();
+        }
+
+        public bool StoryUpdate(Action action)
+        {
+            mAction = action;
+            return StoryUpdate();
+        }
+
         public bool StoryUpdate()
         {
             foreach (StorySO story in loadedStories)
@@ -46,8 +59,13 @@ namespace GameMain
                 if (GameEntry.Utils.outingBefore != story.outingBefore)
                     if (GameEntry.Utils.Location == OutingSceneState.Home)
                         continue;
+                if (GameEntry.Utils.TimeTag != story.timeTag)
+                    if (GameEntry.Utils.TimeTag != TimeTag.None)
+                        continue;
                 if (GameEntry.Utils.Check(story.trigger))
                 {
+                    Debug.Log(story.name);
+                    Debug.Log(story.dialogueGraph.name);
                     GameEntry.UI.OpenUIForm(UIFormId.DialogForm, story.dialogueGraph);
                     InDialog = true;
                     GameEntry.Event.FireNow(this, DialogEventArgs.Create(InDialog, story.dialogueGraph.name));
@@ -67,9 +85,6 @@ namespace GameMain
         {
             foreach (StorySO story in loadedStories)
             {
-                Debug.Log(Encoding.UTF8.GetString(Encoding.UTF8.GetBytes(story.name.ToString())));
-                Debug.Log(Encoding.UTF8.GetString(Encoding.ASCII.GetBytes(tag.ToString())));
-                Debug.Log(story.name.ToString()==tag.ToString());
                 if (story.name == tag)
                 {
                     if (GameEntry.UI.HasUIForm(UIFormId.DialogForm))

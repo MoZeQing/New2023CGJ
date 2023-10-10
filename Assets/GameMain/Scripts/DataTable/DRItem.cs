@@ -64,15 +64,6 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取筛选模式。
-        /// </summary>
-        public int FilterMode
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
         /// 获取可被装备。
         /// </summary>
         public bool Equipable
@@ -186,7 +177,6 @@ namespace GameMain
             Name = columnStrings[index++];
             Price = int.Parse(columnStrings[index++]);
             Info = columnStrings[index++];
-            FilterMode = int.Parse(columnStrings[index++]);
             Equipable = bool.Parse(columnStrings[index++]);
             MaxNum = int.Parse(columnStrings[index++]);
             Kind = int.Parse(columnStrings[index++]);
@@ -213,7 +203,6 @@ namespace GameMain
                     Name = binaryReader.ReadString();
                     Price = binaryReader.Read7BitEncodedInt32();
                     Info = binaryReader.ReadString();
-                    FilterMode = binaryReader.Read7BitEncodedInt32();
                     Equipable = binaryReader.ReadBoolean();
                     MaxNum = binaryReader.Read7BitEncodedInt32();
                     Kind = binaryReader.Read7BitEncodedInt32();

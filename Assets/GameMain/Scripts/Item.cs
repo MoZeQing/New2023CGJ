@@ -55,7 +55,6 @@ public class ItemData
     public ItemKind itemKind;
     public string itemName;
     public int price;
-    public GameMain.FilterMode filterMode;
     public bool equipable;
     public int family;
     public int hope;
@@ -75,6 +74,7 @@ public class ItemData
         DRItem item = items.GetDataRow((int)itemTag);
         itemName = item.Name;
         itemTag = (ItemTag)item.Id;
+        itemKind = (ItemKind)item.Kind;
         itemInfo = item.Info;
         price = item.Price;
         family = item.Family;
@@ -84,7 +84,6 @@ public class ItemData
         favor = item.Favor;
         ability = item.Ap;
         maxNum = item.MaxNum;
-        filterMode = (GameMain.FilterMode)item.FilterMode;
         equipable = item.Equipable;
     }
 }
@@ -104,9 +103,9 @@ public class PlayerItemData : ItemData
     public PlayerItemData(ItemData itemData, int num)
     {
         itemTag = itemData.itemTag;
+        itemKind = itemData.itemKind;
         itemName = itemData.itemName;
         price = itemData.price;
-        filterMode = itemData.filterMode;
         equipable = itemData.equipable;
         itemInfo = itemData.itemInfo;     
         itemNum = num;
@@ -115,16 +114,16 @@ public class PlayerItemData : ItemData
 
 public enum ItemKind
 { 
-    Materials=0,
-    Item=1,
-    Instrument=2,
-    Book=3,
-    Cake=4,
-    Music = 5,
-    Glass = 6,
-    Dishes = 7,
-    Food = 8,
-    Clothes=9,
+    None=-1,//全体
+    Materials=0,//原材料
+    Item=1,//道具
+    Instrument=2,//器械
+    Book=3,//书
+    Cake=4,//蛋糕
+    Music = 5,//音乐
+    Dishes = 6,//菜肴
+    Food = 7,//食物
+    Clothes=8,//衣服
 }
 public enum ItemTag
 {
