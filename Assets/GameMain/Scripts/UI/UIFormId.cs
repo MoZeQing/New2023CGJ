@@ -32,6 +32,7 @@ namespace GameMain
         ConsoleForm=50,
         GalleryForm = 51,
         PassDayForm=52,
+        TitleForm=53,
     }
 }
 

@@ -35,8 +35,6 @@ namespace GameMain
         [SerializeField] private Button sleepBtn;
         [Header("主控")]
         [SerializeField] private Transform mainCanvas;
-        [SerializeField] private GameObject energyTips;
-        [SerializeField] private GameObject apTips;
         [SerializeField] private DialogBox dialogBox;
         [SerializeField] private BaseStage stage;
         [SerializeField] private LittleCat mLittleCat = null;
@@ -78,8 +76,6 @@ namespace GameMain
                 stage.gameObject.SetActive(false);
                 leftCanvas.gameObject.SetActive(false);
                 rightCanvas.gameObject.SetActive(false);
-                apTips.gameObject.SetActive(false);
-                energyTips.gameObject.SetActive(false);
                 mLittleCat.ShowLittleCat();
             }
             if (mCanvasGroup.alpha < 1)
@@ -163,16 +159,14 @@ namespace GameMain
             {
                 if (GameEntry.Utils.Energy < playerData.energy)
                 {
-                    energyTips.gameObject.SetActive(true);
+                    GameEntry.UI.OpenUIForm(UIFormId.TitleForm, "你没有足够的体力");
                     return;
                 }
-                energyTips.gameObject.SetActive(false);
                 if (GameEntry.Utils.Ap < playerData.ap)
                 {
-                    apTips.gameObject.SetActive(true);
+                    GameEntry.UI.OpenUIForm(UIFormId.TitleForm, "你没有足够的行动力");
                     return;
                 }
-                apTips.gameObject.SetActive(false);
                 GameEntry.Utils.Energy -= playerData.energy;
                 GameEntry.Utils.Money -= playerData.money;
                 GameEntry.Utils.MaxEnergy -= playerData.maxEnergy;
@@ -256,9 +250,6 @@ namespace GameMain
         private void OnComplete()
         {
             InDialog=false;
-            dialogBox.gameObject.SetActive(false);
-            apTips.gameObject.SetActive(false);
-            energyTips.gameObject.SetActive(false);
             if (mBehaviorTag == BehaviorTag.Sleep)
             {
                 rightCanvas.gameObject.SetActive(false);
@@ -310,8 +301,6 @@ namespace GameMain
             mLittleCat.ShowLittleCat();
             rightCanvas.gameObject.SetActive(false);
             leftCanvas.gameObject.SetActive(true);
-            apTips.gameObject.SetActive(false);
-            energyTips.gameObject.SetActive(false);
             Behaviour(BehaviorTag.Click);
         }
     }

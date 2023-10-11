@@ -15,6 +15,7 @@ public class Map : MonoBehaviour,IPointerClickHandler
         }
         else
         {
+            GameEntry.UI.OpenUIForm(UIFormId.TitleForm, "没有足够的AP外出");
             return;
         }
         GameEntry.Utils.Location = mOutingSceneState;
