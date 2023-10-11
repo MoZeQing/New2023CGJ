@@ -18,88 +18,12 @@ namespace GameMain
 
         public void StartGame()
         {           
-            InitData();
-            GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Teach));
+            GameEntry.SaveLoad.InitData();
         }
 
         public void ExitGame()
         { 
             
-        }
-
-        /// <summary>
-        /// ≥ı ºªØ”Œœ∑£®≤‚ ‘£©
-        /// </summary>
-        private void InitData()
-        {
-            GameEntry.Utils.MaxEnergy = 80;
-            GameEntry.Utils.Energy = 80;
-            GameEntry.Utils.MaxAp = 6;
-            GameEntry.Utils.Ap = 6;
-            GameEntry.Utils.Money = 3000;
-            GameEntry.Utils.Mood = 0;
-            GameEntry.Utils.Favor = 0;
-            GameEntry.Utils.Love = 0;
-            GameEntry.Utils.Family= 0;
-            GameEntry.Utils.Day = 3;
-            GameEntry.Utils.closet = 101;
-            GameEntry.Utils.ClearFlag();
-            GameEntry.Dialog.LoadGame();
-            IDataTable<DRItem> items= GameEntry.DataTable.GetDataTable<DRItem>();
-            foreach (DRItem item in items) 
-            {
-                if (item.Kind != (int)ItemKind.Materials)
-                    continue;
-                PlayerItemData itemData = new PlayerItemData((ItemTag)item.Id,5);
-                GameEntry.Utils.PlayerData.items.Add(itemData);
-            }
-            foreach (DRItem item in items)
-            {
-                if (item.Kind != (int)ItemKind.Materials)
-                    continue;
-                ShopItemData itemData = new ShopItemData((ItemTag)item.Id,item.MaxNum);
-                GameEntry.Utils.greengrocerItemDatas.Add(itemData);
-            }
-            foreach (DRItem item in items)
-            {
-                if (item.Kind != (int)ItemKind.Book)
-                    continue;
-                ShopItemData itemData = new ShopItemData((ItemTag)item.Id, item.MaxNum);
-                GameEntry.Utils.bookstoreItemDatas.Add(itemData);
-            }
-            foreach (DRItem item in items)
-            {
-                if (item.Kind != (int)ItemKind.Music)
-                    continue;
-                MusicItemData itemData = new MusicItemData((ItemTag)item.Id);
-                GameEntry.Utils.musicHallItemDatas.Add(itemData);
-            }
-            foreach (DRItem item in items)
-            {
-                if (item.Kind != (int)ItemKind.Instrument)
-                    continue;
-                ShopItemData itemData = new ShopItemData((ItemTag)item.Id, item.MaxNum);
-                GameEntry.Utils.glassItemDatas.Add(itemData);
-            }
-            foreach (DRItem item in items)
-            {
-                if (item.Kind != (int)ItemKind.Dishes)
-                    continue;
-                ShopItemData itemData = new ShopItemData((ItemTag)item.Id, item.MaxNum);
-                GameEntry.Utils.restaurantItemDatas.Add(itemData);
-            }
-            foreach (DRItem item in items)
-            {
-                if (item.Kind != (int)ItemKind.Food)
-                    continue;
-                ShopItemData itemData = new ShopItemData((ItemTag)item.Id,item.MaxNum);
-                GameEntry.Utils.bakeryItemDatas.Add(itemData);
-            }
-            GameEntry.Utils.AddPlayerItem(new ItemData(ItemTag.Closet1), 1);
-            GameEntry.Utils.AddPlayerItem(new ItemData(ItemTag.Closet2), 1);
-            GameEntry.Utils.AddPlayerItem(new ItemData(ItemTag.Closet3), 1);
-            GameEntry.Utils.AddPlayerItem(new ItemData(ItemTag.CoffeeBean), 5);
-            GameEntry.Utils.AddPlayerItem(new ItemData(ItemTag.Water), 5);
         }
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {

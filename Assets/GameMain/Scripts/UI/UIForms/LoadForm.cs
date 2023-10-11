@@ -50,6 +50,7 @@ namespace GameMain
         private void LoadGame(int index)
         {
             SaveLoadData saveLoadData = GameEntry.SaveLoad.LoadGame(index);
+            GameEntry.SaveLoad.InitData();
             GameEntry.Utils.PlayerData = saveLoadData.playerData;
             GameEntry.Utils.CharData = saveLoadData.charData;
             GameEntry.Utils.Day = saveLoadData.day;
@@ -58,6 +59,7 @@ namespace GameMain
             GameEntry.Utils.WorkDatas = saveLoadData.workDatas;
             GameEntry.Dialog.LoadGame(saveLoadData.storyData);
             GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Change));
+            GameEntry.SaveLoad.LoadData();
             LoadData();
         }
     }

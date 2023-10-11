@@ -40,7 +40,9 @@ namespace GameMain
 
         public void OnComplete()
         {
-            mAction();
+            if(mAction!=null)
+                mAction();
+            mAction=null;
         }
 
         public bool StoryUpdate(Action action)

@@ -146,15 +146,6 @@ public enum ItemTag
     FilterBowl=23,//滤纸式滤杯
     Cup=24,//咖啡杯
     Stirrer=25,//搅拌器
-    Espresso,//浓缩咖啡
-    HotCafeAmericano,//热美式
-    IceCafeAmericano,//冷美式
-    HotLatte,//热拿铁
-    IceLatte,//冰拿铁
-    HotMocha,//热摩卡
-    IceMocha,//冷摩卡
-    Kapuziner,//卡布奇诺
-    FlatWhite,//澳白
     Book1 =30,
     Book2=31,
     Book3=32,

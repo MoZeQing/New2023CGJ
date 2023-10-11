@@ -93,6 +93,8 @@ namespace GameMain
 
         public void OnPointerClick(PointerEventData pointerEventData)
         {
+            if (lockOn.gameObject.activeSelf)
+                return;
             if (state != ClosetItemState.Freeze)
             {
                 state = ClosetItemState.Choice;

@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityGameFramework.Runtime;
 using UnityEngine.UI;
 using GameFramework.Event;
+using GameFramework.DataTable;
+using GameMain;
 
 namespace GameMain
 {
@@ -109,6 +111,13 @@ public class ShopItemData : ItemData
 
     public ShopItemData() { }
 
+    public ShopItemData(ItemTag itemTag)
+        :base(itemTag)
+    {
+        IDataTable<DRItem> items = GameMain.GameEntry.DataTable.GetDataTable<DRItem>();
+        DRItem item = items.GetDataRow((int)itemTag);
+        this.maxNum = item.MaxNum;
+    }
     public ShopItemData(ItemTag itemTag,int maxNum)
         : base(itemTag)
     {

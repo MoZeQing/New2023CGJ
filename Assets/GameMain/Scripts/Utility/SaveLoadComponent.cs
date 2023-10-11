@@ -39,9 +39,62 @@ namespace GameMain
         //初始化数据
 
 
-private void Start()
+        private void Start()
         {
             LoadGame();
+        }
+
+        public void LoadData()
+        {
+            GameEntry.Utils.greengrocerItemDatas.Clear();
+            for (int i = 0; i < greengrocerItemDatas.Count; i++)
+                GameEntry.Utils.greengrocerItemDatas.Add(new ShopItemData(playerItems[i]));
+
+            GameEntry.Utils.bookstoreItemDatas.Clear();
+            for (int i = 0; i < bookstoreItemDatas.Count; i++)
+                GameEntry.Utils.bookstoreItemDatas.Add(new ShopItemData(bookstoreItemDatas[i]));
+
+            GameEntry.Utils.musicHallItemDatas.Clear();
+            for (int i = 0; i < musicHallItemDatas.Count; i++)
+                GameEntry.Utils.musicHallItemDatas.Add(new MusicItemData(musicHallItemDatas[i]));
+
+            GameEntry.Utils.glassItemDatas.Clear();
+            for (int i = 0; i < glassItemDatas.Count; i++)
+                GameEntry.Utils.glassItemDatas.Add(new ShopItemData(glassItemDatas[i]));
+
+            GameEntry.Utils.restaurantItemDatas.Clear();
+            for (int i = 0; i < restaurantItemDatas.Count; i++)
+                GameEntry.Utils.restaurantItemDatas.Add(new ShopItemData(restaurantItemDatas[i]));
+
+            GameEntry.Utils.bookstoreItemDatas.Clear();
+            for (int i = 0; i < bookstoreItemDatas.Count; i++)
+                GameEntry.Utils.bakeryItemDatas.Add(new ShopItemData(bookstoreItemDatas[i]));
+        }
+
+        /// <summary>
+        /// 初始化游戏（测试）
+        /// </summary>
+        public void InitData()
+        {
+            LoadData();
+            GameEntry.Utils.MaxEnergy = maxEnergy;
+            GameEntry.Utils.Energy = energy;
+            GameEntry.Utils.MaxAp = maxAp;
+            GameEntry.Utils.Ap = ap;
+            GameEntry.Utils.Money = money;
+            GameEntry.Utils.Mood = mood;
+            GameEntry.Utils.Favor = favor;
+            GameEntry.Utils.Love = love;
+            GameEntry.Utils.Family = family;
+            GameEntry.Utils.Day = day;
+            GameEntry.Utils.closet = closet;
+            GameEntry.Utils.ClearFlag();
+            GameEntry.Dialog.LoadGame();
+            for (int i = 0; i < playerItems.Count; i++)
+                GameEntry.Utils.AddPlayerItem(new ItemData(playerItems[i]), 5);
+
+            GameEntry.Utils.AddPlayerItem(new ItemData((ItemTag)closet), 1);
+            GameEntry.Event.FireNow(this, MainStateEventArgs.Create(mainState));
         }
         public void SaveGame(int index)
         {
