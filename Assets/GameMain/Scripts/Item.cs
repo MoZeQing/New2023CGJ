@@ -28,8 +28,10 @@ public class Item : MonoBehaviour
         priceText.text = string.Format("价格:{0}", itemData.price.ToString());
         amountText.text = string.Format("库存:{0}", itemData.itemNum.ToString());
         if (mItemData.equipable)
-            //usingImg.gameObject.SetActive(mItemData.equiping);
+        {
+            usingImg.gameObject.SetActive(mItemData.equiping);
             this.GetComponent<Button>().onClick.AddListener(OnClick);
+        }
     }
 
     public void SetClick(Action<ItemData> action)
@@ -43,7 +45,7 @@ public class Item : MonoBehaviour
         if (mItemData.equipable)
         {
             usingImg.gameObject.SetActive(!usingImg.gameObject.activeSelf);
-            //mItemData.equiping = usingImg.gameObject.activeSelf;
+            mItemData.equiping = usingImg.gameObject.activeSelf;
         }
         //发送消息
     }

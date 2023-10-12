@@ -93,7 +93,11 @@ namespace GameMain
             for (int i = 0; i < playerItems.Count; i++)
                 GameEntry.Utils.AddPlayerItem(new ItemData(playerItems[i]), 5);
 
-            GameEntry.Utils.AddPlayerItem(new ItemData((ItemTag)closet), 1);
+            GameEntry.Utils.AddPlayerItem(new ItemData(ItemTag.Heater), 1, true);
+            GameEntry.Utils.AddPlayerItem(new ItemData(ItemTag.ManualGrinder), 1, true);
+            GameEntry.Utils.AddPlayerItem(new ItemData(ItemTag.Kettle), 1, true);
+            GameEntry.Utils.AddPlayerItem(new ItemData(ItemTag.Stirrer), 1, true);
+            GameEntry.Utils.AddPlayerItem(new ItemData((ItemTag)closet), 1, true);
             GameEntry.Event.FireNow(this, MainStateEventArgs.Create(mainState));
         }
         public void SaveGame(int index)

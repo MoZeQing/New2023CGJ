@@ -71,6 +71,19 @@ namespace GameMain
                 GetPlayerItem(itemData.itemTag).itemNum += num;
             }
         }
+        public void AddPlayerItem(ItemData itemData, int num,bool equip)
+        {
+            if (GetPlayerItem(itemData.itemTag) == null)
+            {
+                PlayerItemData playerItem = new PlayerItemData(itemData, num);
+                playerItem.equiping = equip;
+                mPlayerData.items.Add(playerItem);
+            }
+            else
+            {
+                GetPlayerItem(itemData.itemTag).itemNum += num;
+            }
+        }
         public PlayerItemData GetPlayerItem(ItemTag itemTag)
         {
             foreach (PlayerItemData itemData in mPlayerData.items)
