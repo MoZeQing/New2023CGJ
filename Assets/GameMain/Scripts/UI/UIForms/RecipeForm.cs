@@ -3,47 +3,56 @@ using System.Collections.Generic;
 using UnityEngine;
 using GameFramework;
 using UnityEngine.UI;
+using UnityGameFramework.Runtime;
 
 namespace GameMain
 {
-    public class RecipeForm :MonoBehaviour
+    public class RecipeForm :UIFormLogic
     {
         [SerializeField] private Button mUpBtn;
         [SerializeField] private Button mDownBtn;
         [SerializeField] private Text mNum;
-        [SerializeField] private List<Sprite> mSprites= new List<Sprite>();
+        [SerializeField] private Image mImage = null;
+        [SerializeField] private Button exitBtn;
 
-        private SpriteRenderer m_SpriteRenderer = null;
-        private int m_Index = 0;
+        [SerializeField] private List<Sprite> mSprites = new List<Sprite>();
+
+        private int mIndex = 0;
         // Start is called before the first frame update
-        void Start()
-        {
-            m_SpriteRenderer= GetComponent<SpriteRenderer>();
 
+        protected override void OnOpen(object userData)
+        {
+            base.OnOpen(userData);
             mUpBtn.onClick.AddListener(Up);
-            mDownBtn.onClick.AddListener(Down); 
+            mDownBtn.onClick.AddListener(Down);
+            exitBtn.onClick.AddListener(() => GameEntry.UI.CloseUIForm(this.UIForm));
+            mNum.text = string.Format("{0}/{1}", mIndex + 1, mSprites.Count);
         }
 
-        // Update is called once per frame
-        void Update()
+        protected override void OnClose(bool isShutdown, object userData)
         {
-
+            base.OnClose(isShutdown, userData);
+            mUpBtn.onClick.RemoveAllListeners();
+            mDownBtn.onClick.RemoveAllListeners();
+            exitBtn.onClick.RemoveAllListeners();
         }
 
         private void Up()
         {
-            m_Index++;
-            if(m_Index>=mSprites.Count)
-                m_Index= 0;
-            m_SpriteRenderer.sprite = mSprites[m_Index];
+            mIndex++;
+            if(mIndex>=mSprites.Count)
+                mIndex= 0;
+            mImage.sprite = mSprites[mIndex];
+            mNum.text = string.Format("{0}/{1}", mIndex + 1, mSprites.Count);
         }
 
         private void Down() 
         { 
-            m_Index--;
-            if (m_Index < 0)
-                m_Index = mSprites.Count-1;
-            m_SpriteRenderer.sprite = mSprites[m_Index];
+            mIndex--;
+            if (mIndex < 0)
+                mIndex = mSprites.Count-1;
+            mImage.sprite = mSprites[mIndex];
+            mNum.text = string.Format("{0}/{1}", mIndex + 1, mSprites.Count);
         }
     }
 }

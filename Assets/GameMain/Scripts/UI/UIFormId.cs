@@ -33,6 +33,7 @@ namespace GameMain
         GalleryForm = 51,
         PassDayForm=52,
         TitleForm=53,
+        RecipeForm=54,
     }
 }
 
