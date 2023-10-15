@@ -15,16 +15,11 @@ namespace GameMain
         [SerializeField] private BaseStage stage;
         [SerializeField] private DialogBox dialogBox;
         [SerializeField] private Transform mCanvas;
-        [SerializeField] private Transform recipeCanvas1;
-        [SerializeField] private Transform recipeCanvas2;
         [SerializeField] private Button upBtn;
         [SerializeField] private Button downBtn;
         [SerializeField] private Button recipeBtn;
         [SerializeField] private Text timeText;
         [SerializeField] private OrderList orderList;
-
-        [SerializeField] private Button testBtn;
-        [SerializeField] private Button test2Btn;
 
         [SerializeField] public bool IsGuide { get; set; }
 
@@ -58,7 +53,7 @@ namespace GameMain
         {
             //upBtn.onClick.AddListener(()=>GamePosUtility.Instance.GamePosChange(GamePos.Up));
             //downBtn.onClick.AddListener(() => GamePosUtility.Instance.GamePosChange(GamePos.Down));
-            recipeBtn.onClick.AddListener(OnRecipe);
+            recipeBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.RecipeForm));
             //testBtn.onClick.AddListener(OnLevel);
             //test2Btn.onClick.AddListener(() => GameEntry.Utils.RunEvent(new EventData(EventTag.NextDay)));
 
@@ -79,11 +74,6 @@ namespace GameMain
 
         private void Update()
         {
-            if (Input.GetMouseButtonDown(1))
-            {
-                recipeCanvas1.gameObject.SetActive(false);
-                recipeCanvas2.gameObject.SetActive(false);
-            }
             if (IsGuide)
                 return;
             if (IsDialog)
@@ -110,13 +100,6 @@ namespace GameMain
                     IsDialog = true;
                 }
             }
-        }
-
-        private void OnRecipe()
-        {
-            bool flag = recipeCanvas1.gameObject.activeSelf;
-            recipeCanvas1.gameObject.SetActive(!flag);
-            recipeCanvas2.gameObject.SetActive(flag);
         }
         private void OnLevel()
         {
