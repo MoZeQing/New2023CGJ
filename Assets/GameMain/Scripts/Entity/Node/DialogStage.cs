@@ -8,7 +8,6 @@ namespace GameMain
 {
     public class DialogStage : BaseStage
     {
-        [SerializeField] private SpriteRenderer mBG;
         [SerializeField] private Transform mLeft;
         [SerializeField] private Transform mRight;
         [SerializeField] private DialogForm mDialogForm = null;
@@ -17,7 +16,6 @@ namespace GameMain
         private BaseCharacter mRightChar = null;
         private BaseCharacter mMiddleChar = null;
 
-        private Dictionary<CharSO, BaseCharacter> mCharChace = new Dictionary<CharSO, BaseCharacter>();
         private DialogStageData mDialogStageData = null;
 
         //»º´æÇø
