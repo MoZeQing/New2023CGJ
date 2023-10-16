@@ -19,6 +19,7 @@ namespace GameMain
         [SerializeField] private Button downBtn;
         [SerializeField] private Button recipeBtn;
         [SerializeField] private Text timeText;
+        [SerializeField] private Text recipeText;
         [SerializeField] private OrderList orderList;
 
         [SerializeField] public bool IsGuide { get; set; }

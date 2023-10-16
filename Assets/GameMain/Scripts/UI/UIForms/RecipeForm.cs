@@ -4,30 +4,27 @@ using UnityEngine;
 using GameFramework;
 using UnityEngine.UI;
 using UnityGameFramework.Runtime;
+using GameFramework.DataTable;
+using System;
 
 namespace GameMain
 {
-    public class RecipeForm :UIFormLogic
+    public class RecipeForm : UIFormLogic
     {
-        [SerializeField] private GameObject mNodeItem;
-        [SerializeField] private Image mLeftImage;
-        [SerializeField] private Text mIndexText;
+        [SerializeField] private Image mProduct;
+        [SerializeField] private Image mTool;
+        [SerializeField] private GameObject mRecipeItem;
+        [SerializeField] private Transform mLeftCanvas;
         [SerializeField] private Transform mRightCanvas;
         [SerializeField] private Button exitBtn;
-        [SerializeField] private Button mLeftBtn;
-        [SerializeField] private Button mRightBtn;
-        [SerializeField] private List<List<Sprite>> nodeSprites = new List<List<Sprite>>();
 
-        private List<RecipeItem> nodeItems= new List<RecipeItem>();
-        private int mIndex = 0;
-        private NodeTag mNodeTag;
+        private List<RecipeItem> nodeItems = new List<RecipeItem>();
+        private List<RecipeItem> recipeItems = new List<RecipeItem>();
 
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
             exitBtn.onClick.AddListener(() => GameEntry.UI.CloseUIForm(this.UIForm));
-            mLeftBtn.onClick.AddListener(Left);
-            mRightBtn.onClick.AddListener(Right);
 
             ShowNodes();
         }
@@ -35,14 +32,16 @@ namespace GameMain
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
+            if (Input.GetMouseButton(1))
+            {
+                GameEntry.UI.CloseUIForm(this.UIForm);
+            }
         }
 
         protected override void OnClose(bool isShutdown, object userData)
         {
             base.OnClose(isShutdown, userData);
             exitBtn.onClick.RemoveAllListeners();
-            mLeftBtn.onClick.RemoveAllListeners();
-            mRightBtn.onClick.RemoveAllListeners();
 
             ClearNodes();
         }
@@ -50,47 +49,80 @@ namespace GameMain
         private void ShowNodes()
         {
             ClearNodes();
-            for (int i = 0; i < 35; i++)
+            IDataTable<DRRecipe> dtRecipe = GameEntry.DataTable.GetDataTable<DRRecipe>();
+            foreach (DRRecipe recipe in dtRecipe.GetAllDataRows())
             {
-                GameObject go = Instantiate(mNodeItem, mRightCanvas);
-                RecipeItem recipe=go.GetComponent<RecipeItem>();
-                recipe.SetData((NodeTag)i, ShowRecipe);
-                nodeItems.Add(recipe);
+                RecipeData recipeData = new RecipeData(recipe);
+                foreach (NodeTag nodeTag in recipeData.products)
+                {
+                    GameObject go = GameObject.Instantiate(mRecipeItem, mRightCanvas);
+                    RecipeItem recipeItem = go.GetComponent<RecipeItem>();
+                    recipeItem.SetData(new RecipeData(recipe),nodeTag, ShowRecipe);
+                    nodeItems.Add(recipeItem);
+                }
             }
         }
 
         private void ClearNodes()
         {
             foreach (RecipeItem go in nodeItems)
-            { 
+            {
                 Destroy(go.gameObject);
             }
+            nodeItems.Clear();
         }
 
-        private void ShowRecipe(NodeTag nodeTag)
+        private void ShowRecipe(RecipeData recipeData,NodeTag product)
         {
-            mNodeTag= nodeTag;
-            mIndex = 0;
-            mLeftImage.sprite = nodeSprites[(int)mNodeTag][mIndex];
-            mIndexText.text = string.Format("{0}/{1}", mIndex + 1, nodeSprites[(int)mNodeTag].Count);
+            ClearRecipe();
+            foreach (NodeTag nodeTag in recipeData.materials)
+            {
+                GameObject go = GameObject.Instantiate(mRecipeItem, mLeftCanvas);
+                RecipeItem recipeItem = go.GetComponent<RecipeItem>();
+                recipeItem.SetData(nodeTag);
+                recipeItems.Add(recipeItem);
+            }
+            mTool.sprite = GameEntry.Utils.nodeSprites[(int)recipeData.tool];
+            mProduct.sprite = GameEntry.Utils.nodeSprites[(int)product];
         }
 
-        private void Left()
+        private void ClearRecipe()
         {
-            mIndex--;
-            if (mIndex < 0)
-                mIndex = nodeSprites[(int)mNodeTag].Count - 1;
-            mLeftImage.sprite = nodeSprites[(int)mNodeTag][mIndex];
-            mIndexText.text = string.Format("{0}/{1}", mIndex + 1, nodeSprites[(int)mNodeTag].Count);
+            foreach (RecipeItem go in recipeItems)
+            {
+                Destroy(go.gameObject);
+            }
+            recipeItems.Clear();
+        }
+    }
+
+    public class RecipeData
+    {
+        public List<NodeTag> materials = new List<NodeTag>();
+        public List<NodeTag> products = new List<NodeTag>();
+        public NodeTag tool;
+
+        public RecipeData() { }
+        public RecipeData(DRRecipe dRRecipe)
+        {
+            materials = TransToEnumList(dRRecipe.Recipe);
+            products = TransToEnumList(dRRecipe.Product);
+            tool = TransToEnum(dRRecipe.Tool);
         }
 
-        private void Right()
+        public NodeTag TransToEnum(string value)
         {
-            mIndex++;
-            if (mIndex >= nodeSprites[(int)mNodeTag].Count)
-                mIndex = 0;
-            mLeftImage.sprite = nodeSprites[(int)mNodeTag][mIndex];
-            mIndexText.text = string.Format("{0}/{1}", mIndex + 1, nodeSprites[(int)mNodeTag].Count);
+            return (NodeTag)Enum.Parse(typeof(NodeTag), value);
+        }
+
+        public List<NodeTag> TransToEnumList(List<string> valueList)
+        {
+            List<NodeTag> temp = new List<NodeTag>();
+            foreach (var VarIAble in valueList)
+            {
+                temp.Add((NodeTag)Enum.Parse(typeof(NodeTag), VarIAble));
+            }
+            return temp;
         }
     }
 }

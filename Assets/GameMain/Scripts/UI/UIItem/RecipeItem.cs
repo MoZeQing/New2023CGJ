@@ -4,13 +4,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class RecipeItem : MonoBehaviour
 {
-    private Image mImage;
-    private NodeTag mNodeTag; 
-    private Button mBtn;
-    private Action<NodeTag> mAction;
+    [SerializeField] private Image mImage;
+    private RecipeData mRecipe; 
+    [SerializeField] private Button mBtn;
+    private Action<RecipeData,NodeTag> mAction;
+    private NodeTag mNodeTag;
 
     private void Start()
     {
@@ -18,16 +20,23 @@ public class RecipeItem : MonoBehaviour
         mImage= GetComponent<Image>();
     }
 
-    public void SetData(NodeTag nodeTag,Action<NodeTag> action)
-    { 
-        mNodeTag= nodeTag;
+    public void SetData(RecipeData recipe,NodeTag nodeTag,Action<RecipeData,NodeTag> action)
+    {
+        mRecipe = recipe;
         mAction= action;
+        mNodeTag = nodeTag;
         mImage.sprite = GameEntry.Utils.nodeSprites[(int)nodeTag];
         mBtn.onClick.AddListener(OnClick);
     }
 
+    public void SetData(NodeTag nodeTag)
+    {
+        mNodeTag = nodeTag;
+        mImage.sprite = GameEntry.Utils.nodeSprites[(int)nodeTag];
+    }
+
     private void OnClick()
     {
-        mAction(mNodeTag);
+        mAction(mRecipe, mNodeTag);
     }
 }
