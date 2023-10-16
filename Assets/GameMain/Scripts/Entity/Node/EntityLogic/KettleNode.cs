@@ -27,26 +27,3 @@ namespace GameMain
         }
     }
 }
-/// <summary>
-/// �˵�
-/// </summary>
-public class RecipeData
-    {
-        public List<NodeTag> Materials
-        {
-            get;
-            set;
-        } = new List<NodeTag>();
-
-        public NodeTag Product
-        {
-            get;
-            set;
-        }
-
-        public float ProductTime
-        {
-            get;
-            set;
-        }
-    }
