@@ -21,6 +21,7 @@ namespace GameMain
         [SerializeField] private Button loadBtn;
         [SerializeField] private Button saveBtn;
         [SerializeField] private Button optionBtn;
+        [SerializeField] private Button guideBtn;
         private PlaySoundParams playSoundParams = PlaySoundParams.Create();
         private int m_RandomValue;
         private GamePos mGamePos=GamePos.Up;
@@ -33,6 +34,7 @@ namespace GameMain
             loadBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.LoadForm, this));
             saveBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.SaveForm, this));
             optionBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.OptionForm, this));
+            guideBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.GuideForm));
 
             GameEntry.Event.Subscribe(MainFormEventArgs.EventId, OnMainFormEvent);
         }
@@ -48,6 +50,7 @@ namespace GameMain
             optionBtn.onClick.RemoveAllListeners();
             leftButton.onClick.RemoveAllListeners();
             rightButton.onClick.RemoveAllListeners();
+            guideBtn.onClick.RemoveAllListeners();
 
             GameEntry.Event.Unsubscribe(MainFormEventArgs.EventId, OnMainFormEvent);
         }

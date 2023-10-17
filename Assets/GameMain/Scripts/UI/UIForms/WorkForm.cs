@@ -16,8 +16,8 @@ namespace GameMain
         [SerializeField] private DialogBox dialogBox;
         [SerializeField] private Transform mCanvas;
         [SerializeField] private Button recipeBtn;
+        [SerializeField] private Button guideBtn;
         [SerializeField] private Text timeText;
-        [SerializeField] private Text recipeText;
         [SerializeField] private OrderList orderList;
 
         [SerializeField] public bool IsGuide { get; set; }
@@ -53,6 +53,7 @@ namespace GameMain
             //upBtn.onClick.AddListener(()=>GamePosUtility.Instance.GamePosChange(GamePos.Up));
             //downBtn.onClick.AddListener(() => GamePosUtility.Instance.GamePosChange(GamePos.Down));
             recipeBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.RecipeForm));
+            guideBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.GuideForm));
             //testBtn.onClick.AddListener(OnLevel);
             //test2Btn.onClick.AddListener(() => GameEntry.Utils.RunEvent(new EventData(EventTag.NextDay)));
 
@@ -67,6 +68,7 @@ namespace GameMain
             //upBtn.onClick.RemoveAllListeners();
             //downBtn.onClick.RemoveAllListeners();
             recipeBtn.onClick.RemoveAllListeners();
+            guideBtn.onClick.RemoveAllListeners();
 
             GameEntry.Event.Unsubscribe(OrderEventArgs.EventId, OnOrderEvent);
         }
