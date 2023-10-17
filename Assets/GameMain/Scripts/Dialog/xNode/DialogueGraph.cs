@@ -5,11 +5,9 @@ using XNode;
 [CreateAssetMenu(fileName ="DialogueGraph")]
 public class DialogueGraph : NodeGraph
 {
-    public string DialogTag
-    {
-        get;
-        set;
-    }
+    public string dialogTag;
+    [TextArea(5,10)]
+    public string dialogInfo;
 
     public Node GetStartNode()
     {

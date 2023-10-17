@@ -61,9 +61,9 @@ namespace GameMain
                 if (GameEntry.Utils.outingBefore != story.outingBefore)
                     if (GameEntry.Utils.Location == OutingSceneState.Home)
                         continue;
-                if (GameEntry.Utils.TimeTag != story.timeTag)
-                    if (GameEntry.Utils.TimeTag != TimeTag.None)
-                        continue;
+                //if (GameEntry.Utils.TimeTag != story.timeTag)
+                //    if (GameEntry.Utils.TimeTag != TimeTag.None)
+                //        continue;
                 if (GameEntry.Utils.Check(story.trigger))
                 {
                     Debug.Log(story.name);

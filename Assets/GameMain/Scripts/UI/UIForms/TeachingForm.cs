@@ -266,6 +266,7 @@ namespace GameMain
             }
             else
             {
+                dialogBox.gameObject.SetActive(false);
                 leftCanvas.gameObject.SetActive(true);
                 rightCanvas.gameObject.SetActive(true);
             }

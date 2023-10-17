@@ -32,38 +32,6 @@ public class StorySO : ScriptableObject
     {
         try
         {
-            //StorySO[] storySOs = Resources.LoadAll<StorySO>("StoryData");
-            //StringBuilder storiesTag = new StringBuilder();
-            //StringBuilder triggers = new StringBuilder();
-            //StringBuilder dialogues = new StringBuilder();
-            //StringBuilder events = new StringBuilder();
-            //foreach (StorySO story in storySOs)
-            //{
-            //    storiesTag.Append(story.name);
-            //    storiesTag.Append(",");
-            //    triggers.Append("测试");
-            //    triggers.Append(",");
-            //    dialogues.Append(story.dialogueGraph.name);
-            //    dialogues.Append(",");
-            //    foreach (EventData eventData in story.eventDatas)
-            //    {
-            //        events.Append(eventData.eventTag.ToString() + " = " + eventData.value.ToString());
-            //        events.Append(",");
-            //    }
-            //    events.Append(",");
-            //}
-            //storiesTag.Remove(storiesTag.Length - 1, 1);
-            //triggers.Remove(triggers.Length - 1, 1);
-            //dialogues.Remove(dialogues.Length - 1, 1);
-            //events.Remove(events.Length - 1, 1);
-            //StreamWriter sw = new StreamWriter(new FileStream(Application.dataPath + "/mainStory.csv", FileMode.OpenOrCreate), Encoding.GetEncoding("GB2312"));
-            //sw.WriteLine(storiesTag.ToString());
-            //sw.WriteLine(triggers.ToString());
-            //sw.WriteLine(dialogues.ToString());
-            //sw.WriteLine(events.ToString());
-            //sw.Close();
-            //Debug.Log("mainStory输出完毕");
-
             StorySO[] storySOs = Resources.LoadAll<StorySO>("StoryData");
             StreamWriter sw = new StreamWriter(new FileStream(Application.dataPath + "/mainStory.txt", FileMode.OpenOrCreate), Encoding.GetEncoding("UTF-8"));
             foreach (StorySO story in storySOs)
@@ -71,6 +39,7 @@ public class StorySO : ScriptableObject
                 StringBuilder sb = new StringBuilder();
                 sb.Append("StoryTag：" + story.name + ",");
                 sb.Append("故事索引：" + story.dialogueGraph.name + ",");
+                sb.Append("故事时间：" + story.timeTag + ",");
                 sb.Append("触发事件：");
                 foreach (EventData eventData in story.eventDatas)
                 {
