@@ -190,7 +190,8 @@ public enum TriggerTag
     TimeTag,//时间标签
     Week,//星期
     BehaviorTag,
-    Index
+    Index,
+    Rent,//设置租金
 }
 [System.Serializable]
 public enum EventTag
@@ -214,4 +215,5 @@ public enum EventTag
     EndGame,//结束游戏
     AddDay,//增加时间
     AddAction,//增加Action
+    Rent,//设置租金
 }

@@ -19,6 +19,10 @@ namespace GameMain
         [SerializeField] private Button guideBtn;
         [SerializeField] private Text timeText;
         [SerializeField] private OrderList orderList;
+        [SerializeField] private Transform modeCanvas;
+        [SerializeField] private Button hardBtn;
+        [SerializeField] private Button commonBtn;
+        [SerializeField] private Button easyBtn;
 
         [SerializeField] public bool IsGuide { get; set; }
 
@@ -27,6 +31,7 @@ namespace GameMain
         private float nowTime;
         private float levelTime;
         private bool isSpecial;
+        private bool isChoice;
         public bool IsDialog { get; set; }=false;
         public bool IsNext
         {
@@ -42,8 +47,8 @@ namespace GameMain
 
         private void Start()
         {
-            levelTime= 180;//3����
-            nowTime = levelTime;
+            orderList.IsShowItem = false;
+            isChoice = false;
             isSpecial = false;
             IsDialog = false;
         }
@@ -57,10 +62,16 @@ namespace GameMain
             //testBtn.onClick.AddListener(OnLevel);
             //test2Btn.onClick.AddListener(() => GameEntry.Utils.RunEvent(new EventData(EventTag.NextDay)));
 
+            Debug.Log(GameEntry.Utils.Energy);
+            hardBtn.onClick.AddListener(() => SetData(240));
+            if (GameEntry.Utils.Energy < 60) hardBtn.interactable = false;
+            commonBtn.onClick.AddListener(() => SetData(180));
+            if (GameEntry.Utils.Energy < 40) commonBtn.interactable = false;
+            easyBtn.onClick.AddListener(() => SetData(120));
+            if (GameEntry.Utils.Energy < 20) easyBtn.interactable = false;
             levelSOs = new List<LevelSO>(Resources.LoadAll<LevelSO>("LevelData"));
             mLevelData = levelSOs[0].levelData;
             GameEntry.Event.Subscribe(OrderEventArgs.EventId, OnOrderEvent);
-
         }
 
         private void OnDisable()
@@ -75,6 +86,10 @@ namespace GameMain
 
         private void Update()
         {
+            if (isChoice == false)
+                return;
+            if (GameEntry.Dialog.InDialog)
+                return;
             if (IsGuide)
                 return;
             if (IsDialog)
@@ -101,6 +116,16 @@ namespace GameMain
                     IsDialog = true;
                 }
             }
+        }
+        private void SetData(int time)
+        {
+            levelTime = time;//3����
+            nowTime = levelTime;
+            GameEntry.Utils.Energy -= (time - 120) / 3 + 20;
+            Debug.Log((time - 120) / 3 + 20);
+            modeCanvas.gameObject.SetActive(false);
+            isChoice = true;
+            orderList.IsShowItem = true;
         }
         private void OnLevel()
         {

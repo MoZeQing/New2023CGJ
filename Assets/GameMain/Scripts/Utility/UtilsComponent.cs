@@ -212,7 +212,10 @@ namespace GameMain
             }
             set
             {
-                mPlayerData.energy = value;
+                if (value > MaxEnergy)
+                    mPlayerData.energy = MaxEnergy;
+                else
+                    mPlayerData.energy = value;
                 _values[TriggerTag.Energy] = mPlayerData.energy.ToString();
                 GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
             }
@@ -265,7 +268,22 @@ namespace GameMain
             set
             {
                 mPlayerData.day = value;
+                Week = (Week)((Day + 20) % 7);
+                Debug.Log(Week);
                 _values[TriggerTag.Day] = mPlayerData.day.ToString();
+                GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
+            }
+        }
+        public int Rent
+        {
+            get
+            {
+                return mPlayerData.rent;
+            }
+            set
+            { 
+                mPlayerData.rent = value;
+                _values[TriggerTag.Rent]=mPlayerData.rent.ToString();
                 GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
             }
         }
@@ -485,6 +503,9 @@ namespace GameMain
                 case EventTag.AddAction:
                     GameEntry.Utils.actionName= eventData.value;
                     return true;
+                case EventTag.Rent:
+                    GameEntry.Utils.Rent=int.Parse(eventData.value);
+                    break;
             }
             return false;
         }
@@ -503,6 +524,7 @@ namespace GameMain
         public int maxAp;
         public int ap;
         public int day;
+        public int rent;
         public List<PlayerItemData> items=new List<PlayerItemData>();
         //public int time;
     }

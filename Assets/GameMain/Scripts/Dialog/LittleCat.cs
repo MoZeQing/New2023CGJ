@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityGameFramework.Runtime;
+using DG.Tweening;
 
 namespace GameMain
 {
@@ -13,6 +14,12 @@ namespace GameMain
         [SerializeField] private List<SpriteRenderer> mLittleCats2 = new List<SpriteRenderer>();
         [SerializeField] private List<SpriteRenderer> mLittleCats3 = new List<SpriteRenderer>();
         [SerializeField] private TeachingForm mTeachingForm;
+
+        [SerializeField] private float switchTime=10f;
+
+        private float nowtime;
+        private int index;
+        private bool autoEnable=true;
 
         private List<SpriteRenderer> mLittleCats = new List<SpriteRenderer>();
 
@@ -36,6 +43,18 @@ namespace GameMain
         {
             //GameEntry.Event.Subscribe(MainStateEventArgs.EventId, GameStateEvent);
         }
+        private void Update()
+        {
+            if (!autoEnable)
+                return;
+            nowtime -= Time.deltaTime;
+            if (nowtime <= 0)
+            {
+                nowtime = switchTime;
+                ShowLittleCat();
+            }
+
+        }
         private void OnDisable()
         {
             //GameEntry.Event.Unsubscribe(MainStateEventArgs.EventId, GameStateEvent);
@@ -48,6 +67,7 @@ namespace GameMain
         public void ShowLittleCat()
         {
             HideLittleCat();
+            autoEnable = true;
             switch (GameEntry.Utils.closet - 100)
             {
                 case 1:
@@ -60,13 +80,28 @@ namespace GameMain
                     mLittleCats = mLittleCats3;
                     break;
             }
-            mLittleCats[Random.Range(0, mLittleCats.Count)].gameObject.SetActive(true);
+            int block = 100;
+            int newIndex = Random.Range(0, mLittleCats.Count);
+            while (newIndex == index)
+            {
+                newIndex = Random.Range(0, mLittleCats.Count);
+                block--;
+                if (block < 0)
+                    break;
+            }
+            index = newIndex;
+            mLittleCats[index].DOPause();
+            mLittleCats[index].GetComponent<BoxCollider2D>().enabled = true;
+            mLittleCats[index].DOColor(Color.white, 0.5f);
         }
         public void HideLittleCat()
         {
+            autoEnable= false ;
             foreach (SpriteRenderer sprite in mLittleCats)
-            { 
-                sprite.gameObject.SetActive(false);
+            {
+                sprite.GetComponent<BoxCollider2D>().enabled = false;
+                sprite.DOPause();
+                sprite.DOColor(Color.clear, 0.5f);
             }
         }
 

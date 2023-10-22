@@ -42,17 +42,44 @@ namespace GameMain
         {
             if(mAction!=null)
                 mAction();
+
             mAction=null;
         }
 
         public bool StoryUpdate(Action action)
         {
             mAction = action;
-            return StoryUpdate();
+            foreach (StorySO story in loadedStories)
+            {
+                if (story.outingSceneState != OutingSceneState.Main)
+                    if (GameEntry.Utils.Location != story.outingSceneState)
+                        continue;
+                if (GameEntry.Utils.outingBefore != story.outingBefore)
+                    if (GameEntry.Utils.Location == OutingSceneState.Home)
+                        continue;
+                if (GameEntry.Utils.TimeTag != story.timeTag)
+                    if (story.timeTag != TimeTag.None)
+                        continue;
+                if (GameEntry.Utils.Check(story.trigger))
+                {
+                    GameEntry.UI.OpenUIForm(UIFormId.DialogForm, story.dialogueGraph);
+                    InDialog = true;
+                    GameEntry.Event.FireNow(this, DialogEventArgs.Create(InDialog, story.dialogueGraph.name));
+                    foreach (EventData eventData in story.eventDatas)
+                    {
+                        GameEntry.Utils.RunEvent(eventData);
+                    }
+                    if (story.isRemove)
+                        loadedStories.Remove(story);
+                    return true;
+                }
+            }
+            return false;
         }
 
         public bool StoryUpdate()
         {
+            mAction=null;
             foreach (StorySO story in loadedStories)
             {
                 if(story.outingSceneState!=OutingSceneState.Main)
@@ -61,13 +88,11 @@ namespace GameMain
                 if (GameEntry.Utils.outingBefore != story.outingBefore)
                     if (GameEntry.Utils.Location == OutingSceneState.Home)
                         continue;
-                //if (GameEntry.Utils.TimeTag != story.timeTag)
-                //    if (GameEntry.Utils.TimeTag != TimeTag.None)
-                //        continue;
+                if (GameEntry.Utils.TimeTag != story.timeTag)
+                    if (story.timeTag != TimeTag.None)
+                        continue;
                 if (GameEntry.Utils.Check(story.trigger))
                 {
-                    Debug.Log(story.name);
-                    Debug.Log(story.dialogueGraph.name);
                     GameEntry.UI.OpenUIForm(UIFormId.DialogForm, story.dialogueGraph);
                     InDialog = true;
                     GameEntry.Event.FireNow(this, DialogEventArgs.Create(InDialog, story.dialogueGraph.name));

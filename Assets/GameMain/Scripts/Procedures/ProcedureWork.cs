@@ -34,6 +34,8 @@ namespace GameMain
             }
             //≥°æ∞º”‘ÿ
             GameEntry.Scene.LoadScene(AssetUtility.GetSceneAsset(drScene.AssetName), /*Constant.AssetPriority.SceneAsset*/0, this);
+            GameEntry.Utils.TimeTag = TimeTag.ForeWork;
+            GameEntry.Dialog.StoryUpdate();
         }
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
         {

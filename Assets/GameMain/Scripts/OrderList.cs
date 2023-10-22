@@ -27,7 +27,10 @@ namespace GameMain
             }
             set
             {
-                if (!value) nowTime = 9999f;
+                if (value)
+                    nowTime = -1;
+                else
+                    nowTime = 9999999f;
                 mIsShowItem = value;
             }
         }

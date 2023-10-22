@@ -25,6 +25,8 @@ public class StorySO : ScriptableObject
     public DialogueGraph dialogueGraph;
     [SerializeField]
     public List<EventData> eventDatas= new List<EventData>();
+    [SerializeField,TextArea(5,10)]
+    public string content;
 
 #if UNITY_EDITOR
     [MenuItem("Data/Story/主故事输出为CSV")]

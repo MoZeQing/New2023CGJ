@@ -27,6 +27,7 @@ namespace GameMain
         public int love = 0;
         public int family= 0;
         public int day = 0;
+        public int rent = 0;
         public int closet = 101;
         public List<string> clearFlags;
         public List<ItemTag> playerItems = new List<ItemTag>();
@@ -87,6 +88,7 @@ namespace GameMain
             GameEntry.Utils.Love = love;
             GameEntry.Utils.Family = family;
             GameEntry.Utils.Day = day;
+            GameEntry.Utils.Rent= rent;
             GameEntry.Utils.closet = closet;
             GameEntry.Utils.ClearFlag();
             GameEntry.Dialog.LoadGame();

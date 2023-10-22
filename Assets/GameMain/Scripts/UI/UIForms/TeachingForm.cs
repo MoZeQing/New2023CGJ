@@ -23,6 +23,7 @@ namespace GameMain
         [SerializeField] private Text loveText;
         [SerializeField] private Text familyText;
         [SerializeField] private Text timeText;
+        [SerializeField] private Text rentText;
         [SerializeField] private Text abilityText;
         [Header("右侧操作栏")]
         [SerializeField] private Transform rightCanvas;
@@ -181,7 +182,7 @@ namespace GameMain
             }
             else
             {
-                GameEntry.Utils.Energy += 60;
+                GameEntry.Utils.Energy += 40;
                 GameEntry.Utils.Ap = GameEntry.Utils.MaxAp;
             }
 
@@ -230,7 +231,6 @@ namespace GameMain
         }
         private void PassDay()
         {
-            GameEntry.Utils.Energy += 60;
             GameEntry.Utils.Ap = GameEntry.Utils.MaxAp;
             rightCanvas.gameObject.SetActive(false);
             leftCanvas.gameObject.SetActive(false);
@@ -290,6 +290,8 @@ namespace GameMain
         { 
             PlayerDataEventArgs playerDataEvent= (PlayerDataEventArgs)e;
             PlayerData playerData= playerDataEvent.PlayerData;
+            rentText.transform.parent.gameObject.SetActive(GameEntry.Utils.Rent != 0);
+            rentText.text = string.Format("距离下一次欠款缴纳还有{0}天\r\n下一次交纳欠款：{1}",6-(playerData.day + 20) % 7, GameEntry.Utils.Rent.ToString());
             APText.text = string.Format("{0}/{1}", playerData.ap, playerData.maxAp);
             energyText.text = string.Format("{0}/{1}", playerData.energy, playerData.maxEnergy);
             moneyText.text=string.Format("{0}", playerData.money.ToString());
