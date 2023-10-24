@@ -454,6 +454,7 @@ namespace GameMain
                     return true;
                 case EventTag.AddMoney:
                     GameEntry.Utils.Money += int.Parse(eventData.value);
+                    Debug.Log(int.Parse(eventData.value));
                     return true;
                 case EventTag.AddFavor:
                     GameEntry.Utils.Favor += int.Parse(eventData.value);

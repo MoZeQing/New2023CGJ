@@ -12,17 +12,113 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9d3fe38b58a1ff4cbfd1f6e24dcdd50, type: 3}
   m_Name: Rent_End
   m_EditorClassIdentifier: 
-  isRemove: 0
-  outingSceneState: 0
+  isRemove: 1
+  outingSceneState: -1
   outingBefore: 0
-  timeTag: 0
+  timeTag: 2
   trigger:
-    key: 1
+    key: 17
     not: 0
     equals: 1
-    value: 123
+    value: Monday
     and: []
-    or: []
-  dialogueGraph: {fileID: 0}
+    or:
+    - key: 10
+      not: 0
+      equals: 1
+      value: 15
+      and:
+      - key: 8
+        not: 1
+        equals: 0
+        value: 500
+        and: []
+        or: []
+      or: []
+    - key: 10
+      not: 0
+      equals: 1
+      value: 22
+      and:
+      - key: 8
+        not: 1
+        equals: 0
+        value: 750
+        and: []
+        or: []
+      or: []
+    - key: 10
+      not: 0
+      equals: 1
+      value: 29
+      and:
+      - key: 8
+        not: 1
+        equals: 0
+        value: 1000
+        and: []
+        or: []
+      or: []
+    - key: 10
+      not: 0
+      equals: 1
+      value: 36
+      and:
+      - key: 8
+        not: 1
+        equals: 0
+        value: 1250
+        and: []
+        or: []
+      or: []
+    - key: 10
+      not: 0
+      equals: 1
+      value: 43
+      and:
+      - key: 8
+        not: 1
+        equals: 0
+        value: 1500
+        and: []
+        or: []
+      or: []
+    - key: 10
+      not: 0
+      equals: 1
+      value: 49
+      and:
+      - key: 8
+        not: 1
+        equals: 0
+        value: 1750
+        and: []
+        or: []
+      or: []
+    - key: 10
+      not: 0
+      equals: 1
+      value: 57
+      and:
+      - key: 8
+        not: 1
+        equals: 0
+        value: 2000
+        and: []
+        or: []
+      or: []
+    - key: 10
+      not: 0
+      equals: 0
+      value: 57
+      and:
+      - key: 8
+        not: 1
+        equals: 0
+        value: 2000
+        and: []
+        or: []
+      or: []
+  dialogueGraph: {fileID: 11400000, guid: 30d1cc1955db408409e8263d182cca1d, type: 2}
   eventDatas: []
   content: "\u79DF\u91D1\u4E8B\u4EF6\u94FEEnd\n\u4E0D\u591F\u94B1\uFF0C\u5BC4\u4E86"

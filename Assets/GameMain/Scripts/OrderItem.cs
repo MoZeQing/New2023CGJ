@@ -44,9 +44,9 @@ public class OrderItem : Entity
         DRNode dRNode = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)mOrderData.NodeTag);
         //coffeeItem.sprite = GameEntry.Utils.nodeImage[(int)mOrderData.NodeTag];
         coffeeName.text = dRNode.Description;
-        sugar.color = new Color(0f, 0f, 0f, mOrderData.Sugar ? 1f : 0.5f);
-        condensedMilk.color = new Color(0f, 0f, 0f, mOrderData.CondensedMilk ? 1f : 0.5f);
-        salt.color = new Color(0f, 0f, 0f, mOrderData.Salt ? 1f : 0.5f);
+        sugar.color = mOrderData.Sugar ? Color.black : Color.clear;
+        condensedMilk.color = mOrderData.CondensedMilk ? Color.black : Color.clear;
+        salt.color = mOrderData.Salt ? Color.black : Color.clear; 
         nowTime = mOrderData.OrderTime;
     }
 

@@ -12,17 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9d3fe38b58a1ff4cbfd1f6e24dcdd50, type: 3}
   m_Name: Rent_2
   m_EditorClassIdentifier: 
-  isRemove: 0
-  outingSceneState: 0
+  isRemove: 1
+  outingSceneState: -1
   outingBefore: 0
-  timeTag: 0
+  timeTag: 2
   trigger:
-    key: 1
+    key: 17
     not: 0
     equals: 1
-    value: 123
-    and: []
+    value: Monday
+    and:
+    - key: 10
+      not: 0
+      equals: 1
+      value: 15
+      and: []
+      or: []
     or: []
-  dialogueGraph: {fileID: 0}
-  eventDatas: []
-  content: "\u79DF\u91D1\u4E8B\u4EF6\u94FE1\n\u6BCF\u5468\u4E00\u7684\u65E9\u4E0A\u89E6\u53D1\u4E00\u6B21\uFF0C\u4E0B\u5468\u4E00\u89E6\u53D1Rent_1\n\u4E8B\u4EF6\u8BBE\u7F6E\u6B20\u6B3E\u63D0\u793A\uFF1A1000"
+  dialogueGraph: {fileID: 11400000, guid: 5ccaf7e6b2fd7814cbb5839c5ae8beb9, type: 2}
+  eventDatas:
+  - eventTag: 19
+    value: 750
+  - eventTag: 10
+    value: -500
+  content: "\u79DF\u91D1\u4E8B\u4EF6\u94FE1\n\u6BCF\u5468\u4E00\u7684\u65E9\u4E0A\u89E6\u53D1\u4E00\u6B21\uFF0C\u4E0B\u5468\u4E00\u89E6\u53D1Rent_1\n\u4E8B\u4EF6\u8BBE\u7F6E\u6B20\u6B3E\u63D0\u793A\uFF1A750"
