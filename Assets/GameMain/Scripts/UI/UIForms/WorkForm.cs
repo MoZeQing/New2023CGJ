@@ -23,6 +23,7 @@ namespace GameMain
         [SerializeField] private Button hardBtn;
         [SerializeField] private Button commonBtn;
         [SerializeField] private Button easyBtn;
+        [SerializeField] private bool isGuide;
 
         [SerializeField] public bool IsGuide { get; set; }
 
@@ -62,13 +63,16 @@ namespace GameMain
             //testBtn.onClick.AddListener(OnLevel);
             //test2Btn.onClick.AddListener(() => GameEntry.Utils.RunEvent(new EventData(EventTag.NextDay)));
 
-            Debug.Log(GameEntry.Utils.Energy);
-            hardBtn.onClick.AddListener(() => SetData(240));
-            if (GameEntry.Utils.Energy < 60) hardBtn.interactable = false;
-            commonBtn.onClick.AddListener(() => SetData(180));
-            if (GameEntry.Utils.Energy < 40) commonBtn.interactable = false;
-            easyBtn.onClick.AddListener(() => SetData(120));
-            if (GameEntry.Utils.Energy < 20) easyBtn.interactable = false;
+            if (!isGuide)
+            {
+                Debug.Log(GameEntry.Utils.Energy);
+                hardBtn.onClick.AddListener(() => SetData(240));
+                if (GameEntry.Utils.Energy < 60) hardBtn.interactable = false;
+                commonBtn.onClick.AddListener(() => SetData(180));
+                if (GameEntry.Utils.Energy < 40) commonBtn.interactable = false;
+                easyBtn.onClick.AddListener(() => SetData(120));
+                if (GameEntry.Utils.Energy < 20) easyBtn.interactable = false;
+            }
             levelSOs = new List<LevelSO>(Resources.LoadAll<LevelSO>("LevelData"));
             mLevelData = levelSOs[0].levelData;
             GameEntry.Event.Subscribe(OrderEventArgs.EventId, OnOrderEvent);
