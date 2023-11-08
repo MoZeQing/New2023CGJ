@@ -21,6 +21,8 @@ namespace GameMain
         public DialogueGraph foreWork;
         public DialogueGraph afterWork;
         public DialogueGraph failWork;
-        public OrderData orderData;
+        public List<OrderData> orderDatas;
+        public int favor;//整体订单好感度，每完成一单则按照比例增加对应的favor，对话也应该分配对应的好感度
+        public int orderTime;
     }
 }

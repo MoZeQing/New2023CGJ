@@ -7,7 +7,7 @@ using UnityEngine;
 public class LevelSO : ScriptableObject
 {
     [SerializeField]
-    public Week week;
+    public bool isRandom;
     [SerializeField]
     public ParentTrigger trigger;
     [SerializeField]

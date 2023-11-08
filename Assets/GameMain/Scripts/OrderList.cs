@@ -95,7 +95,7 @@ namespace GameMain
             orderData.NodeName = orderData.NodeTag.ToString();
             ShowItem(orderData);
         }
-        public void ShowItems(List<OrderData> orderDatas)
+        public void ShowItem(List<OrderData> orderDatas)
         {
             foreach (OrderData orderData in orderDatas) 
             {

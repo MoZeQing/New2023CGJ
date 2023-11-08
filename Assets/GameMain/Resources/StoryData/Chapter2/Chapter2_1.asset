@@ -13,15 +13,21 @@ MonoBehaviour:
   m_Name: Chapter2_1
   m_EditorClassIdentifier: 
   isRemove: 1
-  outingSceneState: 0
+  outingSceneState: -1
   outingBefore: 0
   timeTag: 4
   trigger:
     key: 10
     not: 0
     equals: 0
-    value: 4
+    value: 5
     and:
+    - key: 1
+      not: 0
+      equals: 1
+      value: Chapter2
+      and: []
+      or: []
     - key: 16
       not: 0
       equals: 1
@@ -29,5 +35,5 @@ MonoBehaviour:
       and: []
       or: []
     or: []
-  dialogueGraph: {fileID: 11400000, guid: 23d6d835989222847b65b00ff94b1cdf, type: 2}
+  dialogueGraph: {fileID: 11400000, guid: 8b16cb479dd42cb40a2c07ba1fc1e699, type: 2}
   eventDatas: []

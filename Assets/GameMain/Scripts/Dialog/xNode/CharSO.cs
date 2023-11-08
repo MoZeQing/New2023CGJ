@@ -9,6 +9,7 @@ namespace GameMain
     {
         public bool isMain;
         public string charName;
+        public int favor;
         public List<Sprite> diffs = new List<Sprite>();
         public List<int> audios = new List<int>();
     }

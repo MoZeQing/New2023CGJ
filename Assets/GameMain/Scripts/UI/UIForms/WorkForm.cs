@@ -28,7 +28,9 @@ namespace GameMain
         [SerializeField] public bool IsGuide { get; set; }
 
         private List<LevelSO> levelSOs= new List<LevelSO>();
+        private List<LevelSO> mRandomSos = new List<LevelSO>();
         private LevelData mLevelData;
+        private int mOrderCount;
         private float nowTime;
         private float levelTime;
         private bool isSpecial;
@@ -66,15 +68,19 @@ namespace GameMain
             if (!isGuide)
             {
                 Debug.Log(GameEntry.Utils.Energy);
-                hardBtn.onClick.AddListener(() => SetData(240));
+                hardBtn.onClick.AddListener(() => SetData(180));
                 if (GameEntry.Utils.Energy < 60) hardBtn.interactable = false;
-                commonBtn.onClick.AddListener(() => SetData(180));
+                commonBtn.onClick.AddListener(() => SetData(135));
                 if (GameEntry.Utils.Energy < 40) commonBtn.interactable = false;
-                easyBtn.onClick.AddListener(() => SetData(120));
+                easyBtn.onClick.AddListener(() => SetData(90));
                 if (GameEntry.Utils.Energy < 20) easyBtn.interactable = false;
             }
             levelSOs = new List<LevelSO>(Resources.LoadAll<LevelSO>("LevelData"));
             mLevelData = levelSOs[0].levelData;
+            foreach (LevelSO level in mRandomSos)
+            {
+                if (level.isRandom) mRandomSos.Add(level);
+            }
             GameEntry.Event.Subscribe(OrderEventArgs.EventId, OnOrderEvent);
         }
 
@@ -84,7 +90,7 @@ namespace GameMain
             //downBtn.onClick.RemoveAllListeners();
             recipeBtn.onClick.RemoveAllListeners();
             guideBtn.onClick.RemoveAllListeners();
-
+            mRandomSos.Clear();
             GameEntry.Event.Unsubscribe(OrderEventArgs.EventId, OnOrderEvent);
         }
 
@@ -137,8 +143,6 @@ namespace GameMain
             List<LevelSO> levels = new List<LevelSO>();
             foreach (LevelSO level in levelSOs)
             {
-                //if (level.week != GameEntry.Utils.Week)
-                //    continue;
                 if (GameEntry.Utils.Check(level.trigger))
                 {
                     levels.Add(level);
@@ -148,9 +152,9 @@ namespace GameMain
             {
                 OnLevel(levels[UnityEngine.Random.Range(0, levels.Count)].levelData);
             }
-            else
+            else//合法则随机选择，非法则全随机
             {
-                OnLevel(levelSOs[0].levelData);
+                OnLevel(mRandomSos[UnityEngine.Random.Range(0, mRandomSos.Count)].levelData);
             }
         }
 
@@ -158,8 +162,6 @@ namespace GameMain
         {
             foreach (LevelSO level in levelSOs)
             {
-                //if (level.week != GameEntry.Utils.Week)
-                //    continue;
                 if (level.name==levelName)
                 {
                     OnLevel(level.levelData);
@@ -171,6 +173,7 @@ namespace GameMain
         public void OnLevel(LevelData levelData)
         { 
             mLevelData= levelData;
+            mOrderCount = 0;
             GamePosUtility.Instance.GamePosChange(GamePos.Up);
             dialogBox.SetDialog(mLevelData.foreWork);
             dialogBox.Next();
@@ -181,9 +184,9 @@ namespace GameMain
         private void OnForeWorkComplete()
         {
             GamePosUtility.Instance.GamePosChange(GamePos.Down);
-            nowTime = mLevelData.orderData.OrderTime;
+            nowTime = mLevelData.orderTime;
             orderList.IsShowItem= true;
-            orderList.ShowItem(mLevelData.orderData);
+            orderList.ShowItem(mLevelData.orderDatas);
             orderList.IsShowItem = false;
             IsDialog= false;
             isSpecial = true;
@@ -200,7 +203,9 @@ namespace GameMain
             OrderEventArgs args = (OrderEventArgs)e;
             if (mLevelData != null)
             {
-                if (mLevelData.orderData == args.OrderData)
+                if (mLevelData.orderDatas.Contains(args.OrderData))
+                    mOrderCount++;
+                if (mOrderCount == mLevelData.orderDatas.Count)
                 {
                     GamePosUtility.Instance.GamePosChange(GamePos.Up);
                     dialogBox.SetDialog(mLevelData.afterWork);
