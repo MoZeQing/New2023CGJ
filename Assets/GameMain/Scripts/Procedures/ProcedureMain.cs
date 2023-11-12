@@ -135,13 +135,9 @@ namespace GameMain
         Home,//家
         Greengrocer,//果蔬商
         Glass,//玻璃仪器店
-        MusicHall,//电影院
-        Hospital,//医院
+        Gym,//电影院
         Restaurant,//餐馆
         Beach,//海滩
-        Bakery,//烘培店
-        Bookstore,//书店
-        BlackMarket,//黑市
         Park//公园
     }
 }

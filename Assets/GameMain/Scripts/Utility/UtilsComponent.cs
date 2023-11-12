@@ -60,6 +60,8 @@ namespace GameMain
 
         public bool outingBefore;
 
+        public List<CharSO> friends = new List<CharSO>();
+
         public void AddPlayerItem(ItemData itemData, int num)
         {
             if (GetPlayerItem(itemData.itemTag) == null)

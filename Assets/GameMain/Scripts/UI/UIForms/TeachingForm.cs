@@ -16,15 +16,12 @@ namespace GameMain
         [Header("左侧信息栏")]
         [SerializeField] private Transform leftCanvas;
         [SerializeField] private Text moneyText;
-        [SerializeField] private Text APText;
         [SerializeField] private Text energyText;
-        [SerializeField] private Text hopeText;
         [SerializeField] private Text favorText;
         [SerializeField] private Text loveText;
         [SerializeField] private Text familyText;
         [SerializeField] private Text timeText;
         [SerializeField] private Text rentText;
-        [SerializeField] private Text abilityText;
         [Header("右侧操作栏")]
         [SerializeField] private Transform rightCanvas;
         [SerializeField] private Button cleanBtn;
@@ -280,11 +277,9 @@ namespace GameMain
         { 
             CharDataEventArgs charDataEvent= (CharDataEventArgs)e;
             CharData charData=charDataEvent.CharData;
-            favorText.text = charData.favor.ToString();
-            hopeText.text= charData.hope.ToString();
-            loveText.text =  charData.love.ToString();
-            familyText.text =  charData.family.ToString();
-            abilityText.text=charData.ability.ToString();
+            favorText.text = string.Format("好感：{0}", charData.favor);
+            loveText.text = string.Format("爱情：{0}", charData.love);
+            familyText.text = string.Format("亲情：{0}", charData.family);
         }
         private void PlayerDataEvent(object sender, GameEventArgs e)
         { 
@@ -292,9 +287,8 @@ namespace GameMain
             PlayerData playerData= playerDataEvent.PlayerData;
             rentText.transform.parent.gameObject.SetActive(GameEntry.Utils.Rent != 0);
             rentText.text = string.Format("距离下一次欠款缴纳还有{0}天\r\n下一次交纳欠款：{1}",6-(playerData.day + 20) % 7, GameEntry.Utils.Rent.ToString());
-            APText.text = string.Format("{0}/{1}", playerData.ap, playerData.maxAp);
-            energyText.text = string.Format("{0}/{1}", playerData.energy, playerData.maxEnergy);
-            moneyText.text=string.Format("{0}", playerData.money.ToString());
+            energyText.text = string.Format("体力：{0}/{1}", playerData.energy, playerData.maxEnergy);
+            moneyText.text=string.Format("金钱：{0}", playerData.money.ToString());
             timeText.text = string.Format("{0}月{1}日 星期{2}", (4 + (playerData.day + 20) / 28) % 12 + 1, (playerData.day + 19) % 28 + 1, AssetUtility.GetWeekCN((playerData.day + 20) % 7));
         }
         //单独给点击做一个方法调用

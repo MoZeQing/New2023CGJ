@@ -32,13 +32,8 @@ namespace GameMain
 
             mGreengrocerBtn.onClick.AddListener(() => Outing(OutingSceneState.Greengrocer));
             mGlassBtn.onClick.AddListener(() => Outing(OutingSceneState.Glass));
-            mCinemaBtn.onClick.AddListener(() => Outing(OutingSceneState.MusicHall));
-            mHospitalBtn.onClick.AddListener(() => Outing(OutingSceneState.Hospital));
             mRestaurantBtn.onClick.AddListener(() => Outing(OutingSceneState.Restaurant));
             mBeachBtn.onClick.AddListener(() => Outing(OutingSceneState.Beach));
-            mBakeryBtn.onClick.AddListener(() => Outing(OutingSceneState.Bakery));
-            mBookstoreBtn.onClick.AddListener(() => Outing(OutingSceneState.Bookstore));
-            mBlackMarketBtn.onClick.AddListener(() => Outing(OutingSceneState.BlackMarket));
             mParkBtn.onClick.AddListener(() => Outing(OutingSceneState.Park));
         }
 

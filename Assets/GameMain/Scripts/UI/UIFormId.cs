@@ -22,9 +22,9 @@ namespace GameMain
         LoadForm=13,
         OptionForm=14,
         GreengrocerForm=21,
-        BakeryForm = 27,
+        GymForm = 27,
         RestaurantFrom=25,
-        MusicHallForm =23,
+        BenchForm =23,
         GlassFrom=22,
         GuideForm =15,
         ClosetForm=16,
@@ -34,6 +34,8 @@ namespace GameMain
         PassDayForm=52,
         TitleForm=53,
         RecipeForm=54,
+        FriendForm=55,
+        PopTips=100,
     }
 }
 
