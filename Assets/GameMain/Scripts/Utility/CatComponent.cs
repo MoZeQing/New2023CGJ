@@ -23,7 +23,6 @@ namespace GameMain
             {
                 catStateDatas.Add(catStateSO.catStateData);
             }
-            UpdateState();
         }
         public int Favour
         {
@@ -51,19 +50,20 @@ namespace GameMain
         }
         public CatStateData GetCatState()
         {
+            UpdateState();
             return catState;
         }
         public BehaviorData GetBehavior(BehaviorTag behaviorTag)
         {
+            UpdateState();
             return behaviors[behaviorTag];
         }
         public void UpdateState()
         {
             //如果当前有效则直接启动
-            if (GameEntry.Utils.Check(catState.trigger))
+            if (catState!=null&&GameEntry.Utils.Check(catState.trigger))
                 return;
-            catState = catStateDatas[0];
-            for (int i=1;i<catStateDatas.Count;i++)
+            for (int i=0;i<catStateDatas.Count;i++)
             {
                 CatStateData stateData = catStateDatas[i];
                 if (GameEntry.Utils.Check(stateData.trigger))

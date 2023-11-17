@@ -24,13 +24,6 @@ namespace GameMain
         [SerializeField] private Text rentText;
         [Header("右侧操作栏")]
         [SerializeField] private Transform rightCanvas;
-        [SerializeField] private Button cleanBtn;
-        [SerializeField] private Button playBtn;
-        [SerializeField] private Button bathBtn;
-        [SerializeField] private Button tvBtn;
-        [SerializeField] private Button touchBtn;
-        [SerializeField] private Button restBtn;
-        [SerializeField] private Button sleepBtn;
         [Header("主控")]
         [SerializeField] private Transform mainCanvas;
         [SerializeField] private DialogBox dialogBox;
@@ -41,6 +34,8 @@ namespace GameMain
 
         private DialogForm mDialogForm = null;
         [SerializeField] public ActionGraph mActionGraph = null;
+        [SerializeField] private GameObject behaviorBtn;
+        private CatStateData mCatStateData = null; 
         private ActionNode mActionNode = null;
         private BehaviorTag mBehaviorTag;
         private ProcedureMain mProcedureMain = null;
@@ -78,6 +73,28 @@ namespace GameMain
             mLittleCat.ShowLittleCat();
             GameEntry.Event.Unsubscribe(CharDataEventArgs.EventId, CharDataEvent);
             GameEntry.Event.Unsubscribe(PlayerDataEventArgs.EventId, PlayerDataEvent);
+        }
+        private void ShowButtons()
+        {
+            if (mCatStateData == GameEntry.Cat.GetCatState())
+                return;
+            mCatStateData = GameEntry.Cat.GetCatState();
+            DestroyButtons();
+            foreach (BehaviorData behaviorData in mCatStateData.behaviors)
+            {
+                GameObject go = GameObject.Instantiate(behaviorBtn, rightCanvas);
+                Button button=go.GetComponent<Button>();
+                button.onClick.AddListener(() => Behaviour(behaviorData.behaviorTag));
+                m_Btns.Add(go);
+            }
+        }
+        private void DestroyButtons()
+        {
+            for (int i=0;i<rightCanvas.childCount;i++)
+            {
+                Destroy(rightCanvas.GetChild(i).gameObject);
+            }
+            m_Btns.Clear();
         }
         public void Behaviour(BehaviorTag behaviorTag)
         {
@@ -170,6 +187,7 @@ namespace GameMain
                 dialogBox.gameObject.SetActive(false);
                 leftCanvas.gameObject.SetActive(true);
                 rightCanvas.gameObject.SetActive(true);
+                ShowButtons();
             }
         }
         private void OnFaded()
@@ -199,6 +217,7 @@ namespace GameMain
         public void Click_Action()
         {
             GameEntry.Event.FireNow(this, MainFormEventArgs.Create(MainFormTag.Lock));
+            ShowButtons();
             mLittleCat.ShowLittleCat();
             rightCanvas.gameObject.SetActive(false);
             leftCanvas.gameObject.SetActive(true);
