@@ -54,14 +54,6 @@ namespace GameMain
             GameEntry.Event.Subscribe(PlayerDataEventArgs.EventId, PlayerDataEvent);
             GameEntry.Utils.UpdateData();
 
-            cleanBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Clean));
-            touchBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Touch));
-            playBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Play));
-            sleepBtn.onClick.AddListener(OnSleep);
-            bathBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Bath));
-            restBtn.onClick.AddListener(() => Behaviour(BehaviorTag.Rest));
-            tvBtn.onClick.AddListener(() => Behaviour(BehaviorTag.TV));
-
             mCanvasGroup = this.GetComponent<CanvasGroup>();
             this.transform.localScale = Vector3.one * 0.01f;
         }
@@ -86,135 +78,47 @@ namespace GameMain
             mLittleCat.ShowLittleCat();
             GameEntry.Event.Unsubscribe(CharDataEventArgs.EventId, CharDataEvent);
             GameEntry.Event.Unsubscribe(PlayerDataEventArgs.EventId, PlayerDataEvent);
-
-            touchBtn.onClick.RemoveAllListeners();
-            playBtn.onClick.RemoveAllListeners();
-            sleepBtn.onClick.RemoveAllListeners();
-            cleanBtn.onClick.RemoveAllListeners();
-            tvBtn.onClick.RemoveAllListeners();
-            restBtn.onClick.RemoveAllListeners();
-            bathBtn.onClick.RemoveAllListeners();
         }
         public void Behaviour(BehaviorTag behaviorTag)
         {
-            mActionNode = mActionGraph.ActionNode();
             mBehaviorTag = behaviorTag;
-            List<ParentTrigger> triggers = new List<ParentTrigger>();
-            PlayerData playerData = new PlayerData();
-            CharData charData = new CharData();
-            switch (behaviorTag)
-            {
-                case BehaviorTag.Click:
-                    triggers = mActionNode.Click;
-                    playerData = mActionNode.ClickData;
-                    charData = mActionNode.ClickCharData;
-                    break;
-                case BehaviorTag.Clean:
-                    triggers = mActionNode.Clean;
-                    playerData= mActionNode.CleanData;
-                    charData= mActionNode.CleanCharData;
-                    break;
-                case BehaviorTag.Bath:
-                    triggers = mActionNode.Bath;
-                    playerData= mActionNode.BathData;
-                    charData= mActionNode.BathCharData;
-                    break;
-                case BehaviorTag.Rest:
-                    triggers = mActionNode.Rest;
-                    playerData= mActionNode.RestData;
-                    charData= mActionNode.RestCharData;
-                    break;
-                case BehaviorTag.TV:
-                    triggers = mActionNode.TV;
-                    playerData= mActionNode.TVData;
-                    charData= mActionNode.TVCharData;
-                    break;
-                case BehaviorTag.Talk:
-                    triggers = mActionNode.Talk;
-                    playerData = mActionNode.TalkData;
-                    charData= mActionNode.TalkCharData;
-                    break;
-                case BehaviorTag.Touch:
-                    triggers = mActionNode.Touch;
-                    playerData = mActionNode.TouchData;
-                    charData= mActionNode.TouchCharData;
-                    break;
-                case BehaviorTag.Play:
-                    triggers = mActionNode.Play;
-                    playerData = mActionNode.PlayData;
-                    charData= mActionNode.PlayCharData;
-                    break;
-                case BehaviorTag.Sleep:
-                    triggers = mActionNode.Sleep;
-                    charData= mActionNode.SleepCharData;
-                    break;
-                case BehaviorTag.Morning:
-                    triggers = mActionNode.Morning;
-                    charData=mActionNode.MorningCharData;
-                    break;
-            }
+            BehaviorData behavior = GameEntry.Cat.GetBehavior(behaviorTag);
             if (behaviorTag != BehaviorTag.Sleep)
             {
-                if (GameEntry.Utils.Energy < playerData.energy)
+                if (GameEntry.Utils.Energy < behavior.playerData.energy)
                 {
                     GameEntry.UI.OpenUIForm(UIFormId.TitleForm, "你没有足够的体力");
                     return;
                 }
-                if (GameEntry.Utils.Ap < playerData.ap)
+                if (GameEntry.Utils.Ap < behavior.playerData.ap)
                 {
                     GameEntry.UI.OpenUIForm(UIFormId.TitleForm, "你没有足够的行动力");
                     return;
                 }
-                GameEntry.Utils.Energy -= playerData.energy;
-                GameEntry.Utils.Money -= playerData.money;
-                GameEntry.Utils.MaxEnergy -= playerData.maxEnergy;
-                GameEntry.Utils.Ap -= playerData.ap;
-                GameEntry.Utils.MaxAp -= playerData.maxAp;
+                GameEntry.Utils.Energy -= behavior.playerData.energy;
+                GameEntry.Utils.Money -= behavior.playerData.money;
+                GameEntry.Utils.MaxEnergy -= behavior.playerData.maxEnergy;
+                GameEntry.Utils.Ap -= behavior.playerData.ap;
+                GameEntry.Utils.MaxAp -= behavior.playerData.maxAp;
 
-                GameEntry.Utils.Mood += charData.mood;
-                GameEntry.Utils.Favor += charData.favor;
-                GameEntry.Utils.Hope += charData.hope;
-                GameEntry.Utils.Love+= charData.love;
-                GameEntry.Utils.Family += charData.family;
+                GameEntry.Utils.Favor += behavior.catData.favour;
+                GameEntry.Utils.Love+= behavior.catData.love;
+                GameEntry.Utils.Family += behavior.catData.family;
             }
             else
             {
                 GameEntry.Utils.Energy += 40;
                 GameEntry.Utils.Ap = GameEntry.Utils.MaxAp;
             }
-
-            List<ChatNode> chatNodes = new List<ChatNode>();
-            for (int i = 0; i < triggers.Count; i++)
-            {
-                if (GameEntry.Utils.Check(triggers[i]))
-                {
-                    if (mActionNode.GetPort(string.Format("{0} {1}", behaviorTag.ToString(), i)) != null)
-                    {
-                        NodePort nodePort = mActionNode.GetPort(string.Format("{0} {1}", behaviorTag.ToString(), i));
-                        if (nodePort.Connection != null)
-                        {
-                            ChatNode node = (ChatNode)nodePort.Connection.node;
-                            chatNodes.Add(node);
-                        }
-                    }
-                }
-            }
-            if (chatNodes.Count > 0)
-            {
-                ChatNode chatNode = chatNodes[UnityEngine.Random.Range(0, chatNodes.Count)];
-                dialogBox.gameObject.SetActive(true);
-                dialogBox.SetDialog(chatNode);
-                InDialog = true;
-                dialogBox.SetComplete(OnComplete);
-                leftCanvas.gameObject.SetActive(false);
-                rightCanvas.gameObject.SetActive(false);
-                stage.gameObject.SetActive(true);
-                mLittleCat.HideLittleCat();
-            }
-            else
-            {
-                Debug.LogWarningFormat("错误，不存在合法的对话剧情，请检查{0}的{1}", mActionNode.name, behaviorTag.ToString());
-            }
+            DialogueGraph dialogueGraph = behavior.dialogues[UnityEngine.Random.Range(0, behavior.dialogues.Count)];
+            dialogBox.gameObject.SetActive(true);
+            dialogBox.SetDialog(dialogueGraph);
+            InDialog = true;
+            dialogBox.SetComplete(OnComplete);
+            leftCanvas.gameObject.SetActive(false);
+            rightCanvas.gameObject.SetActive(false);
+            stage.gameObject.SetActive(true);
+            mLittleCat.HideLittleCat();
         }
         //不允许在回调中再设置回调，会导致回调错误
         //也就是说，在SetComplete方法中设置的方法不能有Behaviour等会设置回调的方法

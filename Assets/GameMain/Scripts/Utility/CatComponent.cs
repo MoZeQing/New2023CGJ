@@ -8,14 +8,31 @@ namespace GameMain
     public class CatComponent : GameFrameworkComponent
     {
         private int m_Favour = 0;
-        private int m_Mood = 0;
-        private int m_Hope = 0;
         private int m_Love = 0;
         private int m_Family = 0;
+        //猫猫状态数据，其中0为默认的状态，也是当所有条件都不满足时的状态，一般作为溢出状态
+        private List<CatStateData> catStateDatas = new List<CatStateData>();
+        private CatStateData catState;
+        private Dictionary<BehaviorTag, BehaviorData> behaviors = new Dictionary<BehaviorTag, BehaviorData>();
 
-        private ActionGraph m_ActionGraph = null;
-        private ActionNode m_ActionNode = null;
-
+        private void Start()
+        {
+            catStateDatas.Clear();
+            CatStateSO[] catStateSOs = Resources.LoadAll<CatStateSO>("CatStateData");
+            foreach (CatStateSO catStateSO in catStateSOs)
+            {
+                catStateDatas.Add(catStateSO.catStateData);
+            }
+            UpdateState();
+        }
+        public int Favour
+        {
+            get
+            {
+                return m_Favour;
+            }
+            private set { }
+        }
         public int Family
         {
             get
@@ -32,87 +49,56 @@ namespace GameMain
             }
             private set { }
         }
-        public int Hope
+        public CatStateData GetCatState()
         {
-            get
-            {
-                return m_Hope;
-            }
-            private set { }
+            return catState;
         }
-        public int Favour
+        public BehaviorData GetBehavior(BehaviorTag behaviorTag)
         {
-            get
-            {
-                return m_Favour;
-            }
-            private set { }
+            return behaviors[behaviorTag];
         }
-
-        public int Mood
+        public void UpdateState()
         {
-            get
-            {
-                return m_Mood;
-            }
-            private set { }
-        }
-        public void SetBehavior(TriggerNode triggerNode)
-        { 
-            
-        }
-        public void SetBehavior(List<TriggerData> triggers)
-        {
-            List<TriggerData> ans = new List<TriggerData>();
-            foreach (TriggerData trigger in triggers)
-            {
-                if (GameEntry.Utils.Check(trigger))
-                    ans.Add(trigger);
-            }
-            if (ans.Count == 0)
-            {
-                //Debug.LogError("错误，不存在合法的剧情，请检查{0}", m_ActionGraph.name.ToString());
+            //如果当前有效则直接启动
+            if (GameEntry.Utils.Check(catState.trigger))
                 return;
-            }
-            else
+            catState = catStateDatas[0];
+            for (int i=1;i<catStateDatas.Count;i++)
             {
-                //SetBehavior(ans[Random.Range(0, ans.Count - 1)]);
-            }
-        }
-        public void SetBehavior(BehaviorTag behaviorTag)
-        {
-
-            switch (behaviorTag)
-            {
-                case BehaviorTag.Click:
-                    //SetBehavior(m_ActionNode.click);
-                    break;
-                case BehaviorTag.Talk:
-                    break;
-                case BehaviorTag.Touch:
-                    break;
-                case BehaviorTag.Play:
-                    break;
-                case BehaviorTag.Story:
-                    break;
-                case BehaviorTag.Sleep:
-                    break;
+                CatStateData stateData = catStateDatas[i];
+                if (GameEntry.Utils.Check(stateData.trigger))
+                {
+                    catState = stateData;
+                    behaviors.Clear();
+                    foreach (BehaviorData behavior in catState.behaviors)
+                    {
+                        behaviors.Add(behavior.behaviorTag, behavior);
+                    }
+                    return;
+                }
             }
         }
     }
     [System.Serializable]
-    public class CharStateData
+    public class CatStateData
+    {
+        public ParentTrigger trigger;
+        public List<BehaviorData> behaviors;
+    }
+    [System.Serializable]
+    public class CatData
     {
         public int favour = 0;
-        public int mood = 0;
-        public int hope = 0;
         public int love = 0;
         public int family = 0;
     }
-    public class Behavior
+    [System.Serializable]
+    public class BehaviorData
     {
-        public BehaviorTag action;
+        public BehaviorTag behaviorTag;
+        public PlayerData playerData;
         public CatData catData;
+        public List<DialogueGraph> dialogues;
     }
 
     public enum BehaviorTag

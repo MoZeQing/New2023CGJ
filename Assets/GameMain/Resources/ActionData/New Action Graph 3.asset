@@ -1,0 +1,137 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-833128375414800365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f925e6c1e949614ba7933c2f423db8b, type: 3}
+  m_Name: Behavior
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -408, y: -152}
+  ports:
+    keys:
+    - a
+    - b
+    - behaviors
+    - behaviors 0
+    - behaviors 1
+    - behaviors 2
+    - behaviors 3
+    - behaviors 4
+    values:
+    - _fieldName: a
+      _node: {fileID: -833128375414800365}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: b
+      _node: {fileID: -833128375414800365}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: behaviors
+      _node: {fileID: -833128375414800365}
+      _typeQualifiedName: System.Collections.Generic.List`1[[GameMain.BehaviorTag,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: behaviors 0
+      _node: {fileID: -833128375414800365}
+      _typeQualifiedName: System.Collections.Generic.List`1[[GameMain.BehaviorTag,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: behaviors 1
+      _node: {fileID: -833128375414800365}
+      _typeQualifiedName: System.Collections.Generic.List`1[[GameMain.BehaviorTag,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: behaviors 2
+      _node: {fileID: -833128375414800365}
+      _typeQualifiedName: System.Collections.Generic.List`1[[GameMain.BehaviorTag,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: behaviors 3
+      _node: {fileID: -833128375414800365}
+      _typeQualifiedName: System.Collections.Generic.List`1[[GameMain.BehaviorTag,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: behaviors 4
+      _node: {fileID: -833128375414800365}
+      _typeQualifiedName: System.Collections.Generic.List`1[[GameMain.BehaviorTag,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+  a: 0
+  b: 0
+  behaviors: 0000000000000000000000000000000000000000
+  charData:
+    favor: 0
+    mood: 0
+    hope: 0
+    love: 0
+    family: 0
+    ability: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51133024182a97943a8c174ae1a8395e, type: 3}
+  m_Name: New Action Graph 3
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: -833128375414800365}
+  charSO: {fileID: 0}
+  trigger:
+    key: 0
+    not: 0
+    equals: 0
+    value: 
+    and: []
+    or: []
