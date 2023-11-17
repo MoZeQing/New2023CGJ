@@ -6,13 +6,15 @@ using DG.Tweening;
 
 public class UIItemPointer : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler
 {
+    [SerializeField] private Vector3 size = Vector3.one * 1.2f;
+    [SerializeField] private float speed = 0.3f;
     public void OnPointerEnter(PointerEventData eventData)
     {
-        this.transform.DOScale(new Vector3(1.2f, 1.2f, 1.2f),0.3f);    
+        this.transform.DOScale(size, speed);    
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        this.transform.DOScale(new Vector3(1f, 1f, 1f), 0.3f);
+        this.transform.DOScale(Vector3.one, speed);
     }
 }
