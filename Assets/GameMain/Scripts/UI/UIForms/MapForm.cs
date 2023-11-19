@@ -8,76 +8,70 @@ using DG.Tweening;
 
 namespace GameMain
 {
-    public class MapForm : UIFormLogic
+    public class MapForm : MonoBehaviour
     {
         [SerializeField] private Button mGreengrocerBtn;
         [SerializeField] private Button mGlassBtn;
-        [SerializeField] private Button mCinemaBtn;
-        [SerializeField] private Button mHospitalBtn;
+        [SerializeField] private Button mClothingBtn;
         [SerializeField] private Button mRestaurantBtn;
         [SerializeField] private Button mBeachBtn;
-        [SerializeField] private Button mBakeryBtn;
-        [SerializeField] private Button mBookstoreBtn;
-        [SerializeField] private Button mBlackMarketBtn;
-        [SerializeField] private Button mParkBtn;
-
-        [SerializeField] private Transform mCanvas;
+        [SerializeField] private Button mGymBtn;
 
         private MainState mMainState;
 
-        protected override void OnOpen(object userData)
+        private void OnEnable()
         {
-            base.OnOpen(userData);
-            mMainState= (MainState)userData;
-
             mGreengrocerBtn.onClick.AddListener(() => Outing(OutingSceneState.Greengrocer));
             mGlassBtn.onClick.AddListener(() => Outing(OutingSceneState.Glass));
             mRestaurantBtn.onClick.AddListener(() => Outing(OutingSceneState.Restaurant));
             mBeachBtn.onClick.AddListener(() => Outing(OutingSceneState.Beach));
-            mParkBtn.onClick.AddListener(() => Outing(OutingSceneState.Park));
+            mClothingBtn.onClick.AddListener(() => Outing(OutingSceneState.Clothing));
+            mGymBtn.onClick.AddListener(() => Outing(OutingSceneState.Gym));
         }
 
-        protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
+        private void OnDisable()
         {
-            base.OnUpdate(elapseSeconds, realElapseSeconds);
-        }
-
-        protected override void OnClose(bool isShutdown, object userData)
-        {
-            base.OnClose(isShutdown, userData);
+            mGreengrocerBtn.onClick.RemoveAllListeners(); ;
+            mGlassBtn.onClick.RemoveAllListeners();
+            mRestaurantBtn.onClick.RemoveAllListeners();
+            mBeachBtn.onClick.RemoveAllListeners();
+            mClothingBtn.onClick.RemoveAllListeners();
+            mGymBtn.onClick.RemoveAllListeners();
         }
 
         private void Outing(OutingSceneState outingSceneState)
         {
+            if (outingSceneState==OutingSceneState.Beach&&GameEntry.Utils.GetPlayerItem(ItemTag.Closet3) == null)
+            {
+                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你没有泳装，请购买泳装才能去往海滩");
+                return;
+            }
             GameEntry.Utils.outSceneState=outingSceneState;
             GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
-
-            Invoke(nameof(ChangeGameState), 1.5f);
+            GameEntry.UI.OpenUIForm((UIFormId)outingSceneState + 20, this);
         }
 
-        private void ChangeGameState()
-        {
-            GameEntry.Event.FireNow(this, MainStateEventArgs.Create(mMainState));
-        }
+        //protected override void OnOpen(object userData)
+        //{
+        //    base.OnOpen(userData);
+        //    mMainState = (MainState)userData;
 
-        private void GamePosEvent(object sender, GameEventArgs args)
-        {
-            GamePosEventArgs gamePos = (GamePosEventArgs)args;
-            switch (gamePos.GamePos)
-            {
-                case GamePos.Up:
-                    mCanvas.transform.DOLocalMove(new Vector3(1920f, 0f, 0f), 1f).SetEase(Ease.InOutExpo);
-                    break;
-                case GamePos.Down:
-                    mCanvas.transform.DOLocalMove(new Vector3(1920f, -1080f, 0f), 1f).SetEase(Ease.InOutExpo);
-                    break;
-                case GamePos.Left:
-                    mCanvas.transform.DOLocalMove(new Vector3(3840f, 0f, 0f), 1f).SetEase(Ease.InOutExpo);
-                    break;
-                case GamePos.Right:
-                    mCanvas.transform.DOLocalMove(new Vector3(0f, 0f, 0f), 1f).SetEase(Ease.InOutExpo);
-                    break;
-            }
-        }
+        //    mGreengrocerBtn.onClick.AddListener(() => Outing(OutingSceneState.Greengrocer));
+        //    mGlassBtn.onClick.AddListener(() => Outing(OutingSceneState.Glass));
+        //    mRestaurantBtn.onClick.AddListener(() => Outing(OutingSceneState.Restaurant));
+        //    mBeachBtn.onClick.AddListener(() => Outing(OutingSceneState.Beach));
+        //    mClothingBtn.onClick.AddListener(() => Outing(OutingSceneState.Park));
+        //    mBookstoreBtn.onClick.AddListener(() => Outing(OutingSceneState.BookStore));
+        //}
+
+        //protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
+        //{
+        //    base.OnUpdate(elapseSeconds, realElapseSeconds);
+        //}
+
+        //protected override void OnClose(bool isShutdown, object userData)
+        //{
+        //    base.OnClose(isShutdown, userData);
+        //}
     }
 }

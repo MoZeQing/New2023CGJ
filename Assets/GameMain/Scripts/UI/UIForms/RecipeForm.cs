@@ -25,7 +25,7 @@ namespace GameMain
         {
             base.OnOpen(userData);
             exitBtn.onClick.AddListener(() => GameEntry.UI.CloseUIForm(this.UIForm));
-
+            GameEntry.Base.GameSpeed = 0f;
             ShowNodes();
         }
 
@@ -42,7 +42,7 @@ namespace GameMain
         {
             base.OnClose(isShutdown, userData);
             exitBtn.onClick.RemoveAllListeners();
-
+            GameEntry.Base.GameSpeed = 1f;
             ClearNodes();
         }
 

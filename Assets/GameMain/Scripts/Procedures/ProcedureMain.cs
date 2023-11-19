@@ -138,6 +138,6 @@ namespace GameMain
         Gym,//电影院
         Restaurant,//餐馆
         Beach,//海滩
-        Park//公园
+        Clothing,//公园
     }
 }
