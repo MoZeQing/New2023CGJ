@@ -113,10 +113,11 @@ namespace GameMain
             {
                 if (isSpecial)
                 {
+                    
                     GameEntry.Event.FireNow(this, LevelEventArgs.Create());
                     GamePosUtility.Instance.GamePosChange(GamePos.Up);
                     dialogBox.SetDialog(mLevelData.failWork);
-                    dialogBox.Next();
+                    //dialogBox.Next();
                     dialogBox.SetComplete(OnAfterWorkComplete);
                     IsDialog= true;
                 }
@@ -143,7 +144,7 @@ namespace GameMain
             List<LevelSO> levels = new List<LevelSO>();
             foreach (LevelSO level in levelSOs)
             {
-                if (GameEntry.Utils.Check(level.trigger))
+                if (GameEntry.Utils.Check(level.trigger)&&!level.isRandom)
                 {
                     levels.Add(level);
                 }
@@ -176,7 +177,7 @@ namespace GameMain
             mOrderCount = 0;
             GamePosUtility.Instance.GamePosChange(GamePos.Up);
             dialogBox.SetDialog(mLevelData.foreWork);
-            dialogBox.Next();
+            //dialogBox.Next();
             dialogBox.SetComplete(OnForeWorkComplete);
             GameEntry.Event.Fire(this, GameStateEventArgs.Create(GameState.ForeSpecial));
         }
@@ -204,12 +205,17 @@ namespace GameMain
             if (mLevelData != null)
             {
                 if (mLevelData.orderDatas.Contains(args.OrderData))
+                {
+                    if (args.Income == 0)
+                        return;
                     mOrderCount++;
+                    GameEntry.Utils.friends[mLevelData.charSO.name] += mLevelData.favor / mLevelData.orderDatas.Count;
+                }
                 if (mOrderCount == mLevelData.orderDatas.Count)
                 {
                     GamePosUtility.Instance.GamePosChange(GamePos.Up);
                     dialogBox.SetDialog(mLevelData.afterWork);
-                    dialogBox.Next();
+                    //dialogBox.Next();
                     dialogBox.SetComplete(OnAfterWorkComplete);
                 }
             }  
@@ -247,5 +253,6 @@ namespace GameMain
             set;
         } = new RandomEvent();
         public List<OrderData> orderDatas = new List<OrderData>();
+        public List<OrderData> levelDatas = new List<OrderData>();       
     }
 }

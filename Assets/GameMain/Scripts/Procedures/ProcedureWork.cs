@@ -115,6 +115,7 @@ namespace GameMain
         private void OnGameStateEvent(object sender, GameEventArgs e)
         {
             GameStateEventArgs args = (GameStateEventArgs)e;
+            
             if (args.GameState == GameState.AfterSpecial)
                 GameEntry.UI.OpenUIForm(UIFormId.SettleForm, workData);
         }

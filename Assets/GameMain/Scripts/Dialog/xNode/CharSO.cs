@@ -8,6 +8,7 @@ namespace GameMain
     public class CharSO : ScriptableObject
     {
         public bool isMain;
+        public bool friend;
         public string charName;
         public int favor;
         public Sprite sprite;

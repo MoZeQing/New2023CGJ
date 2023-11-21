@@ -41,9 +41,14 @@ namespace GameMain
 
         private void Outing(OutingSceneState outingSceneState)
         {
-            if (outingSceneState==OutingSceneState.Beach&&GameEntry.Utils.GetPlayerItem(ItemTag.Closet3) == null)
+            if (outingSceneState==OutingSceneState.Beach&&GameEntry.Utils.GetPlayerItem(ItemTag.Closet4) == null)//检查泳装
             {
                 GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你没有泳装，请购买泳装才能去往海滩");
+                return;
+            }
+            if (outingSceneState == OutingSceneState.Gym && GameEntry.Utils.GetPlayerItem(ItemTag.Closet2) == null)//检查运动装
+            {
+                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你没有运动服，请购买运动服才能去往健身房");
                 return;
             }
             GameEntry.Utils.outSceneState=outingSceneState;

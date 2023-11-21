@@ -82,6 +82,8 @@ namespace GameMain
             DestroyButtons();
             foreach (BehaviorData behaviorData in mCatStateData.behaviors)
             {
+                if (behaviorData.behaviorTag == BehaviorTag.Morning)
+                    continue;
                 GameObject go = GameObject.Instantiate(behaviorBtn, rightCanvas);
                 Button button=go.GetComponent<Button>();
                 button.onClick.AddListener(() => Behaviour(behaviorData.behaviorTag));

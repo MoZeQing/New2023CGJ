@@ -11,17 +11,17 @@ namespace GameMain
         [SerializeField] private Button exitBtn;
 
         public List<Image> images= new List<Image>();
-        public List<Text> names= new List<Text>();
         public List<Text> texts= new List<Text>();
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
             exitBtn.onClick.AddListener(() => GameEntry.UI.CloseUIForm(this.UIForm));
-            for (int i = 0; i < GameEntry.Utils.friends.Count; i++)
+            int index = 0;
+            foreach (KeyValuePair<string, int> pair in GameEntry.Utils.friends)
             {
-                images[i].sprite = GameEntry.Utils.friends[i].sprite;
-                names[i].text = GameEntry.Utils.friends[i].charName;
-                texts[i].text = GameEntry.Utils.friends[i].favor.ToString();
+                images[index].sprite = GameEntry.Utils.chars[pair.Key].sprite;
+                texts[index].text = string.Format("¹ØÏµ£º{0}",pair.Value.ToString());
+                index++;
             }
         }
 

@@ -60,8 +60,13 @@ namespace GameMain
 
         public bool outingBefore;
 
-        public List<CharSO> friends = new List<CharSO>();
+        public Dictionary<string ,CharSO> chars= new Dictionary<string ,CharSO>();
+        public Dictionary<string, int> friends = new Dictionary<string, int>();
 
+        public void ClearPlayerItem()
+        { 
+            mPlayerData.items.Clear();
+        }
         public void AddPlayerItem(ItemData itemData, int num)
         {
             if (GetPlayerItem(itemData.itemTag) == null)

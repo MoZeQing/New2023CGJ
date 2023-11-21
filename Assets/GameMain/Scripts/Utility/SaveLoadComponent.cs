@@ -70,6 +70,13 @@ namespace GameMain
             GameEntry.Utils.bookstoreItemDatas.Clear();
             for (int i = 0; i < bookstoreItemDatas.Count; i++)
                 GameEntry.Utils.bakeryItemDatas.Add(new ShopItemData(bookstoreItemDatas[i]));
+
+            GameEntry.Utils.chars.Clear();
+            GameEntry.Utils.friends.Clear();
+            CharSO[] charSOs = Resources.LoadAll<CharSO>("CharData");
+            for (int i = 0; i < charSOs.Length; i++)
+                if (charSOs[i].friend)
+                    GameEntry.Utils.chars.Add(charSOs[i].name, charSOs[i]);
         }
 
         /// <summary>
@@ -92,6 +99,7 @@ namespace GameMain
             GameEntry.Utils.closet = closet;
             GameEntry.Utils.ClearFlag();
             GameEntry.Dialog.LoadGame();
+            GameEntry.Utils.ClearPlayerItem();
             for (int i = 0; i < playerItems.Count; i++)
                 GameEntry.Utils.AddPlayerItem(new ItemData(playerItems[i]), 5);
 
@@ -100,6 +108,10 @@ namespace GameMain
             GameEntry.Utils.AddPlayerItem(new ItemData(ItemTag.Kettle), 1, true);
             GameEntry.Utils.AddPlayerItem(new ItemData(ItemTag.Stirrer), 1, true);
             GameEntry.Utils.AddPlayerItem(new ItemData((ItemTag)closet), 1, true);
+
+            foreach (KeyValuePair<string, CharSO> pair in GameEntry.Utils.chars)
+                GameEntry.Utils.friends.Add(pair.Value.name, pair.Value.favor);
+
             GameEntry.Event.FireNow(this, MainStateEventArgs.Create(mainState));
         }
         public void SaveGame(int index)
