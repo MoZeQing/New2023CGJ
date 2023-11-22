@@ -48,7 +48,7 @@ namespace GameMain
             GameEntry.Event.Subscribe(CharDataEventArgs.EventId, CharDataEvent);
             GameEntry.Event.Subscribe(PlayerDataEventArgs.EventId, PlayerDataEvent);
             GameEntry.Utils.UpdateData();
-
+            ShowButtons();
             mCanvasGroup = this.GetComponent<CanvasGroup>();
             this.transform.localScale = Vector3.one * 0.01f;
         }
@@ -59,8 +59,6 @@ namespace GameMain
                 GameEntry.Event.FireNow(this, MainFormEventArgs.Create(MainFormTag.Unlock));
                 dialogBox.gameObject.SetActive(false);
                 stage.gameObject.SetActive(false);
-                leftCanvas.gameObject.SetActive(false);
-                rightCanvas.gameObject.SetActive(false);
                 mLittleCat.ShowLittleCat();
             }
             if (mCanvasGroup.alpha < 1)
@@ -219,11 +217,10 @@ namespace GameMain
         public void Click_Action()
         {
             GameEntry.Event.FireNow(this, MainFormEventArgs.Create(MainFormTag.Lock));
-            ShowButtons();
             mLittleCat.ShowLittleCat();
             rightCanvas.gameObject.SetActive(false);
             leftCanvas.gameObject.SetActive(true);
-            Behaviour(BehaviorTag.Click);
+            Behaviour(BehaviorTag.Touch);
         }
     }
 }
