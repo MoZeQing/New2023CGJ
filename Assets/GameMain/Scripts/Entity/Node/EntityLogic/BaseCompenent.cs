@@ -151,6 +151,11 @@ namespace GameMain
             mRangerA.gameObject.SetActive(false);
             mRangerS.gameObject.SetActive(false);
 
+            if ((int)mNodeData.NodeTag > 100)
+                mSpriteRenderer.sprite = GameEntry.Utils.toolSprites[(int)mNodeData.NodeTag - 100];
+            else
+                mSpriteRenderer.sprite = GameEntry.Utils.nodeSprites[(int)mNodeData.NodeTag];
+
             mCondensedMilkPoint.gameObject.SetActive(false);
             mSugarPoint.gameObject.SetActive(false);
             mSaltPoint.gameObject.SetActive(false);

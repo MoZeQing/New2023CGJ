@@ -14,6 +14,8 @@ namespace GameMain
     {
         public OutingSceneState outSceneState;
         public List<Sprite> nodeSprites = new List<Sprite>();
+        public List<Sprite> toolSprites = new List<Sprite>();
+        public List<Sprite> coffeeSpries = new List<Sprite>();
         public List<Sprite> nodeImage= new List<Sprite>();
         public List<Sprite> ItemSprites = new List<Sprite>();
         //�涨����0��Ĭ���Ǻ����л�����ÿһ��֮����л�������1�ſ�ʼ����ÿһ����л�
@@ -60,7 +62,9 @@ namespace GameMain
 
         public bool outingBefore;
 
-        public Dictionary<string ,CharSO> chars= new Dictionary<string ,CharSO>();
+        public Dictionary<string, RecipeData> recipes = new Dictionary<string, RecipeData>();
+
+        public Dictionary<string, CharSO> chars= new Dictionary<string ,CharSO>();
         public Dictionary<string, int> friends = new Dictionary<string, int>();
 
         public void ClearPlayerItem()
@@ -514,6 +518,12 @@ namespace GameMain
                 case EventTag.Rent:
                     GameEntry.Utils.Rent=int.Parse(eventData.value);
                     break;
+                case EventTag.AddFriend:
+                    string[] strings= eventData.value.Split(' ');
+                    GameEntry.Utils.friends[strings[0]] += int.Parse(strings[1]);
+                    break;
+                case EventTag.AddRecipt:
+                    break;
             }
             return false;
         }
@@ -534,6 +544,7 @@ namespace GameMain
         public int day;
         public int rent;
         public List<PlayerItemData> items=new List<PlayerItemData>();
+        public List<RecipeData> recipes=new List<RecipeData>();//已解锁的配方
         //public int time;
     }
 }

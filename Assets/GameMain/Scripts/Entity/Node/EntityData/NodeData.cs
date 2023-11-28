@@ -104,7 +104,7 @@ namespace GameMain
 
     public enum NodeTag
     {
-        //材料
+        //材料（1-100）
         CoffeeBean,//咖啡豆
         CoarseGroundCoffee,//粗咖啡粉
         MidGroundCoffee,//中咖啡粉
@@ -121,28 +121,33 @@ namespace GameMain
         CondensedMilk,//炼乳
         LowFoamingMilk,//低泡牛奶
         HighFoamingMilk,//高泡牛奶
-        //工具
-        ManualGrinder,//手动研磨器
-        Extractor,//电动萃取
-        ElectricGrinder,//电动研磨器
-        Heater,//加热器
-        Syphon,//虹吸壶
-        FrenchPress,//法压壶
-        Kettle,//浸泡壶
-        FilterBowl,//滤纸式滤杯
-        Cup,//咖啡杯
-        Stirrer,//搅拌器
-        //咖啡
-        Espresso,//浓缩咖啡
-        HotCafeAmericano,//热美式
-        IceCafeAmericano,//冷美式
-        HotLatte,//热拿铁
-        IceLatte,//冰拿铁
-        HotMocha,//热摩卡
-        IceMocha,//冷摩卡
-        Kapuziner,//卡布奇诺
-        FlatWhite,//澳白
-        None
+        //工具（101-200）
+        ManualGrinder=101,//手动研磨器
+        Extractor=102,//电动萃取
+        ElectricGrinder=103,//电动研磨器
+        Heater=104,//加热器
+        Syphon=105,//虹吸壶
+        FrenchPress=106,//法压壶
+        Kettle=107,//浸泡壶
+        FilterBowl=108,//滤纸式滤杯
+        Cup=109,//咖啡杯
+        Stirrer=110,//搅拌器
+        //咖啡（201-300）
+        Espresso=201,//浓缩咖啡
+        HotCafeAmericano=202,//热美式
+        IceCafeAmericano=203,//冷美式
+        Conpanna=204,//康宝蓝
+        Vienna=205,//维也纳咖啡
+        HotLatte=206,//热拿铁
+        IceLatte=207,//冰拿铁
+        HotMocha=208,//热摩卡
+        IceMocha=209,//冷摩卡
+        Kapuziner=210,//卡布奇诺
+        FlatWhite=211,//澳白
+        Dirty=212,//脏咖啡
+        Ole=213,//欧蕾咖啡
+        Cat=999,//猫猫卡（999）
+        None=0
     }
 }
 

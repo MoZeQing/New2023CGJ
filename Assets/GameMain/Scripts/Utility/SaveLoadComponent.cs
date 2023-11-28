@@ -8,6 +8,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.InteropServices.ComTypes;
 using GameFramework.DataTable;
 using GameMain;
+using System.Data;
 
 namespace GameMain
 {
@@ -70,6 +71,13 @@ namespace GameMain
             GameEntry.Utils.bookstoreItemDatas.Clear();
             for (int i = 0; i < bookstoreItemDatas.Count; i++)
                 GameEntry.Utils.bakeryItemDatas.Add(new ShopItemData(bookstoreItemDatas[i]));
+
+            GameEntry.Utils.recipes.Clear();
+            for (int i = 0; i < GameEntry.DataTable.GetDataTable<DRRecipe>().Count; i++)
+            {
+                DRRecipe dRRecipe = GameEntry.DataTable.GetDataTable<DRRecipe>().GetDataRow(i);
+                GameEntry.Utils.recipes.Add(dRRecipe.Id.ToString(), new RecipeData(dRRecipe));
+            }
 
             GameEntry.Utils.chars.Clear();
             GameEntry.Utils.friends.Clear();
