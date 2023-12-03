@@ -152,7 +152,7 @@ namespace GameMain
             mRangerS.gameObject.SetActive(false);
 
             if ((int)mNodeData.NodeTag > 100)
-                mSpriteRenderer.sprite = GameEntry.Utils.toolSprites[(int)mNodeData.NodeTag - 100];
+                mSpriteRenderer.sprite = GameEntry.Utils.toolSprites[(int)mNodeData.NodeTag - 101];
             else
                 mSpriteRenderer.sprite = GameEntry.Utils.nodeSprites[(int)mNodeData.NodeTag];
 
@@ -477,6 +477,9 @@ namespace GameMain
                 for (int i = 0; i < GameEntry.DataTable.GetDataTable<DRRecipe>().Count; i++)
                 {
                     drRecipe = GameEntry.DataTable.GetDataTable<DRRecipe>().GetDataRow(i);
+                    if (!GameEntry.Player.HasRecipe(new RecipeData(drRecipe)))
+                        continue;
+
                     mRecipe = TransToEnumList(drRecipe.Recipe);
                     tool = TransToEnum(drRecipe.Tool);
                     if (Parent == null && Child != null)

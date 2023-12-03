@@ -25,6 +25,10 @@ namespace GameMain
             entityComponent.ShowEntity(typeof(BaseNode), "Coffee", 90, data);
         }
 
+        public static void ShowComponent(this EntityComponent entityComponent, CompenentData compenentData)
+        {
+            entityComponent.ShowEntity(typeof(BaseCompenent), "Coffee", 90, compenentData);
+        }
         public static void ShowCoffeeBeanNode(this EntityComponent entityComponent, CompenentData compenentData)
         {
             entityComponent.ShowEntity(typeof(CoffeeBeanNode), "Coffee", 90, compenentData);

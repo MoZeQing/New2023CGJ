@@ -34,6 +34,12 @@ namespace GameMain
             private set;
         }
 
+        public static PlayerComponent Player
+        {
+            get;
+            private set;
+        }
+
         public static SaveLoadComponent SaveLoad
         {
             get;
@@ -46,6 +52,7 @@ namespace GameMain
             Dialog = UnityGameFramework.Runtime.GameEntry.GetComponent<DialogComponent>();
             Cat = UnityGameFramework.Runtime.GameEntry.GetComponent<CatComponent>();
             SaveLoad = UnityGameFramework.Runtime.GameEntry.GetComponent<SaveLoadComponent>();
+            Player = UnityGameFramework.Runtime.GameEntry.GetComponent<PlayerComponent>();
         }
     }
 }

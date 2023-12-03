@@ -7,9 +7,7 @@ namespace GameMain
 {
     public class CatComponent : GameFrameworkComponent
     {
-        private int m_Favour = 0;
-        private int m_Love = 0;
-        private int m_Family = 0;
+        private CatData mCatData;
         //猫猫状态数据，其中0为默认的状态，也是当所有条件都不满足时的状态，一般作为溢出状态
         private List<CatStateData> catStateDatas = new List<CatStateData>();
         private CatStateData catState;
@@ -28,7 +26,7 @@ namespace GameMain
         {
             get
             {
-                return m_Favour;
+                return mCatData.favour;
             }
             private set { }
         }
@@ -36,7 +34,7 @@ namespace GameMain
         {
             get
             {
-                return m_Family;
+                return mCatData.family;
             }
             private set { }
         }
@@ -44,7 +42,7 @@ namespace GameMain
         {
             get
             {
-                return m_Love;
+                return mCatData.love;
             }
             private set { }
         }

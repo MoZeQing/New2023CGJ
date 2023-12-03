@@ -30,6 +30,7 @@ namespace GameMain
         public int day = 0;
         public int rent = 0;
         public int closet = 101;
+        public List<int> recipes = new List<int>();
         public List<string> clearFlags;
         public List<ItemTag> playerItems = new List<ItemTag>();
         public List<ItemTag> greengrocerItemDatas=new List<ItemTag>();
@@ -85,6 +86,12 @@ namespace GameMain
             for (int i = 0; i < charSOs.Length; i++)
                 if (charSOs[i].friend)
                     GameEntry.Utils.chars.Add(charSOs[i].name, charSOs[i]);
+
+            GameEntry.Player.ClearRecipe();
+            for (int i=0;i<recipes.Count;i++)
+            {
+                GameEntry.Player.AddRecipe(recipes[i]);
+            }
         }
 
         /// <summary>

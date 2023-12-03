@@ -53,6 +53,8 @@ namespace GameMain
             foreach (DRRecipe recipe in dtRecipe.GetAllDataRows())
             {
                 RecipeData recipeData = new RecipeData(recipe);
+                if (!GameEntry.Player.HasRecipe(recipeData))
+                    return;
                 foreach (NodeTag nodeTag in recipeData.products)
                 {
                     GameObject go = GameObject.Instantiate(mRecipeItem, mRightCanvas);

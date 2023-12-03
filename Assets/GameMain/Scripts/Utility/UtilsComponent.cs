@@ -46,7 +46,7 @@ namespace GameMain
                 return mCarfSort++;
             }
         }
-
+        //接下来尽可能使得utils只用于存储资源信息，而数据信息都给其它的类
         //���ݹ���������
         private Dictionary<TriggerTag,string> _values= new Dictionary<TriggerTag,string>();
         private List<string> _flags= new List<string>();
@@ -63,7 +63,6 @@ namespace GameMain
         public bool outingBefore;
 
         public Dictionary<string, RecipeData> recipes = new Dictionary<string, RecipeData>();
-
         public Dictionary<string, CharSO> chars= new Dictionary<string ,CharSO>();
         public Dictionary<string, int> friends = new Dictionary<string, int>();
 
@@ -71,6 +70,7 @@ namespace GameMain
         { 
             mPlayerData.items.Clear();
         }
+
         public void AddPlayerItem(ItemData itemData, int num)
         {
             if (GetPlayerItem(itemData.itemTag) == null)
@@ -523,6 +523,7 @@ namespace GameMain
                     GameEntry.Utils.friends[strings[0]] += int.Parse(strings[1]);
                     break;
                 case EventTag.AddRecipt:
+                    GameEntry.Player.AddRecipe(int.Parse(eventData.value));
                     break;
             }
             return false;
