@@ -47,7 +47,7 @@ namespace GameMain
             foreach (DRItem item in items)
             {
                 ItemData itemData = new ItemData(item);
-                if (itemData.itemKind != ItemKind.Instrument)
+                if (itemData.itemKind != ItemKind.Materials)
                     continue;
                 GameObject go = Instantiate(itemPre, canvas);
                 ShopItem shopItem = go.GetComponent<ShopItem>();
