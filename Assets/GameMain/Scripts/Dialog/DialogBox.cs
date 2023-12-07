@@ -23,6 +23,7 @@ public class DialogBox : MonoBehaviour
     private Node m_Node = null;
     private List<GameObject> m_Btns = new List<GameObject>();
     private Action OnComplete;
+    private bool mIsSkip;
     private Dictionary<CharSO, BaseCharacter> mCharChace = new Dictionary<CharSO, BaseCharacter>();
 
     public bool IsNext { get; set; } = true;
@@ -30,12 +31,27 @@ public class DialogBox : MonoBehaviour
     {
         dialogBtn.onClick.AddListener(Next);
     }
-    private void FixedUpdate()
+
+    private float _time = 0f;
+    public float SkipSpeed { get; set; } = 0.1f;
+
+    private void Update()
     {
-        if (Input.GetKey(KeyCode.LeftControl))
-            Next();
+        _time += Time.deltaTime;
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+            mIsSkip = true;
+        if (Input.GetKeyUp(KeyCode.LeftControl))
+            mIsSkip = false;
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
             Next();
+        if (mIsSkip)
+        {
+            if (_time > SkipSpeed)
+            {
+                Next();
+                _time = 0;
+            }
+        }
     }
     public void ShowButtons(List<OptionData> options)
     {
@@ -197,6 +213,7 @@ public class DialogBox : MonoBehaviour
     }
     public void SetDialog(ChatNode chatNode)
     {
+        mIsSkip = false;
         OnComplete = null;
         _index = 0;
         m_Node = chatNode;
@@ -205,6 +222,7 @@ public class DialogBox : MonoBehaviour
     }
     public void SetDialog(DialogueGraph graph)
     {
+        mIsSkip = false;
         OnComplete = null;
         m_Dialogue = graph;
         _index = 0;
