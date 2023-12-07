@@ -36,6 +36,7 @@ namespace GameMain
         TitleForm=53,
         RecipeForm=54,
         FriendForm=55,
+        UnlockForm=56,
         PopTips=100,
     }
 }

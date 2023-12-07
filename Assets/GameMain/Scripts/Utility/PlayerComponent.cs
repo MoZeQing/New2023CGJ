@@ -60,7 +60,12 @@ namespace GameMain
 
         public void AddRecipe(RecipeData recipeData)
         {
-            mPlayerData.recipes.Add(recipeData);
+            if (!mPlayerData.recipes.Contains(recipeData))
+            {
+                if (recipeData.IsCoffee)
+                    GameEntry.UI.OpenUIForm(UIFormId.UnlockForm, recipeData);
+                mPlayerData.recipes.Add(recipeData);
+            }
         }
 
         public void AddRecipe(int index)
@@ -74,7 +79,7 @@ namespace GameMain
             return mPlayerData.recipes.Contains(recipeData);
         }
 
-        public bool HasRecipe(NodeTag nodeTag)
+        public bool HasCoffeeRecipe(NodeTag nodeTag)
         {
             foreach (RecipeData recipe in mPlayerData.recipes)
             {

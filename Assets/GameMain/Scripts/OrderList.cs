@@ -88,7 +88,7 @@ namespace GameMain
         {
             OrderData orderData = new OrderData();
             int block = 0;
-            while (GameEntry.Player.HasRecipe(orderData.NodeTag))
+            while (GameEntry.Player.HasCoffeeRecipe(orderData.NodeTag))
             {
                 orderData.NodeTag = (NodeTag)Random.Range(201, 213);
                 block++;

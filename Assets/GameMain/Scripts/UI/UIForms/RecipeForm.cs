@@ -103,6 +103,7 @@ namespace GameMain
         public List<NodeTag> materials = new List<NodeTag>();
         public List<NodeTag> products = new List<NodeTag>();
         public NodeTag tool;
+        public bool IsCoffee { get; set; }
 
         public RecipeData() { }
         public RecipeData(DRRecipe dRRecipe)
@@ -110,6 +111,7 @@ namespace GameMain
             materials = TransToEnumList(dRRecipe.Recipe);
             products = TransToEnumList(dRRecipe.Product);
             tool = TransToEnum(dRRecipe.Tool);
+            IsCoffee = dRRecipe.IsCoffee;
         }
 
         public NodeTag TransToEnum(string value)
