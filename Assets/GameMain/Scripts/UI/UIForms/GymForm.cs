@@ -8,6 +8,7 @@ namespace GameMain
 {
     public class GymForm : UIFormLogic
     {
+        [SerializeField] private Button exitBtn;
         [SerializeField] private Button easyBtn;
         [SerializeField] private Button middleBtn;
         [SerializeField] private Button hardBtn;
@@ -18,6 +19,7 @@ namespace GameMain
             easyBtn.onClick.AddListener(EasyBtn_Click);
             middleBtn.onClick.AddListener(MiddleBtn_Click);
             hardBtn.onClick.AddListener(HardBtn_Click);
+            exitBtn.onClick.AddListener(() => GameEntry.UI.CloseUIForm(this.UIForm));
         }
 
         protected override void OnClose(bool isShutdown, object userData)
@@ -26,6 +28,7 @@ namespace GameMain
             easyBtn.onClick.RemoveAllListeners();
             middleBtn.onClick.RemoveAllListeners();
             hardBtn.onClick.RemoveAllListeners();
+            exitBtn.onClick.RemoveAllListeners();
         }
 
         private void EasyBtn_Click() {
