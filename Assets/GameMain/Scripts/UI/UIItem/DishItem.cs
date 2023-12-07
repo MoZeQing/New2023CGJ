@@ -11,7 +11,6 @@ public class DishItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [SerializeField] private Image DishImg;
     [SerializeField] private Text DishText;
     [SerializeField] private Text priceText;
-    [SerializeField] private Text warningPriceText;
     [SerializeField] private Button okBtn;
 
     private ShopItemData mShopItemData;
@@ -21,20 +20,6 @@ public class DishItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private void Start()
     {
         okBtn.onClick.AddListener(OnClick);
-    }
-    private void Update()
-    {
-        
-            if (GameEntry.Utils.Money >= mShopItemData.price)
-            {
-                okBtn.interactable = true;
-                warningPriceText.gameObject.SetActive(false);
-            }
-            if (GameEntry.Utils.Money < mShopItemData.price)
-            {
-                okBtn.interactable = false;
-                warningPriceText.gameObject.SetActive(true);
-            }
     }
 
     public void SetData(ShopItemData shopItemData)

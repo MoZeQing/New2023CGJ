@@ -10,14 +10,11 @@ namespace GameMain
     public class RestaurantForm : UIFormLogic
     {
         [SerializeField] private Button exitBtn;
-        [SerializeField] private Button buyBtn;
-        [SerializeField] private Transform canvas;
         [SerializeField] private GameObject dishItemPre;
         [SerializeField] private Text headerField;
         [SerializeField] private Text contentField;
 
-        private List<ShopItemData> mShopItemDatas = new List<ShopItemData>();
-        private List<DishItem> mItems = new List<DishItem>();
+        [SerializeField] private List<ShopItem> shopItems = new List<ShopItem>();
 
         protected override void OnOpen(object userData)
         {
