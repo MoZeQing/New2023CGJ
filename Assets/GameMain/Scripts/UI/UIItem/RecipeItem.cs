@@ -9,9 +9,10 @@ using System.Linq;
 public class RecipeItem : MonoBehaviour
 {
     [SerializeField] private Image mImage;
+    [SerializeField] private Image mChoice;
     private RecipeData mRecipe; 
     [SerializeField] private Button mBtn;
-    private Action<RecipeData,NodeTag> mAction;
+    private Action<RecipeData,NodeTag,RecipeItem> mAction;
     private NodeTag mNodeTag;
 
     private void Start()
@@ -20,23 +21,33 @@ public class RecipeItem : MonoBehaviour
         mImage= GetComponent<Image>();
     }
 
-    public void SetData(RecipeData recipe,NodeTag nodeTag,Action<RecipeData,NodeTag> action)
+    public bool Choice
+    {
+        set
+        {
+            mChoice.gameObject.SetActive(value);
+        }
+    }
+
+    public void SetData(RecipeData recipe,NodeTag nodeTag,Action<RecipeData,NodeTag,RecipeItem> action)
     {
         mRecipe = recipe;
         mAction= action;
         mNodeTag = nodeTag;
-        mImage.sprite = GameEntry.Utils.nodeSprites[(int)nodeTag];
+        mImage.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)nodeTag).SpritePath);
         mBtn.onClick.AddListener(OnClick);
+        if (!GameEntry.Player.HasRecipe(recipe.Id))
+            mBtn.interactable = false;
     }
 
     public void SetData(NodeTag nodeTag)
     {
         mNodeTag = nodeTag;
-        mImage.sprite = GameEntry.Utils.nodeSprites[(int)nodeTag];
+        mImage.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)nodeTag).SpritePath);
     }
 
     private void OnClick()
     {
-        mAction(mRecipe, mNodeTag);
+        mAction(mRecipe, mNodeTag,this);
     }
 }

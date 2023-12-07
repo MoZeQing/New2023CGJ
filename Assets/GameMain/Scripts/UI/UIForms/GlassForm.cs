@@ -12,20 +12,18 @@ namespace GameMain
         [SerializeField] private Button exitBtn;
         [SerializeField] private Button buyBtn;
         [SerializeField] private Transform canvas;
-        [SerializeField] private GameObject glassItemPre;
+        [SerializeField] private GameObject itemPre;
         [SerializeField] private Text headerField;
         [SerializeField] private Text contentField;
 
-        private List<ShopItemData> mShopItemDatas = new List<ShopItemData>();
-        private List<GlassItem> mItems = new List<GlassItem>();
+        private List<ShopItem> mItems = new List<ShopItem>();
 
         protected override void OnOpen(object userData)
         {
-            base.OnOpen(userData);
-            mShopItemDatas = GameEntry.Utils.glassItemDatas;
+            base.OnOpen(userData);           
             exitBtn.onClick.AddListener(OnExit);
             ClearItems();
-            ShowItems(mShopItemDatas);
+            ShowItems();
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
@@ -39,15 +37,19 @@ namespace GameMain
             base.OnClose(isShutdown, userData);
         }
 
-        private void ShowItems(List<ShopItemData> itemDatas)
+        private void ShowItems()
         {
-            foreach (ShopItemData itemData in itemDatas)
+            DRItem[] items = GameEntry.DataTable.GetDataTable<DRItem>().GetAllDataRows();
+            foreach (DRItem item in items)
             {
-                GameObject go = Instantiate(glassItemPre, canvas);
-                GlassItem item = go.GetComponent<GlassItem>();
-                item.SetData(itemData);
-                item.SetTouch(OnTouch);
-                mItems.Add(item);
+                ItemData itemData = new ItemData(item);
+                if (itemData.itemKind != ItemKind.Instrument)
+                    continue;
+                GameObject go = Instantiate(itemPre, canvas);
+                ShopItem shopItem = go.GetComponent<ShopItem>();
+                shopItem.SetData(itemData);
+                shopItem.SetTouch(OnTouch);
+                mItems.Add(shopItem);
             }
         }
         private void OnTouch(bool flag, ItemData itemData)
@@ -65,7 +67,7 @@ namespace GameMain
         }
         private void ClearItems()
         {
-            foreach (GlassItem item in mItems)
+            foreach (ShopItem item in mItems)
             {
                 Destroy(item.gameObject);
             }

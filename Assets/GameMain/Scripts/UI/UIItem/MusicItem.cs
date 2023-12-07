@@ -42,7 +42,6 @@ namespace GameMain
             priceText.text = itemData.price.ToString();
             musicInfo.text = itemData.itemInfo.ToString();
             mAMInfo.text = itemData.AbilityModifier.ToString();
-            itemImage.sprite = GameEntry.Utils.ItemSprites[(int)itemData.itemTag];
         }
         private void OnClick()
         {

@@ -14,22 +14,19 @@ namespace GameMain
         [SerializeField] private Button exitBtn;
         [SerializeField] private Button buyBtn;
         [SerializeField] private Transform canvas;
-        [SerializeField] private GameObject shopItemPre;
+        [SerializeField] private GameObject itemPre;
         [SerializeField] private Text headerField;
         [SerializeField] private Text contentField;
         [SerializeField] private PurchaseForm purchaseForm;
 
         private List<ShopItem> mItems = new List<ShopItem>();
-        private List<ShopItemData> mItemDatas = new List<ShopItemData>();
-        private ShopItemData mItemData = new ShopItemData();
+        private ItemData mItemData = new ItemData();
 
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            mItemDatas = GameEntry.Utils.greengrocerItemDatas;
             exitBtn.onClick.AddListener(OnExit);
-            ClearItems();
-            ShowItems(mItemDatas);
+            ShowItems();
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
@@ -43,16 +40,20 @@ namespace GameMain
             exitBtn.onClick.RemoveAllListeners();
         }
 
-        private void ShowItems(List<ShopItemData> itemDatas)
+        private void ShowItems()
         {
-            foreach (ShopItemData itemData in itemDatas)
+            ClearItems();
+            DRItem[] items = GameEntry.DataTable.GetDataTable<DRItem>().GetAllDataRows();
+            foreach (DRItem item in items)
             {
-                GameObject go = Instantiate(shopItemPre, canvas);
-                ShopItem item = go.GetComponent<ShopItem>();
-                item.SetData(itemData);
-                item.SetClick(OnClick);
-                item.SetTouch(OnTouch);
-                mItems.Add(item);
+                ItemData itemData = new ItemData(item);
+                if (itemData.itemKind != ItemKind.Instrument)
+                    continue;
+                GameObject go = Instantiate(itemPre, canvas);
+                ShopItem shopItem = go.GetComponent<ShopItem>();
+                shopItem.SetData(itemData);
+                shopItem.SetTouch(OnTouch);
+                mItems.Add(shopItem);
             }
         }
         private void OnClick(ShopItemData itemData)
@@ -64,7 +65,7 @@ namespace GameMain
         private void UpdateItem()
         {
             ClearItems();
-            ShowItems(mItemDatas);
+            ShowItems();
         }
         private void OnTouch(bool flag,ItemData itemData)
         {
@@ -111,6 +112,11 @@ public class ShopItemData : ItemData
 
     public ShopItemData() { }
 
+    public ShopItemData(DRItem item)
+        : base(item)
+    {
+        this.maxNum = item.MaxNum;
+    }
     public ShopItemData(ItemTag itemTag)
         :base(itemTag)
     {

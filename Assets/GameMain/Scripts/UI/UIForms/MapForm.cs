@@ -18,6 +18,7 @@ namespace GameMain
         [SerializeField] private Button mGymBtn;
 
         private MainState mMainState;
+        private int mDay = 0;
 
         private void OnEnable()
         {
@@ -31,7 +32,7 @@ namespace GameMain
 
         private void OnDisable()
         {
-            mGreengrocerBtn.onClick.RemoveAllListeners(); ;
+            mGreengrocerBtn.onClick.RemoveAllListeners();
             mGlassBtn.onClick.RemoveAllListeners();
             mRestaurantBtn.onClick.RemoveAllListeners();
             mBeachBtn.onClick.RemoveAllListeners();
@@ -41,6 +42,11 @@ namespace GameMain
 
         private void Outing(OutingSceneState outingSceneState)
         {
+            if (mDay == GameEntry.Utils.Day)
+            {
+                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "今天你已经外出过一次了");
+                return;
+            }
             if (outingSceneState==OutingSceneState.Beach&&GameEntry.Utils.GetPlayerItem(ItemTag.Closet4) == null)//检查泳装
             {
                 GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你没有泳装，请购买泳装才能去往海滩");
@@ -54,6 +60,7 @@ namespace GameMain
             GameEntry.Utils.outSceneState=outingSceneState;
             GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
             GameEntry.UI.OpenUIForm((UIFormId)outingSceneState + 20, this);
+            mDay = GameEntry.Utils.Day;
         }
 
         //protected override void OnOpen(object userData)

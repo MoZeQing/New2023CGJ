@@ -49,30 +49,6 @@ namespace GameMain
 
         public void LoadData()
         {
-            GameEntry.Utils.greengrocerItemDatas.Clear();
-            for (int i = 0; i < greengrocerItemDatas.Count; i++)
-                GameEntry.Utils.greengrocerItemDatas.Add(new ShopItemData(playerItems[i]));
-
-            GameEntry.Utils.bookstoreItemDatas.Clear();
-            for (int i = 0; i < bookstoreItemDatas.Count; i++)
-                GameEntry.Utils.bookstoreItemDatas.Add(new ShopItemData(bookstoreItemDatas[i]));
-
-            GameEntry.Utils.musicHallItemDatas.Clear();
-            for (int i = 0; i < musicHallItemDatas.Count; i++)
-                GameEntry.Utils.musicHallItemDatas.Add(new MusicItemData(musicHallItemDatas[i]));
-
-            GameEntry.Utils.glassItemDatas.Clear();
-            for (int i = 0; i < glassItemDatas.Count; i++)
-                GameEntry.Utils.glassItemDatas.Add(new ShopItemData(glassItemDatas[i]));
-
-            GameEntry.Utils.restaurantItemDatas.Clear();
-            for (int i = 0; i < restaurantItemDatas.Count; i++)
-                GameEntry.Utils.restaurantItemDatas.Add(new ShopItemData(restaurantItemDatas[i]));
-
-            GameEntry.Utils.bookstoreItemDatas.Clear();
-            for (int i = 0; i < bookstoreItemDatas.Count; i++)
-                GameEntry.Utils.bakeryItemDatas.Add(new ShopItemData(bookstoreItemDatas[i]));
-
             GameEntry.Utils.recipes.Clear();
             for (int i = 0; i < GameEntry.DataTable.GetDataTable<DRRecipe>().Count; i++)
             {

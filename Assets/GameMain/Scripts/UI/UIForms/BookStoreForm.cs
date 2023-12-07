@@ -22,7 +22,6 @@ namespace GameMain
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            mShopItemDatas = GameEntry.Utils.bookstoreItemDatas;
             exitBtn.onClick.AddListener(OnExit);
             ClearItems();
             ShowItems(mShopItemDatas);

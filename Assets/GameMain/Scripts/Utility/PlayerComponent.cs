@@ -7,7 +7,7 @@ namespace GameMain
 {
     public class PlayerComponent : GameFrameworkComponent
     {
-        private PlayerData mPlayerData=new PlayerData();
+        public PlayerData mPlayerData  = new PlayerData();
 
         private void Start()
         {
@@ -60,7 +60,7 @@ namespace GameMain
 
         public void AddRecipe(RecipeData recipeData)
         {
-            if (!mPlayerData.recipes.Contains(recipeData))
+            if (!HasRecipe(recipeData.Id))
             {
                 if (recipeData.IsCoffee)
                     GameEntry.UI.OpenUIForm(UIFormId.UnlockForm, recipeData);
@@ -74,9 +74,14 @@ namespace GameMain
             AddRecipe(recipeData);
         }
 
-        public bool HasRecipe(RecipeData recipeData)
+        public bool HasRecipe(int id)
         {
-            return mPlayerData.recipes.Contains(recipeData);
+            foreach (RecipeData recipe in mPlayerData.recipes)
+            {
+                if (recipe.Id==id)
+                    return true;
+            }
+            return false;
         }
 
         public bool HasCoffeeRecipe(NodeTag nodeTag)

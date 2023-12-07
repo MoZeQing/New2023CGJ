@@ -24,7 +24,6 @@ namespace GameMain
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            mItemDatas = GameEntry.Utils.musicHallItemDatas;
             exitBtn.onClick.AddListener(OnExit);
             ClearItems();
             /*if (GameEntry.Utils.Week == Week.Monday&&flag==true)

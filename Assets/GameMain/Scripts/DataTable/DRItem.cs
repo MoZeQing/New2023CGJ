@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2023-09-22 21:26:28.725
+// 生成时间：2023-12-05 00:54:42.900
 //------------------------------------------------------------
 
 using GameFramework;
@@ -40,6 +40,15 @@ namespace GameMain
         /// 获取名称。
         /// </summary>
         public string Name
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取图片路径。
+        /// </summary>
+        public string ImagePath
         {
             get;
             private set;
@@ -94,6 +103,15 @@ namespace GameMain
         /// 获取加值描述。
         /// </summary>
         public string AMInfo
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取商店标签。
+        /// </summary>
+        public int ShopIndex
         {
             get;
             private set;
@@ -175,12 +193,14 @@ namespace GameMain
             m_Id = int.Parse(columnStrings[index++]);
             index++;
             Name = columnStrings[index++];
+            ImagePath = columnStrings[index++];
             Price = int.Parse(columnStrings[index++]);
             Info = columnStrings[index++];
             Equipable = bool.Parse(columnStrings[index++]);
             MaxNum = int.Parse(columnStrings[index++]);
             Kind = int.Parse(columnStrings[index++]);
             AMInfo = columnStrings[index++];
+            ShopIndex = int.Parse(columnStrings[index++]);
             Family = int.Parse(columnStrings[index++]);
             Love = int.Parse(columnStrings[index++]);
             Favor = int.Parse(columnStrings[index++]);
@@ -201,12 +221,14 @@ namespace GameMain
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
                     Name = binaryReader.ReadString();
+                    ImagePath = binaryReader.ReadString();
                     Price = binaryReader.Read7BitEncodedInt32();
                     Info = binaryReader.ReadString();
                     Equipable = binaryReader.ReadBoolean();
                     MaxNum = binaryReader.Read7BitEncodedInt32();
                     Kind = binaryReader.Read7BitEncodedInt32();
                     AMInfo = binaryReader.ReadString();
+                    ShopIndex = binaryReader.Read7BitEncodedInt32();
                     Family = binaryReader.Read7BitEncodedInt32();
                     Love = binaryReader.Read7BitEncodedInt32();
                     Favor = binaryReader.Read7BitEncodedInt32();

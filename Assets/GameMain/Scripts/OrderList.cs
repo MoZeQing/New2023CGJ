@@ -87,17 +87,14 @@ namespace GameMain
         public void ShowItem()
         {
             OrderData orderData = new OrderData();
-            int block = 0;
-            while (GameEntry.Player.HasCoffeeRecipe(orderData.NodeTag))
+            List<NodeTag> coffees = new List<NodeTag>();
+            foreach (DRNode node in GameEntry.DataTable.GetDataTable<DRNode>().GetAllDataRows())
             {
-                orderData.NodeTag = (NodeTag)Random.Range(201, 213);
-                block++;
-                if (block > 100)
-                {
-                    Debug.LogError("Error！循环次数过多，请确定是否存在至少一个合法的咖啡配方");
-                    return;
-                }
+                if (node.Coffee)
+                    if(GameEntry.Player.HasCoffeeRecipe((NodeTag)node.Id))
+                        coffees.Add((NodeTag)node.Id);
             }
+            orderData.NodeTag = coffees[Random.Range(0, coffees.Count - 1)];
             orderData.OrderTime = 90f;
             orderData.Sugar = Random.Range(0, 2) == 1;
             orderData.CondensedMilk = Random.Range(0, 2) == 1;

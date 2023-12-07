@@ -53,8 +53,6 @@ namespace GameMain
             foreach (DRRecipe recipe in dtRecipe.GetAllDataRows())
             {
                 RecipeData recipeData = new RecipeData(recipe);
-                if (!GameEntry.Player.HasRecipe(recipeData))
-                    return;
                 foreach (NodeTag nodeTag in recipeData.products)
                 {
                     GameObject go = GameObject.Instantiate(mRecipeItem, mRightCanvas);
@@ -74,7 +72,7 @@ namespace GameMain
             nodeItems.Clear();
         }
 
-        private void ShowRecipe(RecipeData recipeData,NodeTag product)
+        private void ShowRecipe(RecipeData recipeData,NodeTag product,RecipeItem item)
         {
             ClearRecipe();
             foreach (NodeTag nodeTag in recipeData.materials)
@@ -84,8 +82,15 @@ namespace GameMain
                 recipeItem.SetData(nodeTag);
                 recipeItems.Add(recipeItem);
             }
-            mTool.sprite = GameEntry.Utils.nodeSprites[(int)recipeData.tool];
-            mProduct.sprite = GameEntry.Utils.nodeSprites[(int)product];
+            foreach (RecipeItem recipeItem in nodeItems)
+            {
+                recipeItem.Choice = false;
+            }
+            item.Choice = true;
+            mTool.gameObject.SetActive(true);
+            mProduct.gameObject.SetActive(true);
+            mTool.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)recipeData.tool).SpritePath);
+            mProduct.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)recipeData.products[0]).SpritePath);
         }
 
         private void ClearRecipe()
@@ -100,6 +105,7 @@ namespace GameMain
 
     public class RecipeData
     {
+        public int Id { get; set; }
         public List<NodeTag> materials = new List<NodeTag>();
         public List<NodeTag> products = new List<NodeTag>();
         public NodeTag tool;
@@ -108,6 +114,7 @@ namespace GameMain
         public RecipeData() { }
         public RecipeData(DRRecipe dRRecipe)
         {
+            Id = dRRecipe.Id;
             materials = TransToEnumList(dRRecipe.Recipe);
             products = TransToEnumList(dRRecipe.Product);
             tool = TransToEnum(dRRecipe.Tool);

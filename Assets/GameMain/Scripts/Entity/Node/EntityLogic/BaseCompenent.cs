@@ -151,10 +151,7 @@ namespace GameMain
             mRangerA.gameObject.SetActive(false);
             mRangerS.gameObject.SetActive(false);
 
-            if ((int)mNodeData.NodeTag > 100)
-                mSpriteRenderer.sprite = GameEntry.Utils.toolSprites[(int)mNodeData.NodeTag - 101];
-            else
-                mSpriteRenderer.sprite = GameEntry.Utils.nodeSprites[(int)mNodeData.NodeTag];
+            mSpriteRenderer.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)mNodeData.NodeTag).SpritePath);
 
             mCondensedMilkPoint.gameObject.SetActive(false);
             mSugarPoint.gameObject.SetActive(false);
@@ -477,7 +474,7 @@ namespace GameMain
                 for (int i = 0; i < GameEntry.DataTable.GetDataTable<DRRecipe>().Count; i++)
                 {
                     drRecipe = GameEntry.DataTable.GetDataTable<DRRecipe>().GetDataRow(i);
-                    if (!GameEntry.Player.HasRecipe(new RecipeData(drRecipe)))
+                    if (!GameEntry.Player.HasRecipe(drRecipe.Id))
                         continue;
 
                     mRecipe = TransToEnumList(drRecipe.Recipe);

@@ -15,8 +15,6 @@ namespace GameMain
             base.OnInit(userData);
             m_CompenentData = (CompenentData)userData;
             m_NodeData = m_CompenentData.NodeData;
-
-            mSpriteRenderer.sprite = GameEntry.Utils.nodeSprites[(int)m_NodeData.NodeTag];
         }
 
         protected override void OnHide(bool isShutdown, object userData)

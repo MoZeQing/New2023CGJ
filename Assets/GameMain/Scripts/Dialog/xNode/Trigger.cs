@@ -216,6 +216,6 @@ public enum EventTag
     AddDay,//增加时间
     AddAction,//增加Action
     Rent,//设置租金
-    AddRecipt,//增加配方
+    AddRecipe,//增加配方
     AddFriend,
 }

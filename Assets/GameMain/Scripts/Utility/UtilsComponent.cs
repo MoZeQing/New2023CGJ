@@ -13,22 +13,6 @@ namespace GameMain
     public class UtilsComponent : GameFrameworkComponent
     {
         public OutingSceneState outSceneState;
-        public List<Sprite> nodeSprites = new List<Sprite>();
-        public List<Sprite> toolSprites = new List<Sprite>();
-        public List<Sprite> coffeeSpries = new List<Sprite>();
-        public List<Sprite> nodeImage= new List<Sprite>();
-        public List<Sprite> ItemSprites = new List<Sprite>();
-        //�涨����0��Ĭ���Ǻ����л�����ÿһ��֮����л�������1�ſ�ʼ����ÿһ����л�
-        public List<Sprite> changeSprites= new List<Sprite>();
-
-        public List<ShopItemData> bookstoreItemDatas= new List<ShopItemData>();
-        public List<ShopItemData> greengrocerItemDatas = new List<ShopItemData>();
-        public List<MusicItemData> musicHallItemDatas = new List<MusicItemData>();
-        public List<ShopItemData> glassItemDatas = new List<ShopItemData>();
-        public List<ShopItemData> restaurantItemDatas = new List<ShopItemData>();
-        public List<ShopItemData> bakeryItemDatas = new List<ShopItemData>();
-        public List<ItemData> itemDatas = new List<ItemData>();
-        public Dictionary<int, int> shopItems = new Dictionary<int, int>();
         public List<Sprite> closets = new List<Sprite>();
         public int closet;
         public string actionName; 
@@ -522,7 +506,7 @@ namespace GameMain
                     string[] strings= eventData.value.Split(' ');
                     GameEntry.Utils.friends[strings[0]] += int.Parse(strings[1]);
                     break;
-                case EventTag.AddRecipt:
+                case EventTag.AddRecipe:
                     GameEntry.Player.AddRecipe(int.Parse(eventData.value));
                     break;
             }

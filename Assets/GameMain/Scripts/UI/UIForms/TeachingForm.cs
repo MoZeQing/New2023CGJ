@@ -98,6 +98,7 @@ namespace GameMain
         }
         public void Behaviour(BehaviorTag behaviorTag)
         {
+            GameEntry.Event.FireNow(this, MainFormEventArgs.Create(MainFormTag.Lock));
             mBehaviorTag = behaviorTag;
             BehaviorData behavior = GameEntry.Cat.GetBehavior(behaviorTag);
             if (behaviorTag != BehaviorTag.Sleep)
@@ -216,7 +217,6 @@ namespace GameMain
         //单独给点击做一个方法调用
         public void Click_Action()
         {
-            GameEntry.Event.FireNow(this, MainFormEventArgs.Create(MainFormTag.Lock));
             mLittleCat.ShowLittleCat();
             rightCanvas.gameObject.SetActive(false);
             leftCanvas.gameObject.SetActive(true);

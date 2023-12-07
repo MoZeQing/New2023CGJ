@@ -18,16 +18,16 @@ namespace GameMain
         [SerializeField] private Button subBtn;
         [SerializeField] private Button purchaseButton;
 
-        private ShopItemData mShopItemData;
-        private Action<ShopItemData> mAction;
-        private Action<bool, ShopItemData> mTouchAction;
+        private ItemData mShopItemData;
+        private Action<ItemData> mAction;
+        private Action<bool, ItemData> mTouchAction;
 
         void Start()
         {
             purchaseButton.onClick.AddListener(()=>mAction(mShopItemData));
         }
 
-        public void SetData(ShopItemData itemData)
+        public void SetData(ItemData itemData)
         {
             mShopItemData = itemData;
             //string path = string.Format("Assets/GameMain/ArtWork/Icon/{0}.png", itemData.itemTag.ToString());
@@ -55,12 +55,12 @@ namespace GameMain
             }
         }
 
-        public virtual void SetClick(Action<ShopItemData> action)
+        public virtual void SetClick(Action<ItemData> action)
         {
             mAction = action;
         }
 
-        public virtual void SetTouch(Action<bool, ShopItemData> action)
+        public virtual void SetTouch(Action<bool, ItemData> action)
         {
             mTouchAction = action;
         }
