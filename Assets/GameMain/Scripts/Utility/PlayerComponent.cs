@@ -58,6 +58,14 @@ namespace GameMain
             mPlayerData.recipes.Clear();
         }
 
+        public void AddRecipes(int[] indexs)
+        {
+            foreach (int index in indexs)
+            { 
+                AddRecipe(index);
+            }
+        }
+
         public void AddRecipe(RecipeData recipeData)
         {
             if (!HasRecipe(recipeData.Id))
