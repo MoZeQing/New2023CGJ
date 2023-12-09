@@ -51,7 +51,6 @@ namespace GameMain
             else
             {
                 closetImg.color = Color.white;
-                closetImg.sprite = GameEntry.Utils.closets[(int)itemData.itemTag - 101];
                 infoText.text = itemData.itemInfo;
             }
         }
