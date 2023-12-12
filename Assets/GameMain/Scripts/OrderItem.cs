@@ -98,7 +98,7 @@ public class OrderItem : Entity
                 //    income += dtNode.GetDataRow((int)nodeTag).Price;
                 //}
                 //income=dtNode.GetDataRow((int)baseCompenent.NodeTag).Price;
-                income = 50;
+                income = dtNode.GetDataRow((int)mOrderData.NodeTag).Price;
                 income += mOrderData.Sugar ? 2 : 0;
                 income += mOrderData.CondensedMilk ? 5 : 0;
                 income += mOrderData.Salt ? 3 : 0;
