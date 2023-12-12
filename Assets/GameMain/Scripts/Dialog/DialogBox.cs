@@ -33,7 +33,7 @@ public class DialogBox : MonoBehaviour
     }
 
     private float _time = 0f;
-    public float SkipSpeed { get; set; } = 0.1f;
+    public float SkipSpeed { get; set; } = 0.05f;
 
     private void Update()
     {

@@ -64,10 +64,13 @@ namespace GameMain
                     GameEntry.Utils.chars.Add(charSOs[i].name, charSOs[i]);
 
             GameEntry.Player.ClearRecipe();
-            for (int i=0;i<recipes.Count;i++)
+            DRRecipe[] drrecipes = GameEntry.DataTable.GetDataTable<DRRecipe>().GetAllDataRows();
+            for (int i=0;i< drrecipes.Length;i++)
             {
-                GameEntry.Player.AddRecipe(recipes[i]);
+                if (!drrecipes[i].IsCoffee)
+                    GameEntry.Player.AddRecipe(drrecipes[i].Id);
             }
+            GameEntry.Player.AddRecipes(new int[] { 19, 20, 21, 22, 11, 12, 16, 17 });
         }
 
         /// <summary>
