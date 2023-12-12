@@ -53,13 +53,10 @@ namespace GameMain
             foreach (DRRecipe recipe in dtRecipe.GetAllDataRows())
             {
                 RecipeData recipeData = new RecipeData(recipe);
-                foreach (NodeTag nodeTag in recipeData.products)
-                {
-                    GameObject go = GameObject.Instantiate(mRecipeItem, mRightCanvas);
-                    RecipeItem recipeItem = go.GetComponent<RecipeItem>();
-                    recipeItem.SetData(new RecipeData(recipe),nodeTag, ShowRecipe);
-                    nodeItems.Add(recipeItem);
-                }
+                GameObject go = GameObject.Instantiate(mRecipeItem, mRightCanvas);
+                RecipeItem recipeItem = go.GetComponent<RecipeItem>();
+                recipeItem.SetData(new RecipeData(recipe), new RecipeData(recipe).products[0], ShowRecipe);
+                nodeItems.Add(recipeItem);
             }
         }
 

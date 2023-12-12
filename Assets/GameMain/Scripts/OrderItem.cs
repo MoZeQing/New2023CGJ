@@ -55,7 +55,7 @@ public class OrderItem : Entity
         base.OnUpdate(elapseSeconds, realElapseSeconds);
         nowTime-=Time.deltaTime;
         if (nowTime < 0)
-            orderTime.text = "∞";
+            orderTime.text = "锟斤拷";
         else
             orderTime.text = Mathf.Floor(nowTime).ToString();
         if (nowTime <= 0f&&nowTime>-1f)
@@ -84,26 +84,13 @@ public class OrderItem : Entity
         {
             if (baseCompenent.NodeTag == mOrderData.NodeTag)
             {
-                if (baseCompenent.Sugar != mOrderData.Sugar)
-                    return;
-                if (baseCompenent.CondensedMilk != mOrderData.CondensedMilk)
-                    return;
-                if (baseCompenent.Salt != mOrderData.Salt)
-                    return;
-                //计算收入
+                //锟斤拷锟斤拷锟斤拷锟斤拷
                 int income = 0;
                 IDataTable<DRNode> dtNode=GameEntry.DataTable.GetDataTable<DRNode>();
-                //foreach (NodeTag nodeTag in baseCompenent.Materials)
-                //{
-                //    income += dtNode.GetDataRow((int)nodeTag).Price;
-                //}
-                //income=dtNode.GetDataRow((int)baseCompenent.NodeTag).Price;
                 income = dtNode.GetDataRow((int)mOrderData.NodeTag).Price;
                 income += mOrderData.Sugar ? 2 : 0;
                 income += mOrderData.CondensedMilk ? 5 : 0;
                 income += mOrderData.Salt ? 3 : 0;
-                Debug.LogFormat("完成订单，订单收入:{0}", income);
-                //计算收入
                 GameEntry.Event.FireNow(this, OrderEventArgs.Create(mOrderData, income));
                 GameEntry.Entity.HideEntity(baseCompenent.transform.parent.GetComponent<BaseNode>().Entity);
                 GameEntry.Entity.HideEntity(this.Entity);
