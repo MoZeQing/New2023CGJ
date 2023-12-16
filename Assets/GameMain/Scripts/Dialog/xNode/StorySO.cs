@@ -28,28 +28,34 @@ public class StorySO : ScriptableObject
     [SerializeField,TextArea(5,10)]
     public string content;
 
-#if UNITY_EDITOR
-    [MenuItem("Data/Story/主故事输出为CSV")]
-    public static void MainStoryToCSV()
+    [MenuItem("Data/StoryToCSV")]
+    public static void StoryToCSV()
     {
         try
         {
             StorySO[] storySOs = Resources.LoadAll<StorySO>("StoryData");
-            StreamWriter sw = new StreamWriter(new FileStream(Application.dataPath + "/mainStory.txt", FileMode.OpenOrCreate), Encoding.GetEncoding("UTF-8"));
+            StreamWriter sw = new StreamWriter(new FileStream(Application.dataPath + "/Config/mainStory.csv", FileMode.OpenOrCreate), Encoding.GetEncoding("UTF-8"));
+            sw.WriteLine("故事标签,故事索引,故事时间,触发事件,触发器规则");
             foreach (StorySO story in storySOs)
             {
                 StringBuilder sb = new StringBuilder();
-                sb.Append("StoryTag：" + story.name + ",");
-                sb.Append("故事索引：" + story.dialogueGraph.name + ",");
-                sb.Append("故事时间：" + story.timeTag + ",");
-                sb.Append("触发事件：");
-                foreach (EventData eventData in story.eventDatas)
+                sb.Append(story.name + ",");
+                sb.Append(story.dialogueGraph.name + ",");
+                sb.Append(story.timeTag + ",");
+                if (story.eventDatas.Count != 0)
                 {
-                    sb.Append(eventData.eventTag.ToString() + " = " + eventData.value.ToString());
-                    sb.Append(" ");
+                    foreach (EventData eventData in story.eventDatas)
+                    {
+                        sb.Append(eventData.eventTag.ToString() + " = " + eventData.value.ToString());
+                        sb.Append(" ");
+                    }
                 }
+                else
+                {
+                    sb.Append("NULL");
+                }
+                sb.Append("," + story.trigger.TriggerToString());
                 sw.WriteLine(sb.ToString());
-                sw.WriteLine("触发器规则：\n" + TriggerToString(story.trigger, new StringBuilder(), 0));
             }
             sw.Close();
             Debug.Log("mainStory输出完毕");
@@ -58,6 +64,12 @@ public class StorySO : ScriptableObject
         {
             Debug.LogError(e.ToString());
         }
+    }
+
+    [MenuItem("Data/StoryCheck")]
+    public static void Check()
+    { 
+        
     }
 
     public static StringBuilder TriggerToString(Trigger trigger,StringBuilder sb,int sort)
@@ -98,5 +110,4 @@ public class StorySO : ScriptableObject
         }
         return sb;
     }
-#endif
 }

@@ -27,7 +27,13 @@ public class TeachStage : BaseStage
             baseCharacter.SetAction(chatData.middle.actionData);
         }
     }
-
+    public override void ShowDiff(DialogPos pos, DiffTag diffTag)
+    {
+        if (baseCharacter != null)
+        {
+            baseCharacter.SetDiff(diffTag);
+        }
+    }
     public override void SetBackground(Sprite sprite)
     {
         

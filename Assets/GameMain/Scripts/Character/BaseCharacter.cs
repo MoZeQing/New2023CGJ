@@ -87,11 +87,7 @@ namespace GameMain
         }
         public void SetAction(ActionData actionData)
         {
-            mImage = this.GetComponent<Image>();
-            if (mCharSO.isMain)
-                mImage.sprite = mDiffs[(GameEntry.Utils.closet - 101) * 18 + (int)actionData.diffTag];
-            else
-                mImage.sprite = mDiffs[(int)actionData.diffTag];
+            SetDiff(actionData.diffTag);
             switch (actionData.actionTag)
             {
                 case ActionTag.Jump:
@@ -100,7 +96,14 @@ namespace GameMain
                     break;
             }
         }
-
+        public void SetDiff(DiffTag diffTag)
+        {
+            mImage = this.GetComponent<Image>();
+            if (mCharSO.isMain)
+                mImage.sprite = mDiffs[(GameEntry.Utils.closet - 101) * 18 + (int)diffTag];
+            else
+                mImage.sprite = mDiffs[(int)diffTag];
+        }
         public void SetData(CharSO charSO)
         {
             mCharSO= charSO;

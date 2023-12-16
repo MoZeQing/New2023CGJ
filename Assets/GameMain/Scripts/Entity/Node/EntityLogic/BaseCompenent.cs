@@ -157,6 +157,7 @@ namespace GameMain
             mSugarPoint.gameObject.SetActive(false);
             mSaltPoint.gameObject.SetActive(false);
             GameEntry.Entity.AttachEntity(this.Id, mCompenentData.OwnerId);
+            this.transform.position = mNodeData.Position;
             if (mNodeData.RamdonJump)
             {
                 Vector3 newPos = UnityEngine.Random.insideUnitCircle;

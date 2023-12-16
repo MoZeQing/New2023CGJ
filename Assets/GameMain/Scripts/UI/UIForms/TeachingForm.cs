@@ -84,7 +84,9 @@ namespace GameMain
                     continue;
                 GameObject go = GameObject.Instantiate(behaviorBtn, rightCanvas);
                 Button button=go.GetComponent<Button>();
+                Text text = go.transform.Find("Text").GetComponent<Text>();
                 button.onClick.AddListener(() => Behaviour(behaviorData.behaviorTag));
+                text.text = behaviorData.behaviorTag.ToString();
                 m_Btns.Add(go);
             }
         }
@@ -188,6 +190,7 @@ namespace GameMain
                 dialogBox.gameObject.SetActive(false);
                 leftCanvas.gameObject.SetActive(true);
                 rightCanvas.gameObject.SetActive(true);
+                stage.ShowDiff(DialogPos.Middle, DiffTag.MoRen);
                 ShowButtons();
             }
         }

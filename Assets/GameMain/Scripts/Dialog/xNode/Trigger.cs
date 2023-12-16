@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Text;
 
 [System.Serializable]
 public class Trigger 
@@ -17,6 +18,50 @@ public class Trigger
     public virtual List<Trigger> GetOrTrigger()
     {
         return null;
+    }
+
+    public string TriggerToString()
+    {
+        return TriggerToString(this, new StringBuilder()).ToString();
+    }
+
+    public static StringBuilder TriggerToString(Trigger trigger, StringBuilder sb)
+    {
+        if (trigger == null)
+            return sb;
+        if (trigger.not)
+        {
+            if (trigger.equals)
+                sb.Append(trigger.key.ToString() + "!=" + trigger.value.ToString());
+            else
+                sb.Append(trigger.key.ToString() + "<" + trigger.value.ToString());
+        }
+        else
+        {
+            if (trigger.equals)
+                sb.Append(trigger.key.ToString() + "=" + trigger.value.ToString());
+            else
+                sb.Append(trigger.key.ToString() + ">" + trigger.value.ToString());
+        }
+        if (trigger.GetAndTrigger().Count != 0)
+        {
+            sb.Append("(");
+            foreach (Trigger tr in trigger.GetAndTrigger())
+            {
+                TriggerToString(tr, sb);
+                sb.Append("&&");
+            }
+        }
+        if (trigger.GetOrTrigger().Count != 0)
+        {
+            sb.Append("(");
+            foreach (Trigger tr in trigger.GetAndTrigger())
+            {
+                TriggerToString(tr, sb);
+                sb.Append("||");
+            }
+        }
+        return sb;
     }
 }
 [System.Serializable]

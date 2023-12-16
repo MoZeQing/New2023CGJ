@@ -73,7 +73,20 @@ public class BaseStage : MonoBehaviour
         mChars[(int)pos] = mCharChace[charSO];
         //Éú³É
     }
-
+    public virtual void ShowAction(DialogPos pos, ActionData actionData)
+    {
+        if (mChars[(int)pos] != null)
+        {
+            mChars[(int)pos].SetAction(actionData);
+        }
+    }
+    public virtual void ShowDiff(DialogPos pos, DiffTag diffTag)
+    {
+        if (mChars[(int)pos] != null)
+        {
+            mChars[(int)pos].SetDiff(diffTag);
+        }
+    }
     public virtual void SetBackground(Sprite sprite)
     { 
         if(sprite!=null)
