@@ -34,9 +34,9 @@ namespace GameMain
                             {
                                 string assetPath = string.Format("{0}/{1}/{2}_{3}_{4}.asset", "Assets/GameMain/Resources/DialogData/Behavior", catStateSO.name,catStateSO.name, behavior.behaviorTag, i);
                                 DialogueGraph graph = DialogueGraph.CreateInstance("DialogueGraph") as DialogueGraph;
-                                graph.Init();
                                 behavior.dialogues[i] = graph;
                                 AssetDatabase.CreateAsset(graph, assetPath);
+                                graph.Init();
                             }
                         }
                     }

@@ -38,6 +38,7 @@ namespace GameMain
         FriendForm=55,
         UnlockForm=56,
         PopTips=100,
+        HighlightTips=101,
     }
 }
 

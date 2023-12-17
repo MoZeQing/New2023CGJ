@@ -209,7 +209,8 @@ namespace GameMain
                     if (args.Income == 0)
                         return;
                     mOrderCount++;
-                    GameEntry.Utils.friends[mLevelData.charSO.name] += mLevelData.favor / mLevelData.orderDatas.Count;
+                    if(GameEntry.Utils.friends.ContainsKey(mLevelData.charSO.name))
+                        GameEntry.Utils.friends[mLevelData.charSO.name] += mLevelData.favor / mLevelData.orderDatas.Count;
                 }
                 if (mOrderCount == mLevelData.orderDatas.Count)
                 {

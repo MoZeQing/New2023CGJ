@@ -118,6 +118,9 @@ public class LevelSO : ScriptableObject
                 level.levelData.failWork = failWork;
                 failWork.Init();
             }
+            EditorUtility.SetDirty(level);
+            // 如果SetDirty弃用或者未自动保存
+            // 请尝试使用AssetDataBase对此level对象保存
         }
     }
 }
