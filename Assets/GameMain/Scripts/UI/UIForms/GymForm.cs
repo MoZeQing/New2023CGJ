@@ -32,12 +32,22 @@ namespace GameMain
         }
 
         private void EasyBtn_Click() {
+            if (GameEntry.Utils.Energy < 20)
+            {
+                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你的体力不足");
+                return;
+            }
             GameEntry.Utils.Energy -= 20;
             GameEntry.Utils.MaxEnergy += 2;
             OnExit();
         }
 
         private void MiddleBtn_Click() {
+            if (GameEntry.Utils.Energy < 40)
+            {
+                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你的体力不足");
+                return;
+            }
             GameEntry.Utils.Energy -= 40;
             GameEntry.Utils.MaxEnergy += 5;
             OnExit();
@@ -45,6 +55,11 @@ namespace GameMain
 
         private void HardBtn_Click()
         {
+            if (GameEntry.Utils.Energy < 60)
+            {
+                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你的体力不足");
+                return;
+            }
             GameEntry.Utils.Energy -= 60;
             GameEntry.Utils.MaxEnergy += 8;
             OnExit();

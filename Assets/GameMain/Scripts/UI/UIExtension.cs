@@ -34,7 +34,22 @@ namespace GameMain
         }
         public static void CloseUIForm(this UIComponent uiComponent, UIFormId uiFormId, object userData = null)
         {
+            IDataTable<DRUIForms> dtUIForm = GameEntry.DataTable.GetDataTable<DRUIForms>();
+            DRUIForms drUIForm = dtUIForm.GetDataRow((int)uiFormId);
+            if (drUIForm == null)
+            {
+                Log.Warning("错误，表中不存在编号为{0}的UI", uiFormId.ToString());
+                return;
+            }
 
+            string assetName = AssetUtility.GetUIFormAsset(drUIForm.AssetName);
+            if(!uiComponent.HasUIForm(assetName))
+            {
+                return;
+            }
+
+            UIForm uiForm = uiComponent.GetUIForm(assetName);
+            GameEntry.UI.CloseUIForm(uiForm);
         }
 
         public static int? OpenUIForm(this UIComponent uiComponent, UIFormId uiFormId, object userData = null)
