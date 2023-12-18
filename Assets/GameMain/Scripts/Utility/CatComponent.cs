@@ -111,6 +111,8 @@ namespace GameMain
         Touch,
         Rest,
         Sleep,
-        Morning
+        Morning,
+        Hug,
+        Teach
     }
 }

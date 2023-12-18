@@ -1,6 +1,22 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-5481241575754319126
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87cdaf258b51efa4e889ba2918b1a700, type: 3}
+  m_Name: Trust_1_Touch_1
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: 9166011245703889841}
+  - {fileID: 4470533514465051852}
+  dialogInfo: 
+--- !u!114 &4470533514465051852
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,19 +36,19 @@ MonoBehaviour:
     - chatDatas
     values:
     - _fieldName: a
-      _node: {fileID: -5481241575754319126}
+      _node: {fileID: 4470533514465051852}
       _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: start
-        node: {fileID: -134431864679559229}
+        node: {fileID: 9166011245703889841}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: chatDatas
-      _node: {fileID: -5481241575754319126}
+      _node: {fileID: 4470533514465051852}
       _typeQualifiedName: System.Collections.Generic.List`1[[ChatData, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
         Culture=neutral, PublicKeyToken=b77a5c561934e089
@@ -65,8 +81,8 @@ MonoBehaviour:
         soundTag: 0
     background: {fileID: 0}
     eventDatas: []
-    text: "\u6D4B\u8BD5\uFF0C\u6765\u6E90\uFF1AStranger_1_Sleep_1"
---- !u!114 &-134431864679559229
+    text: "\u6D4B\u8BD5\uFF0C\u6765\u6E90\uFF1ATrust_1_Touch_1"
+--- !u!114 &9166011245703889841
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,31 +101,15 @@ MonoBehaviour:
     - start
     values:
     - _fieldName: start
-      _node: {fileID: -134431864679559229}
+      _node: {fileID: 9166011245703889841}
       _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: a
-        node: {fileID: -5481241575754319126}
+        node: {fileID: 4470533514465051852}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
   start: 0
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87cdaf258b51efa4e889ba2918b1a700, type: 3}
-  m_Name: Stranger_1_Sleep_1
-  m_EditorClassIdentifier: 
-  nodes:
-  - {fileID: -134431864679559229}
-  - {fileID: -5481241575754319126}
-  dialogInfo: 
