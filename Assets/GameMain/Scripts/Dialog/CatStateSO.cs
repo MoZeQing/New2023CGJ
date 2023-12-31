@@ -40,6 +40,7 @@ namespace GameMain
                             }
                         }
                     }
+                    EditorUtility.SetDirty(catStateSO);
                 }
                 Debug.Log("Êä³öÍê±Ï");
             }

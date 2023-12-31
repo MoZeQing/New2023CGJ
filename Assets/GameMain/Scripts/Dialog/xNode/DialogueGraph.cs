@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using XNode;
 using System;
+using OfficeOpenXml;//Epplus
 
 [CreateAssetMenu(fileName ="DialogueGraph")]
 public class DialogueGraph : NodeGraph
@@ -63,7 +64,18 @@ public class DialogueGraph : NodeGraph
         return null;
     }
 
-#if UNITY_EDITOR
+    [MenuItem("导入导出工具/对话文件导出",false,1000)]
+    public static void SOToExcel()
+    {
+        Debug.Log(0);
+    }
+
+    [MenuItem("导入导出文件/对话文件转入",false,1001)]
+    public static void ExcelToSO()
+    {
+        Debug.Log(0);
+    }
+
     [MenuItem("Data/Dialog/检查错误")]
     public static void DialogCheck()
     {
@@ -74,5 +86,4 @@ public class DialogueGraph : NodeGraph
                 Debug.LogErrorFormat("不存在StartNode的对话剧情，请检查{0}", graph.name);
         }
     }
-#endif
 }
