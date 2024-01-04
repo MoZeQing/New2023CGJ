@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,10 +9,11 @@ namespace GameMain
     public class PlayerComponent : GameFrameworkComponent
     {
         public PlayerData mPlayerData  = new PlayerData();
+        public List<RecipeData> recipes = new List<RecipeData>();//已解锁的配方
 
         private void Start()
         {
-            mPlayerData.recipes = new List<RecipeData>();
+            recipes = new List<RecipeData>();
             mPlayerData.items = new List<PlayerItemData>();
         }
 
@@ -55,7 +57,7 @@ namespace GameMain
 
         public void ClearRecipe()
         {
-            mPlayerData.recipes.Clear();
+            recipes.Clear();
         }
 
         public void AddRecipes(int[] indexs)
@@ -72,7 +74,7 @@ namespace GameMain
             {
                 if (recipeData.IsCoffee)
                     GameEntry.UI.OpenUIForm(UIFormId.UnlockForm, recipeData);
-                mPlayerData.recipes.Add(recipeData);
+                recipes.Add(recipeData);
             }
         }
 
@@ -82,9 +84,18 @@ namespace GameMain
             AddRecipe(recipeData);
         }
 
+        public void LoadGame(SaveLoadData saveLoadData)
+        {
+            recipes.Clear();
+            foreach (int index in saveLoadData.recipes)
+            {
+                GameEntry.Player.recipes.Add(new RecipeData(GameEntry.DataTable.GetDataTable<DRRecipe>().GetDataRow(index)));
+            }
+        }
+
         public bool HasRecipe(int id)
         {
-            foreach (RecipeData recipe in mPlayerData.recipes)
+            foreach (RecipeData recipe in recipes)
             {
                 if (recipe.Id==id)
                     return true;
@@ -94,7 +105,7 @@ namespace GameMain
 
         public bool HasCoffeeRecipe(NodeTag nodeTag)
         {
-            foreach (RecipeData recipe in mPlayerData.recipes)
+            foreach (RecipeData recipe in recipes)
             {
                 if (recipe.products.Contains(nodeTag))
                     return true;

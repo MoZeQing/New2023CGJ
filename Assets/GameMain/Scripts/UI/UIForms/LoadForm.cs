@@ -58,6 +58,12 @@ namespace GameMain
             GameEntry.Utils.Flags = saveLoadData.flags;
             GameEntry.Utils.WorkDatas = saveLoadData.workDatas;
             GameEntry.Dialog.LoadGame(saveLoadData.storyData);
+            GameEntry.Player.LoadGame(saveLoadData);
+            GameEntry.Utils.outingSceneStates.Clear();
+            foreach (OutingSceneState outingSceneState in saveLoadData.outingSceneStates)
+            {
+                GameEntry.Utils.outingSceneStates.Add(outingSceneState);
+            }
             GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Change));
             GameEntry.SaveLoad.LoadData();
             LoadData();
