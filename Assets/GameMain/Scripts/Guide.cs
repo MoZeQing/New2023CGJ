@@ -43,11 +43,18 @@ namespace GameMain
 
         // Update is called once per frame
 
-        public void Guide1_1(object sender,GameEventArgs e)
+        public void Guide1_1(object sender, GameEventArgs e)
         {
             GameStateEventArgs args = (GameStateEventArgs)e;
             if (args.GameState == GameState.Special)
             {
+                //初始化
+                materials.Add(GameObject.Find("Materials").transform.Find("CoffeeBean").gameObject);
+                materials.Add(GameObject.Find("Materials").transform.Find("Water").gameObject);
+                materials.Add(GameObject.Find("Materials").transform.Find("Milk").gameObject);
+                materials.Add(GameObject.Find("Materials").transform.Find("Cup").gameObject);
+                materials.Add(GameObject.Find("Materials").transform.Find("Sugar").gameObject);
+
                 materials[(int)NodeTag.CoffeeBean].SetActive(true);
                 GameEntry.UI.OpenUIForm(UIFormId.HighlightTips, "点击咖啡豆槽位，会生成对应的材料卡");
                 GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, Guide1_1);
@@ -143,7 +150,7 @@ namespace GameMain
             }
         }
 
-        public void Guide2_1(object sender,GameEventArgs e)
+        public void Guide2_1(object sender, GameEventArgs e)
         {
             GameStateEventArgs args = (GameStateEventArgs)e;
             if (args.GameState == GameState.Special)
@@ -155,7 +162,7 @@ namespace GameMain
             }
         }
 
-        public void Guide2_2(object sender,GameEventArgs e)
+        public void Guide2_2(object sender, GameEventArgs e)
         {
             ShowEntitySuccessEventArgs args = (ShowEntitySuccessEventArgs)e;
             BaseCompenent baseCompenent = null;
@@ -171,7 +178,7 @@ namespace GameMain
             }
         }
 
-        public void Guide2_3(object sender,GameEventArgs e)
+        public void Guide2_3(object sender, GameEventArgs e)
         {
             ShowEntitySuccessEventArgs args = (ShowEntitySuccessEventArgs)e;
             BaseCompenent baseCompenent = null;
@@ -190,7 +197,7 @@ namespace GameMain
             }
         }
 
-        public void Guide2_4(object sender,GameEventArgs e)
+        public void Guide2_4(object sender, GameEventArgs e)
         {
             ShowEntitySuccessEventArgs args = (ShowEntitySuccessEventArgs)e;
             BaseCompenent baseCompenent = null;
@@ -206,7 +213,7 @@ namespace GameMain
             }
         }
 
-        public void Guide2_5(object sender,GameEventArgs e)
+        public void Guide2_5(object sender, GameEventArgs e)
         {
             ShowEntitySuccessEventArgs args = (ShowEntitySuccessEventArgs)e;
             BaseCompenent baseCompenent = null;
@@ -221,9 +228,9 @@ namespace GameMain
             }
         }
 
-        public void Guide2_6(object sender,GameEventArgs e)
+        public void Guide2_6(object sender, GameEventArgs e)
         {
-            ShowEntitySuccessEventArgs args=(ShowEntitySuccessEventArgs)e;
+            ShowEntitySuccessEventArgs args = (ShowEntitySuccessEventArgs)e;
             BaseCompenent baseCompenent = null;
             if (args.Entity.TryGetComponent<BaseCompenent>(out baseCompenent))
             {
@@ -236,7 +243,7 @@ namespace GameMain
             }
         }
 
-        public void Guide3_1(object sender,GameEventArgs e)
+        public void Guide3_1(object sender, GameEventArgs e)
         {
             GameStateEventArgs args = (GameStateEventArgs)e;
             if (args.GameState == GameState.Special)
@@ -248,7 +255,7 @@ namespace GameMain
             }
         }
 
-        public void Guide3_2(object sender,GameEventArgs e)
+        public void Guide3_2(object sender, GameEventArgs e)
         {
             ShowEntitySuccessEventArgs args = (ShowEntitySuccessEventArgs)e;
             BaseCompenent baseCompenent = null;
@@ -265,7 +272,7 @@ namespace GameMain
             }
         }
 
-        public void Guide3_3(object sender,GameEventArgs e)
+        public void Guide3_3(object sender, GameEventArgs e)
         {
             ShowEntitySuccessEventArgs args = (ShowEntitySuccessEventArgs)e;
             BaseCompenent baseCompenent = null;
@@ -291,6 +298,16 @@ namespace GameMain
         {
             GameEntry.UI.OpenUIForm(UIFormId.PopTips, "那么将咖啡拖动到对应的订单上");
         }
-    }
 
+        //需要在点击交互时发送信息
+        public void Guide4_1()
+        {
+            GameEntry.UI.CloseUIForm(UIFormId.MainForm);
+        }
+
+        public void Guide4_2()
+        {
+
+        }
+    }
 }

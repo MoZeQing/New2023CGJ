@@ -23,6 +23,8 @@ namespace GameMain
         public bool musicChangeFlag;
         private int mCarfSort = 99;
 
+        public List<OutingSceneState> outingSceneStates = new List<OutingSceneState>();
+
         public int CartSort
         {
             get
@@ -501,14 +503,20 @@ namespace GameMain
                     return true;
                 case EventTag.Rent:
                     GameEntry.Utils.Rent=int.Parse(eventData.value);
-                    break;
+                    return true; 
                 case EventTag.AddFriend:
                     string[] strings= eventData.value.Split(' ');
                     GameEntry.Utils.friends[strings[0]] += int.Parse(strings[1]);
-                    break;
+                    return true; 
                 case EventTag.AddRecipe:
                     GameEntry.Player.AddRecipe(int.Parse(eventData.value));
-                    break;
+                    return true; 
+                case EventTag.AddScene:
+                    GameEntry.Utils.outingSceneStates.Add((OutingSceneState)int.Parse(eventData.value));
+                    return true;
+                case EventTag.Test:
+                    GameEntry.Event.FireNow(this, ValueEventArgs.Create(PropertyTag.Energy,"成功"));
+                    return true;
             }
             return false;
         }
@@ -529,7 +537,6 @@ namespace GameMain
         public int day;
         public int rent;
         public List<PlayerItemData> items=new List<PlayerItemData>();
-        public List<RecipeData> recipes=new List<RecipeData>();//已解锁的配方
         //public int time;
     }
 }

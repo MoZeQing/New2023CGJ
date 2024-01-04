@@ -263,4 +263,6 @@ public enum EventTag
     Rent,//设置租金
     AddRecipe,//增加配方
     AddFriend,
+    AddScene,//增加场景
+    Test
 }

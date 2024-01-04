@@ -24,6 +24,7 @@ namespace GameMain
             GameEntry.UI.OpenUIForm(UIFormId.MainForm, this);
             GameEntry.Dialog.StoryUpdate();
             GameEntry.Utils.TimeTag = TimeTag.Evening;
+            GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Afternoon));
             GameEntry.Event.Subscribe(LoadSceneSuccessEventArgs.EventId, LoadSceneSuccess);
             GameEntry.Event.Subscribe(MainStateEventArgs.EventId, MainStateEvent);
             IDataTable<DRScene> dtScene = GameEntry.DataTable.GetDataTable<DRScene>();

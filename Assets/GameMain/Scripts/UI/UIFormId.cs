@@ -39,6 +39,7 @@ namespace GameMain
         UnlockForm=56,
         PopTips=100,
         HighlightTips=101,
+        PropertyTips=102
     }
 }
 

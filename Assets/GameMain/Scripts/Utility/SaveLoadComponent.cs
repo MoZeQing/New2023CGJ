@@ -103,6 +103,9 @@ namespace GameMain
             GameEntry.Utils.AddPlayerItem(new ItemData(ItemTag.Stirrer), 1, true);
             GameEntry.Utils.AddPlayerItem(new ItemData((ItemTag)closet), 1, true);
 
+            GameEntry.Utils.outingSceneStates.Clear();
+            GameEntry.Utils.outingSceneStates.Add(OutingSceneState.Greengrocer);
+
             foreach (KeyValuePair<string, CharSO> pair in GameEntry.Utils.chars)
                 GameEntry.Utils.friends.Add(pair.Value.name, pair.Value.favor);
 
@@ -121,6 +124,14 @@ namespace GameMain
             saveLoadData.flags= GameEntry.Utils.Flags;
             saveLoadData.workDatas = GameEntry.Utils.WorkDatas;
             saveLoadData.storyData = GameEntry.Dialog.LoadedStories;
+            foreach (RecipeData recipeData in GameEntry.Player.recipes)
+            {
+                saveLoadData.recipes.Add(recipeData.Id);
+            }
+            foreach (OutingSceneState outingSceneState in GameEntry.Utils.outingSceneStates)
+            {
+                saveLoadData.outingSceneStates.Add((int)outingSceneState);
+            }
             mSaveLoadData[index]= saveLoadData;
             SaveGame();
         }
@@ -148,13 +159,20 @@ namespace GameMain
         }
         private void LoadGame()
         {
-            if (File.Exists(Application.persistentDataPath + "/save.sav"))
+            try
             {
-                FileStream fs = File.OpenRead(Application.persistentDataPath + "/save.sav");
-                BinaryFormatter bf = new BinaryFormatter();
-                GameData gameData = (GameData)bf.Deserialize(fs);
-                mSaveLoadData = gameData.saveLoadData;
-                fs.Close();
+                if (File.Exists(Application.persistentDataPath + "/save.sav"))
+                {
+                    FileStream fs = File.OpenRead(Application.persistentDataPath + "/save.sav");
+                    BinaryFormatter bf = new BinaryFormatter();
+                    GameData gameData = (GameData)bf.Deserialize(fs);
+                    mSaveLoadData = gameData.saveLoadData;
+                    fs.Close();
+                }
+            }
+            catch(Exception e)
+            {
+                Debug.LogWarning(e.ToString());
             }
         }
         //…„∆¡
@@ -193,6 +211,8 @@ namespace GameMain
         public List<string> storyData = new List<string>();
         public List<WorkData> workDatas= new List<WorkData>();
         public List<string> flags=  new List<string>();
+        public List<int> recipes = new List<int>();
+        public List<int> outingSceneStates = new List<int>();
     }
     [System.Serializable]
     public class GameData

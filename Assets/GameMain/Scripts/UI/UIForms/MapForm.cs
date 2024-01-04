@@ -22,6 +22,37 @@ namespace GameMain
 
         private void OnEnable()
         {
+            mBeachBtn.gameObject.SetActive(false);
+            mClothingBtn.gameObject.SetActive(false);
+            mGlassBtn.gameObject.SetActive(false);
+            mGreengrocerBtn.gameObject.SetActive(false);
+            mGymBtn.gameObject.SetActive(false);
+            mRestaurantBtn.gameObject.SetActive(false);
+            foreach (OutingSceneState outingSceneState in GameEntry.Utils.outingSceneStates)
+            {
+                switch (outingSceneState)
+                {
+                    case OutingSceneState.Beach:
+                        mBeachBtn.gameObject.SetActive(true);
+                        break;
+                    case OutingSceneState.Clothing:
+                        mClothingBtn.gameObject.SetActive(true);
+                        break;
+                    case OutingSceneState.Glass:
+                        mGlassBtn.gameObject.SetActive(true);
+                        break;
+                    case OutingSceneState.Greengrocer:
+                        mGreengrocerBtn.gameObject.SetActive(true);
+                        break;
+                    case OutingSceneState.Gym:
+                        mGymBtn.gameObject.SetActive(true);
+                        break;
+                    case OutingSceneState.Restaurant:
+                        mRestaurantBtn.gameObject.SetActive(true);
+                        break;
+                }
+            }
+
             mGreengrocerBtn.onClick.AddListener(() => Outing(OutingSceneState.Greengrocer));
             mGlassBtn.onClick.AddListener(() => Outing(OutingSceneState.Glass));
             mRestaurantBtn.onClick.AddListener(() => Outing(OutingSceneState.Restaurant));
@@ -57,33 +88,16 @@ namespace GameMain
                 GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你没有运动服，请购买运动服才能去往健身房");
                 return;
             }
+            if (GameEntry.Utils.Energy < 20)
+            {
+                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你的体力不足，还是先休息会吧");
+                return;
+            }
+            GameEntry.Utils.Energy -= 20;
             GameEntry.Utils.outSceneState=outingSceneState;
             GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
             GameEntry.UI.OpenUIForm((UIFormId)outingSceneState + 20, this);
             mDay = GameEntry.Utils.Day;
         }
-
-        //protected override void OnOpen(object userData)
-        //{
-        //    base.OnOpen(userData);
-        //    mMainState = (MainState)userData;
-
-        //    mGreengrocerBtn.onClick.AddListener(() => Outing(OutingSceneState.Greengrocer));
-        //    mGlassBtn.onClick.AddListener(() => Outing(OutingSceneState.Glass));
-        //    mRestaurantBtn.onClick.AddListener(() => Outing(OutingSceneState.Restaurant));
-        //    mBeachBtn.onClick.AddListener(() => Outing(OutingSceneState.Beach));
-        //    mClothingBtn.onClick.AddListener(() => Outing(OutingSceneState.Park));
-        //    mBookstoreBtn.onClick.AddListener(() => Outing(OutingSceneState.BookStore));
-        //}
-
-        //protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
-        //{
-        //    base.OnUpdate(elapseSeconds, realElapseSeconds);
-        //}
-
-        //protected override void OnClose(bool isShutdown, object userData)
-        //{
-        //    base.OnClose(isShutdown, userData);
-        //}
     }
 }

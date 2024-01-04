@@ -31,6 +31,7 @@ namespace GameMain
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
+            mCanvas.gameObject.SetActive(true);
             leftButton.onClick.AddListener(TurnLeft);
             rightButton.onClick.AddListener(TurnRight);
             loadBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.LoadForm, this));
