@@ -31,6 +31,7 @@ namespace GameMain
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
+            GamePosUtility.Instance.GamePos = GamePos.Up;
             mCanvas.gameObject.SetActive(true);
             leftButton.onClick.AddListener(TurnLeft);
             rightButton.onClick.AddListener(TurnRight);
@@ -121,7 +122,7 @@ public class GamePosUtility
     public GamePos GamePos
     {
         get;
-        private set;
+        set;
     }
 
     public void GamePosChange(GamePos gamePos)

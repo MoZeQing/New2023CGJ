@@ -53,10 +53,11 @@ namespace GameMain
                 ShopItem shopItem = go.GetComponent<ShopItem>();
                 shopItem.SetData(itemData);
                 shopItem.SetTouch(OnTouch);
+                shopItem.SetClick(OnClick);
                 mItems.Add(shopItem);
             }
         }
-        private void OnClick(ShopItemData itemData)
+        private void OnClick(ItemData itemData)
         {
             purchaseForm.SetData(itemData);
             purchaseForm.gameObject.SetActive(true);

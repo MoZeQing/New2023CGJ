@@ -17,7 +17,7 @@ namespace GameMain
         [SerializeField] private Button PurchaseFormBuyBtn;
         [SerializeField] private GameObject tips;
 
-        private ShopItemData mShopItemData;
+        private ItemData mShopItemData;
         private Action mAction;
         private int purchaseNumber;
 
@@ -36,17 +36,14 @@ namespace GameMain
         {
             purchaseNum.text = purchaseNumber.ToString();
         }
-        private void OnEnable()
+        public void SetData(ItemData shopItemData)
         {
+            mShopItemData = shopItemData;
             if (GameEntry.Utils.Money < mShopItemData.price * purchaseNumber)
             {
                 tips.gameObject.SetActive(true);
                 PurchaseFormBuyBtn.interactable = false;
             }
-        }
-        public void SetData(ShopItemData shopItemData)
-        {
-            mShopItemData = shopItemData;
         }
         public void SetClick(Action action)
         {

@@ -24,7 +24,7 @@ namespace GameMain
 
         void Start()
         {
-            purchaseButton.onClick.AddListener(()=>mAction(mShopItemData));
+
         }
 
         public void SetData(ItemData itemData)
@@ -58,6 +58,7 @@ namespace GameMain
         public virtual void SetClick(Action<ItemData> action)
         {
             mAction = action;
+            purchaseButton.onClick.AddListener(() => mAction(mShopItemData));
         }
 
         public virtual void SetTouch(Action<bool, ItemData> action)

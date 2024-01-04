@@ -484,11 +484,11 @@ namespace GameMain
                     GameEntry.Utils.RemoveFlag(eventData.value);
                     return true;
                 case EventTag.NextDay:
-                    TimeTag = TimeTag.Morning;
+                    TimeTag = TimeTag.Afternoon;
                     GameEntry.Event.FireNow(this, MainFormEventArgs.Create(MainFormTag.Unlock));
                     GameEntry.Utils.Day++;
                     GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, GameEntry.Utils.Day);//用这个this传参来调整黑幕
-                    GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Work));
+                    GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Teach));
                     return true;
                 case EventTag.PlayBgm:
                     return true;
