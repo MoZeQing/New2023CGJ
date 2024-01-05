@@ -82,6 +82,8 @@ namespace GameMain
             {
                 if (behaviorData.behaviorTag == BehaviorTag.Morning)
                     continue;
+                if (behaviorData.behaviorTag == BehaviorTag.Click)
+                    continue;
                 GameObject go = GameObject.Instantiate(behaviorBtn, rightCanvas);
                 Button button=go.GetComponent<Button>();
                 Text text = go.transform.Find("Text").GetComponent<Text>();
@@ -142,14 +144,6 @@ namespace GameMain
         }
         //不允许在回调中再设置回调，会导致回调错误
         //也就是说，在SetComplete方法中设置的方法不能有Behaviour等会设置回调的方法
-        private void OnSleep()
-        {
-            InDialog = false;
-            GameEntry.Utils.TimeTag = TimeTag.Night;
-            GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Night));
-            if (!GameEntry.Dialog.StoryUpdate(PassDay))
-                Behaviour(BehaviorTag.Sleep);
-        }
         private void PassDay()
         {
             GameEntry.Utils.Ap = GameEntry.Utils.MaxAp;
@@ -157,15 +151,23 @@ namespace GameMain
             leftCanvas.gameObject.SetActive(false);
             GameEntry.Utils.Day++;
             GameEntry.UI.OpenUIForm(UIFormId.PassDayForm);//用这个this传参来调整黑幕
-            GameEntry.Utils.TimeTag = TimeTag.Morning;
+            GameEntry.Utils.GameState = GameState.Morning;
             GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Morning));
             Invoke(nameof(OnFaded), 4f);
         }
-        private void OnMorning()
-        {
-            if (!GameEntry.Dialog.StoryUpdate())
-                Behaviour(BehaviorTag.Morning);
-        }
+        //private void OnSleep()
+        //{
+        //    InDialog = false;
+        //    GameEntry.Utils.GameState = GameState.Night;
+        //    GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Night));
+        //    if (!GameEntry.Dialog.StoryUpdate(PassDay))
+        //        Behaviour(BehaviorTag.Sleep);
+        //}
+        //private void OnMorning()
+        //{
+        //    if (!GameEntry.Dialog.StoryUpdate())
+        //        Behaviour(BehaviorTag.Morning);
+        //}
         private void OnComplete()
         {
             InDialog=false;
@@ -175,13 +177,22 @@ namespace GameMain
                 leftCanvas.gameObject.SetActive(false);
                 GameEntry.Utils.Day++;
                 GameEntry.UI.OpenUIForm(UIFormId.PassDayForm);//用这个this传参来调整黑幕
-                GameEntry.Utils.TimeTag = TimeTag.Morning;
-                GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Morning));
                 Invoke(nameof(OnFaded), 4f);
             }
             else if (mBehaviorTag == BehaviorTag.Morning)
             {
-                GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Work));
+                if (GameEntry.Utils.Week != Week.Sunday)
+                    GameEntry.Utils.GameState = GameState.Work;
+                else
+                {
+                    GameEntry.Event.FireNow(this, MainFormEventArgs.Create(MainFormTag.Unlock));
+                    dialogBox.gameObject.SetActive(false);
+                    stage.gameObject.SetActive(false);
+                    leftCanvas.gameObject.SetActive(true);
+                    rightCanvas.gameObject.SetActive(true);
+                    mLittleCat.ShowLittleCat();
+                    GameEntry.Utils.GameState = GameState.Night;
+                }
             }
             else
             {
@@ -195,7 +206,12 @@ namespace GameMain
         private void OnFaded()
         {
             mCanvasGroup.alpha = 0;
-            Behaviour(BehaviorTag.Morning);
+            GameEntry.Utils.GameState = GameState.Morning;
+            mBehaviorTag = BehaviorTag.Morning;
+            if (!GameEntry.Dialog.StoryUpdate(OnComplete))
+            {
+                Behaviour(BehaviorTag.Morning);
+            }
         }
         private void CharDataEvent(object sender, GameEventArgs e) 
         { 
@@ -219,9 +235,7 @@ namespace GameMain
         public void Click_Action()
         {
             mLittleCat.ShowLittleCat();
-            rightCanvas.gameObject.SetActive(false);
-            leftCanvas.gameObject.SetActive(true);
-            Behaviour(BehaviorTag.Touch);
+            Behaviour(BehaviorTag.Click);
         }
     }
 }

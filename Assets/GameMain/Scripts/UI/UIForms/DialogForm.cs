@@ -23,6 +23,7 @@ namespace GameMain
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
+            GameEntry.UI.OpenUIForm(UIFormId.ChangeForm);
             SetData((DialogueGraph)userData);
         }
 

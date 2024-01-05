@@ -40,6 +40,7 @@ namespace GameMain
 
 public enum GameState
 {
+    None,
     Morning,//早上轮次
     Work,//工作轮次
     ForeSpecial,//特殊客人前轮次
@@ -48,5 +49,7 @@ public enum GameState
     Afternoon,//下午轮次
     Night,//傍晚轮次
     Midnight,//晚上轮次
-    Sleep
+    Sleep,
+    Guide,
+    Menu
 }

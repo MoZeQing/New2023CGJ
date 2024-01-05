@@ -30,7 +30,7 @@ public class LevelSO : ScriptableObject
                 StringBuilder sb = new StringBuilder();
                 sb.Append(story.name + ",");
                 sb.Append(story.dialogueGraph.name + ",");
-                sb.Append(story.timeTag + ",");
+                sb.Append(story.gameState + ",");
                 if (story.eventDatas.Count != 0)
                 {
                     foreach (EventData eventData in story.eventDatas)

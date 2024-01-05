@@ -42,7 +42,7 @@ namespace GameMain
         private CharData mCharData=new CharData();
         private PlayerData mPlayerData = new PlayerData();
         private OutingSceneState mLocation;
-        private TimeTag mTimeTag;
+        private GameState mGameState;
         private Week mWeek;
         private BehaviorTag mBehaviorTag;
 
@@ -163,16 +163,17 @@ namespace GameMain
                 _values[TriggerTag.Week] = mWeek.ToString();
             }
         }
-        public TimeTag TimeTag
+        public GameState GameState
         {
             get
             {
-                return mTimeTag;
+                return mGameState;
             }
             set
             { 
-                mTimeTag= value;
-                _values[TriggerTag.TimeTag] = mTimeTag.ToString();
+                mGameState= value;
+                GameEntry.Event.FireNow(this, GameStateEventArgs.Create(mGameState));
+                _values[TriggerTag.TimeTag] = mGameState.ToString();
             }
         }
         public OutingSceneState Location
@@ -484,16 +485,14 @@ namespace GameMain
                     GameEntry.Utils.RemoveFlag(eventData.value);
                     return true;
                 case EventTag.NextDay:
-                    TimeTag = TimeTag.Afternoon;
                     GameEntry.Event.FireNow(this, MainFormEventArgs.Create(MainFormTag.Unlock));
                     GameEntry.Utils.Day++;
-                    GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, GameEntry.Utils.Day);//用这个this传参来调整黑幕
-                    GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Teach));
+                    GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Night));
                     return true;
                 case EventTag.PlayBgm:
                     return true;
                 case EventTag.EndGame:
-                    GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Menu));
+                    GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Menu));
                     return true;
                 case EventTag.AddDay:
                     GameEntry.Utils.Day += int.Parse(eventData.value);

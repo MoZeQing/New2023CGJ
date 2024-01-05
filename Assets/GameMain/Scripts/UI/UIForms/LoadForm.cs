@@ -64,7 +64,7 @@ namespace GameMain
             {
                 GameEntry.Utils.outingSceneStates.Add(outingSceneState);
             }
-            GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Change));
+            GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Night));
             GameEntry.SaveLoad.LoadData();
             LoadData();
         }

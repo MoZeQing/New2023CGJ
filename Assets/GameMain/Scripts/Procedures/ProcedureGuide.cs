@@ -23,7 +23,7 @@ namespace GameMain
         private LevelData levelData3;
 
         private int mIndex;
-        private MainState mMainState;
+        private GameState mGameState;
 
         public bool InGuide { get; set; } = true;
 
@@ -32,12 +32,11 @@ namespace GameMain
             base.OnEnter(procedureOwner);
             mIndex = 1;
             InGuide = true;
-            mMainState = MainState.Undefined;
+            mGameState = GameState.Guide;
 
             GameEntry.Event.Subscribe(LoadSceneSuccessEventArgs.EventId, OnLoadSceneSuccess);
             GameEntry.Event.Subscribe(GameStateEventArgs.EventId, OnGameStateEvent);
             GameEntry.Event.Subscribe(DialogEventArgs.EventId, OnDialogEvent);
-            GameEntry.Event.Subscribe(MainStateEventArgs.EventId, OnMainStateEvent);
             // 还原游戏速度
             GameEntry.Base.ResetNormalGameSpeed();
             IDataTable<DRScene> dtScene = GameEntry.DataTable.GetDataTable<DRScene>();
@@ -61,7 +60,6 @@ namespace GameMain
             GameEntry.Event.Unsubscribe(LoadSceneSuccessEventArgs.EventId, OnLoadSceneSuccess);
             GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, OnGameStateEvent);
             GameEntry.Event.Unsubscribe(DialogEventArgs.EventId, OnDialogEvent);
-            GameEntry.Event.Unsubscribe(MainStateEventArgs.EventId, OnMainStateEvent);
 
             GameEntry.Entity.HideAllLoadedEntities();
             GameEntry.Entity.HideAllLoadingEntities();
@@ -84,21 +82,10 @@ namespace GameMain
             {
                 ChangeState<ProcedureMain>(procedureOwner);
             }
-            if (mMainState == MainState.Menu)
+            if (mGameState == GameState.Menu)
             {
                 ChangeState<ProcedureMenu>(procedureOwner);
             }
-        }
-
-        public void OnComptele()
-        {
-
-        }
-
-        public void OnMainStateEvent(object sender, GameEventArgs e)
-        {
-            MainStateEventArgs args = (MainStateEventArgs)e;
-            mMainState = args.MainState;
         }
 
         private void OnLoadSceneSuccess(object sender,GameEventArgs e)
@@ -127,6 +114,7 @@ namespace GameMain
         private void OnGameStateEvent(object sender, GameEventArgs e)
         { 
             GameStateEventArgs args= (GameStateEventArgs)e;
+            mGameState = args.GameState;
             if (args.GameState == GameState.ForeSpecial)
             { 
                 

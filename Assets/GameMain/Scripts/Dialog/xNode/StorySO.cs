@@ -18,7 +18,7 @@ public class StorySO : ScriptableObject
     [SerializeField]
     public bool outingBefore;
     [SerializeField]
-    public TimeTag timeTag;
+    public GameState gameState;
     [SerializeField]
     public ParentTrigger trigger;
     [SerializeField]
@@ -41,7 +41,7 @@ public class StorySO : ScriptableObject
                 StringBuilder sb = new StringBuilder();
                 sb.Append(story.name + ",");
                 sb.Append(story.dialogueGraph.name + ",");
-                sb.Append(story.timeTag + ",");
+                sb.Append(story.gameState + ",");
                 if (story.eventDatas.Count != 0)
                 {
                     foreach (EventData eventData in story.eventDatas)

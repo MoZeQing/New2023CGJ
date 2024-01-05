@@ -14,71 +14,71 @@ namespace GameMain
 {
     public class ProcedureOuting : ProcedureBase
     {
-        private MainState mMainState;
+        //private MainState mMainState;
 
-        protected override void OnEnter(ProcedureOwner procedureOwner)
-        {
-            base.OnEnter(procedureOwner);
-            mMainState = MainState.Outing;
-            GameEntry.UI.OpenUIForm((UIFormId)(12 + (int)GameEntry.Utils.outSceneState), this);
-            GameEntry.Event.Subscribe(MainStateEventArgs.EventId, MainStateEvent);
-        }
-        protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
-        {
-            base.OnLeave(procedureOwner, isShutdown);
-            GameEntry.Event.Unsubscribe(MainStateEventArgs.EventId, MainStateEvent);
-        }
-        protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
-        {
-            base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
-            switch (mMainState)
-            {
-                case MainState.Undefined:
-                    break;
-                case MainState.Teach:
-                    ChangeState<ProcedureMain>(procedureOwner);
-                    //ÇÐ»»bgm
-                    break;
-                case MainState.Work:
-                    ChangeState<ProcedureWork>(procedureOwner);
-                    //ÇÐ»»bgm
-                    break;
-                case MainState.Menu:
-                    ChangeState<ProcedureMenu>(procedureOwner);
-                    break;
-                case MainState.Outing:
-                    //ÇÐ»»bgm
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
-        private void MainStateEvent(object sender, GameEventArgs e)
-        {
-            MainStateEventArgs args = (MainStateEventArgs)e;
-            switch (args.MainState)
-            {
-                case MainState.Undefined:
-                    break;
-                case MainState.Teach:
-                    //ÇÐ»»bgm
-                    if (GameEntry.Dialog.StoryUpdate())
-                        return;
-                    break;
-                case MainState.Work:
-                    //ÇÐ»»bgm
-                    if (GameEntry.Dialog.StoryUpdate())
-                        return;
-                    break;
-                case MainState.Menu:
-                    break;
-                case MainState.Outing:
-                    //ÇÐ»»bgm
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-            mMainState = args.MainState;
-        }
+        //protected override void OnEnter(ProcedureOwner procedureOwner)
+        //{
+        //    base.OnEnter(procedureOwner);
+        //    mMainState = MainState.Outing;
+        //    GameEntry.UI.OpenUIForm((UIFormId)(12 + (int)GameEntry.Utils.outSceneState), this);
+        //    GameEntry.Event.Subscribe(MainStateEventArgs.EventId, MainStateEvent);
+        //}
+        //protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
+        //{
+        //    base.OnLeave(procedureOwner, isShutdown);
+        //    GameEntry.Event.Unsubscribe(MainStateEventArgs.EventId, MainStateEvent);
+        //}
+        //protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
+        //{
+        //    base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
+        //    switch (mMainState)
+        //    {
+        //        case MainState.Undefined:
+        //            break;
+        //        case MainState.Teach:
+        //            ChangeState<ProcedureMain>(procedureOwner);
+        //            ÇÐ»»bgm
+        //            break;
+        //        case MainState.Work:
+        //            ChangeState<ProcedureWork>(procedureOwner);
+        //            ÇÐ»»bgm
+        //            break;
+        //        case MainState.Menu:
+        //            ChangeState<ProcedureMenu>(procedureOwner);
+        //            break;
+        //        case MainState.Outing:
+        //            ÇÐ»»bgm
+        //            break;
+        //        default:
+        //            throw new ArgumentOutOfRangeException();
+        //    }
+        //}
+        //private void MainStateEvent(object sender, GameEventArgs e)
+        //{
+        //    MainStateEventArgs args = (MainStateEventArgs)e;
+        //    switch (args.MainState)
+        //    {
+        //        case MainState.Undefined:
+        //            break;
+        //        case MainState.Teach:
+        //            ÇÐ»»bgm
+        //            if (GameEntry.Dialog.StoryUpdate())
+        //                return;
+        //            break;
+        //        case MainState.Work:
+        //            ÇÐ»»bgm
+        //            if (GameEntry.Dialog.StoryUpdate())
+        //                return;
+        //            break;
+        //        case MainState.Menu:
+        //            break;
+        //        case MainState.Outing:
+        //            ÇÐ»»bgm
+        //            break;
+        //        default:
+        //            throw new ArgumentOutOfRangeException();
+        //    }
+        //    mMainState = args.MainState;
+        //}
     }
 }

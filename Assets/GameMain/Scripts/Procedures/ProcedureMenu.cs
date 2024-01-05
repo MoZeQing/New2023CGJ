@@ -14,7 +14,7 @@ namespace GameMain
     public class ProcedureMenu : ProcedureBase
     {
         private MainMenu m_MenuForm = null;
-        private MainState mMainState;
+        private GameState mGameState;
 
         public void StartGame()
         {           
@@ -29,8 +29,8 @@ namespace GameMain
         {
             base.OnEnter(procedureOwner);
             Debug.Log("Menu");
-            mMainState = MainState.Menu;
-            GameEntry.Event.Subscribe(MainStateEventArgs.EventId, MainStateEvent);
+            mGameState = GameState.Menu;
+            GameEntry.Event.Subscribe(GameStateEventArgs.EventId, GameStateEvent);
             GameEntry.UI.OpenUIForm(UIFormId.MenuForm, this);
         }
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
@@ -40,42 +40,30 @@ namespace GameMain
             GameEntry.UI.CloseAllLoadedUIForms();
             GameEntry.UI.CloseAllLoadingUIForms();
             GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
-            GameEntry.Event.Unsubscribe(MainStateEventArgs.EventId, MainStateEvent);
+            GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, GameStateEvent);
         }
         protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
-            switch (mMainState)
+            switch (mGameState)
             {
-                case MainState.Undefined:
+                case GameState.Menu:
                     break;
-                case MainState.Teach:
+                case GameState.Night:
                     ChangeState<ProcedureMain>(procedureOwner);
                     //ÇÐ»»bgm
                     break;
-                case MainState.Work:
-                    ChangeState<ProcedureWork>(procedureOwner);
-                    //ÇÐ»»bgm
-                    break;
-                case MainState.Menu:
-                    break;
-                case MainState.Outing:
-                    //ÇÐ»»bgm
-                    break;
-                case MainState.Change:
-                    ChangeState<ProcedureInitMain>(procedureOwner);
-                    break;
-                case MainState.Guide:
+                case GameState.Guide:
                     ChangeState<ProcedureGuide>(procedureOwner);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
-        private void MainStateEvent(object sender, GameEventArgs e)
+        private void GameStateEvent(object sender, GameEventArgs e)
         {
-            MainStateEventArgs args = (MainStateEventArgs)e;
-            mMainState = args.MainState;
+            GameStateEventArgs args = (GameStateEventArgs)e;
+            mGameState = args.GameState;
         }
     }
 }

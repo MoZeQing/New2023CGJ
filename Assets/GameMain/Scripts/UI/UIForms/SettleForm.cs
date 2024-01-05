@@ -97,7 +97,7 @@ namespace GameMain
         {
             //if (mIsRandom)
             //{
-                GameEntry.Event.FireNow(this, MainStateEventArgs.Create(MainState.Teach));
+                GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Afternoon));
                 GameEntry.UI.CloseUIForm(this.UIForm);
             //}
             //else

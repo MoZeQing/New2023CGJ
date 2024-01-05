@@ -17,7 +17,7 @@ namespace GameMain
         //规定，其中0为自动存档、1~4为玩家手动存档的位置
         private SaveLoadData[] mSaveLoadData = new SaveLoadData[5];
         //初始化数据
-        public MainState mainState;
+        public GameState gameState;
         public int maxEnergy = 80;
         public int energy = 80;
         public int maxAp = 6;
@@ -109,7 +109,7 @@ namespace GameMain
             foreach (KeyValuePair<string, CharSO> pair in GameEntry.Utils.chars)
                 GameEntry.Utils.friends.Add(pair.Value.name, pair.Value.favor);
 
-            GameEntry.Event.FireNow(this, MainStateEventArgs.Create(mainState));
+            GameEntry.Event.FireNow(this, GameStateEventArgs.Create(gameState));
         }
         public void SaveGame(int index)
         {

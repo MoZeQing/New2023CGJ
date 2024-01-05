@@ -57,8 +57,8 @@ namespace GameMain
                 if (GameEntry.Utils.outingBefore != story.outingBefore)
                     if (GameEntry.Utils.Location == OutingSceneState.Home)
                         continue;
-                if (GameEntry.Utils.TimeTag != story.timeTag)
-                    if (story.timeTag != TimeTag.None)
+                if (GameEntry.Utils.GameState != story.gameState)
+                    if (story.gameState != GameState.None)
                         continue;
                 if (GameEntry.Utils.Check(story.trigger))
                 {
@@ -88,8 +88,8 @@ namespace GameMain
                 if (GameEntry.Utils.outingBefore != story.outingBefore)
                     if (GameEntry.Utils.Location == OutingSceneState.Home)
                         continue;
-                if (GameEntry.Utils.TimeTag != story.timeTag)
-                    if (story.timeTag != TimeTag.None)
+                if (GameEntry.Utils.GameState != story.gameState)
+                    if (story.gameState != GameState.None)
                         continue;
                 if (GameEntry.Utils.Check(story.trigger))
                 {

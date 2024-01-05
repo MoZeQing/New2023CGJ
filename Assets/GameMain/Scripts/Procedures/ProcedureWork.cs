@@ -13,15 +13,14 @@ namespace GameMain
 {
     public class ProcedureWork : ProcedureBase
     {
-        private MainState mMainState;
+        private GameState mGameState;
         private WorkData workData;
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
-            mMainState = MainState.Work;
+            mGameState = GameState.Work;
             workData = new WorkData();
             GamePosUtility.Instance.GamePosChange(GamePos.Down);
-            GameEntry.Event.Subscribe(MainStateEventArgs.EventId, MainStateEvent);
             GameEntry.Event.Subscribe(OrderEventArgs.EventId, OnOrderEvent);
             GameEntry.Event.Subscribe(GameStateEventArgs.EventId, OnGameStateEvent);
             IDataTable<DRScene> dtScene = GameEntry.DataTable.GetDataTable<DRScene>();
@@ -34,13 +33,12 @@ namespace GameMain
             }
             //≥°æ∞º”‘ÿ
             GameEntry.Scene.LoadScene(AssetUtility.GetSceneAsset(drScene.AssetName), /*Constant.AssetPriority.SceneAsset*/0, this);
-            GameEntry.Utils.TimeTag = TimeTag.ForeWork;
+            GameEntry.Utils.GameState = GameState.Work;
             GameEntry.Dialog.StoryUpdate();
         }
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
         {
             base.OnLeave(procedureOwner, isShutdown);
-            GameEntry.Event.Unsubscribe(MainStateEventArgs.EventId, MainStateEvent);
             GameEntry.Event.Unsubscribe(OrderEventArgs.EventId, OnOrderEvent);
             GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, OnGameStateEvent);
 
@@ -56,47 +54,28 @@ namespace GameMain
             {
                 GameEntry.Scene.UnloadScene(loadedSceneAssetNames[i]);
             }
-            GameEntry.Utils.TimeTag = TimeTag.Afternoon;
+            GameEntry.Utils.GameState = GameState.Afternoon;
         }
         protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
             if (GameEntry.Dialog.InDialog)
                 return;
-            switch (mMainState)
+            switch (mGameState)
             {
-                case MainState.Undefined:
-                    break;
-                case MainState.Teach:
+                case GameState.Afternoon:
                     ChangeState<ProcedureMain>(procedureOwner);
                     //«–ªªbgm
                     break;
-                case MainState.Work:
+                case GameState.Work:
                     //«–ªªbgm
                     break;
-                case MainState.Menu:
+                case GameState.Menu:
                     ChangeState<ProcedureMenu>(procedureOwner);
                     break;
-                case MainState.Outing:
-                    ChangeState<ProcedureOuting>(procedureOwner);
-                    //«–ªªbgm
-                    break;
                 default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
-        private void MainStateEvent(object sender, GameEventArgs e)
-        {
-            MainStateEventArgs args = (MainStateEventArgs)e;
-            switch (args.MainState)
-            {
-                case MainState.Undefined:
-                    break;
-                case MainState.Teach:
-                    //«–ªªbgm
                     break;
             }
-            mMainState = args.MainState;
         }
         private void OnOrderEvent(object sender, GameEventArgs e)
         {
@@ -115,7 +94,7 @@ namespace GameMain
         private void OnGameStateEvent(object sender, GameEventArgs e)
         {
             GameStateEventArgs args = (GameStateEventArgs)e;
-            
+            mGameState = args.GameState;
             if (args.GameState == GameState.AfterSpecial)
                 GameEntry.UI.OpenUIForm(UIFormId.SettleForm, workData);
         }

@@ -13,20 +13,20 @@ namespace GameMain
 {
     public class ProcedureMain : ProcedureBase
     {
-        private MainState mMainState;
+        private GameState mGameState;
         private string sceneName;
 
         protected override void OnEnter(IFsm<IProcedureManager> procedureOwner)
         {
             base.OnEnter(procedureOwner);
-            mMainState = MainState.Teach;
             GameEntry.Utils.Location = OutingSceneState.Home;
             GameEntry.UI.OpenUIForm(UIFormId.MainForm, this);
             GameEntry.Dialog.StoryUpdate();
-            GameEntry.Utils.TimeTag = TimeTag.Evening;
+            mGameState = GameState.Night;
+            GameEntry.Utils.GameState = GameState.Night;
             GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Afternoon));
             GameEntry.Event.Subscribe(LoadSceneSuccessEventArgs.EventId, LoadSceneSuccess);
-            GameEntry.Event.Subscribe(MainStateEventArgs.EventId, MainStateEvent);
+            GameEntry.Event.Subscribe(GameStateEventArgs.EventId, GameStateEvent);
             IDataTable<DRScene> dtScene = GameEntry.DataTable.GetDataTable<DRScene>();
             DRScene drScene = dtScene.GetDataRow(2);
             //加载主界面
@@ -42,7 +42,7 @@ namespace GameMain
         protected override void OnLeave(IFsm<IProcedureManager> procedureOwner, bool isShutdown)
         {
             base.OnLeave(procedureOwner, isShutdown);
-            GameEntry.Event.Unsubscribe(MainStateEventArgs.EventId, MainStateEvent);
+            GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, GameStateEvent);
             GameEntry.Event.Unsubscribe(LoadSceneSuccessEventArgs.EventId, LoadSceneSuccess);
             GameEntry.UI.CloseUIGroup("Default");
             GameEntry.UI.CloseAllLoadingUIForms();
@@ -59,31 +59,25 @@ namespace GameMain
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
             if (GameEntry.Dialog.InDialog)
                 return;
-            switch (mMainState)
+            switch (mGameState)
             {
-                case MainState.Undefined:
+                case GameState.None:
                     break;
-                case MainState.Teach:
-                    //切换bgm
-                    break;
-                case MainState.Work:
+                case GameState.Work:
                     ChangeState<ProcedureWork>(procedureOwner);
                     //切换bgm
                     break;
-                case MainState.Menu:
+                case GameState.Menu:
                     ChangeState<ProcedureMenu>(procedureOwner);
                     break;
-                case MainState.Change:
-                    ChangeState<ProcedureInitMain>(procedureOwner);
-                    break;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    break;
             }
         }
-        private void MainStateEvent(object sender, GameEventArgs e)
+        private void GameStateEvent(object sender, GameEventArgs e)
         { 
-            MainStateEventArgs args= (MainStateEventArgs)e;
-            mMainState = args.MainState;
+            GameStateEventArgs args= (GameStateEventArgs)e;
+            mGameState = args.GameState;
         }
         private void LoadSceneSuccess(object sender, GameEventArgs e)
         {

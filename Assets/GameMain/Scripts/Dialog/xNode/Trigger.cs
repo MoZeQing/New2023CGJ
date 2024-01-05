@@ -264,5 +264,6 @@ public enum EventTag
     AddRecipe,//增加配方
     AddFriend,
     AddScene,//增加场景
-    Test
+    Test,
+    Jump
 }
