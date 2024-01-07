@@ -99,6 +99,8 @@ namespace GameMain
         public void SetDiff(DiffTag diffTag)
         {
             mImage = this.GetComponent<Image>();
+            if (mCharSO == null)
+                return;
             if (mCharSO.isMain)
                 mImage.sprite = mDiffs[(GameEntry.Utils.closet - 101) * 18 + (int)diffTag];
             else

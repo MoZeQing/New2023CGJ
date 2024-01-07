@@ -1,6 +1,22 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7964293203469123834
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87cdaf258b51efa4e889ba2918b1a700, type: 3}
+  m_Name: Stranger_2_Click_1
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: 2611628793013870602}
+  - {fileID: 7740852203122720064}
+  dialogInfo: 
+--- !u!114 &2611628793013870602
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -19,35 +35,19 @@ MonoBehaviour:
     - start
     values:
     - _fieldName: start
-      _node: {fileID: -7964293203469123834}
+      _node: {fileID: 2611628793013870602}
       _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: a
-        node: {fileID: 7924678904403320146}
+        node: {fileID: 7740852203122720064}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
   start: 0
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87cdaf258b51efa4e889ba2918b1a700, type: 3}
-  m_Name: Stranger_2_Talk_0
-  m_EditorClassIdentifier: 
-  nodes:
-  - {fileID: -7964293203469123834}
-  - {fileID: 7924678904403320146}
-  dialogInfo: 
---- !u!114 &7924678904403320146
+--- !u!114 &7740852203122720064
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -67,19 +67,19 @@ MonoBehaviour:
     - chatDatas
     values:
     - _fieldName: a
-      _node: {fileID: 7924678904403320146}
+      _node: {fileID: 7740852203122720064}
       _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: start
-        node: {fileID: -7964293203469123834}
+        node: {fileID: 2611628793013870602}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: chatDatas
-      _node: {fileID: 7924678904403320146}
+      _node: {fileID: 7740852203122720064}
       _typeQualifiedName: System.Collections.Generic.List`1[[ChatData, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
         Culture=neutral, PublicKeyToken=b77a5c561934e089
@@ -112,4 +112,4 @@ MonoBehaviour:
         soundTag: 0
     background: {fileID: 0}
     eventDatas: []
-    text: "\u6D4B\u8BD5\uFF0C\u6765\u6E90\uFF1AStranger_2_Talk_0"
+    text: "\u6D4B\u8BD5\uFF0C\u6765\u6E90\uFF1AStranger_2_Click_1"

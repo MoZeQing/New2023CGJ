@@ -87,7 +87,10 @@ namespace GameMain
                 GameObject go = GameObject.Instantiate(behaviorBtn, rightCanvas);
                 Button button=go.GetComponent<Button>();
                 Text text = go.transform.Find("Text").GetComponent<Text>();
-                button.onClick.AddListener(() => Behaviour(behaviorData.behaviorTag));
+                if(behaviorData.behaviorTag==BehaviorTag.Sleep)
+                    button.onClick.AddListener(OnSleep);
+                else
+                    button.onClick.AddListener(() => Behaviour(behaviorData.behaviorTag));
                 text.text = behaviorData.behaviorTag.ToString();
                 m_Btns.Add(go);
             }
@@ -155,14 +158,13 @@ namespace GameMain
             GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Morning));
             Invoke(nameof(OnFaded), 4f);
         }
-        //private void OnSleep()
-        //{
-        //    InDialog = false;
-        //    GameEntry.Utils.GameState = GameState.Night;
-        //    GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Night));
-        //    if (!GameEntry.Dialog.StoryUpdate(PassDay))
-        //        Behaviour(BehaviorTag.Sleep);
-        //}
+        private void OnSleep()
+        {
+            InDialog = false;
+            GameEntry.Utils.GameState = GameState.Midnight;
+            if (!GameEntry.Dialog.StoryUpdate(PassDay))
+                Behaviour(BehaviorTag.Sleep);
+        }
         //private void OnMorning()
         //{
         //    if (!GameEntry.Dialog.StoryUpdate())

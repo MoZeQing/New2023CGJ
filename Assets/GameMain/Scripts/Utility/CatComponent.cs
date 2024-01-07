@@ -72,7 +72,7 @@ namespace GameMain
                     {
                         behaviors.Add(behavior.behaviorTag, behavior);
                     }
-                    return;
+                    continue;
                 }
             }
         }
