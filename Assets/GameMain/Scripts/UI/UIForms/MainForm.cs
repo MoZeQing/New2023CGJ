@@ -33,8 +33,8 @@ namespace GameMain
             base.OnOpen(userData);
             GamePosUtility.Instance.GamePos = GamePos.Up;
             mCanvas.gameObject.SetActive(true);
-            leftButton.onClick.AddListener(TurnLeft);
-            rightButton.onClick.AddListener(TurnRight);
+            //leftButton.onClick.AddListener(TurnLeft);
+            //rightButton.onClick.AddListener(TurnRight);
             loadBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.LoadForm, this));
             saveBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.SaveForm, this));
             optionBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.OptionForm, this));
