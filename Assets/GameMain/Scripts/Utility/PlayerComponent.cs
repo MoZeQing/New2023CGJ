@@ -81,7 +81,7 @@ namespace GameMain
         public void AddRecipe(int index)
         {
             RecipeData recipeData = new RecipeData(GameEntry.DataTable.GetDataTable<DRRecipe>().GetDataRow(index));
-            AddRecipe(recipeData);
+            recipes.Add(recipeData);
         }
 
         public void LoadGame(SaveLoadData saveLoadData)

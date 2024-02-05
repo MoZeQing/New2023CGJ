@@ -22,6 +22,55 @@ namespace GameMain
 
         private void OnEnable()
         {
+            GameEntry.Event.Subscribe(GameStateEventArgs.EventId, GameStateEvent);
+            GameStateEvent(null, null);
+        }
+
+        private void OnDisable()
+        {
+            GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, GameStateEvent);
+        }
+
+        private void Outing(OutingSceneState outingSceneState)
+        {
+            if (mDay == GameEntry.Utils.Day)
+            {
+                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "今天你已经外出过一次了");
+                return;
+            }
+            if (outingSceneState==OutingSceneState.Beach&&GameEntry.Utils.GetPlayerItem(ItemTag.Closet4) == null)//检查泳装
+            {
+                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你没有泳装，请购买泳装才能去往海滩");
+                return;
+            }
+            if (outingSceneState == OutingSceneState.Gym && GameEntry.Utils.GetPlayerItem(ItemTag.Closet2) == null)//检查运动装
+            {
+                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你没有运动服，请购买运动服才能去往健身房");
+                return;
+            }
+            if (GameEntry.Utils.Energy < 20)
+            {
+                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你的体力不足，还是先休息会吧");
+                return;
+            }
+            GameEntry.Utils.Energy -= 20;
+            GameEntry.Utils.outSceneState=outingSceneState;
+            GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
+            GameEntry.UI.OpenUIForm((UIFormId)outingSceneState + 20, this);
+            mDay = GameEntry.Utils.Day;
+        }
+
+        private void GameStateEvent(object sender, GameEventArgs args)
+        {
+            GameStateEventArgs e = (GameStateEventArgs)args;
+            //修改为收到消息就刷新
+            mGreengrocerBtn.onClick.RemoveAllListeners();
+            mGlassBtn.onClick.RemoveAllListeners();
+            mRestaurantBtn.onClick.RemoveAllListeners();
+            mBeachBtn.onClick.RemoveAllListeners();
+            mClothingBtn.onClick.RemoveAllListeners();
+            mGymBtn.onClick.RemoveAllListeners();
+
             mBeachBtn.gameObject.SetActive(false);
             mClothingBtn.gameObject.SetActive(false);
             mGlassBtn.gameObject.SetActive(false);
@@ -59,45 +108,6 @@ namespace GameMain
             mBeachBtn.onClick.AddListener(() => Outing(OutingSceneState.Beach));
             mClothingBtn.onClick.AddListener(() => Outing(OutingSceneState.Clothing));
             mGymBtn.onClick.AddListener(() => Outing(OutingSceneState.Gym));
-        }
-
-        private void OnDisable()
-        {
-            mGreengrocerBtn.onClick.RemoveAllListeners();
-            mGlassBtn.onClick.RemoveAllListeners();
-            mRestaurantBtn.onClick.RemoveAllListeners();
-            mBeachBtn.onClick.RemoveAllListeners();
-            mClothingBtn.onClick.RemoveAllListeners();
-            mGymBtn.onClick.RemoveAllListeners();
-        }
-
-        private void Outing(OutingSceneState outingSceneState)
-        {
-            if (mDay == GameEntry.Utils.Day)
-            {
-                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "今天你已经外出过一次了");
-                return;
-            }
-            if (outingSceneState==OutingSceneState.Beach&&GameEntry.Utils.GetPlayerItem(ItemTag.Closet4) == null)//检查泳装
-            {
-                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你没有泳装，请购买泳装才能去往海滩");
-                return;
-            }
-            if (outingSceneState == OutingSceneState.Gym && GameEntry.Utils.GetPlayerItem(ItemTag.Closet2) == null)//检查运动装
-            {
-                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你没有运动服，请购买运动服才能去往健身房");
-                return;
-            }
-            if (GameEntry.Utils.Energy < 20)
-            {
-                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你的体力不足，还是先休息会吧");
-                return;
-            }
-            GameEntry.Utils.Energy -= 20;
-            GameEntry.Utils.outSceneState=outingSceneState;
-            GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
-            GameEntry.UI.OpenUIForm((UIFormId)outingSceneState + 20, this);
-            mDay = GameEntry.Utils.Day;
         }
     }
 }

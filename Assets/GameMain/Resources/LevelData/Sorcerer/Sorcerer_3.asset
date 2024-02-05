@@ -14,17 +14,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isRandom: 0
   trigger:
-    key: 1
+    key: 17
     not: 0
     equals: 1
-    value: Sorcerer_2
-    and: []
+    value: Tuesday
+    and:
+    - key: 1
+      not: 0
+      equals: 1
+      value: Sorcerer_2
+      and: []
+      or: []
     or: []
   levelData:
-    charSO: {fileID: 0}
+    charSO: {fileID: 11400000, guid: e9c3805302ae05043b0073ac408d64d1, type: 2}
     foreWork: {fileID: 11400000, guid: fc62a90620485b24dba7637e26c75cb0, type: 2}
     afterWork: {fileID: 11400000, guid: 2515275edd4729146aa9299a2a4672cf, type: 2}
     failWork: {fileID: 11400000, guid: 7852a10270abcfa4e80f1ffc797caae0, type: 2}
-    orderDatas: []
-    favor: 0
-    orderTime: 0
+    orderDatas:
+    - NodeTag: 201
+      NodeName: "\u6D53\u7F29\u5496\u5561"
+      OrderTime: 30
+      Sugar: 0
+      CondensedMilk: 0
+      Salt: 0
+    favor: 10
+    orderTime: 30

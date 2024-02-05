@@ -151,12 +151,19 @@ namespace GameMain
             }
             if (levels.Count != 0)
             {
-                OnLevel(levels[UnityEngine.Random.Range(0, levels.Count)].levelData);
+                OnLevel(levels[UnityEngine.Random.Range(0, levels.Count)]);
             }
             else//合法则随机选择，非法则全随机
             {
-                OnLevel(mRandomSos[UnityEngine.Random.Range(0, mRandomSos.Count)].levelData);
+                OnLevel(mRandomSos[UnityEngine.Random.Range(0, mRandomSos.Count)]);
             }
+        }
+
+        public void OnLevel(LevelSO levelSO)
+        { 
+            OnLevel(levelSO.levelData);
+            if (levelSOs.Contains(levelSO))
+                levelSOs.Remove(levelSO);
         }
 
         public void OnLevel(string levelName)
@@ -171,7 +178,7 @@ namespace GameMain
             }
         }
 
-        public void OnLevel(LevelData levelData)
+        private void OnLevel(LevelData levelData)
         { 
             mLevelData= levelData;
             mOrderCount = 0;

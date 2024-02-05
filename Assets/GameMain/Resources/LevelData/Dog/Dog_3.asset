@@ -14,11 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isRandom: 0
   trigger:
-    key: 0
+    key: 17
     not: 0
-    equals: 0
-    value: 
-    and: []
+    equals: 1
+    value: Thursday
+    and:
+    - key: 1
+      not: 0
+      equals: 1
+      value: Dog_2
+      and: []
+      or: []
+    - key: 10
+      not: 0
+      equals: 0
+      value: 3
+      and: []
+      or: []
     or: []
   levelData:
     charSO: {fileID: 11400000, guid: f55f9cc77010f814babbd71528af649a, type: 2}

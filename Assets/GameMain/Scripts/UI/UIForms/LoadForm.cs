@@ -65,6 +65,8 @@ namespace GameMain
                 GameEntry.Utils.outingSceneStates.Add(outingSceneState);
             }
             GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Night));
+            GameEntry.UI.OpenUIForm(UIFormId.ChangeForm);
+            GameEntry.UI.CloseUIForm(this.UIForm);
             GameEntry.SaveLoad.LoadData();
             LoadData();
         }
