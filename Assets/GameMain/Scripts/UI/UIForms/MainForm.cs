@@ -14,9 +14,11 @@ namespace GameMain
     public partial class MainForm : UIFormLogic
     {
         [Header("¹Ì¶¨ÇøÓò")]
-        [SerializeField] private Button leftButton;
-        [SerializeField] private Button rightButton;
+        [SerializeField] private Button teachBtn;
+        [SerializeField] private Button teachBtn1;
         [SerializeField] private Transform mCanvas;
+        [SerializeField] private Animator mAnimator;
+        [SerializeField] private TeachingForm mTeachingForm;
         [Header("Ö÷¿Ø")]
         [SerializeField] private Button loadBtn;
         [SerializeField] private Button saveBtn;
@@ -24,6 +26,10 @@ namespace GameMain
         [SerializeField] private Button guideBtn;
         [SerializeField] private Button friendBtn;
         [SerializeField] private Button recipeBtn;
+        [SerializeField] private Button warehouseBtn;
+        [SerializeField] private Button outBtn;
+        [SerializeField] private Button backBtn_1;
+        [SerializeField] private Button backBtn_2;
         private PlaySoundParams playSoundParams = PlaySoundParams.Create();
         private int m_RandomValue;
         private GamePos mGamePos=GamePos.Up;
@@ -31,17 +37,18 @@ namespace GameMain
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            GamePosUtility.Instance.GamePos = GamePos.Up;
-            mCanvas.gameObject.SetActive(true);
-            //leftButton.onClick.AddListener(TurnLeft);
-            //rightButton.onClick.AddListener(TurnRight);
+            teachBtn.onClick.AddListener(ChangeTeach);
+            teachBtn1.onClick.AddListener(ChangeTeach);
             loadBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.LoadForm, this));
             saveBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.SaveForm, this));
-            optionBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.OptionForm, this));
-            guideBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.GuideForm));
+            //optionBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.OptionForm, this));
+            //guideBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.GuideForm));
             friendBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.FriendForm));
             recipeBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.RecipeForm));
-
+            warehouseBtn.onClick.AddListener(() => Change(GamePos.Left));
+            outBtn.onClick.AddListener(()=>Change(GamePos.Right));
+            backBtn_1.onClick.AddListener(() => Change(GamePos.Up));
+            backBtn_2.onClick.AddListener(() => Change(GamePos.Up));
             GameEntry.Event.Subscribe(MainFormEventArgs.EventId, OnMainFormEvent);
         }
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
@@ -51,54 +58,53 @@ namespace GameMain
         protected override void OnClose(bool isShutdown, object userData)
         {
             base.OnClose(isShutdown, userData);
+            teachBtn.onClick.RemoveAllListeners();
+            teachBtn1.onClick.RemoveAllListeners();
             loadBtn.onClick.RemoveAllListeners();
             saveBtn.onClick.RemoveAllListeners();
-            optionBtn.onClick.RemoveAllListeners();
-            leftButton.onClick.RemoveAllListeners();
-            rightButton.onClick.RemoveAllListeners();
-            guideBtn.onClick.RemoveAllListeners();
+            //optionBtn.onClick.RemoveAllListeners();
+            //guideBtn.onClick.RemoveAllListeners();
             friendBtn.onClick.RemoveAllListeners();
             recipeBtn.onClick.RemoveAllListeners();
-
+            warehouseBtn.onClick.RemoveAllListeners();
+            outBtn.onClick.RemoveAllListeners();
+            backBtn_1.onClick.RemoveAllListeners();
+            backBtn_2.onClick.RemoveAllListeners();
             GameEntry.Event.Unsubscribe(MainFormEventArgs.EventId, OnMainFormEvent);
         }
-        private void TurnLeft()
+        private void Change(GamePos gamePos)
         {
-            switch (GamePosUtility.Instance.GamePos)
+            Debug.Log(gamePos);
+            switch (gamePos)
             {
-                case GamePos.Up:
-                    GamePosUtility.Instance.GamePosChange(GamePos.Left);
-                    leftButton.interactable = false;
+                case GamePos.Left:
+                    mCanvas.transform.DOLocalMoveX(1920f, 1f).SetEase(Ease.InOutExpo);
                     break;
                 case GamePos.Right:
-                    GamePosUtility.Instance.GamePosChange(GamePos.Up);
-                    rightButton.interactable = true;
+                    mCanvas.transform.DOLocalMoveX(-1920f, 1f).SetEase(Ease.InOutExpo);
                     break;
-            }
-        }
-
-        private void TurnRight() 
-        {
-            switch (GamePosUtility.Instance.GamePos)
-            {
                 case GamePos.Up:
-                    GamePosUtility.Instance.GamePosChange(GamePos.Right);
-                    rightButton.interactable = false;
-                    break;
-                case GamePos.Left:
-                    GamePosUtility.Instance.GamePosChange(GamePos.Up);
-                    leftButton.interactable = true;
+                    mCanvas.transform.DOLocalMoveX(0, 1f).SetEase(Ease.InOutExpo);
                     break;
             }
-        }
 
+        }
+        private void ChangeTeach()
+        {
+            Debug.Log(123);
+            mAnimator.SetBool("Into", !mAnimator.GetBool("Into"));
+            if (mAnimator.GetBool("Into"))
+            {
+                mTeachingForm.Click_Action();
+            }
+        }
         private void OnMainFormEvent(object sender, GameEventArgs e) 
         {
             MainFormEventArgs args= (MainFormEventArgs)e;
-            if (args.MainFormTag == MainFormTag.Lock)
-                mCanvas.gameObject.SetActive(false);
-            else
-                mCanvas.gameObject.SetActive(true);
+            //if (args.MainFormTag == MainFormTag.Lock)
+            //    mCanvas.gameObject.SetActive(false);
+            //else
+            //    mCanvas.gameObject.SetActive(true);
         }
     }
 }

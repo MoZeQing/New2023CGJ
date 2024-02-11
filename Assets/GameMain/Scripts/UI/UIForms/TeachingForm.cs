@@ -25,11 +25,8 @@ namespace GameMain
         [Header("右侧操作栏")]
         [SerializeField] private Transform rightCanvas;
         [Header("主控")]
-        [SerializeField] private Transform mainCanvas;
         [SerializeField] private DialogBox dialogBox;
         [SerializeField] private BaseStage stage;
-        [SerializeField] private LittleCat mLittleCat = null;
-        [SerializeField] private RectTransform mCanvas = null;
         [SerializeField] private CanvasGroup mCanvasGroup = null;
 
         private DialogForm mDialogForm = null;
@@ -50,17 +47,15 @@ namespace GameMain
             GameEntry.Utils.UpdateData();
             ShowButtons();
             mCanvasGroup = this.GetComponent<CanvasGroup>();
-            this.transform.localScale = Vector3.one * 0.01f;
         }
         private void Update()
         {
-            if (Input.GetMouseButtonDown(1)&&!InDialog)
-            {
-                GameEntry.Event.FireNow(this, MainFormEventArgs.Create(MainFormTag.Unlock));
-                dialogBox.gameObject.SetActive(false);
-                stage.gameObject.SetActive(false);
-                mLittleCat.ShowLittleCat();
-            }
+            //if (Input.GetMouseButtonDown(1)&&!InDialog)
+            //{
+            //    GameEntry.Event.FireNow(this, MainFormEventArgs.Create(MainFormTag.Unlock));
+            //    dialogBox.gameObject.SetActive(false);
+            //    stage.gameObject.SetActive(false);
+            //}
             if (mCanvasGroup.alpha < 1)
             {
                 mCanvasGroup.alpha = Mathf.Lerp(mCanvasGroup.alpha, 1, 0.3f);
@@ -68,7 +63,6 @@ namespace GameMain
         }
         private void OnDisable()
         {
-            mLittleCat.ShowLittleCat();
             GameEntry.Event.Unsubscribe(CharDataEventArgs.EventId, CharDataEvent);
             GameEntry.Event.Unsubscribe(PlayerDataEventArgs.EventId, PlayerDataEvent);
         }
@@ -144,7 +138,6 @@ namespace GameMain
             leftCanvas.gameObject.SetActive(false);
             rightCanvas.gameObject.SetActive(false);
             stage.gameObject.SetActive(true);
-            mLittleCat.HideLittleCat();
         }
         //不允许在回调中再设置回调，会导致回调错误
         //也就是说，在SetComplete方法中设置的方法不能有Behaviour等会设置回调的方法
@@ -194,7 +187,6 @@ namespace GameMain
                     stage.gameObject.SetActive(false);
                     leftCanvas.gameObject.SetActive(true);
                     rightCanvas.gameObject.SetActive(true);
-                    mLittleCat.ShowLittleCat();
                     GameEntry.Utils.GameState = GameState.Night;
                 }
             }
@@ -231,14 +223,13 @@ namespace GameMain
             PlayerData playerData= playerDataEvent.PlayerData;
             //rentText.transform.parent.gameObject.SetActive(GameEntry.Utils.Rent != 0);
             //rentText.text = string.Format("距离下一次欠款缴纳还有{0}天\r\n下一次交纳欠款：{1}",6-(playerData.day + 20) % 7, GameEntry.Utils.Rent.ToString());
-            energyText.text = string.Format("体力：{0}/{1}", playerData.energy, playerData.maxEnergy);
-            moneyText.text=string.Format("金钱：{0}", playerData.money.ToString());
-            timeText.text = string.Format("{0}月{1}日 星期{2}", (4 + (playerData.day + 19) / 28) % 12 + 1, (playerData.day + 19) % 28 + 1, AssetUtility.GetWeekCN((playerData.day + 20) % 7));
+            //energyText.text = string.Format("体力：{0}/{1}", playerData.energy, playerData.maxEnergy);
+            //moneyText.text=string.Format("金钱：{0}", playerData.money.ToString());
+            //timeText.text = string.Format("{0}月{1}日 星期{2}", (4 + (playerData.day + 19) / 28) % 12 + 1, (playerData.day + 19) % 28 + 1, AssetUtility.GetWeekCN((playerData.day + 20) % 7));
         }
         //单独给点击做一个方法调用
         public void Click_Action()
         {
-            mLittleCat.ShowLittleCat();
             Behaviour(BehaviorTag.Click);
         }
     }
