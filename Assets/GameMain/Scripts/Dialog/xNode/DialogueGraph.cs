@@ -160,6 +160,10 @@ namespace GameMain
                             ChatData chatData = new ChatData();
                             chatData.charName = worksheet.Cells[row, 16].Value.ToString();
                             chatData.text = worksheet.Cells[row, 17].Value.ToString();
+                            if (worksheet.Cells[row, 18].Value.ToString() != "0")
+                            {
+                                chatData.background = Resources.Load<Sprite>("Image/Background/" + worksheet.Cells[row, 18].Value.ToString());
+                            }
                             if (worksheet.Cells[row, 4].Value.ToString() != "0")
                             {
                                 chatData.left = new CharData1();
