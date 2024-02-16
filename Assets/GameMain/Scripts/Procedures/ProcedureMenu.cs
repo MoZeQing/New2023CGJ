@@ -17,8 +17,16 @@ namespace GameMain
         private GameState mGameState;
 
         public void StartGame()
-        {           
+        {
+            GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
+            GameEntry.Event.Subscribe(LoadingEventArgs.EventId, OnLoadingEvent);
+        }
+
+        private void OnLoadingEvent(object sender, GameEventArgs e)
+        {
+            LoadingEventArgs args = (LoadingEventArgs)e;
             GameEntry.SaveLoad.InitData();
+            GameEntry.Event.Unsubscribe(LoadingEventArgs.EventId, OnLoadingEvent);
         }
 
         public void ExitGame()
@@ -37,9 +45,8 @@ namespace GameMain
         {
             base.OnLeave(procedureOwner, isShutdown);
             GameEntry.Base.ResetNormalGameSpeed();
-            GameEntry.UI.CloseAllLoadedUIForms();
+            GameEntry.UI.CloseUIGroup("Default");
             GameEntry.UI.CloseAllLoadingUIForms();
-            GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
             GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, GameStateEvent);
         }
         protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)

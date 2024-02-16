@@ -91,7 +91,6 @@ namespace GameMain
         }
         private void ChangeTeach()
         {
-            Debug.Log(123);
             mAnimator.SetBool("Into", !mAnimator.GetBool("Into"));
             if (mAnimator.GetBool("Into"))
             {

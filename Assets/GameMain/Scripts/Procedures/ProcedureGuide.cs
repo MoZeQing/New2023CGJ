@@ -98,9 +98,8 @@ namespace GameMain
 
                 mOrderList.IsShowItem = false;
                 mWorkForm.IsGuide= true;
-                mWorkForm.IsNext = false;
+                //mWorkForm.IsNext = false;
                 mWorkForm.OnLevel("Guide_1");
-                GameEntry.Dialog.PlayStory("Guide_1");//²¥·Å¾çÇé
                 GameEntry.Utils.Day++;
                 mIndex++;
             }
@@ -128,7 +127,7 @@ namespace GameMain
             {
                 mOrderList.IsShowItem = false;
                 mWorkForm.IsGuide = true;
-                mWorkForm.IsNext = false;
+                //mWorkForm.IsNext = false;
                 if (mIndex == 1)
                 {
                     mWorkForm.OnLevel("Guide_1");
