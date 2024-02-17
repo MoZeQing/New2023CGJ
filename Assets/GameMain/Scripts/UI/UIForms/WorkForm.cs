@@ -72,7 +72,7 @@ namespace GameMain
                 if (GameEntry.Utils.Energy < 60) hardBtn.interactable = false;
                 commonBtn.onClick.AddListener(() => SetData(135));
                 if (GameEntry.Utils.Energy < 40) commonBtn.interactable = false;
-                easyBtn.onClick.AddListener(() => SetData(5));
+                easyBtn.onClick.AddListener(() => SetData(90));
                 if (GameEntry.Utils.Energy < 20) easyBtn.interactable = false;
             }
             levelSOs = new List<LevelSO>(Resources.LoadAll<LevelSO>("LevelData"));

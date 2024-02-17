@@ -71,7 +71,7 @@ namespace GameMain
         //}
 
         private float nowTime=5f;
-        private float rateTime=30f;
+        private float rateTime=10f;
 
         private void Update()
         {
@@ -81,7 +81,7 @@ namespace GameMain
             if (nowTime <= 0)
             {
                 ShowItem();
-                nowTime = rateTime;
+                nowTime = UnityEngine.Random.Range(10f, 20f);
             }
         }
         public void ShowItem()
@@ -95,7 +95,7 @@ namespace GameMain
                         coffees.Add((NodeTag)node.Id);
             }
             orderData.NodeTag = coffees[Random.Range(0, coffees.Count - 1)];
-            orderData.OrderTime = 90f;
+            orderData.OrderTime = UnityEngine.Random.Range(30, 60);
             orderData.Sugar = Random.Range(0, 2) == 1;
             orderData.CondensedMilk = Random.Range(0, 2) == 1;
             orderData.Salt = Random.Range(0, 2) == 1;
