@@ -19,13 +19,14 @@ namespace GameMain
         public void StartGame()
         {
             GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
-            GameEntry.Event.Subscribe(LoadingEventArgs.EventId, OnLoadingEvent);
+            GameEntry.SaveLoad.InitData();
+            //GameEntry.Event.Subscribe(LoadingEventArgs.EventId, OnLoadingEvent);
         }
 
         private void OnLoadingEvent(object sender, GameEventArgs e)
         {
             LoadingEventArgs args = (LoadingEventArgs)e;
-            GameEntry.SaveLoad.InitData();
+
             GameEntry.Event.Unsubscribe(LoadingEventArgs.EventId, OnLoadingEvent);
         }
 

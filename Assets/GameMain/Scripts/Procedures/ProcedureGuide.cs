@@ -131,7 +131,6 @@ namespace GameMain
                 if (mIndex == 1)
                 {
                     mWorkForm.OnLevel("Guide_1");
-                    GameEntry.Dialog.StoryUpdate();
                     mIndex++;
                     GameEntry.Utils.Day++;
                     Debug.Log(GameEntry.Utils.Day);
@@ -139,7 +138,6 @@ namespace GameMain
                 else if (mIndex == 2)
                 {
                     GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
-                    GameEntry.Dialog.StoryUpdate();
                     mWorkForm.OnLevel("Guide_2");
                     mIndex++;
                     GameEntry.Utils.Day++;
@@ -148,7 +146,6 @@ namespace GameMain
                 else if (mIndex == 3)
                 {
                     GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
-                    GameEntry.Dialog.StoryUpdate();
                     mWorkForm.OnLevel("Guide_3");
                     mIndex++;
                     GameEntry.Utils.Day++;

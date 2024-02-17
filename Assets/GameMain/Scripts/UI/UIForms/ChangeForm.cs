@@ -10,36 +10,36 @@ namespace GameMain
 {
     public class ChangeForm : UIFormLogic
     {
-        [SerializeField] private Animator animator;
+        private float mTime;
+        private float mDuration;
+        private bool mFire = false;
 
-        private bool mFlag = false;
+        [SerializeField] private Image m_Image;
 
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            mFlag = true;
-            animator.SetBool("Into", true);
-            mTime = 3f;
+            mDuration = 2f;
+            mTime = 0;
+            m_Image.color = new Color(1, 1, 1, 3 * mTime / mDuration);
         }
-
-        float mTime = 3f;
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
-            mTime -= Time.deltaTime;
-            if (mTime < 0 && mFlag)
+            mTime += Time.deltaTime;
+            if (mTime > 0 && mTime <= mDuration / 2f)
             {
-                animator.SetBool("Into", false);
+                m_Image.color = Color.white;
+            }
+            else if (mTime > mDuration / 2f && mTime <= mDuration)
+            {
+                m_Image.color = new Color(1, 1, 1, 1 - (3 * mTime / mDuration - 2));
+            }
+            else if (mTime > mDuration)
+            {
+                GameEntry.UI.CloseUIForm(this.UIForm);
             }
         }
-
-        protected override void OnClose(bool isShutdown, object userData)
-        {
-            base.OnClose(isShutdown, userData);
-        }
-
-        private void Opened() => GameEntry.Event.FireNow(this,LoadingEventArgs.Create());
-        private void Closed() => GameEntry.UI.CloseUIForm(this.UIForm);
     }
 }
