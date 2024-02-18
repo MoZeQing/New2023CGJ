@@ -1,0 +1,682 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-1723002070953201689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d2f46806851fa94f83f2f914748a21c, type: 3}
+  m_Name: Chat
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -552, y: 8}
+  ports:
+    keys:
+    - a
+    - chatDatas
+    - chatDatas 0
+    - chatDatas 1
+    - chatDatas 2
+    - chatDatas 3
+    - chatDatas 4
+    - chatDatas 5
+    - chatDatas 6
+    - chatDatas 7
+    values:
+    - _fieldName: a
+      _node: {fileID: -1723002070953201689}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: start
+        node: {fileID: -794972462578309913}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: chatDatas
+      _node: {fileID: -1723002070953201689}
+      _typeQualifiedName: System.Collections.Generic.List`1[[ChatData, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
+        Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: chatDatas 0
+      _node: {fileID: -1723002070953201689}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: chatDatas 1
+      _node: {fileID: -1723002070953201689}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: chatDatas 2
+      _node: {fileID: -1723002070953201689}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: chatDatas 3
+      _node: {fileID: -1723002070953201689}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: chatDatas 4
+      _node: {fileID: -1723002070953201689}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: chatDatas 5
+      _node: {fileID: -1723002070953201689}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: chatDatas 6
+      _node: {fileID: -1723002070953201689}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: chatDatas 7
+      _node: {fileID: -1723002070953201689}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: input
+        node: {fileID: 6455454817457537126}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+  a: 0
+  dialogId: 
+  chatDatas:
+  - charName: 0
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    background: {fileID: 21300000, guid: a74825d21a0e12945afe1d48a4bf890c, type: 3}
+    eventDatas: []
+    text: "\u7B49\u5230\u5916\u5356\u5C0F\u54E5\u6E05\u9192\u8FC7\u6765\u7684\u65F6\u5019\uFF0C\u5DF2\u7ECF\u8FC7\u4E86\u4E0D\u77ED\u7684\u4E00\u6BB5\u65F6\u95F4\u4E86\u3002"
+  - charName: 0
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    background: {fileID: 21300000, guid: a74825d21a0e12945afe1d48a4bf890c, type: 3}
+    eventDatas: []
+    text: "\u51B0\u62FF\u94C1\u7684\u51B0\u5DF2\u7ECF\u5168\u6570\u878D\u5316\u3002"
+  - charName: 0
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 11400000, guid: f2cf712c6d4e025469007254608067d8, type: 2}
+      actionData:
+        diffTag: 17
+        actionTag: 0
+        soundTag: 0
+    background: {fileID: 21300000, guid: a74825d21a0e12945afe1d48a4bf890c, type: 3}
+    eventDatas: []
+    text: "\u5F85\u5230\u4ED6\u9192\u8FC7\u6765\uFF0C\u770B\u5230\u6446\u5728\u9762\u524D\u7684\u996E\u54C1\u65F6\u65E0\u5948\u5730\u6447\u4E86\u6447\u5934\u3002"
+  - charName: "\u5916\u5356\u5458"
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 11400000, guid: f2cf712c6d4e025469007254608067d8, type: 2}
+      actionData:
+        diffTag: 17
+        actionTag: 0
+        soundTag: 0
+    background: {fileID: 21300000, guid: a74825d21a0e12945afe1d48a4bf890c, type: 3}
+    eventDatas: []
+    text: "\u201C\u7B97\u4E86\uFF0C\u4ECA\u5929\u5C31\u4F11\u606F\u4E00\u4F1A\u5427\u3002\u201D"
+  - charName: "\u6211"
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 11400000, guid: f2cf712c6d4e025469007254608067d8, type: 2}
+      actionData:
+        diffTag: 17
+        actionTag: 0
+        soundTag: 0
+    background: {fileID: 21300000, guid: a74825d21a0e12945afe1d48a4bf890c, type: 3}
+    eventDatas: []
+    text: "\u201C\u55EF\u2026\u2026\u867D\u8BF4\u6211\u4E5F\u4E0D\u662F\u4EC0\u4E48\u533B\u751F\uFF0C\u4F46\u4F60\u8FD9\u4E2A\u72B6\u6001\u786E\u5B9E\u4E0D\u9002\u5408\u518D\u5F3A\u6491\u7740\u53BB\u9001\u5916\u5356\u3002\u201D"
+  - charName: "\u5916\u5356\u5458"
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 11400000, guid: f2cf712c6d4e025469007254608067d8, type: 2}
+      actionData:
+        diffTag: 17
+        actionTag: 0
+        soundTag: 0
+    background: {fileID: 21300000, guid: a74825d21a0e12945afe1d48a4bf890c, type: 3}
+    eventDatas: []
+    text: "\u201C\u8FD9\u5468\u8981\u8003\u8BD5\u4E86\u3002\u201D"
+  - charName: 0
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 11400000, guid: f2cf712c6d4e025469007254608067d8, type: 2}
+      actionData:
+        diffTag: 17
+        actionTag: 0
+        soundTag: 0
+    background: {fileID: 21300000, guid: a74825d21a0e12945afe1d48a4bf890c, type: 3}
+    eventDatas: []
+    text: "\u4ED6\u6709\u4E9B\u65E0\u5948\u5730\u8FD9\u4E48\u8BF4\u7740\uFF0C\u559D\u4E86\u53E3\u5DF2\u7ECF\u6DF7\u5230\u4E00\u8D77\u7684\u62FF\u94C1\uFF0C\u8868\u60C5\u5F88\u5FEB\u51DD\u56FA\u5728\u8138\u4E0A\u3002"
+  - charName: "\u5916\u5356\u5458"
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 11400000, guid: f2cf712c6d4e025469007254608067d8, type: 2}
+      actionData:
+        diffTag: 17
+        actionTag: 0
+        soundTag: 0
+    background: {fileID: 21300000, guid: a74825d21a0e12945afe1d48a4bf890c, type: 3}
+    eventDatas: []
+    text: "\u201C\u2026\u2026\u80FD\u5E2E\u6211\u91CD\u505A\u4E00\u676F\u5417\uFF1F\u201D"
+--- !u!114 &-794972462578309913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3668561789e27d14ba7695eb6eb2fb2e, type: 3}
+  m_Name: Start
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -760, y: -264}
+  ports:
+    keys:
+    - start
+    values:
+    - _fieldName: start
+      _node: {fileID: -794972462578309913}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: a
+        node: {fileID: -1723002070953201689}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  start: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87cdaf258b51efa4e889ba2918b1a700, type: 3}
+  m_Name: wm_after_3
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: -794972462578309913}
+  - {fileID: -1723002070953201689}
+  - {fileID: 3870613263904267129}
+  - {fileID: 1552419147488871149}
+  - {fileID: 6455454817457537126}
+  dialogInfo: 
+--- !u!114 &1552419147488871149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d2f46806851fa94f83f2f914748a21c, type: 3}
+  m_Name: Chat
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 552, y: 72}
+  ports:
+    keys:
+    - a
+    - chatDatas
+    - chatDatas 0
+    - chatDatas 1
+    - chatDatas 2
+    values:
+    - _fieldName: a
+      _node: {fileID: 1552419147488871149}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: chatDatas 1
+        node: {fileID: 3870613263904267129}
+        reroutePoints: []
+      - fieldName: optionDatas 1
+        node: {fileID: 6455454817457537126}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: chatDatas
+      _node: {fileID: 1552419147488871149}
+      _typeQualifiedName: System.Collections.Generic.List`1[[ChatData, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
+        Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: chatDatas 0
+      _node: {fileID: 1552419147488871149}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: chatDatas 1
+      _node: {fileID: 1552419147488871149}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: chatDatas 2
+      _node: {fileID: 1552419147488871149}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+  a: 0
+  dialogId: 
+  chatDatas:
+  - charName: 0
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 11400000, guid: f2cf712c6d4e025469007254608067d8, type: 2}
+      actionData:
+        diffTag: 17
+        actionTag: 0
+        soundTag: 0
+    background: {fileID: 21300000, guid: a74825d21a0e12945afe1d48a4bf890c, type: 3}
+    eventDatas: []
+    text: "\u51E0\u5206\u949F\u540E\uFF0C\u6211\u5C06\u65B0\u5236\u7684\u996E\u54C1\u6446\u5728\u4ED6\u8EAB\u524D\uFF0C\u540C\u65F6\u6536\u8D70\u5DF2\u7ECF\u6DF7\u5728\u4E00\u8D77\u5473\u9053\u660E\u663E\u4E0D\u4F1A\u597D\u5230\u54EA\u91CC\u53BB\u7684\u90A3\u676F\u65E7\u996E\u54C1\u987A\u624B\u5012\u8FDB\u6C34\u6C60\u91CC\u3002"
+  - charName: 0
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    background: {fileID: 21300000, guid: a74825d21a0e12945afe1d48a4bf890c, type: 3}
+    eventDatas: []
+    text: "\u8001\u5B9E\u8BDD\u8BB2\uFF0C\u8FD9\u79CD\u6709\u4E9B\u51DD\u56FA\u7684\u5976\u5236\u54C1\u7C98\u5728\u676F\u5B50\u4E0A\u6CA1\u6211\u60F3\u8C61\u4E2D\u90A3\u4E48\u597D\u6D17\u5E72\u51C0\uFF0C\u6211\u6709\u4E9B\u65E0\u5948\u7684\u53F9\u4E86\u53E3\u6C14\u3002"
+  - charName: 0
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    background: {fileID: 21300000, guid: a74825d21a0e12945afe1d48a4bf890c, type: 3}
+    eventDatas: []
+    text: "\u7B49\u5230\u6211\u518D\u62AC\u8D77\u5934\u6765\u7684\u65F6\u5019\uFF0C\u5916\u5356\u5C0F\u54E5\u5DF2\u7ECF\u6D88\u5931\u4E0D\u89C1\u4E86\uFF0C\u7559\u5728\u684C\u4E0A\u7684\u53EA\u6709\u4E00\u4E2A\u7A7A\u7A7A\u5982\u4E5F\u7684\u73BB\u7483\u676F\u3002"
+--- !u!114 &3870613263904267129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d2f46806851fa94f83f2f914748a21c, type: 3}
+  m_Name: Chat
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -8, y: 56}
+  ports:
+    keys:
+    - a
+    - chatDatas
+    - chatDatas 0
+    - chatDatas 1
+    values:
+    - _fieldName: a
+      _node: {fileID: 3870613263904267129}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: optionDatas 0
+        node: {fileID: 6455454817457537126}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: chatDatas
+      _node: {fileID: 3870613263904267129}
+      _typeQualifiedName: System.Collections.Generic.List`1[[ChatData, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
+        Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: chatDatas 0
+      _node: {fileID: 3870613263904267129}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: chatDatas 1
+      _node: {fileID: 3870613263904267129}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: a
+        node: {fileID: 1552419147488871149}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+  a: 0
+  dialogId: 
+  chatDatas:
+  - charName: 0
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 11400000, guid: f2cf712c6d4e025469007254608067d8, type: 2}
+      actionData:
+        diffTag: 17
+        actionTag: 0
+        soundTag: 0
+    background: {fileID: 21300000, guid: a74825d21a0e12945afe1d48a4bf890c, type: 3}
+    eventDatas: []
+    text: "\u542C\u5230\u6211\u8FD9\u4E48\u8BF4\uFF0C\u5916\u5356\u5C0F\u54E5\u70B9\u4E86\u70B9\u5934\u3002"
+  - charName: "\u5916\u5356\u5458"
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 11400000, guid: f2cf712c6d4e025469007254608067d8, type: 2}
+      actionData:
+        diffTag: 17
+        actionTag: 0
+        soundTag: 0
+    background: {fileID: 21300000, guid: a74825d21a0e12945afe1d48a4bf890c, type: 3}
+    eventDatas: []
+    text: "\u201C\u8C22\u8C22\u3002\u201D"
+--- !u!114 &6455454817457537126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 448e53db5ad7736448938df4e57ae8b9, type: 3}
+  m_Name: Option
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 56, y: 1624}
+  ports:
+    keys:
+    - input
+    - optionDatas
+    - optionDatas 0
+    - optionDatas 1
+    values:
+    - _fieldName: input
+      _node: {fileID: 6455454817457537126}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: chatDatas 7
+        node: {fileID: -1723002070953201689}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: optionDatas
+      _node: {fileID: 6455454817457537126}
+      _typeQualifiedName: System.Collections.Generic.List`1[[OptionData, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
+        Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: optionDatas 0
+      _node: {fileID: 6455454817457537126}
+      _typeQualifiedName: OptionData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: a
+        node: {fileID: 3870613263904267129}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: optionDatas 1
+      _node: {fileID: 6455454817457537126}
+      _typeQualifiedName: OptionData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: a
+        node: {fileID: 1552419147488871149}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+  input: 0
+  optionDatas:
+  - index: 0
+    text: "\u5C31\u5F53\u662F\u6211\u7684\u4E00\u70B9\u9F13\u52B1\u5427\u3002"
+  - index: 1
+    text: "\u5F53\u7136\u53EF\u4EE5\uFF0C\u4E0D\u8FC7\u2026\u2026\u7B97\u4F60\u534A\u4EF7\u5427\u3002"

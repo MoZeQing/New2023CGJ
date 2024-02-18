@@ -1,0 +1,221 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-1297689700412804164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d2f46806851fa94f83f2f914748a21c, type: 3}
+  m_Name: Chat
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 440, y: 8}
+  ports:
+    keys:
+    - a
+    - chatDatas
+    - chatDatas 0
+    - chatDatas 1
+    - chatDatas 2
+    - chatDatas 3
+    values:
+    - _fieldName: a
+      _node: {fileID: -1297689700412804164}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: start
+        node: {fileID: 7621727522826443758}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: chatDatas
+      _node: {fileID: -1297689700412804164}
+      _typeQualifiedName: System.Collections.Generic.List`1[[ChatData, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
+        Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: chatDatas 0
+      _node: {fileID: -1297689700412804164}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: chatDatas 1
+      _node: {fileID: -1297689700412804164}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: chatDatas 2
+      _node: {fileID: -1297689700412804164}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: chatDatas 3
+      _node: {fileID: -1297689700412804164}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+  a: 0
+  dialogId: 
+  chatDatas:
+  - charName: 0
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 11400000, guid: f2cf712c6d4e025469007254608067d8, type: 2}
+      actionData:
+        diffTag: 17
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    background: {fileID: 21300000, guid: a74825d21a0e12945afe1d48a4bf890c, type: 3}
+    eventDatas: []
+    text: "\u98CE\u94C3\u53EE\u5F53\u4F5C\u54CD\uFF0C\u4E00\u4E2A\u8EAB\u7A7F\u9EC4\u8272\u5DE5\u4F5C\u5236\u670D\u7684\u7537\u5B50\u6025\u5306\u5306\u5730\u8D70\u4E86\u8FDB\u6765\u3002"
+  - charName: "\u6211"
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 11400000, guid: f2cf712c6d4e025469007254608067d8, type: 2}
+      actionData:
+        diffTag: 17
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    background: {fileID: 21300000, guid: a74825d21a0e12945afe1d48a4bf890c, type: 3}
+    eventDatas: []
+    text: "\u201C\u5C0F\u54E5\u4F60\u662F\u4E0D\u662F\u8D70\u9519\u4E86\uFF0C\u9694\u58C1\u53E6\u4E00\u5BB6\u996E\u54C1\u5E97\u5728\u8FD9\u6761\u8857\u53E6\u4E00\u5934\u3002\u201D"
+  - charName: "\u5916\u5356\u5458"
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 11400000, guid: f2cf712c6d4e025469007254608067d8, type: 2}
+      actionData:
+        diffTag: 17
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    background: {fileID: 21300000, guid: a74825d21a0e12945afe1d48a4bf890c, type: 3}
+    eventDatas: []
+    text: "\u6211\u597D\u5FC3\u5730\u63D0\u9192\u5E76\u672A\u8BA9\u4ED6\u505C\u4E0B\u811A\u6B65\uFF0C\u4ED6\u8D70\u5230\u67DC\u53F0\u524D\u626B\u4E86\u4E00\u773C\u996E\u54C1\u83DC\u5355\u4FBF\u8BF4\uFF1A\u201C\u4E00\u676F\u6D53\u7F29\u5496\u5561\uFF0C\u4E00\u5207\u7167\u5E38\u505A\uFF0C\u5728\u8FD9\u91CC\u559D\uFF0C\u8C22\u8C22\u3002\u201D"
+  - charName: 0
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 11400000, guid: f2cf712c6d4e025469007254608067d8, type: 2}
+      actionData:
+        diffTag: 17
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    background: {fileID: 21300000, guid: a74825d21a0e12945afe1d48a4bf890c, type: 3}
+    eventDatas: []
+    text: "\u4F3C\u4E4E\u4ED6\u5DF2\u7ECF\u4E60\u60EF\u4E86\u8FD9\u79CD\u60C5\u51B5\u51FA\u73B0\uFF0C\u8FD9\u8BA9\u6211\u7684\u5C34\u5C2C\u7F13\u89E3\u4E86\u51E0\u5206\u3002"
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87cdaf258b51efa4e889ba2918b1a700, type: 3}
+  m_Name: wm_fore_1
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: 7621727522826443758}
+  - {fileID: -1297689700412804164}
+  dialogInfo: 
+--- !u!114 &7621727522826443758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3668561789e27d14ba7695eb6eb2fb2e, type: 3}
+  m_Name: Start
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 0, y: 0}
+  ports:
+    keys:
+    - start
+    values:
+    - _fieldName: start
+      _node: {fileID: 7621727522826443758}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: a
+        node: {fileID: -1297689700412804164}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  start: 0
