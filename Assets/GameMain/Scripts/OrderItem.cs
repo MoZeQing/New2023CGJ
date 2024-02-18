@@ -12,10 +12,11 @@ public class OrderItem : Entity
 {
     [SerializeField] private Image coffeeItem;
     [SerializeField] private Text coffeeName;
-    [SerializeField] private Text sugar;
-    [SerializeField] private Text condensedMilk;
-    [SerializeField] private Text salt;
+    //[SerializeField] private Text sugar;
+    //[SerializeField] private Text condensedMilk;
+    //[SerializeField] private Text salt;
     [SerializeField] private Text orderTime;
+    [SerializeField] private Image timeLine;
     [SerializeField] private Button exitBtn;
 
     private OrderItemData mOrderItemData = null;
@@ -27,12 +28,13 @@ public class OrderItem : Entity
         base.OnInit(userData);
         Transform orderCanvas = this.transform.Find("OrderForm");
         coffeeItem = orderCanvas.Find("ItemText").GetComponent<Image>();
-        sugar = orderCanvas.Find("Sugar").GetComponent<Text>();
-        condensedMilk = orderCanvas.Find("CondensedMilk").GetComponent<Text>();
-        salt = orderCanvas.Find("Salt").GetComponent<Text>();
-        orderTime=orderCanvas.Find("TimeText").GetComponent<Text>();
+        //sugar = orderCanvas.Find("Sugar").GetComponent<Text>();
+        //condensedMilk = orderCanvas.Find("CondensedMilk").GetComponent<Text>();
+        //salt = orderCanvas.Find("Salt").GetComponent<Text>();
+        orderTime = orderCanvas.Find("TimeText").GetComponent<Text>();
         //exitBtn = orderCanvas.Find("Exit").GetComponent<Button>();
         coffeeName = orderCanvas.Find("ItemText").GetComponent<Text>();
+        timeLine = orderCanvas.Find("TimeLine").GetComponent<Image>();
 
         //exitBtn.onClick.AddListener(OnExit);
     }
@@ -44,9 +46,10 @@ public class OrderItem : Entity
         DRNode dRNode = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)mOrderData.NodeTag);
         //coffeeItem.sprite = GameEntry.Utils.nodeImage[(int)mOrderData.NodeTag];
         coffeeName.text = dRNode.Description;
-        sugar.color = mOrderData.Sugar ? Color.black : Color.clear;
-        condensedMilk.color = mOrderData.CondensedMilk ? Color.black : Color.clear;
-        salt.color = mOrderData.Salt ? Color.black : Color.clear; 
+        orderTime.text = mOrderData.Urgent ? "加急" : "普通";
+        //sugar.color = mOrderData.Sugar ? Color.black : Color.clear;
+        //condensedMilk.color = mOrderData.CondensedMilk ? Color.black : Color.clear;
+        //salt.color = mOrderData.Salt ? Color.black : Color.clear; 
         nowTime = mOrderData.OrderTime;
     }
 
@@ -54,10 +57,11 @@ public class OrderItem : Entity
     {
         base.OnUpdate(elapseSeconds, realElapseSeconds);
         nowTime-=Time.deltaTime;
+
         if (nowTime < 0)
-            orderTime.text = "��";
+            timeLine.fillAmount = 1;
         else
-            orderTime.text = Mathf.Floor(nowTime).ToString();
+            timeLine.fillAmount = nowTime / mOrderData.OrderTime;
         if (nowTime <= 0f&&nowTime>-1f)
         {
             nowTime = -1;
@@ -88,6 +92,8 @@ public class OrderItem : Entity
                 int income = 0;
                 IDataTable<DRNode> dtNode=GameEntry.DataTable.GetDataTable<DRNode>();
                 income = dtNode.GetDataRow((int)mOrderData.NodeTag).Price;
+                if (mOrderData.Urgent)
+                    income = (int)(income * 1.5f);
                 income += mOrderData.Sugar ? 2 : 0;
                 income += mOrderData.CondensedMilk ? 5 : 0;
                 income += mOrderData.Salt ? 3 : 0;

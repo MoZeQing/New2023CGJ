@@ -95,7 +95,16 @@ namespace GameMain
                         coffees.Add((NodeTag)node.Id);
             }
             orderData.NodeTag = coffees[Random.Range(0, coffees.Count - 1)];
-            orderData.OrderTime = UnityEngine.Random.Range(30, 60);
+            if (UnityEngine.Random.Range(0, 1) == 0)
+            {
+                orderData.OrderTime = UnityEngine.Random.Range(20, 40);
+                orderData.Urgent = true;
+            }
+            else
+            {
+                orderData.OrderTime = UnityEngine.Random.Range(30, 60);
+                orderData.Urgent = false;
+            }
             orderData.Sugar = Random.Range(0, 2) == 1;
             orderData.CondensedMilk = Random.Range(0, 2) == 1;
             orderData.Salt = Random.Range(0, 2) == 1;
