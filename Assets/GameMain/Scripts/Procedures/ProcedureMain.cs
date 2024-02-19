@@ -21,7 +21,6 @@ namespace GameMain
             base.OnEnter(procedureOwner);
             GameEntry.Utils.Location = OutingSceneState.Home;
             GameEntry.UI.OpenUIForm(UIFormId.MainForm, this);
-            GameEntry.Dialog.StoryUpdate();
             mGameState = GameState.Night;
             GameEntry.Utils.GameState = GameState.Night;
             GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Afternoon));
