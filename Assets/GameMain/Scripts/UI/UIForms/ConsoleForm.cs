@@ -45,6 +45,7 @@ namespace GameMain
 
         public void ConsoleUpdate()
         {
+            Debug.Log(123);
             EventData eventData = new EventData();
 
             if (inputText.text == string.Empty)
@@ -77,7 +78,7 @@ namespace GameMain
             }
             catch (Exception e)
             {
-
+                Debug.Log(e.ToString());
             }
             Debug.LogFormat("≤‚ ‘£¨√∂æŸ£∫{0}£¨÷µ£∫{1}", console[0], console[1]);
             text.text += GameEntry.Utils.RunEvent(eventData) ? "command is success\n" : "command is fail\n";

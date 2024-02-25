@@ -72,15 +72,11 @@ namespace GameMain
                 if (GameEntry.Utils.Energy < 60) hardBtn.interactable = false;
                 commonBtn.onClick.AddListener(() => SetData(135));
                 if (GameEntry.Utils.Energy < 40) commonBtn.interactable = false;
-                easyBtn.onClick.AddListener(() => SetData(90));
+                easyBtn.onClick.AddListener(() => SetData(5));
                 if (GameEntry.Utils.Energy < 20) easyBtn.interactable = false;
             }
             levelSOs = new List<LevelSO>(Resources.LoadAll<LevelSO>("LevelData"));
             mLevelData = levelSOs[0].levelData;
-            foreach (LevelSO level in mRandomSos)
-            {
-                if (level.isRandom) mRandomSos.Add(level);
-            }
             GameEntry.Event.Subscribe(OrderEventArgs.EventId, OnOrderEvent);
         }
 
