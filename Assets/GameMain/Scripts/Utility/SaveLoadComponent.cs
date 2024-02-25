@@ -57,7 +57,7 @@ namespace GameMain
             }
 
             GameEntry.Utils.chars.Clear();
-            GameEntry.Utils.friends.Clear();
+            GameEntry.Utils.ClearFriendFavor();
             CharSO[] charSOs = Resources.LoadAll<CharSO>("CharData");
             for (int i = 0; i < charSOs.Length; i++)
                 if (charSOs[i].friend)
@@ -107,7 +107,7 @@ namespace GameMain
             GameEntry.Utils.outingSceneStates.Add(OutingSceneState.Greengrocer);
 
             foreach (KeyValuePair<string, CharSO> pair in GameEntry.Utils.chars)
-                GameEntry.Utils.friends.Add(pair.Value.name, pair.Value.favor);
+                GameEntry.Utils.AddFriendFavor(pair.Value.name, pair.Value.favor);
 
             GameEntry.Event.FireNow(this, GameStateEventArgs.Create(gameState));
         }

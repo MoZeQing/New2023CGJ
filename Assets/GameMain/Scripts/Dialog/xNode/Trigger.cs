@@ -237,6 +237,13 @@ public enum TriggerTag
     BehaviorTag,
     Index,
     Rent,//设置租金
+    //友情
+    FDog,//狗狗
+    FRegular,//露希尔
+    FWitch,//老登
+    FFiction,//小说家
+    FMoney,//催债人
+    FCourier//外卖员
 }
 [System.Serializable]
 public enum EventTag

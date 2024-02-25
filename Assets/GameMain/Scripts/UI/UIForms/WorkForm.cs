@@ -153,9 +153,9 @@ namespace GameMain
             {
                 OnLevel(levels[UnityEngine.Random.Range(0, levels.Count)]);
             }
-            else//合法则随机选择，非法则全随机
+            else
             {
-                OnLevel(mRandomSos[UnityEngine.Random.Range(0, mRandomSos.Count)]);
+                OnAfterWorkComplete();
             }
         }
 
@@ -216,8 +216,8 @@ namespace GameMain
                     if (args.Income == 0)
                         return;
                     mOrderCount++;
-                    if(GameEntry.Utils.friends.ContainsKey(mLevelData.charSO.name))
-                        GameEntry.Utils.friends[mLevelData.charSO.name] += mLevelData.favor / mLevelData.orderDatas.Count;
+                    if (GameEntry.Utils.GetFriends().ContainsKey(mLevelData.charSO.name))
+                        GameEntry.Utils.AddFriendFavor(mLevelData.charSO.name, mLevelData.favor / mLevelData.orderDatas.Count);
                 }
                 if (mOrderCount == mLevelData.orderDatas.Count)
                 {

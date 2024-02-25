@@ -50,7 +50,33 @@ namespace GameMain
 
         public Dictionary<string, RecipeData> recipes = new Dictionary<string, RecipeData>();
         public Dictionary<string, CharSO> chars= new Dictionary<string ,CharSO>();
-        public Dictionary<string, int> friends = new Dictionary<string, int>();
+
+        public void AddFriendFavor(string name,int favor)
+        {
+            if (!_friends.ContainsKey(name))
+                _friends.Add(name, favor);
+            else
+                _friends[name] += favor;
+            //硬编码转换
+            if (name == "money") _values[TriggerTag.FMoney] = _friends[name].ToString();
+            if (name == "regular") _values[TriggerTag.FRegular] = _friends[name].ToString();
+            if (name == "dog") _values[TriggerTag.FDog] = _friends[name].ToString();
+            if (name == "fiction") _values[TriggerTag.FFiction] = _friends[name].ToString();
+            if (name == "courier") _values[TriggerTag.FCourier] = _friends[name].ToString();
+            if (name == "witch") _values[TriggerTag.FWitch] = _friends[name].ToString();
+        }
+
+        public Dictionary<string, int> GetFriends()
+        {
+            return _friends;
+        }
+
+        public void ClearFriendFavor()
+        {
+            _friends.Clear();
+        }
+
+        public Dictionary<string, int> _friends = new Dictionary<string, int>();//好友字典
 
         public void ClearPlayerItem()
         { 
@@ -505,7 +531,7 @@ namespace GameMain
                     return true; 
                 case EventTag.AddFriend:
                     string[] strings= eventData.value.Split(' ');
-                    GameEntry.Utils.friends[strings[0]] += int.Parse(strings[1]);
+                    GameEntry.Utils.AddFriendFavor(strings[0], int.Parse(strings[1]));
                     return true; 
                 case EventTag.AddRecipe:
                     GameEntry.Player.AddRecipe(int.Parse(eventData.value));

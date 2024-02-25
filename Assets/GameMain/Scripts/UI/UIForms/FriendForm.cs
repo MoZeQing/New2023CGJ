@@ -17,7 +17,7 @@ namespace GameMain
             base.OnOpen(userData);
             exitBtn.onClick.AddListener(() => GameEntry.UI.CloseUIForm(this.UIForm));
             int index = 0;
-            foreach (KeyValuePair<string, int> pair in GameEntry.Utils.friends)
+            foreach (KeyValuePair<string, int> pair in GameEntry.Utils.GetFriends())
             {
                 images[index].sprite = GameEntry.Utils.chars[pair.Key].sprite;
                 texts[index].text = string.Format("¹ØÏµ£º{0}",pair.Value.ToString());
