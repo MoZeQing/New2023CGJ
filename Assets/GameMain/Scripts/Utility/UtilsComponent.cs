@@ -530,7 +530,7 @@ namespace GameMain
                     GameEntry.Utils.Rent=int.Parse(eventData.value);
                     return true; 
                 case EventTag.AddFriend:
-                    string[] strings= eventData.value.Split(' ');
+                    string[] strings= eventData.value.Split('|');
                     GameEntry.Utils.AddFriendFavor(strings[0], int.Parse(strings[1]));
                     return true; 
                 case EventTag.AddRecipe:
