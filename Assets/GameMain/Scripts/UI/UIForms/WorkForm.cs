@@ -108,7 +108,6 @@ namespace GameMain
                     
                     GameEntry.Event.FireNow(this, LevelEventArgs.Create());
                     GamePosUtility.Instance.GamePosChange(GamePos.Up);
-                    dialogBox.SetDialog(mLevelData.afterWork);
                     //dialogBox.Next();
                     dialogBox.SetComplete(OnAfterWorkComplete);
                     IsDialog= true;
