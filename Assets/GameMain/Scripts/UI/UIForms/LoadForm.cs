@@ -57,7 +57,7 @@ namespace GameMain
             GameEntry.Utils.closet = saveLoadData.closet;
             GameEntry.Utils.Flags = saveLoadData.flags;
             GameEntry.Utils.WorkDatas = saveLoadData.workDatas;
-            GameEntry.Dialog.LoadGame(saveLoadData.storyData);
+            GameEntry.Dialog.LoadGame(saveLoadData.storyData,saveLoadData.levelData);
             GameEntry.Player.LoadGame(saveLoadData);
             GameEntry.Utils.outingSceneStates.Clear();
             foreach (OutingSceneState outingSceneState in saveLoadData.outingSceneStates)

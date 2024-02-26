@@ -27,8 +27,6 @@ namespace GameMain
 
         [SerializeField] public bool IsGuide { get; set; }
 
-        private List<LevelSO> levelSOs= new List<LevelSO>();
-        private List<LevelSO> mRandomSos = new List<LevelSO>();
         private LevelData mLevelData;
         private int mOrderCount;
         private float nowTime;
@@ -75,8 +73,7 @@ namespace GameMain
                 easyBtn.onClick.AddListener(() => SetData(5));
                 if (GameEntry.Utils.Energy < 20) easyBtn.interactable = false;
             }
-            levelSOs = new List<LevelSO>(Resources.LoadAll<LevelSO>("LevelData"));
-            mLevelData = levelSOs[0].levelData;
+            mLevelData = GameEntry.Dialog.loadedLevelSOs[0].levelData;
             GameEntry.Event.Subscribe(OrderEventArgs.EventId, OnOrderEvent);
         }
 
@@ -86,7 +83,6 @@ namespace GameMain
             //downBtn.onClick.RemoveAllListeners();
             recipeBtn.onClick.RemoveAllListeners();
             guideBtn.onClick.RemoveAllListeners();
-            mRandomSos.Clear();
             GameEntry.Event.Unsubscribe(OrderEventArgs.EventId, OnOrderEvent);
         }
 
@@ -112,7 +108,7 @@ namespace GameMain
                     
                     GameEntry.Event.FireNow(this, LevelEventArgs.Create());
                     GamePosUtility.Instance.GamePosChange(GamePos.Up);
-                    dialogBox.SetDialog(mLevelData.failWork);
+                    dialogBox.SetDialog(mLevelData.afterWork);
                     //dialogBox.Next();
                     dialogBox.SetComplete(OnAfterWorkComplete);
                     IsDialog= true;
@@ -138,7 +134,7 @@ namespace GameMain
         {
             GameEntry.Event.FireNow(this, LevelEventArgs.Create());
             List<LevelSO> levels = new List<LevelSO>();
-            foreach (LevelSO level in levelSOs)
+            foreach (LevelSO level in GameEntry.Dialog.loadedLevelSOs)
             {
                 if (GameEntry.Utils.Check(level.trigger)&&!level.isRandom)
                 {
@@ -156,15 +152,16 @@ namespace GameMain
         }
 
         public void OnLevel(LevelSO levelSO)
-        { 
+        {
+            GameEntry.Utils.AddFlag(levelSO.name);
             OnLevel(levelSO.levelData);
-            if (levelSOs.Contains(levelSO))
-                levelSOs.Remove(levelSO);
+            if (GameEntry.Dialog.loadedLevelSOs.Contains(levelSO))
+                GameEntry.Dialog.loadedLevelSOs.Remove(levelSO);
         }
 
         public void OnLevel(string levelName)
         {
-            foreach (LevelSO level in levelSOs)
+            foreach (LevelSO level in GameEntry.Dialog.loadedLevelSOs)
             {
                 if (level.name==levelName)
                 {

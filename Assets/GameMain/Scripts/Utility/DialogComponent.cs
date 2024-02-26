@@ -12,6 +12,8 @@ namespace GameMain
     {      
         private List<StorySO> stories=new List<StorySO>();
         private List<StorySO> loadedStories=new List<StorySO>();
+        public List<LevelSO> levelSOs = new List<LevelSO>();
+        public List<LevelSO> loadedLevelSOs = new List<LevelSO>();
 
         private Action mAction;
 
@@ -27,6 +29,20 @@ namespace GameMain
                 return newStory;
             }
         }
+
+        public List<string> LoadedLevels
+        {
+            get
+            {
+                List<string> newLevel = new List<string>();
+                foreach (LevelSO levelSO in loadedLevelSOs)
+                {
+                    newLevel.Add(levelSO.name);
+                }
+                return newLevel;
+            }
+        }
+
         public bool InDialog
         {
             get;
@@ -36,6 +52,7 @@ namespace GameMain
         private void OnEnable()
         {
             stories=new List<StorySO>(Resources.LoadAll<StorySO>("StoryData"));
+            levelSOs = new List<LevelSO>(Resources.LoadAll<LevelSO>("LevelData"));
         }
 
         public void OnComplete()
@@ -144,7 +161,7 @@ namespace GameMain
             args.SaveLoadData.storyData= newStory;
         }
 
-        public void LoadGame(List<string> storyData)
+        public void LoadGame(List<string> storyData,List<string> levelData)
         {
             loadedStories.Clear();
             foreach (StorySO storySO in stories)
@@ -154,11 +171,20 @@ namespace GameMain
                     loadedStories.Add(storySO);
                 }
             }
+            loadedLevelSOs.Clear();
+            foreach (LevelSO levelSO in levelSOs)
+            {
+                if (levelData.Contains(levelSO.name))
+                {
+                    loadedLevelSOs.Add(levelSO);
+                }
+            }
         }
 
         public void LoadGame()
         {
             loadedStories = new List<StorySO>(stories);
+            loadedLevelSOs = new List<LevelSO>(levelSOs);
         }
     }
 }
