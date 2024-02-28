@@ -33,6 +33,8 @@ namespace GameMain
         private float levelTime;
         private bool isSpecial;
         private bool isChoice;
+
+        private bool flag=false;
         public bool IsDialog { get; set; }=false;
         public bool IsNext
         {
@@ -68,7 +70,7 @@ namespace GameMain
                 Debug.Log(GameEntry.Utils.Energy);
                 hardBtn.onClick.AddListener(() => SetData(180));
                 if (GameEntry.Utils.Energy < 60) hardBtn.interactable = false;
-                commonBtn.onClick.AddListener(() => SetData(135));
+                commonBtn.onClick.AddListener(() => SetData(300));
                 if (GameEntry.Utils.Energy < 40) commonBtn.interactable = false;
                 easyBtn.onClick.AddListener(() => SetData(5));
                 if (GameEntry.Utils.Energy < 20) easyBtn.interactable = false;
@@ -88,6 +90,12 @@ namespace GameMain
 
         private void Update()
         {
+            if(Input.GetKeyDown(KeyCode.Space))
+                flag= !flag;
+
+            if (flag)
+                return;
+
             if (isChoice == false)
                 return;
             if (GameEntry.Dialog.InDialog)
