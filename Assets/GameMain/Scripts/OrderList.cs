@@ -81,7 +81,7 @@ namespace GameMain
             if (nowTime <= 0)
             {
                 ShowItem();
-                nowTime = UnityEngine.Random.Range(10f, 20f);
+                nowTime = UnityEngine.Random.Range(12f, 25f);
             }
         }
         public void ShowItem()
