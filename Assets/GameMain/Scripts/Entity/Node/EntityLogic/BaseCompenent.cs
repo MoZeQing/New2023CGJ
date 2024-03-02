@@ -192,6 +192,11 @@ namespace GameMain
                 mBoxCollider2D.isTrigger = true;
 
             }
+            else
+            {
+                if (!GameEntry.Utils.pickUp)
+                    mBoxCollider2D.isTrigger = false;
+            }
             if (Child == null)
             {
                 mBoxCollider2D.size = mSpriteRenderer.size;
@@ -327,7 +332,7 @@ namespace GameMain
         {
             mSpriteRenderer.sortingLayerName = "GamePlay";
             mShader.sortingLayerName = "GamePlay";
-            mBoxCollider2D.isTrigger = false;
+            mBoxCollider2D.isTrigger = true;
             PitchOn();
             if (mCompenents.Count == 0)
                 return;
