@@ -144,6 +144,8 @@ namespace GameMain
             //    mMouseGap = Vector3.zero;
             //    PickUp();
             //}
+
+
             mCompenentData = (CompenentData)userData;
             mNodeData = mCompenentData.NodeData;
             Materials = mCompenentData.materials;
@@ -173,8 +175,8 @@ namespace GameMain
             }
             if (mNodeData.Jump)
             {
+                ExecuteEvents.Execute<IPointerDownHandler>(this.gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.pointerDownHandler);
                 Vector3 newPos = -(mNodeData.Position - Vector3.down * 4.2f).normalized;
-                this.transform.DOMove(mNodeData.Position + newPos * 3f, 0.5f).SetEase(Ease.OutExpo);
             }
             if (mNodeData.Adsorb != null)
             { 
@@ -211,6 +213,11 @@ namespace GameMain
             {
                 mNodeData.Follow = false;
                 GameEntry.Utils.pickUp = false;
+                if (mNodeData.Jump)
+                {
+                    ExecuteEvents.Execute<IPointerUpHandler>(this.gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.pointerUpHandler);
+                    mNodeData.Jump = false;
+                }
                 /*if (firstFollow)
                 
                     mSpriteRenderer.sortingLayerName = "GamePlay";
