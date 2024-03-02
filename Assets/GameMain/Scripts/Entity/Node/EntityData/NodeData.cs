@@ -51,6 +51,12 @@ namespace GameMain
             set;
         }
 
+        public BaseCompenent Adsorb
+        {
+            get;
+            set;
+        }
+
         public bool RamdonJump
         {
             get;

@@ -70,7 +70,7 @@ namespace GameMain
                 if (!drrecipes[i].IsCoffee)
                     GameEntry.Player.AddRecipe(drrecipes[i].Id);
             }
-            GameEntry.Player.AddRecipes(new int[] { 19, 20, 21, 22, 11, 12, 16, 17 });
+            GameEntry.Player.AddRecipes(new int[] { 19, 20, 21, 22, 11, 12, 16, 17 ,15,13,14,18});
         }
 
         /// <summary>
