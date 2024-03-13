@@ -260,7 +260,7 @@ namespace GameMain
             }
             if (mNodeData.Follow)
             {
-                this.transform.DOMove(MouseToWorld(Input.mousePosition) - mMouseGap, 0.05f);
+                this.transform.DOMove(MouseToWorld(Input.mousePosition) /*- mMouseGap*/, 0.05f);//20240303真记不起来这个mouseGap啥用处了
                 //this.transform.position=MouseToWorld(Input.mousePosition);
                 Producing = false;
                 tool = NodeTag.None;
