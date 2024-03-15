@@ -26,7 +26,7 @@ namespace GameMain
         {
             base.OnOpen(userData);
             exitBtn.onClick.AddListener(OnExit);
-            ShowItems();
+            //ShowItems();
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)

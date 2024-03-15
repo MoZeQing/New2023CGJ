@@ -22,7 +22,7 @@ namespace GameMain
             "Scene",
             "Node",
             "Order",
-            "Level",
+            "Shop",
             "Sound",
             "Recipe",
             "Item"

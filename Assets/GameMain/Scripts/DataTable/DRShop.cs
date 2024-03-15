@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-02-28 23:03:38.799
+// 生成时间：2024-03-15 18:50:56.858
 //------------------------------------------------------------
 
 using GameFramework;
@@ -21,7 +21,7 @@ namespace GameMain
     /// <summary>
     /// level配置文件。
     /// </summary>
-    public class DRLevel : DataRowBase
+    public class DRShop : DataRowBase
     {
         private int m_Id = 0;
 
@@ -37,6 +37,15 @@ namespace GameMain
         }
 
         /// <summary>
+        /// 获取商店界面。
+        /// </summary>
+        public string Shop
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
         /// 获取角色。
         /// </summary>
         public string Char
@@ -46,34 +55,25 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取对应订单。
+        /// 获取好感度要求。
         /// </summary>
-        public int Order
+        public int Favor
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取对应天数（由1开始）。
+        /// 获取差分。
         /// </summary>
-        public int Day
+        public int Diff
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取对应剧情。
-        /// </summary>
-        public string Foreword
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取正文。
+        /// 获取对话内容。
         /// </summary>
         public string Text
         {
@@ -82,18 +82,9 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取对应单数。
+        /// 获取获得的好感度。
         /// </summary>
-        public int Index
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取对应交互。
-        /// </summary>
-        public string ActionGraph
+        public int AddFavor
         {
             get;
             private set;
@@ -111,13 +102,12 @@ namespace GameMain
             index++;
             m_Id = int.Parse(columnStrings[index++]);
             index++;
+            Shop = columnStrings[index++];
             Char = columnStrings[index++];
-            Order = int.Parse(columnStrings[index++]);
-            Day = int.Parse(columnStrings[index++]);
-            Foreword = columnStrings[index++];
+            Favor = int.Parse(columnStrings[index++]);
+            Diff = int.Parse(columnStrings[index++]);
             Text = columnStrings[index++];
-            Index = int.Parse(columnStrings[index++]);
-            ActionGraph = columnStrings[index++];
+            AddFavor = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -130,13 +120,12 @@ namespace GameMain
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
+                    Shop = binaryReader.ReadString();
                     Char = binaryReader.ReadString();
-                    Order = binaryReader.Read7BitEncodedInt32();
-                    Day = binaryReader.Read7BitEncodedInt32();
-                    Foreword = binaryReader.ReadString();
+                    Favor = binaryReader.Read7BitEncodedInt32();
+                    Diff = binaryReader.Read7BitEncodedInt32();
                     Text = binaryReader.ReadString();
-                    Index = binaryReader.Read7BitEncodedInt32();
-                    ActionGraph = binaryReader.ReadString();
+                    AddFavor = binaryReader.Read7BitEncodedInt32();
                 }
             }
 
