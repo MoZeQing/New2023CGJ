@@ -213,9 +213,9 @@ namespace GameMain
         { 
             CharDataEventArgs charDataEvent= (CharDataEventArgs)e;
             CharData charData=charDataEvent.CharData;
-            favorText.text = string.Format("好感：{0}", charData.favor);
-            loveText.text = string.Format("爱情：{0}", charData.love);
-            familyText.text = string.Format("亲情：{0}", charData.family);
+            favorText.text = charData.favor.ToString();
+            loveText.text = charData.love.ToString();
+            familyText.text = charData.family.ToString();
         }
         private void PlayerDataEvent(object sender, GameEventArgs e)
         { 
