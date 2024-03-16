@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4953480223460235235}
   - component: {fileID: 5777568758632077765}
   - component: {fileID: 8731824850539067637}
-  - component: {fileID: 8525672805378668305}
+  - component: {fileID: 8293245485837696202}
   m_Layer: 5
   m_Name: BenchForm
   m_TagString: Untagged
@@ -80,7 +80,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &8525672805378668305
+--- !u!114 &8293245485837696202
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,16 +89,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 446846156582081146}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 282a805eaa7d46945a84726ce5de7d6b, type: 3}
+  m_Script: {fileID: 11500000, guid: 6ab19f709845e394faf14ad6824c8db9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  exitBtn: {fileID: 6604973096060838875}
-  buyBtn: {fileID: 0}
-  canvas: {fileID: 0}
-  itemPre: {fileID: 4652085143879227094, guid: f7dde90cf80940b498caecb0788c44bd, type: 3}
-  headerField: {fileID: 0}
-  contentField: {fileID: 0}
-  purchaseForm: {fileID: 0}
+  mCards:
+  - {fileID: 2851315843605988971}
+  - {fileID: 6030215433793013513}
+  - {fileID: 8805550162137345860}
 --- !u!1 &1857160683974267999
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,7 +257,7 @@ GameObject:
   - component: {fileID: 1667999781327363225}
   - component: {fileID: 4414831097674095792}
   - component: {fileID: 5733811896576483287}
-  - component: {fileID: 1139507899556779345}
+  - component: {fileID: 2851315843605988971}
   m_Layer: 5
   m_Name: Card1
   m_TagString: Untagged
@@ -325,7 +322,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1139507899556779345
+--- !u!114 &2851315843605988971
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -334,11 +331,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2479350530516567040}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b000e8ba6ba4434fa5fa433eb95ab56, type: 3}
+  m_Script: {fileID: 11500000, guid: 902ad4c74ce28c941a3a42c119ce4a8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  headerField: {fileID: 0}
-  contentField: {fileID: 0}
+  text: {fileID: 0}
+  backgroundImg: {fileID: 0}
+  btn: {fileID: 0}
+  background: {fileID: 0}
+  sprite: {fileID: 0}
 --- !u!1 &2641947370798238520
 GameObject:
   m_ObjectHideFlags: 0
@@ -505,7 +505,7 @@ GameObject:
   - component: {fileID: 8291238825593977681}
   - component: {fileID: 3657573887168265305}
   - component: {fileID: 3217448346677290191}
-  - component: {fileID: 6502258083412003884}
+  - component: {fileID: 8805550162137345860}
   m_Layer: 5
   m_Name: Card3
   m_TagString: Untagged
@@ -570,7 +570,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6502258083412003884
+--- !u!114 &8805550162137345860
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -579,11 +579,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 5918410230516012717}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b000e8ba6ba4434fa5fa433eb95ab56, type: 3}
+  m_Script: {fileID: 11500000, guid: 902ad4c74ce28c941a3a42c119ce4a8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  headerField: {fileID: 0}
-  contentField: {fileID: 0}
+  text: {fileID: 0}
+  backgroundImg: {fileID: 0}
+  btn: {fileID: 0}
+  background: {fileID: 0}
+  sprite: {fileID: 0}
 --- !u!1 &6519931435744035760
 GameObject:
   m_ObjectHideFlags: 0
@@ -593,6 +596,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1941137635545128843}
+  - component: {fileID: 3656162521225483103}
   m_Layer: 5
   m_Name: Man
   m_TagString: Untagged
@@ -621,6 +625,22 @@ RectTransform:
   m_AnchoredPosition: {x: 660, y: -183}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3656162521225483103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6519931435744035760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31394441264de7848ab6d9bf1cfcdfc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charImg: {fileID: 48127787884269792}
+  charText: {fileID: 3696054327812168684}
+  sceneState: 5
+  charName: witch
 --- !u!1 &6718252160657507285
 GameObject:
   m_ObjectHideFlags: 0
@@ -632,7 +652,7 @@ GameObject:
   - component: {fileID: 137075869808202954}
   - component: {fileID: 4793787565457077386}
   - component: {fileID: 5908227352097581000}
-  - component: {fileID: 5428264408563439868}
+  - component: {fileID: 6030215433793013513}
   m_Layer: 5
   m_Name: Card2
   m_TagString: Untagged
@@ -697,7 +717,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5428264408563439868
+--- !u!114 &6030215433793013513
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -706,11 +726,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6718252160657507285}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b000e8ba6ba4434fa5fa433eb95ab56, type: 3}
+  m_Script: {fileID: 11500000, guid: 902ad4c74ce28c941a3a42c119ce4a8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  headerField: {fileID: 0}
-  contentField: {fileID: 0}
+  text: {fileID: 0}
+  backgroundImg: {fileID: 0}
+  btn: {fileID: 0}
+  background: {fileID: 0}
+  sprite: {fileID: 0}
 --- !u!1 &8368268223582558164
 GameObject:
   m_ObjectHideFlags: 0

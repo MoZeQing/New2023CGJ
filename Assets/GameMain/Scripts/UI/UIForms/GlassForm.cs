@@ -71,7 +71,7 @@ namespace GameMain
         }
         private void OnClick(ItemData itemData)
         {
-            purchaseForm.SetData(itemData);
+            //purchaseForm.SetData(itemData);
             purchaseForm.gameObject.SetActive(true);
             purchaseForm.SetClick(UpdateItem);
         }

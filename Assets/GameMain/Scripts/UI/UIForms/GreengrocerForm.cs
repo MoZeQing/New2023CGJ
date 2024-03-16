@@ -62,7 +62,7 @@ namespace GameMain
             for (int i = 0; i < mItems.Count; i++)
             {
                 if (index < dRItems.Count)
-                    mItems[i].SetData(dRItems[index]);
+                    mItems[i].SetData(dRItems[index], OnClick, OnTouch);
                 else
                     mItems[i].Hide();
                 index++;
@@ -71,7 +71,7 @@ namespace GameMain
             rightBtn.interactable = index < dRItems.Count;
             pageText.text = (index / mItems.Count).ToString();
         }
-        private void OnClick(ItemData itemData)
+        private void OnClick(DRItem itemData)
         {
             purchaseForm.SetData(itemData);
             purchaseForm.gameObject.SetActive(true);
@@ -92,12 +92,12 @@ namespace GameMain
             index -= mItems.Count;
             ShowItems();
         }
-        private void OnTouch(bool flag,ItemData itemData)
+        private void OnTouch(bool flag, DRItem itemData)
         {
             if (flag)
             {
-                headerField.text = itemData.itemName;
-                contentField.text = itemData.itemInfo;
+                headerField.text = itemData.Name;
+                contentField.text = itemData.Info;
             }
             else
             {
@@ -119,7 +119,6 @@ namespace GameMain
             GameEntry.Utils.Location = OutingSceneState.Home;
             GameEntry.UI.CloseUIForm(this.UIForm);
         }
-        
     }
 }
 public class ShopItemData : ItemData

@@ -16,9 +16,9 @@ namespace GameMain
         [SerializeField] protected Text priceText;
         [SerializeField] protected Text inventoryText;
 
-        protected ItemData mShopItemData;
-        protected Action<ItemData> mAction;
-        protected Action<bool, ItemData> mTouchAction;
+        protected DRItem mShopItemData;
+        protected Action<DRItem> mAction;
+        protected Action<bool, DRItem> mTouchAction;
 
         void Start()
         {
@@ -30,6 +30,7 @@ namespace GameMain
         }
         public virtual void SetData(DRItem itemData)
         {
+            mShopItemData = itemData;
             this.gameObject.SetActive(true);
             itemImage.sprite = Resources.Load<Sprite>(itemData.ImagePath);
             priceText.text = string.Format("¼Û¸ñ:{0}",itemData.Price.ToString());
@@ -38,26 +39,32 @@ namespace GameMain
             else
                 inventoryText.text = string.Format("¿â´æ:{0}", 0);
         }
+        public virtual void SetData(DRItem itemData, Action<DRItem> click, Action<bool, DRItem> touch)
+        {
+            SetData(itemData);
+            SetClick(click);
+            SetTouch(touch);
+        }
 
-        public virtual void SetClick(Action<ItemData> action)
+        public virtual void SetClick(Action<DRItem> action)
         {
             mAction = action;
             this.GetComponent<Button>().onClick.AddListener(() => mAction(mShopItemData));
         }
 
-        public virtual void SetTouch(Action<bool, ItemData> action)
+        public virtual void SetTouch(Action<bool, DRItem> action)
         {
             mTouchAction = action;
         }
 
         public virtual void OnPointerEnter(PointerEventData eventData)
         {
-            //mTouchAction(true, mShopItemData);
+            mTouchAction(true, mShopItemData);
         }
 
         public virtual void OnPointerExit(PointerEventData eventData)
         {
-            //mTouchAction(false, mShopItemData);
+            mTouchAction(false, mShopItemData);
         }
     }
 }
