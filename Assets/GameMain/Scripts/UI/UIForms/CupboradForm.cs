@@ -8,122 +8,114 @@ namespace GameMain
 {
     public class CupboradForm : UIFormLogic
     {
-        [SerializeField] private Transform mCanvas;
         [SerializeField] private Button exitBtn;
-        [SerializeField] private GameObject itemItem;
-        [SerializeField] private ToggleGroup toggleGroup;
-        [SerializeField] private Toggle allToggle;
-        [SerializeField] private Toggle materialsToggle;
-        [SerializeField] private Toggle itemToggle;
-        [SerializeField] private Toggle onceItemToggle;
+        [SerializeField] private Button leftBtn;
+        [SerializeField] private Button rightBtn;
+        [SerializeField] private Text pageText;
+        [SerializeField] private Text headerField;
+        [SerializeField] private Text contentField;
+        [SerializeField] private PurchaseForm purchaseForm;
+        [SerializeField] private List<Item> mItems = new List<Item>();
 
-        private List<Item> mItems = new List<Item>();
-        private List<PlayerItemData> mItemDatas=new List<PlayerItemData>();
+        private List<DRItem> dRItems = new List<DRItem>();
+        private DRItem mItemData = new DRItem();
+        private int index = 0;
+
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            mItemDatas = GameEntry.Utils.PlayerData.items;
-            allToggle.isOn = true;
-            allToggle.onValueChanged.AddListener(OnAllChange);
-            materialsToggle.onValueChanged.AddListener(OnMaterialsChange);
-            itemToggle.onValueChanged.AddListener(OnItemChange);
-            onceItemToggle.onValueChanged.AddListener(OnInstrumentChange);
+            dRItems.Clear();
+            foreach (DRItem item in GameEntry.DataTable.GetDataTable<DRItem>().GetAllDataRows())
+            {
+                if (GameEntry.Utils.GetPlayerItem((ItemTag)item.Id)==null)
+                    continue;
+                if ((ItemKind)item.Kind != ItemKind.Materials)
+                    continue;
+                dRItems.Add(item);
+            }
+
+            leftBtn.interactable = false;
+            rightBtn.interactable = dRItems.Count > mItems.Count;
+
             exitBtn.onClick.AddListener(OnExit);
+            leftBtn.onClick.AddListener(Left);
+            rightBtn.onClick.AddListener(Right);
+
+            index = 0;
             ShowItems();
+        }
+
+        protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
+        {
+            base.OnUpdate(elapseSeconds, realElapseSeconds);
         }
 
         protected override void OnClose(bool isShutdown, object userData)
         {
             base.OnClose(isShutdown, userData);
-            allToggle.onValueChanged.RemoveAllListeners();
-            materialsToggle.onValueChanged.RemoveAllListeners();
-            itemToggle.onValueChanged.RemoveAllListeners();
-            onceItemToggle.onValueChanged.RemoveAllListeners();
             exitBtn.onClick.RemoveAllListeners();
-            ClearItems();
         }
 
-        public void ShowItems()
+        private void ShowItems()
         {
-            ShowItems(mItemDatas);
-        }
-
-        public void ShowItems(List<PlayerItemData> itemDatas)
-        {
-            foreach (PlayerItemData itemData in itemDatas)
+            for (int i = 0; i < mItems.Count; i++)
             {
-                if ((int)itemData.itemTag > 100)
-                    continue;
-                if (itemData.itemNum <= 0)
-                    continue;
-                GameObject go = Instantiate(itemItem, mCanvas);
-                Item item =go.GetComponent<Item>();
-                item.SetData(itemData);
-                item.SetClick(OnClick);
-                mItems.Add(item);
+                if (index < dRItems.Count)
+                    mItems[i].SetData(dRItems[index], OnClick, OnTouch);
+                else
+                    mItems[i].Hide();
+                index++;
             }
+            leftBtn.interactable = index != 0;
+            rightBtn.interactable = index < dRItems.Count;
+            pageText.text = (index / mItems.Count).ToString();
         }
-
-        public void ClearItems()
+        private void OnClick(DRItem itemData)
         {
-            foreach (Item item in mItems)
-            { 
-                GameObject.Destroy(item.gameObject);
-            }
-            mItems.Clear();
+            purchaseForm.SetData(itemData);
+            purchaseForm.gameObject.SetActive(true);
+            purchaseForm.SetClick(UpdateItem);
         }
-
-        private void OnClick(ItemData itemData)
-        { 
-            //弹出一个确认弹窗
-        }
-
-        private void OnAllChange(bool value)
+        private void Right()
         {
-            if(value)
-                OnFilterChange(ItemKind.None);
+            ShowItems();
         }
 
-        private void OnMaterialsChange(bool value) 
+        private void Left()
         {
-            if (value)
-                OnFilterChange(ItemKind.Materials);
+            index -= 2 * mItems.Count;
+            ShowItems();
         }
-
-        private void OnItemChange(bool value)
+        private void UpdateItem()
         {
-            if (value)
-                OnFilterChange(ItemKind.Item);
+            index -= mItems.Count;
+            ShowItems();
         }
-
-        private void OnInstrumentChange(bool value)
+        private void OnTouch(bool flag, DRItem itemData)
         {
-            if (value)
-                OnFilterChange(ItemKind.Instrument);
-        }
-
-        private void OnFilterChange(ItemKind kind)
-        { 
-            ClearItems();
-            List<PlayerItemData> newItems=new List<PlayerItemData>();
-            foreach (PlayerItemData itemData in mItemDatas)
+            if (flag)
             {
-                if (itemData.itemKind == kind)
-                {
-                    newItems.Add(itemData);
-                    continue;
-                }
-                if (kind==ItemKind.None)
-                {
-                    newItems.Add(itemData);
-                    continue;
-                }
+                headerField.text = itemData.Name;
+                contentField.text = itemData.Info;
             }
-            ShowItems(newItems);
+            else
+            {
+                headerField.text = string.Empty;
+                contentField.text = string.Empty;
+            }
         }
 
-        public void OnExit()
+        private void OnExit()
         {
+            GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
+            GameEntry.Utils.outingBefore = false;
+            GameEntry.Dialog.StoryUpdate();
+            OnGameStateChange();
+        }
+
+        private void OnGameStateChange()
+        {
+            GameEntry.Utils.Location = OutingSceneState.Home;
             GameEntry.UI.CloseUIForm(this.UIForm);
         }
     }

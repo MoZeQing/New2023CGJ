@@ -8,46 +8,19 @@ using GameFramework.DataTable;
 using GameMain;
 
 [System.Serializable]
-public class Item : MonoBehaviour
+public class Item : ShopItem
 {
-    [SerializeField] private int index;
-    [SerializeField] private Image itemImg;
-    [SerializeField] private Image usingImg;
-    [SerializeField] private Text itemText;
-    [SerializeField] private Text priceText;
-    [SerializeField] private Text amountText;
-    [SerializeField] private Text itemInfoText;
-
-    private PlayerItemData mItemData;
-    private Action<PlayerItemData> mAction;
-
-    public void SetData(PlayerItemData itemData)
+    public override void SetData(DRItem itemData, Action<DRItem> onClick, Action<bool, DRItem> onTouch)
     {
-        mItemData = itemData;
-        itemText.text = itemData.itemName.ToString();
-        priceText.text = string.Format("价格:{0}", itemData.price.ToString());
-        amountText.text = string.Format("库存:{0}", itemData.itemNum.ToString());
-        if (mItemData.equipable)
-        {
-            usingImg.gameObject.SetActive(mItemData.equiping);
-            this.GetComponent<Button>().onClick.AddListener(OnClick);
-        }
-    }
-
-    public void SetClick(Action<ItemData> action)
-    {
-        mAction = action;
-    }
-
-    private void OnClick()
-    {
-        mAction(mItemData);
-        if (mItemData.equipable)
-        {
-            usingImg.gameObject.SetActive(!usingImg.gameObject.activeSelf);
-            mItemData.equiping = usingImg.gameObject.activeSelf;
-        }
-        //发送消息
+        mShopItemData = itemData;
+        this.gameObject.SetActive(true);
+        itemImage.sprite = Resources.Load<Sprite>(itemData.ImagePath);
+        if (GameEntry.Utils.GetPlayerItem((ItemTag)itemData.Id) != null)
+            inventoryText.text = string.Format("库存:{0}", GameEntry.Utils.GetPlayerItem((ItemTag)itemData.Id).itemNum.ToString());
+        else
+            inventoryText.text = string.Format("库存:{0}", 0);
+        SetClick(onClick);
+        SetTouch(onTouch);
     }
 }
 [System.Serializable]
@@ -56,6 +29,7 @@ public class ItemData
     public ItemTag itemTag;
     public ItemKind itemKind;
     public string itemName;
+    public string itemImgPath;
     public int price;
     public bool equipable;
     public int family;
@@ -85,6 +59,7 @@ public class ItemData
         ability = item.Ap;
         maxNum = item.MaxNum;
         equipable = item.Equipable;
+        itemImgPath = item.ImagePath;
     }
     public ItemData(ItemTag itemTag)
     {
@@ -128,6 +103,7 @@ public class PlayerItemData : ItemData
         equipable = itemData.equipable;
         itemInfo = itemData.itemInfo;     
         itemNum = num;
+        itemImgPath = itemData.itemImgPath;
     }
 }
 
