@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 3989418944962210693}
   - component: {fileID: 2106575134254672812}
   - component: {fileID: 8064319758650337483}
-  - component: {fileID: 3434267359354331725}
+  - component: {fileID: 8118510490593978701}
+  - component: {fileID: 7011773008434402479}
   m_Layer: 5
   m_Name: ShopItem
   m_TagString: Untagged
@@ -77,7 +78,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3434267359354331725
+--- !u!114 &8118510490593978701
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -86,11 +87,57 @@ MonoBehaviour:
   m_GameObject: {fileID: 148833989937869596}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b000e8ba6ba4434fa5fa433eb95ab56, type: 3}
+  m_Script: {fileID: 11500000, guid: e54245318b709a54cb6e61af716bae33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  headerField: {fileID: 0}
-  contentField: {fileID: 0}
+  itemImage: {fileID: 8064319758650337483}
+  nameText: {fileID: 0}
+  priceText: {fileID: 3131120239490613297}
+  inventoryText: {fileID: 0}
+--- !u!114 &7011773008434402479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 148833989937869596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 8064319758650337483}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &347545389129874468
 GameObject:
   m_ObjectHideFlags: 0
@@ -633,7 +680,8 @@ GameObject:
   - component: {fileID: 8096404596211786437}
   - component: {fileID: 1048893378773288481}
   - component: {fileID: 1220474986351884890}
-  - component: {fileID: 6873791898373993235}
+  - component: {fileID: 8492183035629311815}
+  - component: {fileID: 7733736845349036408}
   m_Layer: 5
   m_Name: ShopItem (1)
   m_TagString: Untagged
@@ -699,7 +747,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6873791898373993235
+--- !u!114 &8492183035629311815
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -708,11 +756,57 @@ MonoBehaviour:
   m_GameObject: {fileID: 2202099660829267694}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b000e8ba6ba4434fa5fa433eb95ab56, type: 3}
+  m_Script: {fileID: 11500000, guid: e54245318b709a54cb6e61af716bae33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  headerField: {fileID: 0}
-  contentField: {fileID: 0}
+  itemImage: {fileID: 1220474986351884890}
+  nameText: {fileID: 0}
+  priceText: {fileID: 7408902569027248708}
+  inventoryText: {fileID: 0}
+--- !u!114 &7733736845349036408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2202099660829267694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1220474986351884890}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2759347180900656486
 GameObject:
   m_ObjectHideFlags: 0
@@ -724,7 +818,7 @@ GameObject:
   - component: {fileID: 7261741685528912127}
   - component: {fileID: 8094837419409747673}
   - component: {fileID: 6437055512811065321}
-  - component: {fileID: 6208750489103777805}
+  - component: {fileID: 6781299741857747923}
   m_Layer: 5
   m_Name: ClothingForm
   m_TagString: Untagged
@@ -796,7 +890,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &6208750489103777805
+--- !u!114 &6781299741857747923
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -805,16 +899,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 2759347180900656486}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 282a805eaa7d46945a84726ce5de7d6b, type: 3}
+  m_Script: {fileID: 11500000, guid: c51b4becee0c5aa4aa287215304634e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   exitBtn: {fileID: 8921977874583000263}
-  buyBtn: {fileID: 0}
-  canvas: {fileID: 0}
-  itemPre: {fileID: 4652085143879227094, guid: f7dde90cf80940b498caecb0788c44bd, type: 3}
-  headerField: {fileID: 0}
-  contentField: {fileID: 0}
+  leftBtn: {fileID: 2491880020778303572}
+  rightBtn: {fileID: 1746918991253368189}
+  pageText: {fileID: 5605297720974148725}
   purchaseForm: {fileID: 7848289319231349635}
+  mItems:
+  - {fileID: 8118510490593978701}
+  - {fileID: 8492183035629311815}
+  - {fileID: 1384099661429843173}
+  - {fileID: 3055058671334979336}
 --- !u!1 &3030115320533641831
 GameObject:
   m_ObjectHideFlags: 0
@@ -2257,7 +2354,8 @@ GameObject:
   - component: {fileID: 1002748521145946355}
   - component: {fileID: 9102361391235783420}
   - component: {fileID: 2571888484033893950}
-  - component: {fileID: 5392311159311267058}
+  - component: {fileID: 1384099661429843173}
+  - component: {fileID: 1885617707729035862}
   m_Layer: 5
   m_Name: ShopItem (2)
   m_TagString: Untagged
@@ -2323,7 +2421,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5392311159311267058
+--- !u!114 &1384099661429843173
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2332,11 +2430,57 @@ MonoBehaviour:
   m_GameObject: {fileID: 6469368264131569412}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b000e8ba6ba4434fa5fa433eb95ab56, type: 3}
+  m_Script: {fileID: 11500000, guid: e54245318b709a54cb6e61af716bae33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  headerField: {fileID: 0}
-  contentField: {fileID: 0}
+  itemImage: {fileID: 2571888484033893950}
+  nameText: {fileID: 0}
+  priceText: {fileID: 7268202914958504857}
+  inventoryText: {fileID: 0}
+--- !u!114 &1885617707729035862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6469368264131569412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 2571888484033893950}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6707003544021376353
 GameObject:
   m_ObjectHideFlags: 0
@@ -2807,7 +2951,8 @@ GameObject:
   - component: {fileID: 8960940543774953015}
   - component: {fileID: 2422054017929341508}
   - component: {fileID: 6104953848559824952}
-  - component: {fileID: 5637946840860491534}
+  - component: {fileID: 3055058671334979336}
+  - component: {fileID: 7368977701818681724}
   m_Layer: 5
   m_Name: ShopItem (3)
   m_TagString: Untagged
@@ -2873,7 +3018,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5637946840860491534
+--- !u!114 &3055058671334979336
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2882,11 +3027,57 @@ MonoBehaviour:
   m_GameObject: {fileID: 8551016517310439355}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b000e8ba6ba4434fa5fa433eb95ab56, type: 3}
+  m_Script: {fileID: 11500000, guid: e54245318b709a54cb6e61af716bae33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  headerField: {fileID: 0}
-  contentField: {fileID: 0}
+  itemImage: {fileID: 6104953848559824952}
+  nameText: {fileID: 0}
+  priceText: {fileID: 8089834591899016488}
+  inventoryText: {fileID: 0}
+--- !u!114 &7368977701818681724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8551016517310439355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 6104953848559824952}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &8792113385818879148
 GameObject:
   m_ObjectHideFlags: 0
@@ -2896,6 +3087,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4217869503802042519}
+  - component: {fileID: 2759776054077473959}
   m_Layer: 5
   m_Name: Man
   m_TagString: Untagged
@@ -2924,6 +3116,22 @@ RectTransform:
   m_AnchoredPosition: {x: 660, y: -101}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2759776054077473959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8792113385818879148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31394441264de7848ab6d9bf1cfcdfc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charImg: {fileID: 2365045549867411452}
+  charText: {fileID: 1383636730004368624}
+  sceneState: 6
+  charName: regular
 --- !u!1 &9018070804898595383
 GameObject:
   m_ObjectHideFlags: 0

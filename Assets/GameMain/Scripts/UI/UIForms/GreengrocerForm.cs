@@ -12,21 +12,38 @@ namespace GameMain
     public class GreengrocerForm : UIFormLogic
     {
         [SerializeField] private Button exitBtn;
-        [SerializeField] private Button buyBtn;
-        [SerializeField] private Transform canvas;
-        [SerializeField] private GameObject itemPre;
+        [SerializeField] private Button leftBtn;
+        [SerializeField] private Button rightBtn;
+        [SerializeField] private Text pageText;
         [SerializeField] private Text headerField;
         [SerializeField] private Text contentField;
         [SerializeField] private PurchaseForm purchaseForm;
+        [SerializeField] private List<ShopItem> mItems = new List<ShopItem>();
 
-        private List<ShopItem> mItems = new List<ShopItem>();
+        private List<DRItem> dRItems = new List<DRItem>();
         private ItemData mItemData = new ItemData();
+        private int index = 0;
 
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
+            dRItems.Clear();
+            foreach (DRItem item in GameEntry.DataTable.GetDataTable<DRItem>().GetAllDataRows())
+            {
+                if ((ItemKind)item.Kind != ItemKind.Materials)
+                    continue;
+                dRItems.Add(item);
+            }
+
+            leftBtn.interactable = false;
+            rightBtn.interactable = dRItems.Count > mItems.Count;     
+            
             exitBtn.onClick.AddListener(OnExit);
-            //ShowItems();
+            leftBtn.onClick.AddListener(Left);
+            rightBtn.onClick.AddListener(Right);
+
+            index = 0;
+            ShowItems();
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
@@ -42,20 +59,17 @@ namespace GameMain
 
         private void ShowItems()
         {
-            ClearItems();
-            DRItem[] items = GameEntry.DataTable.GetDataTable<DRItem>().GetAllDataRows();
-            foreach (DRItem item in items)
+            for (int i = 0; i < mItems.Count; i++)
             {
-                ItemData itemData = new ItemData(item);
-                if (itemData.itemKind != ItemKind.Materials)
-                    continue;
-                GameObject go = Instantiate(itemPre, canvas);
-                ShopItem shopItem = go.GetComponent<ShopItem>();
-                shopItem.SetData(itemData);
-                shopItem.SetTouch(OnTouch);
-                shopItem.SetClick(OnClick);
-                mItems.Add(shopItem);
+                if (index < dRItems.Count)
+                    mItems[i].SetData(dRItems[index]);
+                else
+                    mItems[i].Hide();
+                index++;
             }
+            leftBtn.interactable = index != 0;
+            rightBtn.interactable = index < dRItems.Count;
+            pageText.text = (index / mItems.Count).ToString();
         }
         private void OnClick(ItemData itemData)
         {
@@ -63,9 +77,19 @@ namespace GameMain
             purchaseForm.gameObject.SetActive(true);
             purchaseForm.SetClick(UpdateItem);
         }
+        private void Right()
+        {
+            ShowItems();
+        }
+
+        private void Left()
+        {
+            index -= 2 * mItems.Count;
+            ShowItems();
+        }
         private void UpdateItem()
         {
-            ClearItems();
+            index -= mItems.Count;
             ShowItems();
         }
         private void OnTouch(bool flag,ItemData itemData)
@@ -80,14 +104,6 @@ namespace GameMain
                 headerField.text = string.Empty;
                 contentField.text = string.Empty;
             }
-        }
-        private void ClearItems()
-        {
-            foreach (ShopItem item in mItems)
-            {
-                Destroy(item.gameObject);
-            }
-            mItems.Clear();
         }
 
         private void OnExit()

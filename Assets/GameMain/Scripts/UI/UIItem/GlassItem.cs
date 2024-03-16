@@ -6,84 +6,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class GlassItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class GlassItem : ShopItem
 {
-    [SerializeField] private Image glassImg;
-    [SerializeField] private Text glassText;
-    [SerializeField] private Text priceText;
-    [SerializeField] private Button okBtn;
-    [SerializeField] private Text warningPriceText;
-    [SerializeField] private Text warningNumText;
-
-    private ShopItemData mShopItemData;
-    private Action<bool, ShopItemData> mTouchAction;
-    private Action mAction;
-
-    private void Start()
+    public override void SetData(DRItem itemData)
     {
-        okBtn.onClick.AddListener(OnClick);
-    }
-    private void Update()
-    {
-        if (GameEntry.Utils.GetPlayerItem(mShopItemData.itemTag) != null)
-        {
-            if (GameEntry.Utils.GetPlayerItem(mShopItemData.itemTag).itemNum >= mShopItemData.maxNum)
-            {
-                okBtn.interactable = false;
-                warningNumText.gameObject.SetActive(true);
-            }
-        }
-        if (warningNumText.gameObject.activeSelf == false)
-        {
-            if (GameEntry.Utils.Money >= mShopItemData.price)
-            {
-                okBtn.interactable = true;
-                warningPriceText.gameObject.SetActive(false);
-            }
-            if (GameEntry.Utils.Money < mShopItemData.price)
-            {
-                okBtn.interactable = false;
-                warningPriceText.gameObject.SetActive(true);
-            }
-        }
-    }
-
-
-
-    public void SetData(ShopItemData shopItemData)
-    {
-        mShopItemData = shopItemData;
-        glassText.text = shopItemData.itemName;
-        priceText.text = shopItemData.price.ToString();
-        //okBtn.interactable = GameEntry.Utils.GetPlayerItem(mShopItemData.itemTag) == null;
-    }
-
-    private void OnClick()
-    {
-        if (GameEntry.Utils.Money >= mShopItemData.price)
-        {
-            GameEntry.Utils.Money -= mShopItemData.price;
-            GameEntry.Utils.AddPlayerItem(mShopItemData, 1);
-        }
-    }
-
-    public void SetClick(Action action)
-    {
-        mAction = action;
-    }
-
-    public virtual void SetTouch(Action<bool, ShopItemData> action)
-    {
-        mTouchAction = action;
-    }
-
-    public virtual void OnPointerEnter(PointerEventData eventData)
-    {
-        mTouchAction(true, mShopItemData);
-    }
-
-    public virtual void OnPointerExit(PointerEventData eventData)
-    {
-        mTouchAction(false, mShopItemData);
+        this.gameObject.SetActive(true);
+        itemImage.sprite = Resources.Load<Sprite>(itemData.ImagePath);
+        priceText.text = string.Format("¼Û¸ñ:{0}", itemData.Price.ToString());
+        this.GetComponent<Button>().interactable = GameEntry.Utils.GetPlayerItem((ItemTag)itemData.Id) == null;
     }
 }

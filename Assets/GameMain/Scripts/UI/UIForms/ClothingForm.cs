@@ -4,22 +4,22 @@ using UnityEngine;
 using UnityGameFramework.Runtime;
 using UnityEngine.UI;
 using GameFramework.Event;
+using GameFramework.DataTable;
+using GameMain;
+
 
 namespace GameMain
 {
-    public class GlassForm : UIFormLogic
+    public class ClothingForm : UIFormLogic
     {
         [SerializeField] private Button exitBtn;
         [SerializeField] private Button leftBtn;
         [SerializeField] private Button rightBtn;
         [SerializeField] private Text pageText;
-        [SerializeField] private Text headerField;
-        [SerializeField] private Text contentField;
         [SerializeField] private PurchaseForm purchaseForm;
-        [SerializeField] private List<GlassItem> mItems = new List<GlassItem>();
+        [SerializeField] private List<ShopItem> mItems = new List<ShopItem>();
 
         private List<DRItem> dRItems = new List<DRItem>();
-        private ItemData mItemData = new ItemData();
         private int index = 0;
 
         protected override void OnOpen(object userData)
@@ -28,7 +28,7 @@ namespace GameMain
             dRItems.Clear();
             foreach (DRItem item in GameEntry.DataTable.GetDataTable<DRItem>().GetAllDataRows())
             {
-                if ((ItemKind)item.Kind != ItemKind.Instrument)
+                if ((ItemKind)item.Kind != ItemKind.Clothes)
                     continue;
                 dRItems.Add(item);
             }
@@ -43,7 +43,6 @@ namespace GameMain
             index = 0;
             ShowItems();
         }
-
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
@@ -54,7 +53,6 @@ namespace GameMain
             base.OnClose(isShutdown, userData);
             exitBtn.onClick.RemoveAllListeners();
         }
-
         private void ShowItems()
         {
             for (int i = 0; i < mItems.Count; i++)
@@ -69,9 +67,9 @@ namespace GameMain
             rightBtn.interactable = index < dRItems.Count;
             pageText.text = (index / mItems.Count).ToString();
         }
-        private void OnClick(ItemData itemData)
+        private void OnClick(DRItem itemData)
         {
-            purchaseForm.SetData(itemData);
+            //purchaseForm.SetData(itemData);
             purchaseForm.gameObject.SetActive(true);
             purchaseForm.SetClick(UpdateItem);
         }
@@ -90,20 +88,6 @@ namespace GameMain
             index -= mItems.Count;
             ShowItems();
         }
-        private void OnTouch(bool flag, ItemData itemData)
-        {
-            if (flag)
-            {
-                headerField.text = itemData.itemName;
-                contentField.text = itemData.itemInfo;
-            }
-            else
-            {
-                headerField.text = string.Empty;
-                contentField.text = string.Empty;
-            }
-        }
-
         private void OnExit()
         {
             GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
@@ -117,6 +101,5 @@ namespace GameMain
             GameEntry.Utils.Location = OutingSceneState.Home;
             GameEntry.UI.CloseUIForm(this.UIForm);
         }
-
     }
 }

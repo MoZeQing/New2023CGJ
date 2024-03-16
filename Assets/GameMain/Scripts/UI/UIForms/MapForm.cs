@@ -23,12 +23,24 @@ namespace GameMain
         private void OnEnable()
         {
             GameEntry.Event.Subscribe(GameStateEventArgs.EventId, GameStateEvent);
+            mGreengrocerBtn.onClick.AddListener(() => Outing(OutingSceneState.Greengrocer));
+            mGlassBtn.onClick.AddListener(() => Outing(OutingSceneState.Glass));
+            mRestaurantBtn.onClick.AddListener(() => Outing(OutingSceneState.Restaurant));
+            mBeachBtn.onClick.AddListener(() => Outing(OutingSceneState.Beach));
+            mClothingBtn.onClick.AddListener(() => Outing(OutingSceneState.Clothing));
+            mGymBtn.onClick.AddListener(() => Outing(OutingSceneState.Gym));
             GameStateEvent(null, null);
         }
 
         private void OnDisable()
         {
             GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, GameStateEvent);
+            mGreengrocerBtn.onClick.RemoveAllListeners();
+            mGlassBtn.onClick.RemoveAllListeners();
+            mRestaurantBtn.onClick.RemoveAllListeners();
+            mBeachBtn.onClick.RemoveAllListeners();
+            mClothingBtn.onClick.RemoveAllListeners();
+            mGymBtn.onClick.RemoveAllListeners();
         }
 
         private void Outing(OutingSceneState outingSceneState)
@@ -36,16 +48,6 @@ namespace GameMain
             if (mDay == GameEntry.Utils.Day)
             {
                 GameEntry.UI.OpenUIForm(UIFormId.PopTips, "今天你已经外出过一次了");
-                return;
-            }
-            if (outingSceneState==OutingSceneState.Beach&&GameEntry.Utils.GetPlayerItem(ItemTag.Closet4) == null)//检查泳装
-            {
-                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你没有泳装，请购买泳装才能去往海滩");
-                return;
-            }
-            if (outingSceneState == OutingSceneState.Gym && GameEntry.Utils.GetPlayerItem(ItemTag.Closet2) == null)//检查运动装
-            {
-                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你没有运动服，请购买运动服才能去往健身房");
                 return;
             }
             if (GameEntry.Utils.Energy < 20)
@@ -64,12 +66,6 @@ namespace GameMain
         {
             GameStateEventArgs e = (GameStateEventArgs)args;
             //修改为收到消息就刷新
-            mGreengrocerBtn.onClick.RemoveAllListeners();
-            mGlassBtn.onClick.RemoveAllListeners();
-            mRestaurantBtn.onClick.RemoveAllListeners();
-            mBeachBtn.onClick.RemoveAllListeners();
-            mClothingBtn.onClick.RemoveAllListeners();
-            mGymBtn.onClick.RemoveAllListeners();
 
             mBeachBtn.gameObject.SetActive(false);
             mClothingBtn.gameObject.SetActive(false);
@@ -101,13 +97,6 @@ namespace GameMain
                         break;
                 }
             }
-
-            mGreengrocerBtn.onClick.AddListener(() => Outing(OutingSceneState.Greengrocer));
-            mGlassBtn.onClick.AddListener(() => Outing(OutingSceneState.Glass));
-            mRestaurantBtn.onClick.AddListener(() => Outing(OutingSceneState.Restaurant));
-            mBeachBtn.onClick.AddListener(() => Outing(OutingSceneState.Beach));
-            mClothingBtn.onClick.AddListener(() => Outing(OutingSceneState.Clothing));
-            mGymBtn.onClick.AddListener(() => Outing(OutingSceneState.Gym));
         }
     }
 }
