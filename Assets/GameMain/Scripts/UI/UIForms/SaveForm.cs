@@ -10,9 +10,6 @@ namespace GameMain
     {
         [SerializeField] private Button exitBtn;
         [Header("快速/自动读档")]
-        [SerializeField] private Button loadBtn;
-        [SerializeField] private Text dayText;
-        [SerializeField] private Text systemText;
 
         [SerializeField] private SaveLoadItem[] saveLoadItems = new SaveLoadItem[4];
 
@@ -20,7 +17,6 @@ namespace GameMain
         {
             base.OnOpen(userData);
             exitBtn.onClick.AddListener(() => GameEntry.UI.CloseUIForm(this.UIForm));
-            loadBtn.onClick.AddListener(() => SaveGame(0));
             SaveData();
         }
 
@@ -33,16 +29,15 @@ namespace GameMain
         private void SaveData()
         {
             SaveLoadData autoLoadData = GameEntry.SaveLoad.LoadGame(0);
-            if (autoLoadData == null) return;
-            dayText.text = string.Format("第{0}天", autoLoadData.day);
-            systemText.text = autoLoadData.dataTime;
-            for (int i = 1; i < 5; i++)
+            for (int i = 0; i < saveLoadItems.Length; i++)
             {
                 SaveLoadData saveLoadData = GameEntry.SaveLoad.LoadGame(i);
                 if (saveLoadData == null)
-                    saveLoadItems[i-1].SetData(SaveGame,i);
+                {
+                    saveLoadItems[i].SetSaveData(SaveGame, i);
+                }
                 else
-                    saveLoadItems[i-1].SetData(saveLoadData, SaveGame, i);
+                    saveLoadItems[i].SetData(saveLoadData, SaveGame, i);
             }
         }
 

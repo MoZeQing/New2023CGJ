@@ -9,18 +9,13 @@ namespace GameMain
     public class LoadForm : UIFormLogic
     {
         [SerializeField] private Button exitBtn;
-        [Header("快速/自动读档")]
-        [SerializeField] private Button loadBtn;
-        [SerializeField] private Text dayText;
-        [SerializeField] private Text systemText;
 
-        [SerializeField] private SaveLoadItem[] saveLoadItems=new SaveLoadItem[4];
+        [SerializeField] private SaveLoadItem[] saveLoadItems=new SaveLoadItem[6];
 
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
             exitBtn.onClick.AddListener(() => GameEntry.UI.CloseUIForm(this.UIForm));
-            loadBtn.onClick.AddListener(() => LoadGame(0));
             LoadData();
         }
 
@@ -28,22 +23,18 @@ namespace GameMain
         {
             base.OnClose(isShutdown, userData);
             exitBtn.onClick.RemoveAllListeners();
-            loadBtn.onClick.RemoveAllListeners();
         }
 
         private void LoadData()
         {
             SaveLoadData autoLoadData = GameEntry.SaveLoad.LoadGame(0);
-            if (autoLoadData == null) return;
-            dayText.text = string.Format("第{0}天", autoLoadData.day);
-            systemText.text = autoLoadData.dataTime;
-            for (int i = 1; i < 5; i++)
+            for (int i = 0; i < saveLoadItems.Length; i++)
             {
                 SaveLoadData saveLoadData = GameEntry.SaveLoad.LoadGame(i);
                 if (saveLoadData == null)
-                    Debug.Log("不存在该存档");
+                    saveLoadItems[i].Hide();
                 else
-                    saveLoadItems[i - 1].SetData(saveLoadData, LoadGame, i);
+                    saveLoadItems[i].SetData(saveLoadData, LoadGame, i);
             }
         }
 

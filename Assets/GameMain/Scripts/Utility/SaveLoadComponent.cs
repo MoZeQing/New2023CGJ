@@ -15,7 +15,7 @@ namespace GameMain
     public class SaveLoadComponent : GameFrameworkComponent
     {
         //规定，其中0为自动存档、1~4为玩家手动存档的位置
-        private SaveLoadData[] mSaveLoadData = new SaveLoadData[5];
+        private SaveLoadData[] mSaveLoadData = new SaveLoadData[6];
         //初始化数据
         public GameState gameState;
         public int maxEnergy = 80;
