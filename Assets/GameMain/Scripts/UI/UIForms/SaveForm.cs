@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,13 +10,16 @@ namespace GameMain
     public class SaveForm : UIFormLogic
     {
         [SerializeField] private Button exitBtn;
-        [Header("快速/自动读档")]
+        [SerializeField] private Transform canvas;
 
         [SerializeField] private SaveLoadItem[] saveLoadItems = new SaveLoadItem[4];
 
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
+            canvas.localPosition = Vector3.up * 1080f;
+            canvas.DOLocalMove(Vector3.zero, 0.5f).SetEase(Ease.OutExpo);
+
             exitBtn.onClick.AddListener(() => GameEntry.UI.CloseUIForm(this.UIForm));
             SaveData();
         }

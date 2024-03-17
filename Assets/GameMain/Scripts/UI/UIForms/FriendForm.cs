@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,7 @@ namespace GameMain
     public class FriendForm : UIFormLogic
     {
         [SerializeField] private Button exitBtn;
+        [SerializeField] private Transform canvas;
 
         [SerializeField] private List<Image> images= new List<Image>();
         [SerializeField] private List<Text> texts= new List<Text>();
@@ -21,7 +23,11 @@ namespace GameMain
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
+            canvas.localPosition = Vector3.up * 1080f;
+            canvas.DOLocalMove(Vector3.zero, 0.5f).SetEase(Ease.OutExpo);
+
             index = 0;
+            text.text = 1.ToString();
             leftBtn.interactable = false;
             leftBtn.onClick.AddListener(Left);
             rightBtn.onClick.AddListener(Right);

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityGameFramework.Runtime;
 using GameFramework.DataTable;
 using System;
+using DG.Tweening;
 
 namespace GameMain
 {
@@ -16,6 +17,7 @@ namespace GameMain
         [SerializeField] private GameObject mRecipeItem;
         [SerializeField] private Transform mLeftCanvas;
         [SerializeField] private Transform mRightCanvas;
+        [SerializeField] private Transform canvas;
         [SerializeField] private Button exitBtn;
 
         private List<RecipeItem> nodeItems = new List<RecipeItem>();
@@ -24,8 +26,10 @@ namespace GameMain
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
+            canvas.localPosition = Vector3.up * 1080f;
+            canvas.DOLocalMove(Vector3.zero, 0.5f).SetEase(Ease.OutExpo);
+
             exitBtn.onClick.AddListener(() => GameEntry.UI.CloseUIForm(this.UIForm));
-            GameEntry.Base.GameSpeed = 0f;
             ShowNodes();
         }
 

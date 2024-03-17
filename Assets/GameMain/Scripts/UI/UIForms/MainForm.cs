@@ -54,6 +54,12 @@ namespace GameMain
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
+            if (Input.GetMouseButtonDown(1))
+            {
+                if (!mAnimator.GetBool("Into"))
+                    return;
+                ChangeTeach();
+            }
         }
         protected override void OnClose(bool isShutdown, object userData)
         {
