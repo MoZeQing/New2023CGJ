@@ -30,7 +30,7 @@ namespace GameMain
             }
             else
             {
-                closetForm.SetData(GameEntry.Utils.GetPlayerItem(closetTag));
+                //closetForm.SetData(GameEntry.Utils.GetPlayerItem(closetTag));
                 lockOn.SetActive(false);
             }
         }
@@ -72,7 +72,7 @@ namespace GameMain
                 }
                 else
                 {
-                    closetForm.SetData(GameEntry.Utils.GetPlayerItem(closetTag));
+                    //closetForm.SetData(GameEntry.Utils.GetPlayerItem(closetTag));
                     lockOn.SetActive(false);
                 }
                 this.transform.DOLocalMove(up.localPosition, 0.5f).SetEase(Ease.OutExpo);
@@ -86,7 +86,7 @@ namespace GameMain
                 state = ClosetItemState.Idle;
                 this.transform.DOPause();
                 this.transform.DOLocalMove(down.localPosition, 0.5f).SetEase(Ease.OutExpo);
-                closetForm.SetData(null);
+                //closetForm.SetData(null);
                 Check();
             }
         }
@@ -99,7 +99,7 @@ namespace GameMain
             {
                 state = ClosetItemState.Choice;
                 //·¢ËÍÏûÏ¢
-                closetForm.SetData(GameEntry.Utils.GetPlayerItem(closetTag), this);
+                //closetForm.SetData(GameEntry.Utils.GetPlayerItem(closetTag), this);
             }
         }
     }
