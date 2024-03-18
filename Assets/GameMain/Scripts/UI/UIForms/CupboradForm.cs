@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ namespace GameMain
 {
     public class CupboradForm : UIFormLogic
     {
+        [SerializeField] private Transform canvas;
         [SerializeField] private Button exitBtn;
         [SerializeField] private Button leftBtn;
         [SerializeField] private Button rightBtn;
@@ -24,6 +26,9 @@ namespace GameMain
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
+            canvas.localPosition = Vector3.up * 1080f;
+            canvas.DOLocalMove(Vector3.zero, 0.5f).SetEase(Ease.OutExpo);
+
             dRItems.Clear();
             foreach (DRItem item in GameEntry.DataTable.GetDataTable<DRItem>().GetAllDataRows())
             {
@@ -107,15 +112,6 @@ namespace GameMain
 
         private void OnExit()
         {
-            GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
-            GameEntry.Utils.outingBefore = false;
-            GameEntry.Dialog.StoryUpdate();
-            OnGameStateChange();
-        }
-
-        private void OnGameStateChange()
-        {
-            GameEntry.Utils.Location = OutingSceneState.Home;
             GameEntry.UI.CloseUIForm(this.UIForm);
         }
     }
