@@ -8,7 +8,7 @@ using UnityGameFramework.Runtime;
 
 namespace GameMain
 {
-    public class MainMenu :UIFormLogic
+    public class MainMenu :BaseForm
 {
         private ProcedureMenu m_ProcedureMenu;
 
@@ -23,7 +23,7 @@ namespace GameMain
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            m_ProcedureMenu = (ProcedureMenu)userData;
+            m_ProcedureMenu = (ProcedureMenu)BaseFormData.UserData;
 
             mainThemePlaySoundParams.Loop = true;
 

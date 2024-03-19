@@ -7,7 +7,7 @@ using UnityGameFramework.Runtime;
 
 namespace GameMain
 {
-    public class FriendForm : UIFormLogic
+    public class FriendForm : BaseForm
     {
         [SerializeField] private Button exitBtn;
         [SerializeField] private Transform canvas;

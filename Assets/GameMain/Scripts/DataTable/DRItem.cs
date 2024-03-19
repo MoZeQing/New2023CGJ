@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-03-16 20:50:23.205
+// 生成时间：2024-03-19 19:43:00.332
 //------------------------------------------------------------
 
 using GameFramework;
@@ -118,7 +118,7 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取。
+        /// 获取亲情。
         /// </summary>
         public int Family
         {
@@ -127,7 +127,7 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取。
+        /// 获取爱情。
         /// </summary>
         public int Love
         {
@@ -136,7 +136,7 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取。
+        /// 获取信任。
         /// </summary>
         public int Favor
         {
@@ -145,7 +145,7 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取。
+        /// 获取希望。
         /// </summary>
         public int Hope
         {
@@ -154,7 +154,7 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取。
+        /// 获取心情。
         /// </summary>
         public int Mood
         {
@@ -163,7 +163,7 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取。
+        /// 获取体力。
         /// </summary>
         public int Energy
         {
@@ -172,7 +172,7 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取。
+        /// 获取AP。
         /// </summary>
         public int Ap
         {

@@ -18,7 +18,19 @@ MonoBehaviour:
     not: 0
     equals: 1
     value: Tuesday
-    and: []
+    and:
+    - key: 0
+      not: 0
+      equals: 0
+      value: 
+      and: []
+      or: []
+    - key: 1
+      not: 0
+      equals: 1
+      value: 123
+      and: []
+      or: []
     or: []
   levelData:
     charSO: {fileID: 11400000, guid: e9c3805302ae05043b0073ac408d64d1, type: 2}
@@ -29,6 +41,7 @@ MonoBehaviour:
     - NodeTag: 201
       NodeName: "\u6D53\u7F29\u5496\u5561"
       OrderTime: 30
+      Urgent: 0
       Sugar: 0
       CondensedMilk: 0
       Salt: 0

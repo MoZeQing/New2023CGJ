@@ -14,7 +14,7 @@ using UnityEngine.SocialPlatforms.Impl;
 
 namespace GameMain
 {
-    public class DialogForm : UIFormLogic
+    public class DialogForm : BaseForm
     {
         [SerializeField] private DialogBox mDialogBox;
         [SerializeField] private BaseStage mStage;
@@ -24,7 +24,7 @@ namespace GameMain
         {
             base.OnOpen(userData);
             GameEntry.UI.OpenUIForm(UIFormId.ChangeForm);
-            SetData((DialogueGraph)userData);
+            SetData((DialogueGraph)BaseFormData.UserData);
         }
 
         public void SetData(DialogueGraph dialogue)

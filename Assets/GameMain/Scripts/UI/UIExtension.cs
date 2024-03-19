@@ -80,7 +80,7 @@ namespace GameMain
                     return null;
                 }
             }
-            return uiComponent.OpenUIForm(assetName, drUIForm.UIGroupName, /*Constant.AssetPriority.UIFormAsset*/50, drUIForm.PauseCoveredUIForm, userData);
+            return uiComponent.OpenUIForm(assetName, drUIForm.UIGroupName, 50, drUIForm.PauseCoveredUIForm, new BaseFormData((UIFormId)uiFormId,userData));
         }
 
         public static UIForm GetUIForm(this UIComponent uiComponent, int uiFormId)

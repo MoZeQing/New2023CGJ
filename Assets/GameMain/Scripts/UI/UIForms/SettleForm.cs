@@ -8,7 +8,7 @@ using System.Text;
 
 namespace GameMain
 {
-    public class SettleForm : UIFormLogic
+    public class SettleForm : BaseForm
     {
         [SerializeField] private Transform randomCanvas;
         [SerializeField] private Transform settleCanvas;
@@ -25,7 +25,7 @@ namespace GameMain
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            mWorkData = (WorkData)userData;
+            mWorkData = (WorkData)BaseFormData.UserData;
             mIsRandom = false;
 
             settleCanvas.gameObject.SetActive(true);
