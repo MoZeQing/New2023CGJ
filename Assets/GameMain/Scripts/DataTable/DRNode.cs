@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-03-19 19:43:00.318
+// 生成时间：2024-03-22 23:22:11.014
 //------------------------------------------------------------
 
 using GameFramework;
@@ -91,6 +91,15 @@ namespace GameMain
         }
 
         /// <summary>
+        /// 获取是否是冰咖啡。
+        /// </summary>
+        public bool Ice
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
         /// 获取所在层。
         /// </summary>
         public string Layer
@@ -153,6 +162,7 @@ namespace GameMain
             Material = bool.Parse(columnStrings[index++]);
             Tool = bool.Parse(columnStrings[index++]);
             Coffee = bool.Parse(columnStrings[index++]);
+            Ice = bool.Parse(columnStrings[index++]);
             Layer = columnStrings[index++];
             Layerint = int.Parse(columnStrings[index++]);
             Price = int.Parse(columnStrings[index++]);
@@ -176,6 +186,7 @@ namespace GameMain
                     Material = binaryReader.ReadBoolean();
                     Tool = binaryReader.ReadBoolean();
                     Coffee = binaryReader.ReadBoolean();
+                    Ice = binaryReader.ReadBoolean();
                     Layer = binaryReader.ReadString();
                     Layerint = binaryReader.Read7BitEncodedInt32();
                     Price = binaryReader.Read7BitEncodedInt32();

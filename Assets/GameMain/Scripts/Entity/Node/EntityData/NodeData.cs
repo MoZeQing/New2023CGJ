@@ -72,7 +72,16 @@ namespace GameMain
             get;
             set;
         } = false;
-
+        public bool Grind
+        {
+            get;
+            set;
+        } = false;
+        public bool Ice
+        {
+            get;
+            set;
+        } = false;
         public NodeData(int entityId, int typeId, NodeTag node)
             : base(entityId, typeId)
         {
@@ -138,7 +147,8 @@ namespace GameMain
         FilterBowl=108,//¬À÷Ω Ω¬À±≠
         Cup=109,//øß∑»±≠
         Stirrer=110,//Ω¡∞Ë∆˜
-        //øß∑»£®201-300£©
+        //øß∑»£®200-300£©
+        EspressoG=200,//¥÷øß∑»∑€
         Espresso=201,//≈®Àıøß∑»
         HotCafeAmericano=202,//»»√¿ Ω
         IceCafeAmericano=203,//¿‰√¿ Ω
