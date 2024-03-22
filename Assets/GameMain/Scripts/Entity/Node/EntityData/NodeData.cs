@@ -62,7 +62,7 @@ namespace GameMain
             get;
             set;
         }
-        public List<NodeTag> M_Materials
+        public List<NodeTag> Materials
         {
             get;
             set;
@@ -78,26 +78,26 @@ namespace GameMain
         {
             this.NodeTag = node;
         }
-        public NodeData(int entityId, int typeId, NodeTag node,int level)
+        public NodeData(int entityId, int typeId, NodeTag node,int level=0)
             : base(entityId, typeId)
         {
             this.NodeTag = node;
             this.MLevel = level;
         }
-        public NodeData(int entityId, int typeId, NodeTag node, int level,bool isCoffee)
+        public NodeData(int entityId, int typeId, NodeTag node, bool isCoffee, int level=0)
             : base(entityId, typeId)
         {
             this.NodeTag = node;
             this.MLevel = level;
             this.IsCoffee = isCoffee;
         }
-        public NodeData(int entityId, int typeId, NodeTag node, int level, bool isCoffee,List<NodeTag> materials)
+        public NodeData(int entityId, int typeId, NodeTag node, bool isCoffee, List<NodeTag> materials, int level=0)
             : base(entityId, typeId)
         {
             this.NodeTag = node;
             this.MLevel = level;
             this.IsCoffee = isCoffee;
-            this.M_Materials = materials;
+            this.Materials = materials;
         }
     }
 

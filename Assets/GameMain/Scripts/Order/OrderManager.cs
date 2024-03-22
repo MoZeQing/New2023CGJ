@@ -179,7 +179,8 @@ namespace GameMain
         public string NodeName;
         //制作咖啡的时间
         public float OrderTime;
-        public bool Urgent;
+        public bool Grind;//粗细度
+        public bool Urgent;//是否加急
         public bool Sugar;
         public bool CondensedMilk;
         public bool Salt;
