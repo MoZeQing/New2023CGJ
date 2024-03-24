@@ -31,7 +31,7 @@ public class BaseStage : MonoBehaviour
                 if (mChars[i] == baseCharacter)
                     continue;
                 mChars[i] = baseCharacter;
-                mChars[i].transform.position = mPositions[(int)dialogPos].transform.position;
+                mChars[i].transform.position = mPositions[(int)dialogPos].transform.position+ mChars[i].mCharSO.offset;
                 mChars[i].gameObject.SetActive(true);
             }
             else

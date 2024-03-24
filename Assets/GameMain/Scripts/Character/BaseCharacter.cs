@@ -21,7 +21,7 @@ namespace GameMain
         private CharacterData mCharacterData = null;
         private Image mImage = null;
         private ActionNode mActionNode = null;
-        private CharSO mCharSO = null;
+        public CharSO mCharSO = null;
 
         private List<Sprite> mDiffs = new List<Sprite>();//²î·Ö
         private ActionState mActionState;

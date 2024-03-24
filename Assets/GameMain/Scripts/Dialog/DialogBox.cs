@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using XNode;
+using DG.Tweening;
 using XNode.Examples.LogicToy;
 
 public class DialogBox : MonoBehaviour
@@ -116,8 +117,9 @@ public class DialogBox : MonoBehaviour
             stage.ShowCharacter(chatData);
             stage.SetBackground(chatData.background);
 
-            nameText.text = chatData.charName;
+            nameText.text = chatData.charName == "0" ? string.Empty : chatData.charName;
             dialogText.text = chatData.text;
+
             for (int i = 0; i < chatData.eventDatas.Count; i++)
             {
                 GameEntry.Utils.RunEvent(chatData.eventDatas[i]);

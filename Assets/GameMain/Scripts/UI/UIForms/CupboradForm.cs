@@ -39,15 +39,15 @@ namespace GameMain
                 dRItems.Add(item);
             }
 
-            leftBtn.interactable = false;
-            rightBtn.interactable = dRItems.Count > mItems.Count;
-
             exitBtn.onClick.AddListener(OnExit);
             leftBtn.onClick.AddListener(Left);
             rightBtn.onClick.AddListener(Right);
 
             index = 0;
             ShowItems();
+
+            leftBtn.interactable = false;
+            rightBtn.interactable = dRItems.Count > mItems.Count;
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
@@ -59,6 +59,8 @@ namespace GameMain
         {
             base.OnClose(isShutdown, userData);
             exitBtn.onClick.RemoveAllListeners();
+            leftBtn.onClick.RemoveAllListeners();
+            rightBtn.onClick.RemoveAllListeners();
         }
 
         private void ShowItems()
@@ -71,7 +73,7 @@ namespace GameMain
                     mItems[i].Hide();
                 index++;
             }
-            leftBtn.interactable = index != 0;
+            leftBtn.interactable = (index != 0);
             rightBtn.interactable = index < dRItems.Count;
             pageText.text = (index / mItems.Count).ToString();
         }
