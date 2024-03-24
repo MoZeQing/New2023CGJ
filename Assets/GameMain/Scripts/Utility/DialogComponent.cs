@@ -51,8 +51,23 @@ namespace GameMain
 
         private void OnEnable()
         {
-            stories=new List<StorySO>(Resources.LoadAll<StorySO>("StoryData"));
-            levelSOs = new List<LevelSO>(Resources.LoadAll<LevelSO>("LevelData"));
+            foreach (StorySO storySO in Resources.LoadAll<StorySO>("StoryData"))
+            {
+                if (!storySO.unLoad)
+                    continue;
+                stories.Add(storySO);
+            }
+            foreach (LevelSO levelSO in Resources.LoadAll<LevelSO>("LevelData"))
+            {
+                if (!levelSO.unLoad)
+                    continue;
+                levelSOs.Add(levelSO);
+            }
+        }
+
+        public void SetComplete(Action action)
+        {
+            mAction = action;
         }
 
         public void OnComplete()

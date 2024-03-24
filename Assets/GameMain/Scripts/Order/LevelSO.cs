@@ -11,6 +11,8 @@ using System.IO;
 public class LevelSO : ScriptableObject
 {
     [SerializeField]
+    public bool unLoad;
+    [SerializeField]
     public bool isRandom;
     [SerializeField]
     public ParentTrigger trigger;

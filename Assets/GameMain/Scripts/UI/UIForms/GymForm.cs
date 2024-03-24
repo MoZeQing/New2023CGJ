@@ -37,9 +37,15 @@ namespace GameMain
                 GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你的体力不足");
                 return;
             }
+            if (GameEntry.Utils.Money < 100)
+            {
+                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你的金钱不足");
+                return;
+            }
             GameEntry.Utils.Energy -= 20;
             GameEntry.Utils.MaxEnergy += 2;
-            OnExit();
+            GameEntry.Dialog.PlayStory("");
+            GameEntry.Dialog.SetComplete(OnExit);
         }
 
         private void MiddleBtn_Click() {
@@ -48,9 +54,15 @@ namespace GameMain
                 GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你的体力不足");
                 return;
             }
+            if (GameEntry.Utils.Money < 300)
+            {
+                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你的金钱不足");
+                return;
+            }
             GameEntry.Utils.Energy -= 40;
             GameEntry.Utils.MaxEnergy += 5;
-            OnExit();
+            GameEntry.Dialog.PlayStory("");
+            GameEntry.Dialog.SetComplete(OnExit);
         }
 
         private void HardBtn_Click()
@@ -60,9 +72,15 @@ namespace GameMain
                 GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你的体力不足");
                 return;
             }
+            if (GameEntry.Utils.Money < 500)
+            {
+                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你的金钱不足");
+                return;
+            }
             GameEntry.Utils.Energy -= 60;
             GameEntry.Utils.MaxEnergy += 8;
-            OnExit();
+            GameEntry.Dialog.PlayStory("");
+            GameEntry.Dialog.SetComplete(OnExit);
         }
 
         private void OnExit()
