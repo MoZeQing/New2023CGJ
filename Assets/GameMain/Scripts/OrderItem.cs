@@ -11,13 +11,14 @@ using UnityGameFramework.Runtime;
 
 namespace GameMain
 {
-    public class OrderItem : Entity, IPointerClickHandler
+    public class OrderItem : Entity/*, IPointerClickHandler*/
     {
         [SerializeField] private Image coffeeItem;
         [SerializeField] private Text coffeeName;
         //[SerializeField] private Text sugar;
         //[SerializeField] private Text condensedMilk;
         //[SerializeField] private Text salt;
+        [SerializeField] private Text grindText;
         [SerializeField] private Text orderTime;
         [SerializeField] private Image timeLine;
         [SerializeField] private Button exitBtn;
@@ -49,39 +50,40 @@ namespace GameMain
             DRNode dRNode = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)mOrderData.NodeTag);
             //coffeeItem.sprite = GameEntry.Utils.nodeImage[(int)mOrderData.NodeTag];
             coffeeName.text = dRNode.Description;
-            orderTime.text = mOrderData.Urgent ? "加急" : "普通";
+            orderTime.text = mOrderData.Grind ? "粗咖啡粉" : "细咖啡粉";
             //sugar.color = mOrderData.Sugar ? Color.black : Color.clear;
             //condensedMilk.color = mOrderData.CondensedMilk ? Color.black : Color.clear;
             //salt.color = mOrderData.Salt ? Color.black : Color.clear; 
-            nowTime = mOrderData.OrderTime;
+            nowTime = mOrderData.OrderTime * 3;
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
             nowTime -= Time.deltaTime;
-            orderTime.text = nowTime.ToString();
-            if (nowTime < -5)
+            timeLine.fillAmount = nowTime / (mOrderData.OrderTime*3);
+            
+            if (nowTime < mOrderData.OrderTime*3)
             {
-                orderTime.color = Color.green;
+                timeLine.color = Color.green;
             }
-            if (nowTime < -25)
+            if (nowTime < mOrderData.OrderTime*2)
             {
-                orderTime.color = Color.yellow;
+                timeLine.color = Color.yellow;
             }
-            if (nowTime < -45)
+            if (nowTime < mOrderData.OrderTime)
             {
-                orderTime.color = Color.red;
+                timeLine.color = Color.red;
             }
             //if (nowTime < 0)
             //    timeLine.fillAmount = 1;
             //else
             //    timeLine.fillAmount = nowTime / mOrderData.OrderTime;
-            //if (nowTime <= 0f && nowTime > -1f)
-            //{
-            //    nowTime = -1;
-            //    OnExit();
-            //}
+            if (nowTime <= 0f && nowTime > -1f)
+            {
+                nowTime = -1;
+                OnExit();
+            }
         }
 
         protected override void OnHide(bool isShutdown, object userData)
@@ -104,7 +106,8 @@ namespace GameMain
             {
                 if (baseCompenent.NodeTag == mOrderData.NodeTag)
                 {
-                    //��������
+                    if (mOrderData.Grind != baseCompenent.Grind)
+                        return;
                     int income = 0;
                     IDataTable<DRNode> dtNode = GameEntry.DataTable.GetDataTable<DRNode>();
                     income = dtNode.GetDataRow((int)mOrderData.NodeTag).Price;
@@ -134,11 +137,11 @@ namespace GameMain
             }
         }
 
-        public void OnPointerClick(PointerEventData eventData)
-        {
-            GameEntry.Event.FireNow(this, OrderEventArgs.Create(mOrderData, 0));
-            GameEntry.Entity.HideEntity(this.Entity);
-        }
+        //public void OnPointerClick(PointerEventData eventData)
+        //{
+        //    GameEntry.Event.FireNow(this, OrderEventArgs.Create(mOrderData, 0));
+        //    GameEntry.Entity.HideEntity(this.Entity);
+        //}
     }
 
 }

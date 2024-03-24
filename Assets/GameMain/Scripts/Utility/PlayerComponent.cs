@@ -83,7 +83,16 @@ namespace GameMain
             RecipeData recipeData = new RecipeData(GameEntry.DataTable.GetDataTable<DRRecipe>().GetDataRow(index));
             recipes.Add(recipeData);
         }
-
+        public void RemoveRecipe(int index)
+        {
+            RecipeData recipeData = null;
+            foreach (RecipeData recipe in recipes)
+            {
+                if (recipe.Id == index)
+                    recipeData = recipe;
+            }
+            recipes.Remove(recipeData);
+        }
         public void LoadGame(SaveLoadData saveLoadData)
         {
             recipes.Clear();

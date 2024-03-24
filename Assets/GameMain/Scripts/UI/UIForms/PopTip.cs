@@ -6,14 +6,14 @@ using UnityGameFramework.Runtime;
 
 namespace GameMain
 {
-    public class PopTip : UIFormLogic
+    public class PopTip : BaseForm
     {
         [SerializeField] private Text text;
 
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            text.text=userData.ToString();
+            text.text=BaseFormData.UserData.ToString();
             Invoke(nameof(OnExit), 2f);
         }
 

@@ -50,10 +50,9 @@ namespace GameMain
         public void LoadData()
         {
             GameEntry.Utils.recipes.Clear();
-            for (int i = 0; i < GameEntry.DataTable.GetDataTable<DRRecipe>().Count; i++)
+            foreach (DRRecipe recipe in GameEntry.DataTable.GetDataTable<DRRecipe>().GetAllDataRows())
             {
-                DRRecipe dRRecipe = GameEntry.DataTable.GetDataTable<DRRecipe>().GetDataRow(i);
-                GameEntry.Utils.recipes.Add(dRRecipe.Id.ToString(), new RecipeData(dRRecipe));
+                GameEntry.Utils.recipes.Add(recipe.Id.ToString(), new RecipeData(recipe));
             }
 
             GameEntry.Utils.chars.Clear();
@@ -70,6 +69,7 @@ namespace GameMain
                 if (!drrecipes[i].IsCoffee)
                     GameEntry.Player.AddRecipe(drrecipes[i].Id);
             }
+            GameEntry.Player.RemoveRecipe(2);
             GameEntry.Player.AddRecipes(new int[] { 19, 20, 21, 22, 11, 12, 16, 17 ,15,13,14,18});
         }
 

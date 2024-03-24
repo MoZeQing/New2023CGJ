@@ -463,13 +463,12 @@ namespace GameMain
             if (!Producing)
             {
                 //开始筛选配方
-                for (int i = 0; i < GameEntry.DataTable.GetDataTable<DRRecipe>().Count; i++)
+                foreach (DRRecipe recipe in GameEntry.DataTable.GetDataTable<DRRecipe>().GetAllDataRows())
                 {
-                    drRecipe = GameEntry.DataTable.GetDataTable<DRRecipe>().GetDataRow(i);
-                    if (!GameEntry.Player.HasRecipe(drRecipe.Id))
+                    if (!GameEntry.Player.HasRecipe(recipe.Id))
                         continue;
 
-                    mRecipeData = new RecipeData(drRecipe);
+                    mRecipeData = new RecipeData(recipe);
                     if (Parent == null && Child != null)
                     {
                         if (NodeTag == mRecipeData.tool)
@@ -478,6 +477,7 @@ namespace GameMain
                             if (CheckList<NodeTag>(mRecipeData.materials,mChildMaterials))
                             {
                                 Producing = true;
+                                drRecipe = recipe;
                                 mProducingTime = drRecipe.ProducingTime;
                                 mTime = drRecipe.ProducingTime;
                                 isCoffee = drRecipe.IsCoffee;
@@ -506,6 +506,7 @@ namespace GameMain
 
                 if (mProducingTime <= 0)//如果完成制作
                 {
+                    Grind = GetChildGrind();
                     if (Child != null)//删除全部的子节点
                     {
                         List<BaseCompenent> mMaterialBaseCompenet = new List<BaseCompenent>();
@@ -543,35 +544,35 @@ namespace GameMain
                         }
                         else if (mRecipeData.IsCoffee)
                         {
-                            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, mRecipeData.products[i],true)
+                            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, mRecipeData.products[i], true)
                             {
                                 Position = this.transform.position + new Vector3(0.5f, 0, 0),
                                 RamdonJump = true,
-                                Grind = GetChildGrind()
-                            });
+                                Grind = this.Grind
+                            }); ;
                         }
                         else
                         {
-                            if (mRecipeData.products[i] == NodeTag.CoarseGroundCoffee ||
-                                mRecipeData.products[i] == NodeTag.MidGroundCoffee ||
-                                mRecipeData.products[i] == NodeTag.LowFoamingMilk)
-                            {
-                                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, mRecipeData.products[i])
-                                {
-                                    Position = this.transform.position + new Vector3(0.5f, 0, 0),
-                                    Adsorb = this,
-                                    Grind = this.Grind
-                                });
-                            }
-                            else
-                            {
+                            //if (mRecipeData.products[i] == NodeTag.CoarseGroundCoffee ||
+                            //    mRecipeData.products[i] == NodeTag.MidGroundCoffee ||
+                            //    mRecipeData.products[i] == NodeTag.LowFoamingMilk)
+                            //{
+                            //    GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, mRecipeData.products[i])
+                            //    {
+                            //        Position = this.transform.position + new Vector3(0.5f, 0, 0),
+                            //        Adsorb = this,
+                            //        Grind = this.Grind
+                            //    });
+                            //}
+                            //else
+                            //{
                                 GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, mRecipeData.products[i])
                                 {
                                     Position = this.transform.position + new Vector3(0.5f, 0, 0),
                                     RamdonJump = true,
                                     Grind = this.Grind
                                 });
-                            }
+                            //}
                         }
                     }
                     Materials.Clear();

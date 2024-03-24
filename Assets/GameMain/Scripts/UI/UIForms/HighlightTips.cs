@@ -8,7 +8,7 @@ using DG.Tweening;
 
 namespace GameMain
 {
-    public class HighlightTips : UIFormLogic,IPointerDownHandler,IPointerUpHandler
+    public class HighlightTips : BaseForm,IPointerDownHandler,IPointerUpHandler
     {
         [SerializeField] private Text text;
         [SerializeField] private Image image;
@@ -19,7 +19,7 @@ namespace GameMain
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            text.text = userData.ToString();
+            text.text = BaseFormData.UserData.ToString();
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)

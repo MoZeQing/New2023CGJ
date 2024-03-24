@@ -3,16 +3,14 @@
 #	int	string	float	string	List<String>	List<String>	int	bool	List<String>
 #	成品ID	策划备注	制作时间	制作工具	配方表	成品	生成咖啡等级	是否为除浓缩咖啡以外的其它咖啡	生产所需要的原材料
 	0	粗咖啡粉	3	ManualGrinder	CoffeeBean	CoarseGroundCoffee	0	FALSE	
-	1	中咖啡粉	3	ManualGrinder	CoarseGroundCoffee	MidGroundCoffee	0	FALSE	
-	2	细缩咖啡	3	ManualGrinder	MidGroundCoffee	FineGroundCoffee	0	FALSE	
+	2	细缩咖啡	3	ManualGrinder	CoarseGroundCoffee	FineGroundCoffee	0	FALSE	
 	3	粗咖啡粉	1	ElectricGrinder	CoffeeBean	CoarseGroundCoffee	0	FALSE	
-	4	中咖啡粉	1	ElectricGrinder	CoarseGroundCoffee	MidGroundCoffee	0	FALSE	
 	5	细缩咖啡	1	ElectricGrinder	MidGroundCoffee	FineGroundCoffee	0	FALSE	
 	6	热水	4	Heater	"Water,Water,Water"	"HotWater,HotWater,HotWater"	0	FALSE	
 	7	热牛奶	4	Heater	Milk	HotMilk	0	FALSE	
 	8	浓缩咖啡	8	FilterBowl	"MidGroundCoffee,HotWater"	Espresso	2	FALSE	"Water,CoffeeBean"
 	9	低泡牛奶	5	Stirrer	Milk	LowFoamingMilk	0	FALSE	
-	10	高泡牛奶	5	Stirrer	LowFoamingMilk	HighFoamingMilk	0	FALSE	
+#	10	高泡牛奶	5	Stirrer	LowFoamingMilk	HighFoamingMilk	0	FALSE	
 	11	热美式	2	Cup	"HotWater,Espresso"	HotCafeAmericano	0	TRUE	Water
 	12	冰美式	2	Cup	"Ice,Water,Espresso"	IceCafeAmericano	0	TRUE	"Ice,Water"
 	13	热摩卡	2	Cup	"ChocolateSyrup,Espresso,LowFoamingMilk,Cream,ChocolateSyrup"	HotMocha	0	TRUE	"ChocolateSyrup,Milk,Cream,ChocolateSyrup"
@@ -31,3 +29,4 @@
 	26	维也纳咖啡	2	Cup	"Espresso,Milk,ChocolateSyrup"	Vienna	0	TRUE	
 	27	脏咖啡	4	Cup	"Espresso,Espresso,Milk,Ice"	Dirty	0	TRUE	
 	28	欧蕾咖啡	2	Cup	"Espresso,HotMilk,HighFoamingMilk"	Ole	0	TRUE	
+	29	浓缩咖啡	5	Kettle	"HotWater,CoarseGroundCoffee"	EspressoG	0	FALSE	

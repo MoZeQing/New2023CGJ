@@ -20,8 +20,8 @@ namespace GameMain
         [SerializeField] private Transform[] canvas = new Transform[4];//0后1左2中3右
 
         private List<DRItem> dRItems = new List<DRItem>();
-        private int index = 0;
-        private int itemIndex = 0;
+        private int index = 0;//目前的显示序列
+        private int itemIndex = 0;//目前使用的Item的序列
 
 
         protected override void OnOpen(object userData)
@@ -37,7 +37,7 @@ namespace GameMain
                     continue;
                 dRItems.Add(item);
             }
-
+            Init();
             leftBtn.onClick.AddListener(Left);
             rightBtn.onClick.AddListener(Right);
         }
@@ -55,64 +55,67 @@ namespace GameMain
             leftBtn.onClick.RemoveAllListeners();
             rightBtn.onClick.RemoveAllListeners();
         }
+        private void Init()
+        {
+            closetItems[2].sprite = Resources.Load<Sprite>(dRItems[0].ImagePath);
+            closetItems[3].sprite = Resources.Load<Sprite>(dRItems[1].ImagePath);
+            closetItems[1].sprite = Resources.Load<Sprite>(dRItems[dRItems.Count-1].ImagePath);
+;       }
         private void Right()
         {
-            index--;
-            if (index < 0) index = dRItems.Count - 1;
-            itemIndex--;
-            if (itemIndex < 0) itemIndex = closetItems.Length - 1;
+            index = (index + dRItems.Count - 1) % dRItems.Count;
 
-            DRItem cloest = dRItems[index];
-            Image img = closetItems[0];
-            closetItems[0].sprite = Resources.Load<Sprite>(dRItems[index].ImagePath);
-            Debug.Log(dRItems[index].ImagePath);
-            closetItems[2].transform.DOMove(canvas[3].position, 0.5f).SetEase(Ease.OutExpo);
-            closetItems[2].transform.DOScale(Vector3.one * 0.8f, 0.5f).SetEase(Ease.OutExpo);
-            closetItems[2].color = Color.grey;
-            closetItems[3].transform.DOMove(canvas[0].position, 0.5f).SetEase(Ease.OutExpo);
             closetItems[0].transform.DOMove(canvas[1].position, 0.5f).SetEase(Ease.OutExpo);
             closetItems[1].transform.DOMove(canvas[2].position, 0.5f).SetEase(Ease.OutExpo);
-            closetItems[1].transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo);
-            closetItems[1].color = Color.white;
-            closetItems[1].transform.SetSiblingIndex(4);
+            closetItems[2].transform.DOMove(canvas[3].position, 0.5f).SetEase(Ease.OutExpo);
+            closetItems[3].transform.DOMove(canvas[0].position, 0.5f).SetEase(Ease.OutExpo);
 
+            closetItems[1].transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo);
+            closetItems[2].transform.DOScale(Vector3.one * 0.8f, 0.5f).SetEase(Ease.OutExpo);
+
+            Image img = closetItems[0];
             closetItems[0] = closetItems[3];
             closetItems[3] = closetItems[2];
             closetItems[2] = closetItems[1];
             closetItems[1] = img;
 
-            int closet = index - 1;
-            if (closet == -1) closet = dRItems.Count - 1;
-            infoText.text = dRItems[closet].Info;
+            closetItems[2].color = Color.white;
+            closetItems[3].color = Color.grey;
+            closetItems[2].transform.SetSiblingIndex(4);
+
+            closetItems[1].sprite = Resources.Load<Sprite>(dRItems[(index + closetItems.Length - 1) % closetItems.Length].ImagePath);
+            closetItems[2].sprite = Resources.Load<Sprite>(dRItems[index].ImagePath);
+            closetItems[3].sprite = Resources.Load<Sprite>(dRItems[(index + closetItems.Length + 1) % closetItems.Length].ImagePath);
+
+            infoText.text = dRItems[index].Info;
         }
         private void Left()
         {
-            index++;
-            if (index >= dRItems.Count) index = 0;
-            itemIndex++;
-            if (itemIndex >= closetItems.Length) itemIndex = 0;
+            index = (index + dRItems.Count + 1) % dRItems.Count;
 
-            DRItem cloest = dRItems[index];
-            Image img = closetItems[0];
-            closetItems[0].sprite = Resources.Load<Sprite>(dRItems[index].ImagePath);
-            closetItems[2].transform.DOMove(canvas[1].position, 1f).SetEase(Ease.OutExpo);
-            closetItems[2].transform.DOScale(Vector3.one * 0.8f, 1f).SetEase(Ease.OutExpo);
-            closetItems[2].color = Color.grey;
-            closetItems[3].transform.DOMove(canvas[2].position, 1f).SetEase(Ease.OutExpo);
-            closetItems[0].transform.DOMove(canvas[3].position, 1f).SetEase(Ease.OutExpo);
-            closetItems[1].transform.DOMove(canvas[0].position, 1f).SetEase(Ease.OutExpo);
+            closetItems[0].transform.DOMove(canvas[3].position, 0.5f).SetEase(Ease.OutExpo);
+            closetItems[1].transform.DOMove(canvas[0].position, 0.5f).SetEase(Ease.OutExpo);
+            closetItems[2].transform.DOMove(canvas[1].position, 0.5f).SetEase(Ease.OutExpo);
+            closetItems[3].transform.DOMove(canvas[2].position, 0.5f).SetEase(Ease.OutExpo);
+
             closetItems[3].transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo);
-            closetItems[3].color = Color.white;
-            closetItems[3].transform.SetSiblingIndex(4);
+            closetItems[2].transform.DOScale(Vector3.one * 0.8f, 0.5f).SetEase(Ease.OutExpo);
 
+            Image img = closetItems[0];
             closetItems[0] = closetItems[1];
             closetItems[1] = closetItems[2];
             closetItems[2] = closetItems[3];
             closetItems[3] = img;
 
-            int closet = index - 1;
-            if (closet == -1) closet = dRItems.Count - 1;
-            infoText.text = dRItems[closet].Info;
+            closetItems[2].color = Color.white;
+            closetItems[1].color = Color.grey;
+            closetItems[2].transform.SetSiblingIndex(4);
+
+            closetItems[1].sprite = Resources.Load<Sprite>(dRItems[(index + closetItems.Length - 1) % closetItems.Length].ImagePath);
+            closetItems[2].sprite = Resources.Load<Sprite>(dRItems[index].ImagePath);
+            closetItems[3].sprite = Resources.Load<Sprite>(dRItems[(index + closetItems.Length + 1) % closetItems.Length].ImagePath);
+
+            infoText.text = dRItems[index].Info;
         }
         private void OkBtn()
         {
