@@ -68,11 +68,11 @@ namespace GameMain
             if (!isGuide)
             {
                 Debug.Log(GameEntry.Utils.Energy);
-                hardBtn.onClick.AddListener(() => SetData(180));
+                hardBtn.onClick.AddListener(() => SetData(240));
                 if (GameEntry.Utils.Energy < 60) hardBtn.interactable = false;
-                commonBtn.onClick.AddListener(() => SetData(300));
+                commonBtn.onClick.AddListener(() => SetData(180));
                 if (GameEntry.Utils.Energy < 40) commonBtn.interactable = false;
-                easyBtn.onClick.AddListener(() => SetData(5));
+                easyBtn.onClick.AddListener(() => SetData(120));
                 if (GameEntry.Utils.Energy < 20) easyBtn.interactable = false;
             }
             mLevelData = GameEntry.Dialog.loadedLevelSOs[0].levelData;

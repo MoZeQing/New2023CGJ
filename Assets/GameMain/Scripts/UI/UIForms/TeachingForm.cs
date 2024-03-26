@@ -155,7 +155,7 @@ namespace GameMain
         private void OnSleep()
         {
             InDialog = false;
-            GameEntry.Utils.Energy += 40;
+            GameEntry.Utils.Energy += GameEntry.Utils.MaxEnergy/2;
             GameEntry.Utils.GameState = GameState.Midnight;
             if (!GameEntry.Dialog.StoryUpdate(PassDay))
                 Behaviour(BehaviorTag.Sleep);

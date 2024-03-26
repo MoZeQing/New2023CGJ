@@ -12,6 +12,8 @@ using UnityEngine;
 public class StorySO : ScriptableObject
 {
     [SerializeField]
+    public bool unLoad;
+    [SerializeField]
     public bool isRemove;
     [SerializeField]
     public OutingSceneState outingSceneState;

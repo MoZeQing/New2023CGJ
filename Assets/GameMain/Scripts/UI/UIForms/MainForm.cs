@@ -19,6 +19,7 @@ namespace GameMain
         [SerializeField] private Transform mCanvas;
         [SerializeField] private Animator mAnimator;
         [SerializeField] private TeachingForm mTeachingForm;
+        [SerializeField] private Transform canvas;
         [Header("Ö÷¿Ø")]
         [SerializeField] private Button loadBtn;
         [SerializeField] private Button saveBtn;
@@ -26,8 +27,9 @@ namespace GameMain
         [SerializeField] private Button guideBtn;
         [SerializeField] private Button friendBtn;
         [SerializeField] private Button recipeBtn;
-        [SerializeField] private Button warehouseBtn;
+        [SerializeField] private Button closetBtn;
         [SerializeField] private Button outBtn;
+        [SerializeField] private Button exitBtn;
         [SerializeField] private Button backBtn_1;
         [SerializeField] private Button backBtn_2;
         private PlaySoundParams playSoundParams = PlaySoundParams.Create();
@@ -45,8 +47,9 @@ namespace GameMain
             //guideBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.GuideForm));
             friendBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.FriendForm));
             recipeBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.RecipeForm));
-            warehouseBtn.onClick.AddListener(() => Change(GamePos.Left));
-            outBtn.onClick.AddListener(()=>Change(GamePos.Right));
+            closetBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.ClosetForm));
+            outBtn.onClick.AddListener(() => canvas.gameObject.SetActive(true));
+            exitBtn.onClick.AddListener(() => canvas.gameObject.SetActive(false));
             backBtn_1.onClick.AddListener(() => Change(GamePos.Up));
             backBtn_2.onClick.AddListener(() => Change(GamePos.Up));
             GameEntry.Event.Subscribe(MainFormEventArgs.EventId, OnMainFormEvent);
@@ -72,8 +75,9 @@ namespace GameMain
             //guideBtn.onClick.RemoveAllListeners();
             friendBtn.onClick.RemoveAllListeners();
             recipeBtn.onClick.RemoveAllListeners();
-            warehouseBtn.onClick.RemoveAllListeners();
+            closetBtn.onClick.RemoveAllListeners();
             outBtn.onClick.RemoveAllListeners();
+            exitBtn.onClick.RemoveAllListeners();
             backBtn_1.onClick.RemoveAllListeners();
             backBtn_2.onClick.RemoveAllListeners();
             GameEntry.Event.Unsubscribe(MainFormEventArgs.EventId, OnMainFormEvent);
