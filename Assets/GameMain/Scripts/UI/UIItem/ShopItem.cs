@@ -12,7 +12,7 @@ namespace GameMain
     public class ShopItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField] protected Image itemImage;
-        [SerializeField] protected Text nameText;
+        [SerializeField] protected Button itemBtn;
         [SerializeField] protected Text priceText;
         [SerializeField] protected Text inventoryText;
 
@@ -33,11 +33,11 @@ namespace GameMain
             mShopItemData = itemData;
             this.gameObject.SetActive(true);
             itemImage.sprite = Resources.Load<Sprite>(itemData.ImagePath);
-            priceText.text = string.Format("¼Û¸ñ:{0}",itemData.Price.ToString());
+            priceText.text = string.Format("£¤{0}",itemData.Price.ToString());
             if(GameEntry.Utils.GetPlayerItem((ItemTag)itemData.Id)!=null)
-                inventoryText.text = string.Format("¿â´æ:{0}", GameEntry.Utils.GetPlayerItem((ItemTag)itemData.Id).itemNum.ToString()); 
+                inventoryText.text =  GameEntry.Utils.GetPlayerItem((ItemTag)itemData.Id).itemNum.ToString(); 
             else
-                inventoryText.text = string.Format("¿â´æ:{0}", 0);
+                inventoryText.text = "0";
         }
         public virtual void SetData(DRItem itemData, Action<DRItem> click, Action<bool, DRItem> touch)
         {
@@ -49,7 +49,7 @@ namespace GameMain
         public virtual void SetClick(Action<DRItem> action)
         {
             mAction = action;
-            this.GetComponent<Button>().onClick.AddListener(() => mAction(mShopItemData));
+            itemBtn.GetComponent<Button>().onClick.AddListener(() => mAction(mShopItemData));
         }
 
         public virtual void SetTouch(Action<bool, DRItem> action)

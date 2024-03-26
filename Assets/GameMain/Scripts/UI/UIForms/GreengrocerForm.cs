@@ -15,8 +15,6 @@ namespace GameMain
         [SerializeField] private Button leftBtn;
         [SerializeField] private Button rightBtn;
         [SerializeField] private Text pageText;
-        [SerializeField] private Text headerField;
-        [SerializeField] private Text contentField;
         [SerializeField] private PurchaseForm purchaseForm;
         [SerializeField] private List<ShopItem> mItems = new List<ShopItem>();
 
@@ -66,7 +64,10 @@ namespace GameMain
             for (int i = 0; i < mItems.Count; i++)
             {
                 if (index < dRItems.Count)
-                    mItems[i].SetData(dRItems[index], OnClick, OnTouch);
+                {
+                    mItems[i].SetData(dRItems[index]);
+                    mItems[i].SetClick(OnClick);
+                }
                 else
                     mItems[i].Hide();
                 index++;
@@ -95,16 +96,7 @@ namespace GameMain
         }
         private void OnTouch(bool flag, DRItem itemData)
         {
-            if (flag)
-            {
-                headerField.text = itemData.Name;
-                contentField.text = itemData.Info;
-            }
-            else
-            {
-                headerField.text = string.Empty;
-                contentField.text = string.Empty;
-            }
+
         }
 
         private void OnExit()

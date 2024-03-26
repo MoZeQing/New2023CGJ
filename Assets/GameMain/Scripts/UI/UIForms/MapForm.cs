@@ -23,10 +23,10 @@ namespace GameMain
         private void OnEnable()
         {
             //GameEntry.Event.Subscribe(GameStateEventArgs.EventId, GameStateEvent);
-            //mGreengrocerBtn.onClick.AddListener(() => Outing(OutingSceneState.Greengrocer));
-            //mGlassBtn.onClick.AddListener(() => Outing(OutingSceneState.Glass));
+            mGreengrocerBtn.onClick.AddListener(() => Outing(OutingSceneState.Greengrocer));
+            mGlassBtn.onClick.AddListener(() => Outing(OutingSceneState.Glass));
             mRestaurantBtn.onClick.AddListener(() => Outing(OutingSceneState.Restaurant));
-            //mBeachBtn.onClick.AddListener(() => Outing(OutingSceneState.Beach));
+            mBeachBtn.onClick.AddListener(() => Outing(OutingSceneState.Beach));
             mClothingBtn.onClick.AddListener(() => Outing(OutingSceneState.Clothing));
             mGymBtn.onClick.AddListener(() => Outing(OutingSceneState.Gym));
             //GameStateEvent(null, null);
@@ -35,10 +35,10 @@ namespace GameMain
         private void OnDisable()
         {
             //GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, GameStateEvent);
-            //mGreengrocerBtn.onClick.RemoveAllListeners();
-            //mGlassBtn.onClick.RemoveAllListeners();
+            mGreengrocerBtn.onClick.RemoveAllListeners();
+            mGlassBtn.onClick.RemoveAllListeners();
             mRestaurantBtn.onClick.RemoveAllListeners();
-            //mBeachBtn.onClick.RemoveAllListeners();
+            mBeachBtn.onClick.RemoveAllListeners();
             mClothingBtn.onClick.RemoveAllListeners();
             mGymBtn.onClick.RemoveAllListeners();
         }
