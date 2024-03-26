@@ -16,10 +16,10 @@ namespace GameMain
         [SerializeField] private Button leftBtn;
         [SerializeField] private Button rightBtn;
         [SerializeField] private Text pageText;
-        [SerializeField] private PurchaseForm purchaseForm;
         [SerializeField] private List<ShopItem> mItems = new List<ShopItem>();
 
         private List<DRItem> dRItems = new List<DRItem>();
+        private DRItem dRItem;
         private int index = 0;
 
         protected override void OnOpen(object userData)
@@ -56,23 +56,29 @@ namespace GameMain
         private void ShowItems()
         {
             leftBtn.interactable = (index != 0);
-            rightBtn.interactable = index < dRItems.Count;
-            pageText.text = (index / mItems.Count + 1).ToString();
 
             for (int i = 0; i < mItems.Count; i++)
             {
                 if (index < dRItems.Count)
+                {
                     mItems[i].SetData(dRItems[index]);
+                    mItems[i].SetClick(OnClick);
+                }
                 else
                     mItems[i].Hide();
                 index++;
             }
+
+            rightBtn.interactable = index < dRItems.Count;
+            pageText.text = (index / mItems.Count).ToString();
         }
         private void OnClick(DRItem itemData)
         {
-            //purchaseForm.SetData(itemData);
-            purchaseForm.gameObject.SetActive(true);
-            purchaseForm.SetClick(UpdateItem);
+            dRItem = itemData;
+            if (itemData.Price > GameEntry.Utils.Money)
+                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你的资金不足");
+            else
+                GameEntry.UI.OpenUIForm(UIFormId.OkTips,UpdateItem, "你确定要购买吗？");
         }
         private void Right()
         {
@@ -86,6 +92,9 @@ namespace GameMain
         }
         private void UpdateItem()
         {
+            GameEntry.Player.Money -= dRItem.Price;
+            GameEntry.Utils.AddPlayerItem(new ItemData(dRItem), 1);
+
             index -= mItems.Count;
             ShowItems();
         }

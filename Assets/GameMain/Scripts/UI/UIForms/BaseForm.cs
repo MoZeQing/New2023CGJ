@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityGameFramework.Runtime;
 using UnityEngine.UI;
 using GameFramework.Event;
+using System;
 
 namespace GameMain
 {
@@ -48,11 +49,20 @@ namespace GameMain
         {
             get;set;
         }
-
+        public Action Action
+        {
+            get;set;
+        }
         public BaseFormData(UIFormId uIFormId,object userData=null)
         { 
             UIFormId= uIFormId;
             UserData= userData;
+        }
+        public BaseFormData(UIFormId uIFormId, Action action,object userData = null)
+        {
+            UIFormId = uIFormId;
+            UserData = userData;
+            Action = action;
         }
     }
 }

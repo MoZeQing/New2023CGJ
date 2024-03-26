@@ -57,8 +57,6 @@ namespace GameMain
         private void ShowItems()
         {
             leftBtn.interactable = index != 0;
-            rightBtn.interactable = index < dRItems.Count;
-            pageText.text = (index / mItems.Count + 1).ToString();
 
             for (int i = 0; i < mItems.Count; i++)
             {
@@ -71,6 +69,8 @@ namespace GameMain
                     mItems[i].Hide();
                 index++;
             }
+            rightBtn.interactable = index < dRItems.Count;
+            pageText.text = (index / mItems.Count).ToString();
         }
         private void OnClick(DRItem itemData)
         {

@@ -13,6 +13,7 @@ namespace GameMain
         {
             this.gameObject.SetActive(true);
             //itemImage.sprite = Resources.Load<Sprite>(itemData.ImagePath);
+            mShopItemData = itemData;
             priceText.text = string.Format("¼Û¸ñ:{0}", itemData.Price.ToString());
             this.GetComponent<Button>().interactable = GameEntry.Utils.GetPlayerItem((ItemTag)itemData.Id) == null;
         }

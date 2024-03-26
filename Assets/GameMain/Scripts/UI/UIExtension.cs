@@ -4,6 +4,7 @@ using UnityEngine;
 using GameFramework.UI;
 using UnityGameFramework.Runtime;
 using GameFramework.DataTable;
+using System;
 
 namespace GameMain
 {
@@ -52,12 +53,17 @@ namespace GameMain
             GameEntry.UI.CloseUIForm(uiForm);
         }
 
-        public static int? OpenUIForm(this UIComponent uiComponent, UIFormId uiFormId, object userData = null)
+        public static int? OpenUIForm(this UIComponent uiComponent, UIFormId uiFormId, Action mAction, object userData = null)
         {
-            return uiComponent.OpenUIForm((int)uiFormId, userData);
+            return uiComponent.OpenUIForm((int)uiFormId, new BaseFormData(uiFormId, mAction, userData));
         }
 
-        public static int? OpenUIForm(this UIComponent uiComponent, int uiFormId, object userData = null)
+        public static int? OpenUIForm(this UIComponent uiComponent, UIFormId uiFormId, object userData = null)
+        {
+            return uiComponent.OpenUIForm((int)uiFormId, new BaseFormData(uiFormId,userData));
+        }
+
+        public static int? OpenUIForm(this UIComponent uiComponent, int uiFormId, BaseFormData userData = null)
         {
             IDataTable<DRUIForms> dtUIForm = GameEntry.DataTable.GetDataTable<DRUIForms>();
             DRUIForms drUIForm = dtUIForm.GetDataRow(uiFormId);
@@ -80,7 +86,7 @@ namespace GameMain
                     return null;
                 }
             }
-            return uiComponent.OpenUIForm(assetName, drUIForm.UIGroupName, 50, drUIForm.PauseCoveredUIForm, new BaseFormData((UIFormId)uiFormId,userData));
+            return uiComponent.OpenUIForm(assetName, drUIForm.UIGroupName, 50, drUIForm.PauseCoveredUIForm, userData);
         }
 
         public static UIForm GetUIForm(this UIComponent uiComponent, int uiFormId)
