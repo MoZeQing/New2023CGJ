@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa74bb4d628ce184db8a9ecb7f25bb9c, type: 3}
   m_Name: Witch_2
   m_EditorClassIdentifier: 
+  unLoad: 0
   isRandom: 0
   trigger:
     key: 17
@@ -19,28 +20,23 @@ MonoBehaviour:
     equals: 1
     value: Tuesday
     and:
-    - key: 1
+    - key: 10
       not: 0
-      equals: 1
-      value: Sorcerer_1
-      and: []
-      or: []
-    - key: 1
-      not: 0
-      equals: 1
-      value: 123
+      equals: 0
+      value: 14
       and: []
       or: []
     or: []
   levelData:
     charSO: {fileID: 11400000, guid: e9c3805302ae05043b0073ac408d64d1, type: 2}
-    foreWork: {fileID: 11400000, guid: 574c18378bb619145a7b7ad87c236531, type: 2}
-    afterWork: {fileID: 11400000, guid: d9d0de4bb0ba6a143b47d72345fb588c, type: 2}
+    foreWork: {fileID: 11400000, guid: 3880af6b5fc9ce043939b72543333712, type: 2}
+    afterWork: {fileID: 11400000, guid: d3385226e36801f40bdf2ff5e4d45d73, type: 2}
     failWork: {fileID: 11400000, guid: f5f2482bbca0dad409d0b237512b52b6, type: 2}
     orderDatas:
     - NodeTag: 201
       NodeName: "\u6D53\u7F29\u5496\u5561"
       OrderTime: 30
+      Grind: 0
       Urgent: 0
       Sugar: 0
       CondensedMilk: 0
