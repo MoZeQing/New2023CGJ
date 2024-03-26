@@ -15,13 +15,18 @@ namespace GameMain
         [SerializeField] private Image mProduct;
         [SerializeField] private Image mTool;
         [SerializeField] private GameObject mRecipeItem;
-        [SerializeField] private Transform mLeftCanvas;
-        [SerializeField] private Transform mRightCanvas;
+        [SerializeField] private Transform mCanvas;
+        //[SerializeField] private Transform mRightCanvas;
         [SerializeField] private Transform canvas;
         [SerializeField] private Button exitBtn;
+        [SerializeField] private Button leftBtn;
+        [SerializeField] private Button rightBtn;
+        [SerializeField] private Text pageText;
 
-        private List<RecipeItem> nodeItems = new List<RecipeItem>();
-        private List<RecipeItem> recipeItems = new List<RecipeItem>();
+        private List<DRRecipe> dRRecipes = new List<DRRecipe>();
+        [SerializeField] private List<RecipeItem> nodeItems = new List<RecipeItem>();//ÓÒ²à½Úµã
+        private List<RecipeItem> recipeItems = new List<RecipeItem>();//×ó²àÏÔÊ¾À¸
+        private int index = 0;
 
         protected override void OnOpen(object userData)
         {
@@ -29,8 +34,23 @@ namespace GameMain
             canvas.localPosition = Vector3.up * 1080f;
             canvas.DOLocalMove(Vector3.zero, 0.5f).SetEase(Ease.OutExpo);
 
+            dRRecipes.Clear();
+            foreach (DRRecipe recipe in GameEntry.DataTable.GetDataTable<DRRecipe>().GetAllDataRows())
+            {
+                if(recipe.IsCoffee)
+                    dRRecipes.Add(recipe);
+            }
+
+            leftBtn.interactable = false;
+            rightBtn.interactable = dRRecipes.Count > nodeItems.Count;
+
             exitBtn.onClick.AddListener(() => GameEntry.UI.CloseUIForm(this.UIForm));
-            ShowNodes();
+            leftBtn.onClick.AddListener(Left);
+            rightBtn.onClick.AddListener(Right);
+
+            index = 0;
+            ShowItems();
+            ClearRecipe();
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
@@ -46,22 +66,57 @@ namespace GameMain
         {
             base.OnClose(isShutdown, userData);
             exitBtn.onClick.RemoveAllListeners();
+            leftBtn.onClick.RemoveAllListeners();
+            rightBtn.onClick.RemoveAllListeners();
             GameEntry.Base.GameSpeed = 1f;
-            ClearNodes();
+            //ClearNodes();
+        }
+        private void ShowItems()
+        {
+            leftBtn.interactable = index != 0;
+            pageText.text = (index / nodeItems.Count + 1).ToString();
+
+            for (int i = 0; i < nodeItems.Count; i++)
+            {
+                if (index < dRRecipes.Count)
+                {
+                    RecipeData recipeData = new RecipeData(dRRecipes[index]);
+                    nodeItems[i].SetData(recipeData,recipeData.products[0],ShowRecipe);
+                }
+                else
+                    nodeItems[i].Hide();
+                index++;
+            }
+
+            rightBtn.interactable = index < dRRecipes.Count;
+        }
+        private void Right()
+        {
+            ShowItems();
+        }
+        private void Left()
+        {
+            index -= 2 * nodeItems.Count;
+            ShowItems();
+        }
+        private void UpdateItem()
+        {
+            index -= nodeItems.Count;
+            ShowItems();
         }
 
         private void ShowNodes()
         {
-            ClearNodes();
-            IDataTable<DRRecipe> dtRecipe = GameEntry.DataTable.GetDataTable<DRRecipe>();
-            foreach (DRRecipe recipe in dtRecipe.GetAllDataRows())
-            {
-                RecipeData recipeData = new RecipeData(recipe);
-                GameObject go = GameObject.Instantiate(mRecipeItem, mRightCanvas);
-                RecipeItem recipeItem = go.GetComponent<RecipeItem>();
-                recipeItem.SetData(new RecipeData(recipe), new RecipeData(recipe).products[0], ShowRecipe);
-                nodeItems.Add(recipeItem);
-            }
+            //ClearNodes();
+            //IDataTable<DRRecipe> dtRecipe = GameEntry.DataTable.GetDataTable<DRRecipe>();
+            //foreach (DRRecipe recipe in dtRecipe.GetAllDataRows())
+            //{
+            //    RecipeData recipeData = new RecipeData(recipe);
+            //    GameObject go = GameObject.Instantiate(mRecipeItem, mRightCanvas);
+            //    RecipeItem recipeItem = go.GetComponent<RecipeItem>();
+            //    recipeItem.SetData(new RecipeData(recipe), new RecipeData(recipe).products[0], ShowRecipe);
+            //    nodeItems.Add(recipeItem);
+            //}
         }
 
         private void ClearNodes()
@@ -78,7 +133,7 @@ namespace GameMain
             ClearRecipe();
             foreach (NodeTag nodeTag in recipeData.materials)
             {
-                GameObject go = GameObject.Instantiate(mRecipeItem, mLeftCanvas);
+                GameObject go = GameObject.Instantiate(mRecipeItem, mCanvas);
                 RecipeItem recipeItem = go.GetComponent<RecipeItem>();
                 recipeItem.SetData(nodeTag);
                 recipeItems.Add(recipeItem);
@@ -89,9 +144,9 @@ namespace GameMain
             }
             item.Choice = true;
             mTool.gameObject.SetActive(true);
-            mProduct.gameObject.SetActive(true);
+            //mProduct.gameObject.SetActive(true);
             mTool.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)recipeData.tool).SpritePath);
-            mProduct.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)recipeData.products[0]).SpritePath);
+            //mProduct.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)recipeData.products[0]).SpritePath);
         }
 
         private void ClearRecipe()

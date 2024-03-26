@@ -31,13 +31,14 @@ public class RecipeItem : MonoBehaviour
 
     public void SetData(RecipeData recipe,NodeTag nodeTag,Action<RecipeData,NodeTag,RecipeItem> action)
     {
+        this.gameObject.SetActive(true);
         mRecipe = recipe;
         mAction= action;
         mNodeTag = nodeTag;
         mImage.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)nodeTag).SpritePath);
         mBtn.onClick.AddListener(OnClick);
-        if (!GameEntry.Player.HasRecipe(recipe.Id))
-            mBtn.interactable = false;
+        mBtn.interactable = GameEntry.Player.HasRecipe(recipe.Id);
+        mChoice.gameObject.SetActive(false);
     }
 
     public void SetData(NodeTag nodeTag)
@@ -49,5 +50,10 @@ public class RecipeItem : MonoBehaviour
     private void OnClick()
     {
         mAction(mRecipe, mNodeTag,this);
+    }
+
+    public void Hide()
+    {
+        this.gameObject.SetActive(false);
     }
 }

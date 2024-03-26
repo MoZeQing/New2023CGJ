@@ -54,7 +54,6 @@ namespace GameMain
             base.OnClose(isShutdown, userData);
             exitBtn.onClick.RemoveAllListeners();
         }
-
         private void ShowItems()
         {
             leftBtn.interactable = index != 0;
