@@ -8,6 +8,7 @@ namespace GameMain
 {
     public class TitleForm : UIFormLogic
     {
+        public UIFormId UIFormId { get; private set; } = UIFormId.TitleForm;
         [SerializeField] private Text text;
         protected override void OnOpen(object userData)
         {

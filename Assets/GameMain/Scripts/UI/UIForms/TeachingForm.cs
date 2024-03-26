@@ -108,13 +108,13 @@ namespace GameMain
             {
                 if (GameEntry.Utils.Energy < behavior.playerData.energy)
                 {
-                    GameEntry.UI.OpenUIForm(UIFormId.TitleForm, "你没有足够的体力");
+                    GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你没有足够的体力");
                     GameEntry.UI.OpenUIForm(UIFormId.MainForm);
                     return;
                 }
                 if (GameEntry.Utils.Ap < behavior.playerData.ap)
                 {
-                    GameEntry.UI.OpenUIForm(UIFormId.TitleForm, "你没有足够的行动力");
+                    GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你没有足够的行动力");
                     GameEntry.UI.OpenUIForm(UIFormId.MainForm);
                     return;
                 }

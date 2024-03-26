@@ -9,19 +9,19 @@ public class Map : MonoBehaviour,IPointerClickHandler
     [SerializeField] private OutingSceneState mOutingSceneState;
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (GameEntry.Utils.Ap >= 2)
-        {
-            GameEntry.Utils.Ap -= 2;
-        }
-        else
-        {
-            GameEntry.UI.OpenUIForm(UIFormId.TitleForm, "没有足够的AP外出");
-            return;
-        }
-        GameEntry.Utils.Location = mOutingSceneState;
-        GameEntry.UI.OpenUIForm((UIFormId)(20 + (int)mOutingSceneState), this);
-        GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
-        GameEntry.Utils.outingBefore = true;
-        GameEntry.Dialog.StoryUpdate();
+        //if (GameEntry.Utils.Ap >= 2)
+        //{
+        //    GameEntry.Utils.Ap -= 2;
+        //}
+        //else
+        //{
+        //    GameEntry.UI.OpenUIForm(UIFormId.TitleForm, "没有足够的AP外出");
+        //    return;
+        //}
+        //GameEntry.Utils.Location = mOutingSceneState;
+        //GameEntry.UI.OpenUIForm((UIFormId)(20 + (int)mOutingSceneState), this);
+        //GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
+        //GameEntry.Utils.outingBefore = true;
+        //GameEntry.Dialog.StoryUpdate();
     }
 }
