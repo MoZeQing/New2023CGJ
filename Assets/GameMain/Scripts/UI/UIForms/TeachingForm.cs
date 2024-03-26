@@ -24,6 +24,8 @@ namespace GameMain
         [SerializeField] private Text rentText;
         [Header("右侧操作栏")]
         [SerializeField] private Transform rightCanvas;
+        [SerializeField] private Transform buttonCanvas;
+        [SerializeField] private Transform exitBtn;
         [Header("主控")]
         [SerializeField] private DialogBox dialogBox;
         [SerializeField] private BaseStage stage;
@@ -78,7 +80,7 @@ namespace GameMain
                     continue;
                 if (behaviorData.behaviorTag == BehaviorTag.Click)
                     continue;
-                GameObject go = GameObject.Instantiate(behaviorBtn, rightCanvas);
+                GameObject go = GameObject.Instantiate(behaviorBtn, buttonCanvas);
                 Button button=go.GetComponent<Button>();
                 Text text = go.transform.Find("Text").GetComponent<Text>();
                 if(behaviorData.behaviorTag==BehaviorTag.Sleep)
@@ -91,9 +93,9 @@ namespace GameMain
         }
         private void DestroyButtons()
         {
-            for (int i=0;i<rightCanvas.childCount;i++)
+            for (int i=0;i<buttonCanvas.childCount;i++)
             {
-                Destroy(rightCanvas.GetChild(i).gameObject);
+                Destroy(buttonCanvas.GetChild(i).gameObject);
             }
             m_Btns.Clear();
         }

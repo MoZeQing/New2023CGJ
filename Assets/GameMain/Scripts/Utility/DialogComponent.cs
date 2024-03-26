@@ -53,13 +53,13 @@ namespace GameMain
         {
             foreach (StorySO storySO in Resources.LoadAll<StorySO>("StoryData"))
             {
-                if (!storySO.unLoad)
+                if (storySO.unLoad)
                     continue;
                 stories.Add(storySO);
             }
             foreach (LevelSO levelSO in Resources.LoadAll<LevelSO>("LevelData"))
             {
-                if (!levelSO.unLoad)
+                if (levelSO.unLoad)
                     continue;
                 levelSOs.Add(levelSO);
             }
