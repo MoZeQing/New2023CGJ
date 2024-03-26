@@ -60,6 +60,10 @@ namespace GameMain
             {
                 GameEntry.Utils.outingSceneStates.Add(outingSceneState);
             }
+            foreach (int recipe in saveLoadData.recipes)
+            {
+                GameEntry.Player.AddRecipe(recipe);
+            }
             GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Night));
             GameEntry.UI.OpenUIForm(UIFormId.ChangeForm);
             GameEntry.UI.CloseUIForm(this.UIForm);
