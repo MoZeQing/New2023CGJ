@@ -51,6 +51,7 @@ namespace GameMain
             index = 0;
             ShowItems();
             ClearRecipe();
+            mTool.gameObject.SetActive(false);
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
