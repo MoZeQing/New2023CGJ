@@ -13,6 +13,7 @@ namespace GameMain
     {
         [SerializeField] protected Image itemImage;
         [SerializeField] protected Button itemBtn;
+        [SerializeField] protected Text itemText;
         [SerializeField] protected Text priceText;
         [SerializeField] protected Text inventoryText;
 
