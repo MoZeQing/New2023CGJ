@@ -92,7 +92,7 @@ namespace GameMain
         }
         private void UpdateItem()
         {
-            GameEntry.Player.Money -= dRItem.Price;
+            GameEntry.Utils.Money -= dRItem.Price;
             GameEntry.Utils.AddPlayerItem(new ItemData(dRItem), 1);
 
             index -= mItems.Count;

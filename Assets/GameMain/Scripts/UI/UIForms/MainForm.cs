@@ -91,6 +91,7 @@ namespace GameMain
                     break;
                 case GamePos.Up:
                     mCanvas.transform.DOLocalMoveX(0, 1f).SetEase(Ease.InOutExpo);
+                    GameEntry.Utils.UpdateData();
                     break;
             }
 

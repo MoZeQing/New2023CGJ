@@ -42,7 +42,7 @@ namespace GameMain
         //Dialog区域
         private List<GameObject> m_Btns = new List<GameObject>();
 
-        private void OnEnable()
+        private void Start()
         {
             GameEntry.Event.Subscribe(CharDataEventArgs.EventId, CharDataEvent);
             GameEntry.Event.Subscribe(PlayerDataEventArgs.EventId, PlayerDataEvent);
@@ -62,11 +62,6 @@ namespace GameMain
             {
                 mCanvasGroup.alpha = Mathf.Lerp(mCanvasGroup.alpha, 1, 0.3f);
             }
-        }
-        private void OnDisable()
-        {
-            GameEntry.Event.Unsubscribe(CharDataEventArgs.EventId, CharDataEvent);
-            GameEntry.Event.Unsubscribe(PlayerDataEventArgs.EventId, PlayerDataEvent);
         }
         private void ShowButtons()
         {
