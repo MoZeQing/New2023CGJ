@@ -32,15 +32,23 @@ namespace GameMain
 
         private void LoadData()
         {
-            SaveLoadData autoLoadData = GameEntry.SaveLoad.LoadGame(0);
             for (int i = 0; i < saveLoadItems.Length; i++)
             {
                 SaveLoadData saveLoadData = GameEntry.SaveLoad.LoadGame(i);
                 if (saveLoadData == null)
                     saveLoadItems[i].Hide();
                 else
+                {
                     saveLoadItems[i].SetData(saveLoadData, LoadGame, i);
+                    saveLoadItems[i].SetCancel(RemoveData, i);
+                }
             }
+        }
+
+        private void RemoveData(int index)
+        {
+            GameEntry.SaveLoad.RemoveGame(index);
+            LoadData();
         }
 
         private void LoadGame(int index)

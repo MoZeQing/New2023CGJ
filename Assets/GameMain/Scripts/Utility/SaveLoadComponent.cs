@@ -176,6 +176,11 @@ namespace GameMain
                 Debug.LogWarning(e.ToString());
             }
         }
+        public void RemoveGame(int index)
+        {
+            mSaveLoadData[index] = null;
+            SaveGame();
+        }
         //…„∆¡
         public Texture2D ScreenShot(Camera camera, Rect rect)
         {

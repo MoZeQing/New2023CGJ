@@ -19,21 +19,29 @@ namespace GameMain
         [SerializeField] private Sprite empty;
 
         private Action<int> mAction;
+        private Action<int> mCancel;
         private int mIndex;
 
         private void OnEnable()
         {
             loadBtn.onClick.AddListener(OnClick);
+            cancelBtn.onClick.AddListener(OnCancel);
         }
 
         private void OnDisable()
         {
             loadBtn.onClick.RemoveAllListeners();
+            cancelBtn.onClick.RemoveAllListeners();
         }
 
         private void OnClick()
         {
             mAction(mIndex);
+        }
+
+        public void OnCancel()
+        { 
+            mCancel(mIndex);
         }
 
         public void SetData(SaveLoadData saveLoadData,Action<int> action,int index)
@@ -58,6 +66,12 @@ namespace GameMain
             Display();
             mAction = action;
             mIndex = index;
+        }
+
+        public void SetCancel(Action<int> cancel, int index)
+        { 
+            mCancel= cancel;
+            mIndex= index;
         }
 
         public void Display()

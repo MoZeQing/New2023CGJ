@@ -41,13 +41,21 @@ namespace GameMain
                     saveLoadItems[i].SetSaveData(SaveGame, i);
                 }
                 else
+                {
                     saveLoadItems[i].SetData(saveLoadData, SaveGame, i);
+                    saveLoadItems[i].SetCancel(RemoveData, i);
+                }
             }
         }
 
         private void SaveGame(int index)
         {
             GameEntry.SaveLoad.SaveGame(index);
+            SaveData();
+        }
+        private void RemoveData(int index)
+        {
+            GameEntry.SaveLoad.RemoveGame(index);
             SaveData();
         }
     }
