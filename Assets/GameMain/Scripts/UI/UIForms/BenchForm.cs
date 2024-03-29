@@ -16,16 +16,16 @@ namespace GameMain
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            foreach (DRBench bench in GameEntry.DataTable.GetDataTable<DRBench>().GetAllDataRows())
-            {
-                if (Resources.Load<CharSO>("CharData/witch").favor < bench.Favor)
-                    continue;
-                dRBenches.Add(bench);
-            }
-            for (int i = 0; i < mCards.Count; i++)
-            {
-                mCards[i].SetData(dRBenches[Random.Range(0,dRBenches.Count)]);
-            }
+            //foreach (DRBench bench in GameEntry.DataTable.GetDataTable<DRBench>().GetAllDataRows())
+            //{
+            //    if (Resources.Load<CharSO>("CharData/witch").favor < bench.Favor)
+            //        continue;
+            //    dRBenches.Add(bench);
+            //}
+            //for (int i = 0; i < mCards.Count; i++)
+            //{
+            //    mCards[i].SetData(dRBenches[Random.Range(0,dRBenches.Count)]);
+            //}
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
