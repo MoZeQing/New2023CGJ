@@ -30,6 +30,7 @@ namespace GameMain
         [SerializeField] private Button outBtn;
         [SerializeField] private Button backBtn_1;
         [SerializeField] private Button backBtn_2;
+        [SerializeField] private CanvasGroup canvasGroup;
         private PlaySoundParams playSoundParams = PlaySoundParams.Create();
         private int m_RandomValue;
         private GamePos mGamePos=GamePos.Up;
@@ -99,6 +100,8 @@ namespace GameMain
         private void ChangeTeach()
         {
             mAnimator.SetBool("Into", !mAnimator.GetBool("Into"));
+            canvasGroup.interactable = !mAnimator.GetBool("Into");
+            teachBtn1.interactable = mAnimator.GetBool("Into");
             if (mAnimator.GetBool("Into"))
             {
                 mTeachingForm.Click_Action();
