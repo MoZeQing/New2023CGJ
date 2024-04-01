@@ -253,7 +253,7 @@ namespace GameMain
                 GameEntry.Player.AddRecipe(2);
                 GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, Guide3_1);
                 GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, Guide3_3);
-                Invoke(nameof(Guide3_2), 3f);
+                Invoke(nameof(Guide3_2), 2f);
             }
         }
         public void Guide3_2()
@@ -273,8 +273,7 @@ namespace GameMain
                 GameEntry.UI.CloseUIForm(UIFormId.HighlightTips);
                 GameEntry.UI.OpenUIForm(UIFormId.HighlightTips, "继续完成细版本的冰拿铁吧！");
                 GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, Guide3_3);
-                //GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, Guide3_3);
-                Invoke(nameof(Guide3_5), 2f);
+                GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, Guide3_5);
             }
         }
 
@@ -302,7 +301,16 @@ namespace GameMain
 
         public void Guide3_5(object sender, GameEventArgs e)
         {
-            GameEntry.UI.OpenUIForm(UIFormId.PopTips, "那么将咖啡拖动到对应的订单上");
+            ShowEntitySuccessEventArgs args = (ShowEntitySuccessEventArgs)e;
+            BaseCompenent baseCompenent = null;
+            if (args.Entity.TryGetComponent<BaseCompenent>(out baseCompenent))
+            {
+                if (baseCompenent.NodeTag != NodeTag.IceLatte)
+                    return;
+                GameEntry.UI.CloseUIForm(UIFormId.HighlightTips);
+                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "那么将咖啡拖动到对应的订单上");
+                GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, Guide3_5);
+            }
         }
 
         //需要在点击交互时发送信息
