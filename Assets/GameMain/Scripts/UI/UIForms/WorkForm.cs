@@ -68,11 +68,11 @@ namespace GameMain
             if (!isGuide)
             {
                 Debug.Log(GameEntry.Utils.Energy);
-                hardBtn.onClick.AddListener(() => SetData(240));
+                hardBtn.onClick.AddListener(() => SetData(180,60,0.8f,1.5f));
                 if (GameEntry.Utils.Energy < 60) hardBtn.interactable = false;
-                commonBtn.onClick.AddListener(() => SetData(180));
+                commonBtn.onClick.AddListener(() => SetData(180,40,1f,1f));
                 if (GameEntry.Utils.Energy < 40) commonBtn.interactable = false;
-                easyBtn.onClick.AddListener(() => SetData(120));
+                easyBtn.onClick.AddListener(() => SetData(180,20,1.2f,0.8f));
                 if (GameEntry.Utils.Energy < 20) easyBtn.interactable = false;
             }
             mLevelData = GameEntry.Dialog.loadedLevelSOs[0].levelData;
@@ -127,12 +127,13 @@ namespace GameMain
                 }
             }
         }
-        private void SetData(int time)
+        private void SetData(int time,int energy,float orderPower,float pricePower)
         {
             levelTime = time;//3����
             nowTime = levelTime;
-            GameEntry.Utils.Energy -= (time - 120) / 3 + 20;
-            Debug.Log((time - 120) / 3 + 20);
+            GameEntry.Utils.Energy -= energy;
+            GameEntry.Utils.OrderPower = orderPower;
+            GameEntry.Utils.PricePower = pricePower;
             modeCanvas.gameObject.SetActive(false);
             isChoice = true;
             orderList.IsShowItem = true;

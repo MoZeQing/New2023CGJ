@@ -15,13 +15,15 @@ namespace GameMain
         public OutingSceneState outSceneState;
         public List<Sprite> closets = new List<Sprite>();
         public int closet;
-        public string actionName; 
+        public string actionName;
 
         public bool pickUp = false;
         public int musicHallItemID;
         public int changeMusicHallItemID;
         public bool musicChangeFlag;
         private int mCarfSort = 99;
+        public float OrderPower { get; set; } = 1f;
+        public float PricePower { get; set; } = 1f;
 
         public List<OutingSceneState> outingSceneStates = new List<OutingSceneState>();
 

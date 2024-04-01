@@ -61,17 +61,17 @@ namespace GameMain
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
             nowTime -= Time.deltaTime;
-            timeLine.fillAmount = nowTime / (mOrderData.OrderTime*3);
+            timeLine.fillAmount = nowTime / (mOrderData.OrderTime * 3 * GameEntry.Utils.OrderPower);
             
-            if (nowTime < mOrderData.OrderTime*3)
+            if (nowTime < mOrderData.OrderTime * 3 * GameEntry.Utils.OrderPower)
             {
                 timeLine.color = Color.green;
             }
-            if (nowTime < mOrderData.OrderTime*2)
+            if (nowTime < mOrderData.OrderTime * 2 * GameEntry.Utils.OrderPower)
             {
                 timeLine.color = Color.yellow;
             }
-            if (nowTime < mOrderData.OrderTime)
+            if (nowTime < mOrderData.OrderTime * GameEntry.Utils.OrderPower)
             {
                 timeLine.color = Color.red;
             }
@@ -129,7 +129,7 @@ namespace GameMain
                     {
                         p = 0.6f;
                     }
-                    income = (int)(income * p);
+                    income = (int)(income * p*GameEntry.Utils.PricePower);
                     GameEntry.Event.FireNow(this, OrderEventArgs.Create(mOrderData, income));
                     GameEntry.Entity.HideEntity(baseCompenent.transform.parent.GetComponent<BaseNode>().Entity);
                     GameEntry.Entity.HideEntity(this.Entity);
