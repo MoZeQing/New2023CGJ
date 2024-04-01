@@ -14,28 +14,29 @@ public class CardItem : MonoBehaviour
     [SerializeField] private Image backgroundImg;
     [SerializeField] private Button btn;
 
-    [SerializeField] private Sprite background;
-    [SerializeField] private Sprite sprite;
-
+    private Action<DRBench> mAction;
     private bool front=true;
-    private Tweener tweener;
-
-    private void Start()
-    {
-        SetData(new DRBench());
-    }
-
-    public void SetData(DRBench dRBench)
+    private DRBench dRBench;
+    public void SetData(DRBench dRBench,Action<DRBench> action)
     {
         btn.onClick.AddListener(OnClick);
+        text.text = dRBench.Text;
+        mAction = action;
+        this.dRBench = dRBench;
+        front = false;
 
-        frontImg.transform.localEulerAngles = new Vector3(0f, 0f, 0f);
-        backgroundImg.transform.localEulerAngles = new Vector3(0f, 90f, 0f);
+        frontImg.transform.localEulerAngles = new Vector3(0f, 90f, 0f);
+        backgroundImg.transform.localEulerAngles = new Vector3(0f, 0f, 0f);
     }
 
     private void OnClick()
     {
-        Debug.Log("µã»÷£¡");
+        mAction(dRBench);
+        Turn();
+    }
+
+    public void Turn()
+    {
         if (front)
         {
             Sequence sequence = DOTween.Sequence();

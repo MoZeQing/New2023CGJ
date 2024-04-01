@@ -68,6 +68,7 @@ namespace GameMain
             {
                 GameEntry.Utils.outingSceneStates.Add(outingSceneState);
             }
+            GameEntry.Player.ClearRecipe();
             foreach (int recipe in saveLoadData.recipes)
             {
                 GameEntry.Player.AddRecipe(recipe);

@@ -51,6 +51,8 @@ namespace GameMain
             backBtn_1.onClick.AddListener(() => Change(GamePos.Up));
             backBtn_2.onClick.AddListener(() => Change(GamePos.Up));
             GameEntry.Event.Subscribe(MainFormEventArgs.EventId, OnMainFormEvent);
+            GameEntry.Event.Subscribe(GameStateEventArgs.EventId, OnGameStateEvent);
+            canvasGroup.interactable = true;
         }
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
@@ -78,6 +80,7 @@ namespace GameMain
             backBtn_1.onClick.RemoveAllListeners();
             backBtn_2.onClick.RemoveAllListeners();
             GameEntry.Event.Unsubscribe(MainFormEventArgs.EventId, OnMainFormEvent);
+            GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, OnGameStateEvent);
         }
         private void Change(GamePos gamePos)
         {
@@ -105,6 +108,14 @@ namespace GameMain
             if (mAnimator.GetBool("Into"))
             {
                 mTeachingForm.Click_Action();
+            }
+        }
+        private void OnGameStateEvent(object sender, GameEventArgs e)
+        {
+            GameStateEventArgs args = (GameStateEventArgs)e;
+            if (args.GameState == GameState.Night || args.GameState == GameState.Afternoon || args.GameState == GameState.Morning)
+            {
+                canvasGroup.interactable = true;
             }
         }
         private void OnMainFormEvent(object sender, GameEventArgs e) 

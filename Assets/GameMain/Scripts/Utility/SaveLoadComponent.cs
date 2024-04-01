@@ -62,15 +62,7 @@ namespace GameMain
                 if (charSOs[i].friend)
                     GameEntry.Utils.chars.Add(charSOs[i].name, charSOs[i]);
 
-            GameEntry.Player.ClearRecipe();
-            DRRecipe[] drrecipes = GameEntry.DataTable.GetDataTable<DRRecipe>().GetAllDataRows();
-            for (int i=0;i< drrecipes.Length;i++)
-            {
-                if (!drrecipes[i].IsCoffee)
-                    GameEntry.Player.AddRecipe(drrecipes[i].Id);
-            }
-            GameEntry.Player.RemoveRecipe(2);
-            GameEntry.Player.AddRecipes(new int[] { 19, 20, 21, 22, 11, 12, 16, 17 ,15,13,14,18});
+
         }
 
         /// <summary>
@@ -110,6 +102,16 @@ namespace GameMain
                 GameEntry.Utils.AddFriendFavor(pair.Value.name, pair.Value.favor);
 
             GameEntry.Event.FireNow(this, GameStateEventArgs.Create(gameState));
+
+            GameEntry.Player.ClearRecipe();
+            DRRecipe[] drrecipes = GameEntry.DataTable.GetDataTable<DRRecipe>().GetAllDataRows();
+            for (int i = 0; i < drrecipes.Length; i++)
+            {
+                if (!drrecipes[i].IsCoffee)
+                    GameEntry.Player.AddRecipe(drrecipes[i].Id);
+            }
+            GameEntry.Player.RemoveRecipe(2);
+            GameEntry.Player.AddRecipes(new int[] { 19, 20, 21, 22, 11, 12, 16, 17, 15, 13, 14, 18 });
         }
         public void SaveGame(int index)
         {
