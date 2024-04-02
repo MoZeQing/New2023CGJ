@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-03-30 22:19:33.866
+// 生成时间：2024-04-02 21:53:59.176
 //------------------------------------------------------------
 
 using GameFramework;
@@ -180,6 +180,15 @@ namespace GameMain
             private set;
         }
 
+        /// <summary>
+        /// 获取前置物品ID。
+        /// </summary>
+        public int Preposition
+        {
+            get;
+            private set;
+        }
+
         public override bool ParseDataRow(string dataRowString, object userData)
         {
             string[] columnStrings = dataRowString.Split(DataTableExtension.DataSplitSeparators);
@@ -208,6 +217,7 @@ namespace GameMain
             Mood = int.Parse(columnStrings[index++]);
             Energy = int.Parse(columnStrings[index++]);
             Ap = int.Parse(columnStrings[index++]);
+            Preposition = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -236,6 +246,7 @@ namespace GameMain
                     Mood = binaryReader.Read7BitEncodedInt32();
                     Energy = binaryReader.Read7BitEncodedInt32();
                     Ap = binaryReader.Read7BitEncodedInt32();
+                    Preposition = binaryReader.Read7BitEncodedInt32();
                 }
             }
 

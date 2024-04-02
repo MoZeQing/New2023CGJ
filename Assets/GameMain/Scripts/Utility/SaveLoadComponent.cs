@@ -83,6 +83,10 @@ namespace GameMain
             GameEntry.Utils.Day = day;
             GameEntry.Utils.Rent= rent;
             GameEntry.Utils.closet = closet;
+            GameEntry.Utils.PlayerData.heaterID =104;
+            GameEntry.Utils.PlayerData.stirrerID = 110;
+            GameEntry.Utils.PlayerData.pressID = 108;
+            GameEntry.Utils.PlayerData.burnisherID = 101;
             GameEntry.Utils.ClearFlag();
             GameEntry.Dialog.LoadGame();
             GameEntry.Utils.ClearPlayerItem();

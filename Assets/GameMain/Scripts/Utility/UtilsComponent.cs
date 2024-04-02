@@ -563,6 +563,10 @@ namespace GameMain
         public int ap;
         public int day;
         public int rent;
+        public int heaterID;
+        public int burnisherID;
+        public int stirrerID;
+        public int pressID;
         public List<PlayerItemData> items=new List<PlayerItemData>();
         //public int time;
     }
