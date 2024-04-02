@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 using UnityEngine.UI;
+using DG.Tweening;
 
 namespace GameMain
 {
@@ -13,6 +14,7 @@ namespace GameMain
         [SerializeField] private Text indexText;
         [SerializeField] private Image image;
         [SerializeField] private Button exitBtn;
+        [SerializeField] private Transform canvas;
         [SerializeField] private List<Button> buttons = new List<Button>();
         [SerializeField] private List<Sprite> dialogs1=new List<Sprite>();
         [SerializeField] private List<Sprite> dialogs2=new List<Sprite>();
@@ -30,6 +32,9 @@ namespace GameMain
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
+            canvas.localPosition = Vector3.up * 1080f;
+            canvas.DOLocalMove(Vector3.zero, 0.5f).SetEase(Ease.OutExpo);
+
             OnClick(0);
             add.onClick.AddListener(OnAdd);
             reduce.onClick.AddListener(OnReduce);
