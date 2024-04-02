@@ -148,12 +148,4 @@ namespace GameMain
             GameEntry.UI.CloseUIForm(this.UIForm);
         }
     }
-
-    public enum InstrumentTag
-    {
-        Heater,
-        Burnisher,
-        Stirrer,
-        Press
-}
 }

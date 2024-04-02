@@ -37,7 +37,8 @@ namespace GameMain
         RecipeForm=54,
         FriendForm=55,
         UnlockForm=56,
-        PopTips=100,
+        InstrumentForm=57,
+        PopTips =100,
         HighlightTips=101,
         PropertyTips=102,
         OkTips=103

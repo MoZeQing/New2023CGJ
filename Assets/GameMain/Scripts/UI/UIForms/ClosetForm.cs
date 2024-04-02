@@ -15,9 +15,10 @@ namespace GameMain
         [SerializeField] private Button rightBtn;
         [SerializeField] private Text infoText;
         [SerializeField] private Image closetImg;
+        [SerializeField] private Transform canvas;
         [Header("锚点")]
         [SerializeField] private Image[] closetItems = new Image[4];//0后1左2中3右
-        [SerializeField] private Transform[] canvas = new Transform[4];//0后1左2中3右
+        [SerializeField] private Transform[] canvases = new Transform[4];//0后1左2中3右
 
         private List<DRItem> dRItems = new List<DRItem>();
         private int index = 0;//目前的显示序列
@@ -27,6 +28,9 @@ namespace GameMain
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
+            canvas.localPosition = Vector3.up * 1080f;
+            canvas.DOLocalMove(Vector3.zero, 0.5f).SetEase(Ease.OutExpo);
+
             exitBtn.onClick.AddListener(() => GameEntry.UI.CloseUIForm(this.UIForm));
             okBtn.onClick.AddListener(OkBtn);
 
@@ -65,10 +69,10 @@ namespace GameMain
         {
             index = (index + dRItems.Count - 1) % dRItems.Count;
 
-            closetItems[0].transform.DOMove(canvas[1].position, 0.5f).SetEase(Ease.OutExpo);
-            closetItems[1].transform.DOMove(canvas[2].position, 0.5f).SetEase(Ease.OutExpo);
-            closetItems[2].transform.DOMove(canvas[3].position, 0.5f).SetEase(Ease.OutExpo);
-            closetItems[3].transform.DOMove(canvas[0].position, 0.5f).SetEase(Ease.OutExpo);
+            closetItems[0].transform.DOMove(canvases[1].position, 0.5f).SetEase(Ease.OutExpo);
+            closetItems[1].transform.DOMove(canvases[2].position, 0.5f).SetEase(Ease.OutExpo);
+            closetItems[2].transform.DOMove(canvases[3].position, 0.5f).SetEase(Ease.OutExpo);
+            closetItems[3].transform.DOMove(canvases[0].position, 0.5f).SetEase(Ease.OutExpo);
 
             closetItems[1].transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo);
             closetItems[2].transform.DOScale(Vector3.one * 0.8f, 0.5f).SetEase(Ease.OutExpo);
@@ -93,10 +97,10 @@ namespace GameMain
         {
             index = (index + dRItems.Count + 1) % dRItems.Count;
 
-            closetItems[0].transform.DOMove(canvas[3].position, 0.5f).SetEase(Ease.OutExpo);
-            closetItems[1].transform.DOMove(canvas[0].position, 0.5f).SetEase(Ease.OutExpo);
-            closetItems[2].transform.DOMove(canvas[1].position, 0.5f).SetEase(Ease.OutExpo);
-            closetItems[3].transform.DOMove(canvas[2].position, 0.5f).SetEase(Ease.OutExpo);
+            closetItems[0].transform.DOMove(canvases[3].position, 0.5f).SetEase(Ease.OutExpo);
+            closetItems[1].transform.DOMove(canvases[0].position, 0.5f).SetEase(Ease.OutExpo);
+            closetItems[2].transform.DOMove(canvases[1].position, 0.5f).SetEase(Ease.OutExpo);
+            closetItems[3].transform.DOMove(canvases[2].position, 0.5f).SetEase(Ease.OutExpo);
 
             closetItems[3].transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo);
             closetItems[2].transform.DOScale(Vector3.one * 0.8f, 0.5f).SetEase(Ease.OutExpo);
