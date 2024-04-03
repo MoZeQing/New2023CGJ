@@ -38,6 +38,7 @@ namespace GameMain
         //���ݹ���������
         private Dictionary<TriggerTag,string> _values= new Dictionary<TriggerTag,string>();
         private List<string> _flags= new List<string>();
+        private Dictionary<string, int> _flagValues = new Dictionary<string, int>();
 
         private List<WorkData> mWorkDatas= new List<WorkData>();
 
@@ -396,20 +397,37 @@ namespace GameMain
         { 
             return _flags.Contains(key);
         }
+        public bool CheckFlag(string key,int value)
+        {
+            if (_flagValues.ContainsKey(key))
+                return _flagValues[key] == value;
+            return false;
+        }
         public void AddFlag(string flag)
         { 
             if(!_flags.Contains(flag))
                 _flags.Add(flag);
+            if (_flagValues.ContainsKey(flag))
+            {
+                _flagValues[flag]++;
+            }
+            else
+            {
+                _flagValues.Add(flag, 1);
+            }
         }
         public void RemoveFlag(string flag)
         { 
             if(_flags.Contains(flag))
                 _flags.Remove(flag);
+            if (_flagValues.ContainsKey(flag))
+                _flagValues.Remove(flag);
         }
 
         public void ClearFlag()
         {
             _flags.Clear();
+            _flagValues.Clear();
         }
         public bool Check(TriggerData triggerData)
         {
@@ -444,6 +462,11 @@ namespace GameMain
                 return true;
             if (trigger.key == TriggerTag.Flag)
                 return _flags.Contains(trigger.value)!=trigger.not;
+            if (trigger.key == TriggerTag.FlagCount)
+            {
+                string[] strings = trigger.value.Split('|');
+                return CheckFlag(strings[0], int.Parse(strings[1]));
+            }
             if (!_values.ContainsKey(trigger.key))
                 return false;
             if (trigger.equals)

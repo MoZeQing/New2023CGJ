@@ -243,7 +243,8 @@ public enum TriggerTag
     FWitch,//老登
     FFiction,//小说家
     FMoney,//催债人
-    FCourier//外卖员
+    FCourier,//外卖员
+    FlagCount,
 }
 [System.Serializable]
 public enum EventTag
