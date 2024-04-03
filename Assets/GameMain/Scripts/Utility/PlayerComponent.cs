@@ -80,6 +80,8 @@ namespace GameMain
 
         public void AddRecipe(int index)
         {
+            if (HasRecipe(index))
+                return;
             RecipeData recipeData = new RecipeData(GameEntry.DataTable.GetDataTable<DRRecipe>().GetDataRow(index));
             recipes.Add(recipeData);
         }

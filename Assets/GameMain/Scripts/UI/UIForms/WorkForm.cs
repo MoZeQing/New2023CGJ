@@ -90,6 +90,9 @@ namespace GameMain
 
         private void Update()
         {
+            if (Input.GetKeyDown(KeyCode.J))
+                nowTime -= 10f;
+
             if(Input.GetKeyDown(KeyCode.Space))
                 flag= !flag;
 
