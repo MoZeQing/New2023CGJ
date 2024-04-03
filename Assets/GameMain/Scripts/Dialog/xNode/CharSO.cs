@@ -10,6 +10,7 @@ namespace GameMain
         public bool isMain;
         public bool friend;
         public Vector3 offset;
+        public float scale;
         public string charName;
         public int favor;
         public Sprite sprite;
