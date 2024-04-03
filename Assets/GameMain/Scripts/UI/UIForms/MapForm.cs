@@ -56,7 +56,8 @@ namespace GameMain
                 return;
             }
             GameEntry.Utils.Energy -= 20;
-            GameEntry.Utils.outSceneState=outingSceneState;
+            GameEntry.Utils.Location=outingSceneState;
+            GameEntry.Dialog.StoryUpdate();
             GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
             GameEntry.UI.OpenUIForm((UIFormId)outingSceneState + 20, this);
             mDay = GameEntry.Utils.Day;

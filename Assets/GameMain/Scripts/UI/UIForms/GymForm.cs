@@ -19,7 +19,7 @@ namespace GameMain
             easyBtn.onClick.AddListener(EasyBtn_Click);
             middleBtn.onClick.AddListener(MiddleBtn_Click);
             hardBtn.onClick.AddListener(HardBtn_Click);
-            exitBtn.onClick.AddListener(() => GameEntry.UI.CloseUIForm(this.UIForm));
+            exitBtn.onClick.AddListener(OnExit);
         }
 
         protected override void OnClose(bool isShutdown, object userData)
@@ -92,9 +92,8 @@ namespace GameMain
         private void OnExit()
         {
             GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
-            GameEntry.Utils.outingBefore = false;
-            GameEntry.Dialog.StoryUpdate();
             GameEntry.Utils.Location = OutingSceneState.Home;
+            GameEntry.Dialog.StoryUpdate();
             GameEntry.UI.CloseUIForm(this.UIForm);
         }
     }
