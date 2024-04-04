@@ -15,6 +15,7 @@ namespace GameMain
         [SerializeField] private Button superMinusPlusBtn;
         [SerializeField] private Button exitPurchaseFormBtn;
         [SerializeField] private Button PurchaseFormBuyBtn;
+        [SerializeField] private Image iconImage;
         [SerializeField] private GameObject tips;
 
         private DRItem mShopItemData;
@@ -43,6 +44,7 @@ namespace GameMain
             {
                 tips.gameObject.SetActive(true);
                 PurchaseFormBuyBtn.interactable = false;
+                iconImage.sprite = Resources.Load<Sprite>(shopItemData.IconPath);
             }
         }
         public void SetClick(Action action)
