@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using GameMain;
 
 public class OptionItem : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class OptionItem : MonoBehaviour
         text.text = optionData.text;
 
         this.GetComponent<Button>().onClick.AddListener(Onclick);
+        this.GetComponent<Button>().interactable = GameEntry.Utils.Check(optionData.trigger);
     }
 
     private void Onclick()

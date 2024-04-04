@@ -28,6 +28,8 @@ public class OptionNode : Node {
 public class OptionData
 {
 	public int index;
+	public ParentTrigger trigger;
 	[TextArea]
 	public string text;
+	public List<EventData> eventDatas = new List<EventData>();
 }

@@ -248,6 +248,10 @@ public class DialogBox : MonoBehaviour
         if (optionData == null)
             return;
         ClearButtons();
+        foreach (EventData eventData in optionData.eventDatas)
+        {
+            GameEntry.Utils.RunEvent(eventData);
+        }
         OptionNode optionNode = (OptionNode)m_Node;
         NextNode(m_Node, string.Format("optionDatas {0}", optionData.index));
     }
