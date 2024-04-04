@@ -12,7 +12,7 @@ namespace GameMain
     {
         [SerializeField] private Transform randomCanvas;
         [SerializeField] private Transform settleCanvas;
-        [SerializeField] private Text randomText;
+        //[SerializeField] private Text randomText;
         [SerializeField] private Text coffeeText;
         [SerializeField] private Text catText;
         [SerializeField] private Text settleText;
@@ -63,7 +63,7 @@ namespace GameMain
                 }
             }
             RandomEvent randomEvent = newEvents[Random.Range(0, newEvents.Count - 1)];
-            randomText.text = randomEvent.text;
+            //randomText.text = randomEvent.text;
             mWorkData.RandomEvent = randomEvent;
         }
 
