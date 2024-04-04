@@ -1768,7 +1768,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 87cdaf258b51efa4e889ba2918b1a700, type: 3}
-  m_Name: Family_plot_2
+  m_Name: Trust_6
   m_EditorClassIdentifier: 
   nodes:
   - {fileID: -4704967091826037703}
@@ -1779,7 +1779,7 @@ MonoBehaviour:
   - {fileID: 1491454471026455010}
   - {fileID: -8897879308020039591}
   - {fileID: 2655198799805046448}
-  - {fileID: 6779636819942143444}
+  dialogInfo: "\u732B\u732B\u611F\u5192\u4E86\uFF0C\u4F60\u966A\u7740\u5979\u4E00\u5929\uFF0C\u6CA1\u6709\u4E0A\u73ED"
 --- !u!114 &1491454471026455010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2009,10 +2009,7 @@ MonoBehaviour:
       _node: {fileID: 2655198799805046448}
       _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      connections:
-      - fieldName: a
-        node: {fileID: 6779636819942143444}
-        reroutePoints: []
+      connections: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
@@ -2811,48 +2808,3 @@ MonoBehaviour:
     background: {fileID: 0}
     eventDatas: []
     text: "\u65E9\u6668\u7684\u9E1F\u513F\u65E9\u5DF2\u98DE\u8D70\uFF0C\u7231\u4E3D\u4E1D\u518D\u6B21\u9192\u6765\u5DF2\u662F\u508D\u665A\u3002"
---- !u!114 &6779636819942143444
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a506e63094815a84ba01622d0aa2f277, type: 3}
-  m_Name: Event
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: 1900.5774, y: 3821.206}
-  ports:
-    keys:
-    - a
-    - b
-    values:
-    - _fieldName: a
-      _node: {fileID: 6779636819942143444}
-      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: chatDatas 11
-        node: {fileID: 2655198799805046448}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: b
-      _node: {fileID: 6779636819942143444}
-      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-  a: 0
-  b: 0
-  eventData:
-    eventTag: 14
-    value: 

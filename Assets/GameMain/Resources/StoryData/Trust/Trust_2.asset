@@ -12,17 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9d3fe38b58a1ff4cbfd1f6e24dcdd50, type: 3}
   m_Name: Trust_2
   m_EditorClassIdentifier: 
+  unLoad: 0
   isRemove: 1
   outingSceneState: 0
   outingBefore: 0
-  gameState: 8
+  gameState: 6
   trigger:
-    key: 2
+    key: 10
     not: 0
     equals: 0
-    value: 40
-    and: []
+    value: 3
+    and:
+    - key: 2
+      not: 0
+      equals: 0
+      value: 9
+      and: []
+      or: []
+    - key: 1
+      not: 0
+      equals: 1
+      value: Trust_1
+      and: []
+      or: []
     or: []
-  dialogueGraph: {fileID: 11400000, guid: 72f1dd00c99d21d4ba9ffd43e035e05d, type: 2}
+  dialogueGraph: {fileID: 11400000, guid: 269f94902a897d24ea7efb4392282759, type: 2}
   eventDatas: []
   content: 

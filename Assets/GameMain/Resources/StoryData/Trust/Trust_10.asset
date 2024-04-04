@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9d3fe38b58a1ff4cbfd1f6e24dcdd50, type: 3}
-  m_Name: Chapter2_3_Cat play
+  m_Name: Trust_10
   m_EditorClassIdentifier: 
-  unLoad: 1
-  isRemove: 0
+  unLoad: 0
+  isRemove: 1
   outingSceneState: 0
   outingBefore: 0
   gameState: 6
@@ -21,9 +21,21 @@ MonoBehaviour:
     key: 10
     not: 0
     equals: 0
-    value: 15
-    and: []
+    value: 3
+    and:
+    - key: 2
+      not: 0
+      equals: 0
+      value: 89
+      and: []
+      or: []
+    - key: 1
+      not: 0
+      equals: 1
+      value: Trust_9
+      and: []
+      or: []
     or: []
-  dialogueGraph: {fileID: 0}
+  dialogueGraph: {fileID: 11400000, guid: 055cab4bca88ce54bb76a7d4e6cb2154, type: 2}
   eventDatas: []
-  content: "\u4E00\u5929\u5DE5\u4F5C\u7ED3\u675F\u540E\uFF0C\u548C\u732B\u73A9\u98DE\u884C\u5668"
+  content: 
