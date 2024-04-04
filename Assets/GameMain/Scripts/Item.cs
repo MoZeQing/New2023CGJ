@@ -10,6 +10,16 @@ using GameMain;
 [System.Serializable]
 public class Item : ShopItem
 {
+    public override void SetData(DRItem itemData)
+    {
+        mShopItemData = itemData;
+        this.gameObject.SetActive(true);
+        itemImage.sprite = Resources.Load<Sprite>(itemData.ImagePath);
+        if (GameEntry.Utils.GetPlayerItem((ItemTag)itemData.Id) != null)
+            inventoryText.text = string.Format("{0}", GameEntry.Utils.GetPlayerItem((ItemTag)itemData.Id).itemNum.ToString());
+        else
+            inventoryText.text = string.Format("{0}", 0);
+    }
     public override void SetData(DRItem itemData, Action<DRItem> onClick, Action<bool, DRItem> onTouch)
     {
         mShopItemData = itemData;

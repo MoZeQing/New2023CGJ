@@ -14,9 +14,9 @@ namespace GameMain
         [SerializeField] private Button leftBtn;
         [SerializeField] private Button rightBtn;
         [SerializeField] private Text pageText;
+        [SerializeField] private Image itemImage;
         [SerializeField] private Text headerField;
         [SerializeField] private Text contentField;
-        [SerializeField] private PurchaseForm purchaseForm;
         [SerializeField] private List<Item> mItems = new List<Item>();
 
         private List<DRItem> dRItems = new List<DRItem>();
@@ -68,7 +68,10 @@ namespace GameMain
             for (int i = 0; i < mItems.Count; i++)
             {
                 if (index < dRItems.Count)
-                    mItems[i].SetData(dRItems[index], OnClick, OnTouch);
+                {
+                    mItems[i].SetData(dRItems[index]);
+                    mItems[i].SetTouch(OnTouch);
+                }
                 else
                     mItems[i].Hide();
                 index++;
@@ -76,12 +79,6 @@ namespace GameMain
             leftBtn.interactable = (index != 0);
             rightBtn.interactable = index < dRItems.Count;
             pageText.text = (index / mItems.Count).ToString();
-        }
-        private void OnClick(DRItem itemData)
-        {
-            purchaseForm.SetData(itemData);
-            purchaseForm.gameObject.SetActive(true);
-            purchaseForm.SetClick(UpdateItem);
         }
         private void Right()
         {
@@ -93,20 +90,18 @@ namespace GameMain
             index -= 2 * mItems.Count;
             ShowItems();
         }
-        private void UpdateItem()
-        {
-            index -= mItems.Count;
-            ShowItems();
-        }
         private void OnTouch(bool flag, DRItem itemData)
         {
             if (flag)
             {
+                itemImage.gameObject.SetActive(true);
+                itemImage.sprite = Resources.Load<Sprite>(itemData.IconPath);
                 headerField.text = itemData.Name;
                 contentField.text = itemData.Info;
             }
             else
             {
+                itemImage.gameObject.SetActive(false);
                 headerField.text = string.Empty;
                 contentField.text = string.Empty;
             }
