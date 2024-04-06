@@ -120,6 +120,7 @@ namespace GameMain
                     GameEntry.Event.FireNow(this, LevelEventArgs.Create());
                     GamePosUtility.Instance.GamePosChange(GamePos.Up);
                     //dialogBox.Next();
+                    dialogBox.SetDialog(mLevelData.afterWork);
                     dialogBox.SetComplete(OnAfterWorkComplete);
                     IsDialog= true;
                 }
