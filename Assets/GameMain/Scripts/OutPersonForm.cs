@@ -9,6 +9,7 @@ namespace GameMain
     {
         [SerializeField] private Image charImg;
         [SerializeField] private Text charText;
+        [SerializeField] private Text charNameText;
         [SerializeField] private OutingSceneState sceneState;
         [SerializeField] private string charName;
 
