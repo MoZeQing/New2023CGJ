@@ -147,8 +147,10 @@ namespace GameMain
         FilterBowl=108,//¬À÷Ω Ω¬À±≠
         Cup=109,//øß∑»±≠
         Stirrer=110,//Ω¡∞Ë∆˜
+        HHeater=111,
+        HStirrer=112,
         //øß∑»£®200-300£©
-        EspressoG=200,//¥÷øß∑»∑€
+        EspressoG =200,//¥÷øß∑»∑€
         Espresso=201,//≈®Àıøß∑»
         HotCafeAmericano=202,//»»√¿ Ω
         IceCafeAmericano=203,//¿‰√¿ Ω

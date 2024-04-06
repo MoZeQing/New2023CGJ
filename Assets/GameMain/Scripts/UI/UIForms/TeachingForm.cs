@@ -42,7 +42,7 @@ namespace GameMain
         //Dialog区域
         private List<GameObject> m_Btns = new List<GameObject>();
 
-        private void Start()
+        private void OnEnable()
         {
             GameEntry.Event.Subscribe(CharDataEventArgs.EventId, CharDataEvent);
             GameEntry.Event.Subscribe(PlayerDataEventArgs.EventId, PlayerDataEvent);
@@ -50,6 +50,20 @@ namespace GameMain
             ShowButtons();
             mCanvasGroup = this.GetComponent<CanvasGroup>();
         }
+
+        private void OnDisable()
+        {
+            GameEntry.Event.Unsubscribe(CharDataEventArgs.EventId, CharDataEvent);
+            GameEntry.Event.Unsubscribe(PlayerDataEventArgs.EventId, PlayerDataEvent);
+        }
+        //private void Start()
+        //{
+        //    GameEntry.Event.Subscribe(CharDataEventArgs.EventId, CharDataEvent);
+        //    GameEntry.Event.Subscribe(PlayerDataEventArgs.EventId, PlayerDataEvent);
+        //    GameEntry.Utils.UpdateData();
+        //    ShowButtons();
+        //    mCanvasGroup = this.GetComponent<CanvasGroup>();
+        //}
         private void Update()
         {
             //if (Input.GetMouseButtonDown(1)&&!InDialog)
@@ -181,7 +195,7 @@ namespace GameMain
                 {
                     GameEntry.Event.FireNow(this, MainFormEventArgs.Create(MainFormTag.Unlock));
                     dialogBox.gameObject.SetActive(false);
-                    stage.gameObject.SetActive(false);
+                    stage.gameObject.SetActive(true);
                     leftCanvas.gameObject.SetActive(true);
                     rightCanvas.gameObject.SetActive(true);
                     GameEntry.Utils.GameState = GameState.Night;

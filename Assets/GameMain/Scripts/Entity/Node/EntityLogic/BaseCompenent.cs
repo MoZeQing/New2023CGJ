@@ -160,7 +160,7 @@ namespace GameMain
             Salt = false;
             Sugar= false;
             Grind = mNodeData.Grind;
-            Ice = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)mNodeData.NodeTag).Ice;
+            //Ice = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)mNodeData.NodeTag).Ice;
             CondensedMilk = false;
 
             UpdateIcon();

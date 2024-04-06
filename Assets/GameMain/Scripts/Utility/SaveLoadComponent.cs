@@ -115,7 +115,7 @@ namespace GameMain
                     GameEntry.Player.AddRecipe(drrecipes[i].Id);
             }
             GameEntry.Player.RemoveRecipe(2);
-            GameEntry.Player.AddRecipes(new int[] { 19, 20, 21, 22, 11, 12, 16, 17, 15, 13, 14, 18 });
+            GameEntry.Player.AddRecipes(new int[] { 19, 20, 21, 22, 11, 12, 16, 17, 15, 13, 14, 18,34,35 });
         }
         public void SaveGame(int index)
         {
