@@ -123,8 +123,7 @@ namespace GameMain
         }
         private void OkBtn()
         {
-            int closet = index-1;
-            if (closet== -1) closet = dRItems.Count-1;
+            int closet = index;
             GameEntry.Utils.closet = dRItems[closet].Id;
         }
     }

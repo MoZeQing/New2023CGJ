@@ -102,7 +102,7 @@ namespace GameMain
             if (mCharSO == null)
                 return;
             if (mCharSO.isMain)
-                mImage.sprite = mDiffs[(GameEntry.Utils.closet - 101) * 18 + (int)diffTag];
+                mImage.sprite = mDiffs[(GameEntry.Utils.closet - 1001) * 18 + (int)diffTag];
             else
                 mImage.sprite = mDiffs[(int)diffTag];
         }
