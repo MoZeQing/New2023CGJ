@@ -131,6 +131,7 @@ namespace GameMain
             saveLoadData.workDatas = GameEntry.Utils.WorkDatas;
             saveLoadData.storyData = GameEntry.Dialog.LoadedStories;
             saveLoadData.levelData = GameEntry.Dialog.LoadedLevels;
+            saveLoadData.flagValue = GameEntry.Utils._flagValues;
             foreach (RecipeData recipeData in GameEntry.Player.recipes)
             {
                 saveLoadData.recipes.Add(recipeData.Id);
@@ -224,6 +225,7 @@ namespace GameMain
         public List<string> levelData = new List<string>();
         public List<WorkData> workDatas= new List<WorkData>();
         public List<string> flags=  new List<string>();
+        public Dictionary<string, int> flagValue = new Dictionary<string, int>();
         public List<int> recipes = new List<int>();
         public List<int> outingSceneStates = new List<int>();
     }

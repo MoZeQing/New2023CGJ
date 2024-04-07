@@ -465,7 +465,10 @@ namespace GameMain
             if (trigger.key == TriggerTag.FlagCount)
             {
                 string[] strings = trigger.value.Split('|');
-                return CheckFlag(strings[0], int.Parse(strings[1]));
+                if(!trigger.not)
+                    return CheckFlag(strings[0], int.Parse(strings[1]));
+                else
+                    return !CheckFlag(strings[0], int.Parse(strings[1]));
             }
             if (!_values.ContainsKey(trigger.key))
                 return false;

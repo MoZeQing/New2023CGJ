@@ -60,6 +60,7 @@ namespace GameMain
             GameEntry.Utils.Day = saveLoadData.day;
             GameEntry.Utils.closet = saveLoadData.closet;
             GameEntry.Utils.Flags = saveLoadData.flags;
+            GameEntry.Utils._flagValues = saveLoadData.flagValue;
             GameEntry.Utils.WorkDatas = saveLoadData.workDatas;
             GameEntry.Dialog.LoadGame(saveLoadData.storyData,saveLoadData.levelData);
             GameEntry.Player.LoadGame(saveLoadData);
