@@ -273,5 +273,6 @@ public enum EventTag
     AddFriend,
     AddScene,//增加场景
     Test,
-    Jump
+    Jump,
+    ShowFlag//展示所有的Flag数据
 }

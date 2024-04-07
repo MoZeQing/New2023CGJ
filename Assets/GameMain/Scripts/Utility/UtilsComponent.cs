@@ -38,7 +38,7 @@ namespace GameMain
         //���ݹ���������
         private Dictionary<TriggerTag,string> _values= new Dictionary<TriggerTag,string>();
         private List<string> _flags= new List<string>();
-        private Dictionary<string, int> _flagValues = new Dictionary<string, int>();
+        public Dictionary<string, int> _flagValues = new Dictionary<string, int>();
 
         private List<WorkData> mWorkDatas= new List<WorkData>();
 

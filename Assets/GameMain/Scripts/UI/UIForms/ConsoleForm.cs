@@ -47,7 +47,15 @@ namespace GameMain
         {
             Debug.Log(123);
             EventData eventData = new EventData();
-
+            if (inputText.text == "ShowFlag")
+            {
+                text.text += "\n";
+                foreach (KeyValuePair<string, int> pair in GameEntry.Utils._flagValues)
+                {
+                    text.text += string.Format("{0}:{1}\n", pair.Key, pair.Value);
+                }
+                return;
+            }
             if (inputText.text == string.Empty)
             {
                 text.text += "«Î ‰»Î√¸¡Ó\n";
@@ -60,6 +68,7 @@ namespace GameMain
             {
                 text.text += inputText.text + "\n";
             }
+
 
             string[] console = inputText.text.Split(' ');
             if (console.Length != 2)
