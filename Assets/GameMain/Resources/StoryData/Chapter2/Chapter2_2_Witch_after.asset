@@ -13,23 +13,25 @@ MonoBehaviour:
   m_Name: Chapter2_2_Witch_after
   m_EditorClassIdentifier: 
   unLoad: 0
-  isRemove: 0
+  isRemove: 1
   outingSceneState: 5
-  outingBefore: 0
-  gameState: 0
+  outingBefore: 1
+  gameState: 7
   trigger:
     key: 10
     not: 0
     equals: 0
     value: 15
     and:
-    - key: 1
+    - key: 27
       not: 0
       equals: 1
-      value: Flag_Chapter2
+      value: Flag_Chapter_2_Witch_1|3
       and: []
       or: []
     or: []
-  dialogueGraph: {fileID: 0}
-  eventDatas: []
+  dialogueGraph: {fileID: 11400000, guid: 70074b05be9321346a4bfc55c33a7451, type: 2}
+  eventDatas:
+  - eventTag: 12
+    value: Flag_Chapter_2_Witch_end
   content: "\u627E\u5230\u5B88\u706F\u4EBA\uFF0C\u63A5\u53D6\u4EFB\u52A1\uFF0C\u7136\u540E\u5728\u4E0B\u4E00\u4E2A\u661F\u671F\u5185\u9700\u8981\u524D\u5F80\u4E09\u6B21\u6D77\u8FB9"

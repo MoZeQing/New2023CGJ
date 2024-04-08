@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Chapter2_2_Fiction_after
   m_EditorClassIdentifier: 
   unLoad: 0
-  isRemove: 0
+  isRemove: 1
   outingSceneState: 2
   outingBefore: 1
   gameState: 0
@@ -23,13 +23,15 @@ MonoBehaviour:
     equals: 0
     value: 9
     and:
-    - key: 1
+    - key: 27
       not: 0
       equals: 1
-      value: Flag_Chpater2
+      value: Flag_Chapter_2_Fiction_1|3
       and: []
       or: []
     or: []
   dialogueGraph: {fileID: 11400000, guid: d94e3326e4fbc3049b5a8a6013f8c983, type: 2}
-  eventDatas: []
+  eventDatas:
+  - eventTag: 12
+    value: Flag_CHapter_2_Fiction_end
   content: "\u627E\u5230\u5C0F\u8BF4\u5BB6\uFF0C\u63A5\u53D6\u4EFB\u52A1\uFF0C\u63A5\u4E0B\u6765\u7684\u4E09\u5929\u65E0\u6CD5\u5916\u51FA"

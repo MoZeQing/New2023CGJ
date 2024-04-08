@@ -388,7 +388,7 @@ MonoBehaviour:
         soundTag: 0
     background: {fileID: 21300000, guid: a74825d21a0e12945afe1d48a4bf890c, type: 3}
     eventDatas: []
-    text: "\u201C\u4E4B\u524D\u8BF4\u5230\u7684\u4E8B\uFF0C\u4F60\u73B0\u5728\u610F\u5411\u5982\u4F55\uFF1F\u201D"
+    text: "\u201C\u4F60\u53C8\u6765\u5566\uFF1F\u4E0A\u6B21\u90A3\u6279\u8D27\u5F88\u4E0D\u9519\u5427\uFF0C\u8FD9\u56DE\u6211\u53C8\u7ED9\u4F60\u6574\u5230\u4E86BBBBB\uFF0C\u8FD9\u53EF\u662F\u7EAF\u5929\u7136\u65E0\u6DFB\u52A0\u7684\u597D\u8D27\u201D"
   - charName: 0
     left:
       charSO: {fileID: 0}
@@ -421,7 +421,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 87cdaf258b51efa4e889ba2918b1a700, type: 3}
-  m_Name: Chapter2_Money_continue
+  m_Name: Chapter2_Money_continue_2
   m_EditorClassIdentifier: 
   nodes:
   - {fileID: 2303007797935141235}
@@ -443,7 +443,7 @@ MonoBehaviour:
   m_Name: Start
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1032, y: -216}
+  position: {x: -1528, y: 72}
   ports:
     keys:
     - start
@@ -531,9 +531,29 @@ MonoBehaviour:
   input: 0
   optionDatas:
   - index: 0
+    trigger:
+      key: 0
+      not: 0
+      equals: 0
+      value: 
+      and: []
+      or: []
     text: "\u63A5\u53D7\u8BF7\u6C42"
+    eventDatas:
+    - eventTag: 12
+      value: Flag_Chapter_2_Money_2
+    - eventTag: 10
+      value: -300
   - index: 1
+    trigger:
+      key: 0
+      not: 0
+      equals: 0
+      value: 
+      and: []
+      or: []
     text: "\u6682\u65F6\u62D2\u7EDD"
+    eventDatas: []
 --- !u!114 &8840487679334068233
 MonoBehaviour:
   m_ObjectHideFlags: 0
