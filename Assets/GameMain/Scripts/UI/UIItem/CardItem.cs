@@ -19,6 +19,7 @@ public class CardItem : MonoBehaviour
     private DRBench dRBench;
     public void SetData(DRBench dRBench,Action<DRBench> action)
     {
+        btn.onClick.RemoveAllListeners();
         btn.onClick.AddListener(OnClick);
         text.text = dRBench.Text;
         mAction = action;

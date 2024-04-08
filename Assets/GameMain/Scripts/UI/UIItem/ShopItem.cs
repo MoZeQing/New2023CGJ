@@ -50,6 +50,7 @@ namespace GameMain
         public virtual void SetClick(Action<DRItem> action)
         {
             mAction = action;
+            itemBtn.GetComponent<Button>().onClick.RemoveAllListeners();
             itemBtn.GetComponent<Button>().onClick.AddListener(() => mAction(mShopItemData));
         }
 
