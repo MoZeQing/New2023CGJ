@@ -274,5 +274,7 @@ public enum EventTag
     AddScene,//增加场景
     Test,
     Jump,
-    ShowFlag//展示所有的Flag数据
+    ShowFlag,//展示所有的Flag数据
+    AddBuff,//增加buff
+    RemoveBuff//卸载buff
 }

@@ -127,13 +127,14 @@ namespace GameMain
                     GameEntry.UI.OpenUIForm(UIFormId.MainForm);
                     return;
                 }
-                GameEntry.Utils.Energy -= behavior.playerData.energy;
+                BuffData buffData = GameEntry.Buff.GetBuff();
+                GameEntry.Utils.Energy -= (int)Mathf.Clamp((behavior.playerData.energy*buffData.EnergyMulti+buffData.EnergyPlus),0,9999999);
                 GameEntry.Utils.Money -= behavior.playerData.money;
                 GameEntry.Utils.MaxEnergy -= behavior.playerData.maxEnergy;
                 GameEntry.Utils.Ap -= behavior.playerData.ap;
                 GameEntry.Utils.MaxAp -= behavior.playerData.maxAp;
 
-                GameEntry.Utils.Favor += behavior.catData.favour;
+                GameEntry.Utils.Favor += (int)(behavior.catData.favour * buffData.FavorMulti + buffData.FavorPlus);
                 GameEntry.Utils.Love+= behavior.catData.love;
                 GameEntry.Utils.Family += behavior.catData.family;
             }
@@ -234,7 +235,8 @@ namespace GameMain
             PlayerData playerData= playerDataEvent.PlayerData;
             //rentText.transform.parent.gameObject.SetActive(GameEntry.Utils.Rent != 0);
             //rentText.text = string.Format("距离下一次欠款缴纳还有{0}天\r\n下一次交纳欠款：{1}",6-(playerData.day + 20) % 7, GameEntry.Utils.Rent.ToString());
-            energyText.text = string.Format("{0}/{1}", playerData.energy, playerData.maxEnergy);
+            BuffData buffData = GameEntry.Buff.GetBuff();
+            energyText.text = string.Format("{0}/{1}", playerData.energy, playerData.maxEnergy*buffData.EnergyMaxMulti+buffData.EnergyMaxPlus);
             moneyText.text=string.Format("{0}", playerData.money.ToString());
             timeText.text = string.Format("{0}月{1}日 星期{2}", (4 + (playerData.day + 19) / 28) % 12 + 1, (playerData.day + 19) % 28 + 1, AssetUtility.GetWeekCN((playerData.day + 20) % 7));
         }

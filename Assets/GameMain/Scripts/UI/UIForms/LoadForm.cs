@@ -64,6 +64,7 @@ namespace GameMain
             GameEntry.Utils.WorkDatas = saveLoadData.workDatas;
             GameEntry.Dialog.LoadGame(saveLoadData.storyData,saveLoadData.levelData);
             GameEntry.Player.LoadGame(saveLoadData);
+            GameEntry.Buff.AddBuff(saveLoadData.buffs);
             GameEntry.Utils.outingSceneStates.Clear();
             foreach (OutingSceneState outingSceneState in saveLoadData.outingSceneStates)
             {

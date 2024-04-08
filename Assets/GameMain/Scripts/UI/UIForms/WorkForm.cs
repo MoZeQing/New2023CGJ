@@ -133,7 +133,8 @@ namespace GameMain
         }
         private void SetData(int time,int energy,float orderPower,float pricePower)
         {
-            levelTime = time;//3����
+            BuffData buffData = GameEntry.Buff.GetBuff();
+            levelTime = (int)(time*buffData.TimeMulti + buffData.TimePlus);//3����
             nowTime = levelTime;
             GameEntry.Utils.Energy -= energy;
             GameEntry.Utils.OrderPower = orderPower;

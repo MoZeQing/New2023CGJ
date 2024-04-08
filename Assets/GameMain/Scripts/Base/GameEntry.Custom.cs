@@ -46,6 +46,12 @@ namespace GameMain
             private set;    
         }
 
+        public static BuffComponent Buff
+        {
+            get;
+            private set;
+        }
+
         private static void InitCustomComponents()
         {
             Utils = UnityGameFramework.Runtime.GameEntry.GetComponent<UtilsComponent>();
@@ -53,6 +59,7 @@ namespace GameMain
             Cat = UnityGameFramework.Runtime.GameEntry.GetComponent<CatComponent>();
             SaveLoad = UnityGameFramework.Runtime.GameEntry.GetComponent<SaveLoadComponent>();
             Player = UnityGameFramework.Runtime.GameEntry.GetComponent<PlayerComponent>();
+            Buff= UnityGameFramework.Runtime.GameEntry.GetComponent<BuffComponent>();
         }
     }
 }

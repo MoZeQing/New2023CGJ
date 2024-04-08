@@ -39,7 +39,8 @@ namespace GameMain
 
         private void OnClick()
         {
-            mAction();
+            if (BaseFormData.Action != null)
+                BaseFormData.Action();
             GameEntry.UI.CloseUIForm(this.UIForm);
         }
     }

@@ -26,7 +26,8 @@ namespace GameMain
             "Sound",
             "Recipe",
             "Item",
-            "Bench"
+            "Bench",
+            "Buff"
         };
 
         private Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>();

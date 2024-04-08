@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-04-08 21:09:53.138
+// 生成时间：2024-04-08 21:09:53.152
 //------------------------------------------------------------
 
 using GameFramework;
@@ -19,14 +19,14 @@ using UnityGameFramework.Runtime;
 namespace GameMain
 {
     /// <summary>
-    /// Node配置文件。
+    /// Buff配置文件(所有的数值都以100为底，也就是实际数值会除于100)。
     /// </summary>
-    public class DRNode : DataRowBase
+    public class DRBuff : DataRowBase
     {
         private int m_Id = 0;
 
         /// <summary>
-        /// 获取节点ID。
+        /// 获取BuffID。
         /// </summary>
         public override int Id
         {
@@ -37,108 +37,117 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取资源名称。
+        /// 获取buff的名称。
         /// </summary>
-        public string AssetName
+        public string BuffName
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取精灵路径。
+        /// 获取buffIcon的路径。
         /// </summary>
-        public string SpritePath
+        public string IconPath
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取图片路径。
+        /// 获取buff描述。
         /// </summary>
-        public string ImagePath
+        public string BuffText
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取是否是原材料。
+        /// 获取金钱乘法（仅在结算时有效）。
         /// </summary>
-        public bool Material
+        public int MoneyMulti
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取是否是工具。
+        /// 获取金钱加法。
         /// </summary>
-        public bool Tool
+        public int MoneyPlus
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取是否是咖啡。
+        /// 获取体力乘法。
         /// </summary>
-        public bool Coffee
+        public int EnergyMulti
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取是否是冰咖啡。
+        /// 获取体力加法。
         /// </summary>
-        public bool Ice
+        public int EnergyPlus
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取所在层。
+        /// 获取体力上限乘法。
         /// </summary>
-        public string Layer
+        public int EnergyMaxMulti
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取所在层级。
+        /// 获取体力上限加法。
         /// </summary>
-        public int Layerint
+        public int EnergyMaxPlus
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取价格。
+        /// 获取信任乘法。
         /// </summary>
-        public int Price
+        public int FavorMulti
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取描述。
+        /// 获取信任加法。
         /// </summary>
-        public string Description
+        public int FavorPlus
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取制作的合理时间。
+        /// 获取时间乘法。
         /// </summary>
-        public int Time
+        public int TimeMulti
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取时间加法。
+        /// </summary>
+        public int TimePlus
         {
             get;
             private set;
@@ -156,18 +165,19 @@ namespace GameMain
             index++;
             m_Id = int.Parse(columnStrings[index++]);
             index++;
-            AssetName = columnStrings[index++];
-            SpritePath = columnStrings[index++];
-            ImagePath = columnStrings[index++];
-            Material = bool.Parse(columnStrings[index++]);
-            Tool = bool.Parse(columnStrings[index++]);
-            Coffee = bool.Parse(columnStrings[index++]);
-            Ice = bool.Parse(columnStrings[index++]);
-            Layer = columnStrings[index++];
-            Layerint = int.Parse(columnStrings[index++]);
-            Price = int.Parse(columnStrings[index++]);
-            Description = columnStrings[index++];
-            Time = int.Parse(columnStrings[index++]);
+            BuffName = columnStrings[index++];
+            IconPath = columnStrings[index++];
+            BuffText = columnStrings[index++];
+            MoneyMulti = int.Parse(columnStrings[index++]);
+            MoneyPlus = int.Parse(columnStrings[index++]);
+            EnergyMulti = int.Parse(columnStrings[index++]);
+            EnergyPlus = int.Parse(columnStrings[index++]);
+            EnergyMaxMulti = int.Parse(columnStrings[index++]);
+            EnergyMaxPlus = int.Parse(columnStrings[index++]);
+            FavorMulti = int.Parse(columnStrings[index++]);
+            FavorPlus = int.Parse(columnStrings[index++]);
+            TimeMulti = int.Parse(columnStrings[index++]);
+            TimePlus = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -180,18 +190,19 @@ namespace GameMain
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
-                    AssetName = binaryReader.ReadString();
-                    SpritePath = binaryReader.ReadString();
-                    ImagePath = binaryReader.ReadString();
-                    Material = binaryReader.ReadBoolean();
-                    Tool = binaryReader.ReadBoolean();
-                    Coffee = binaryReader.ReadBoolean();
-                    Ice = binaryReader.ReadBoolean();
-                    Layer = binaryReader.ReadString();
-                    Layerint = binaryReader.Read7BitEncodedInt32();
-                    Price = binaryReader.Read7BitEncodedInt32();
-                    Description = binaryReader.ReadString();
-                    Time = binaryReader.Read7BitEncodedInt32();
+                    BuffName = binaryReader.ReadString();
+                    IconPath = binaryReader.ReadString();
+                    BuffText = binaryReader.ReadString();
+                    MoneyMulti = binaryReader.Read7BitEncodedInt32();
+                    MoneyPlus = binaryReader.Read7BitEncodedInt32();
+                    EnergyMulti = binaryReader.Read7BitEncodedInt32();
+                    EnergyPlus = binaryReader.Read7BitEncodedInt32();
+                    EnergyMaxMulti = binaryReader.Read7BitEncodedInt32();
+                    EnergyMaxPlus = binaryReader.Read7BitEncodedInt32();
+                    FavorMulti = binaryReader.Read7BitEncodedInt32();
+                    FavorPlus = binaryReader.Read7BitEncodedInt32();
+                    TimeMulti = binaryReader.Read7BitEncodedInt32();
+                    TimePlus = binaryReader.Read7BitEncodedInt32();
                 }
             }
 

@@ -89,16 +89,16 @@ namespace GameMain
             settleText.text += string.Format("主营业务收入：{0}\n", mWorkData.Income);
             settleText.text += string.Format("主营业务成本:{0}\n", mWorkData.Cost);
             settleText.text += string.Format("当期净利润:{0}\n", mWorkData.Income - mWorkData.Cost - mWorkData.Administration - mWorkData.Financial);
-
-            GameEntry.Utils.Money += mWorkData.Income;
         }
 
         private void OnClick()
         {
             //if (mIsRandom)
             //{
-                GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Afternoon));
-                GameEntry.UI.CloseUIForm(this.UIForm);
+            GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Afternoon));
+            GameEntry.UI.CloseUIForm(this.UIForm);
+            BuffData buffData = GameEntry.Buff.GetBuff();
+            GameEntry.Utils.Money += (int)(mWorkData.Income*buffData.MoneyMulti+buffData.MoneyPlus);
             //}
             //else
             //{ 

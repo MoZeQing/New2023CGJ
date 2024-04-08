@@ -114,6 +114,7 @@ namespace GameMain
                 if (!drrecipes[i].IsCoffee)
                     GameEntry.Player.AddRecipe(drrecipes[i].Id);
             }
+            GameEntry.Buff.InitBuff();
             GameEntry.Player.RemoveRecipe(2);
             GameEntry.Player.AddRecipes(new int[] { 19, 20, 21, 22, 11, 12, 16, 17, 15, 13, 14, 18,34,35 });
         }
@@ -132,6 +133,7 @@ namespace GameMain
             saveLoadData.storyData = GameEntry.Dialog.LoadedStories;
             saveLoadData.levelData = GameEntry.Dialog.LoadedLevels;
             saveLoadData.flagValue = GameEntry.Utils._flagValues;
+            saveLoadData.buffs=GameEntry.Buff.GetData();
             foreach (RecipeData recipeData in GameEntry.Player.recipes)
             {
                 saveLoadData.recipes.Add(recipeData.Id);
@@ -221,6 +223,7 @@ namespace GameMain
         public int closet;
         public CharData charData;
         public PlayerData playerData;
+        public List<int> buffs = new List<int>();
         public List<string> storyData = new List<string>();
         public List<string> levelData = new List<string>();
         public List<WorkData> workDatas= new List<WorkData>();

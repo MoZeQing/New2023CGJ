@@ -54,6 +54,8 @@ namespace GameMain
         public Dictionary<string, RecipeData> recipes = new Dictionary<string, RecipeData>();
         public Dictionary<string, CharSO> chars= new Dictionary<string ,CharSO>();
 
+ //       private List<>
+
         public void AddFriendFavor(string name,int favor)
         {
             if (!_friends.ContainsKey(name))
@@ -239,8 +241,9 @@ namespace GameMain
             }
             set
             {
-                if (value > MaxEnergy)
-                    mPlayerData.energy = MaxEnergy;
+                BuffData buffData = GameEntry.Buff.GetBuff();
+                if (value > MaxEnergy * buffData.EnergyMaxMulti + buffData.EnergyMaxPlus)
+                    mPlayerData.energy = (int)(MaxEnergy * buffData.EnergyMaxMulti + buffData.EnergyMaxPlus);
                 else
                     mPlayerData.energy = value;
                 _values[TriggerTag.Energy] = mPlayerData.energy.ToString();
@@ -569,6 +572,12 @@ namespace GameMain
                     return true;
                 case EventTag.Test:
                     GameEntry.Event.FireNow(this, ValueEventArgs.Create(PropertyTag.Energy,"成功"));
+                    return true;
+                case EventTag.AddBuff:
+                    GameEntry.Buff.AddBuff(int.Parse(eventData.value));
+                    return true;
+                case EventTag.RemoveBuff:
+                    GameEntry.Buff.RemoveBuff(int.Parse(eventData.value));
                     return true;
             }
             return false;
