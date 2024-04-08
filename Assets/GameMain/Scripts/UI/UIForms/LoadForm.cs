@@ -53,6 +53,7 @@ namespace GameMain
 
         private void LoadGame(int index)
         {
+            GameEntry.SaveLoad.LoadData();
             SaveLoadData saveLoadData = GameEntry.SaveLoad.LoadGame(index);
             GameEntry.SaveLoad.InitData();
             GameEntry.Utils.PlayerData = saveLoadData.playerData;
@@ -62,6 +63,7 @@ namespace GameMain
             GameEntry.Utils.Flags = saveLoadData.flags;
             GameEntry.Utils._flagValues = saveLoadData.flagValue;
             GameEntry.Utils.WorkDatas = saveLoadData.workDatas;
+            GameEntry.Utils._friends = saveLoadData.friends;
             GameEntry.Dialog.LoadGame(saveLoadData.storyData,saveLoadData.levelData);
             GameEntry.Player.LoadGame(saveLoadData);
             GameEntry.Buff.AddBuff(saveLoadData.buffs);
@@ -78,7 +80,6 @@ namespace GameMain
             GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Night));
             GameEntry.UI.OpenUIForm(UIFormId.ChangeForm);
             GameEntry.UI.CloseUIForm(this.UIForm);
-            GameEntry.SaveLoad.LoadData();
             LoadData();
         }
     }

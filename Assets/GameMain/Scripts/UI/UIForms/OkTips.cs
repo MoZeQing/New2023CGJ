@@ -21,6 +21,7 @@ namespace GameMain
             base.OnOpen(userData);
             mAction = BaseFormData.Action;
             titleText.text = BaseFormData.UserData.ToString();
+            titleText.text= titleText.text.Replace("\\n", "\n");
             okBtn.onClick.AddListener(OnClick);
             cancelBtn.onClick.AddListener(() => GameEntry.UI.CloseUIForm(this.UIForm));
         }

@@ -93,7 +93,6 @@ namespace GameMain
         {
             GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
             GameEntry.Utils.Location = OutingSceneState.Home;
-            GameEntry.Dialog.StoryUpdate();
             GameEntry.UI.CloseUIForm(this.UIForm);
         }
     }

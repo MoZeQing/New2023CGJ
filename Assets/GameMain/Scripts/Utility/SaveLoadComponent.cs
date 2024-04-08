@@ -129,6 +129,7 @@ namespace GameMain
             saveLoadData.playerData = GameEntry.Utils.PlayerData;
             saveLoadData.charData= GameEntry.Utils.CharData;
             saveLoadData.flags= GameEntry.Utils.Flags;
+            saveLoadData.friends = GameEntry.Utils._friends;
             saveLoadData.workDatas = GameEntry.Utils.WorkDatas;
             saveLoadData.storyData = GameEntry.Dialog.LoadedStories;
             saveLoadData.levelData = GameEntry.Dialog.LoadedLevels;
@@ -229,6 +230,7 @@ namespace GameMain
         public List<WorkData> workDatas= new List<WorkData>();
         public List<string> flags=  new List<string>();
         public Dictionary<string, int> flagValue = new Dictionary<string, int>();
+        public Dictionary<string, int> friends = new Dictionary<string, int>();//ºÃÓÑ×Öµä
         public List<int> recipes = new List<int>();
         public List<int> outingSceneStates = new List<int>();
     }

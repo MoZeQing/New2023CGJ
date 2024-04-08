@@ -102,12 +102,6 @@ namespace GameMain
         {
             GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
             GameEntry.Utils.outingBefore = false;
-            GameEntry.Dialog.StoryUpdate();
-            OnGameStateChange();
-        }
-
-        private void OnGameStateChange()
-        {
             GameEntry.Utils.Location = OutingSceneState.Home;
             GameEntry.UI.CloseUIForm(this.UIForm);
         }
