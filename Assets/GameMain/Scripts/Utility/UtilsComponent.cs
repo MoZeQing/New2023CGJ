@@ -36,13 +36,13 @@ namespace GameMain
         }
         //接下来尽可能使得utils只用于存储资源信息，而数据信息都给其它的类
         //���ݹ���������
-        private Dictionary<TriggerTag,string> _values= new Dictionary<TriggerTag,string>();
-        private List<string> _flags= new List<string>();
+        private Dictionary<TriggerTag, string> _values = new Dictionary<TriggerTag, string>();
+        private List<string> _flags = new List<string>();
         public Dictionary<string, int> _flagValues = new Dictionary<string, int>();
 
-        private List<WorkData> mWorkDatas= new List<WorkData>();
+        private List<WorkData> mWorkDatas = new List<WorkData>();
 
-        private CharData mCharData=new CharData();
+        private CharData mCharData = new CharData();
         private PlayerData mPlayerData = new PlayerData();
         private OutingSceneState mLocation;
         private GameState mGameState;
@@ -52,11 +52,11 @@ namespace GameMain
         public bool outingBefore;
 
         public Dictionary<string, RecipeData> recipes = new Dictionary<string, RecipeData>();
-        public Dictionary<string, CharSO> chars= new Dictionary<string ,CharSO>();
+        public Dictionary<string, CharSO> chars = new Dictionary<string, CharSO>();
 
- //       private List<>
+        //       private List<>
 
-        public void AddFriendFavor(string name,int favor)
+        public void AddFriendFavor(string name, int favor)
         {
             if (!_friends.ContainsKey(name))
                 _friends.Add(name, favor);
@@ -84,7 +84,7 @@ namespace GameMain
         public Dictionary<string, int> _friends = new Dictionary<string, int>();//好友字典
 
         public void ClearPlayerItem()
-        { 
+        {
             mPlayerData.items.Clear();
         }
 
@@ -99,7 +99,7 @@ namespace GameMain
                 GetPlayerItem(itemData.itemTag).itemNum += num;
             }
         }
-        public void AddPlayerItem(ItemData itemData, int num,bool equip)
+        public void AddPlayerItem(ItemData itemData, int num, bool equip)
         {
             if (GetPlayerItem(itemData.itemTag) == null)
             {
@@ -132,9 +132,9 @@ namespace GameMain
             {
                 return mPlayerData;
             }
-            set 
-            { 
-                mPlayerData= value;
+            set
+            {
+                mPlayerData = value;
             }
         }
         public CharData CharData
@@ -155,8 +155,8 @@ namespace GameMain
                 return _flags;
             }
             set
-            { 
-                _flags= value;
+            {
+                _flags = value;
             }
         }
         public List<WorkData> WorkDatas
@@ -167,7 +167,7 @@ namespace GameMain
             }
             set
             {
-                mWorkDatas= value;
+                mWorkDatas = value;
             }
         }
         public BehaviorTag BehaviorTag
@@ -177,9 +177,9 @@ namespace GameMain
                 return mBehaviorTag;
             }
             set
-            { 
-                mBehaviorTag= value;
-                _values[TriggerTag.BehaviorTag]=mBehaviorTag.ToString();
+            {
+                mBehaviorTag = value;
+                _values[TriggerTag.BehaviorTag] = mBehaviorTag.ToString();
             }
         }
         public Week Week
@@ -189,8 +189,8 @@ namespace GameMain
                 return mWeek;
             }
             set
-            { 
-                mWeek= value;
+            {
+                mWeek = value;
                 _values[TriggerTag.Week] = mWeek.ToString();
             }
         }
@@ -201,8 +201,8 @@ namespace GameMain
                 return mGameState;
             }
             set
-            { 
-                mGameState= value;
+            {
+                mGameState = value;
                 GameEntry.Event.FireNow(this, GameStateEventArgs.Create(mGameState));
                 _values[TriggerTag.TimeTag] = mGameState.ToString();
             }
@@ -214,8 +214,8 @@ namespace GameMain
                 return mLocation;
             }
             set
-            { 
-                mLocation= value;
+            {
+                mLocation = value;
                 _values[TriggerTag.Location] = mLocation.ToString();
             }
         }
@@ -227,7 +227,7 @@ namespace GameMain
                 return mPlayerData.money;
             }
             set
-            { 
+            {
                 mPlayerData.money = value;
                 _values[TriggerTag.Money] = mPlayerData.money.ToString();
                 GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
@@ -311,9 +311,9 @@ namespace GameMain
                 return mPlayerData.rent;
             }
             set
-            { 
+            {
                 mPlayerData.rent = value;
-                _values[TriggerTag.Rent]=mPlayerData.rent.ToString();
+                _values[TriggerTag.Rent] = mPlayerData.rent.ToString();
                 GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
             }
         }
@@ -397,18 +397,18 @@ namespace GameMain
             }
         }
         public bool CheckFlag(string key)
-        { 
+        {
             return _flags.Contains(key);
         }
-        public bool CheckFlag(string key,int value)
+        public bool CheckFlag(string key, int value)
         {
             if (_flagValues.ContainsKey(key))
                 return _flagValues[key] == value;
             return false;
         }
         public void AddFlag(string flag)
-        { 
-            if(!_flags.Contains(flag))
+        {
+            if (!_flags.Contains(flag))
                 _flags.Add(flag);
             if (_flagValues.ContainsKey(flag))
             {
@@ -420,8 +420,8 @@ namespace GameMain
             }
         }
         public void RemoveFlag(string flag)
-        { 
-            if(_flags.Contains(flag))
+        {
+            if (_flags.Contains(flag))
                 _flags.Remove(flag);
             if (_flagValues.ContainsKey(flag))
                 _flagValues.Remove(flag);
@@ -464,11 +464,11 @@ namespace GameMain
             if (trigger.key == TriggerTag.None)
                 return true;
             if (trigger.key == TriggerTag.Flag)
-                return _flags.Contains(trigger.value)!=trigger.not;
+                return _flags.Contains(trigger.value) != trigger.not;
             if (trigger.key == TriggerTag.FlagCount)
             {
                 string[] strings = trigger.value.Split('|');
-                if(!trigger.not)
+                if (!trigger.not)
                     return CheckFlag(strings[0], int.Parse(strings[1]));
                 else
                     return !CheckFlag(strings[0], int.Parse(strings[1]));
@@ -500,6 +500,16 @@ namespace GameMain
                 }
             }
         }
+        public bool RunEvent(string text)
+        {
+            string[] console = text.Split(' ');
+            EventData eventData = new EventData();
+            EventTag eventEnum = (EventTag)Enum.Parse(typeof(EventTag), console[0]);
+            eventData.eventTag = eventEnum;
+            eventData.value = console[1];
+            return RunEvent(eventData);
+        }
+
         public bool RunEvent(EventData eventData)
         {
             switch (eventData.eventTag)

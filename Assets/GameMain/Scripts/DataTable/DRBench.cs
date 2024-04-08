@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-04-08 21:09:53.150
+// 生成时间：2024-04-08 22:38:32.659
 //------------------------------------------------------------
 
 using GameFramework;
@@ -84,7 +84,7 @@ namespace GameMain
         /// <summary>
         /// 获取获得的buff。
         /// </summary>
-        public string Buff
+        public List<String> Buff
         {
             get;
             private set;
@@ -107,7 +107,7 @@ namespace GameMain
             Money = int.Parse(columnStrings[index++]);
             Energy = int.Parse(columnStrings[index++]);
             EnergyMax = int.Parse(columnStrings[index++]);
-            Buff = columnStrings[index++];
+            Buff = DataTableExtension.ParseListString(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -125,7 +125,7 @@ namespace GameMain
                     Money = binaryReader.Read7BitEncodedInt32();
                     Energy = binaryReader.Read7BitEncodedInt32();
                     EnergyMax = binaryReader.Read7BitEncodedInt32();
-                    Buff = binaryReader.ReadString();
+                    Buff = binaryReader.ReadListString();
                 }
             }
 

@@ -45,7 +45,7 @@ namespace GameMain
                 GameObject go = Instantiate(foodItemPre, canvas);
                 FoodItem item = go.GetComponent<FoodItem>();
                 item.SetData(itemData);
-                item.SetClick(OnGameStateChange);
+                //item.SetClick(OnGameStateChange);
                 item.SetTouch(OnTouch);
                 mItems.Add(item);
             }
@@ -76,13 +76,6 @@ namespace GameMain
         private void OnExit()
         {
             GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
-            GameEntry.Utils.outingBefore = false;
-            GameEntry.Dialog.StoryUpdate();
-            OnGameStateChange();
-        }
-
-        private void OnGameStateChange()
-        {
             GameEntry.Utils.Location = OutingSceneState.Home;
             GameEntry.UI.CloseUIForm(this.UIForm);
         }

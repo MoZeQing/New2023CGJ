@@ -55,6 +55,10 @@ namespace GameMain
             GameEntry.Utils.Energy += dRBench.Energy;
             GameEntry.Utils.MaxEnergy += dRBench.EnergyMax;
             GameEntry.Utils.Money+= dRBench.Money;
+            foreach (string eventData in dRBench.Buff)
+            {
+                GameEntry.Utils.RunEvent(eventData);
+            }
             okBtn.gameObject.SetActive(true);
             exitBtn.interactable = false;
         }
@@ -62,8 +66,6 @@ namespace GameMain
         private void OnExit()
         {
             GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
-            GameEntry.Utils.outingBefore = false;
-            GameEntry.Dialog.StoryUpdate();
             GameEntry.Utils.Location = OutingSceneState.Home;
             GameEntry.UI.CloseUIForm(this.UIForm);
         }
