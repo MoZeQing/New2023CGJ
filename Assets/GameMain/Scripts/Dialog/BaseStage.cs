@@ -32,8 +32,6 @@ public class BaseStage : MonoBehaviour
                     continue;
                 mChars[i] = baseCharacter;
                 mChars[i].transform.position = mPositions[(int)dialogPos].transform.position+ mChars[i].mCharSO.offset;
-                Debug.Log(mChars[i].transform.position);
-                mChars[i].transform.localScale *= mChars[i].mCharSO.scale;
                 mChars[i].gameObject.SetActive(true);
             }
             else
@@ -69,6 +67,7 @@ public class BaseStage : MonoBehaviour
             BaseCharacter baseCharacter = charObj.GetComponent<BaseCharacter>();
             baseCharacter.SetData(charSO);
             mCharChace.Add(charSO, baseCharacter);
+            baseCharacter.transform.localScale *= charSO.scale;
         }
         SetDialogPos(mCharChace[charSO], pos);
         mCharChace[charSO].SetAction(charData.actionData);
