@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9d3fe38b58a1ff4cbfd1f6e24dcdd50, type: 3}
   m_Name: Chapter2_2_Regular_after
   m_EditorClassIdentifier: 
-  unLoad: 1
+  unLoad: 0
   isRemove: 1
   outingSceneState: -1
   outingBefore: 0
@@ -22,7 +22,37 @@ MonoBehaviour:
     not: 0
     equals: 0
     value: 15
-    and: []
+    and:
+    - key: 1
+      not: 0
+      equals: 1
+      value: Flag_Chapter_2_Fiction_end
+      and: []
+      or: []
+    - key: 1
+      not: 0
+      equals: 1
+      value: Flag_Chapter_2_Dog_end
+      and: []
+      or: []
+    - key: 1
+      not: 0
+      equals: 1
+      value: Flag_Chapter_2_Money_end
+      and: []
+      or: []
+    - key: 1
+      not: 0
+      equals: 1
+      value: Flag_Chapter_2_Witch_end
+      and: []
+      or: []
+    - key: 1
+      not: 0
+      equals: 1
+      value: Flag_Chapter_2_Courier_end
+      and: []
+      or: []
     or: []
   dialogueGraph: {fileID: 11400000, guid: a8b008385c183984caa8fb20492cf97b, type: 2}
   eventDatas: []
