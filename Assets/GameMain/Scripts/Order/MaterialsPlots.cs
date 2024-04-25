@@ -55,6 +55,7 @@ public class MaterialsPlots : MonoBehaviour,IPointerDownHandler
             {
                 text.text = GameEntry.Utils.GetPlayerItem((ItemTag)(int)nodeTag).itemNum.ToString();
                 text.color = Color.red;
+                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "ÄãµÄ²ÄÁÏ²»×ã");
                 return;
             }
             GameEntry.Utils.GetPlayerItem((ItemTag)(int)nodeTag).itemNum--;
