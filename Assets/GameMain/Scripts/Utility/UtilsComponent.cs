@@ -121,6 +121,7 @@ namespace GameMain
             }
             return null;
         }
+
         //����WorkData
         public void AddWork(WorkData workData)
         {
@@ -612,6 +613,10 @@ namespace GameMain
         public int burnisherID;
         public int stirrerID;
         public int pressID;
+        public int cafeID=1;
+        public int acoffee;
+        public int bcoffee;
+        public int ccoffee;
         public List<PlayerItemData> items=new List<PlayerItemData>();
         //public int time;
     }

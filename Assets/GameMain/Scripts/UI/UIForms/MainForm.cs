@@ -24,6 +24,7 @@ namespace GameMain
         [SerializeField] private Button saveBtn;
         [SerializeField] private Button optionBtn;
         [SerializeField] private Button guideBtn;
+        [SerializeField] private Button upgradeBtn;
         [SerializeField] private Button friendBtn;
         [SerializeField] private Button recipeBtn;
         [SerializeField] private Button warehouseBtn;
@@ -48,6 +49,7 @@ namespace GameMain
             //guideBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.GuideForm));
             friendBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.FriendForm));
             recipeBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.GuideForm));
+            upgradeBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.UpgradeForm));
             warehouseBtn.onClick.AddListener(() => Change(GamePos.Left));
             outBtn.onClick.AddListener(() => Change(GamePos.Right));
             backBtn_1.onClick.AddListener(() => Change(GamePos.Up));
@@ -79,6 +81,7 @@ namespace GameMain
             friendBtn.onClick.RemoveAllListeners();
             recipeBtn.onClick.RemoveAllListeners();
             warehouseBtn.onClick.RemoveAllListeners();
+            upgradeBtn.onClick.RemoveAllListeners();
             outBtn.onClick.RemoveAllListeners();
             backBtn_1.onClick.RemoveAllListeners();
             backBtn_2.onClick.RemoveAllListeners();

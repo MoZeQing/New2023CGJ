@@ -38,6 +38,7 @@ namespace GameMain
         FriendForm=55,
         UnlockForm=56,
         InstrumentForm=57,
+        UpgradeForm=58,
         PopTips =100,
         HighlightTips=101,
         PropertyTips=102,

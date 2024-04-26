@@ -59,7 +59,13 @@ namespace GameMain
         {
             recipes.Clear();
         }
-
+        public void AddRecipes(string[] indexs)
+        {
+            foreach (string index in indexs)
+            {
+                AddRecipe(int.Parse(index));
+            }
+        }
         public void AddRecipes(int[] indexs)
         {
             foreach (int index in indexs)

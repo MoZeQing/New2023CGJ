@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-04-26 16:09:25.072
+// 生成时间：2024-04-26 16:09:25.076
 //------------------------------------------------------------
 
 using GameFramework;
@@ -19,14 +19,14 @@ using UnityGameFramework.Runtime;
 namespace GameMain
 {
     /// <summary>
-    /// Buff配置文件(所有的数值都以100为底，也就是实际数值会除于100)。
+    /// 升级配置表。
     /// </summary>
-    public class DRBuff : DataRowBase
+    public class DRUpgrade : DataRowBase
     {
         private int m_Id = 0;
 
         /// <summary>
-        /// 获取BuffID。
+        /// 获取等级编号。
         /// </summary>
         public override int Id
         {
@@ -37,117 +37,99 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取buff的名称。
+        /// 获取标签代号。
         /// </summary>
-        public string BuffName
+        public string TagIcon
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取buffIcon的路径。
+        /// 获取优先级（默认0，128最高，-128最低）。
         /// </summary>
-        public string IconPath
+        public string Text
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取buff描述。
+        /// 获取A级咖啡要求。
         /// </summary>
-        public string BuffText
+        public int ACoffee
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取金钱乘法（仅在结算时有效）。
+        /// 获取B级咖啡要求。
         /// </summary>
-        public int MoneyMulti
+        public int BCoffee
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取金钱加法。
+        /// 获取C级咖啡要求。
         /// </summary>
-        public int MoneyPlus
+        public int CCoffee
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取体力乘法。
+        /// 获取咖啡总量。
         /// </summary>
-        public int EnergyMulti
+        public int Total
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取体力加法。
+        /// 获取金钱要求。
         /// </summary>
-        public int EnergyPlus
+        public int Money
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取体力上限乘法。
+        /// 获取解锁的咖啡。
         /// </summary>
-        public int EnergyMaxMulti
+        public string UnlockCoffee
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取体力上限加法。
+        /// 获取数值增长（x/100）。
         /// </summary>
-        public int EnergyMaxPlus
+        public int Increase
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取信任乘法。
+        /// 获取其它buff。
         /// </summary>
-        public int FavorMulti
+        public string Buff
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取信任加法。
+        /// 获取升级的目标ID。
         /// </summary>
-        public int FavorPlus
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取时间乘法。
-        /// </summary>
-        public int TimeMulti
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取时间加法。
-        /// </summary>
-        public int TimePlus
+        public int UpgradeID
         {
             get;
             private set;
@@ -165,19 +147,17 @@ namespace GameMain
             index++;
             m_Id = int.Parse(columnStrings[index++]);
             index++;
-            BuffName = columnStrings[index++];
-            IconPath = columnStrings[index++];
-            BuffText = columnStrings[index++];
-            MoneyMulti = int.Parse(columnStrings[index++]);
-            MoneyPlus = int.Parse(columnStrings[index++]);
-            EnergyMulti = int.Parse(columnStrings[index++]);
-            EnergyPlus = int.Parse(columnStrings[index++]);
-            EnergyMaxMulti = int.Parse(columnStrings[index++]);
-            EnergyMaxPlus = int.Parse(columnStrings[index++]);
-            FavorMulti = int.Parse(columnStrings[index++]);
-            FavorPlus = int.Parse(columnStrings[index++]);
-            TimeMulti = int.Parse(columnStrings[index++]);
-            TimePlus = int.Parse(columnStrings[index++]);
+            TagIcon = columnStrings[index++];
+            Text = columnStrings[index++];
+            ACoffee = int.Parse(columnStrings[index++]);
+            BCoffee = int.Parse(columnStrings[index++]);
+            CCoffee = int.Parse(columnStrings[index++]);
+            Total = int.Parse(columnStrings[index++]);
+            Money = int.Parse(columnStrings[index++]);
+            UnlockCoffee = columnStrings[index++];
+            Increase = int.Parse(columnStrings[index++]);
+            Buff = columnStrings[index++];
+            UpgradeID = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -190,19 +170,17 @@ namespace GameMain
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
-                    BuffName = binaryReader.ReadString();
-                    IconPath = binaryReader.ReadString();
-                    BuffText = binaryReader.ReadString();
-                    MoneyMulti = binaryReader.Read7BitEncodedInt32();
-                    MoneyPlus = binaryReader.Read7BitEncodedInt32();
-                    EnergyMulti = binaryReader.Read7BitEncodedInt32();
-                    EnergyPlus = binaryReader.Read7BitEncodedInt32();
-                    EnergyMaxMulti = binaryReader.Read7BitEncodedInt32();
-                    EnergyMaxPlus = binaryReader.Read7BitEncodedInt32();
-                    FavorMulti = binaryReader.Read7BitEncodedInt32();
-                    FavorPlus = binaryReader.Read7BitEncodedInt32();
-                    TimeMulti = binaryReader.Read7BitEncodedInt32();
-                    TimePlus = binaryReader.Read7BitEncodedInt32();
+                    TagIcon = binaryReader.ReadString();
+                    Text = binaryReader.ReadString();
+                    ACoffee = binaryReader.Read7BitEncodedInt32();
+                    BCoffee = binaryReader.Read7BitEncodedInt32();
+                    CCoffee = binaryReader.Read7BitEncodedInt32();
+                    Total = binaryReader.Read7BitEncodedInt32();
+                    Money = binaryReader.Read7BitEncodedInt32();
+                    UnlockCoffee = binaryReader.ReadString();
+                    Increase = binaryReader.Read7BitEncodedInt32();
+                    Buff = binaryReader.ReadString();
+                    UpgradeID = binaryReader.Read7BitEncodedInt32();
                 }
             }
 
