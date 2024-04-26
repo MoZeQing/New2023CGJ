@@ -33,6 +33,7 @@ namespace GameMain
 
             videoPlayer.targetTexture = renderTexture;
 
+            OnClick(GameEntry.DataTable.GetDataTable<DRGuide>().GetDataRow(0));
             for (int i=0;i<buttons.Count;i++)
             {
                 buttons[i].onClick.AddListener(() => OnClick(GameEntry.DataTable.GetDataTable<DRGuide>().GetDataRow(i)));
@@ -59,7 +60,9 @@ namespace GameMain
 
         private void OnClick(DRGuide dRGuide)
         {
-            videoPlayer.clip = (VideoClip)Resources.Load<VideoClip>(dRGuide.VideoPath);
+            videoPlayer.clip= (VideoClip)Resources.Load<VideoClip>(dRGuide.VideoPath);
+            videoPlayer.Play();
+            image.color = Color.white;
             text.text = dRGuide.Text;
         }
     }
