@@ -36,7 +36,8 @@ namespace GameMain
             OnClick(GameEntry.DataTable.GetDataTable<DRGuide>().GetDataRow(0));
             for (int i=0;i<buttons.Count;i++)
             {
-                buttons[i].onClick.AddListener(() => OnClick(GameEntry.DataTable.GetDataTable<DRGuide>().GetDataRow(i)));
+                DRGuide dRGuide = GameEntry.DataTable.GetDataTable<DRGuide>().GetDataRow(i);
+                buttons[i].onClick.AddListener(() => OnClick(dRGuide));
             }
             exitBtn.onClick.AddListener(() => GameEntry.UI.CloseUIForm(this.UIForm));
         }
