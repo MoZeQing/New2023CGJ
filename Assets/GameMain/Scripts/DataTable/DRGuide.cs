@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-04-27 00:49:18.998
+// 生成时间：2024-04-27 00:49:19.010
 //------------------------------------------------------------
 
 using GameFramework;
@@ -19,14 +19,14 @@ using UnityGameFramework.Runtime;
 namespace GameMain
 {
     /// <summary>
-    /// level配置文件。
+    /// 教学配置表。
     /// </summary>
-    public class DRBench : DataRowBase
+    public class DRGuide : DataRowBase
     {
         private int m_Id = 0;
 
         /// <summary>
-        /// 获取效果ID。
+        /// 获取教学内容编号。
         /// </summary>
         public override int Id
         {
@@ -37,54 +37,18 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取好感度要求。
+        /// 获取标签代号。
         /// </summary>
-        public int Favor
+        public string VideoPath
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取卡片描述。
+        /// 获取描述。
         /// </summary>
         public string Text
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取获得的金钱。
-        /// </summary>
-        public int Money
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取获得的体力。
-        /// </summary>
-        public int Energy
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取获得的最大体力值。
-        /// </summary>
-        public int EnergyMax
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取获得的buff。
-        /// </summary>
-        public List<String> Buff
         {
             get;
             private set;
@@ -102,12 +66,8 @@ namespace GameMain
             index++;
             m_Id = int.Parse(columnStrings[index++]);
             index++;
-            Favor = int.Parse(columnStrings[index++]);
+            VideoPath = columnStrings[index++];
             Text = columnStrings[index++];
-            Money = int.Parse(columnStrings[index++]);
-            Energy = int.Parse(columnStrings[index++]);
-            EnergyMax = int.Parse(columnStrings[index++]);
-            Buff = DataTableExtension.ParseListString(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -120,12 +80,8 @@ namespace GameMain
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
-                    Favor = binaryReader.Read7BitEncodedInt32();
+                    VideoPath = binaryReader.ReadString();
                     Text = binaryReader.ReadString();
-                    Money = binaryReader.Read7BitEncodedInt32();
-                    Energy = binaryReader.Read7BitEncodedInt32();
-                    EnergyMax = binaryReader.Read7BitEncodedInt32();
-                    Buff = binaryReader.ReadListString();
                 }
             }
 
