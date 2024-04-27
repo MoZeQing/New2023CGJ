@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-04-27 00:49:19.010
+// 生成时间：2024-04-27 20:48:09.362
 //------------------------------------------------------------
 
 using GameFramework;
@@ -46,6 +46,15 @@ namespace GameMain
         }
 
         /// <summary>
+        /// 获取标签内容。
+        /// </summary>
+        public string Title
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
         /// 获取描述。
         /// </summary>
         public string Text
@@ -67,6 +76,7 @@ namespace GameMain
             m_Id = int.Parse(columnStrings[index++]);
             index++;
             VideoPath = columnStrings[index++];
+            Title = columnStrings[index++];
             Text = columnStrings[index++];
 
             GeneratePropertyArray();
@@ -81,6 +91,7 @@ namespace GameMain
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
                     VideoPath = binaryReader.ReadString();
+                    Title = binaryReader.ReadString();
                     Text = binaryReader.ReadString();
                 }
             }

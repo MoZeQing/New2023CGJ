@@ -11,6 +11,7 @@ namespace GameMain
     public class GuideForm : UIFormLogic
     {
         [SerializeField] private Text text;
+        [SerializeField] private Text title;
         [SerializeField] private RawImage image;
         [SerializeField] private Button exitBtn;
         [SerializeField] private Transform canvas;
@@ -64,6 +65,7 @@ namespace GameMain
             videoPlayer.clip= (VideoClip)Resources.Load<VideoClip>(dRGuide.VideoPath);
             videoPlayer.Play();
             image.color = Color.white;
+            title.text = dRGuide.Title;
             text.text = dRGuide.Text;
         }
     }
