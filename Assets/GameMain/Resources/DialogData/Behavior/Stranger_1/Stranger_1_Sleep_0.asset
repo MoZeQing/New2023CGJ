@@ -15,7 +15,6 @@ MonoBehaviour:
   nodes:
   - {fileID: 5572745325083729476}
   - {fileID: 587660827037173634}
-  dialogTag: 
   dialogInfo: 
 --- !u!114 &587660827037173634
 MonoBehaviour:
@@ -36,6 +35,7 @@ MonoBehaviour:
     - a
     - chatDatas
     - chatDatas 0
+    - chatDatas 1
     values:
     - _fieldName: a
       _node: {fileID: 587660827037173634}
@@ -68,9 +68,40 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 1
+    - _fieldName: chatDatas 1
+      _node: {fileID: 587660827037173634}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
   a: 0
   dialogId: 
   chatDatas:
+  - charName: "\u4F60"
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    background: {fileID: 0}
+    eventDatas: []
+    text: "\u8BE5\u7761\u89C9\u4E86"
   - charName: 
     left:
       charSO: {fileID: 0}
@@ -92,7 +123,7 @@ MonoBehaviour:
         soundTag: 0
     background: {fileID: 0}
     eventDatas: []
-    text: 111
+    text: "\u4F60\u5173\u4E0A\u706F\uFF0C\u4E00\u5929\u5C31\u8FD9\u4E48\u8FC7\u53BB\u4E86"
 --- !u!114 &5572745325083729476
 MonoBehaviour:
   m_ObjectHideFlags: 0

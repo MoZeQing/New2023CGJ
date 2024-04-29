@@ -61,9 +61,9 @@ namespace GameMain
         }
         private void Init()
         {
-            closetItems[2].sprite = Resources.Load<Sprite>(dRItems[0].ImagePath);
-            closetItems[3].sprite = Resources.Load<Sprite>(dRItems[1].ImagePath);
-            closetItems[1].sprite = Resources.Load<Sprite>(dRItems[dRItems.Count-1].ImagePath);
+            closetItems[2].sprite = Resources.Load<Sprite>(dRItems[0].IconPath);
+            closetItems[3].sprite = Resources.Load<Sprite>(dRItems[1].IconPath);
+            closetItems[1].sprite = Resources.Load<Sprite>(dRItems[dRItems.Count-1].IconPath);
 ;       }
         private void Right()
         {
@@ -87,11 +87,12 @@ namespace GameMain
             closetItems[3].color = Color.grey;
             closetItems[2].transform.SetSiblingIndex(4);
 
-            closetItems[1].sprite = Resources.Load<Sprite>(dRItems[(index + closetItems.Length - 1) % closetItems.Length].ImagePath);
-            closetItems[2].sprite = Resources.Load<Sprite>(dRItems[index].ImagePath);
-            closetItems[3].sprite = Resources.Load<Sprite>(dRItems[(index + closetItems.Length + 1) % closetItems.Length].ImagePath);
+            closetItems[1].sprite = Resources.Load<Sprite>(dRItems[(index + closetItems.Length - 1) % closetItems.Length].IconPath);
+            closetItems[2].sprite = Resources.Load<Sprite>(dRItems[index].IconPath);
+            closetItems[3].sprite = Resources.Load<Sprite>(dRItems[(index + closetItems.Length + 1) % closetItems.Length].IconPath);
 
             infoText.text = dRItems[index].Info;
+            closetImg.sprite = Resources.Load<Sprite>(dRItems[index].ImagePath);
         }
         private void Left()
         {
@@ -115,11 +116,12 @@ namespace GameMain
             closetItems[1].color = Color.grey;
             closetItems[2].transform.SetSiblingIndex(4);
 
-            closetItems[1].sprite = Resources.Load<Sprite>(dRItems[(index + closetItems.Length - 1) % closetItems.Length].ImagePath);
-            closetItems[2].sprite = Resources.Load<Sprite>(dRItems[index].ImagePath);
-            closetItems[3].sprite = Resources.Load<Sprite>(dRItems[(index + closetItems.Length + 1) % closetItems.Length].ImagePath);
+            closetItems[1].sprite = Resources.Load<Sprite>(dRItems[(index + closetItems.Length - 1) % closetItems.Length].IconPath);
+            closetItems[2].sprite = Resources.Load<Sprite>(dRItems[index].IconPath);
+            closetItems[3].sprite = Resources.Load<Sprite>(dRItems[(index + closetItems.Length + 1) % closetItems.Length].IconPath);
 
             infoText.text = dRItems[index].Info;
+            closetImg.sprite = Resources.Load<Sprite>(dRItems[index].ImagePath);
         }
         private void OkBtn()
         {
