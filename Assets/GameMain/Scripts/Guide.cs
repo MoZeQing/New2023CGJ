@@ -72,7 +72,7 @@ namespace GameMain
                     return;
                 GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.ManualGrinder)
                 {
-                    Position = Vector3.zero
+                    Position = Vector3.down * 6
                 });
                 GameEntry.UI.CloseUIForm(UIFormId.HighlightTips);
                 GameEntry.UI.OpenUIForm(UIFormId.HighlightTips, "使用研磨器将咖啡粉研磨为粗咖啡粉");
@@ -107,8 +107,8 @@ namespace GameMain
                     return;
                 GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Heater)
                 {
-                    Position = Vector3.zero
-                });
+                    Position = Vector3.down * 6
+                }) ;
                 GameEntry.UI.CloseUIForm(UIFormId.HighlightTips);
                 GameEntry.UI.OpenUIForm(UIFormId.HighlightTips, "使用加热器将水加热");
                 GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, Guide1_4);
@@ -126,7 +126,7 @@ namespace GameMain
                     return;
                 GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Kettle)
                 {
-                    Position = Vector3.zero
+                    Position = Vector3.down * 6
                 });
                 GameEntry.UI.CloseUIForm(UIFormId.HighlightTips);
                 GameEntry.UI.OpenUIForm(UIFormId.HighlightTips, "将热水和细咖啡粉放置到过滤壶中，生成浓缩咖啡");
@@ -188,7 +188,7 @@ namespace GameMain
                     return;
                 GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Stirrer)
                 {
-                    Position = Vector3.zero
+                    Position = Vector3.down * 6
                 });
                 GameEntry.UI.CloseUIForm(UIFormId.HighlightTips);
                 GameEntry.UI.OpenUIForm(UIFormId.HighlightTips, "使用搅拌器将牛奶打发");
@@ -222,7 +222,7 @@ namespace GameMain
                 if (baseCompenent.NodeTag != NodeTag.Cup)
                     return;
                 GameEntry.UI.CloseUIForm(UIFormId.HighlightTips);
-                GameEntry.UI.OpenUIForm(UIFormId.HighlightTips, "使用杯子将咖啡粉和低泡牛奶合成为拿铁");
+                GameEntry.UI.OpenUIForm(UIFormId.HighlightTips, "使用杯子将浓缩咖啡和低泡牛奶合成为拿铁");
                 GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, Guide2_5);
                 GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, Guide2_6);
             }

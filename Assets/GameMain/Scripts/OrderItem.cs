@@ -31,7 +31,7 @@ namespace GameMain
         {
             base.OnInit(userData);
             Transform orderCanvas = this.transform.Find("OrderForm");
-            coffeeItem = orderCanvas.Find("ItemText").GetComponent<Image>();
+            coffeeItem = orderCanvas.Find("Item").GetComponent<Image>();
             //sugar = orderCanvas.Find("Sugar").GetComponent<Text>();
             //condensedMilk = orderCanvas.Find("CondensedMilk").GetComponent<Text>();
             //salt = orderCanvas.Find("Salt").GetComponent<Text>();
@@ -48,13 +48,14 @@ namespace GameMain
             mOrderItemData = (OrderItemData)userData;
             mOrderData = mOrderItemData.OrderData;
             DRNode dRNode = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)mOrderData.NodeTag);
-            //coffeeItem.sprite = GameEntry.Utils.nodeImage[(int)mOrderData.NodeTag];
+            coffeeItem.sprite = Resources.Load<Sprite>(dRNode.ImagePath);
             coffeeName.text = dRNode.Description;
             orderTime.text = mOrderData.Grind ? "粗咖啡粉" : "细咖啡粉";
             //sugar.color = mOrderData.Sugar ? Color.black : Color.clear;
             //condensedMilk.color = mOrderData.CondensedMilk ? Color.black : Color.clear;
             //salt.color = mOrderData.Salt ? Color.black : Color.clear; 
-            nowTime = mOrderData.OrderTime * 3;
+            nowTime = mOrderData.OrderTime * 3 * GameEntry.Utils.OrderPower;
+            Debug.Log(nowTime);
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
