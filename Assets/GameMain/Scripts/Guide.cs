@@ -234,7 +234,7 @@ namespace GameMain
             BaseCompenent baseCompenent = null;
             if (args.Entity.TryGetComponent<BaseCompenent>(out baseCompenent))
             {
-                if (baseCompenent.NodeTag != NodeTag.HotLatte)
+                if (baseCompenent.NodeTag != NodeTag.Kapuziner)
                     return;
                 GameEntry.UI.CloseUIForm(UIFormId.HighlightTips);
                 GameEntry.UI.OpenUIForm(UIFormId.PopTips, "使用拿铁交单");
@@ -250,7 +250,7 @@ namespace GameMain
             {
                 GameEntry.UI.CloseUIForm(UIFormId.HighlightTips);
                 GameEntry.UI.OpenUIForm(UIFormId.PopTips, "现在制作一杯细浓缩咖啡，因此我们先制作细咖啡粉");
-                GameEntry.Player.AddRecipe(2);
+                GameEntry.Player.AddRecipe(1);
                 GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, Guide3_1);
                 GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, Guide3_3);
                 Invoke(nameof(Guide3_2), 2f);
@@ -305,7 +305,7 @@ namespace GameMain
             BaseCompenent baseCompenent = null;
             if (args.Entity.TryGetComponent<BaseCompenent>(out baseCompenent))
             {
-                if (baseCompenent.NodeTag != NodeTag.IceLatte)
+                if (baseCompenent.NodeTag != NodeTag.IceKapuziner)
                     return;
                 GameEntry.UI.CloseUIForm(UIFormId.HighlightTips);
                 GameEntry.UI.OpenUIForm(UIFormId.PopTips, "那么将咖啡拖动到对应的订单上");

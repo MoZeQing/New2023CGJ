@@ -96,7 +96,7 @@ namespace GameMain
             }
             orderData.NodeTag = coffees[Random.Range(0, coffees.Count - 1)];
             //orderData.Grind = true;
-            orderData.Grind =Random.Range(0, 2)==1;
+            orderData.Grind = Random.Range(0, 2) == 1;
             orderData.OrderTime = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)orderData.NodeTag).Time;
             orderData.Sugar = Random.Range(0, 2) == 1;
             orderData.CondensedMilk = Random.Range(0, 2) == 1;

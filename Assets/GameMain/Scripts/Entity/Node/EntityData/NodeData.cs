@@ -151,20 +151,26 @@ namespace GameMain
         HStirrer=112,
         //¿§·È£¨200-300£©
         EspressoG =200,//´Ö¿§·È·Û
-        Espresso=201,//Å¨Ëõ¿§·È
-        HotCafeAmericano=202,//ÈÈÃÀÊ½
-        IceCafeAmericano=203,//ÀäÃÀÊ½
-        Conpanna=204,//¿µ±¦À¶
-        Vienna=205,//Î¬Ò²ÄÉ¿§·È
-        HotLatte=206,//ÈÈÄÃÌú
-        IceLatte=207,//±ùÄÃÌú
-        HotMocha=208,//ÈÈÄ¦¿¨
-        IceMocha=209,//ÀäÄ¦¿¨
-        Kapuziner=210,//¿¨²¼ÆæÅµ
-        FlatWhite=211,//°Ä°×
-        Dirty=212,//Ôà¿§·È
-        Ole=213,//Å·ÀÙ¿§·È
-        Cat=999,//Ã¨Ã¨¿¨£¨999£©
+        Espresso =201,//Å¨Ëõ¿§·È
+        CafeAmericano =202,//ÈÈÃÀÊ½
+        IceCafeAmericano =203,//ÀäÃÀÊ½
+        Kapuziner = 204,//¿¨²¼ÆæÅµ
+        IceKapuziner = 205,//±ù¿¨²¼ÆæÅµ
+        Latte = 206,//ÄÃÌú
+        IceLatte = 207,//±ùÄÃÌú
+        Conpanna =208,//¿µ±¦À¶
+        IceConpanna =209,//±ù¿µ±¦À¶
+        Ole = 210,//Å·ÀÙ
+        IceOle = 211,//±ùÅ·ÀÙ
+        Mocha = 212,//Ä¦¿¨
+        IceMocha = 213,//ÀäÄ¦¿¨
+        Vienna =214,//Î¬Ò²ÄÉ
+        IceVienna = 215,//±ùÎ¬Ò²ÄÉ
+        Macchiato=216,//ÂêÆæ¶ä
+        IceMacchiato =217,//±ùÂêÆæ¶ä
+        SaltCoffee =218,//º£ÑÎ
+        Mediterranean =219,//µØÖĞº£
+        Cat =999,//Ã¨Ã¨¿¨£¨999£©
         None=0
     }
 }
