@@ -8,6 +8,7 @@ using UnityEngine.SocialPlatforms;
 using XNode.Examples.RuntimeMathNodes;
 using UnityEngine.EventSystems;
 using UnityGameFramework.Runtime;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
 
 namespace GameMain
 {
@@ -19,7 +20,10 @@ namespace GameMain
         //[SerializeField] private Text condensedMilk;
         //[SerializeField] private Text salt;
         [SerializeField] private Text grindText;
-        [SerializeField] private Text orderTime;
+        [SerializeField] private Image ice;
+        [SerializeField] private Image hot;
+        [SerializeField] private Image grind;
+        [SerializeField] private Image coarse;
         [SerializeField] private Image timeLine;
         [SerializeField] private Button exitBtn;
 
@@ -35,7 +39,10 @@ namespace GameMain
             //sugar = orderCanvas.Find("Sugar").GetComponent<Text>();
             //condensedMilk = orderCanvas.Find("CondensedMilk").GetComponent<Text>();
             //salt = orderCanvas.Find("Salt").GetComponent<Text>();
-            orderTime = orderCanvas.Find("TimeText").GetComponent<Text>();
+            ice = orderCanvas.Find("Ice").GetComponent<Image>();
+            grind = orderCanvas.Find("Grind").GetComponent<Image>();
+            hot=orderCanvas.Find("Hot").GetComponent<Image>();
+            coarse = orderCanvas.Find("Coarse").GetComponent<Image>();
             //exitBtn = orderCanvas.Find("Exit").GetComponent<Button>();
             coffeeName = orderCanvas.Find("ItemText").GetComponent<Text>();
             timeLine = orderCanvas.Find("TimeLine").GetComponent<Image>();
@@ -50,7 +57,10 @@ namespace GameMain
             DRNode dRNode = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)mOrderData.NodeTag);
             coffeeItem.sprite = Resources.Load<Sprite>(dRNode.ImagePath);
             coffeeName.text = dRNode.Description;
-            orderTime.text = mOrderData.Grind ? "粗咖啡粉" : "细咖啡粉";
+            coarse.gameObject.SetActive(mOrderData.Grind);
+            grind.gameObject.SetActive(!mOrderData.Grind);
+            hot.gameObject.SetActive(!dRNode.Ice);
+            ice.gameObject.SetActive(dRNode.Ice);
             //sugar.color = mOrderData.Sugar ? Color.black : Color.clear;
             //condensedMilk.color = mOrderData.CondensedMilk ? Color.black : Color.clear;
             //salt.color = mOrderData.Salt ? Color.black : Color.clear; 
@@ -90,7 +100,6 @@ namespace GameMain
         protected override void OnHide(bool isShutdown, object userData)
         {
             base.OnHide(isShutdown, userData);
-            orderTime.color = Color.black;
             nowTime = 9999f;
         }
 
