@@ -123,6 +123,8 @@ namespace GameMain
                     income = dtNode.GetDataRow((int)mOrderData.NodeTag).Price;
                     if (mOrderData.Urgent)
                         income = (int)(income * 1.5f);
+                    if(mOrderData.OrderChar!=string.Empty)
+                        GameEntry.Utils.AddFriendFavor(mOrderData.OrderChar, mOrderData.CharFavor);
                     income += mOrderData.Sugar ? 2 : 0;
                     income += mOrderData.CondensedMilk ? 5 : 0;
                     income += mOrderData.Salt ? 3 : 0;

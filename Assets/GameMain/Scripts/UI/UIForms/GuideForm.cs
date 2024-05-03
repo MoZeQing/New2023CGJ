@@ -67,6 +67,7 @@ namespace GameMain
             image.color = Color.white;
             title.text = dRGuide.Title;
             text.text = dRGuide.Text;
+            text.text = text.text.Replace("\\n", "\n");
         }
     }
 }
