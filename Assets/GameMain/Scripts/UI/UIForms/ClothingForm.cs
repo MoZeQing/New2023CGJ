@@ -30,6 +30,8 @@ namespace GameMain
             {
                 if ((ItemKind)item.Kind != ItemKind.Clothes)
                     continue;
+                if (item.Id == 1001)
+                    continue;
                 dRItems.Add(item);
             }
 

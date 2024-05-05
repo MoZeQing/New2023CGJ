@@ -21,10 +21,6 @@ namespace GameMain
         protected Action<DRItem> mAction;
         protected Action<bool, DRItem> mTouchAction;
 
-        void Start()
-        {
-
-        }
         public void Hide()
         {
             this.gameObject.SetActive(false);

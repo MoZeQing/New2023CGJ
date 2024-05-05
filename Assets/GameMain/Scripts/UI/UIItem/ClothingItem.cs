@@ -12,9 +12,11 @@ namespace GameMain
         public override void SetData(DRItem itemData)
         {
             this.gameObject.SetActive(true);
-            //itemImage.sprite = Resources.Load<Sprite>(itemData.ImagePath);
+            itemImage.sprite = Resources.Load<Sprite>(itemData.ClothingPath);
             mShopItemData = itemData;
             priceText.text = string.Format("¼Û¸ñ:{0}", itemData.Price.ToString());
+            itemText.text = itemData.Info;
+            itemText.text = itemText.text.Replace("\\n", "\n");
             this.GetComponent<Button>().interactable = GameEntry.Utils.GetPlayerItem((ItemTag)itemData.Id) == null;
         }
     }

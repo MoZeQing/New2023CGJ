@@ -68,6 +68,10 @@ namespace GameMain
             GameStateEventArgs e = (GameStateEventArgs)args;
             //修改为收到消息就刷新
 
+            GameEntry.Utils.outingSceneStates.Add(OutingSceneState.Clothing);
+            GameEntry.Utils.outingSceneStates.Add(OutingSceneState.Gym);
+            GameEntry.Utils.outingSceneStates.Add(OutingSceneState.Restaurant);
+
             mBeachBtn.gameObject.SetActive(false);
             mClothingBtn.gameObject.SetActive(false);
             mGlassBtn.gameObject.SetActive(false);

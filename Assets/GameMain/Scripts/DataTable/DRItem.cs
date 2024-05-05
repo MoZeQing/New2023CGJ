@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-04-27 20:48:09.326
+// 生成时间：2024-05-04 23:31:28.987
 //------------------------------------------------------------
 
 using GameFramework;
@@ -64,9 +64,27 @@ namespace GameMain
         }
 
         /// <summary>
+        /// 获取特别图标路径。
+        /// </summary>
+        public string ClothingPath
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
         /// 获取价格。
         /// </summary>
         public int Price
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取事件。
+        /// </summary>
+        public string EventData
         {
             get;
             private set;
@@ -213,7 +231,9 @@ namespace GameMain
             Name = columnStrings[index++];
             ImagePath = columnStrings[index++];
             IconPath = columnStrings[index++];
+            ClothingPath = columnStrings[index++];
             Price = int.Parse(columnStrings[index++]);
+            EventData = columnStrings[index++];
             Info = columnStrings[index++];
             Equipable = bool.Parse(columnStrings[index++]);
             MaxNum = int.Parse(columnStrings[index++]);
@@ -243,7 +263,9 @@ namespace GameMain
                     Name = binaryReader.ReadString();
                     ImagePath = binaryReader.ReadString();
                     IconPath = binaryReader.ReadString();
+                    ClothingPath = binaryReader.ReadString();
                     Price = binaryReader.Read7BitEncodedInt32();
+                    EventData = binaryReader.ReadString();
                     Info = binaryReader.ReadString();
                     Equipable = binaryReader.ReadBoolean();
                     MaxNum = binaryReader.Read7BitEncodedInt32();
