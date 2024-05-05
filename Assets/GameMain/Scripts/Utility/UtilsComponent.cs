@@ -54,8 +54,6 @@ namespace GameMain
         public Dictionary<string, RecipeData> recipes = new Dictionary<string, RecipeData>();
         public Dictionary<string, CharSO> chars = new Dictionary<string, CharSO>();
 
-        //       private List<>
-
         public void AddFriendFavor(string name, int favor)
         {
             if (!_friends.ContainsKey(name))
