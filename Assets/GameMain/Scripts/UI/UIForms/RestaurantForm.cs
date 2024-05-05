@@ -14,9 +14,10 @@ namespace GameMain
         [SerializeField] private Button exitBtn;
         [SerializeField] private Text pageText;
         [SerializeField] private PurchaseForm purchaseForm;
-        [SerializeField] private List<ShopItem> mItems = new List<ShopItem>();
+        [SerializeField] private List<CakeItem> mItems = new List<CakeItem>();
 
         private List<DRItem> dRItems = new List<DRItem>();
+        private List<bool> mFires= new List<bool>();
         private DRItem dRItem;
         private int index = 0;
 
@@ -24,11 +25,13 @@ namespace GameMain
         {
             base.OnOpen(userData);
             dRItems.Clear();
+            mFires.Clear();
             foreach (DRItem item in GameEntry.DataTable.GetDataTable<DRItem>().GetAllDataRows())
             {
                 if ((ItemKind)item.Kind != ItemKind.Cake)
                     continue;
                 dRItems.Add(item);
+                mFires.Add(false);
             }
             exitBtn.onClick.AddListener(OnExit);
             leftBtn.onClick.AddListener(Left);
@@ -59,6 +62,7 @@ namespace GameMain
                 {
                     mItems[i].SetData(dRItems[index]);
                     mItems[i].SetClick(OnClick);
+                    mItems[i].GetComponent<Button>().interactable= !mFires[index];
                 }
                 else
                     mItems[i].Hide();
@@ -81,6 +85,7 @@ namespace GameMain
         private void OnClick(DRItem itemData)
         {
             dRItem = itemData;
+            mFires[dRItems.IndexOf(itemData)] = true;
             if (itemData.Price > GameEntry.Utils.Money)
                 GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你的资金不足");
             else
@@ -93,6 +98,7 @@ namespace GameMain
             GameEntry.Utils.Energy += dRItem.Energy;
 
             index -= mItems.Count;
+
             ShowItems();
         }
         private void OnExit()

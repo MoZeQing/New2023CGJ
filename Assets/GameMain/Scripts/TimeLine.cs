@@ -40,7 +40,7 @@ namespace GameMain
         {
             CharDataEventArgs charDataEvent = (CharDataEventArgs)e;
             CharData charData = charDataEvent.CharData;
-            favorText.text = charData.favor.ToString();
+            //favorText.text = charData.favor.ToString();
         }
     }
 }

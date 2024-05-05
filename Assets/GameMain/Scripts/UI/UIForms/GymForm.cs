@@ -45,9 +45,10 @@ namespace GameMain
             GameEntry.Utils.Energy -= 20;
             GameEntry.Utils.MaxEnergy += 2;
             GameEntry.Utils.Money -= 100;
-            //GameEntry.Dialog.PlayStory("");
-            //GameEntry.Dialog.SetComplete(OnExit);
-            OnExit();
+
+            easyBtn.interactable= false;
+            middleBtn.interactable = false;
+            hardBtn.interactable = false;
         }
 
         private void MiddleBtn_Click() {
@@ -64,9 +65,10 @@ namespace GameMain
             GameEntry.Utils.Energy -= 40;
             GameEntry.Utils.MaxEnergy += 5;
             GameEntry.Utils.Money -= 300;
-            //GameEntry.Dialog.PlayStory("");
-            //GameEntry.Dialog.SetComplete(OnExit);
-            OnExit();
+
+            easyBtn.interactable = false;
+            middleBtn.interactable = false;
+            hardBtn.interactable = false;
         }
 
         private void HardBtn_Click()
@@ -84,9 +86,10 @@ namespace GameMain
             GameEntry.Utils.Energy -= 60;
             GameEntry.Utils.MaxEnergy += 8;
             GameEntry.Utils.Money -= 500;
-            //GameEntry.Dialog.PlayStory("");
-            //GameEntry.Dialog.SetComplete(OnExit);
-            OnExit();
+
+            easyBtn.interactable = false;
+            middleBtn.interactable = false;
+            hardBtn.interactable = false;
         }
 
         private void OnExit()
