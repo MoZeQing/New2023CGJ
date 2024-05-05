@@ -45,16 +45,16 @@ namespace GameMain
 
         private void Outing(OutingSceneState outingSceneState)
         {
-            if (mDay == GameEntry.Utils.Day)
-            {
-                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "今天你已经外出过一次了");
-                return;
-            }
-            //if (GameEntry.Utils.Energy < 20)
+            //if (mDay == GameEntry.Utils.Day)
             //{
-            //    GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你的体力不足，还是先休息会吧");
+            //    GameEntry.UI.OpenUIForm(UIFormId.PopTips, "今天你已经外出过一次了");
             //    return;
             //}
+            if (GameEntry.Utils.Energy < 20)
+            {
+                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你的体力不足，还是先休息会吧");
+                return;
+            }
             GameEntry.Utils.Energy -= 0;
             GameEntry.Utils.Location=outingSceneState;
             GameEntry.Dialog.StoryUpdate();
@@ -71,6 +71,8 @@ namespace GameMain
             GameEntry.Utils.outingSceneStates.Add(OutingSceneState.Clothing);
             GameEntry.Utils.outingSceneStates.Add(OutingSceneState.Gym);
             GameEntry.Utils.outingSceneStates.Add(OutingSceneState.Restaurant);
+            GameEntry.Utils.outingSceneStates.Add(OutingSceneState.Glass);
+            GameEntry.Utils.outingSceneStates.Add(OutingSceneState.Beach);
 
             mBeachBtn.gameObject.SetActive(false);
             mClothingBtn.gameObject.SetActive(false);

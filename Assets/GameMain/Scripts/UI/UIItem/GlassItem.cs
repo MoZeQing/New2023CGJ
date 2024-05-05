@@ -12,7 +12,11 @@ public class GlassItem : ShopItem
     {
         this.gameObject.SetActive(true);
         itemImage.sprite = Resources.Load<Sprite>(itemData.ImagePath);
-        priceText.text = string.Format("价格:{0}", itemData.Price.ToString());
+        priceText.text = string.Format("价格:\n{0}", itemData.Price.ToString());
+        priceText.text = priceText.text.Replace("\\n", "\n");
+        itemText.text = itemData.Name;
+        inventoryText.text = itemData.Info;
+        inventoryText.text=inventoryText.text.Replace("\\n", "\n");
         this.GetComponent<Button>().interactable = GameEntry.Utils.GetPlayerItem((ItemTag)itemData.Id) == null;
     }
 }

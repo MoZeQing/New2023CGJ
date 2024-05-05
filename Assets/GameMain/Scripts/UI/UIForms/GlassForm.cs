@@ -23,6 +23,14 @@ namespace GameMain
         [SerializeField] private Text burnisherText;
         [SerializeField] private Text stirrerText;
         [SerializeField] private Text pressText;
+        [SerializeField] private Text heaterNameText;
+        [SerializeField] private Text burnisherNameText;
+        [SerializeField] private Text stirrerNameText;
+        [SerializeField] private Text pressNameText;
+        [SerializeField] private Text heaterPriceText;
+        [SerializeField] private Text burnisherPriceText;
+        [SerializeField] private Text stirrerPriceText;
+        [SerializeField] private Text pressPriceText;
 
         private InstrumentTag instrumentTag;
         private DRItem dRItem = null;
@@ -52,10 +60,30 @@ namespace GameMain
             stirrerImage.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.stirrerID).ImagePath);
             pressImage.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.pressID).ImagePath);
 
-            heaterText.text = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.heaterID).Price.ToString() + GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.heaterID).Info;
-            burnisherText.text = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.burnisherID).Price.ToString() + GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.burnisherID).Info;
-            stirrerText.text = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.stirrerID).Price.ToString() + GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.stirrerID).Info;
-            pressText.text = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.pressID).Price.ToString() + GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.pressID).Info;
+            heaterText.text = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.heaterID).Info;
+            burnisherText.text = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.burnisherID).Info;
+            stirrerText.text = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.stirrerID).Info;
+            pressText.text = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.pressID).Info;
+
+            heaterText.text = heaterText.text.Replace("\\n", "\n");
+            burnisherText.text = burnisherText.text.Replace("\\n", "\n");
+            stirrerText.text = stirrerText.text.Replace("\\n", "\n");
+            pressText.text = pressText.text.Replace("\\n", "\n");
+
+            heaterNameText.text = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.heaterID).Name;
+            burnisherNameText.text = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.burnisherID).Name;
+            stirrerNameText.text = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.stirrerID).Name;
+            pressNameText.text = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.pressID).Name;
+
+            heaterPriceText.text = "价格：\n" + GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.heaterID).Price;
+            burnisherPriceText.text = "价格：\n" + GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.burnisherID).Price;
+            stirrerPriceText.text = "价格：\n" + GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.stirrerID).Price;
+            pressPriceText.text = "价格：\n" + GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.pressID).Price;
+
+            heaterPriceText.text = heaterPriceText.text == "价格：\n99999999" ? "无法购买" : heaterPriceText.text;
+            burnisherPriceText.text = burnisherPriceText.text == "价格：\n99999999" ? "无法购买" : burnisherPriceText.text;
+            stirrerPriceText.text = stirrerPriceText.text == "价格：\n99999999" ? "无法购买" : stirrerPriceText.text;
+            pressPriceText.text = pressPriceText.text == "价格：\n99999999" ? "无法购买" : pressPriceText.text;
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
@@ -133,10 +161,30 @@ namespace GameMain
             stirrerImage.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.stirrerID).ImagePath);
             pressImage.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.pressID).ImagePath);
 
-            heaterText.text = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.heaterID).Price.ToString()+GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.heaterID).Info;
-            burnisherText.text = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.burnisherID).Price.ToString() + GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.burnisherID).Info;
-            stirrerText.text = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.stirrerID).Price.ToString() + GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.stirrerID).Info;
-            pressText.text = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.pressID).Price.ToString() + GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.pressID).Info;
+            heaterText.text = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.heaterID).Info;
+            burnisherText.text = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.burnisherID).Info;
+            stirrerText.text = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.stirrerID).Info;
+            pressText.text = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.pressID).Info;
+
+            heaterText.text = heaterText.text.Replace("\\n", "\n");
+            burnisherText.text = burnisherText.text.Replace("\\n", "\n");
+            stirrerText.text = stirrerText.text.Replace("\\n", "\n");
+            pressText.text = pressText.text.Replace("\\n", "\n");
+
+            heaterNameText.text = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.heaterID).Name;
+            burnisherNameText.text = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.burnisherID).Name;
+            stirrerNameText.text = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.stirrerID).Name;
+            pressNameText.text = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.pressID).Name;
+
+            heaterPriceText.text = "价格：\n" + GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.heaterID).Price;
+            burnisherPriceText.text = "价格：\n" + GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.burnisherID).Price;
+            stirrerPriceText.text = "价格：\n" + GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.stirrerID).Price;
+            pressPriceText.text = "价格：\n" + GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.pressID).Price;
+
+            heaterPriceText.text = heaterPriceText.text == "价格：\n99999999" ? "无法购买" : heaterPriceText.text;
+            burnisherPriceText.text = burnisherPriceText.text == "价格：\n99999999" ? "无法购买" : burnisherPriceText.text;
+            stirrerPriceText.text = stirrerPriceText.text == "价格：\n99999999" ? "无法购买" : stirrerPriceText.text;
+            pressPriceText.text = pressPriceText.text == "价格：\n99999999" ? "无法购买" : pressPriceText.text;
         }
 
         private void OnExit()
