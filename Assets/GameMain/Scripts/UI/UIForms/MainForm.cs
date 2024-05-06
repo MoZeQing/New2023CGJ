@@ -29,6 +29,7 @@ namespace GameMain
         [SerializeField] private Button recipeBtn;
         [SerializeField] private Button warehouseBtn;
         [SerializeField] private Button outBtn;
+        [SerializeField] private Button buffBtn;
         [SerializeField] private Button backBtn_1;
         [SerializeField] private Button backBtn_2;
         [SerializeField] private CanvasGroup canvasGroup;
@@ -54,10 +55,10 @@ namespace GameMain
             outBtn.onClick.AddListener(() => Change(GamePos.Right));
             backBtn_1.onClick.AddListener(() => Change(GamePos.Up));
             backBtn_2.onClick.AddListener(() => Change(GamePos.Up));
+            buffBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.BuffForm));
             GameEntry.Event.Subscribe(MainFormEventArgs.EventId, OnMainFormEvent);
             GameEntry.Event.Subscribe(GameStateEventArgs.EventId, OnGameStateEvent);
             canvasGroup.interactable = true;
-            ShowBuffIcon();
         }
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
@@ -85,6 +86,7 @@ namespace GameMain
             outBtn.onClick.RemoveAllListeners();
             backBtn_1.onClick.RemoveAllListeners();
             backBtn_2.onClick.RemoveAllListeners();
+            buffBtn.onClick.RemoveAllListeners();
             GameEntry.Event.Unsubscribe(MainFormEventArgs.EventId, OnMainFormEvent);
             GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, OnGameStateEvent);
         }
@@ -104,26 +106,6 @@ namespace GameMain
                     GameEntry.Utils.UpdateData();
                     break;
             }
-            ShowBuffIcon();
-        }
-
-        private void ClearBuffIcon()
-        {
-            for (int i = 0; i < iconCanvas.childCount; i++)
-            {
-                Destroy(iconCanvas.GetChild(i).gameObject);
-            }
-        }
-
-        private void ShowBuffIcon()
-        {
-            ClearBuffIcon();
-            foreach (int buffIndex in GameEntry.Buff.GetData())
-            {
-                DRBuff dRBuff = GameEntry.DataTable.GetDataTable<DRBuff>().GetDataRow(buffIndex);
-                GameObject go = Instantiate(iconPrefab, iconCanvas);
-                go.GetComponent<BuffIcon>().SetData(dRBuff);
-            }
         }
         private void ChangeTeach()
         {
@@ -134,7 +116,6 @@ namespace GameMain
             {
                 mTeachingForm.Click_Action();
             }
-            ShowBuffIcon();
         }
         private void OnGameStateEvent(object sender, GameEventArgs e)
         {
