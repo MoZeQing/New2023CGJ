@@ -90,8 +90,8 @@ public class BaseStage : MonoBehaviour
     }
     public virtual void SetBackground(Sprite sprite)
     { 
-        //if(sprite!=null)
-        //    mBG.sprite = sprite;
+        if(sprite!=null)
+            mBG.sprite = sprite;
     }   
 
     public virtual void SetBackground(string path) 
