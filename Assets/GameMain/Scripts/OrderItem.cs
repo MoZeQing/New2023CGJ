@@ -128,18 +128,24 @@ namespace GameMain
                     income += mOrderData.Sugar ? 2 : 0;
                     income += mOrderData.CondensedMilk ? 5 : 0;
                     income += mOrderData.Salt ? 3 : 0;
-                    float p = 1.2f;
-                    if (nowTime < -5)
+                    float p = 1f;
+                    if (nowTime > mOrderData.OrderTime * 2 * GameEntry.Utils.OrderPower)
                     {
-                        p= 1;
+                        p = 1.5f;
+                        GameEntry.Utils.PlayerData.acoffee++;
+                        GameEntry.Utils.PlayerData.bcoffee++;
+                        GameEntry.Utils.PlayerData.ccoffee++;
                     }
-                    if (nowTime < -25)
+                    else if (nowTime > mOrderData.OrderTime * 1 * GameEntry.Utils.OrderPower)
+                    {
+                        p = 1f;
+                        GameEntry.Utils.PlayerData.bcoffee++;
+                        GameEntry.Utils.PlayerData.ccoffee++;
+                    }
+                    else
                     {
                         p = 0.8f;
-                    }
-                    if (nowTime < -45)
-                    {
-                        p = 0.6f;
+                        GameEntry.Utils.PlayerData.ccoffee++;
                     }
                     income = (int)(income * p*GameEntry.Utils.PricePower);
                     GameEntry.Event.FireNow(this, OrderEventArgs.Create(mOrderData, income));

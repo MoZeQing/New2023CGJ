@@ -116,7 +116,7 @@ namespace GameMain
             }
             GameEntry.Buff.InitBuff();
             GameEntry.Player.RemoveRecipe(1);
-            GameEntry.Player.AddRecipes(new int[] { 1000,1001,1002,1003,1004,1005 });
+            GameEntry.Player.AddRecipes(new int[] { 202,203,204,205,206,207 });
         }
         public void SaveGame(int index)
         {

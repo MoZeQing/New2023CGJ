@@ -14,6 +14,7 @@ namespace GameMain
         [SerializeField] private Transform canvas;
         [SerializeField] private Text statisticsText;
         [SerializeField] private Text upgradeText;
+        [SerializeField] private Text moneyText;
         [SerializeField] private List<Image> levelImages = new List<Image>();
         [SerializeField] private List<Text> levelTexts = new List<Text>();
         protected override void OnOpen(object userData)
@@ -24,21 +25,6 @@ namespace GameMain
 
             exitBtn.onClick.AddListener(() => GameEntry.UI.CloseUIForm(this.UIForm));
             upgradeBtn.onClick.AddListener(Upgrade);
-
-            statisticsText.text = string.Format("完成A级咖啡：{0}\n完成B级咖啡：{1}\n完成C级咖啡：{2}\n完成咖啡总数：{3}", 
-                GameEntry.Utils.PlayerData.acoffee,
-                GameEntry.Utils.PlayerData.bcoffee, 
-                GameEntry.Utils.PlayerData.ccoffee,
-                GameEntry.Utils.PlayerData.acoffee +
-                GameEntry.Utils.PlayerData.bcoffee +
-                GameEntry.Utils.PlayerData.ccoffee);
-
-            for (int i = 0; i < levelTexts.Count; i++)
-            {
-                levelTexts[i].text = GameEntry.DataTable.GetDataTable<DRUpgrade>().GetDataRow(i+1).Text;
-                levelImages[i].color = Color.gray;
-            }
-            levelImages[GameEntry.Utils.PlayerData.cafeID-1].color = Color.white;
 
             CheckUpgrade();
         }
@@ -57,6 +43,22 @@ namespace GameMain
 
         private void CheckUpgrade()
         {
+            statisticsText.text = string.Format("完成A级咖啡：{0}\n完成B级咖啡：{1}\n完成C级咖啡：{2}",
+            GameEntry.Utils.PlayerData.acoffee,
+            GameEntry.Utils.PlayerData.acoffee +
+            GameEntry.Utils.PlayerData.bcoffee,
+            GameEntry.Utils.PlayerData.acoffee +
+            GameEntry.Utils.PlayerData.bcoffee +
+            GameEntry.Utils.PlayerData.ccoffee);
+
+            for (int i = 0; i < levelTexts.Count; i++)
+            {
+                levelTexts[i].text = GameEntry.DataTable.GetDataTable<DRUpgrade>().GetDataRow(i + 1).Text;
+                levelTexts[i].text = levelTexts[i].text.Replace("\\n", "\n");
+                levelImages[i].color = Color.gray;
+            }
+            levelImages[GameEntry.Utils.PlayerData.cafeID - 1].color = Color.white;
+
             DRUpgrade dRUpgrade = GameEntry.DataTable.GetDataTable<DRUpgrade>().GetDataRow(GameEntry.Utils.PlayerData.cafeID);
             if (dRUpgrade.UpgradeID == 0)
             {
@@ -75,7 +77,7 @@ namespace GameMain
                 {
                     upgradeText.text += string.Format("A级咖啡完成量：{0}\n", dRUpgrade.ACoffee);
                 }
-                if (dRUpgrade.BCoffee > GameEntry.Utils.PlayerData.bcoffee)
+                if (dRUpgrade.BCoffee > GameEntry.Utils.PlayerData.bcoffee+ GameEntry.Utils.PlayerData.acoffee)
                 {
                     upgradeText.text += string.Format("<color=red>B级咖啡完成量：{0}</color>\n", dRUpgrade.BCoffee);
                     upgradeBtn.interactable = false;
@@ -84,45 +86,41 @@ namespace GameMain
                 {
                     upgradeText.text += string.Format("B级咖啡完成量：{0}\n", dRUpgrade.BCoffee);
                 }
-                if (dRUpgrade.CCoffee > GameEntry.Utils.PlayerData.ccoffee)
+                if (dRUpgrade.CCoffee > GameEntry.Utils.PlayerData.ccoffee+ GameEntry.Utils.PlayerData.bcoffee + GameEntry.Utils.PlayerData.acoffee)
                 {
-                    upgradeText.text += string.Format("<color=red>C级咖啡完成量：{0}</color>\n", dRUpgrade.CCoffee);
+                    upgradeText.text += string.Format("<color=red>C级咖啡完成量：{0}</color>", dRUpgrade.CCoffee);
                     upgradeBtn.interactable = false;
                 }
                 else
                 {
-                    upgradeText.text += string.Format("C级咖啡完成量：{0}\n", dRUpgrade.CCoffee);
+                    upgradeText.text += string.Format("C级咖啡完成量：{0}", dRUpgrade.CCoffee);
                 }
-                if (dRUpgrade.Total > GameEntry.Utils.PlayerData.acoffee +
-                   GameEntry.Utils.PlayerData.bcoffee +
-                   GameEntry.Utils.PlayerData.ccoffee)
+                if (dRUpgrade.Money > GameEntry.Utils.PlayerData.money)
                 {
-                    upgradeText.text += string.Format("<color=red>所有咖啡完成量：{0}</color>\n", dRUpgrade.ACoffee+ dRUpgrade.BCoffee+ dRUpgrade.CCoffee);
+                    moneyText.text = string.Format("<color=red>所需金钱：{0}</color>", dRUpgrade.Money);
                     upgradeBtn.interactable = false;
                 }
                 else
                 {
-                    upgradeText.text += string.Format("所有咖啡完成量：{0}\n", dRUpgrade.ACoffee + dRUpgrade.BCoffee + dRUpgrade.CCoffee);
+                    moneyText.text = string.Format("所需金钱：{0}", dRUpgrade.Money);
                 }
-                if (dRUpgrade.Money > GameEntry.Utils.PlayerData.acoffee)
+                if (dRUpgrade.UpgradeID == 0)
                 {
-                    upgradeText.text += string.Format("<color=red>所需金钱：{0}</color>\n", dRUpgrade.Money);
+                    moneyText.text = string.Format("<color=red>无法升级</color>");
                     upgradeBtn.interactable = false;
-                }
-                else
-                {
-                    upgradeText.text += string.Format("所需金钱：{0}\n", dRUpgrade.Money);
                 }
             }
         }
 
         private void Upgrade()
         {
-            DRUpgrade dRUpgrade = GameEntry.DataTable.GetDataTable<DRUpgrade>().GetDataRow(GameEntry.Utils.PlayerData.cafeID);
-            GameEntry.Utils.Money -= dRUpgrade.Money;
-            GameEntry.Utils.PlayerData.cafeID = dRUpgrade.UpgradeID;
+            DRUpgrade dRUpgrade = GameEntry.DataTable.GetDataTable<DRUpgrade>().GetDataRow(GameEntry.DataTable.GetDataTable<DRUpgrade>().GetDataRow(GameEntry.Utils.PlayerData.cafeID).UpgradeID);
+            GameEntry.Utils.Money -= GameEntry.DataTable.GetDataTable<DRUpgrade>().GetDataRow(GameEntry.Utils.PlayerData.cafeID).Money;
+            GameEntry.Utils.PricePower = dRUpgrade.Increase/100f;
+            GameEntry.Utils.PlayerData.cafeID = dRUpgrade.Id;
             string[] recipes = dRUpgrade.UnlockCoffee.Split('-');
             GameEntry.Player.AddRecipes(recipes);
+            CheckUpgrade();
         }
     }
 }
