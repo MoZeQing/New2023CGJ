@@ -177,6 +177,9 @@ namespace GameMain
         //咖啡种类
         public NodeTag NodeTag;
         public string NodeName;
+        //好友名称和好感度
+        public string friendName;
+        public int friendFavor;
         //制作咖啡的时间
         public float OrderTime;
         public string OrderChar;

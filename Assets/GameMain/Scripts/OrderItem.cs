@@ -24,6 +24,7 @@ namespace GameMain
         [SerializeField] private Image hot;
         [SerializeField] private Image grind;
         [SerializeField] private Image coarse;
+        [SerializeField] private Image friendImg;
         [SerializeField] private Image timeLine;
         [SerializeField] private Button exitBtn;
 
@@ -43,6 +44,7 @@ namespace GameMain
             grind = orderCanvas.Find("Grind").GetComponent<Image>();
             hot=orderCanvas.Find("Hot").GetComponent<Image>();
             coarse = orderCanvas.Find("Coarse").GetComponent<Image>();
+            friendImg = orderCanvas.Find("FriendImg").GetComponent<Image>();
             //exitBtn = orderCanvas.Find("Exit").GetComponent<Button>();
             coffeeName = orderCanvas.Find("ItemText").GetComponent<Text>();
             timeLine = orderCanvas.Find("TimeLine").GetComponent<Image>();
@@ -61,9 +63,12 @@ namespace GameMain
             grind.gameObject.SetActive(!mOrderData.Grind);
             hot.gameObject.SetActive(!dRNode.Ice);
             ice.gameObject.SetActive(dRNode.Ice);
-            //sugar.color = mOrderData.Sugar ? Color.black : Color.clear;
-            //condensedMilk.color = mOrderData.CondensedMilk ? Color.black : Color.clear;
-            //salt.color = mOrderData.Salt ? Color.black : Color.clear; 
+            friendImg.color = Color.clear;
+            if (mOrderItemData.OrderData.friendName != null)
+            {
+                friendImg.sprite = GameEntry.Utils.chars[mOrderItemData.OrderData.friendName].sprite;
+                friendImg.color = Color.white;
+            }
             nowTime = mOrderData.OrderTime * 3 * GameEntry.Utils.OrderPower;
             Debug.Log(nowTime);
         }
@@ -148,6 +153,10 @@ namespace GameMain
                         GameEntry.Utils.PlayerData.ccoffee++;
                     }
                     income = (int)(income * p*GameEntry.Utils.PricePower);
+                    if (mOrderItemData.OrderData.friendName != null)
+                    {
+                        GameEntry.Utils.AddFriendFavor(mOrderItemData.OrderData.friendName, mOrderItemData.OrderData.friendFavor);
+                    }
                     GameEntry.Event.FireNow(this, OrderEventArgs.Create(mOrderData, income));
                     GameEntry.Entity.HideEntity(baseCompenent.transform.parent.GetComponent<BaseNode>().Entity);
                     GameEntry.Entity.HideEntity(this.Entity);

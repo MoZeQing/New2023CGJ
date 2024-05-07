@@ -95,7 +95,15 @@ namespace GameMain
                         coffees.Add((NodeTag)node.Id);
             }
             orderData.NodeTag = coffees[Random.Range(0, coffees.Count - 1)];
-            //orderData.Grind = true;
+            //生成好友订单
+            int friendRand = Random.Range(0, 12);
+            if (friendRand < 6)
+            {
+                List<string> keys = new List<string>(GameEntry.Utils._friends.Keys);
+                orderData.friendName = keys[friendRand];
+                orderData.friendFavor = 2;
+            }
+            //生成好友订单
             orderData.Grind = Random.Range(0, 2) == 1;
             orderData.OrderTime = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)orderData.NodeTag).Time;
             orderData.Sugar = Random.Range(0, 2) == 1;
