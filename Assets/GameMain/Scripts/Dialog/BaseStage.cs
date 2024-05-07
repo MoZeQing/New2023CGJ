@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class BaseStage : MonoBehaviour
 {
+    [SerializeField] protected bool IsWorld; 
+
     [SerializeField] protected Image mBG;
     [SerializeField] protected Transform mCanvas;
     [SerializeField] protected GameObject mCharacter;
@@ -31,7 +33,9 @@ public class BaseStage : MonoBehaviour
                 if (mChars[i] == baseCharacter)
                     continue;
                 mChars[i] = baseCharacter;
-                mChars[i].transform.position = mPositions[(int)dialogPos].transform.position+ mChars[i].mCharSO.offset;
+                Vector3 offset = mChars[i].mCharSO.offset;
+                if (IsWorld) offset /= 1000f;
+                mChars[i].transform.position = mPositions[(int)dialogPos].transform.position+ offset;
                 mChars[i].gameObject.SetActive(true);
             }
             else
