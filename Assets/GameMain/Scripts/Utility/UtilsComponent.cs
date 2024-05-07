@@ -297,7 +297,7 @@ namespace GameMain
             set
             {
                 mPlayerData.day = value;
-                Week = (Week)((Day + 20) % 7);
+                Week = (Week)(Day % 7);
                 Debug.Log(Week);
                 _values[TriggerTag.Day] = mPlayerData.day.ToString();
                 GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));

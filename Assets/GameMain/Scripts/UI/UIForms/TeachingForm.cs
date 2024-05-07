@@ -239,7 +239,7 @@ namespace GameMain
             BuffData buffData = GameEntry.Buff.GetBuff();
             energyText.text = string.Format("{0}/{1}", playerData.energy, playerData.maxEnergy*buffData.EnergyMaxMulti+buffData.EnergyMaxPlus);
             moneyText.text=string.Format("{0}", playerData.money.ToString());
-            timeText.text = string.Format("第{0}周 第{1}天 星期{2}", playerData.day/7+1, playerData.day% 7, AssetUtility.GetWeekCN(playerData.day % 7));
+            timeText.text = string.Format("第{0}周 第{1}天 星期{2}", playerData.day/7+1, playerData.day% 7+1, AssetUtility.GetWeekCN(playerData.day % 7));
         }
         //单独给点击做一个方法调用
         public void Click_Action()
