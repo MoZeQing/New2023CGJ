@@ -9,6 +9,7 @@ namespace GameMain
     public class PurchaseForm : MonoBehaviour
     {
         [SerializeField] private Text purchaseNum;
+        [SerializeField] private Text purchaseTotal;
         [SerializeField] private Button plusBtn;
         [SerializeField] private Button superPlusBtn;
         [SerializeField] private Button minusBtn;
@@ -35,7 +36,8 @@ namespace GameMain
         }
         void Update()
         {
-            purchaseNum.text = purchaseNumber.ToString();
+            purchaseNum.text = "X" + purchaseNumber.ToString();
+            purchaseTotal.text = string.Format("»¨Ïú£º{0}", purchaseNumber * mShopItemData.Price);
         }
         public void SetData(DRItem shopItemData)
         {

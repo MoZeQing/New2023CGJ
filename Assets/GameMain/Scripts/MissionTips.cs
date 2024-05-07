@@ -13,7 +13,7 @@ namespace GameMain
         {
             if (GameEntry.Utils.Day > 14)
             {
-                missionText.text = string.Format("想要举办沙龙，你需要邀请足够多的好友，尽可能在沙龙前将好友们的好感度提升到100！\r\n<size=28><color=red>距离沙龙还有：{0}天</color></size>\r\n", 35 - GameEntry.Utils.Day);
+                missionText.text = string.Format("想要举办沙龙，你需要邀请足够多的好友，尽可能在沙龙前将好友们的好感度提升到100！\r\n<size=24><color=red>好友的好感度会提升你的工作能力</color></size>\r\n", 35 - GameEntry.Utils.Day);
             }
             else if (GameEntry.Utils.Day < 7)
             {

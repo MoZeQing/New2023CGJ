@@ -16,6 +16,8 @@ namespace GameMain
         public Sprite sprite;
         public List<Sprite> diffs = new List<Sprite>();
         public List<int> audios = new List<int>();
+        [TextArea(5,10)]
+        public string text;
     }
     [System.Serializable]
     public class CharData
