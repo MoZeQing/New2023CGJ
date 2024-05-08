@@ -160,7 +160,7 @@ namespace GameMain
             Salt = false;
             Sugar= false;
             Grind = mNodeData.Grind;
-            //Ice = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)mNodeData.NodeTag).Ice;
+            Ice = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)mNodeData.NodeTag).Ice;
             CondensedMilk = false;
 
             UpdateIcon();
@@ -548,8 +548,8 @@ namespace GameMain
                             {
                                 Position = this.transform.position + new Vector3(0.5f, 0, 0),
                                 RamdonJump = true,
-                                Grind = this.Grind
-                            }); ;
+                                Grind = this.Grind,
+                            });
                         }
                         else
                         {

@@ -8,7 +8,7 @@ using System.Text;
 using UnityEditor;
 using UnityEngine;
 
-[CreateAssetMenu]
+//[CreateAssetMenu]
 public class StorySO : ScriptableObject
 {
     [SerializeField]
@@ -27,10 +27,10 @@ public class StorySO : ScriptableObject
     public DialogueGraph dialogueGraph;
     [SerializeField]
     public List<EventData> eventDatas= new List<EventData>();
-    [SerializeField,TextArea(5,10)]
+    [SerializeField]
     public string content;
 
-    [MenuItem("Data/StoryToCSV")]
+    //[MenuItem("Data/StoryToCSV")]
     public static void StoryToCSV()
     {
         try
@@ -68,7 +68,7 @@ public class StorySO : ScriptableObject
         }
     }
 
-    [MenuItem("Data/StoryCheck")]
+    //[MenuItem("Data/StoryCheck")]
     public static void Check()
     { 
         

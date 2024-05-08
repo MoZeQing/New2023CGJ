@@ -20,9 +20,15 @@ MonoBehaviour:
   trigger:
     key: 10
     not: 0
-    equals: 1
+    equals: 0
     value: 15
-    and: []
+    and:
+    - key: 1
+      not: 0
+      equals: 1
+      value: Chapter2_1
+      and: []
+      or: []
     or: []
   dialogueGraph: {fileID: 11400000, guid: 38f0275fea5cbca4e93acc1e9faae3a9, type: 2}
   eventDatas:

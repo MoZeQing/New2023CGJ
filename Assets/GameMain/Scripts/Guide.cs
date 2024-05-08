@@ -222,7 +222,7 @@ namespace GameMain
                 if (baseCompenent.NodeTag != NodeTag.Cup)
                     return;
                 GameEntry.UI.CloseUIForm(UIFormId.HighlightTips);
-                GameEntry.UI.OpenUIForm(UIFormId.HighlightTips, "使用杯子将浓缩咖啡和低泡牛奶合成为拿铁");
+                GameEntry.UI.OpenUIForm(UIFormId.HighlightTips, "使用杯子将浓缩咖啡和低泡牛奶合成为卡布奇诺");
                 GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, Guide2_5);
                 GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, Guide2_6);
             }
@@ -237,7 +237,7 @@ namespace GameMain
                 if (baseCompenent.NodeTag != NodeTag.Kapuziner)
                     return;
                 GameEntry.UI.CloseUIForm(UIFormId.HighlightTips);
-                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "使用拿铁交单");
+                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "使用卡布奇诺交单");
                 GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, Guide2_6);
                 GameEntry.Event.Subscribe(GameStateEventArgs.EventId, Guide3_1);
             }
@@ -271,7 +271,7 @@ namespace GameMain
                     return;
                 materials[7].SetActive(true);
                 GameEntry.UI.CloseUIForm(UIFormId.HighlightTips);
-                GameEntry.UI.OpenUIForm(UIFormId.HighlightTips, "继续完成细版本的冰拿铁吧！");
+                GameEntry.UI.OpenUIForm(UIFormId.HighlightTips, "继续完成细版本的冰卡布奇诺吧！");
                 GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, Guide3_3);
                 GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, Guide3_5);
             }

@@ -55,7 +55,6 @@ namespace GameMain
             GameEntry.Utils.Energy += dRBench.Energy;
             GameEntry.Utils.MaxEnergy += dRBench.EnergyMax;
             GameEntry.Utils.Money+= dRBench.Money;
-            GameEntry.Utils.Money -= 100;
             foreach (string eventData in dRBench.Buff)
             {
                 GameEntry.Utils.RunEvent(eventData);

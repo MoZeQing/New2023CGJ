@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-05-04 23:31:28.964
+// 生成时间：2024-05-08 20:31:07.597
 //------------------------------------------------------------
 
 using GameFramework;
@@ -110,7 +110,6 @@ namespace GameMain
             int index = 0;
             index++;
             m_Id = int.Parse(columnStrings[index++]);
-            index++;
             index++;
             AssetName = columnStrings[index++];
             Priority = int.Parse(columnStrings[index++]);

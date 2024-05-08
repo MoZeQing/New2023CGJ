@@ -45,17 +45,16 @@ namespace GameMain
 
         private void Outing(OutingSceneState outingSceneState)
         {
-            //if (mDay == GameEntry.Utils.Day)
-            //{
-            //    GameEntry.UI.OpenUIForm(UIFormId.PopTips, "今天你已经外出过一次了");
-            //    return;
-            //}
-            if (GameEntry.Utils.Energy < 20)
+            if (mDay == GameEntry.Utils.Day)
             {
-                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你的体力不足，还是先休息会吧");
+                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "今天你已经外出过一次了");
                 return;
             }
-            GameEntry.Utils.Energy -= 20;
+            //if (GameEntry.Utils.Energy < 20)
+            //{
+            //    GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你的体力不足，还是先休息会吧");
+            //    return;
+            //}
             GameEntry.Utils.Location=outingSceneState;
             GameEntry.Dialog.StoryUpdate();
             GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
