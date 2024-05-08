@@ -29,11 +29,15 @@ MonoBehaviour:
   m_Name: Chat
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 0, y: 0}
+  position: {x: -72, y: -248}
   ports:
     keys:
     - a
     - chatDatas
+    - chatDatas 0
+    - chatDatas 1
+    - chatDatas 2
+    - chatDatas 3
     values:
     - _fieldName: a
       _node: {fileID: 2828868935605706309}
@@ -57,10 +61,46 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+    - _fieldName: chatDatas 0
+      _node: {fileID: 2828868935605706309}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: chatDatas 1
+      _node: {fileID: 2828868935605706309}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: chatDatas 2
+      _node: {fileID: 2828868935605706309}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: chatDatas 3
+      _node: {fileID: 2828868935605706309}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
   a: 0
   dialogId: 
   chatDatas:
-  - charName: "\u6D4B\u8BD5"
+  - charName: 
     left:
       charSO: {fileID: 0}
       actionData:
@@ -68,9 +108,9 @@ MonoBehaviour:
         actionTag: 0
         soundTag: 0
     middle:
-      charSO: {fileID: 0}
+      charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
       actionData:
-        diffTag: 0
+        diffTag: 8
         actionTag: 0
         soundTag: 0
     right:
@@ -81,7 +121,73 @@ MonoBehaviour:
         soundTag: 0
     background: {fileID: 0}
     eventDatas: []
-    text: "\u6D4B\u8BD5\uFF0C\u6765\u6E90\uFF1AStranger_3_TV_0"
+    text: "\u4F60\u6253\u5F00\u4E86\u7535\u89C6\uFF0C\u7231\u4E3D\u4E1D\u6765\u5230\u4E86\u4F60\u7684\u8EAB\u8FB9\u5750\u4E0B"
+  - charName: "\u4F60"
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
+      actionData:
+        diffTag: 8
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    background: {fileID: 0}
+    eventDatas: []
+    text: "\u7231\u4E3D\u4E1D\u60F3\u770B\u4EC0\u4E48\uFF1F"
+  - charName: "\u7231\u4E3D\u4E1D"
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
+      actionData:
+        diffTag: 8
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    background: {fileID: 0}
+    eventDatas: []
+    text: "\u90FD\u53EF\u4EE5\uFF0C\u5E97\u957F\u559C\u6B22\u770B\u7684\u6211\u4E5F\u559C\u6B22\u770B"
+  - charName: 
+    left:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    middle:
+      charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
+      actionData:
+        diffTag: 8
+        actionTag: 0
+        soundTag: 0
+    right:
+      charSO: {fileID: 0}
+      actionData:
+        diffTag: 0
+        actionTag: 0
+        soundTag: 0
+    background: {fileID: 0}
+    eventDatas: []
+    text: "\u4F60\u968F\u610F\u6253\u5F00\u4E00\u4E2A\u53F0\uFF0C\u4E4B\u540E\u4FBF\u548C\u7231\u4E3D\u4E1D\u4EAB\u53D7\u7740\u7535\u89C6\u8282\u76EE"
 --- !u!114 &4345225396130905755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,7 +201,7 @@ MonoBehaviour:
   m_Name: Start
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 0, y: 0}
+  position: {x: -328, y: -72}
   ports:
     keys:
     - start
