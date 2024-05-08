@@ -34,7 +34,7 @@ namespace GameMain
 
             //videoPlayer.targetTexture = renderTexture;
 
-            //OnClick(GameEntry.DataTable.GetDataTable<DRGuide>().GetDataRow(0));
+            OnClick(GameEntry.DataTable.GetDataTable<DRGuide>().GetDataRow(0));
             for (int i=0;i<buttons.Count;i++)
             {
                 DRGuide dRGuide = GameEntry.DataTable.GetDataTable<DRGuide>().GetDataRow(i);
@@ -65,9 +65,9 @@ namespace GameMain
             //videoPlayer.clip= (VideoClip)Resources.Load<VideoClip>(dRGuide.VideoPath);
             //videoPlayer.Play();
             //image.color = Color.white;
-            //title.text = dRGuide.Title;
-            //text.text = dRGuide.Text;
-            //text.text = text.text.Replace("\\n", "\n");
+            title.text = dRGuide.Title;
+            text.text = dRGuide.Text;
+            text.text = text.text.Replace("\\n", "\n");
         }
     }
 }
