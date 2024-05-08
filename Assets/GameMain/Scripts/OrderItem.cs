@@ -63,7 +63,7 @@ namespace GameMain
             grind.gameObject.SetActive(!mOrderData.Grind);
             hot.gameObject.SetActive(!dRNode.Ice);
             ice.gameObject.SetActive(dRNode.Ice);
-            if (mOrderItemData.OrderData.friendName != null)
+            if (mOrderItemData.OrderData.friendName != null&& mOrderItemData.OrderData.friendName != string.Empty)
             {
                 friendImg.sprite = GameEntry.Utils.chars[mOrderItemData.OrderData.friendName].orderSprite;
             }

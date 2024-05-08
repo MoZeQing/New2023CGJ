@@ -96,7 +96,7 @@ namespace GameMain
                     button.onClick.AddListener(OnSleep);
                 else
                     button.onClick.AddListener(() => Behaviour(behaviorData.behaviorTag));
-                text.text = behaviorData.behaviorTag.ToString();
+                text.text = behaviorData.behaviorName.ToString();
                 m_Btns.Add(go);
             }
         }

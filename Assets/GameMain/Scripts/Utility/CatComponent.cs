@@ -94,6 +94,7 @@ namespace GameMain
     public class BehaviorData
     {
         public BehaviorTag behaviorTag;
+        public string behaviorName;
         public PlayerData playerData;
         public CatData catData;
         public List<DialogueGraph> dialogues;
