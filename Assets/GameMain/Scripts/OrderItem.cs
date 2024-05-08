@@ -63,11 +63,13 @@ namespace GameMain
             grind.gameObject.SetActive(!mOrderData.Grind);
             hot.gameObject.SetActive(!dRNode.Ice);
             ice.gameObject.SetActive(dRNode.Ice);
-            friendImg.color = Color.clear;
             if (mOrderItemData.OrderData.friendName != null)
             {
-                friendImg.sprite = GameEntry.Utils.chars[mOrderItemData.OrderData.friendName].sprite;
-                friendImg.color = Color.white;
+                friendImg.sprite = GameEntry.Utils.chars[mOrderItemData.OrderData.friendName].orderSprite;
+            }
+            else
+            {
+                friendImg.sprite = GameEntry.Utils.orderSprite;
             }
             nowTime = mOrderData.OrderTime * 3 * GameEntry.Utils.OrderPower;
             Debug.Log(nowTime);
@@ -128,8 +130,6 @@ namespace GameMain
                     income = dtNode.GetDataRow((int)mOrderData.NodeTag).Price;
                     if (mOrderData.Urgent)
                         income = (int)(income * 1.5f);
-                    if(mOrderData.OrderChar!=string.Empty)
-                        GameEntry.Utils.AddFriendFavor(mOrderData.OrderChar, mOrderData.CharFavor);
                     income += mOrderData.Sugar ? 2 : 0;
                     income += mOrderData.CondensedMilk ? 5 : 0;
                     income += mOrderData.Salt ? 3 : 0;

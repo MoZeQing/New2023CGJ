@@ -12,6 +12,7 @@ namespace GameMain
 {
     public class UtilsComponent : GameFrameworkComponent
     {
+        public Sprite orderSprite;
         public OutingSceneState outSceneState;
         public List<Sprite> closets = new List<Sprite>();
         public int closet;

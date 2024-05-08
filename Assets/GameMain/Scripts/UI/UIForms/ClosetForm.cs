@@ -69,6 +69,7 @@ namespace GameMain
             closetItems[1].transform.GetChild(0).gameObject.SetActive(GameEntry.Utils.GetPlayerItem((ItemTag)dRItems[dRItems.Count - 1].Id) == null);
 
             infoText.text = dRItems[index].Info;
+            infoText.text = infoText.text.Replace("\\n", "\n");
             closetImg.sprite = Resources.Load<Sprite>(dRItems[index].ImagePath);
             closetImg.color = GameEntry.Utils.GetPlayerItem((ItemTag)dRItems[index].Id) != null ? Color.white : Color.gray;
         }
@@ -102,6 +103,7 @@ namespace GameMain
             closetItems[3].transform.GetChild(0).gameObject.SetActive(GameEntry.Utils.GetPlayerItem((ItemTag)dRItems[(index + closetItems.Length + 1) % closetItems.Length].Id) == null);
 
             infoText.text = dRItems[index].Info;
+            infoText.text = infoText.text.Replace("\\n", "\n");
             closetImg.sprite = Resources.Load<Sprite>(dRItems[index].ImagePath);
             closetImg.color = GameEntry.Utils.GetPlayerItem((ItemTag)dRItems[index].Id) != null ? Color.white : Color.gray;
         }
@@ -135,6 +137,7 @@ namespace GameMain
             closetItems[3].transform.GetChild(0).gameObject.SetActive(GameEntry.Utils.GetPlayerItem((ItemTag)dRItems[(index + closetItems.Length + 1) % closetItems.Length].Id) == null);
 
             infoText.text = dRItems[index].Info;
+            infoText.text = infoText.text.Replace("\\n", "\n");
             closetImg.sprite = Resources.Load<Sprite>(dRItems[index].ImagePath);
             closetImg.color = GameEntry.Utils.GetPlayerItem((ItemTag)dRItems[index].Id) != null ? Color.white : Color.gray;
         }

@@ -14,6 +14,7 @@ namespace GameMain
         public string charName;
         public int favor;
         public Sprite sprite;
+        public Sprite orderSprite;
         public List<Sprite> diffs = new List<Sprite>();
         public List<int> audios = new List<int>();
         [TextArea(5,10)]

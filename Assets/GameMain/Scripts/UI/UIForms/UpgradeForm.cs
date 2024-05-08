@@ -43,12 +43,9 @@ namespace GameMain
 
         private void CheckUpgrade()
         {
-            statisticsText.text = string.Format("完成A级咖啡：{0}\n完成B级咖啡：{1}\n完成C级咖啡：{2}",
+            statisticsText.text = string.Format("完成A级咖啡：{0}\n完成B级以上咖啡：{1}\n完成C级以上咖啡：{2}",
             GameEntry.Utils.PlayerData.acoffee,
-            GameEntry.Utils.PlayerData.acoffee +
             GameEntry.Utils.PlayerData.bcoffee,
-            GameEntry.Utils.PlayerData.acoffee +
-            GameEntry.Utils.PlayerData.bcoffee +
             GameEntry.Utils.PlayerData.ccoffee);
 
             for (int i = 0; i < levelTexts.Count; i++)
