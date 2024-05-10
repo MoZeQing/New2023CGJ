@@ -19,16 +19,15 @@ namespace GameMain
             base.OnOpen(userData);
             btn.onClick.AddListener(OnClick);
         }
-
         protected override void OnClose(bool isShutdown, object userData)
         {
             base.OnClose(isShutdown, userData);
             btn.onClick.RemoveAllListeners();
         }
-
         // Update is called once per frame
-        void Update()
+        protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
+            base.OnUpdate(elapseSeconds, realElapseSeconds);
             if (Input.GetKeyDown(KeyCode.Return))
             {
                 OnClick();
@@ -45,51 +44,17 @@ namespace GameMain
 
         public void ConsoleUpdate()
         {
-            EventData eventData = new EventData();
-            if (inputText.text == "ShowFlag")
-            {
-                text.text += "\n";
-                foreach (KeyValuePair<string, int> pair in GameEntry.Utils._flagValues)
-                {
-                    text.text += string.Format("{0}:{1}\n", pair.Key, pair.Value);
-                }
-                return;
-            }
             if (inputText.text == string.Empty)
             {
                 text.text += "«Î ‰»Î√¸¡Ó\n";
             }
-            else if (inputText.text == "Clear")
+            text.text += inputText.text + "\n";
+            if (inputText.text == "Clear")
             {
                 text.text = string.Empty;
             }
-            else
-            {
-                text.text += inputText.text + "\n";
-            }
-
-
-            string[] console = inputText.text.Split(' ');
-            if (console.Length != 2)
-            {
-                text.text += "¥ÌŒÛ£¨«Î ‰≥ˆ”––ßµƒ√¸¡Ó";
-                return;
-            }
-
+            text.text += GameEntry.Utils.RunEvent(inputText.text) ? "\ncommand is success\n" : "command is fail\n";
             inputText.text = string.Empty;
-
-            try
-            {
-                EventTag eventEnum = (EventTag)Enum.Parse(typeof(EventTag), console[0]);
-                eventData.eventTag = eventEnum;
-                eventData.value = console[1];
-            }
-            catch (Exception e)
-            {
-                Debug.Log(e.ToString());
-            }
-            Debug.LogFormat("≤‚ ‘£¨√∂æŸ£∫{0}£¨÷µ£∫{1}", console[0], console[1]);
-            text.text += GameEntry.Utils.RunEvent(eventData) ? "command is success\n" : "command is fail\n";
         }
     }
 }

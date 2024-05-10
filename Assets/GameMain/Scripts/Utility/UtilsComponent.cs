@@ -503,10 +503,13 @@ namespace GameMain
         public bool RunEvent(string text)
         {
             string[] console = text.Split(' ');
-            EventData eventData = new EventData();
-            EventTag eventEnum = (EventTag)Enum.Parse(typeof(EventTag), console[0]);
-            eventData.eventTag = eventEnum;
-            eventData.value = console[1];
+            EventData eventData = new EventData()
+            {
+                eventTag = (EventTag)Enum.Parse(typeof(EventTag), console[0]),
+                value1 = console[1],
+                value2 = console[2],
+                value3 = console[3],
+            };
             return RunEvent(eventData);
         }
 
@@ -515,44 +518,42 @@ namespace GameMain
             switch (eventData.eventTag)
             {
                 case EventTag.Play:
-                    GameEntry.Dialog.PlayStory(eventData.value);
+                    GameEntry.Dialog.PlayStory(eventData.value1);
                     return true;
                 case EventTag.AddMoney:
-                    GameEntry.Utils.Money += int.Parse(eventData.value);
-                    Debug.Log(int.Parse(eventData.value));
+                    GameEntry.Utils.Money += int.Parse(eventData.value1);
                     return true;
                 case EventTag.AddFavor:
-                    GameEntry.Utils.Favor += int.Parse(eventData.value);
+                    GameEntry.Utils.Favor += int.Parse(eventData.value1);
                     return true;
                 case EventTag.AddMood:
-                    GameEntry.Utils.Mood+= int.Parse(eventData.value);
+                    GameEntry.Utils.Mood+= int.Parse(eventData.value1);
                     return true;
                 case EventTag.AddHope:
-                    GameEntry.Utils.Hope += int.Parse(eventData.value);
+                    GameEntry.Utils.Hope += int.Parse(eventData.value1);
                     return true;
                 case EventTag.AddLove:
-                    GameEntry.Utils.Love+= int.Parse(eventData.value);  
+                    GameEntry.Utils.Love+= int.Parse(eventData.value1);  
                     return true;
                 case EventTag.AddAbility:
-                    GameEntry.Utils.Love += int.Parse(eventData.value);
+                    GameEntry.Utils.Love += int.Parse(eventData.value1);
                     return true;
                 case EventTag.AddEnergy:
-                    GameEntry.Utils.Energy += int.Parse(eventData.value);
+                    GameEntry.Utils.Energy += int.Parse(eventData.value1);
                     return true;
                 case EventTag.AddAp:
-                    GameEntry.Utils.Ap+= int.Parse(eventData.value);
+                    GameEntry.Utils.Ap+= int.Parse(eventData.value1);
                     return true;
                 case EventTag.AddItem:
-                    GameEntry.Utils.AddPlayerItem(new ItemData((ItemTag)Enum.Parse(typeof(ItemTag), eventData.value)),1);
+                    GameEntry.Utils.AddPlayerItem(new ItemData((ItemTag)Enum.Parse(typeof(ItemTag), eventData.value1)), int.Parse(eventData.value2));
                     return true;
                 case EventTag.AddFlag:
-                    GameEntry.Utils.AddFlag(eventData.value);
+                    GameEntry.Utils.AddFlag(eventData.value1);
                     return true;
                 case EventTag.RemoveFlag:
-                    GameEntry.Utils.RemoveFlag(eventData.value);
+                    GameEntry.Utils.RemoveFlag(eventData.value1);
                     return true;
-                case EventTag.NextDay:
-                    GameEntry.Event.FireNow(this, MainFormEventArgs.Create(MainFormTag.Unlock));
+                case EventTag.NextDay://重写逻辑
                     GameEntry.Utils.Day++;
                     GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Night));
                     return true;
@@ -562,32 +563,31 @@ namespace GameMain
                     GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Menu));
                     return true;
                 case EventTag.AddDay:
-                    GameEntry.Utils.Day += int.Parse(eventData.value);
+                    GameEntry.Utils.Day += int.Parse(eventData.value1);
                     return true;
                 case EventTag.AddAction:
-                    GameEntry.Utils.actionName= eventData.value;
+                    GameEntry.Utils.actionName= eventData.value1;
                     return true;
                 case EventTag.Rent:
-                    GameEntry.Utils.Rent=int.Parse(eventData.value);
+                    GameEntry.Utils.Rent=int.Parse(eventData.value1);
                     return true; 
                 case EventTag.AddFriend:
-                    string[] strings= eventData.value.Split('|');
-                    GameEntry.Utils.AddFriendFavor(strings[0], int.Parse(strings[1]));
+                    GameEntry.Utils.AddFriendFavor(eventData.value1, int.Parse(eventData.value2));
                     return true; 
                 case EventTag.AddRecipe:
-                    GameEntry.Player.AddRecipe(int.Parse(eventData.value));
+                    GameEntry.Player.AddRecipe(int.Parse(eventData.value1));
                     return true; 
                 case EventTag.AddScene:
-                    GameEntry.Utils.outingSceneStates.Add((OutingSceneState)int.Parse(eventData.value));
+                    GameEntry.Utils.outingSceneStates.Add((OutingSceneState)int.Parse(eventData.value1));
                     return true;
                 case EventTag.Test:
                     GameEntry.Event.FireNow(this, ValueEventArgs.Create(PropertyTag.Energy,"成功"));
                     return true;
                 case EventTag.AddBuff:
-                    GameEntry.Buff.AddBuff(int.Parse(eventData.value));
+                    GameEntry.Buff.AddBuff(int.Parse(eventData.value1));
                     return true;
                 case EventTag.RemoveBuff:
-                    GameEntry.Buff.RemoveBuff(int.Parse(eventData.value));
+                    GameEntry.Buff.RemoveBuff(int.Parse(eventData.value1));
                     return true;
             }
             return false;

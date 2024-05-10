@@ -156,7 +156,7 @@ public class DialogBox : MonoBehaviour
                 {
                     if (eventData.eventTag == EventTag.Play)
                     {
-                        if (eventData.value == string.Empty)
+                        if (eventData.value1 == string.Empty)
                             output = string.Format("triggerDatas {0}", i);
                     }
                     GameEntry.Utils.RunEvent(eventData);
