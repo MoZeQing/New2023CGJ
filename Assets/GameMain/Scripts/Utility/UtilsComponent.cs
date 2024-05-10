@@ -62,12 +62,12 @@ namespace GameMain
             else
                 _friends[name] += favor;
             //硬编码转换
-            if (name == "money") _values[TriggerTag.FMoney] = _friends[name].ToString();
-            if (name == "regular") _values[TriggerTag.FRegular] = _friends[name].ToString();
-            if (name == "dog") _values[TriggerTag.FDog] = _friends[name].ToString();
-            if (name == "fiction") _values[TriggerTag.FFiction] = _friends[name].ToString();
-            if (name == "courier") _values[TriggerTag.FCourier] = _friends[name].ToString();
-            if (name == "doc") _values[TriggerTag.FWitch] = _friends[name].ToString();
+            if (name == "Money") _values[TriggerTag.FMoney] = _friends[name].ToString();
+            if (name == "Regular") _values[TriggerTag.FRegular] = _friends[name].ToString();
+            if (name == "Dog") _values[TriggerTag.FDog] = _friends[name].ToString();
+            if (name == "Fiction") _values[TriggerTag.FFiction] = _friends[name].ToString();
+            if (name == "Courier") _values[TriggerTag.FCourier] = _friends[name].ToString();
+            if (name == "Doc") _values[TriggerTag.FWitch] = _friends[name].ToString();
         }
 
         public Dictionary<string, int> GetFriends()

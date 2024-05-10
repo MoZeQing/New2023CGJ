@@ -45,7 +45,6 @@ namespace GameMain
 
         public void ConsoleUpdate()
         {
-            Debug.Log(123);
             EventData eventData = new EventData();
             if (inputText.text == "ShowFlag")
             {
