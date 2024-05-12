@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-05-08 20:31:07.577
+// 生成时间：2024-05-12 18:40:29.141
 //------------------------------------------------------------
 
 using GameFramework;
@@ -58,6 +58,15 @@ namespace GameMain
         /// 获取图片路径。
         /// </summary>
         public string ImagePath
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取实物路径。
+        /// </summary>
+        public string MaterialPath
         {
             get;
             private set;
@@ -159,6 +168,7 @@ namespace GameMain
             AssetName = columnStrings[index++];
             SpritePath = columnStrings[index++];
             ImagePath = columnStrings[index++];
+            MaterialPath = columnStrings[index++];
             Material = bool.Parse(columnStrings[index++]);
             Tool = bool.Parse(columnStrings[index++]);
             Coffee = bool.Parse(columnStrings[index++]);
@@ -183,6 +193,7 @@ namespace GameMain
                     AssetName = binaryReader.ReadString();
                     SpritePath = binaryReader.ReadString();
                     ImagePath = binaryReader.ReadString();
+                    MaterialPath = binaryReader.ReadString();
                     Material = binaryReader.ReadBoolean();
                     Tool = binaryReader.ReadBoolean();
                     Coffee = binaryReader.ReadBoolean();

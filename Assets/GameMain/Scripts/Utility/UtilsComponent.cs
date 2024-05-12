@@ -503,13 +503,23 @@ namespace GameMain
         public bool RunEvent(string text)
         {
             string[] console = text.Split(' ');
-            EventData eventData = new EventData()
+            EventTag eventTag = (EventTag)Enum.Parse(typeof(EventTag), console[0]);
+            EventData eventData=new EventData(eventTag);
+            if (console.Length == 2)
             {
-                eventTag = (EventTag)Enum.Parse(typeof(EventTag), console[0]),
-                value1 = console[1],
-                value2 = console[2],
-                value3 = console[3],
-            };
+                eventData.value1= console[1];
+            }
+            if (console.Length == 3)
+            {
+                eventData.value1 = console[1];
+                eventData.value2 = console[2];
+            }
+            if (console.Length == 4)
+            {
+                eventData.value1 = console[1];
+                eventData.value2 = console[2];
+                eventData.value2 = console[3];
+            }
             return RunEvent(eventData);
         }
 
