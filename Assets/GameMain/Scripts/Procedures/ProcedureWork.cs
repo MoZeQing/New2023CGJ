@@ -80,12 +80,6 @@ namespace GameMain
         private void OnOrderEvent(object sender, GameEventArgs e)
         {
             OrderEventArgs args = (OrderEventArgs)e;
-            //if (mLevelData.orderData == args.OrderData)
-            //{
-            //    GamePosUtility.Instance.GamePosChange(GamePos.Up);
-            //    dialogBox.SetDialog(mLevelData.afterWork);
-            //    dialogBox.SetComplete(OnAfterWorkComplete);
-            //}
             if (args.Income == 0)
                 return;
             workData.orderDatas.Add(args.OrderData);

@@ -17,8 +17,8 @@ namespace GameMain
         [SerializeField] private Text friendNameText;
         [SerializeField] private Text friendTextText;
         [SerializeField] private Image coffeeIcon;
-        [SerializeField] private Image progress;
-        [SerializeField] private List<Text> progressTexts;
+        //[SerializeField] private Image progress;
+        //[SerializeField] private List<Text> progressTexts;
 
         [SerializeField] private Button leftBtn;
         [SerializeField] private Button rightBtn;
@@ -62,7 +62,7 @@ namespace GameMain
             friendFavorText.text= friendFavor.ToString();
             DRNode dRNode =GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)charSO.favorCoffee);
             coffeeIcon.sprite = Resources.Load<Sprite>(dRNode.MaterialPath);
-            progress.fillAmount = friendFavor / 100f;
+            //progress.fillAmount = friendFavor / 100f;
 
         }
 

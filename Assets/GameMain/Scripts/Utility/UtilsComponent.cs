@@ -579,7 +579,7 @@ namespace GameMain
                     GameEntry.Utils.actionName= eventData.value1;
                     return true;
                 case EventTag.Rent:
-                    GameEntry.Utils.Rent=int.Parse(eventData.value1);
+                    //GameEntry.Utils.Rent=int.Parse(eventData.value1);
                     return true; 
                 case EventTag.AddFriend:
                     GameEntry.Utils.AddFriendFavor(eventData.value1, int.Parse(eventData.value2));

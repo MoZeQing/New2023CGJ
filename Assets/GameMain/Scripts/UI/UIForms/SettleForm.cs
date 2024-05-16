@@ -78,9 +78,10 @@ namespace GameMain
                 DRNode dRNode = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)order.NodeTag);
                 StringBuilder sb= new StringBuilder();
                 sb.Append(dRNode.Description.ToString());
-                if (order.Sugar) sb.Append("(ÌÇ)");
-                if (order.CondensedMilk) sb.Append("(Á¶Èé)");
-                if (order.Salt) sb.Append("(ÑÎ)");
+                if (order.Grind) sb.Append("(´Ö)");
+                if (!order.Grind) sb.Append("(Ï¸)");
+                if (dRNode.Ice) sb.Append("(±ù)");
+                if (!dRNode.Ice) sb.Append("(ÈÈ)");
                 coffeeText.text += (sb.ToString() + "\n");
             }
             //Ð¡Ã¨ÁÐ±í
@@ -93,20 +94,11 @@ namespace GameMain
 
         private void OnClick()
         {
-            //if (mIsRandom)
-            //{
             GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Afternoon));
             GameEntry.UI.CloseUIForm(this.UIForm);
             BuffData buffData = GameEntry.Buff.GetBuff();
             DRUpgrade dRUpgrade = GameEntry.DataTable.GetDataTable<DRUpgrade>().GetDataRow(GameEntry.Utils.PlayerData.cafeID);
             GameEntry.Utils.Money += (int)(mWorkData.Income * buffData.MoneyMulti * (1 + dRUpgrade.Money / 100) + buffData.MoneyPlus);
-            //}
-            //else
-            //{ 
-            //    mIsRandom= true;
-            //    randomCanvas.gameObject.SetActive(false);
-            //    settleCanvas.gameObject.SetActive(true);
-            //}
         }
     }
 }

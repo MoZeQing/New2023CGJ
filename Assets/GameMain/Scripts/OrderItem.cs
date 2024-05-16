@@ -12,13 +12,10 @@ using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
 
 namespace GameMain
 {
-    public class OrderItem : Entity/*, IPointerClickHandler*/
+    public class OrderItem : Entity
     {
         [SerializeField] private Image coffeeItem;
         [SerializeField] private Text coffeeName;
-        //[SerializeField] private Text sugar;
-        //[SerializeField] private Text condensedMilk;
-        //[SerializeField] private Text salt;
         [SerializeField] private Text grindText;
         [SerializeField] private Image ice;
         [SerializeField] private Image hot;
@@ -26,7 +23,6 @@ namespace GameMain
         [SerializeField] private Image coarse;
         [SerializeField] private Image friendImg;
         [SerializeField] private Image timeLine;
-        [SerializeField] private Button exitBtn;
 
         private OrderItemData mOrderItemData = null;
         private OrderData mOrderData = null;
@@ -93,10 +89,6 @@ namespace GameMain
             {
                 timeLine.color = Color.red;
             }
-            //if (nowTime < 0)
-            //    timeLine.fillAmount = 1;
-            //else
-            //    timeLine.fillAmount = nowTime / mOrderData.OrderTime;
             if (nowTime <= 0f && nowTime > -1f)
             {
                 nowTime = -1;
