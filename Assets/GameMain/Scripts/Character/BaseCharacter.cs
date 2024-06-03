@@ -59,9 +59,6 @@ namespace GameMain
                 case ActionTag.Shake:
                     ShakeAction();
                     break;
-                case ActionTag.Squat:
-                    SquatAction();
-                    break;
             }
         }
         //×óÓÒ¶¶¶¯¶¯»­
