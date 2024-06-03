@@ -34,7 +34,7 @@ public class BaseStage : MonoBehaviour
                     continue;
                 mChars[i] = baseCharacter;
                 Vector3 offset = mChars[i].mCharSO.offset;
-                if (IsWorld) offset /= 1000f;
+                if (IsWorld) offset /= 100;
                 mChars[i].transform.position = mPositions[(int)dialogPos].transform.position+ offset;
                 mChars[i].gameObject.SetActive(true);
             }

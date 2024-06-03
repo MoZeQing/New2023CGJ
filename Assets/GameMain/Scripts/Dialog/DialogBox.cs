@@ -42,11 +42,8 @@ public class DialogBox : MonoBehaviour
 
     private void Update()
     {
+        mIsSkip = Input.GetKey(KeyCode.LeftControl);
         _time += Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.LeftControl))
-            mIsSkip = true;
-        if (Input.GetKeyUp(KeyCode.LeftControl))
-            mIsSkip = false;
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
             Next();
         if (mIsSkip)

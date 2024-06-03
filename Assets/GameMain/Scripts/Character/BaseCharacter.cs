@@ -54,11 +54,31 @@ namespace GameMain
             switch (actionData.actionTag)
             {
                 case ActionTag.Jump:
+                    JumpAction();
                     break;
                 case ActionTag.Shake:
+                    ShakeAction();
+                    break;
+                case ActionTag.Squat:
+                    SquatAction();
                     break;
             }
         }
+        //左右抖动动画
+        protected virtual void ShakeAction()
+        {
+            mImage.gameObject.transform.DOPause();
+            mImage.gameObject.transform.localPosition = Vector3.zero;
+            mImage.gameObject.transform.DOPunchPosition(Vector3.right*100,0.4f,10);
+        }
+        //上下跳动动画
+        protected virtual void JumpAction()
+        {
+            mImage.gameObject.transform.DOPause();
+            mImage.gameObject.transform.localPosition = Vector3.zero;
+            mImage.gameObject.transform.DOLocalJump(Vector3.zero,200,1,0.3f,false);
+        }
+
         public void SetDiff(DiffTag diffTag)
         {
             if (mCharSO == null)
