@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityGameFramework.Runtime;
 using XNode;
+using DG.Tweening;
 
 namespace GameMain
 {
@@ -19,29 +20,18 @@ namespace GameMain
         }
 
         private CharacterData mCharacterData = null;
-        private Image mImage = null;
         private ActionNode mActionNode = null;
         public CharSO mCharSO = null;
+        public Image mImage = null;
 
         private List<Sprite> mDiffs = new List<Sprite>();//差分
         private ActionState mActionState;
-
-        private void Start()
-        {
-            mImage = this.GetComponent<Image>();
-        }
-        private void OnEnable()
-        {
-            mImage = this.GetComponent<Image>();
-        }
 
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
             mCharacterData = (CharacterData)userData;
             DialogPos= mCharacterData.DialogPos;
-
-            mImage = this.GetComponent<Image>();
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
@@ -56,34 +46,7 @@ namespace GameMain
 
         public void OnPointerDown(PointerEventData pointerEventData)
         {
-            //mActionState = ActionState.Click;
-            //if (mActionNode.click != null)
-            //{
-            //    List<ChatNode> chatNodes = new List<ChatNode>();
-            //    for (int i = 0; i < mActionNode.click.Count; i++)
-            //    {
-            //        if (GameEntry.Utils.Check(mActionNode.click[i]))
-            //        {
-            //            if (mActionNode.GetPort(string.Format("click {0}", i)) != null)
-            //            {
-            //                NodePort nodePort = mActionNode.GetPort(string.Format("click {0}", i));
-            //                if (nodePort.Connection != null)
-            //                {
-            //                    ChatNode node = (ChatNode)nodePort.Connection.node;
-            //                    chatNodes.Add(node);
-            //                }
-            //            }
-            //        }
-            //    }
-            //    if (chatNodes.Count > 0)
-            //    {
-            //        ChatNode chatNode = chatNodes[Random.Range(0, chatNodes.Count)];
-            //    }
-            //    else
-            //    {
-            //        Debug.LogWarningFormat("错误，不存在有效的对话文件，请检查文件以及条件，错误文件：{0}", mCharacterData.ActionGraph.name);
-            //    }
-            //}
+
         }
         public void SetAction(ActionData actionData)
         {
@@ -98,7 +61,6 @@ namespace GameMain
         }
         public void SetDiff(DiffTag diffTag)
         {
-            mImage = this.GetComponent<Image>();
             if (mCharSO == null)
                 return;
             if (mCharSO.isMain)
@@ -108,8 +70,13 @@ namespace GameMain
         }
         public void SetData(CharSO charSO)
         {
-            mCharSO= charSO;
+            mCharSO = charSO;
             mDiffs = charSO.diffs;
+
+            mImage.color = Color.gray;
+            mImage.DOColor(Color.white, 0.3f);
+            mImage.gameObject.transform.localPosition += Vector3.right * 100f;
+            mImage.gameObject.transform.DOLocalMoveX(0f, 0.3f);
         }
     }
     [System.Serializable]

@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using XNode;
 using DG.Tweening;
 using XNode.Examples.LogicToy;
+using System.Runtime.InteropServices.ComTypes;
 
 public class DialogBox : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class DialogBox : MonoBehaviour
     [SerializeField] private Text nameText;
     [SerializeField] private Transform optionCanvas;
     [SerializeField] private GameObject btnPre;
+    [Range(0.01f,0.1f)]
+    [SerializeField] private float charSpeed=0.05f;
 
     private int _index;
     private DialogueGraph m_Dialogue = null;
@@ -26,6 +29,7 @@ public class DialogBox : MonoBehaviour
     private Action OnComplete;
     private bool mIsSkip;
     private Dictionary<CharSO, BaseCharacter> mCharChace = new Dictionary<CharSO, BaseCharacter>();
+    //规定一个最小的动画效果
 
     public bool IsNext { get; set; } = true;
     private void Start()
@@ -118,7 +122,10 @@ public class DialogBox : MonoBehaviour
             stage.SetBackground(chatData.background);
 
             nameText.text = chatData.charName == "0" ? string.Empty : chatData.charName;
-            dialogText.text = chatData.text;
+            dialogText.DOPause();
+            dialogText.text = string.Empty;
+            dialogText.DOText(chatData.text, charSpeed * chatData.text.Length, true);
+            SkipSpeed = charSpeed * (chatData.text.Length)+0.1f;
 
             for (int i = 0; i < chatData.eventDatas.Count; i++)
             {
