@@ -9,6 +9,8 @@ using UnityGameFramework.Runtime;
 public class TeachStage : BaseStage
 {
     [SerializeField] protected BaseCharacter baseCharacter;
+
+    private CharSO charSO=null;
     protected override void ShowCharacter(CharData left, CharData middle, CharData right)
     {
 
@@ -21,11 +23,12 @@ public class TeachStage : BaseStage
 
     public override void ShowCharacter(ChatData chatData)
     {
-        if (chatData.middle.charSO != null)
+        if (chatData.middle.charSO != null&&charSO==null)
         {
             baseCharacter.SetData(chatData.middle.charSO);
-            baseCharacter.SetAction(chatData.middle.actionData);
+            charSO = chatData.middle.charSO;
         }
+        baseCharacter.SetAction(chatData.middle.actionData);
     }
     public override void ShowDiff(DialogPos pos, DiffTag diffTag)
     {
