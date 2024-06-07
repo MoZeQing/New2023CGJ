@@ -18,6 +18,8 @@ namespace GameMain
         [SerializeField] private Text settleText;
         [SerializeField] private Button mOKButton;
 
+        [SerializeField] private List<Image> starImages=new List<Image>();
+
         private bool mIsRandom = false;
         private WorkData mWorkData;
 
@@ -73,6 +75,9 @@ namespace GameMain
             coffeeText.text = string.Empty;
             catText.text = string.Empty;
             settleText.text = string.Empty;
+
+            float totalTime = 0f;
+            float playerTotalTime = 0f;
             foreach (OrderData order in mWorkData.orderDatas)
             {
                 DRNode dRNode = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)order.NodeTag);
@@ -83,9 +88,14 @@ namespace GameMain
                 if (dRNode.Ice) sb.Append("(冰)");
                 if (!dRNode.Ice) sb.Append("(热)");
                 coffeeText.text += (sb.ToString() + "\n");
+                totalTime += order.OrderTime;
+                playerTotalTime += order.PlayerTime;
             }
-            //小猫列表
-
+            //结算列表
+            for (int i = 0; i < starImages.Count; i++)
+            {
+                starImages[i].gameObject.SetActive(playerTotalTime  > totalTime * i);
+            }
             //订单总体列表
             settleText.text += string.Format("主营业务收入：{0}\n", mWorkData.Income);
             settleText.text += string.Format("主营业务成本:{0}\n", mWorkData.Cost);

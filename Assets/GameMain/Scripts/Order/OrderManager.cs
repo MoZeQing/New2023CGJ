@@ -182,6 +182,7 @@ namespace GameMain
         public int friendFavor;
         //制作咖啡的时间
         public float OrderTime;
+        public float PlayerTime;
         public string OrderChar;
         public int CharFavor;
         public bool Grind;//粗细度

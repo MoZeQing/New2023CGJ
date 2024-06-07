@@ -104,6 +104,7 @@ namespace GameMain
 
         private void OnExit()
         {
+            mOrderData.PlayerTime = 0;
             GameEntry.Event.FireNow(this, OrderEventArgs.Create(mOrderData, 0));
             GameEntry.Entity.HideEntity(this.Entity);
         }
@@ -122,9 +123,7 @@ namespace GameMain
                     income = dtNode.GetDataRow((int)mOrderData.NodeTag).Price;
                     if (mOrderData.Urgent)
                         income = (int)(income * 1.5f);
-                    income += mOrderData.Sugar ? 2 : 0;
-                    income += mOrderData.CondensedMilk ? 5 : 0;
-                    income += mOrderData.Salt ? 3 : 0;
+                    mOrderData.PlayerTime = nowTime;
                     float p = 1f;
                     if (nowTime > mOrderData.OrderTime * 2 * GameEntry.Utils.OrderPower)
                     {

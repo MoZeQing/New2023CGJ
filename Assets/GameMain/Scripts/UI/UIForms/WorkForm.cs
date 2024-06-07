@@ -29,10 +29,10 @@ namespace GameMain
 
         private LevelData mLevelData;
         private int mOrderCount;
-        private float nowTime;
-        private float levelTime;
         private bool isSpecial;
         private bool isChoice;
+        private int orderNumber;
+        private int completeOrder;
 
         private bool flag=false;
         public bool IsDialog { get; set; }=false;
@@ -90,15 +90,11 @@ namespace GameMain
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.J))
-                nowTime = 1f;
-
+            timeText.text = string.Format("{0}/{1}", completeOrder, orderNumber);
             if(Input.GetKeyDown(KeyCode.Space))
                 flag= !flag;
-
             if (flag)
                 return;
-
             if (isChoice == false)
                 return;
             if (GameEntry.Dialog.InDialog)
@@ -107,12 +103,7 @@ namespace GameMain
                 return;
             if (IsDialog)
                 return;
-            nowTime -= Time.deltaTime;
-            if (nowTime > 0)
-                timeText.text = Math.Floor(nowTime).ToString();
-            else
-                timeText.text = "∞";
-            if (nowTime <= 0&&nowTime>-1)
+            if (completeOrder>=orderNumber)
             {
                 if (isSpecial)
                 {
@@ -134,14 +125,15 @@ namespace GameMain
         private void SetData(int time,int energy,float orderPower,float pricePower)
         {
             BuffData buffData = GameEntry.Buff.GetBuff();
-            levelTime = (int)(time*buffData.TimeMulti + buffData.TimePlus);//3����
-            nowTime = levelTime;
             GameEntry.Utils.Energy -= energy;
             GameEntry.Utils.OrderPower = orderPower;
             GameEntry.Utils.PricePower = pricePower;
             modeCanvas.gameObject.SetActive(false);
             isChoice = true;
             orderList.IsShowItem = true;
+            orderNumber = 4;
+            completeOrder= 0;
+            orderList.OrderMax = orderNumber;
         }
         private void OnLevel()
         {
@@ -187,18 +179,18 @@ namespace GameMain
         private void OnLevel(LevelData levelData)
         { 
             mLevelData= levelData;
-            mOrderCount = 0;
+            completeOrder = 0;
+            orderNumber = levelData.orderDatas.Count;
             GamePosUtility.Instance.GamePosChange(GamePos.Up);
-            dialogBox.SetDialog(mLevelData.foreWork);
+            dialogBox.SetDialog(mLevelData.afterWork);
             //dialogBox.Next();
-            dialogBox.SetComplete(OnForeWorkComplete);
+            dialogBox.SetComplete(OnAfterWorkComplete);
             GameEntry.Event.Fire(this, GameStateEventArgs.Create(GameState.ForeSpecial));
         }
 
         private void OnForeWorkComplete()
         {
             GamePosUtility.Instance.GamePosChange(GamePos.Down);
-            nowTime = mLevelData.orderTime;
             orderList.IsShowItem= true;
             orderList.ShowItem(mLevelData.orderDatas);
             orderList.IsShowItem = false;
@@ -215,13 +207,14 @@ namespace GameMain
         private void OnOrderEvent(object sender, GameEventArgs e)
         {
             OrderEventArgs args = (OrderEventArgs)e;
+            completeOrder++;
             if (mLevelData != null)
             {
                 if (mLevelData.orderDatas.Contains(args.OrderData))
                 {
+                    mOrderCount++;
                     if (args.Income == 0)
                         return;
-                    mOrderCount++;
                     if (GameEntry.Utils.GetFriends().ContainsKey(mLevelData.charSO.name))
                         GameEntry.Utils.AddFriendFavor(mLevelData.charSO.name, mLevelData.favor / mLevelData.orderDatas.Count);
                 }

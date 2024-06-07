@@ -18,6 +18,8 @@ namespace GameMain
         private List<OrderData> finishOrders= new List<OrderData>();
 
         private bool mIsShowItem = true;
+        private int mOrderNumber = 0;
+        public int OrderMax { get; set; } = 0;
 
         public bool IsShowItem
         {
@@ -77,6 +79,8 @@ namespace GameMain
         {
             if (!mIsShowItem) 
                 return;
+            if (mOrderNumber >= OrderMax)
+                return;
             nowTime -= Time.deltaTime;
             if (nowTime <= 0)
             {
@@ -86,6 +90,7 @@ namespace GameMain
         }
         public void ShowItem()
         {
+            mOrderNumber++;
             OrderData orderData = new OrderData();
             List<NodeTag> coffees = new List<NodeTag>();
             foreach (DRNode node in GameEntry.DataTable.GetDataTable<DRNode>().GetAllDataRows())
@@ -106,9 +111,6 @@ namespace GameMain
             //生成好友订单
             orderData.Grind = Random.Range(0, 2) == 1;
             orderData.OrderTime = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)orderData.NodeTag).Time;
-            orderData.Sugar = Random.Range(0, 2) == 1;
-            orderData.CondensedMilk = Random.Range(0, 2) == 1;
-            orderData.Salt = Random.Range(0, 2) == 1;
             orderData.NodeName = orderData.NodeTag.ToString();
             ShowItem(orderData);
         }
