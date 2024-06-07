@@ -29,6 +29,7 @@ public class DialogBox : MonoBehaviour
     private Action OnComplete;
     private bool mIsSkip;
     private Dictionary<CharSO, BaseCharacter> mCharChace = new Dictionary<CharSO, BaseCharacter>();
+    private bool optionFlag;
     //规定一个最小的动画效果
 
     public bool IsNext { get; set; } = true;
@@ -57,6 +58,9 @@ public class DialogBox : MonoBehaviour
     }
     public void ShowButtons(List<OptionData> options)
     {
+        if (optionFlag) 
+            return;
+        optionFlag = true;
         ClearButtons();
         foreach (OptionData option in options)
         {
@@ -251,6 +255,7 @@ public class DialogBox : MonoBehaviour
         OptionData optionData = (OptionData)sender;
         if (optionData == null)
             return;
+        optionFlag = false;
         ClearButtons();
         foreach (EventData eventData in optionData.eventDatas)
         {
