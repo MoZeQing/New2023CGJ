@@ -77,15 +77,15 @@ namespace GameMain
 
         private void Update()
         {
+            nowTime -= Time.deltaTime;
             if (!mIsShowItem) 
                 return;
             if (mOrderNumber >= OrderMax)
                 return;
-            nowTime -= Time.deltaTime;
             if (nowTime <= 0)
             {
                 ShowItem();
-                nowTime = UnityEngine.Random.Range(12f, 25f);
+                nowTime = UnityEngine.Random.Range(12f, 25f) * (100 - GameEntry.Utils.OrderTime) / 100;
             }
         }
         public void ShowItem()
@@ -104,13 +104,13 @@ namespace GameMain
             int friendRand = Random.Range(0, 12);
             if (friendRand < 6)
             {
-                List<string> keys = new List<string>(GameEntry.Utils._friends.Keys);
+                List<string> keys = new List<string>(GameEntry.Utils.friends.Keys);
                 orderData.friendName = keys[friendRand];
                 orderData.friendFavor = 2;
             }
             //生成好友订单
             orderData.Grind = Random.Range(0, 2) == 1;
-            orderData.OrderTime = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)orderData.NodeTag).Time;
+            orderData.OrderTime = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)orderData.NodeTag).Time*(100-GameEntry.Utils.OrderTime)/100f;
             orderData.NodeName = orderData.NodeTag.ToString();
             ShowItem(orderData);
         }

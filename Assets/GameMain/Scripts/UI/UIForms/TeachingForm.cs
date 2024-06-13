@@ -22,6 +22,8 @@ namespace GameMain
         [SerializeField] private Text familyText;
         [SerializeField] private Text timeText;
         [SerializeField] private Text rentText;
+        [SerializeField] private Text levelText;
+        [SerializeField] private Image levelProgress;
         [Header("右侧操作栏")]
         [SerializeField] private Transform rightCanvas;
         [SerializeField] private Transform buttonCanvas;
@@ -240,6 +242,10 @@ namespace GameMain
             energyText.text = string.Format("{0}/{1}", playerData.energy, playerData.maxEnergy*buffData.EnergyMaxMulti+buffData.EnergyMaxPlus);
             moneyText.text=string.Format("{0}", playerData.money.ToString());
             timeText.text = string.Format("第{0}周 第{1}天 星期{2}", playerData.day/7+1, playerData.day% 7+1, AssetUtility.GetWeekCN(playerData.day % 7));
+            levelText.text =GameEntry.DataTable.GetDataTable<DRLevel>().GetDataRow(GameEntry.Utils.Level).TagIcon;
+            levelProgress.fillAmount = (float)GameEntry.Utils.OrderValue / (float)GameEntry.DataTable.GetDataTable<DRLevel>().GetDataRow(GameEntry.Utils.Level).EXP;
+            Debug.Log(GameEntry.Utils.OrderValue);
+            Debug.Log((float)GameEntry.Utils.OrderValue / (float)GameEntry.DataTable.GetDataTable<DRLevel>().GetDataRow(GameEntry.Utils.Level).EXP);
         }
         //单独给点击做一个方法调用
         public void Click_Action()

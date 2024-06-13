@@ -180,6 +180,7 @@ namespace GameMain
         //好友名称和好感度
         public string friendName;
         public int friendFavor;
+        public int orderValue;
         //制作咖啡的时间
         public float OrderTime;
         public float PlayerTime;

@@ -14,20 +14,19 @@ namespace GameMain
     {
         public Sprite orderSprite;
         public OutingSceneState outSceneState;
-        public List<Sprite> closets = new List<Sprite>();
         public int closet;
         public string actionName;
 
-        public bool pickUp = false;
-        public int musicHallItemID;
-        public int changeMusicHallItemID;
-        public bool musicChangeFlag;
-        private int mCarfSort = 99;
+        public int OrderNumber { get; set; }
+        public int OrderTime { get; set; }
+        public int OrderValue { get; set; } = 5;
+        public int Level { get; set; } = 1;
+        public bool PickUp { get; set; } = false;
         public float OrderPower { get; set; } = 1f;
         public float PricePower { get; set; } = 1f;
 
         public List<OutingSceneState> outingSceneStates = new List<OutingSceneState>();
-
+        private int mCarfSort = 99;
         public int CartSort
         {
             get
@@ -39,7 +38,7 @@ namespace GameMain
         //���ݹ���������
         private Dictionary<TriggerTag, string> _values = new Dictionary<TriggerTag, string>();
         private List<string> _flags = new List<string>();
-        public Dictionary<string, int> _flagValues = new Dictionary<string, int>();
+        public Dictionary<string, int> flagValues = new Dictionary<string, int>();
 
         private List<WorkData> mWorkDatas = new List<WorkData>();
 
@@ -57,30 +56,28 @@ namespace GameMain
 
         public void AddFriendFavor(string name, int favor)
         {
-            if (!_friends.ContainsKey(name))
-                _friends.Add(name, favor);
-            else
-                _friends[name] += favor;
+            if (friends.ContainsKey(name))
+                friends[name].friendFavor += favor;
             //硬编码转换
-            if (name == "Money") _values[TriggerTag.FMoney] = _friends[name].ToString();
-            if (name == "Regular") _values[TriggerTag.FRegular] = _friends[name].ToString();
-            if (name == "Dog") _values[TriggerTag.FDog] = _friends[name].ToString();
-            if (name == "Fiction") _values[TriggerTag.FFiction] = _friends[name].ToString();
-            if (name == "Courier") _values[TriggerTag.FCourier] = _friends[name].ToString();
-            if (name == "Doc") _values[TriggerTag.FWitch] = _friends[name].ToString();
+            if (name == "Money") _values[TriggerTag.FMoney] = friends[name].friendFavor.ToString();
+            if (name == "Regular") _values[TriggerTag.FRegular] = friends[name].friendFavor.ToString();
+            if (name == "Dog") _values[TriggerTag.FDog] = friends[name].friendFavor.ToString();
+            if (name == "Fiction") _values[TriggerTag.FFiction] = friends[name].friendFavor.ToString();
+            if (name == "Courier") _values[TriggerTag.FCourier] = friends[name].friendFavor.ToString();
+            if (name == "Doc") _values[TriggerTag.FWitch] = friends[name].friendFavor.ToString();
         }
 
-        public Dictionary<string, int> GetFriends()
+        public Dictionary<string, FriendData> GetFriends()
         {
-            return _friends;
+            return friends;
         }
 
         public void ClearFriendFavor()
         {
-            _friends.Clear();
+            friends.Clear();
         }
 
-        public Dictionary<string, int> _friends = new Dictionary<string, int>();//好友字典
+        public Dictionary<string, FriendData> friends = new Dictionary<string, FriendData>();//好友字典
 
         public void ClearPlayerItem()
         {
@@ -402,35 +399,35 @@ namespace GameMain
         }
         public bool CheckFlag(string key, int value)
         {
-            if (_flagValues.ContainsKey(key))
-                return _flagValues[key] == value;
+            if (flagValues.ContainsKey(key))
+                return flagValues[key] == value;
             return false;
         }
         public void AddFlag(string flag)
         {
             if (!_flags.Contains(flag))
                 _flags.Add(flag);
-            if (_flagValues.ContainsKey(flag))
+            if (flagValues.ContainsKey(flag))
             {
-                _flagValues[flag]++;
+                flagValues[flag]++;
             }
             else
             {
-                _flagValues.Add(flag, 1);
+                flagValues.Add(flag, 1);
             }
         }
         public void RemoveFlag(string flag)
         {
             if (_flags.Contains(flag))
                 _flags.Remove(flag);
-            if (_flagValues.ContainsKey(flag))
-                _flagValues.Remove(flag);
+            if (flagValues.ContainsKey(flag))
+                flagValues.Remove(flag);
         }
 
         public void ClearFlag()
         {
             _flags.Clear();
-            _flagValues.Clear();
+            flagValues.Clear();
         }
         public bool Check(TriggerData triggerData)
         {
@@ -550,6 +547,9 @@ namespace GameMain
                     return true;
                 case EventTag.AddEnergy:
                     GameEntry.Utils.Energy += int.Parse(eventData.value1);
+                    return true;
+                case EventTag.AddMaxEnergy:
+                    GameEntry.Utils.MaxEnergy += int.Parse(eventData.value1);
                     return true;
                 case EventTag.AddAp:
                     GameEntry.Utils.Ap+= int.Parse(eventData.value1);

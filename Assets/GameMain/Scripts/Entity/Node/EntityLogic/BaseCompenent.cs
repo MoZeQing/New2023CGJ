@@ -222,7 +222,7 @@ namespace GameMain
             }
             else
             {
-                if (!GameEntry.Utils.pickUp)
+                if (!GameEntry.Utils.PickUp)
                     mBoxCollider2D.isTrigger = false;
             }
             if (Child == null)
@@ -238,7 +238,7 @@ namespace GameMain
             if (!Input.GetMouseButton(0))
             {
                 mNodeData.Follow = false;
-                GameEntry.Utils.pickUp = false;
+                GameEntry.Utils.PickUp = false;
                 if (mNodeData.Jump)
                 {
                     ExecuteEvents.Execute<IPointerUpHandler>(this.gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.pointerUpHandler);
@@ -282,7 +282,7 @@ namespace GameMain
                 Parent = null;
             }
             mNodeData.Follow = true;
-            GameEntry.Utils.pickUp = true;
+            GameEntry.Utils.PickUp = true;
             mBoxCollider2D.isTrigger = true;
             mShader.sortingOrder = GameEntry.Utils.CartSort;
             mSpriteRenderer.sortingOrder = GameEntry.Utils.CartSort;
@@ -341,7 +341,7 @@ namespace GameMain
         }
         public void OnPointerEnter(PointerEventData pointerEventData)
         {
-            if (GameEntry.Utils.pickUp)
+            if (GameEntry.Utils.PickUp)
                 return;
             if (Parent != null)
                 return;
@@ -349,7 +349,7 @@ namespace GameMain
         }
         public void OnPointerExit(PointerEventData pointerEventData)
         {
-            if (GameEntry.Utils.pickUp)
+            if (GameEntry.Utils.PickUp)
                 return;
             if (Parent != null)
                 return;

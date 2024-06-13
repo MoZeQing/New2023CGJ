@@ -61,9 +61,9 @@ namespace GameMain
             GameEntry.Utils.Day = saveLoadData.day;
             GameEntry.Utils.closet = saveLoadData.closet;
             GameEntry.Utils.Flags = saveLoadData.flags;
-            GameEntry.Utils._flagValues = saveLoadData.flagValue;
+            GameEntry.Utils.flagValues = saveLoadData.flagValue;
             GameEntry.Utils.WorkDatas = saveLoadData.workDatas;
-            GameEntry.Utils._friends = saveLoadData.friends;
+            GameEntry.Utils.friends = saveLoadData.friends;
             GameEntry.Dialog.LoadGame(saveLoadData.storyData,saveLoadData.levelData);
             GameEntry.Player.LoadGame(saveLoadData);
             GameEntry.Buff.AddBuff(saveLoadData.buffs);

@@ -80,8 +80,6 @@ namespace GameMain
         private void OnOrderEvent(object sender, GameEventArgs e)
         {
             OrderEventArgs args = (OrderEventArgs)e;
-            if (args.Income == 0)
-                return;
             workData.orderDatas.Add(args.OrderData);
             workData.Income += args.Income;
         }

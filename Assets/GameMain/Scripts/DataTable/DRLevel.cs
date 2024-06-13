@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-06-13 19:03:23.321
+// 生成时间：2024-06-13 19:03:23.356
 //------------------------------------------------------------
 
 using GameFramework;
@@ -19,14 +19,14 @@ using UnityGameFramework.Runtime;
 namespace GameMain
 {
     /// <summary>
-    /// Node配置文件。
+    /// 等级配置表。
     /// </summary>
-    public class DRNode : DataRowBase
+    public class DRLevel : DataRowBase
     {
         private int m_Id = 0;
 
         /// <summary>
-        /// 获取节点ID。
+        /// 获取等级编号。
         /// </summary>
         public override int Id
         {
@@ -37,99 +37,9 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取资源名称。
+        /// 获取标签代号。
         /// </summary>
-        public string AssetName
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取精灵路径。
-        /// </summary>
-        public string SpritePath
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取图片路径。
-        /// </summary>
-        public string ImagePath
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取实物路径。
-        /// </summary>
-        public string MaterialPath
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取是否是原材料。
-        /// </summary>
-        public bool Material
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取是否是工具。
-        /// </summary>
-        public bool Tool
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取是否是咖啡。
-        /// </summary>
-        public bool Coffee
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取是否是冰咖啡。
-        /// </summary>
-        public bool Ice
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取所在层。
-        /// </summary>
-        public string Layer
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取所在层级。
-        /// </summary>
-        public int Layerint
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取价格。
-        /// </summary>
-        public int Price
+        public string TagIcon
         {
             get;
             private set;
@@ -138,16 +48,79 @@ namespace GameMain
         /// <summary>
         /// 获取描述。
         /// </summary>
-        public string Description
+        public string Text
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取制作的合理时间。
+        /// 获取订单数量。
+        /// </summary>
+        public int OrderNumber
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取经验值（知名度）要求。
+        /// </summary>
+        public int EXP
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取金钱要求。
+        /// </summary>
+        public int Money
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取时间修正。
         /// </summary>
         public int Time
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取数值增长（x/100）。
+        /// </summary>
+        public int Increase
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取咖啡的数量。
+        /// </summary>
+        public int Coffee
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取其它buff。
+        /// </summary>
+        public string Buff
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取升级的目标ID。
+        /// </summary>
+        public int UpgradeID
         {
             get;
             private set;
@@ -165,19 +138,16 @@ namespace GameMain
             index++;
             m_Id = int.Parse(columnStrings[index++]);
             index++;
-            AssetName = columnStrings[index++];
-            SpritePath = columnStrings[index++];
-            ImagePath = columnStrings[index++];
-            MaterialPath = columnStrings[index++];
-            Material = bool.Parse(columnStrings[index++]);
-            Tool = bool.Parse(columnStrings[index++]);
-            Coffee = bool.Parse(columnStrings[index++]);
-            Ice = bool.Parse(columnStrings[index++]);
-            Layer = columnStrings[index++];
-            Layerint = int.Parse(columnStrings[index++]);
-            Price = int.Parse(columnStrings[index++]);
-            Description = columnStrings[index++];
+            TagIcon = columnStrings[index++];
+            Text = columnStrings[index++];
+            OrderNumber = int.Parse(columnStrings[index++]);
+            EXP = int.Parse(columnStrings[index++]);
+            Money = int.Parse(columnStrings[index++]);
             Time = int.Parse(columnStrings[index++]);
+            Increase = int.Parse(columnStrings[index++]);
+            Coffee = int.Parse(columnStrings[index++]);
+            Buff = columnStrings[index++];
+            UpgradeID = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -190,19 +160,16 @@ namespace GameMain
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
-                    AssetName = binaryReader.ReadString();
-                    SpritePath = binaryReader.ReadString();
-                    ImagePath = binaryReader.ReadString();
-                    MaterialPath = binaryReader.ReadString();
-                    Material = binaryReader.ReadBoolean();
-                    Tool = binaryReader.ReadBoolean();
-                    Coffee = binaryReader.ReadBoolean();
-                    Ice = binaryReader.ReadBoolean();
-                    Layer = binaryReader.ReadString();
-                    Layerint = binaryReader.Read7BitEncodedInt32();
-                    Price = binaryReader.Read7BitEncodedInt32();
-                    Description = binaryReader.ReadString();
+                    TagIcon = binaryReader.ReadString();
+                    Text = binaryReader.ReadString();
+                    OrderNumber = binaryReader.Read7BitEncodedInt32();
+                    EXP = binaryReader.Read7BitEncodedInt32();
+                    Money = binaryReader.Read7BitEncodedInt32();
                     Time = binaryReader.Read7BitEncodedInt32();
+                    Increase = binaryReader.Read7BitEncodedInt32();
+                    Coffee = binaryReader.Read7BitEncodedInt32();
+                    Buff = binaryReader.ReadString();
+                    UpgradeID = binaryReader.Read7BitEncodedInt32();
                 }
             }
 

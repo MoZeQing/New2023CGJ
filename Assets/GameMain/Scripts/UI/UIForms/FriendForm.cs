@@ -17,9 +17,8 @@ namespace GameMain
         [SerializeField] private Text friendNameText;
         [SerializeField] private Text friendTextText;
         [SerializeField] private Image coffeeIcon;
-        //[SerializeField] private Image progress;
-        //[SerializeField] private List<Text> progressTexts;
-
+        [SerializeField] private Image progress;
+        [SerializeField] private List<Text> progressTexts;
         [SerializeField] private Button leftBtn;
         [SerializeField] private Button rightBtn;
         [SerializeField] private Text text;
@@ -39,7 +38,7 @@ namespace GameMain
             exitBtn.onClick.AddListener(() => GameEntry.UI.CloseUIForm(this.UIForm));
             friends.Clear();
             //初始化
-            foreach (KeyValuePair<string, int> pair in GameEntry.Utils.GetFriends())
+            foreach (KeyValuePair<string, FriendData> pair in GameEntry.Utils.GetFriends())
             {
                 friends.Add(pair.Key);
             }
@@ -54,7 +53,7 @@ namespace GameMain
         {
             string charName = friends[index];
             CharSO charSO = GameEntry.Utils.chars[charName];
-            int friendFavor = GameEntry.Utils._friends[charName];
+            int friendFavor = GameEntry.Utils.friends[charName].friendFavor;
             //展示
             friendIcon.sprite = charSO.sprite;
             friendNameText.text = charSO.charName;
@@ -62,8 +61,12 @@ namespace GameMain
             friendFavorText.text= friendFavor.ToString();
             DRNode dRNode =GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)charSO.favorCoffee);
             coffeeIcon.sprite = Resources.Load<Sprite>(dRNode.MaterialPath);
-            //progress.fillAmount = friendFavor / 100f;
-
+            progress.fillAmount = friendFavor / 100f;
+            for (int i = 0; i < progressTexts.Count; i++)
+            {
+                CharAward charAward = charSO.charAwards[i];
+                progressTexts[i].text = string.Format("关系:{0}\n{1}", charAward.favor, charAward.text);
+            }
         }
 
         private void Left()
@@ -95,5 +98,25 @@ namespace GameMain
             leftBtn.onClick.RemoveAllListeners();
             rightBtn.onClick.RemoveAllListeners();
         }
+    }
+
+    public class FriendData
+    { 
+        public string friendName;
+        public int friendFavor;
+        public Dictionary<int, bool> flags = new Dictionary<int, bool>();
+
+        public FriendData(CharSO charSO)
+        {
+            friendName = charSO.name;
+            friendFavor = charSO.favor;
+            flags.Clear();
+            foreach (CharAward charAward in charSO.charAwards)
+            {
+                flags.Add(charAward.favor, false);
+            }
+        }
+
+        public FriendData() { }
     }
 }

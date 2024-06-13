@@ -18,7 +18,7 @@ namespace GameMain
         private void Start()
         {
             dRShops.Clear();
-            int favor = GameEntry.Utils.GetFriends()[charName];
+            int favor = GameEntry.Utils.GetFriends()[charName].friendFavor;
             foreach (DRShop shop in GameEntry.DataTable.GetDataTable<DRShop>().GetAllDataRows())
             {
                 if (favor < shop.Favor)

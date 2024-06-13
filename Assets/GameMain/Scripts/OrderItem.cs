@@ -105,6 +105,8 @@ namespace GameMain
         private void OnExit()
         {
             mOrderData.PlayerTime = 0;
+            mOrderData.orderValue = -1;
+            GameEntry.Utils.OrderValue -= 1;
             GameEntry.Event.FireNow(this, OrderEventArgs.Create(mOrderData, 0));
             GameEntry.Entity.HideEntity(this.Entity);
         }
@@ -131,17 +133,23 @@ namespace GameMain
                         GameEntry.Utils.PlayerData.acoffee++;
                         GameEntry.Utils.PlayerData.bcoffee++;
                         GameEntry.Utils.PlayerData.ccoffee++;
+                        GameEntry.Utils.OrderValue += 3;
+                        mOrderData.orderValue = 3;
                     }
                     else if (nowTime > mOrderData.OrderTime * 1 * GameEntry.Utils.OrderPower)
                     {
                         p = 1f;
                         GameEntry.Utils.PlayerData.bcoffee++;
                         GameEntry.Utils.PlayerData.ccoffee++;
+                        GameEntry.Utils.OrderValue += 2;
+                        mOrderData.orderValue = 2;
                     }
                     else
                     {
                         p = 0.8f;
                         GameEntry.Utils.PlayerData.ccoffee++;
+                        GameEntry.Utils.OrderValue += 1;
+                        mOrderData.orderValue = 1;
                     }
                     income = (int)(income * p*GameEntry.Utils.PricePower);
                     if (mOrderItemData.OrderData.friendName != null)

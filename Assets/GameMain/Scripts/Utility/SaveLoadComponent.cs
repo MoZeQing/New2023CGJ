@@ -59,10 +59,14 @@ namespace GameMain
             GameEntry.Utils.ClearFriendFavor();
             CharSO[] charSOs = Resources.LoadAll<CharSO>("CharData");
             for (int i = 0; i < charSOs.Length; i++)
-                if (charSOs[i].friend)
-                    GameEntry.Utils.chars.Add(charSOs[i].name, charSOs[i]);
-
-
+            {
+                CharSO charSO= charSOs[i];
+                if (charSO.friend)
+                {
+                    GameEntry.Utils.chars.Add(charSO.name, charSO);
+                    GameEntry.Utils.friends.Add(charSO.name, new FriendData(charSO));
+                }
+            }
         }
 
         /// <summary>
@@ -129,11 +133,11 @@ namespace GameMain
             saveLoadData.playerData = GameEntry.Utils.PlayerData;
             saveLoadData.charData= GameEntry.Utils.CharData;
             saveLoadData.flags= GameEntry.Utils.Flags;
-            saveLoadData.friends = GameEntry.Utils._friends;
+            saveLoadData.friends = GameEntry.Utils.friends;
             saveLoadData.workDatas = GameEntry.Utils.WorkDatas;
             saveLoadData.storyData = GameEntry.Dialog.LoadedStories;
             saveLoadData.levelData = GameEntry.Dialog.LoadedLevels;
-            saveLoadData.flagValue = GameEntry.Utils._flagValues;
+            saveLoadData.flagValue = GameEntry.Utils.flagValues;
             saveLoadData.buffs=GameEntry.Buff.GetData();
             foreach (RecipeData recipeData in GameEntry.Player.recipes)
             {
@@ -230,7 +234,7 @@ namespace GameMain
         public List<WorkData> workDatas= new List<WorkData>();
         public List<string> flags=  new List<string>();
         public Dictionary<string, int> flagValue = new Dictionary<string, int>();
-        public Dictionary<string, int> friends = new Dictionary<string, int>();//ºÃÓÑ×Öµä
+        public Dictionary<string, FriendData> friends = new Dictionary<string, FriendData>();//ºÃÓÑ×Öµä
         public List<int> recipes = new List<int>();
         public List<int> outingSceneStates = new List<int>();
     }

@@ -131,9 +131,12 @@ namespace GameMain
             modeCanvas.gameObject.SetActive(false);
             isChoice = true;
             orderList.IsShowItem = true;
-            orderNumber = 4;
+            DRLevel level = GameEntry.DataTable.GetDataTable<DRLevel>().GetDataRow(GameEntry.Utils.Level);
+            GameEntry.Utils.OrderNumber = level.OrderNumber;
+            GameEntry.Utils.OrderTime = level.Time;
+            orderNumber= level.OrderNumber;
             completeOrder= 0;
-            orderList.OrderMax = orderNumber;
+            orderList.OrderMax = level.OrderNumber;
         }
         private void OnLevel()
         {
@@ -182,9 +185,9 @@ namespace GameMain
             completeOrder = 0;
             orderNumber = levelData.orderDatas.Count;
             GamePosUtility.Instance.GamePosChange(GamePos.Up);
-            dialogBox.SetDialog(mLevelData.afterWork);
+            dialogBox.SetDialog(mLevelData.foreWork);
             //dialogBox.Next();
-            dialogBox.SetComplete(OnAfterWorkComplete);
+            dialogBox.SetComplete(OnForeWorkComplete);
             GameEntry.Event.Fire(this, GameStateEventArgs.Create(GameState.ForeSpecial));
         }
 
@@ -250,6 +253,11 @@ namespace GameMain
         }
 
         public int Financial
+        {
+            get;
+            set;
+        }
+        public int OrderValue
         {
             get;
             set;
