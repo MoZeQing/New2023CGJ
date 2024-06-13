@@ -146,7 +146,7 @@ namespace GameMain
             int closet = index = dRItems[index].Id;
             if (GameEntry.Utils.GetPlayerItem((ItemTag)closet)!=null)
             {
-                GameEntry.Utils.closet = closet;
+                GameEntry.Utils.Closet = closet;
             }
         }
     }

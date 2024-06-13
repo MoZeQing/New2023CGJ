@@ -82,7 +82,7 @@ namespace GameMain
             GameEntry.Utils.Family = family;
             GameEntry.Utils.Day = day;
             GameEntry.Utils.Rent= rent;
-            GameEntry.Utils.closet = closet;
+            GameEntry.Utils.Closet = closet;
             GameEntry.Utils.PlayerData.heaterID =104;
             GameEntry.Utils.PlayerData.stirrerID = 110;
             GameEntry.Utils.PlayerData.pressID = 108;
@@ -125,7 +125,7 @@ namespace GameMain
             DateTime dateTime= DateTime.Now;
             saveLoadData.dataTime = dateTime.ToString("yyyy-MM-dd HH:mm:ss");
             saveLoadData.day = GameEntry.Utils.Day;
-            saveLoadData.closet = GameEntry.Utils.closet;
+            saveLoadData.closet = GameEntry.Utils.Closet;
             saveLoadData.playerData = GameEntry.Utils.PlayerData;
             saveLoadData.charData= GameEntry.Utils.CharData;
             saveLoadData.flags= GameEntry.Utils.Flags;

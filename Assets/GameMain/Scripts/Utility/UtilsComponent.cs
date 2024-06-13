@@ -14,20 +14,16 @@ namespace GameMain
     {
         public Sprite orderSprite;
         public OutingSceneState outSceneState;
-        public List<Sprite> closets = new List<Sprite>();
-        public int closet;
-        public string actionName;
 
-        public bool pickUp = false;
-        public int musicHallItemID;
-        public int changeMusicHallItemID;
-        public bool musicChangeFlag;
-        private int mCarfSort = 99;
+        public int Closet { get; set; }
+        public bool PickUp { get; set; } = false;
+
         public float OrderPower { get; set; } = 1f;
         public float PricePower { get; set; } = 1f;
 
         public List<OutingSceneState> outingSceneStates = new List<OutingSceneState>();
 
+        private int mCarfSort = 99;
         public int CartSort
         {
             get
@@ -36,7 +32,7 @@ namespace GameMain
             }
         }
         //接下来尽可能使得utils只用于存储资源信息，而数据信息都给其它的类
-        //���ݹ���������
+
         private Dictionary<TriggerTag, string> _values = new Dictionary<TriggerTag, string>();
         private List<string> _flags = new List<string>();
         public Dictionary<string, int> _flagValues = new Dictionary<string, int>();
@@ -121,7 +117,6 @@ namespace GameMain
             return null;
         }
 
-        //����WorkData
         public void AddWork(WorkData workData)
         {
             mWorkDatas.Add(workData);
@@ -219,7 +214,7 @@ namespace GameMain
                 _values[TriggerTag.Location] = mLocation.ToString();
             }
         }
-        //����PlayerData
+
         public int Money
         {
             get
@@ -575,9 +570,6 @@ namespace GameMain
                 case EventTag.AddDay:
                     GameEntry.Utils.Day += int.Parse(eventData.value1);
                     return true;
-                case EventTag.AddAction:
-                    GameEntry.Utils.actionName= eventData.value1;
-                    return true;
                 case EventTag.Rent:
                     //GameEntry.Utils.Rent=int.Parse(eventData.value1);
                     return true; 
@@ -627,6 +619,5 @@ namespace GameMain
         public int bcoffee;
         public int ccoffee;
         public List<PlayerItemData> items=new List<PlayerItemData>();
-        //public int time;
     }
 }

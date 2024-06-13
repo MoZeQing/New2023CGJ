@@ -20,10 +20,7 @@ namespace GameMain
         [SerializeField] private Text timeText;
         [SerializeField] private OrderList orderList;
         [SerializeField] private Transform modeCanvas;
-        [SerializeField] private Button hardBtn;
         [SerializeField] private Button commonBtn;
-        [SerializeField] private Button easyBtn;
-        [SerializeField] private bool isGuide;
 
         [SerializeField] public bool IsGuide { get; set; }
 
@@ -58,22 +55,12 @@ namespace GameMain
 
         private void OnEnable()
         {
-            //upBtn.onClick.AddListener(()=>GamePosUtility.Instance.GamePosChange(GamePos.Up));
-            //downBtn.onClick.AddListener(() => GamePosUtility.Instance.GamePosChange(GamePos.Down));
             recipeBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.RecipeForm));
             guideBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.GuideForm));
-            //testBtn.onClick.AddListener(OnLevel);
-            //test2Btn.onClick.AddListener(() => GameEntry.Utils.RunEvent(new EventData(EventTag.NextDay)));
 
-            if (!isGuide)
+            if (!IsGuide)
             {
-                Debug.Log(GameEntry.Utils.Energy);
-                hardBtn.onClick.AddListener(() => SetData(120,0,0.8f,1.5f));
-                //if (GameEntry.Utils.Energy < 60) hardBtn.interactable = false;
-                commonBtn.onClick.AddListener(() => SetData(120,0,1f,1f));
-                //if (GameEntry.Utils.Energy < 40) commonBtn.interactable = false;
-                easyBtn.onClick.AddListener(() => SetData(120,0,1.5f,0.8f));
-                //if (GameEntry.Utils.Energy < 20) easyBtn.interactable = false;
+                commonBtn.onClick.AddListener(() => SetData(90,0,1f,1f));
             }
             mLevelData = GameEntry.Dialog.loadedLevelSOs[0].levelData;
             GameEntry.Event.Subscribe(OrderEventArgs.EventId, OnOrderEvent);
@@ -81,8 +68,6 @@ namespace GameMain
 
         private void OnDisable()
         {
-            //upBtn.onClick.RemoveAllListeners();
-            //downBtn.onClick.RemoveAllListeners();
             recipeBtn.onClick.RemoveAllListeners();
             guideBtn.onClick.RemoveAllListeners();
             GameEntry.Event.Unsubscribe(OrderEventArgs.EventId, OnOrderEvent);
@@ -115,11 +100,9 @@ namespace GameMain
             if (nowTime <= 0&&nowTime>-1)
             {
                 if (isSpecial)
-                {
-                    
+                {            
                     GameEntry.Event.FireNow(this, LevelEventArgs.Create());
                     GamePosUtility.Instance.GamePosChange(GamePos.Up);
-                    //dialogBox.Next();
                     dialogBox.SetDialog(mLevelData.afterWork);
                     dialogBox.SetComplete(OnAfterWorkComplete);
                     IsDialog= true;
@@ -134,7 +117,7 @@ namespace GameMain
         private void SetData(int time,int energy,float orderPower,float pricePower)
         {
             BuffData buffData = GameEntry.Buff.GetBuff();
-            levelTime = (int)(time*buffData.TimeMulti + buffData.TimePlus);//3����
+            levelTime = (int)(time*buffData.TimeMulti + buffData.TimePlus);
             nowTime = levelTime;
             GameEntry.Utils.Energy -= energy;
             GameEntry.Utils.OrderPower = orderPower;
@@ -190,7 +173,6 @@ namespace GameMain
             mOrderCount = 0;
             GamePosUtility.Instance.GamePosChange(GamePos.Up);
             dialogBox.SetDialog(mLevelData.foreWork);
-            //dialogBox.Next();
             dialogBox.SetComplete(OnForeWorkComplete);
             GameEntry.Event.Fire(this, GameStateEventArgs.Create(GameState.ForeSpecial));
         }
@@ -229,7 +211,6 @@ namespace GameMain
                 {
                     GamePosUtility.Instance.GamePosChange(GamePos.Up);
                     dialogBox.SetDialog(mLevelData.afterWork);
-                    //dialogBox.Next();
                     dialogBox.SetComplete(OnAfterWorkComplete);
                 }
             }  

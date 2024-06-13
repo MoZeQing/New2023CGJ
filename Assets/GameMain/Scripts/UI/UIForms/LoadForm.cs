@@ -59,7 +59,7 @@ namespace GameMain
             GameEntry.Utils.PlayerData = saveLoadData.playerData;
             GameEntry.Utils.CharData = saveLoadData.charData;
             GameEntry.Utils.Day = saveLoadData.day;
-            GameEntry.Utils.closet = saveLoadData.closet;
+            GameEntry.Utils.Closet = saveLoadData.closet;
             GameEntry.Utils.Flags = saveLoadData.flags;
             GameEntry.Utils._flagValues = saveLoadData.flagValue;
             GameEntry.Utils.WorkDatas = saveLoadData.workDatas;
