@@ -27,17 +27,11 @@ namespace GameMain
         [SerializeField] private Button upgradeBtn;
         [SerializeField] private Button friendBtn;
         [SerializeField] private Button recipeBtn;
-        [SerializeField] private Button warehouseBtn;
+        [SerializeField] private Button closetBtn;
         [SerializeField] private Button outBtn;
         [SerializeField] private Button buffBtn;
-        [SerializeField] private Button backBtn_1;
-        [SerializeField] private Button backBtn_2;
         [SerializeField] private CanvasGroup canvasGroup;
-        [SerializeField] private GameObject iconPrefab;
-        [SerializeField] private Transform iconCanvas;
         private PlaySoundParams playSoundParams = PlaySoundParams.Create();
-        private int m_RandomValue;
-        private GamePos mGamePos=GamePos.Up;
 
         protected override void OnOpen(object userData)
         {
@@ -47,16 +41,13 @@ namespace GameMain
             loadBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.LoadForm, this));
             saveBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.SaveForm, this));
             optionBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.OptionForm, this));
-            //guideBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.GuideForm));
+            guideBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.GuideForm));
             friendBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.FriendForm));
             recipeBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.GuideForm));
             upgradeBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.UpgradeForm));
-            warehouseBtn.onClick.AddListener(() => Change(GamePos.Left));
-            outBtn.onClick.AddListener(() => Change(GamePos.Right));
-            backBtn_1.onClick.AddListener(() => Change(GamePos.Up));
-            backBtn_2.onClick.AddListener(() => Change(GamePos.Up));
+            closetBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.ClosetForm));
+            outBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.MapForm));
             buffBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.BuffForm));
-            GameEntry.Event.Subscribe(MainFormEventArgs.EventId, OnMainFormEvent);
             GameEntry.Event.Subscribe(GameStateEventArgs.EventId, OnGameStateEvent);
             canvasGroup.interactable = true;
         }
@@ -77,17 +68,14 @@ namespace GameMain
             teachBtn1.onClick.RemoveAllListeners();
             loadBtn.onClick.RemoveAllListeners();
             saveBtn.onClick.RemoveAllListeners();
-            //optionBtn.onClick.RemoveAllListeners();
-            //guideBtn.onClick.RemoveAllListeners();
+            optionBtn.onClick.RemoveAllListeners();
+            guideBtn.onClick.RemoveAllListeners();
             friendBtn.onClick.RemoveAllListeners();
             recipeBtn.onClick.RemoveAllListeners();
-            warehouseBtn.onClick.RemoveAllListeners();
+            closetBtn.onClick.RemoveAllListeners();
             upgradeBtn.onClick.RemoveAllListeners();
             outBtn.onClick.RemoveAllListeners();
-            backBtn_1.onClick.RemoveAllListeners();
-            backBtn_2.onClick.RemoveAllListeners();
             buffBtn.onClick.RemoveAllListeners();
-            GameEntry.Event.Unsubscribe(MainFormEventArgs.EventId, OnMainFormEvent);
             GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, OnGameStateEvent);
         }
         private void Change(GamePos gamePos)
@@ -124,14 +112,6 @@ namespace GameMain
             {
                 canvasGroup.interactable = true;
             }
-        }
-        private void OnMainFormEvent(object sender, GameEventArgs e) 
-        {
-            MainFormEventArgs args= (MainFormEventArgs)e;
-            //if (args.MainFormTag == MainFormTag.Lock)
-            //    mCanvas.gameObject.SetActive(false);
-            //else
-            //    mCanvas.gameObject.SetActive(true);
         }
     }
 }

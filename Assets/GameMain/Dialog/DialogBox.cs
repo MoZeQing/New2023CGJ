@@ -97,10 +97,6 @@ public class DialogBox : MonoBehaviour
                 OptionNode optionNode = (OptionNode)m_Node;
                 ShowButtons(optionNode.optionDatas);
                 break;
-            case ChatTag.Trigger:
-                TriggerNode triggerNode = (TriggerNode)m_Node;
-                Next(triggerNode);
-                break;
         }
     }
     private void Next(StartNode startNode)
@@ -145,34 +141,6 @@ public class DialogBox : MonoBehaviour
             _index = 0;
             m_Dialogue = null;
             m_Node = null;
-            if (OnComplete != null)
-                OnComplete();
-            OnComplete = null;
-        }
-    }
-    private void Next(TriggerNode triggerNode)
-    {
-        if (triggerNode == null)
-            return;
-        string output = "b";
-        for (int i = 0; i < triggerNode.triggerDatas.Count; i++)
-        {
-            TriggerData data = triggerNode.triggerDatas[i];
-            if (GameEntry.Utils.Check(data.trigger))
-            {
-                foreach (EventData eventData in data.events)
-                {
-                    if (eventData.eventTag == EventTag.Play)
-                    {
-                        if (eventData.value1 == string.Empty)
-                            output = string.Format("triggerDatas {0}", i);
-                    }
-                    GameEntry.Utils.RunEvent(eventData);
-                }
-            }
-        }
-        if (!NextNode(triggerNode, output))
-        {
             if (OnComplete != null)
                 OnComplete();
             OnComplete = null;
