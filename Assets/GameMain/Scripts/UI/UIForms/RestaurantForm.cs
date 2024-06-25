@@ -86,16 +86,16 @@ namespace GameMain
         {
             dRItem = itemData;
             mFires[dRItems.IndexOf(itemData)] = true;
-            if (itemData.Price > GameEntry.Utils.Money)
+            if (itemData.Price > GameEntry.Player.Money)
                 GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你的资金不足");
             else
                 GameEntry.UI.OpenUIForm(UIFormId.OkTips, UpdateItem, "你确定要购买吗？");
         }
         private void UpdateItem()
         {
-            GameEntry.Utils.Money -= dRItem.Price;
-            GameEntry.Utils.Favor += dRItem.Favor;
-            GameEntry.Utils.Energy += dRItem.Energy;
+            GameEntry.Player.Money -= dRItem.Price;
+            GameEntry.Cat.Favor += dRItem.Favor;
+            GameEntry.Player.Energy += dRItem.Energy;
 
             index -= mItems.Count;
 

@@ -71,17 +71,14 @@ namespace GameMain
         public void InitData()
         {
             LoadData();
-            GameEntry.Utils.MaxEnergy = maxEnergy;
-            GameEntry.Utils.Energy = energy;
-            GameEntry.Utils.MaxAp = maxAp;
-            GameEntry.Utils.Ap = ap;
-            GameEntry.Utils.Money = money;
-            GameEntry.Utils.Mood = mood;
-            GameEntry.Utils.Favor = favor;
-            GameEntry.Utils.Love = love;
-            GameEntry.Utils.Family = family;
-            GameEntry.Utils.Day = day;
-            GameEntry.Utils.Rent= rent;
+            GameEntry.Player.Day = day;
+            GameEntry.Player.Rent = rent;
+            GameEntry.Player.MaxEnergy = maxEnergy;
+            GameEntry.Player.Energy = energy;
+            GameEntry.Player.Money = money;
+            GameEntry.Cat.Favor = favor;
+            GameEntry.Cat.Love = love;
+            GameEntry.Cat.Family = family;
             GameEntry.Utils.Closet = closet;
             GameEntry.Utils.PlayerData.heaterID =104;
             GameEntry.Utils.PlayerData.stirrerID = 110;
@@ -124,7 +121,7 @@ namespace GameMain
             GameEntry.Event.FireNow(this, SaveGameEventArgs.Create(saveLoadData));
             DateTime dateTime= DateTime.Now;
             saveLoadData.dataTime = dateTime.ToString("yyyy-MM-dd HH:mm:ss");
-            saveLoadData.day = GameEntry.Utils.Day;
+            saveLoadData.day = GameEntry.Player.Day;
             saveLoadData.closet = GameEntry.Utils.Closet;
             saveLoadData.playerData = GameEntry.Utils.PlayerData;
             saveLoadData.charData= GameEntry.Utils.CharData;

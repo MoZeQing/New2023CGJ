@@ -76,7 +76,7 @@ namespace GameMain
         private void OnExit()
         {
             GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
-            GameEntry.Utils.outingBefore = false;
+            GameEntry.Utils.OutingBefore = false;
             GameEntry.Dialog.StoryUpdate();
             OnGameStateChange();
         }

@@ -32,18 +32,18 @@ namespace GameMain
         }
 
         private void EasyBtn_Click() {
-            if (GameEntry.Utils.Energy < 20)
+            if (GameEntry.Player.Energy < 20)
             {
                 GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你的体力不足");
                 return;
             }
-            if (GameEntry.Utils.Money < 100)
+            if (GameEntry.Player.Money < 100)
             {
                 GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你的金钱不足");
                 return;
             }
-            GameEntry.Utils.Energy -= 20;
-            GameEntry.Utils.MaxEnergy += 2;
+            GameEntry.Player.Energy -= 20;
+            GameEntry.Player.MaxEnergy += 2;
 
             easyBtn.interactable= false;
             middleBtn.interactable = false;
@@ -51,18 +51,18 @@ namespace GameMain
         }
 
         private void MiddleBtn_Click() {
-            if (GameEntry.Utils.Energy < 40)
+            if (GameEntry.Player.Energy < 40)
             {
                 GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你的体力不足");
                 return;
             }
-            if (GameEntry.Utils.Money < 300)
+            if (GameEntry.Player.Money < 300)
             {
                 GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你的金钱不足");
                 return;
             }
-            GameEntry.Utils.Energy -= 40;
-            GameEntry.Utils.MaxEnergy += 5;
+            GameEntry.Player.Energy -= 40;
+            GameEntry.Player.MaxEnergy += 5;
 
             easyBtn.interactable = false;
             middleBtn.interactable = false;
@@ -71,18 +71,18 @@ namespace GameMain
 
         private void HardBtn_Click()
         {
-            if (GameEntry.Utils.Energy < 60)
+            if (GameEntry.Player.Energy < 60)
             {
                 GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你的体力不足");
                 return;
             }
-            if (GameEntry.Utils.Money < 500)
+            if (GameEntry.Player.Money < 500)
             {
                 GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你的金钱不足");
                 return;
             }
-            GameEntry.Utils.Energy -= 60;
-            GameEntry.Utils.MaxEnergy += 8;
+            GameEntry.Player.Energy -= 60;
+            GameEntry.Player.MaxEnergy += 8;
 
             easyBtn.interactable = false;
             middleBtn.interactable = false;

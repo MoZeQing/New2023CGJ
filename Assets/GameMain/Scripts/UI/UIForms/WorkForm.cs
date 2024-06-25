@@ -119,7 +119,7 @@ namespace GameMain
             BuffData buffData = GameEntry.Buff.GetBuff();
             levelTime = (int)(time*buffData.TimeMulti + buffData.TimePlus);
             nowTime = levelTime;
-            GameEntry.Utils.Energy -= energy;
+            GameEntry.Player.Energy -= energy;
             GameEntry.Utils.OrderPower = orderPower;
             GameEntry.Utils.PricePower = pricePower;
             modeCanvas.gameObject.SetActive(false);

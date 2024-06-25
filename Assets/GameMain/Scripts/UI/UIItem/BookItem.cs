@@ -36,12 +36,12 @@ public class BookItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
         if (warningNumText.gameObject.activeSelf == false)
         {
-            if (GameEntry.Utils.Money >= mShopItemData.price)
+            if (GameEntry.Player.Money >= mShopItemData.price)
             {
                 okBtn.interactable = true;
                 warningPriceText.gameObject.SetActive(false);
             }
-            if (GameEntry.Utils.Money < mShopItemData.price)
+            if (GameEntry.Player.Money < mShopItemData.price)
             {
                 okBtn.interactable = false;
                 warningPriceText.gameObject.SetActive(true);
@@ -59,16 +59,13 @@ public class BookItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private void OnClick()
     {
-        if (GameEntry.Utils.Money >= mShopItemData.price)
+        if (GameEntry.Player.Money >= mShopItemData.price)
         {
             mAction();
-            GameEntry.Utils.Money -= mShopItemData.price;
-            GameEntry.Utils.Favor += mShopItemData.favor;
-            GameEntry.Utils.Love += mShopItemData.love;
-            GameEntry.Utils.Family += mShopItemData.family;
-            GameEntry.Utils.Mood += mShopItemData.mood;
-            GameEntry.Utils.Hope += mShopItemData.hope;
-            GameEntry.Utils.Ability += mShopItemData.ability;
+            GameEntry.Player.Money -= mShopItemData.price;
+            GameEntry.Cat.Favor += mShopItemData.favor;
+            GameEntry.Cat.Love += mShopItemData.love;
+            GameEntry.Cat.Family += mShopItemData.family;
             GameEntry.Utils.AddPlayerItem(mShopItemData,1);
             GameEntry.Dialog.PlayStory(mShopItemData.itemTag.ToString());
         }

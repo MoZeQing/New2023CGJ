@@ -139,7 +139,7 @@ namespace GameMain
             set
             {
                 mPlayerData.money = value;
-                GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
+                GameEntry.Utils.UpdateData(TriggerTag.Money, mPlayerData.money.ToString());
             }
         }
         public int Energy
@@ -154,7 +154,7 @@ namespace GameMain
                     mPlayerData.energy = MaxEnergy;
                 else
                     mPlayerData.energy = value;
-                GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
+                GameEntry.Utils.UpdateData(TriggerTag.Money, mPlayerData.energy.ToString());
             }
         }
         public int MaxEnergy
@@ -166,31 +166,7 @@ namespace GameMain
             set
             {
                 mPlayerData.maxEnergy = value;
-                GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
-            }
-        }
-        public int MaxAp
-        {
-            get
-            {
-                return mPlayerData.maxAp;
-            }
-            set
-            {
-                mPlayerData.maxAp = value;
-                GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
-            }
-        }
-        public int Ap
-        {
-            get
-            {
-                return mPlayerData.ap;
-            }
-            set
-            {
-                mPlayerData.ap = value;
-                GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
+                GameEntry.Utils.UpdateData(TriggerTag.Money, mPlayerData.maxEnergy.ToString());
             }
         }
         public int Day
@@ -202,7 +178,7 @@ namespace GameMain
             set
             {
                 mPlayerData.day = value;
-                GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
+                GameEntry.Utils.UpdateData(TriggerTag.Money, mPlayerData.day.ToString());
             }
         }
         public int Rent
@@ -214,7 +190,7 @@ namespace GameMain
             set
             {
                 mPlayerData.rent = value;
-                GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
+                GameEntry.Utils.UpdateData(TriggerTag.Money, mPlayerData.rent.ToString());
             }
         }
     }

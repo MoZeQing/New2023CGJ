@@ -77,7 +77,7 @@ namespace GameMain
         private void OnClick(DRItem itemData)
         {
             dRItem = itemData;
-            if (itemData.Price > GameEntry.Utils.Money)
+            if (itemData.Price > GameEntry.Player.Money)
                 GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你的资金不足");
             else
                 GameEntry.UI.OpenUIForm(UIFormId.OkTips,UpdateItem, "你确定要购买吗？");
@@ -94,7 +94,7 @@ namespace GameMain
         }
         private void UpdateItem()
         {
-            GameEntry.Utils.Money -= dRItem.Price;
+            GameEntry.Player.Money -= dRItem.Price;
             GameEntry.Utils.AddPlayerItem(new ItemData(dRItem), 1);
             if (dRItem.EventData != null&&dRItem.EventData!=string.Empty)
             {

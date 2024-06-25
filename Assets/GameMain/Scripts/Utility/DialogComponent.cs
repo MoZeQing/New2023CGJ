@@ -86,7 +86,7 @@ namespace GameMain
                 if (story.outingSceneState != OutingSceneState.Main)
                     if (GameEntry.Utils.Location != story.outingSceneState)
                         continue;
-                if (GameEntry.Utils.outingBefore != story.outingBefore)
+                if (GameEntry.Utils.OutingBefore != story.outingBefore)
                     if (GameEntry.Utils.Location == OutingSceneState.Home)
                         continue;
                 if (GameEntry.Utils.GameState != story.gameState)

@@ -50,10 +50,10 @@ namespace GameMain
             stirrerBtn.interactable = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.stirrerID).Preposition != 0;
             pressBtn.interactable = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.pressID).Preposition != 0;
 
-            heaterBtn.interactable = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.heaterID).Price <=GameEntry.Utils.Money;
-            burnisherBtn.interactable = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.burnisherID).Price <= GameEntry.Utils.Money;
-            stirrerBtn.interactable = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.stirrerID).Price <= GameEntry.Utils.Money;
-            pressBtn.interactable = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.pressID).Price <= GameEntry.Utils.Money;
+            heaterBtn.interactable = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.heaterID).Price <=GameEntry.Player.Money;
+            burnisherBtn.interactable = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.burnisherID).Price <= GameEntry.Player.Money;
+            stirrerBtn.interactable = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.stirrerID).Price <= GameEntry.Player.Money;
+            pressBtn.interactable = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.pressID).Price <= GameEntry.Player.Money;
 
             heaterImage.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.heaterID).ImagePath);
             burnisherImage.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.burnisherID).ImagePath);
@@ -129,7 +129,7 @@ namespace GameMain
 
         private void UpdateItem()
         {
-            GameEntry.Utils.Money -= dRItem.Price;
+            GameEntry.Player.Money -= dRItem.Price;
             switch (this.instrumentTag)
             {
                 case InstrumentTag.Press:
@@ -151,10 +151,10 @@ namespace GameMain
             stirrerBtn.interactable = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.stirrerID).Preposition != 0;
             pressBtn.interactable = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.pressID).Preposition != 0;
 
-            heaterBtn.interactable = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.heaterID).Price <= GameEntry.Utils.Money;
-            burnisherBtn.interactable = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.burnisherID).Price <= GameEntry.Utils.Money;
-            stirrerBtn.interactable = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.stirrerID).Price <= GameEntry.Utils.Money;
-            pressBtn.interactable = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.pressID).Price <= GameEntry.Utils.Money;
+            heaterBtn.interactable = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.heaterID).Price <= GameEntry.Player.Money;
+            burnisherBtn.interactable = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.burnisherID).Price <= GameEntry.Player.Money;
+            stirrerBtn.interactable = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.stirrerID).Price <= GameEntry.Player.Money;
+            pressBtn.interactable = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.pressID).Price <= GameEntry.Player.Money;
 
             heaterImage.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.heaterID).ImagePath);
             burnisherImage.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(GameEntry.Utils.PlayerData.burnisherID).ImagePath);

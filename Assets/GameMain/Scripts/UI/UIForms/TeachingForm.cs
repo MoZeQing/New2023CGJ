@@ -115,32 +115,20 @@ namespace GameMain
             BehaviorData behavior = GameEntry.Cat.GetBehavior(behaviorTag);
             if (behaviorTag != BehaviorTag.Sleep)
             {
-                if (GameEntry.Utils.Energy < behavior.playerData.energy)
+                if (GameEntry.Player.Energy < behavior.playerData.energy)
                 {
                     GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你没有足够的体力");
                     GameEntry.UI.OpenUIForm(UIFormId.MainForm);
                     return;
                 }
-                if (GameEntry.Utils.Ap < behavior.playerData.ap)
-                {
-                    GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你没有足够的行动力");
-                    GameEntry.UI.OpenUIForm(UIFormId.MainForm);
-                    return;
-                }
                 BuffData buffData = GameEntry.Buff.GetBuff();
-                GameEntry.Utils.Energy -= (int)Mathf.Clamp((behavior.playerData.energy*buffData.EnergyMulti+buffData.EnergyPlus),0,9999999);
-                GameEntry.Utils.Money -= behavior.playerData.money;
-                GameEntry.Utils.MaxEnergy -= behavior.playerData.maxEnergy;
-                GameEntry.Utils.Ap -= behavior.playerData.ap;
-                GameEntry.Utils.MaxAp -= behavior.playerData.maxAp;
+                GameEntry.Player.Energy -= (int)Mathf.Clamp((behavior.playerData.energy*buffData.EnergyMulti+buffData.EnergyPlus),0,9999999);
+                GameEntry.Player.Money -= behavior.playerData.money;
+                GameEntry.Player.MaxEnergy -= behavior.playerData.maxEnergy;
 
-                GameEntry.Utils.Favor += (int)(behavior.catData.favour * buffData.FavorMulti + buffData.FavorPlus);
-                GameEntry.Utils.Love+= behavior.catData.love;
-                GameEntry.Utils.Family += behavior.catData.family;
-            }
-            else
-            {
-                GameEntry.Utils.Ap = GameEntry.Utils.MaxAp;
+                GameEntry.Cat.Favor += (int)(behavior.catData.favour * buffData.FavorMulti + buffData.FavorPlus);
+                GameEntry.Cat.Love+= behavior.catData.love;
+                GameEntry.Cat.Family += behavior.catData.family;
             }
             DialogueGraph dialogueGraph = behavior.dialogues[UnityEngine.Random.Range(0, behavior.dialogues.Count)];
             dialogBox.gameObject.SetActive(true);
@@ -155,10 +143,9 @@ namespace GameMain
         //也就是说，在SetComplete方法中设置的方法不能有Behaviour等会设置回调的方法
         private void PassDay()
         {
-            GameEntry.Utils.Ap = GameEntry.Utils.MaxAp;
             rightCanvas.gameObject.SetActive(false);
             leftCanvas.gameObject.SetActive(false);
-            GameEntry.Utils.Day++;
+            GameEntry.Player.Day++;
             GameEntry.UI.OpenUIForm(UIFormId.PassDayForm);//用这个this传参来调整黑幕
             GameEntry.Utils.GameState = GameState.Morning;
             GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Morning));
@@ -168,7 +155,7 @@ namespace GameMain
         {
             InDialog = false;
             BuffData buffData = GameEntry.Buff.GetBuff();
-            GameEntry.Utils.Energy = (int)(GameEntry.Utils.MaxEnergy * buffData.EnergyMaxMulti + buffData.EnergyMaxPlus);
+            GameEntry.Player.Energy = (int)(GameEntry.Player.MaxEnergy * buffData.EnergyMaxMulti + buffData.EnergyMaxPlus);
             GameEntry.Utils.GameState = GameState.Midnight;
             if (!GameEntry.Dialog.StoryUpdate(PassDay))
                 Behaviour(BehaviorTag.Sleep);
@@ -185,7 +172,7 @@ namespace GameMain
             {
                 rightCanvas.gameObject.SetActive(false);
                 leftCanvas.gameObject.SetActive(false);
-                GameEntry.Utils.Day++;
+                GameEntry.Player.Day++;
                 GameEntry.UI.OpenUIForm(UIFormId.PassDayForm);//用这个this传参来调整黑幕
                 Invoke(nameof(OnFaded), 4f);
             }

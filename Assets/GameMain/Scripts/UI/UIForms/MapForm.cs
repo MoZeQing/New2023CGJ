@@ -45,7 +45,7 @@ namespace GameMain
 
         private void Outing(OutingSceneState outingSceneState)
         {
-            if (mDay == GameEntry.Utils.Day)
+            if (mDay == GameEntry.Player.Day)
             {
                 GameEntry.UI.OpenUIForm(UIFormId.PopTips, "今天你已经外出过一次了");
                 return;
@@ -59,7 +59,7 @@ namespace GameMain
             GameEntry.Dialog.StoryUpdate();
             GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
             GameEntry.UI.OpenUIForm((UIFormId)outingSceneState + 20, this);
-            mDay = GameEntry.Utils.Day;
+            mDay = GameEntry.Player.Day;
         }
 
         private void GameStateEvent(object sender, GameEventArgs args)

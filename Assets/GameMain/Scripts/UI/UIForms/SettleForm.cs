@@ -98,7 +98,7 @@ namespace GameMain
             GameEntry.UI.CloseUIForm(this.UIForm);
             BuffData buffData = GameEntry.Buff.GetBuff();
             DRUpgrade dRUpgrade = GameEntry.DataTable.GetDataTable<DRUpgrade>().GetDataRow(GameEntry.Utils.PlayerData.cafeID);
-            GameEntry.Utils.Money += (int)(mWorkData.Income * buffData.MoneyMulti * (1 + dRUpgrade.Money / 100) + buffData.MoneyPlus);
+            GameEntry.Player.Money += (int)(mWorkData.Income * buffData.MoneyMulti * (1 + dRUpgrade.Money / 100) + buffData.MoneyPlus);
         }
     }
 }

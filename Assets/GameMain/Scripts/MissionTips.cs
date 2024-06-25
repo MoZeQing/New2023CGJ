@@ -11,11 +11,11 @@ namespace GameMain
 
         private void Update()
         {
-            if (GameEntry.Utils.Day > 14)
+            if (GameEntry.Player.Day > 14)
             {
-                missionText.text = string.Format("想要举办沙龙，你需要邀请足够多的好友，尽可能在沙龙前将好友们的好感度提升到100！\r\n<size=24><color=red>好友的好感度会提升你的工作能力</color></size>\r\n", 35 - GameEntry.Utils.Day);
+                missionText.text = string.Format("想要举办沙龙，你需要邀请足够多的好友，尽可能在沙龙前将好友们的好感度提升到100！\r\n<size=24><color=red>好友的好感度会提升你的工作能力</color></size>\r\n", 35 - GameEntry.Player.Day);
             }
-            else if (GameEntry.Utils.Day < 7)
+            else if (GameEntry.Player.Day < 7)
             {
                 missionText.text = string.Format("想办法取得爱丽丝的信任，\n<size=28><color=red>在这周六前将爱丽丝的好感度提升到10以上吧</color></size>");
             }

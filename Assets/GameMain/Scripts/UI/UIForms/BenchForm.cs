@@ -52,9 +52,9 @@ namespace GameMain
             {
                 mCards[i].GetComponent<Button>().interactable = false;
             }
-            GameEntry.Utils.Energy += dRBench.Energy;
-            GameEntry.Utils.MaxEnergy += dRBench.EnergyMax;
-            GameEntry.Utils.Money+= dRBench.Money;
+            GameEntry.Player.Energy += dRBench.Energy;
+            GameEntry.Player.MaxEnergy += dRBench.EnergyMax;
+            GameEntry.Player.Money+= dRBench.Money;
             foreach (string eventData in dRBench.Buff)
             {
                 GameEntry.Utils.RunEvent(eventData);

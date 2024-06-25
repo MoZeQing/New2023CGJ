@@ -100,7 +100,7 @@ namespace GameMain
                 mWorkForm.IsGuide= true;
                 //mWorkForm.IsNext = false;
                 mWorkForm.OnLevel("Guide_1");
-                GameEntry.Utils.Day++;
+                GameEntry.Player.Day++;
                 mIndex++;
             }
         }
@@ -132,25 +132,25 @@ namespace GameMain
                 {
                     mWorkForm.OnLevel("Guide_1");
                     mIndex++;
-                    GameEntry.Utils.Day++;
-                    Debug.Log(GameEntry.Utils.Day);
+                    GameEntry.Player.Day++;
+                    Debug.Log(GameEntry.Player.Day);
                 }
                 else if (mIndex == 2)
                 {
                     GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
                     mWorkForm.OnLevel("Guide_2");
                     mIndex++;
-                    GameEntry.Utils.Day++;
-                    Debug.Log(GameEntry.Utils.Day);
+                    GameEntry.Player.Day++;
+                    Debug.Log(GameEntry.Player.Day);
                 }
                 else if (mIndex == 3)
                 {
                     GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
                     mWorkForm.OnLevel("Guide_3");
                     mIndex++;
-                    GameEntry.Utils.Day++;
+                    GameEntry.Player.Day++;
 
-                    Debug.Log(GameEntry.Utils.Day);
+                    Debug.Log(GameEntry.Player.Day);
                 }
                 else
                 {

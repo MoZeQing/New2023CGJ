@@ -22,13 +22,17 @@ namespace GameMain
                 catStateDatas.Add(catStateSO.catStateData);
             }
         }
-        public int Favour
+        public int Favor
         {
             get
             {
                 return mCatData.favour;
             }
-            private set { }
+            set 
+            { 
+                mCatData.favour = value;
+                GameEntry.Utils.UpdateData(TriggerTag.Favor, mCatData.favour.ToString());
+            }
         }
         public int Family
         {
@@ -36,7 +40,11 @@ namespace GameMain
             {
                 return mCatData.family;
             }
-            private set { }
+            set
+            {
+                mCatData.family = value;
+                GameEntry.Utils.UpdateData(TriggerTag.Favor, mCatData.family.ToString());
+            }
         }
         public int Love
         {
@@ -44,7 +52,11 @@ namespace GameMain
             {
                 return mCatData.love;
             }
-            private set { }
+            set
+            {
+                mCatData.love = value;
+                GameEntry.Utils.UpdateData(TriggerTag.Favor, mCatData.love.ToString());
+            }
         }
         public CatStateData GetCatState()
         {
