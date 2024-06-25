@@ -12,15 +12,19 @@ namespace GameMain
         [SerializeField] private Text moneyText;
         [SerializeField] private Text clientText;
         [SerializeField] private BubbleItem[] bubbles;
-        [SerializeField]
-        private float speed;
+        [Header("¿ØÖÆÊýÖµ")]
+        //[SerializeField,Range(0f,2f)] private float speed=1;
+        [SerializeField] private float rate=5;
+        [SerializeField] private bool isHideItem;
+        [SerializeField,Range(0,5)] private float itemLifeTime;
         private float time;
+        private float totalTime;
         private int money;
         private int client;
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            time = 1/speed;
+            time = 1/rate;
             for (int i = 0; i < bubbles.Length; i++)
             {
                 bubbles[i].gameObject.SetActive(false);
@@ -33,8 +37,8 @@ namespace GameMain
             time -= Time.deltaTime;
             if (time <= 0)
             {
-                time = 1/speed;
-                bubbles[Random.Range(0, bubbles.Length)].SetData(3, "²âÊÔ");
+                time = 1/rate;
+                bubbles[Random.Range(0, bubbles.Length)].SetData(3, "²âÊÔ",itemLifeTime,isHideItem);
             }
         }
 
@@ -46,7 +50,9 @@ namespace GameMain
 
         private void Start()
         {
-            time = speed;
+            time = rate;
+            totalTime = 10;
+            //this.GetComponent<Animator>().speed= speed;
             for (int i = 0; i < bubbles.Length; i++)
             {
                 bubbles[i].gameObject.SetActive(false);
@@ -57,10 +63,13 @@ namespace GameMain
 
         private void Update()
         {
+            totalTime -= Time.deltaTime;
+            if (totalTime < 0)
+                return;
             time -= Time.deltaTime;
             if (time <= 0)
             {
-                time = speed;
+                time = rate;
                 int block = 50;
                 while (true)
                 {
@@ -68,7 +77,7 @@ namespace GameMain
                     int index = Random.Range(0, bubbles.Length);
                     if (!bubbles[index].gameObject.activeSelf)
                     {
-                        bubbles[index].SetData(Random.Range(1,6), "²âÊÔ");
+                        bubbles[index].SetData(Random.Range(1,6), "²âÊÔ", itemLifeTime, isHideItem);
                         break;
                     }
                     if (block < 0)
