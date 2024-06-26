@@ -40,6 +40,7 @@ namespace GameMain
             Debug.Log("Menu");
             mGameState = GameState.Menu;
             GameEntry.Event.Subscribe(GameStateEventArgs.EventId, GameStateEvent);
+            GameEntry.UI.OpenUIForm(UIFormId.MainMenu, this); 
             GameEntry.UI.OpenUIForm(UIFormId.MenuForm, this);
         }
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)

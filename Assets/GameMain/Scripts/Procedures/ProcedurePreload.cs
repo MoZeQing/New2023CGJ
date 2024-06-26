@@ -29,7 +29,9 @@ namespace GameMain
             "Bench",
             "Buff",
             "Upgrade",
-            "Guide"
+            "Guide",
+            "Coffee",
+            "Tag"
         };
 
         private Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>();

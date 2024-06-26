@@ -13,7 +13,7 @@ namespace GameMain.Editor.DataTableTools
 {
     public sealed class DataTableGeneratorMenu
     {
-        [MenuItem("GameMain/Generate DataTables")]
+        [UnityEditor.MenuItem("GameMain/Generate DataTables")]
         private static void GenerateDataTables()
         {
             foreach (string dataTableName in ProcedurePreload.DataTableNames)

@@ -49,7 +49,7 @@ public class ChatData
     public string text;
 
 #if UNITY_EDITOR
-    [MenuItem("Data/Plot/Excel转换为剧情")]
+    [UnityEditor.MenuItem("Data/Plot/Excel转换为剧情")]
     public static void ExcelToPlot()
     {
         //string path = EditorUtility.OpenFilePanel("选择配置文件目录", Application.dataPath, " ");
@@ -120,7 +120,7 @@ public class ChatData
         //}
     }
 
-    [MenuItem("Data/Plot/剧情转换为CSV")]
+    [UnityEditor.MenuItem("Data/Plot/剧情转换为CSV")]
     public static void PlotToCSV()
     {
         StorySO[] storySOs = Resources.LoadAll<StorySO>("StoryData");

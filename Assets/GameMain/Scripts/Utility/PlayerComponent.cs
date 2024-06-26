@@ -119,7 +119,10 @@ namespace GameMain
             }
             return false;
         }
-
+        public bool HasCoffeeRecipe(int node)
+        {
+            return HasCoffeeRecipe((NodeTag)node);
+        }
         public bool HasCoffeeRecipe(NodeTag nodeTag)
         {
             foreach (RecipeData recipe in recipes)

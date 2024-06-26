@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-06-26 23:11:04.364
+// 生成时间：2024-06-26 23:11:04.390
 //------------------------------------------------------------
 
 using GameFramework;
@@ -19,14 +19,14 @@ using UnityGameFramework.Runtime;
 namespace GameMain
 {
     /// <summary>
-    /// level配置文件。
+    /// Coffee配置文件。
     /// </summary>
-    public class DRShop : DataRowBase
+    public class DRCoffee : DataRowBase
     {
         private int m_Id = 0;
 
         /// <summary>
-        /// 获取关卡ID。
+        /// 获取节点ID。
         /// </summary>
         public override int Id
         {
@@ -37,54 +37,45 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取商店界面。
+        /// 获取对应咖啡Tag。
         /// </summary>
-        public string Shop
+        public int NodeTag
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取角色。
+        /// 获取咖啡名称。
         /// </summary>
-        public string Char
+        public string CoffeeName
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取好感度要求。
+        /// 获取图片路径。
         /// </summary>
-        public int Favor
+        public string ImagePath
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取差分。
+        /// 获取标签。
         /// </summary>
-        public int Diff
+        public List<String> Tags
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取对话内容。
+        /// 获取客流。
         /// </summary>
-        public string Text
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取获得的好感度。
-        /// </summary>
-        public int AddFavor
+        public int Demand
         {
             get;
             private set;
@@ -102,12 +93,11 @@ namespace GameMain
             index++;
             m_Id = int.Parse(columnStrings[index++]);
             index++;
-            Shop = columnStrings[index++];
-            Char = columnStrings[index++];
-            Favor = int.Parse(columnStrings[index++]);
-            Diff = int.Parse(columnStrings[index++]);
-            Text = columnStrings[index++];
-            AddFavor = int.Parse(columnStrings[index++]);
+            NodeTag = int.Parse(columnStrings[index++]);
+            CoffeeName = columnStrings[index++];
+            ImagePath = columnStrings[index++];
+            Tags = DataTableExtension.ParseListString(columnStrings[index++]);
+            Demand = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -120,12 +110,11 @@ namespace GameMain
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
-                    Shop = binaryReader.ReadString();
-                    Char = binaryReader.ReadString();
-                    Favor = binaryReader.Read7BitEncodedInt32();
-                    Diff = binaryReader.Read7BitEncodedInt32();
-                    Text = binaryReader.ReadString();
-                    AddFavor = binaryReader.Read7BitEncodedInt32();
+                    NodeTag = binaryReader.Read7BitEncodedInt32();
+                    CoffeeName = binaryReader.ReadString();
+                    ImagePath = binaryReader.ReadString();
+                    Tags = binaryReader.ReadListString();
+                    Demand = binaryReader.Read7BitEncodedInt32();
                 }
             }
 

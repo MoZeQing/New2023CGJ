@@ -7,7 +7,7 @@ namespace GameMain
     public enum UIFormId
     {
         Undefined=0,
-        MenuForm=1,
+        MainMenu=1,
         MainForm = 2,
         GameForm =3,
         ChangeForm = 4,
@@ -40,6 +40,7 @@ namespace GameMain
         InstrumentForm=57,
         UpgradeForm=58,
         BuffForm=59,
+        MenuForm = 60,
         PopTips =100,
         HighlightTips=101,
         PropertyTips=102,
