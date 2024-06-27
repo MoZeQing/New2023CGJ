@@ -57,7 +57,27 @@ namespace GameMain
                 GameObject go = GameObject.Instantiate(menuItem, canvas);
                 MenuItem item = go.GetComponent<MenuItem>();
                 item.SetData(dRCoffee);
+                item.GetComponent<Button>().onClick.AddListener(()=>OnClick(dRCoffee));
             }
+        }
+
+        private void OnClick(DRCoffee dRCoffee)
+        { 
+            
+        }
+    }
+
+    public class CoffeeData
+    {
+        public int ID;
+        public int EXP;
+        public int Level
+        {
+            get
+            {
+                return EXP / 20;
+            }
+            private set { }
         }
     }
 }

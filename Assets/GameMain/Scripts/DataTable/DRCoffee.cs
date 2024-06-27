@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-06-26 23:11:04.390
+// 生成时间：2024-06-27 00:35:35.304
 //------------------------------------------------------------
 
 using GameFramework;
@@ -81,6 +81,33 @@ namespace GameMain
             private set;
         }
 
+        /// <summary>
+        /// 获取倍率1。
+        /// </summary>
+        public float Level1
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取倍率2。
+        /// </summary>
+        public float Level2
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取倍率3。
+        /// </summary>
+        public float Level3
+        {
+            get;
+            private set;
+        }
+
         public override bool ParseDataRow(string dataRowString, object userData)
         {
             string[] columnStrings = dataRowString.Split(DataTableExtension.DataSplitSeparators);
@@ -98,6 +125,9 @@ namespace GameMain
             ImagePath = columnStrings[index++];
             Tags = DataTableExtension.ParseListString(columnStrings[index++]);
             Demand = int.Parse(columnStrings[index++]);
+            Level1 = float.Parse(columnStrings[index++]);
+            Level2 = float.Parse(columnStrings[index++]);
+            Level3 = float.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -115,6 +145,9 @@ namespace GameMain
                     ImagePath = binaryReader.ReadString();
                     Tags = binaryReader.ReadListString();
                     Demand = binaryReader.Read7BitEncodedInt32();
+                    Level1 = binaryReader.ReadSingle();
+                    Level2 = binaryReader.ReadSingle();
+                    Level3 = binaryReader.ReadSingle();
                 }
             }
 
@@ -122,9 +155,47 @@ namespace GameMain
             return true;
         }
 
+        private KeyValuePair<int, float>[] m_Level = null;
+
+        public int LevelCount
+        {
+            get
+            {
+                return m_Level.Length;
+            }
+        }
+
+        public float GetLevel(int id)
+        {
+            foreach (KeyValuePair<int, float> i in m_Level)
+            {
+                if (i.Key == id)
+                {
+                    return i.Value;
+                }
+            }
+
+            throw new GameFrameworkException(Utility.Text.Format("GetLevel with invalid id '{0}'.", id));
+        }
+
+        public float GetLevelAt(int index)
+        {
+            if (index < 0 || index >= m_Level.Length)
+            {
+                throw new GameFrameworkException(Utility.Text.Format("GetLevelAt with invalid index '{0}'.", index));
+            }
+
+            return m_Level[index].Value;
+        }
+
         private void GeneratePropertyArray()
         {
-
+            m_Level = new KeyValuePair<int, float>[]
+            {
+                new KeyValuePair<int, float>(1, Level1),
+                new KeyValuePair<int, float>(2, Level2),
+                new KeyValuePair<int, float>(3, Level3),
+            };
         }
     }
 }

@@ -10,6 +10,7 @@ namespace GameMain
     {
         public PlayerData mPlayerData  = new PlayerData();
         public List<RecipeData> recipes = new List<RecipeData>();//已解锁的配方
+        public List<CoffeeData> coffees= new List<CoffeeData>();//已解锁的咖啡
 
         private void Start()
         {
@@ -129,6 +130,14 @@ namespace GameMain
             {
                 if (recipe.products.Contains(nodeTag))
                     return true;
+            }
+            return false;
+        }
+        public bool HasCoffee(NodeTag nodeTag)
+        {
+            foreach (CoffeeData coffee in coffees)
+            { 
+                //if(coffee)
             }
             return false;
         }
