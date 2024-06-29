@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityGameFramework.Runtime;
+using XNode.Examples.RuntimeMathNodes;
 
 namespace GameMain
 {
@@ -133,11 +134,25 @@ namespace GameMain
             }
             return false;
         }
+        public bool HasCoffee(int id)
+        {
+            foreach (CoffeeData coffee in coffees)
+            {
+                if (coffee.ID == id)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         public bool HasCoffee(NodeTag nodeTag)
         {
             foreach (CoffeeData coffee in coffees)
-            { 
-                //if(coffee)
+            {
+                if (coffee.NodeTag == nodeTag)
+                {
+                    return true;
+                }
             }
             return false;
         }
