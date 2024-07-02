@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-07-02 21:31:17.025
+// 生成时间：2024-07-02 21:31:17.103
 //------------------------------------------------------------
 
 using GameFramework;
@@ -19,14 +19,14 @@ using UnityGameFramework.Runtime;
 namespace GameMain
 {
     /// <summary>
-    /// 升级配置表。
+    /// EventEffect配置文件。
     /// </summary>
-    public class DRUpgrade : DataRowBase
+    public class DREventEffect : DataRowBase
     {
         private int m_Id = 0;
 
         /// <summary>
-        /// 获取等级编号。
+        /// 获取效果ID。
         /// </summary>
         public override int Id
         {
@@ -34,15 +34,6 @@ namespace GameMain
             {
                 return m_Id;
             }
-        }
-
-        /// <summary>
-        /// 获取标签代号。
-        /// </summary>
-        public string TagIcon
-        {
-            get;
-            private set;
         }
 
         /// <summary>
@@ -55,81 +46,45 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取A级咖啡要求。
+        /// 获取条件。
         /// </summary>
-        public int ACoffee
+        public string Trigger
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取B级咖啡要求。
+        /// 获取效果标签。
         /// </summary>
-        public int BCoffee
+        public string EventEffectTag
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取C级咖啡要求。
+        /// 获取参数1。
         /// </summary>
-        public int CCoffee
+        public string ParamOne
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取咖啡总量。
+        /// 获取参数2。
         /// </summary>
-        public int Total
+        public int ParamTwo
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取金钱要求。
+        /// 获取参数3。
         /// </summary>
-        public int Money
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取解锁的咖啡。
-        /// </summary>
-        public string UnlockCoffee
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取数值增长（x/100）。
-        /// </summary>
-        public int Increase
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取其它buff。
-        /// </summary>
-        public string Buff
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取升级的目标ID。
-        /// </summary>
-        public int UpgradeID
+        public int ParamThree
         {
             get;
             private set;
@@ -147,17 +102,12 @@ namespace GameMain
             index++;
             m_Id = int.Parse(columnStrings[index++]);
             index++;
-            TagIcon = columnStrings[index++];
             Text = columnStrings[index++];
-            ACoffee = int.Parse(columnStrings[index++]);
-            BCoffee = int.Parse(columnStrings[index++]);
-            CCoffee = int.Parse(columnStrings[index++]);
-            Total = int.Parse(columnStrings[index++]);
-            Money = int.Parse(columnStrings[index++]);
-            UnlockCoffee = columnStrings[index++];
-            Increase = int.Parse(columnStrings[index++]);
-            Buff = columnStrings[index++];
-            UpgradeID = int.Parse(columnStrings[index++]);
+            Trigger = columnStrings[index++];
+            EventEffectTag = columnStrings[index++];
+            ParamOne = columnStrings[index++];
+            ParamTwo = int.Parse(columnStrings[index++]);
+            ParamThree = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -170,17 +120,12 @@ namespace GameMain
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
-                    TagIcon = binaryReader.ReadString();
                     Text = binaryReader.ReadString();
-                    ACoffee = binaryReader.Read7BitEncodedInt32();
-                    BCoffee = binaryReader.Read7BitEncodedInt32();
-                    CCoffee = binaryReader.Read7BitEncodedInt32();
-                    Total = binaryReader.Read7BitEncodedInt32();
-                    Money = binaryReader.Read7BitEncodedInt32();
-                    UnlockCoffee = binaryReader.ReadString();
-                    Increase = binaryReader.Read7BitEncodedInt32();
-                    Buff = binaryReader.ReadString();
-                    UpgradeID = binaryReader.Read7BitEncodedInt32();
+                    Trigger = binaryReader.ReadString();
+                    EventEffectTag = binaryReader.ReadString();
+                    ParamOne = binaryReader.ReadString();
+                    ParamTwo = binaryReader.Read7BitEncodedInt32();
+                    ParamThree = binaryReader.Read7BitEncodedInt32();
                 }
             }
 

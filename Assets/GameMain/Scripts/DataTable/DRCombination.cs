@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-07-02 21:31:16.918
+// 生成时间：2024-07-02 21:31:17.097
 //------------------------------------------------------------
 
 using GameFramework;
@@ -19,14 +19,14 @@ using UnityGameFramework.Runtime;
 namespace GameMain
 {
     /// <summary>
-    /// 音效配置表。
+    /// Combination閰嶇疆鏂囦欢。
     /// </summary>
-    public class DRSound : DataRowBase
+    public class DRCombination : DataRowBase
     {
         private int m_Id = 0;
 
         /// <summary>
-        /// 获取声音编号。
+        /// 获取缁勫悎ID。
         /// </summary>
         public override int Id
         {
@@ -37,63 +37,36 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取资源名称。
+        /// 获取鍚嶇О。
         /// </summary>
-        public string AssetName
+        public string Name
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取优先级（默认0，128最高，-128最低）。
+        /// 获取鎻忚堪。
         /// </summary>
-        public int Priority
+        public string Text
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取是否循环。
+        /// 获取鏍囩?。
         /// </summary>
-        public bool Loop
+        public string Tags
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取音量（0~1）。
+        /// 获取鏁堟灉。
         /// </summary>
-        public float Volume
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取声音空间混合量（0为2D，1为3D，中间值混合效果）。
-        /// </summary>
-        public float SpatialBlend
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取声音最大距离。
-        /// </summary>
-        public float MaxDistance
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取声音组。
-        /// </summary>
-        public string Group
+        public string EventEffect
         {
             get;
             private set;
@@ -111,13 +84,10 @@ namespace GameMain
             index++;
             m_Id = int.Parse(columnStrings[index++]);
             index++;
-            AssetName = columnStrings[index++];
-            Priority = int.Parse(columnStrings[index++]);
-            Loop = bool.Parse(columnStrings[index++]);
-            Volume = float.Parse(columnStrings[index++]);
-            SpatialBlend = float.Parse(columnStrings[index++]);
-            MaxDistance = float.Parse(columnStrings[index++]);
-            Group = columnStrings[index++];
+            Name = columnStrings[index++];
+            Text = columnStrings[index++];
+            Tags = columnStrings[index++];
+            EventEffect = columnStrings[index++];
 
             GeneratePropertyArray();
             return true;
@@ -130,13 +100,10 @@ namespace GameMain
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
-                    AssetName = binaryReader.ReadString();
-                    Priority = binaryReader.Read7BitEncodedInt32();
-                    Loop = binaryReader.ReadBoolean();
-                    Volume = binaryReader.ReadSingle();
-                    SpatialBlend = binaryReader.ReadSingle();
-                    MaxDistance = binaryReader.ReadSingle();
-                    Group = binaryReader.ReadString();
+                    Name = binaryReader.ReadString();
+                    Text = binaryReader.ReadString();
+                    Tags = binaryReader.ReadString();
+                    EventEffect = binaryReader.ReadString();
                 }
             }
 

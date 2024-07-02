@@ -2,6 +2,8 @@ using GameFramework.Event;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Threading;
 using UnityEditor;
 using UnityEngine;
 using UnityGameFramework.Runtime;
@@ -434,6 +436,7 @@ namespace GameMain
         public int acoffee;
         public int bcoffee;
         public int ccoffee;
+        public int coffeeLevel=3;
         public List<PlayerItemData> items=new List<PlayerItemData>();
     }
 }

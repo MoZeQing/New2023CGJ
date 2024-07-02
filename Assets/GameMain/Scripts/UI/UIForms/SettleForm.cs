@@ -35,11 +35,6 @@ namespace GameMain
             ShowSettleData();
         }
 
-        private void OnEnable()
-        {
-
-        }
-
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);

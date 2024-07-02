@@ -41,6 +41,7 @@ namespace GameMain
         UpgradeForm=58,
         BuffForm=59,
         MenuForm = 60,
+        ManagerForm=61,
         PopTips =100,
         HighlightTips=101,
         PropertyTips=102,

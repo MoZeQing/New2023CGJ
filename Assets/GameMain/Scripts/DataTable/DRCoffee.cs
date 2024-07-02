@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-06-27 00:35:35.304
+// 生成时间：2024-07-02 21:31:17.038
 //------------------------------------------------------------
 
 using GameFramework;
@@ -66,7 +66,7 @@ namespace GameMain
         /// <summary>
         /// 获取标签。
         /// </summary>
-        public List<String> Tags
+        public string Tags
         {
             get;
             private set;
@@ -82,27 +82,36 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取倍率1。
+        /// 获取初始价格。
         /// </summary>
-        public float Level1
+        public int Price
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取倍率2。
+        /// 获取客流倍率。
         /// </summary>
-        public float Level2
+        public string DemandLevel
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取倍率3。
+        /// 获取价格倍率。
         /// </summary>
-        public float Level3
+        public string PriceLevel
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取经验值。
+        /// </summary>
+        public string ExpLevel
         {
             get;
             private set;
@@ -123,11 +132,12 @@ namespace GameMain
             NodeTag = int.Parse(columnStrings[index++]);
             CoffeeName = columnStrings[index++];
             ImagePath = columnStrings[index++];
-            Tags = DataTableExtension.ParseListString(columnStrings[index++]);
+            Tags = columnStrings[index++];
             Demand = int.Parse(columnStrings[index++]);
-            Level1 = float.Parse(columnStrings[index++]);
-            Level2 = float.Parse(columnStrings[index++]);
-            Level3 = float.Parse(columnStrings[index++]);
+            Price = int.Parse(columnStrings[index++]);
+            DemandLevel = columnStrings[index++];
+            PriceLevel = columnStrings[index++];
+            ExpLevel = columnStrings[index++];
 
             GeneratePropertyArray();
             return true;
@@ -143,11 +153,12 @@ namespace GameMain
                     NodeTag = binaryReader.Read7BitEncodedInt32();
                     CoffeeName = binaryReader.ReadString();
                     ImagePath = binaryReader.ReadString();
-                    Tags = binaryReader.ReadListString();
+                    Tags = binaryReader.ReadString();
                     Demand = binaryReader.Read7BitEncodedInt32();
-                    Level1 = binaryReader.ReadSingle();
-                    Level2 = binaryReader.ReadSingle();
-                    Level3 = binaryReader.ReadSingle();
+                    Price = binaryReader.Read7BitEncodedInt32();
+                    DemandLevel = binaryReader.ReadString();
+                    PriceLevel = binaryReader.ReadString();
+                    ExpLevel = binaryReader.ReadString();
                 }
             }
 
@@ -155,47 +166,9 @@ namespace GameMain
             return true;
         }
 
-        private KeyValuePair<int, float>[] m_Level = null;
-
-        public int LevelCount
-        {
-            get
-            {
-                return m_Level.Length;
-            }
-        }
-
-        public float GetLevel(int id)
-        {
-            foreach (KeyValuePair<int, float> i in m_Level)
-            {
-                if (i.Key == id)
-                {
-                    return i.Value;
-                }
-            }
-
-            throw new GameFrameworkException(Utility.Text.Format("GetLevel with invalid id '{0}'.", id));
-        }
-
-        public float GetLevelAt(int index)
-        {
-            if (index < 0 || index >= m_Level.Length)
-            {
-                throw new GameFrameworkException(Utility.Text.Format("GetLevelAt with invalid index '{0}'.", index));
-            }
-
-            return m_Level[index].Value;
-        }
-
         private void GeneratePropertyArray()
         {
-            m_Level = new KeyValuePair<int, float>[]
-            {
-                new KeyValuePair<int, float>(1, Level1),
-                new KeyValuePair<int, float>(2, Level2),
-                new KeyValuePair<int, float>(3, Level3),
-            };
+
         }
     }
 }

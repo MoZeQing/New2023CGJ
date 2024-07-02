@@ -89,7 +89,6 @@ namespace GameMain
             GameEntry.Utils.ClearPlayerItem();
             for (int i = 0; i < playerItems.Count; i++)
                 GameEntry.Utils.AddPlayerItem(new ItemData(playerItems[i]), 5);
-
             GameEntry.Utils.AddPlayerItem(new ItemData(ItemTag.Heater), 1, true);
             GameEntry.Utils.AddPlayerItem(new ItemData(ItemTag.ManualGrinder), 1, true);
             GameEntry.Utils.AddPlayerItem(new ItemData(ItemTag.Kettle), 1, true);

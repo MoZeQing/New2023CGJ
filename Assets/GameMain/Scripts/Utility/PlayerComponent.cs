@@ -9,7 +9,7 @@ namespace GameMain
 {
     public class PlayerComponent : GameFrameworkComponent
     {
-        public PlayerData mPlayerData  = new PlayerData();
+        private PlayerData mPlayerData  = new PlayerData();
         public List<RecipeData> recipes = new List<RecipeData>();//已解锁的配方
         public List<CoffeeData> coffees= new List<CoffeeData>();//已解锁的咖啡
 
@@ -56,7 +56,25 @@ namespace GameMain
             }
             return null;
         }
-
+        public void AddCoffee(int id, int exp)
+        {
+            if (GetCoffee(id) != null)
+            {
+                Debug.LogError($"错误，试图加入一个已经存在的CoffeeData，ID为{id}");
+                return;
+            }
+            DRCoffee dRCoffee=GameEntry.DataTable.GetDataTable<DRCoffee>().GetDataRow(id);
+            coffees.Add(new CoffeeData(dRCoffee,exp));
+        }
+        public CoffeeData GetCoffee(int id)
+        {
+            foreach (CoffeeData coffeeData in coffees)
+            {
+                if (coffeeData.Id == id)
+                    return coffeeData;
+            }
+            return null;
+        }
         public void ClearRecipe()
         {
             recipes.Clear();
@@ -138,7 +156,7 @@ namespace GameMain
         {
             foreach (CoffeeData coffee in coffees)
             {
-                if (coffee.ID == id)
+                if (coffee.Id == id)
                 {
                     return true;
                 }
@@ -157,6 +175,17 @@ namespace GameMain
             return false;
         }
 
+        public int CoffeeLevel
+        {
+            get
+            {
+                return mPlayerData.coffeeLevel;
+            }
+            set
+            {
+                mPlayerData.coffeeLevel = value;
+            }
+        }
         public int Money
         {
             get

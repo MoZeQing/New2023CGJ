@@ -7,8 +7,12 @@ using UnityGameFramework.Runtime;
 
 namespace GameMain
 {
-    public class ManagerForm : UIFormLogic
+    public class ManagerForm : BaseForm
     {
+        [Header("Ω·À„√Ê∞Â")]
+        [SerializeField] private Transform canvas;
+        //[SerializeField] private Text
+        [Header("÷˜ΩÁ√Ê")]
         [SerializeField] private Text moneyText;
         [SerializeField] private Text clientText;
         [SerializeField] private BubbleItem[] bubbles;
@@ -21,48 +25,25 @@ namespace GameMain
         private float totalTime;
         private int money;
         private int client;
+        private ManagerData managerData;
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
+            managerData = (ManagerData)BaseFormData.UserData;
             time = 1/rate;
             for (int i = 0; i < bubbles.Length; i++)
             {
                 bubbles[i].gameObject.SetActive(false);
             }
+            time = rate;
+            totalTime = 10;
+            DOTween.To(value => { moneyText.text = Mathf.Floor(value).ToString(); }, startValue: 0, endValue: managerData.Client, duration: 10);
+            DOTween.To(value => { clientText.text = Mathf.Floor(value).ToString(); }, startValue: 0, endValue: managerData.Money, duration: 10);
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
-            time -= Time.deltaTime;
-            if (time <= 0)
-            {
-                time = 1/rate;
-                bubbles[Random.Range(0, bubbles.Length)].SetData(3, "≤‚ ‘",itemLifeTime,isHideItem);
-            }
-        }
-
-        protected override void OnClose(bool isShutdown, object userData)
-        {
-            base.OnClose(isShutdown, userData);
-
-        }
-
-        private void Start()
-        {
-            time = rate;
-            totalTime = 10;
-            //this.GetComponent<Animator>().speed= speed;
-            for (int i = 0; i < bubbles.Length; i++)
-            {
-                bubbles[i].gameObject.SetActive(false);
-            }
-            DOTween.To(value => { moneyText.text = Mathf.Floor(value).ToString(); }, startValue: 0, endValue: 4396, duration: 10);
-            DOTween.To(value => { clientText.text = Mathf.Floor(value).ToString(); }, startValue: 0, endValue: 468, duration: 10);
-        }
-
-        private void Update()
-        {
             totalTime -= Time.deltaTime;
             if (totalTime < 0)
                 return;
@@ -77,13 +58,19 @@ namespace GameMain
                     int index = Random.Range(0, bubbles.Length);
                     if (!bubbles[index].gameObject.activeSelf)
                     {
-                        bubbles[index].SetData(Random.Range(1,6), "≤‚ ‘", itemLifeTime, isHideItem);
+                        bubbles[index].SetData(Random.Range(1, 6), "≤‚ ‘", itemLifeTime, isHideItem);
                         break;
                     }
                     if (block < 0)
                         break;
                 }
             }
+        }
+
+        public void CloseForm()
+        {
+            GameEntry.UI.OpenUIForm(UIFormId.SettleForm,managerData);
+            GameEntry.UI.CloseUIForm(this.UIForm);
         }
     }
 }
