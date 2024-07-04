@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-07-02 21:31:17.097
+// 生成时间：2024-07-04 17:08:52.526
 //------------------------------------------------------------
 
 using GameFramework;
@@ -19,14 +19,14 @@ using UnityGameFramework.Runtime;
 namespace GameMain
 {
     /// <summary>
-    /// Combination閰嶇疆鏂囦欢。
+    /// Combination配置文件。
     /// </summary>
     public class DRCombination : DataRowBase
     {
         private int m_Id = 0;
 
         /// <summary>
-        /// 获取缁勫悎ID。
+        /// 获取组合ID。
         /// </summary>
         public override int Id
         {
@@ -37,7 +37,7 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取鍚嶇О。
+        /// 获取名称。
         /// </summary>
         public string Name
         {
@@ -46,7 +46,7 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取鎻忚堪。
+        /// 获取描述。
         /// </summary>
         public string Text
         {
@@ -55,7 +55,7 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取鏍囩?。
+        /// 获取标签。
         /// </summary>
         public string Tags
         {
@@ -64,7 +64,7 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取鏁堟灉。
+        /// 获取效果。
         /// </summary>
         public string EventEffect
         {

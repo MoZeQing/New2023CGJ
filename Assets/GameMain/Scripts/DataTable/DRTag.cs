@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-07-02 21:31:17.073
+// 生成时间：2024-07-04 17:08:52.525
 //------------------------------------------------------------
 
 using GameFramework;
@@ -19,14 +19,14 @@ using UnityGameFramework.Runtime;
 namespace GameMain
 {
     /// <summary>
-    /// Tag配置文件。
+    /// Tag閰嶇疆鏂囦欢。
     /// </summary>
     public class DRTag : DataRowBase
     {
         private int m_Id = 0;
 
         /// <summary>
-        /// 获取节点ID。
+        /// 获取鑺傜偣ID。
         /// </summary>
         public override int Id
         {
@@ -37,7 +37,7 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取图片路径。
+        /// 获取鍥剧墖璺?緞。
         /// </summary>
         public string ImagePath
         {

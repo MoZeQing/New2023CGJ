@@ -33,7 +33,8 @@ namespace GameMain
             "Coffee",
             "Tag",
             "Combination",
-            "EventEffect"
+            "EventEffect",
+            "Daily"
         };
 
         private Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>();

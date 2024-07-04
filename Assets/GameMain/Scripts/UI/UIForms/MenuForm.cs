@@ -18,16 +18,17 @@ namespace GameMain
         [SerializeField] private Transform canvas;
         [SerializeField] private GameObject menuItemPre;
         [SerializeField] private MenuItem[] menuItems;
-        [SerializeField] private Text demandText;
-        [SerializeField] private Text combinationText;
         [SerializeField] private Text clientText;
+        [SerializeField] private Text priceText;
+        [SerializeField] private Text dailyText;
+        [SerializeField] private Text combinationText;
         [SerializeField] private Button okBtn;
         [SerializeField] private Button exitBtn;
         [SerializeField] private Transform plane;
 
         private List<MenuItem> coffeeItems;
         private ManagerData managerData;
-        private Dictionary<MenuItem,int> mapMenuItems= new Dictionary<MenuItem, int>(); 
+        private Dictionary<MenuItem,int> mapMenuItems= new Dictionary<MenuItem, int>();
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
@@ -51,6 +52,26 @@ namespace GameMain
                 if (GameEntry.Player.CoffeeLevel <= i)
                     menuItem.GetComponent<Button>().interactable = false;
             }
+
+            dailyText.text = string.Empty;
+            combinationText.text = string.Empty;
+
+            DRDaily[] dailies = GameEntry.DataTable.GetDataTable<DRDaily>().GetAllDataRows();
+            managerData.Daily = dailies[UnityEngine.Random.Range(0, dailies.Length)].Id;
+            DRDaily drDaily = GameEntry.DataTable.GetDataTable<DRDaily>().GetDataRow(managerData.Daily);
+            string[] dailyEventEffectTags = drDaily.EventEffect.Split('-');
+            for (int i = 0; i < dailyEventEffectTags.Length; i++)
+            {
+                int result = 0;
+                if (!int.TryParse(dailyEventEffectTags[i], out result))
+                {
+                    Debug.LogError($"错误，随机的日常的事件数据错误，请检查Daily表中的{dailyEventEffectTags[i]}");
+                    return;
+                }
+                DREventEffect dREventEffect = GameEntry.DataTable.GetDataTable<DREventEffect>().GetDataRow(result);
+                managerData.eventEffects.Add(new EventEffectData(dREventEffect));
+            }
+            UpdateData();
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
@@ -115,6 +136,21 @@ namespace GameMain
             combinationText.text=string.Empty;
             managerData.Combinations.Clear();
             managerData.eventEffects.Clear();
+
+            DRDaily drDaily = GameEntry.DataTable.GetDataTable<DRDaily>().GetDataRow(managerData.Daily);
+            string[] dailyEventEffectTags = drDaily.EventEffect.Split('-');
+            for (int i = 0; i < dailyEventEffectTags.Length; i++)
+            {
+                int result = 0;
+                if (!int.TryParse(dailyEventEffectTags[i], out result))
+                {
+                    Debug.LogError($"错误，随机的日常的事件数据错误，请检查Daily表中的{dailyEventEffectTags[i]}");
+                    return;
+                }
+                DREventEffect dREventEffect = GameEntry.DataTable.GetDataTable<DREventEffect>().GetDataRow(result);
+                managerData.eventEffects.Add(new EventEffectData(dREventEffect));
+            }
+
             foreach (DRCombination dRCombination in GameEntry.DataTable.GetDataTable<DRCombination>().GetAllDataRows())
             {
                 int index = 0;
@@ -139,7 +175,7 @@ namespace GameMain
 
                 if (tags.Length == index)
                 {
-                    combinationText.text += $"【{dRCombination.Name}】：{dRCombination.Text}\n";
+                    managerData.Combinations.Add(dRCombination.Id);
                     //计算组合
                     string[] eventeffects = dRCombination.EventEffect.Split('-');
                     for (int j = 0; j < eventeffects.Length; j++)
@@ -165,7 +201,6 @@ namespace GameMain
                         }
                         managerData.eventEffects.Add(new EventEffectData(dREventEffect));
                         //计算组合
-                        managerData.Combinations.Add(dRCombination.Id);
                     }
                 }
             }
@@ -174,6 +209,41 @@ namespace GameMain
       
         private void UpdateData()
         {
+            dailyText.text = string.Empty;
+            DRDaily drDaily = GameEntry.DataTable.GetDataTable<DRDaily>().GetDataRow(managerData.Daily);
+            string[] dailyEventEffectTags = drDaily.EventEffect.Split('-');
+            dailyText.text += $"【{drDaily.Name}】：{drDaily.Text}\n";
+            for (int i = 0; i < dailyEventEffectTags.Length; i++)
+            {
+                int result = 0;
+                if (!int.TryParse(dailyEventEffectTags[i], out result))
+                {
+                    Debug.LogError($"错误，随机的日常的事件数据错误，请检查Daily表中的{dailyEventEffectTags[i]}");
+                    return;
+                }
+                DREventEffect dREventEffect = GameEntry.DataTable.GetDataTable<DREventEffect>().GetDataRow(result);
+                dailyText.text += $"{dREventEffect.Text}\n";
+            }
+
+            combinationText.text = string.Empty;
+            for (int i = 0; i < managerData.Combinations.Count; i++)
+            {
+                DRCombination dRCombination = GameEntry.DataTable.GetDataTable<DRCombination>().GetDataRow(managerData.Combinations[i]);
+                string[] combinationsEventEffectTags = dRCombination.EventEffect.Split('-');
+                combinationText.text += $"【{dRCombination.Name}】：{dRCombination.Text}\n";
+                for (int j = 0; j < combinationsEventEffectTags.Length; j++)
+                {
+                    int result = 0;
+                    if (!int.TryParse(combinationsEventEffectTags[i], out result))
+                    {
+                        Debug.LogError($"错误，随机的日常的事件数据错误，请检查Combination表中的{combinationsEventEffectTags[i]}");
+                        return;
+                    }
+                    DREventEffect dREventEffect = GameEntry.DataTable.GetDataTable<DREventEffect>().GetDataRow(result);
+                    combinationText.text += $"{dREventEffect.Text}\n";
+                }
+            }
+
             foreach (KeyValuePair<MenuItem, int> pair in mapMenuItems)
             {
                 CoffeeData coffeeData = managerData.MapCoffees[pair.Value];
@@ -182,24 +252,21 @@ namespace GameMain
 
             if (managerData.GetTotalClient() >= managerData.GetTotalDemand())
             {
-                demandText.text = $"咖啡的需求：{managerData.GetTotalClient()}(+{Mathf.Floor((float)managerData.GetTotalClient() / (float)managerData.GetTotalDemand() * 100f) - 100f}%)";
-                demandText.color = Color.green;
+                clientText.text = $"咖啡的需求：{managerData.GetTotalClient()}(+{Mathf.Floor((float)managerData.GetTotalClient() / (float)managerData.GetTotalDemand() * 100f) - 100f}%)";
+                clientText.color = Color.green;
             }
             else
             {
-                demandText.text = $"咖啡的需求：{managerData.GetTotalClient()}({Mathf.Floor((float)managerData.GetTotalClient() / (float)managerData.GetTotalDemand() * 100f) - 100f}%)";
-                demandText.color = Color.red;
+                clientText.text = $"咖啡的需求：{managerData.GetTotalClient()}({Mathf.Floor((float)managerData.GetTotalClient() / (float)managerData.GetTotalDemand() * 100f) - 100f}%)";
+                clientText.color = Color.red;
             }
+
+            priceText.text = $"咖啡的价格：{managerData.GetTotalPrice()}";
         }
 
         private void StartManager()
         {
             UpdateData();
-
-            BuffData buffData = GameEntry.Buff.GetBuff();
-            managerData.Money = (int)(managerData.Client * managerData.Price);
-            managerData.Money = (int)(managerData.Money * buffData.MoneyMulti + buffData.MoneyPlus);
-
             GameEntry.UI.OpenUIForm(UIFormId.ManagerForm, managerData);
             GameEntry.UI.CloseUIForm(this.UIForm);
         }
@@ -215,6 +282,10 @@ namespace GameMain
         /// 所有的事件效果
         /// </summary>
         public List<int> eventeffects= new List<int>();
+        /// <summary>
+        /// 所有的文本
+        /// </summary>
+        public string Text;
         /// <summary>
         /// 事件的条件
         /// </summary>
@@ -242,6 +313,7 @@ namespace GameMain
             EventEffectTag= (EventEffectTag)Enum.Parse(typeof(EventEffectTag), dREventEffect.EventEffectTag);
             eventeffects.Add(dREventEffect.Id);
             Trigger=dREventEffect.Trigger;
+            Text = dREventEffect.Text;
             ParamOne = dREventEffect.ParamOne;
             ParamTwo = dREventEffect.ParamTwo;
             ParamThree = dREventEffect.ParamThree;
@@ -297,6 +369,7 @@ namespace GameMain
         public int Science;
         public int Money;
         public int Price;
+        public int Daily;
         public Dictionary<int,CoffeeData> MapCoffees = new Dictionary<int, CoffeeData>();
         public List<int> Combinations = new List<int>();
         public List<int> banedCoffee = new List<int>();
@@ -321,14 +394,15 @@ namespace GameMain
             return client;
         }
 
-        public int GetTotalMoney()
+        public int GetTotalPrice()
         {
+            if(MapCoffees.Count==0) return 0;
             int price = 0;
             foreach (KeyValuePair<int, CoffeeData> pair in MapCoffees)
             {
                 price += GetPrice(pair.Value);
             }
-            return (int)price / MapCoffees.Count * GetTotalClient();
+            return (int)price / MapCoffees.Count;
         }
         public int GetClient(CoffeeData coffeeData)
         {
@@ -389,6 +463,11 @@ namespace GameMain
                 }
             }
             return (int)(GetClient(coffeeData) * (1 + eventEffectData.ParamTwo / 100f) + eventEffectData.ParamThree / 100f);
+        }
+
+        public int GetTotalMoney()
+        {
+            return GetTotalClient() * GetTotalPrice();
         }
     }
     public class CoffeeData

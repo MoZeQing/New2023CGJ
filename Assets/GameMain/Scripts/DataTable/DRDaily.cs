@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-07-04 17:08:52.513
+// 生成时间：2024-07-04 17:08:52.530
 //------------------------------------------------------------
 
 using GameFramework;
@@ -19,14 +19,14 @@ using UnityGameFramework.Runtime;
 namespace GameMain
 {
     /// <summary>
-    /// Recipe配置文件。
+    /// Daily配置文件。
     /// </summary>
-    public class DRRecipe : DataRowBase
+    public class DRDaily : DataRowBase
     {
         private int m_Id = 0;
 
         /// <summary>
-        /// 获取成品ID。
+        /// 获取日常效果ID。
         /// </summary>
         public override int Id
         {
@@ -37,63 +37,27 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取制作时间。
+        /// 获取名称。
         /// </summary>
-        public float ProducingTime
+        public string Name
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取制作工具。
+        /// 获取描述。
         /// </summary>
-        public string Tool
+        public string Text
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取配方表。
+        /// 获取效果。
         /// </summary>
-        public List<String> Recipe
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取成品。
-        /// </summary>
-        public List<String> Product
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取生成咖啡等级。
-        /// </summary>
-        public int CoffeeLevel
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取是否为除浓缩咖啡以外的其它咖啡。
-        /// </summary>
-        public bool IsCoffee
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取生产所需要的原材料。
-        /// </summary>
-        public List<String> Materials
+        public string EventEffect
         {
             get;
             private set;
@@ -111,13 +75,9 @@ namespace GameMain
             index++;
             m_Id = int.Parse(columnStrings[index++]);
             index++;
-            ProducingTime = float.Parse(columnStrings[index++]);
-            Tool = columnStrings[index++];
-            Recipe = DataTableExtension.ParseListString(columnStrings[index++]);
-            Product = DataTableExtension.ParseListString(columnStrings[index++]);
-            CoffeeLevel = int.Parse(columnStrings[index++]);
-            IsCoffee = bool.Parse(columnStrings[index++]);
-            Materials = DataTableExtension.ParseListString(columnStrings[index++]);
+            Name = columnStrings[index++];
+            Text = columnStrings[index++];
+            EventEffect = columnStrings[index++];
 
             GeneratePropertyArray();
             return true;
@@ -130,13 +90,9 @@ namespace GameMain
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
-                    ProducingTime = binaryReader.ReadSingle();
-                    Tool = binaryReader.ReadString();
-                    Recipe = binaryReader.ReadListString();
-                    Product = binaryReader.ReadListString();
-                    CoffeeLevel = binaryReader.Read7BitEncodedInt32();
-                    IsCoffee = binaryReader.ReadBoolean();
-                    Materials = binaryReader.ReadListString();
+                    Name = binaryReader.ReadString();
+                    Text = binaryReader.ReadString();
+                    EventEffect = binaryReader.ReadString();
                 }
             }
 

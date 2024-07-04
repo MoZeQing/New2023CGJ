@@ -11,6 +11,8 @@ namespace GameMain
     {
         [Header("结算面板")]
         [SerializeField] private Transform canvas;
+        [SerializeField] private Text eventEffect1;
+        [SerializeField] private Text eventEffect2;
         [SerializeField] private Text settleMoneyText;
         [SerializeField] private Text settleClientText;
         [SerializeField] private List<SettleItem> settleItems;
@@ -81,6 +83,42 @@ namespace GameMain
         public void CloseForm()
         {
             canvas.gameObject.SetActive(true);
+
+            eventEffect1.text = string.Empty;
+            DRDaily drDaily = GameEntry.DataTable.GetDataTable<DRDaily>().GetDataRow(managerData.Daily);
+            string[] dailyEventEffectTags = drDaily.EventEffect.Split('-');
+            eventEffect1.text += $"【{drDaily.Name}】：{drDaily.Text}\n";
+            for (int i = 0; i < dailyEventEffectTags.Length; i++)
+            {
+                int result = 0;
+                if (!int.TryParse(dailyEventEffectTags[i], out result))
+                {
+                    Debug.LogError($"错误，随机的日常的事件数据错误，请检查Daily表中的{dailyEventEffectTags[i]}");
+                    return;
+                }
+                DREventEffect dREventEffect = GameEntry.DataTable.GetDataTable<DREventEffect>().GetDataRow(result);
+                eventEffect1.text += $"{dREventEffect.Text}\n";
+            }
+
+            eventEffect2.text = string.Empty;
+            for (int i = 0; i < managerData.Combinations.Count; i++)
+            {
+                DRCombination dRCombination = GameEntry.DataTable.GetDataTable<DRCombination>().GetDataRow(managerData.Combinations[i]);
+                string[] combinationsEventEffectTags = dRCombination.EventEffect.Split('-');
+                eventEffect2.text += $"【{dRCombination.Name}】：{dRCombination.Text}\n";
+                for (int j = 0; j < combinationsEventEffectTags.Length; j++)
+                {
+                    int result = 0;
+                    if (!int.TryParse(combinationsEventEffectTags[i], out result))
+                    {
+                        Debug.LogError($"错误，随机的日常的事件数据错误，请检查Combination表中的{combinationsEventEffectTags[i]}");
+                        return;
+                    }
+                    DREventEffect dREventEffect = GameEntry.DataTable.GetDataTable<DREventEffect>().GetDataRow(result);
+                    eventEffect2.text += $"{dREventEffect.Text}\n";
+                }
+            }
+
             Sequence sequence = DOTween.Sequence();
             sequence.Append(canvas.DOLocalMove(Vector3.zero, 0.5f).SetEase(Ease.OutExpo));
             sequence.Append(DOTween.To(value => { settleClientText.text = Mathf.Floor(value).ToString(); }, startValue: 0, endValue: managerData.GetTotalClient(), duration: 1f));

@@ -18,6 +18,7 @@ namespace GameMain
         [SerializeField] private Sprite backgroundImg;
         [SerializeField] private Text coffeeNameText;
         [SerializeField] private Text demandText;
+        [SerializeField] private Text priceText;
         [SerializeField] private Image upArrow;
         [SerializeField] private Image downArrow;
 
@@ -40,6 +41,7 @@ namespace GameMain
             canvas.gameObject.SetActive(true);
             background.sprite = backgroundImg;
             coffeeNameText.text = this.coffeeData.DRCoffee.CoffeeName;
+            priceText.text=coffeeData.Price.ToString();
 
             for (int i = 0; i < stars.Length; i++)
             {

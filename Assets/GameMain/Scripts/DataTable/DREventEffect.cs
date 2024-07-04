@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-07-02 21:31:17.103
+// 生成时间：2024-07-04 17:08:52.528
 //------------------------------------------------------------
 
 using GameFramework;
@@ -19,14 +19,14 @@ using UnityGameFramework.Runtime;
 namespace GameMain
 {
     /// <summary>
-    /// EventEffect配置文件。
+    /// EventEffect閰嶇疆鏂囦欢。
     /// </summary>
     public class DREventEffect : DataRowBase
     {
         private int m_Id = 0;
 
         /// <summary>
-        /// 获取效果ID。
+        /// 获取鏁堟灉ID。
         /// </summary>
         public override int Id
         {
@@ -37,7 +37,7 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取描述。
+        /// 获取鎻忚堪。
         /// </summary>
         public string Text
         {
@@ -46,7 +46,7 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取条件。
+        /// 获取鏉′欢。
         /// </summary>
         public string Trigger
         {
@@ -55,7 +55,7 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取效果标签。
+        /// 获取鏁堟灉鏍囩?。
         /// </summary>
         public string EventEffectTag
         {
@@ -64,7 +64,7 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取参数1。
+        /// 获取鍙傛暟1。
         /// </summary>
         public string ParamOne
         {
@@ -73,7 +73,7 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取参数2。
+        /// 获取鍙傛暟2。
         /// </summary>
         public int ParamTwo
         {
@@ -82,7 +82,7 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取参数3。
+        /// 获取鍙傛暟3。
         /// </summary>
         public int ParamThree
         {
