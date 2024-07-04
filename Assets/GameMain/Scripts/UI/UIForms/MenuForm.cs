@@ -1,5 +1,6 @@
 using DG.Tweening;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityGameFramework.Runtime;
+using static UnityEngine.Networking.UnityWebRequest;
 
 namespace GameMain
 {
@@ -25,18 +27,16 @@ namespace GameMain
 
         private List<MenuItem> coffeeItems;
         private ManagerData managerData;
-        private List<int> banedCoffee = new List<int>();
-        private List<EventEffectData> eventEffects = new List<EventEffectData>();
-        private Dictionary<int,MenuItem> mapMenuItems= new Dictionary<int,MenuItem>(); 
+        private Dictionary<MenuItem,int> mapMenuItems= new Dictionary<MenuItem, int>(); 
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            GameEntry.Player.AddCoffee(201, 40);
-            GameEntry.Player.AddCoffee(202, 40);
-            GameEntry.Player.AddCoffee(203, 20);
-            GameEntry.Player.AddCoffee(204, 20);
+            GameEntry.Player.AddCoffee(201, 0);
+            GameEntry.Player.AddCoffee(202, 0);
+            GameEntry.Player.AddCoffee(203, 0);
+            GameEntry.Player.AddCoffee(204, 0);
             GameEntry.Player.AddCoffee(205, 0);
-            GameEntry.Player.AddCoffee(206, 40);
+            GameEntry.Player.AddCoffee(206, 0);
             GameEntry.Player.AddCoffee(207, 0);
 
             managerData = new ManagerData();
@@ -82,14 +82,14 @@ namespace GameMain
             {
                 if (!GameEntry.Player.HasCoffee(dRCoffee.Id))//ban掉得不会出现
                     continue;
-                if (managerData.CoffeeTags.Contains(dRCoffee.Id))//已经选择的不会出现
+                if (managerData.MapCoffees.ContainsKey(dRCoffee.Id))//已经选择的不会出现
                     continue;
                 CoffeeData coffeeData = GameEntry.Player.GetCoffee(dRCoffee.Id);
                 GameObject go = GameObject.Instantiate(menuItemPre, canvas);
                 MenuItem item = go.GetComponent<MenuItem>();
-                item.SetData(coffeeData, GetDemand(coffeeData));
+                item.SetData(coffeeData, managerData.GetClient(coffeeData));
 
-                if(!banedCoffee.Contains(dRCoffee.Id))
+                if(!managerData.banedCoffee.Contains(dRCoffee.Id))
                     item.GetComponent<Button>().onClick.AddListener(()=>ChoiceCoffeeItem(menuItem,dRCoffee.Id));
                 else
                     item.GetComponent<Button>().interactable= false;//这里考虑加入一个UI提示玩家
@@ -98,22 +98,23 @@ namespace GameMain
 
         private void ChoiceCoffeeItem(MenuItem menuItem,int coffeeId)
         {
-            if(menuItem.CoffeeID != 0&& managerData.CoffeeTags.Contains(menuItem.CoffeeID))
-                managerData.CoffeeTags[managerData.CoffeeTags.IndexOf(menuItem.CoffeeID)] = coffeeId;
-            else
-                managerData.CoffeeTags.Add(coffeeId);
-
-            if (mapMenuItems.ContainsKey(coffeeId))
-                mapMenuItems[coffeeId] = menuItem;
-            else
-                mapMenuItems.Add(coffeeId, menuItem);
-
             CoffeeData coffeeData = GameEntry.Player.GetCoffee(coffeeId);
+            if (mapMenuItems.ContainsKey(menuItem))
+            {
+                managerData.MapCoffees.Remove(mapMenuItems[menuItem]);
+                mapMenuItems[menuItem] = coffeeId;
+            }
+            else
+            {
+                mapMenuItems.Add(menuItem, coffeeId);
+            }
+            managerData.MapCoffees.Add(coffeeId, coffeeData);
+
             plane.gameObject.SetActive(false);
             //重复计算组合效果
             combinationText.text=string.Empty;
             managerData.Combinations.Clear();
-            eventEffects.Clear();
+            managerData.eventEffects.Clear();
             foreach (DRCombination dRCombination in GameEntry.DataTable.GetDataTable<DRCombination>().GetAllDataRows())
             {
                 int index = 0;
@@ -127,9 +128,9 @@ namespace GameMain
                         Debug.LogError($"错误，无效的数值，请检查Combinatio表中的{dRCombination.Id}的Tag");
                         return;
                     }
-                    for (int j = 0; j < managerData.CoffeeTags.Count; j++)
+                    foreach (KeyValuePair<int, CoffeeData> pair in managerData.MapCoffees)
                     {
-                        if (!GameEntry.Player.GetCoffee(managerData.CoffeeTags[j]).IsTag(result))
+                        if (!pair.Value.IsTag(result))
                             continue;
                         else
                             index++;
@@ -162,7 +163,7 @@ namespace GameMain
                             Debug.LogError($"错误的EventEffect标签，请检查{dREventEffect.Id}的标签");
                             return;
                         }
-                        eventEffects.Add(new EventEffectData(dREventEffect));
+                        managerData.eventEffects.Add(new EventEffectData(dREventEffect));
                         //计算组合
                         managerData.Combinations.Add(dRCombination.Id);
                     }
@@ -170,90 +171,23 @@ namespace GameMain
             }
             UpdateData();
         }
-        private int GetDemand(CoffeeData coffeeData)
-        {
-            EventEffectData eventEffectData = new EventEffectData();
-            for (int j = 0; j < eventEffects.Count; j++)
-            {
-                if (eventEffects[j].EventEffectTag == EventEffectTag.Client)
-                {
-                    if (coffeeData.IsTag(eventEffects[j].Trigger))
-                    {
-                        eventEffectData.Add(eventEffects[j]);
-                    }
-                }
-            }
-            return (int)(coffeeData.Demand * (1 + eventEffectData.ParamTwo / 100f) + eventEffectData.ParamThree / 100f);
-        }
-        private int GetPrice(CoffeeData coffeeData)
-        {
-            EventEffectData eventEffectData = new EventEffectData();
-            for (int j = 0; j < eventEffects.Count; j++)
-            {
-                if (eventEffects[j].EventEffectTag == EventEffectTag.Price)
-                {
-                    if (coffeeData.IsTag(eventEffects[j].Trigger))
-                    {
-                        eventEffectData.Add(eventEffects[j]);
-                    }
-                }
-            }
-            return (int)(coffeeData.Price * (1 + eventEffectData.ParamTwo / 100f) + eventEffectData.ParamThree / 100f);
-        }
-        private int GetScience(CoffeeData coffeeData)
-        {
-            EventEffectData eventEffectData = new EventEffectData();
-            for (int j = 0; j<eventEffects.Count; j++)
-            {
-                if (eventEffects[j].EventEffectTag == EventEffectTag.Science)
-                {
-                    if (coffeeData.IsTag(eventEffects[j].Trigger))
-                    {
-                        eventEffectData.Add(eventEffects[j]);
-                    }
-                }
-            }
-            return (int)(coffeeData.Demand * (1 + eventEffectData.ParamTwo / 100f) + eventEffectData.ParamThree / 100f);
-        }
-        private int GetExp(CoffeeData coffeeData)
-        {
-            EventEffectData eventEffectData = new EventEffectData();
-            for (int j = 0; j < eventEffects.Count; j++)
-            {
-                if (eventEffects[j].EventEffectTag == EventEffectTag.Exp)
-                {
-                    if (coffeeData.IsTag(eventEffects[j].Trigger))
-                    {
-                        eventEffectData.Add(eventEffects[j]);
-                    }
-                }
-            }
-            return (int)(coffeeData.Demand * (1 + eventEffectData.ParamTwo / 100f) + eventEffectData.ParamThree / 100f);
-        }
+      
         private void UpdateData()
         {
-            managerData.Demand = 0;
-            managerData.Client = 0;
-            managerData.Price= 0;
-
-            for (int i = 0; i < managerData.CoffeeTags.Count; i++)
+            foreach (KeyValuePair<MenuItem, int> pair in mapMenuItems)
             {
-                CoffeeData coffeeData = GameEntry.Player.GetCoffee(managerData.CoffeeTags[i]);
-                mapMenuItems[managerData.CoffeeTags[i]].SetData(coffeeData, GetDemand(coffeeData));
-                managerData.Demand += coffeeData.Demand;
-                managerData.Client += GetDemand(coffeeData);
-                managerData.Price += coffeeData.Price;
+                CoffeeData coffeeData = managerData.MapCoffees[pair.Value];
+                pair.Key.SetData(coffeeData, managerData.GetClient(coffeeData));
             }
-            managerData.Price /= managerData.CoffeeTags.Count;
 
-            if (managerData.Client >= managerData.Demand)
+            if (managerData.GetTotalClient() >= managerData.GetTotalDemand())
             {
-                demandText.text = $"咖啡的需求：{managerData.Client}(+{Mathf.Floor((float)managerData.Client / (float)managerData.Demand * 100f) - 100f}%)";
+                demandText.text = $"咖啡的需求：{managerData.GetTotalClient()}(+{Mathf.Floor((float)managerData.GetTotalClient() / (float)managerData.GetTotalDemand() * 100f) - 100f}%)";
                 demandText.color = Color.green;
             }
             else
             {
-                demandText.text = $"咖啡的需求：{managerData.Client}({Mathf.Floor((float)managerData.Client / (float)managerData.Demand * 100f) - 100f}%)";
+                demandText.text = $"咖啡的需求：{managerData.GetTotalClient()}({Mathf.Floor((float)managerData.GetTotalClient() / (float)managerData.GetTotalDemand() * 100f) - 100f}%)";
                 demandText.color = Color.red;
             }
         }
@@ -263,8 +197,6 @@ namespace GameMain
             UpdateData();
 
             BuffData buffData = GameEntry.Buff.GetBuff();
-            //managerData.Demand
-            //managerData.Client
             managerData.Money = (int)(managerData.Client * managerData.Price);
             managerData.Money = (int)(managerData.Money * buffData.MoneyMulti + buffData.MoneyPlus);
 
@@ -365,19 +297,116 @@ namespace GameMain
         public int Science;
         public int Money;
         public int Price;
-        public List<int> CoffeeTags = new List<int>();
+        public Dictionary<int,CoffeeData> MapCoffees = new Dictionary<int, CoffeeData>();
         public List<int> Combinations = new List<int>();
+        public List<int> banedCoffee = new List<int>();
+        public List<EventEffectData> eventEffects = new List<EventEffectData>();
+
+        public int GetTotalDemand()
+        {
+            int demand = 0;
+            foreach (KeyValuePair<int, CoffeeData> pair in MapCoffees)
+            { 
+                demand+= pair.Value.Demand;
+            }
+            return demand;
+        }
+        public int GetTotalClient()
+        {
+            int client = 0;
+            foreach (KeyValuePair<int, CoffeeData> pair in MapCoffees)
+            {
+                client += GetClient(pair.Value);
+            }
+            return client;
+        }
+
+        public int GetTotalMoney()
+        {
+            int price = 0;
+            foreach (KeyValuePair<int, CoffeeData> pair in MapCoffees)
+            {
+                price += GetPrice(pair.Value);
+            }
+            return (int)price / MapCoffees.Count * GetTotalClient();
+        }
+        public int GetClient(CoffeeData coffeeData)
+        {
+            EventEffectData eventEffectData = new EventEffectData();
+            for (int j = 0; j < eventEffects.Count; j++)
+            {
+                if (eventEffects[j].EventEffectTag == EventEffectTag.Client)
+                {
+                    if (coffeeData.IsTag(eventEffects[j].Trigger))
+                    {
+                        eventEffectData.Add(eventEffects[j]);
+                    }
+                }
+            }
+            return (int)(coffeeData.Demand * (1 + eventEffectData.ParamTwo / 100f) + eventEffectData.ParamThree / 100f);
+        }
+        public int GetPrice(CoffeeData coffeeData)
+        {
+            EventEffectData eventEffectData = new EventEffectData();
+            for (int j = 0; j < eventEffects.Count; j++)
+            {
+                if (eventEffects[j].EventEffectTag == EventEffectTag.Price)
+                {
+                    if (coffeeData.IsTag(eventEffects[j].Trigger))
+                    {
+                        eventEffectData.Add(eventEffects[j]);
+                    }
+                }
+            }
+            return (int)(coffeeData.Price * (1 + eventEffectData.ParamTwo / 100f) + eventEffectData.ParamThree / 100f);
+        }
+        public int GetScience(CoffeeData coffeeData)
+        {
+            EventEffectData eventEffectData = new EventEffectData();
+            for (int j = 0; j < eventEffects.Count; j++)
+            {
+                if (eventEffects[j].EventEffectTag == EventEffectTag.Science)
+                {
+                    if (coffeeData.IsTag(eventEffects[j].Trigger))
+                    {
+                        eventEffectData.Add(eventEffects[j]);
+                    }
+                }
+            }
+            return (int)(coffeeData.Demand * (1 + eventEffectData.ParamTwo / 100f) + eventEffectData.ParamThree / 100f);
+        }
+        public int GetExp(CoffeeData coffeeData)
+        {
+            EventEffectData eventEffectData = new EventEffectData();
+            for (int j = 0; j < eventEffects.Count; j++)
+            {
+                if (eventEffects[j].EventEffectTag == EventEffectTag.Exp)
+                {
+                    if (coffeeData.IsTag(eventEffects[j].Trigger))
+                    {
+                        eventEffectData.Add(eventEffects[j]);
+                    }
+                }
+            }
+            return (int)(GetClient(coffeeData) * (1 + eventEffectData.ParamTwo / 100f) + eventEffectData.ParamThree / 100f);
+        }
     }
     public class CoffeeData
     {
         public int Id;
-        public int Exp;
-        public DRCoffee dRCoffee;
+        public int Exp { get; set; }
+        public DRCoffee DRCoffee;
         public int Level
         {
             get
             {
-                return Exp / 20;
+                string[] explevels = DRCoffee.ExpLevel.Split('-');
+                for (int i = 0; i < explevels.Length; i++)
+                {
+                    int a= int.Parse(explevels[i]);
+                    if (Exp < a) return i;
+                }
+                return 0;
             }
             private set { }
         }
@@ -385,9 +414,18 @@ namespace GameMain
         {
             get
             {
-                string[] levels = dRCoffee.DemandLevel.Split('-');
+                string[] levels = DRCoffee.DemandLevel.Split('-');
                 float level = float.Parse(levels[Level]);
-                return (int)(dRCoffee.Demand * level);
+                return (int)(DRCoffee.Demand * level);
+            }
+            private set { }
+        }
+        public int ExpLevel
+        {
+            get
+            {
+                string[] explevels = DRCoffee.ExpLevel.Split('-');
+                return int.Parse(explevels[Level]);
             }
             private set { }
         }
@@ -395,7 +433,7 @@ namespace GameMain
         {
             get
             {
-                return dRCoffee.Price;
+                return DRCoffee.Price;
             }
             private set { }
         }
@@ -403,7 +441,7 @@ namespace GameMain
         {
             get
             {
-                return dRCoffee.Tags.Split('-');
+                return DRCoffee.Tags.Split('-');
             }
             private set { }
         }
@@ -411,19 +449,19 @@ namespace GameMain
         {
             this.Id = dRCoffee.Id;
             this.Exp = 0;
-            this.dRCoffee=dRCoffee;
+            this.DRCoffee=dRCoffee;
         }
         public CoffeeData(DRCoffee dRCoffee, int exp)
         {
             this.Id = dRCoffee.Id;
             this.Exp= exp;
-            this.dRCoffee = dRCoffee;
+            this.DRCoffee = dRCoffee;
         }
         public NodeTag NodeTag
         {
             get
             { 
-                return (NodeTag)dRCoffee.NodeTag;
+                return (NodeTag)DRCoffee.NodeTag;
             }
         }
         public bool IsTag(string tagsText)
@@ -446,13 +484,13 @@ namespace GameMain
         public bool IsTag(int tag)
         {
             if (tag == 0) return true;
-            string[] tags = dRCoffee.Tags.Split('-');
+            string[] tags = DRCoffee.Tags.Split('-');
             for (int i = 0; i < tags.Length; i++)
             {
                 int result = 0;
                 if (!int.TryParse(tags[i], out result))
                 {
-                    Debug.LogError($"错误，无效的数值，请检查Coffee表中的{dRCoffee.Id}");
+                    Debug.LogError($"错误，无效的数值，请检查Coffee表中的{DRCoffee.Id}");
                     return false;
                 }
                 if (tag == result)

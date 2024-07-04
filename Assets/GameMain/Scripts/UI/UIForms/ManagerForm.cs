@@ -11,7 +11,9 @@ namespace GameMain
     {
         [Header("结算面板")]
         [SerializeField] private Transform canvas;
-        //[SerializeField] private Text
+        [SerializeField] private Text settleMoneyText;
+        [SerializeField] private Text settleClientText;
+        [SerializeField] private List<SettleItem> settleItems;
         [Header("主界面")]
         [SerializeField] private Text moneyText;
         [SerializeField] private Text clientText;
@@ -29,7 +31,15 @@ namespace GameMain
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
+
+            for (int i = 0; i < settleItems.Count; i++)
+            {
+                settleItems[i].Hide();
+            }
+
             managerData = (ManagerData)BaseFormData.UserData;
+            canvas.localPosition = Vector3.up * 1080f;
+            canvas.gameObject.SetActive(false);
             time = 1/rate;
             for (int i = 0; i < bubbles.Length; i++)
             {
@@ -37,8 +47,8 @@ namespace GameMain
             }
             time = rate;
             totalTime = 10;
-            DOTween.To(value => { moneyText.text = Mathf.Floor(value).ToString(); }, startValue: 0, endValue: managerData.Client, duration: 10);
-            DOTween.To(value => { clientText.text = Mathf.Floor(value).ToString(); }, startValue: 0, endValue: managerData.Money, duration: 10);
+            DOTween.To(value => { moneyText.text = Mathf.Floor(value).ToString(); }, startValue: 0, endValue: managerData.GetTotalClient(), duration: 10);
+            DOTween.To(value => { clientText.text = Mathf.Floor(value).ToString(); }, startValue: 0, endValue: managerData.GetTotalMoney(), duration: 10);
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
@@ -51,6 +61,7 @@ namespace GameMain
             if (time <= 0)
             {
                 time = rate;
+                //随意写的，蠢得一比
                 int block = 50;
                 while (true)
                 {
@@ -69,8 +80,22 @@ namespace GameMain
 
         public void CloseForm()
         {
-            GameEntry.UI.OpenUIForm(UIFormId.SettleForm,managerData);
-            GameEntry.UI.CloseUIForm(this.UIForm);
+            canvas.gameObject.SetActive(true);
+            Sequence sequence = DOTween.Sequence();
+            sequence.Append(canvas.DOLocalMove(Vector3.zero, 0.5f).SetEase(Ease.OutExpo));
+            sequence.Append(DOTween.To(value => { settleClientText.text = Mathf.Floor(value).ToString(); }, startValue: 0, endValue: managerData.GetTotalClient(), duration: 1f));
+            sequence.Append(DOTween.To(value => { settleMoneyText.text = Mathf.Floor(value).ToString(); }, startValue: 0, endValue: managerData.GetTotalMoney(), duration: 1f));
+            sequence.AppendCallback(() =>
+            {
+                List<CoffeeData> coffeeDatas = new List<CoffeeData>(managerData.MapCoffees.Values);
+                for (int i = 0; i < settleItems.Count; i++)
+                {
+                    if (i < coffeeDatas.Count)
+                        settleItems[i].SetData(coffeeDatas[i], managerData.GetClient(coffeeDatas[i]));
+                    else
+                        settleItems[i].Hide();
+                }
+            });
         }
     }
 }

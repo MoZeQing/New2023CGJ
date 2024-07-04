@@ -39,7 +39,7 @@ namespace GameMain
             this.coffeeData = coffeeData;   
             canvas.gameObject.SetActive(true);
             background.sprite = backgroundImg;
-            coffeeNameText.text = this.coffeeData.dRCoffee.CoffeeName;
+            coffeeNameText.text = this.coffeeData.DRCoffee.CoffeeName;
 
             for (int i = 0; i < stars.Length; i++)
             {
@@ -96,7 +96,7 @@ namespace GameMain
             this.coffeeData = coffeeData;
             canvas.gameObject.SetActive(true);
             background.sprite = backgroundImg;
-            coffeeNameText.text = this.coffeeData.dRCoffee.CoffeeName;
+            coffeeNameText.text = this.coffeeData.DRCoffee.CoffeeName;
             demandText.text = $"¿§·ÈµÄÐèÇó£º{coffeeData.Demand}";
         }
 
