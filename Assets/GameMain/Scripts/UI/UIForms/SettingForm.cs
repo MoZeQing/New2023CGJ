@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SettingForm : MonoBehaviour
+public class SettingForm : SettleForm
 {
     [SerializeField] private Button m_TitleButton;
     [SerializeField] private Button m_BackButton;

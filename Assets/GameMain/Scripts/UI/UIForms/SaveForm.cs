@@ -7,7 +7,7 @@ using UnityGameFramework.Runtime;
 
 namespace GameMain
 {
-    public class SaveForm : UIFormLogic
+    public class SaveForm : BaseForm
     {
         [SerializeField] private Button exitBtn;
         [SerializeField] private Transform canvas;

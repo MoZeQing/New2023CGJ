@@ -7,7 +7,7 @@ using DG.Tweening;
 
 namespace GameMain
 {
-    public class ClosetForm : UIFormLogic
+    public class ClosetForm : BaseForm
     {
         [SerializeField] private Button exitBtn;
         [SerializeField] private Button okBtn;

@@ -9,7 +9,7 @@ using DG.Tweening;
 
 namespace GameMain
 {
-    public class InstrumentForm : UIFormLogic
+    public class InstrumentForm : BaseForm
     {
         [SerializeField] private Button exitBtn;
         [SerializeField] private Image heaterImage;

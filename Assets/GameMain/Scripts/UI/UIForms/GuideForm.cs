@@ -8,7 +8,7 @@ using DG.Tweening;
 
 namespace GameMain
 {
-    public class GuideForm : UIFormLogic
+    public class GuideForm : BaseForm
     {
         [SerializeField] private Text text;
         [SerializeField] private Text title;

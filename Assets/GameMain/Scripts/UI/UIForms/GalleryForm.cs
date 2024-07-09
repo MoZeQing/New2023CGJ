@@ -7,7 +7,7 @@ using UnityGameFramework.Runtime;
 
 namespace GameMain
 {
-    public class GalleryForm : UIFormLogic
+    public class GalleryForm : BaseForm
     {
         [SerializeField] private Image display;
         [SerializeField] private Button exitBtn;

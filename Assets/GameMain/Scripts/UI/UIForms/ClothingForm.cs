@@ -10,7 +10,7 @@ using GameMain;
 
 namespace GameMain
 {
-    public class ClothingForm : UIFormLogic
+    public class ClothingForm : BaseForm
     {
         [SerializeField] private Button exitBtn;
         [SerializeField] private Button leftBtn;

@@ -10,7 +10,7 @@ using DG.Tweening;
 
 namespace GameMain
 {
-    public class RecipeForm : UIFormLogic
+    public class RecipeForm : BaseForm
     {
         [SerializeField] private Image mProduct;
         [SerializeField] private Image mTool;

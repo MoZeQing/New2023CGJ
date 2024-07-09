@@ -7,7 +7,7 @@ using UnityGameFramework.Runtime;
 
 namespace GameMain
 {
-    public class CupboradForm : UIFormLogic
+    public class CupboradForm : BaseForm
     {
         [SerializeField] private Transform canvas;
         [SerializeField] private Button exitBtn;

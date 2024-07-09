@@ -7,7 +7,7 @@ using DG.Tweening;
 
 namespace GameMain
 {
-    public class UnlockForm : UIFormLogic
+    public class UnlockForm : BaseForm
     {
         [SerializeField] private Transform canvas;
         [SerializeField] private Image image;

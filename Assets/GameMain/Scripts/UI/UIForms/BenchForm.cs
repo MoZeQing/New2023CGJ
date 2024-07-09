@@ -7,7 +7,7 @@ using GameFramework.Event;
 
 namespace GameMain
 {
-    public class BenchForm : UIFormLogic
+    public class BenchForm : BaseForm
     {
         [SerializeField] protected List<CardItem> mCards = new List<CardItem>();
         [SerializeField] private Button okBtn;

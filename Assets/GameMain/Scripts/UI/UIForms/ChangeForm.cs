@@ -8,7 +8,7 @@ using System;
 
 namespace GameMain
 {
-    public class ChangeForm : UIFormLogic
+    public class ChangeForm : BaseForm
     {
         private float mTime;
         private float mDuration;

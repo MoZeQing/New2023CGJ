@@ -6,7 +6,7 @@ using UnityGameFramework.Runtime;
 
 namespace GameMain
 {
-    public class TitleForm : UIFormLogic
+    public class TitleForm : BaseForm
     {
         public UIFormId UIFormId { get; private set; } = UIFormId.TitleForm;
         [SerializeField] private Text text;
