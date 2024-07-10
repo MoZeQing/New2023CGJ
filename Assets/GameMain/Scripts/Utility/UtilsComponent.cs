@@ -46,8 +46,6 @@ namespace GameMain
         private Week mWeek;
         private BehaviorTag mBehaviorTag;
 
-        public bool outingBefore;
-
         public Dictionary<string, RecipeData> recipes = new Dictionary<string, RecipeData>();
         public Dictionary<string, CharSO> chars = new Dictionary<string, CharSO>();
 
@@ -583,7 +581,7 @@ namespace GameMain
                     GameEntry.Utils.outingSceneStates.Add((OutingSceneState)int.Parse(eventData.value1));
                     return true;
                 case EventTag.Test:
-                    GameEntry.Event.FireNow(this, ValueEventArgs.Create(PropertyTag.Energy,"成功"));
+                    GameEntry.Event.FireNow(this, ValueEventArgs.Create(TriggerTag.Energy,"成功"));
                     return true;
                 case EventTag.AddBuff:
                     GameEntry.Buff.AddBuff(int.Parse(eventData.value1));

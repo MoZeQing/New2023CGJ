@@ -18,8 +18,6 @@ public class StorySO : ScriptableObject
     [SerializeField]
     public OutingSceneState outingSceneState;
     [SerializeField]
-    public bool outingBefore;
-    [SerializeField]
     public GameState gameState;
     [SerializeField]
     public ParentTrigger trigger;

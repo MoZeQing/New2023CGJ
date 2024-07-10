@@ -78,6 +78,23 @@ namespace GameMain
             mAction=null;
         }
 
+        public bool GetOutStory(OutingSceneState outingSceneState)
+        {
+            foreach (StorySO story in loadedStories)
+            {
+                if (GameEntry.Utils.Location != story.outingSceneState)
+                    continue;
+                if (GameEntry.Utils.GameState != story.gameState)
+                    if (story.gameState != GameState.None)
+                        continue;
+                if (GameEntry.Utils.Check(story.trigger))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public bool StoryUpdate(Action action)
         {
             mAction = action;
@@ -85,9 +102,6 @@ namespace GameMain
             {
                 if (story.outingSceneState != OutingSceneState.Main)
                     if (GameEntry.Utils.Location != story.outingSceneState)
-                        continue;
-                if (GameEntry.Utils.outingBefore != story.outingBefore)
-                    if (GameEntry.Utils.Location == OutingSceneState.Home)
                         continue;
                 if (GameEntry.Utils.GameState != story.gameState)
                     if (story.gameState != GameState.None)
@@ -97,6 +111,7 @@ namespace GameMain
                     GameEntry.UI.OpenUIForm(UIFormId.DialogForm, story.dialogueGraph);
                     InDialog = true;
                     GameEntry.Event.FireNow(this, DialogEventArgs.Create(InDialog, story.dialogueGraph.name));
+                    GameEntry.Event.FireNow(this, StoryEventArgs.Create(story.name));
                     foreach (EventData eventData in story.eventDatas)
                     {
                         GameEntry.Utils.RunEvent(eventData);
@@ -117,9 +132,6 @@ namespace GameMain
                 if(story.outingSceneState!=OutingSceneState.Main)
                     if (GameEntry.Utils.Location != story.outingSceneState)
                         continue;
-                //if (GameEntry.Utils.outingBefore != story.outingBefore)
-                //    if (GameEntry.Utils.Location == OutingSceneState.Home)
-                //        continue;
                 if (GameEntry.Utils.GameState != story.gameState)
                     if (story.gameState != GameState.None)
                         continue;
@@ -128,6 +140,7 @@ namespace GameMain
                     GameEntry.UI.OpenUIForm(UIFormId.DialogForm, story.dialogueGraph);
                     InDialog = true;
                     GameEntry.Event.FireNow(this, DialogEventArgs.Create(InDialog, story.dialogueGraph.name));
+                    GameEntry.Event.FireNow(this, StoryEventArgs.Create(story.name));
                     foreach (EventData eventData in story.eventDatas)
                     {
                         GameEntry.Utils.RunEvent(eventData);

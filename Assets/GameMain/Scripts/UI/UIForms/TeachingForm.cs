@@ -137,6 +137,8 @@ namespace GameMain
                 GameEntry.Utils.Favor += (int)(behavior.catData.favour * buffData.FavorMulti + buffData.FavorPlus);
                 GameEntry.Utils.Love+= behavior.catData.love;
                 GameEntry.Utils.Family += behavior.catData.family;
+
+                GameEntry.Event.FireNow(this, BehaviorEventArgs.Create(behaviorTag));
             }
             else
             {

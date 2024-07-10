@@ -47,6 +47,7 @@ namespace GameMain
             GameEntry.Dialog.StoryUpdate();
             GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
             GameEntry.UI.OpenUIForm((UIFormId)outingSceneState + 20, this);
+            GameEntry.Event.FireNow(this, OutEventArgs.Create(outingSceneState));
         }
     }
 }

@@ -18,7 +18,7 @@ namespace GameMain
             }
         }
 
-        public PropertyTag PropertyTag
+        public TriggerTag TriggerTag
         {
             get;
             set;
@@ -30,10 +30,10 @@ namespace GameMain
             set;
         }
 
-        public static ValueEventArgs Create(PropertyTag propertyTag, string value)
+        public static ValueEventArgs Create(TriggerTag triggerTag, string value)
         {
             ValueEventArgs args = ReferencePool.Acquire<ValueEventArgs>();
-            args.PropertyTag = propertyTag;
+            args.TriggerTag = triggerTag;
             args.Value = value;
             return args;
         }

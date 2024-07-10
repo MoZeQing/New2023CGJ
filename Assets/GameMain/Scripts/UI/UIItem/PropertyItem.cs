@@ -20,7 +20,7 @@ namespace GameMain
 
         }
 
-        public void SetData(PropertyTag propertyTag, string value)
+        public void SetData(TriggerTag propertyTag, string value)
         {
             text.text = value;
         }

@@ -36,7 +36,7 @@ namespace GameMain
                 go.transform.DOMove(canvas.position, 1f).SetEase(Ease.OutExpo);
             }
             PropertyItem property = go.GetComponent<PropertyItem>();
-            property.SetData(PropertyTag.Energy,value.Value);
+            property.SetData(TriggerTag.Energy,value.Value);
             properties.Enqueue(property);
             Invoke(nameof(RemoveItem), 4f);
         }
@@ -58,13 +58,5 @@ namespace GameMain
                 Destroy(property.gameObject);
             }
         }
-    }
-
-    public enum PropertyTag
-    { 
-        Energy,
-        MaxEnergy,
-        Money,
-
     }
 }
