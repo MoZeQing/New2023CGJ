@@ -11,13 +11,26 @@ using System.Runtime.InteropServices.ComTypes;
 
 public class DialogBox : MonoBehaviour
 {
+    [Header("图片")]
+    [SerializeField] private Sprite autoSpr1;
+    [SerializeField] private Sprite autoSpr2;
+    [SerializeField] private Sprite skipSpr1;
+    [SerializeField] private Sprite skipSpr2;
+    [Header("锚点")]
+    [SerializeField] private Transform memoryPlane;
+    [SerializeField] private Transform memoryCanvas;
     [SerializeField] private BaseStage stage;
     [Header("UI对话区域")]
+    [SerializeField] private Button skipBtn;
+    [SerializeField] private Button autoBtn;
+    [SerializeField] private Button memoryBtn;
+    [SerializeField] private Button exitMemoryBtn;
     [SerializeField] private Button dialogBtn;
     [SerializeField] private Text dialogText;
     [SerializeField] private Text nameText;
     [SerializeField] private Transform optionCanvas;
     [SerializeField] private GameObject btnPre;
+    [SerializeField] private GameObject memoryPre;
     [Range(0.01f,0.1f)]
     [SerializeField] private float charSpeed=0.05f;
 
@@ -27,15 +40,64 @@ public class DialogBox : MonoBehaviour
     private Node m_Node = null;
     private List<GameObject> m_Btns = new List<GameObject>();
     private Action OnComplete;
-    private bool mIsSkip;
+
     private Dictionary<CharSO, BaseCharacter> mCharChace = new Dictionary<CharSO, BaseCharacter>();
     private bool optionFlag;
     //规定一个最小的动画效果
 
+    private bool mIsAuto = false;
+    private bool mIsSkip = false;
+
+    public bool IsAuto 
+    { 
+        get
+        {
+            return mIsAuto;
+        }
+        set
+        {
+            if (mIsSkip)
+            {
+                IsSkip = false;
+            }
+            mIsAuto = value;
+            autoBtn.GetComponent<Image>().sprite = mIsAuto ? autoSpr1 : autoSpr2;
+        }
+    }
+    public bool IsSkip 
+    { 
+        get 
+        {
+            return mIsSkip;
+        } 
+        set 
+        { 
+            if (mIsAuto)
+            { 
+                IsAuto= false;
+            }
+            mIsSkip = value;
+            skipBtn.GetComponent<Image>().sprite = mIsSkip ? skipSpr1: skipSpr2;
+        } 
+    }
+    public bool IsMemory { get; set; } = false;
     public bool IsNext { get; set; } = true;
     private void Start()
     {
+        skipBtn.onClick.AddListener(() => IsSkip = !IsSkip);
+        autoBtn.onClick.AddListener(() => IsAuto = !IsAuto);
         dialogBtn.onClick.AddListener(Next);
+        memoryBtn.onClick.AddListener(ShowMemoryPlane);
+        exitMemoryBtn.onClick.AddListener(ExitMemoryPlane);
+    }
+
+    private void OnDestroy()
+    {
+        skipBtn.onClick.RemoveAllListeners();
+        autoBtn.onClick.RemoveAllListeners();
+        dialogBtn.onClick.RemoveAllListeners();
+        memoryBtn.onClick.RemoveAllListeners();
+        exitMemoryBtn.onClick.RemoveAllListeners();
     }
 
     private float _time = 0f;
@@ -43,13 +105,24 @@ public class DialogBox : MonoBehaviour
 
     private void Update()
     {
-        mIsSkip = Input.GetKey(KeyCode.LeftControl);
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+            IsSkip = true;
+        if(Input.GetKeyUp(KeyCode.LeftControl))
+            IsSkip= false;
         _time += Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
             Next();
-        if (mIsSkip)
+        if (IsSkip)
         {
             if (_time > SkipSpeed)
+            {
+                Next();
+                _time = 0;
+            }
+        }
+        if (IsAuto)
+        {
+            if (_time > SkipSpeed+1f)
             {
                 Next();
                 _time = 0;
@@ -79,6 +152,8 @@ public class DialogBox : MonoBehaviour
     }
     public void Next()
     {
+        if (IsMemory)
+            return;
         if (IsNext == false)
             return;
         if (m_Node == null)
@@ -123,6 +198,8 @@ public class DialogBox : MonoBehaviour
             dialogText.text = string.Empty;
             dialogText.DOText(chatData.text, charSpeed * chatData.text.Length, true);
             SkipSpeed = charSpeed * (chatData.text.Length)+0.1f;
+
+            AddMemoryItem(chatData);
 
             for (int i = 0; i < chatData.eventDatas.Count; i++)
             {
@@ -191,7 +268,7 @@ public class DialogBox : MonoBehaviour
     }
     public void SetDialog(ChatNode chatNode)
     {
-        mIsSkip = false;
+        IsSkip = false;
         OnComplete = null;
         _index = 0;
         m_Node = chatNode;
@@ -200,7 +277,7 @@ public class DialogBox : MonoBehaviour
     }
     public void SetDialog(DialogueGraph graph)
     {
-        mIsSkip = false;
+        IsSkip = false;
         OnComplete = null;
         m_Dialogue = graph;
         _index = 0;
@@ -230,6 +307,39 @@ public class DialogBox : MonoBehaviour
             GameEntry.Utils.RunEvent(eventData);
         }
         OptionNode optionNode = (OptionNode)m_Node;
-        NextNode(m_Node, string.Format("optionDatas {0}", optionData.index));
+        NextNode(m_Node, string.Format("optionDatas {0}", optionNode.optionDatas.IndexOf(optionData)));
+        AddMemoryItem(optionNode.optionDatas, optionData);
+    }
+
+    private void AddMemoryItem(ChatData chatData)
+    {
+        GameObject go = Instantiate(memoryPre, memoryCanvas);
+        MemoryItem memoryItem=go.GetComponent<MemoryItem>();
+        memoryItem.SetData(chatData);
+    }
+
+    private void AddMemoryItem(List<OptionData> optionDatas,OptionData index)
+    {
+        GameObject go = Instantiate(memoryPre, memoryCanvas);
+        MemoryItem memoryItem = go.GetComponent<MemoryItem>();
+        memoryItem.SetData(optionDatas,index);
+    }
+
+    private void ShowMemoryPlane()
+    {
+        IsMemory = true;
+        memoryPlane.gameObject.SetActive(true);
+        memoryPlane.transform.localPosition = Vector3.down * 1080f;
+        memoryPlane.transform.DOLocalMoveY(0f, 0.5f).SetEase(Ease.OutExpo);
+    }
+
+    private void ExitMemoryPlane()
+    {
+        IsMemory = false;
+        memoryPlane.transform.localPosition = Vector3.zero;
+        memoryPlane.transform.DOLocalMoveY(-1080f, 0.5f).SetEase(Ease.OutExpo).OnComplete(()=>
+        {
+            memoryPlane.gameObject.SetActive(false);
+        });
     }
 }

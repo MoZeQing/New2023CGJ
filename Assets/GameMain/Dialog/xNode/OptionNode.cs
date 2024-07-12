@@ -27,7 +27,6 @@ public class OptionNode : Node {
 [Serializable]
 public class OptionData
 {
-	public int index;
 	public ParentTrigger trigger;
 	[TextArea]
 	public string text;
