@@ -246,6 +246,7 @@ namespace GameMain
         //单独给点击做一个方法调用
         public void Click_Action()
         {
+            GameEntry.Sound.PlaySound(UnityEngine.Random.Range(24,27));
             Behaviour(BehaviorTag.Click);
         }
     }

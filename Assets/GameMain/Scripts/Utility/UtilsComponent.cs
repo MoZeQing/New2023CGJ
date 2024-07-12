@@ -45,6 +45,8 @@ namespace GameMain
         private GameState mGameState;
         private Week mWeek;
         private BehaviorTag mBehaviorTag;
+        private WeatherTag mWeatherTag=WeatherTag.Morning;
+        private bool mIsRain;
 
         public Dictionary<string, RecipeData> recipes = new Dictionary<string, RecipeData>();
         public Dictionary<string, CharSO> chars = new Dictionary<string, CharSO>();
@@ -115,6 +117,18 @@ namespace GameMain
             return null;
         }
 
+        public bool IsRain
+        {
+            get
+            {
+                return mIsRain;
+            }
+            set
+            { 
+                mIsRain= value;
+            }
+        }
+
         public void AddWork(WorkData workData)
         {
             mWorkDatas.Add(workData);
@@ -161,6 +175,17 @@ namespace GameMain
             set
             {
                 mWorkDatas = value;
+            }
+        }
+        public WeatherTag WeatherTag
+        {
+            get
+            {
+                return mWeatherTag;
+            }
+            set
+            { 
+                mWeatherTag= value;
             }
         }
         public BehaviorTag BehaviorTag
@@ -588,6 +613,9 @@ namespace GameMain
                     return true;
                 case EventTag.RemoveBuff:
                     GameEntry.Buff.RemoveBuff(int.Parse(eventData.value1));
+                    return true;
+                case EventTag.Weather:
+                    GameEntry.Utils.WeatherTag = (WeatherTag)int.Parse(eventData.value1);
                     return true;
             }
             return false;

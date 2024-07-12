@@ -19,6 +19,7 @@ namespace GameMain
         [SerializeField] private Transform mCanvas;
         [SerializeField] private Animator mAnimator;
         [SerializeField] private TeachingForm mTeachingForm;
+        [SerializeField] private Image backgroundImg;
         [Header("Ö÷¿Ø")]
         [SerializeField] private Button loadBtn;
         [SerializeField] private Button saveBtn;
@@ -54,6 +55,7 @@ namespace GameMain
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
+            BackgroundUpdate();
             if (Input.GetMouseButtonDown(1))
             {
                 if (!mAnimator.GetBool("Into"))
@@ -113,6 +115,45 @@ namespace GameMain
                 canvasGroup.interactable = true;
             }
         }
+        private WeatherTag weatherTag;
+        private void BackgroundUpdate()
+        {
+            //GameState gameState = GameEntry.Utils.GameState;
+            //WeatherTag weatherTag = WeatherTag.Morning;
+            //if (GameEntry.Utils.IsRain)
+            //{
+            //    weatherTag = WeatherTag.Rain;
+            //}
+            //else
+            //{
+            //    switch (gameState)
+            //    {
+            //        case GameState.Night:
+            //            weatherTag = WeatherTag.Night;
+            //            break;
+            //        case GameState.Afternoon:
+            //            weatherTag = WeatherTag.Afternoon;
+            //            break;
+            //        case GameState.Morning:
+            //            weatherTag = WeatherTag.Morning;
+            //            break;
+            //    }
+            //}
+            if (weatherTag == GameEntry.Utils.WeatherTag)
+                return;
+            weatherTag=GameEntry.Utils.WeatherTag;
+            DRWeather weather = GameEntry.DataTable.GetDataTable<DRWeather>().GetDataRow((int)GameEntry.Utils.WeatherTag);
+            backgroundImg.sprite = Resources.Load<Sprite>(weather.AssetName);
+            GameEntry.Sound.PlaySound(weather.BackgroundMusicId);
+        }
+    }
+
+    public enum WeatherTag
+    {
+        Morning=1,
+        Afternoon=2,
+        Night=3,
+        Rain=4
     }
 }
 

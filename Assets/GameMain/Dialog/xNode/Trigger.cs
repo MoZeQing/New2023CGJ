@@ -287,5 +287,6 @@ public enum EventTag
     Jump,
     ShowFlag,//展示所有的Flag数据
     AddBuff,//增加buff
-    RemoveBuff//卸载buff
+    RemoveBuff,//卸载buff
+    Weather//天气
 }
