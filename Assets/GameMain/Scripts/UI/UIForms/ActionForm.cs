@@ -12,6 +12,8 @@ public class ActionForm : BaseForm
     [SerializeField] private Image catImg;
     [SerializeField] private Transform canvas;
     [SerializeField] private Transform completeCanvas;
+    [SerializeField] private Image actionIcon;
+    [SerializeField] private Text actionText;
     [SerializeField] private Button exitBtn;
 
     private Action mAction;
