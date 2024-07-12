@@ -30,7 +30,8 @@ namespace GameMain
             "Buff",
             "Upgrade",
             "Guide",
-            "Weather"
+            "Weather",
+            "LittleCat"
         };
 
         private Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>();

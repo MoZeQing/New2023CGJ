@@ -335,82 +335,17 @@ namespace GameMain
                 GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
             }
         }
-        //����CharData
-        public int Mood
-        {
-            get
-            {
-                return mCharData.mood;
-            }
-            set
-            {
-                mCharData.mood = value;
-                _values[TriggerTag.Mood] = mCharData.mood.ToString();
-                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
-            }
-        }
-        public int Hope
-        {
-            get
-            {
-                return mCharData.hope;
-            }
-            set
-            {
-                mCharData.hope = value;
-                _values[TriggerTag.Hope] = mCharData.hope.ToString();
-                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
-            }
-        }
+
         public int Favor
         {
             get
-            {
+            { 
                 return mCharData.favor;
             }
             set
-            {
+            { 
                 mCharData.favor = value;
-                _values[TriggerTag.Favor] = mCharData.favor.ToString();
-                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
-            }
-        }
-        public int Love
-        {
-            get
-            {
-                return mCharData.love;
-            }
-            set
-            {
-                mCharData.love = value;
-                _values[TriggerTag.Love] = mCharData.love.ToString();
-                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
-            }
-        }
-        public int Family
-        {
-            get
-            {
-                return mCharData.family;
-            }
-            set
-            {
-                mCharData.family = value;
-                _values[TriggerTag.Family] = mCharData.family.ToString();
-                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
-            }
-        }
-        public int Ability
-        {
-            get
-            {
-                return mCharData.ability;
-            }
-            set
-            {
-                mCharData.ability = value;
-                _values[TriggerTag.Ability] = mCharData.ability.ToString();
+                _values[TriggerTag.Favor]= mCharData.favor.ToString();
                 GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
             }
         }
@@ -553,18 +488,6 @@ namespace GameMain
                     return true;
                 case EventTag.AddFavor:
                     GameEntry.Utils.Favor += int.Parse(eventData.value1);
-                    return true;
-                case EventTag.AddMood:
-                    GameEntry.Utils.Mood+= int.Parse(eventData.value1);
-                    return true;
-                case EventTag.AddHope:
-                    GameEntry.Utils.Hope += int.Parse(eventData.value1);
-                    return true;
-                case EventTag.AddLove:
-                    GameEntry.Utils.Love+= int.Parse(eventData.value1);  
-                    return true;
-                case EventTag.AddAbility:
-                    GameEntry.Utils.Love += int.Parse(eventData.value1);
                     return true;
                 case EventTag.AddEnergy:
                     GameEntry.Utils.Energy += int.Parse(eventData.value1);

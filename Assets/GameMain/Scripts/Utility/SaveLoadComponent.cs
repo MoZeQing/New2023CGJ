@@ -76,10 +76,7 @@ namespace GameMain
             GameEntry.Utils.MaxAp = maxAp;
             GameEntry.Utils.Ap = ap;
             GameEntry.Utils.Money = money;
-            GameEntry.Utils.Mood = mood;
             GameEntry.Utils.Favor = favor;
-            GameEntry.Utils.Love = love;
-            GameEntry.Utils.Family = family;
             GameEntry.Utils.Day = day;
             GameEntry.Utils.Rent= rent;
             GameEntry.Utils.Closet = closet;

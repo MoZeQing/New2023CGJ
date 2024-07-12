@@ -33,21 +33,12 @@ namespace GameMain
     public class CharData
     {
         public int favor;//好感度
-        public int mood;//心情
-        public int hope;//希望
-        public int love;//爱情
-        public int family;//亲情
-        public int ability;
+        public int stamina;//体能
+        public int wisdom;//智慧
+        public int charm;//魅力
+        public int skill;//技巧
 
         public CharData() { }
-        public CharData(int favor, int mood, int hope, int love, int family)
-        { 
-            this.favor = favor;
-            this.mood = mood;
-            this.hope = hope;
-            this.love = love;
-            this.family = family;
-        }
     }
 }
 

@@ -20,6 +20,7 @@ namespace GameMain
         [SerializeField] private Animator mAnimator;
         [SerializeField] private TeachingForm mTeachingForm;
         [SerializeField] private Image backgroundImg;
+        [SerializeField] private Image littleCatImg;
         [Header("Ö÷¿Ø")]
         [SerializeField] private Button loadBtn;
         [SerializeField] private Button saveBtn;
@@ -52,9 +53,18 @@ namespace GameMain
             GameEntry.Event.Subscribe(GameStateEventArgs.EventId, OnGameStateEvent);
             canvasGroup.interactable = true;
         }
+        private float nowTime;
+        [SerializeField,Range(0,5f)] private float rateTime;
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
+            nowTime-=Time.deltaTime;
+            if (nowTime <= 0)
+            {
+                nowTime = rateTime;
+                UpdateLittleCat();
+            }
+
             BackgroundUpdate();
             if (Input.GetMouseButtonDown(1))
             {
@@ -80,6 +90,11 @@ namespace GameMain
             buffBtn.onClick.RemoveAllListeners();
             GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, OnGameStateEvent);
         }
+        private void UpdateLittleCat()
+        {
+            DRLittleCat littleCat = GameEntry.DataTable.GetDataTable<DRLittleCat>().GetDataRow(GameEntry.Utils.Closet);
+            littleCatImg.sprite = Resources.Load<Sprite>($"{littleCat.ClothingPath}_{Random.Range(0, 3)}");
+        }
         private void Change(GamePos gamePos)
         {
             Debug.Log(gamePos);
@@ -99,6 +114,7 @@ namespace GameMain
         }
         private void ChangeTeach()
         {
+            littleCatImg.gameObject.SetActive(!littleCatImg.gameObject.activeSelf);
             mAnimator.SetBool("Into", !mAnimator.GetBool("Into"));
             canvasGroup.interactable = !mAnimator.GetBool("Into");
             teachBtn1.interactable = mAnimator.GetBool("Into");

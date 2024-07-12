@@ -18,8 +18,10 @@ namespace GameMain
         [SerializeField] private Text moneyText;
         [SerializeField] private Text energyText;
         [SerializeField] private Text favorText;
-        [SerializeField] private Text loveText;
-        [SerializeField] private Text familyText;
+        [SerializeField] private Text staminaText;
+        [SerializeField] private Text wisdomText;
+        [SerializeField] private Text charmText;
+        [SerializeField] private Text skillText;
         [SerializeField] private Text timeText;
         [SerializeField] private Text rentText;
         [Header("右侧操作栏")]
@@ -135,8 +137,6 @@ namespace GameMain
                 GameEntry.Utils.MaxAp -= behavior.playerData.maxAp;
 
                 GameEntry.Utils.Favor += (int)(behavior.catData.favour * buffData.FavorMulti + buffData.FavorPlus);
-                GameEntry.Utils.Love+= behavior.catData.love;
-                GameEntry.Utils.Family += behavior.catData.family;
 
                 GameEntry.Event.FireNow(this, BehaviorEventArgs.Create(behaviorTag));
             }
@@ -229,8 +229,10 @@ namespace GameMain
             CharDataEventArgs charDataEvent= (CharDataEventArgs)e;
             CharData charData=charDataEvent.CharData;
             favorText.text = charData.favor.ToString();
-            loveText.text = charData.love.ToString();
-            familyText.text = charData.family.ToString();
+            staminaText.text = charData.stamina.ToString();
+            wisdomText.text = charData.wisdom.ToString();
+            charmText.text=charData.charm.ToString();
+            skillText.text=charData.skill.ToString();   
         }
         private void PlayerDataEvent(object sender, GameEventArgs e)
         { 
