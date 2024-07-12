@@ -78,7 +78,7 @@ namespace GameMain
             mAction=null;
         }
 
-        public bool GetOutStory(OutingSceneState outingSceneState)
+        public bool CheckOutStory(OutingSceneState outingSceneState)
         {
             foreach (StorySO story in loadedStories)
             {

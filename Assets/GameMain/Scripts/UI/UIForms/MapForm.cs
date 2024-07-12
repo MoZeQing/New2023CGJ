@@ -11,7 +11,7 @@ namespace GameMain
     public class MapForm : BaseForm
     {
         [SerializeField] private Button glassBtn;
-        [SerializeField] private Button glothingBtn;
+        [SerializeField] private Button clothingBtn;
         [SerializeField] private Button restaurantBtn;
         [SerializeField] private Button gymBtn;
         [SerializeField] private Button exitBtn;
@@ -27,8 +27,13 @@ namespace GameMain
 
             glassBtn.onClick.AddListener(() => Outing(OutingSceneState.Glass));
             restaurantBtn.onClick.AddListener(() => Outing(OutingSceneState.Restaurant));
-            glothingBtn.onClick.AddListener(() => Outing(OutingSceneState.Clothing));
+            clothingBtn.onClick.AddListener(() => Outing(OutingSceneState.Clothing));
             gymBtn.onClick.AddListener(() => Outing(OutingSceneState.Gym));
+
+            glassBtn.transform.GetChild(0).gameObject.SetActive(GameEntry.Dialog.CheckOutStory(OutingSceneState.Glass));
+            restaurantBtn.transform.GetChild(0).gameObject.SetActive(GameEntry.Dialog.CheckOutStory(OutingSceneState.Restaurant));
+            clothingBtn.transform.GetChild(0).gameObject.SetActive(GameEntry.Dialog.CheckOutStory(OutingSceneState.Clothing));
+            gymBtn.transform.GetChild(0).gameObject.SetActive(GameEntry.Dialog.CheckOutStory(OutingSceneState.Gym));
         }
 
         protected override void OnClose(bool isShutdown, object userData)
@@ -36,7 +41,7 @@ namespace GameMain
             base.OnClose(isShutdown, userData);
             glassBtn.onClick.RemoveAllListeners();
             restaurantBtn.onClick.RemoveAllListeners();
-            glothingBtn.onClick.RemoveAllListeners();
+            clothingBtn.onClick.RemoveAllListeners();
             gymBtn.onClick.RemoveAllListeners();
             exitBtn.onClick.RemoveAllListeners();
         }
