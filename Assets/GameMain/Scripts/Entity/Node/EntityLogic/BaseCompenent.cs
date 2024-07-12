@@ -245,7 +245,7 @@ namespace GameMain
                     mNodeData.Jump = false;
                 }
             }
-            if (mNodeData.Follow)
+            if (mNodeData.Follow)//跟随鼠标
             {
                 this.transform.DOMove(MouseToWorld(Input.mousePosition), 0.05f);
                 Producing = false;
@@ -258,10 +258,14 @@ namespace GameMain
             }
 
             this.transform.position = new Vector3(Mathf.Clamp(this.transform.position.x, -8f, 8f), Mathf.Clamp(this.transform.position.y, -10f, -4f), 0);//���Ʒ�Χ
-            if (Parent != null && !mNodeData.Follow)
+            if (Parent != null && !mNodeData.Follow)//跟随父卡牌
             {
                 this.transform.DOMove(Parent.transform.position + Vector3.up * 0.5f, 0.1f);//�����ڵ�
             }
+            //if (Parent == null && !mNodeData.Follow)//如果没有
+            //{
+            //    this.transform.DOMove(Parent.transform.position + Vector3.up * 0.5f, 0.1f);//�����ڵ�
+            //}
             //刷新子集
             mChildMaterials = GenerateMaterialList();
             Compound();

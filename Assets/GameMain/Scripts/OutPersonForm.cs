@@ -1,24 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.ComTypes;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 namespace GameMain
 {
     public class OutPersonForm : MonoBehaviour
     {
-        [SerializeField] private Image charImg;
+        [SerializeField] private CharSO charSO;
         [SerializeField] private Text charText;
         [SerializeField] private Text charNameText;
         [SerializeField] private OutingSceneState sceneState;
-        [SerializeField] private string charName;
+        [SerializeField] private Button button;
+        [SerializeField, Range(0, 0.1f)] private float charSpeed;
 
-        private List<DRShop> dRShops = new List<DRShop>();
-
-        private void Start()
+        private void OnEnable()
         {
-            dRShops.Clear();
-            int favor = GameEntry.Utils.GetFriends()[charName];
+            ShowDialog();
+            button.onClick.AddListener(ShowDialog);
+        }
+
+        private void OnDisable()
+        {
+            button.onClick.RemoveAllListeners();
+        }
+
+        public void ShowDialog()
+        {
+            List<DRShop> dRShops = new List<DRShop>();
+            int favor = GameEntry.Utils.GetFriends()[charSO.name];
             foreach (DRShop shop in GameEntry.DataTable.GetDataTable<DRShop>().GetAllDataRows())
             {
                 if (favor < shop.Favor)
@@ -26,13 +38,10 @@ namespace GameMain
                 dRShops.Add(shop);
             }
             DRShop dRShop = dRShops[Random.Range(0, dRShops.Count)];
-            //charImg.sprite = Resources.Load<CharSO>("CharData/"+charName).diffs[dRShop.Diff];
-            charText.text = dRShop.Text;
-            GameEntry.Utils.AddFriendFavor(charName, dRShop.AddFavor);
-        }
-        private void Update()
-        {
-            //可能有的更新对话
+            charNameText.text = charSO.charName;
+            charText.text = string.Empty;
+            charText.DOText(dRShop.Text, charSpeed * dRShop.Text.Length, true);
+            GameEntry.Utils.AddFriendFavor(charSO.name, dRShop.AddFavor);
         }
     }
 }

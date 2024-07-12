@@ -14,6 +14,8 @@ namespace GameMain
         [SerializeField] private Button clothingBtn;
         [SerializeField] private Button restaurantBtn;
         [SerializeField] private Button gymBtn;
+        [SerializeField] private Button marketBtn;
+        [SerializeField] private Button benchBtn;
         [SerializeField] private Button exitBtn;
         [SerializeField] private Transform canvas;
 
@@ -29,11 +31,15 @@ namespace GameMain
             restaurantBtn.onClick.AddListener(() => Outing(OutingSceneState.Restaurant));
             clothingBtn.onClick.AddListener(() => Outing(OutingSceneState.Clothing));
             gymBtn.onClick.AddListener(() => Outing(OutingSceneState.Gym));
+            benchBtn.onClick.AddListener(() => Outing(OutingSceneState.Clothing));
+            marketBtn.onClick.AddListener(() => Outing(OutingSceneState.Gym));
 
             glassBtn.transform.GetChild(0).gameObject.SetActive(GameEntry.Dialog.CheckOutStory(OutingSceneState.Glass));
             restaurantBtn.transform.GetChild(0).gameObject.SetActive(GameEntry.Dialog.CheckOutStory(OutingSceneState.Restaurant));
             clothingBtn.transform.GetChild(0).gameObject.SetActive(GameEntry.Dialog.CheckOutStory(OutingSceneState.Clothing));
             gymBtn.transform.GetChild(0).gameObject.SetActive(GameEntry.Dialog.CheckOutStory(OutingSceneState.Gym));
+            benchBtn.transform.GetChild(0).gameObject.SetActive(GameEntry.Dialog.CheckOutStory(OutingSceneState.Beach));
+            marketBtn.transform.GetChild(0).gameObject.SetActive(GameEntry.Dialog.CheckOutStory(OutingSceneState.Market));
         }
 
         protected override void OnClose(bool isShutdown, object userData)
@@ -44,6 +50,8 @@ namespace GameMain
             clothingBtn.onClick.RemoveAllListeners();
             gymBtn.onClick.RemoveAllListeners();
             exitBtn.onClick.RemoveAllListeners();
+            benchBtn.onClick.RemoveAllListeners(); 
+            marketBtn.onClick.RemoveAllListeners(); 
         }
 
         private void Outing(OutingSceneState outingSceneState)

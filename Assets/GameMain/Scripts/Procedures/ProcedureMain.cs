@@ -131,11 +131,11 @@ namespace GameMain
     {
         Main=-1,
         Home,//家
-        Greengrocer,//果蔬商
+        Market,//市场
         Glass,//玻璃仪器店
         Gym,//体育馆
         Restaurant,//餐馆
         Beach,//海滩
-        Clothing,//公园
+        Clothing,//服装店
     }
 }

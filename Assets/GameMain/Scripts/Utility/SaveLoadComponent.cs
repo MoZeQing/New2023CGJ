@@ -97,7 +97,7 @@ namespace GameMain
             GameEntry.Utils.AddPlayerItem(new ItemData((ItemTag)closet), 1, true);
 
             GameEntry.Utils.outingSceneStates.Clear();
-            GameEntry.Utils.outingSceneStates.Add(OutingSceneState.Greengrocer);
+            GameEntry.Utils.outingSceneStates.Add(OutingSceneState.Market);
 
             foreach (KeyValuePair<string, CharSO> pair in GameEntry.Utils.chars)
                 GameEntry.Utils.AddFriendFavor(pair.Value.name, pair.Value.favor);
