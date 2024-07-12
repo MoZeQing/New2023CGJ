@@ -54,7 +54,7 @@ namespace GameMain
             canvasGroup.interactable = true;
         }
         private float nowTime;
-        [SerializeField,Range(0,5f)] private float rateTime;
+        [SerializeField,Range(0,5f)] private float rateTime=5f;
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
@@ -92,8 +92,8 @@ namespace GameMain
         }
         private void UpdateLittleCat()
         {
-            DRLittleCat littleCat = GameEntry.DataTable.GetDataTable<DRLittleCat>().GetDataRow(GameEntry.Utils.Closet);
-            littleCatImg.sprite = Resources.Load<Sprite>($"{littleCat.ClothingPath}_{Random.Range(0, 3)}");
+            //DRLittleCat littleCat = GameEntry.DataTable.GetDataTable<DRLittleCat>().GetDataRow(GameEntry.Utils.Closet);
+            //littleCatImg.sprite = Resources.Load<Sprite>($"{littleCat.ClothingPath}_{Random.Range(0, 3)}");
         }
         private void Change(GamePos gamePos)
         {

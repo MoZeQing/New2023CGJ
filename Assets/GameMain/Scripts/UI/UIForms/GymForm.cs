@@ -45,6 +45,8 @@ namespace GameMain
             GameEntry.Utils.Energy -= 20;
             GameEntry.Utils.MaxEnergy += 2;
 
+            GameEntry.UI.OpenUIForm(UIFormId.ActionForm, OnExit);
+
             easyBtn.interactable= false;
             middleBtn.interactable = false;
             hardBtn.interactable = false;
@@ -63,6 +65,8 @@ namespace GameMain
             }
             GameEntry.Utils.Energy -= 40;
             GameEntry.Utils.MaxEnergy += 5;
+
+            GameEntry.UI.OpenUIForm(UIFormId.ActionForm, OnExit);
 
             easyBtn.interactable = false;
             middleBtn.interactable = false;
@@ -83,6 +87,8 @@ namespace GameMain
             }
             GameEntry.Utils.Energy -= 60;
             GameEntry.Utils.MaxEnergy += 8;
+
+            GameEntry.UI.OpenUIForm(UIFormId.ActionForm,OnExit);
 
             easyBtn.interactable = false;
             middleBtn.interactable = false;

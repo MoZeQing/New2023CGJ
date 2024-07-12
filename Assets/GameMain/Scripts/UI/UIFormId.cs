@@ -40,6 +40,7 @@ namespace GameMain
         InstrumentForm=57,
         UpgradeForm=58,
         BuffForm=59,
+        ActionForm=60,
         PopTips =100,
         HighlightTips=101,
         PropertyTips=102,
