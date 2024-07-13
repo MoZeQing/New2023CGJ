@@ -1,14 +1,14 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityGameFramework.Runtime;
 using UnityEngine.UI;
-using GameFramework.Event;
-using DG.Tweening;
+using UnityGameFramework.Runtime;
+
 
 namespace GameMain
 {
-    public class BenchForm : BaseForm
+    public class LibraryForm : BaseForm
     {
         [SerializeField] private Button exitBtn;
         [SerializeField] private Button trainBtn;

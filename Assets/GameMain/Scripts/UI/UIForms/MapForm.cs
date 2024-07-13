@@ -10,9 +10,8 @@ namespace GameMain
 {
     public class MapForm : BaseForm
     {
-        [SerializeField] private Button glassBtn;
         [SerializeField] private Button clothingBtn;
-        [SerializeField] private Button restaurantBtn;
+        [SerializeField] private Button libraryBtn;
         [SerializeField] private Button gymBtn;
         [SerializeField] private Button marketBtn;
         [SerializeField] private Button benchBtn;
@@ -27,15 +26,13 @@ namespace GameMain
 
             exitBtn.onClick.AddListener(() => GameEntry.UI.CloseUIForm(this.UIForm));
 
-            glassBtn.onClick.AddListener(() => Outing(OutingSceneState.Glass));
-            restaurantBtn.onClick.AddListener(() => Outing(OutingSceneState.Restaurant));
+            libraryBtn.onClick.AddListener(() => Outing(OutingSceneState.Restaurant));
             clothingBtn.onClick.AddListener(() => Outing(OutingSceneState.Clothing));
             gymBtn.onClick.AddListener(() => Outing(OutingSceneState.Gym));
             benchBtn.onClick.AddListener(() => Outing(OutingSceneState.Clothing));
             marketBtn.onClick.AddListener(() => Outing(OutingSceneState.Gym));
 
-            glassBtn.transform.GetChild(0).gameObject.SetActive(GameEntry.Dialog.CheckOutStory(OutingSceneState.Glass));
-            restaurantBtn.transform.GetChild(0).gameObject.SetActive(GameEntry.Dialog.CheckOutStory(OutingSceneState.Restaurant));
+            libraryBtn.transform.GetChild(0).gameObject.SetActive(GameEntry.Dialog.CheckOutStory(OutingSceneState.Restaurant));
             clothingBtn.transform.GetChild(0).gameObject.SetActive(GameEntry.Dialog.CheckOutStory(OutingSceneState.Clothing));
             gymBtn.transform.GetChild(0).gameObject.SetActive(GameEntry.Dialog.CheckOutStory(OutingSceneState.Gym));
             benchBtn.transform.GetChild(0).gameObject.SetActive(GameEntry.Dialog.CheckOutStory(OutingSceneState.Beach));
@@ -45,8 +42,7 @@ namespace GameMain
         protected override void OnClose(bool isShutdown, object userData)
         {
             base.OnClose(isShutdown, userData);
-            glassBtn.onClick.RemoveAllListeners();
-            restaurantBtn.onClick.RemoveAllListeners();
+            libraryBtn.onClick.RemoveAllListeners();
             clothingBtn.onClick.RemoveAllListeners();
             gymBtn.onClick.RemoveAllListeners();
             exitBtn.onClick.RemoveAllListeners();

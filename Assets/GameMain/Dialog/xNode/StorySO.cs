@@ -25,7 +25,7 @@ public class StorySO : ScriptableObject
     public DialogueGraph dialogueGraph;
     [SerializeField]
     public List<EventData> eventDatas= new List<EventData>();
-    [SerializeField]
+    [SerializeField,TextArea]
     public string content;
 
     //[MenuItem("Data/StoryToCSV")]

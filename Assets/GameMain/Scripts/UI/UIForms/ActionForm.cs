@@ -16,11 +16,17 @@ public class ActionForm : BaseForm
     [SerializeField] private Text actionText;
     [SerializeField] private Button exitBtn;
 
+    private PlayerData mPlayerData;
+    private CharData mCharData;
     private Action mAction;
 
     protected override void OnOpen(object userData)
     {
         base.OnOpen(userData);
+        Tuple<CharData, PlayerData> tuple=userData as Tuple<CharData, PlayerData>;  
+        mPlayerData=tuple.Item2;
+        mCharData=tuple.Item1;
+
         mAction = BaseFormData.Action;
         completeCanvas.gameObject.SetActive(false);
         exitBtn.onClick.AddListener(() => 

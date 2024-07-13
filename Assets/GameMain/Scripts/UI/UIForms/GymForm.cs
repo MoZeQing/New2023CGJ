@@ -1,3 +1,5 @@
+using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,93 +8,66 @@ using UnityGameFramework.Runtime;
 
 namespace GameMain
 {
-    public class GymForm : UIFormLogic
+    public class GymForm : BaseForm
     {
         [SerializeField] private Button exitBtn;
-        [SerializeField] private Button easyBtn;
-        [SerializeField] private Button middleBtn;
-        [SerializeField] private Button hardBtn;
+        [SerializeField] private Button trainBtn;
+        [SerializeField] private Button matchBtn;
+        [SerializeField] private Button quickBtn;
+        [SerializeField] private Button gameBtn;
+        [SerializeField] private Transform canvas;
+        [SerializeField] private CharData charData;
+        [SerializeField] private PlayerData playerData;
 
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            easyBtn.onClick.AddListener(EasyBtn_Click);
-            middleBtn.onClick.AddListener(MiddleBtn_Click);
-            hardBtn.onClick.AddListener(HardBtn_Click);
+            canvas.gameObject.SetActive(false);
+            quickBtn.onClick.AddListener(QuickBtn_Click);
+            gameBtn.onClick.AddListener(GameBtn_Click);
+            trainBtn.onClick.AddListener(TrainBtn_Click);
+            matchBtn.onClick.AddListener(MatchBtn_Click);
             exitBtn.onClick.AddListener(OnExit);
         }
 
         protected override void OnClose(bool isShutdown, object userData)
         {
             base.OnClose(isShutdown, userData);
-            easyBtn.onClick.RemoveAllListeners();
-            middleBtn.onClick.RemoveAllListeners();
-            hardBtn.onClick.RemoveAllListeners();
+            quickBtn.onClick.RemoveAllListeners();
+            gameBtn.onClick.RemoveAllListeners();
+            trainBtn.onClick.RemoveAllListeners();
+            matchBtn.onClick.RemoveAllListeners();
             exitBtn.onClick.RemoveAllListeners();
         }
 
-        private void EasyBtn_Click() {
-            if (GameEntry.Utils.Energy < 20)
-            {
-                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你的体力不足");
-                return;
-            }
-            if (GameEntry.Utils.Money < 100)
-            {
-                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你的金钱不足");
-                return;
-            }
-            GameEntry.Utils.Energy -= 20;
-            GameEntry.Utils.MaxEnergy += 2;
-
-            GameEntry.UI.OpenUIForm(UIFormId.ActionForm, OnExit);
-
-            easyBtn.interactable= false;
-            middleBtn.interactable = false;
-            hardBtn.interactable = false;
-        }
-
-        private void MiddleBtn_Click() {
-            if (GameEntry.Utils.Energy < 40)
-            {
-                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你的体力不足");
-                return;
-            }
-            if (GameEntry.Utils.Money < 300)
-            {
-                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你的金钱不足");
-                return;
-            }
-            GameEntry.Utils.Energy -= 40;
-            GameEntry.Utils.MaxEnergy += 5;
-
-            GameEntry.UI.OpenUIForm(UIFormId.ActionForm, OnExit);
-
-            easyBtn.interactable = false;
-            middleBtn.interactable = false;
-            hardBtn.interactable = false;
-        }
-
-        private void HardBtn_Click()
+        private void QuickBtn_Click()
         {
-            if (GameEntry.Utils.Energy < 60)
-            {
-                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你的体力不足");
-                return;
-            }
-            if (GameEntry.Utils.Money < 500)
-            {
-                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你的金钱不足");
-                return;
-            }
-            GameEntry.Utils.Energy -= 60;
-            GameEntry.Utils.MaxEnergy += 8;
-
             GameEntry.UI.OpenUIForm(UIFormId.ActionForm,OnExit);
+        }
 
-            easyBtn.interactable = false;
-            middleBtn.interactable = false;
-            hardBtn.interactable = false;
+        private void GameBtn_Click()
+        { 
+            
+        }
+
+        private void TrainBtn_Click() 
+        {
+            canvas.gameObject.SetActive(true);
+
+            quickBtn.transform.localPosition = Vector3.down * 30;
+            quickBtn.GetComponent<Image>().color = Color.gray;
+            quickBtn.transform.DOLocalMoveY(0f, 0.3f).SetEase(Ease.InOutExpo);
+            quickBtn.GetComponent<Image>().DOColor(Color.white, 0.3f);
+
+            gameBtn.transform.localPosition = Vector3.down * 30;
+            gameBtn.GetComponent<Image>().color = Color.gray;
+            gameBtn.transform.DOLocalMoveY(0f, 0.3f).SetEase(Ease.InOutExpo);
+            gameBtn.GetComponent<Image>().DOColor(Color.white, 0.3f);
+        }
+
+        private void MatchBtn_Click() 
+        {
+
         }
 
         private void OnExit()
@@ -102,5 +77,4 @@ namespace GameMain
             GameEntry.UI.CloseUIForm(this.UIForm);
         }
     }
-
 }
