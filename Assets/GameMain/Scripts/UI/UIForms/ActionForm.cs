@@ -6,51 +6,42 @@ using DG.Tweening;
 using UnityEngine.UI;
 using System;
 
-public class ActionForm : BaseForm
+namespace GameMain
 {
-    [SerializeField] private Image progressImg;
-    [SerializeField] private Image catImg;
-    [SerializeField] private Transform canvas;
-    [SerializeField] private Transform completeCanvas;
-    [SerializeField] private Image actionIcon;
-    [SerializeField] private Text actionText;
-    [SerializeField] private Button exitBtn;
-
-    private PlayerData mPlayerData;
-    private CharData mCharData;
-    private Action mAction;
-
-    protected override void OnOpen(object userData)
+    public class ActionForm : BaseForm
     {
-        base.OnOpen(userData);
-        Tuple<CharData, PlayerData> tuple=userData as Tuple<CharData, PlayerData>;  
-        mPlayerData=tuple.Item2;
-        mCharData=tuple.Item1;
+        [SerializeField] private Image progressImg;
+        [SerializeField] private Image catImg;
+        [SerializeField] private Transform canvas;
 
-        mAction = BaseFormData.Action;
-        completeCanvas.gameObject.SetActive(false);
-        exitBtn.onClick.AddListener(() => 
+        private Action mAction;
+
+        protected override void OnOpen(object userData)
+        {
+            base.OnOpen(userData);
+            Dictionary<ValueTag, int> pairs = BaseFormData.UserData as Dictionary<ValueTag, int>;
+            mAction = BaseFormData.Action;
+            progressImg.fillAmount = 0;
+            canvas.transform.localPosition = Vector3.up * 1080f;
+            canvas.transform.DOLocalMoveY(0, 1f).SetEase(Ease.OutExpo).OnComplete(() =>
+            {
+                progressImg.DOFillAmount(1f, 5f).OnComplete(() =>
+                {
+                    GameEntry.Sound.PlaySound(43);
+                    GameEntry.UI.OpenUIForm(UIFormId.CompleteForm, OnExit, pairs);
+                });
+            });
+        }
+
+        protected override void OnClose(bool isShutdown, object userData)
+        {
+            base.OnClose(isShutdown, userData);
+        }
+
+        private void OnExit()
         {
             mAction();
             GameEntry.UI.CloseUIForm(this.UIForm);
-        });
-        progressImg.fillAmount = 0;
-        canvas.transform.localPosition = Vector3.up * 1080f;
-        canvas.transform.DOLocalMoveY(0, 1f).SetEase(Ease.OutExpo).OnComplete(() => 
-        {
-            progressImg.DOFillAmount(1f, 5f).OnComplete(() => 
-            {
-                completeCanvas.gameObject.SetActive(true);
-                GameEntry.Sound.PlaySound(43);
-                completeCanvas.transform.localScale = Vector3.one * 0.01f;
-                completeCanvas.DOScale(Vector3.one, 0.5f);
-            });
-        });
-    }
-
-    protected override void OnClose(bool isShutdown, object userData)
-    {
-        base.OnClose(isShutdown, userData);
-        exitBtn.onClick.RemoveAllListeners();
+        }
     }
 }

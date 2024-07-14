@@ -92,8 +92,8 @@ namespace GameMain
         }
         private void UpdateLittleCat()
         {
-            //DRLittleCat littleCat = GameEntry.DataTable.GetDataTable<DRLittleCat>().GetDataRow(GameEntry.Utils.Closet);
-            //littleCatImg.sprite = Resources.Load<Sprite>($"{littleCat.ClothingPath}_{Random.Range(0, 3)}");
+            DRLittleCat littleCat = GameEntry.DataTable.GetDataTable<DRLittleCat>().GetDataRow(GameEntry.Utils.Closet);
+            littleCatImg.sprite = Resources.Load<Sprite>($"{littleCat.ClothingPath}_{Random.Range(0, littleCat.Range)+1}");
         }
         private void Change(GamePos gamePos)
         {

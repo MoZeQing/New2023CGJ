@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-07-12 17:30:31.333
+// 生成时间：2024-07-14 18:08:11.048
 //------------------------------------------------------------
 
 using GameFramework;
@@ -37,18 +37,18 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取标签代号。
+        /// 获取标签内容。
         /// </summary>
-        public int ClothingID
+        public string ClothingPath
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取标签内容。
+        /// 获取范围。
         /// </summary>
-        public string ClothingPath
+        public int Range
         {
             get;
             private set;
@@ -66,8 +66,8 @@ namespace GameMain
             index++;
             m_Id = int.Parse(columnStrings[index++]);
             index++;
-            ClothingID = int.Parse(columnStrings[index++]);
             ClothingPath = columnStrings[index++];
+            Range = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -80,8 +80,8 @@ namespace GameMain
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
-                    ClothingID = binaryReader.Read7BitEncodedInt32();
                     ClothingPath = binaryReader.ReadString();
+                    Range = binaryReader.Read7BitEncodedInt32();
                 }
             }
 

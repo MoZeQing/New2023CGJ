@@ -232,7 +232,6 @@ namespace GameMain
             staminaText.text = charData.stamina.ToString();
             wisdomText.text = charData.wisdom.ToString();
             charmText.text=charData.charm.ToString();
-            skillText.text=charData.skill.ToString();   
         }
         private void PlayerDataEvent(object sender, GameEventArgs e)
         { 

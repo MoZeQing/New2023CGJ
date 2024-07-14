@@ -1,8 +1,11 @@
 using GameFramework.Event;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Claims;
 using UnityEditor;
+using UnityEditor.PackageManager.UI;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 using XNode;
@@ -568,5 +571,28 @@ namespace GameMain
         public int bcoffee;
         public int ccoffee;
         public List<PlayerItemData> items=new List<PlayerItemData>();
+
+        public Dictionary<ValueTag, int> GetValueTag(Dictionary<ValueTag, int> dic)
+        {
+            if (maxAp != 0)
+                dic.Add(ValueTag.MaxAp, maxAp);
+            if (ap != 0)
+                dic.Add(ValueTag.Ap, ap);
+            if (money != 0)
+                dic.Add(ValueTag.Money, money);
+            return dic;
+        }
+    }
+
+    
+    public enum ValueTag
+    {
+        MaxAp,
+        Ap,
+        Money,
+        Favor,
+        Wisdom,
+        Stamina,
+        Charm
     }
 }

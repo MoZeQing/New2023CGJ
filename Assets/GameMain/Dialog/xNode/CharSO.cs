@@ -36,9 +36,21 @@ namespace GameMain
         public int stamina;//体能
         public int wisdom;//智慧
         public int charm;//魅力
-        public int skill;//技巧
 
         public CharData() { }
+
+        public Dictionary<ValueTag, int> GetValueTag(Dictionary<ValueTag, int> dic)
+        {
+            if (favor != 0)
+                dic.Add(ValueTag.Favor, favor);
+            if (stamina != 0)
+                dic.Add(ValueTag.Stamina, stamina);
+            if (wisdom != 0)
+                dic.Add(ValueTag.Wisdom, wisdom);
+            if (charm != 0)
+                dic.Add(ValueTag.Charm, charm);
+            return dic;
+        }
     }
 }
 

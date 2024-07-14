@@ -42,7 +42,10 @@ namespace GameMain
 
         private void QuickBtn_Click()
         {
-            GameEntry.UI.OpenUIForm(UIFormId.ActionForm,OnExit);
+            Dictionary<ValueTag,int> dic= new Dictionary<ValueTag,int>();
+            charData.GetValueTag(dic);
+            playerData.GetValueTag(dic);
+            GameEntry.UI.OpenUIForm(UIFormId.ActionForm,OnExit,dic);
         }
 
         private void GameBtn_Click()

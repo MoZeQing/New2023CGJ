@@ -16,6 +16,8 @@ namespace GameMain
         [SerializeField] private Button quickBtn;
         [SerializeField] private Button gameBtn;
         [SerializeField] private Transform canvas;
+        [SerializeField] private CharData charData;
+        [SerializeField] private PlayerData playerData;
 
         protected override void OnOpen(object userData)
         {
@@ -40,12 +42,15 @@ namespace GameMain
 
         private void QuickBtn_Click()
         {
-            GameEntry.UI.OpenUIForm(UIFormId.ActionForm, OnExit);
+            Dictionary<ValueTag, int> dic = new Dictionary<ValueTag, int>();
+            charData.GetValueTag(dic);
+            playerData.GetValueTag(dic);
+            GameEntry.UI.OpenUIForm(UIFormId.ActionForm, OnExit, dic);
         }
 
         private void GameBtn_Click()
         {
-
+            GameEntry.UI.OpenUIForm(UIFormId.QueryForm, OnExit);
         }
 
         private void TrainBtn_Click()
