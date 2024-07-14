@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-07-15 01:21:07.942
+// 生成时间：2024-07-15 01:21:07.953
 //------------------------------------------------------------
 
 using GameFramework;
@@ -19,14 +19,14 @@ using UnityGameFramework.Runtime;
 namespace GameMain
 {
     /// <summary>
-    /// 升级配置表。
+    /// Query配置表。
     /// </summary>
-    public class DRUpgrade : DataRowBase
+    public class DRQuery : DataRowBase
     {
         private int m_Id = 0;
 
         /// <summary>
-        /// 获取等级编号。
+        /// 获取问题编号。
         /// </summary>
         public override int Id
         {
@@ -37,99 +37,72 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取标签代号。
+        /// 获取（可能的）图片路径。
         /// </summary>
-        public string TagIcon
+        public string ImagePath
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取描述。
+        /// 获取标签内容。
         /// </summary>
-        public string Text
+        public string Query
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取A级咖啡要求。
+        /// 获取回答1。
         /// </summary>
-        public int ACoffee
+        public string Answer1
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取B级咖啡要求。
+        /// 获取回答2。
         /// </summary>
-        public int BCoffee
+        public string Answer2
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取C级咖啡要求。
+        /// 获取回答3。
         /// </summary>
-        public int CCoffee
+        public string Answer3
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取咖啡总量。
+        /// 获取回答4。
         /// </summary>
-        public int Total
+        public string Answer4
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取金钱要求。
+        /// 获取正确答案。
         /// </summary>
-        public int Money
+        public int TrueAnswer
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取解锁的咖啡。
+        /// 获取正确答案提示。
         /// </summary>
-        public string UnlockCoffee
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取数值增长（x/100）。
-        /// </summary>
-        public int Increase
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取其它buff。
-        /// </summary>
-        public string Buff
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取升级的目标ID。
-        /// </summary>
-        public int UpgradeID
+        public string AnswerTitle
         {
             get;
             private set;
@@ -147,17 +120,14 @@ namespace GameMain
             index++;
             m_Id = int.Parse(columnStrings[index++]);
             index++;
-            TagIcon = columnStrings[index++];
-            Text = columnStrings[index++];
-            ACoffee = int.Parse(columnStrings[index++]);
-            BCoffee = int.Parse(columnStrings[index++]);
-            CCoffee = int.Parse(columnStrings[index++]);
-            Total = int.Parse(columnStrings[index++]);
-            Money = int.Parse(columnStrings[index++]);
-            UnlockCoffee = columnStrings[index++];
-            Increase = int.Parse(columnStrings[index++]);
-            Buff = columnStrings[index++];
-            UpgradeID = int.Parse(columnStrings[index++]);
+            ImagePath = columnStrings[index++];
+            Query = columnStrings[index++];
+            Answer1 = columnStrings[index++];
+            Answer2 = columnStrings[index++];
+            Answer3 = columnStrings[index++];
+            Answer4 = columnStrings[index++];
+            TrueAnswer = int.Parse(columnStrings[index++]);
+            AnswerTitle = columnStrings[index++];
 
             GeneratePropertyArray();
             return true;
@@ -170,17 +140,14 @@ namespace GameMain
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
-                    TagIcon = binaryReader.ReadString();
-                    Text = binaryReader.ReadString();
-                    ACoffee = binaryReader.Read7BitEncodedInt32();
-                    BCoffee = binaryReader.Read7BitEncodedInt32();
-                    CCoffee = binaryReader.Read7BitEncodedInt32();
-                    Total = binaryReader.Read7BitEncodedInt32();
-                    Money = binaryReader.Read7BitEncodedInt32();
-                    UnlockCoffee = binaryReader.ReadString();
-                    Increase = binaryReader.Read7BitEncodedInt32();
-                    Buff = binaryReader.ReadString();
-                    UpgradeID = binaryReader.Read7BitEncodedInt32();
+                    ImagePath = binaryReader.ReadString();
+                    Query = binaryReader.ReadString();
+                    Answer1 = binaryReader.ReadString();
+                    Answer2 = binaryReader.ReadString();
+                    Answer3 = binaryReader.ReadString();
+                    Answer4 = binaryReader.ReadString();
+                    TrueAnswer = binaryReader.Read7BitEncodedInt32();
+                    AnswerTitle = binaryReader.ReadString();
                 }
             }
 
@@ -188,9 +155,48 @@ namespace GameMain
             return true;
         }
 
+        private KeyValuePair<int, string>[] m_Answer = null;
+
+        public int AnswerCount
+        {
+            get
+            {
+                return m_Answer.Length;
+            }
+        }
+
+        public string GetAnswer(int id)
+        {
+            foreach (KeyValuePair<int, string> i in m_Answer)
+            {
+                if (i.Key == id)
+                {
+                    return i.Value;
+                }
+            }
+
+            throw new GameFrameworkException(Utility.Text.Format("GetAnswer with invalid id '{0}'.", id));
+        }
+
+        public string GetAnswerAt(int index)
+        {
+            if (index < 0 || index >= m_Answer.Length)
+            {
+                throw new GameFrameworkException(Utility.Text.Format("GetAnswerAt with invalid index '{0}'.", index));
+            }
+
+            return m_Answer[index].Value;
+        }
+
         private void GeneratePropertyArray()
         {
-
+            m_Answer = new KeyValuePair<int, string>[]
+            {
+                new KeyValuePair<int, string>(1, Answer1),
+                new KeyValuePair<int, string>(2, Answer2),
+                new KeyValuePair<int, string>(3, Answer3),
+                new KeyValuePair<int, string>(4, Answer4),
+            };
         }
     }
 }

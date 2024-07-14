@@ -31,7 +31,8 @@ namespace GameMain
             "Upgrade",
             "Guide",
             "Weather",
-            "LittleCat"
+            "LittleCat",
+            "Query"
         };
 
         private Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>();
