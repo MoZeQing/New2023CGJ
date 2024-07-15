@@ -18,6 +18,8 @@ namespace GameMain
         [SerializeField] private Transform canvas;
         [SerializeField] private CharData charData;
         [SerializeField] private PlayerData playerData;
+        //1-3成功的剧情、4-6失败的剧情
+        [SerializeField] private List<DialogueGraph> matchStories=new List<DialogueGraph>();
 
         protected override void OnOpen(object userData)
         {
@@ -28,6 +30,18 @@ namespace GameMain
             trainBtn.onClick.AddListener(TrainBtn_Click);
             matchBtn.onClick.AddListener(MatchBtn_Click);
             exitBtn.onClick.AddListener(OnExit);
+
+            if (GameEntry.Utils.Week == Week.Monday ||
+                GameEntry.Utils.Week == Week.Saturday)
+            {
+                matchBtn.interactable = false;
+                matchBtn.transform.GetChild(0).gameObject.SetActive(false);
+            }
+            else
+            {
+                matchBtn.interactable = false;
+                matchBtn.transform.GetChild(0).gameObject.SetActive(true);
+            }
         }
 
         protected override void OnClose(bool isShutdown, object userData)
@@ -71,7 +85,46 @@ namespace GameMain
 
         private void MatchBtn_Click()
         {
-
+            int level = GameEntry.Utils.outSceneDic[OutingSceneState.Library];
+            switch (level)
+            {
+                case 1:
+                    if (GameEntry.Utils.CharData.wisdom >= 30)
+                    {
+                        GameEntry.Dialog.PlayStory(matchStories[1]);
+                        GameEntry.Dialog.SetComplete(OnExit);
+                    }
+                    else
+                    {
+                        GameEntry.Dialog.PlayStory(matchStories[4]);
+                        GameEntry.Dialog.SetComplete(OnExit);
+                    }
+                    break;
+                case 2:
+                    if (GameEntry.Utils.CharData.wisdom >= 80)
+                    {
+                        GameEntry.Dialog.PlayStory(matchStories[2]);
+                        GameEntry.Dialog.SetComplete(OnExit);
+                    }
+                    else
+                    {
+                        GameEntry.Dialog.PlayStory(matchStories[5]);
+                        GameEntry.Dialog.SetComplete(OnExit);
+                    }
+                    break;
+                case 3:
+                    if (GameEntry.Utils.CharData.wisdom >= 100)
+                    {
+                        GameEntry.Dialog.PlayStory(matchStories[3]);
+                        GameEntry.Dialog.SetComplete(OnExit);
+                    }
+                    else
+                    {
+                        GameEntry.Dialog.PlayStory(matchStories[6]);
+                        GameEntry.Dialog.SetComplete(OnExit);
+                    }
+                    break;
+            }
         }
 
         private void OnExit()

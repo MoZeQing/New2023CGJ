@@ -18,6 +18,8 @@ namespace GameMain
         public Sprite orderSprite;
         public OutingSceneState outSceneState;
 
+
+        public Dictionary<OutingSceneState,int> outSceneDic=new Dictionary<OutingSceneState,int>();
         public int Closet { get; set; }
         public bool PickUp { get; set; } = false;
 
