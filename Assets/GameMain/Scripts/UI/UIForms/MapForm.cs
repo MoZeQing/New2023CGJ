@@ -26,13 +26,13 @@ namespace GameMain
 
             exitBtn.onClick.AddListener(() => GameEntry.UI.CloseUIForm(this.UIForm));
 
-            libraryBtn.onClick.AddListener(() => Outing(OutingSceneState.Restaurant));
+            libraryBtn.onClick.AddListener(() => Outing(OutingSceneState.Library));
             clothingBtn.onClick.AddListener(() => Outing(OutingSceneState.Clothing));
             gymBtn.onClick.AddListener(() => Outing(OutingSceneState.Gym));
             benchBtn.onClick.AddListener(() => Outing(OutingSceneState.Clothing));
             marketBtn.onClick.AddListener(() => Outing(OutingSceneState.Gym));
 
-            libraryBtn.transform.GetChild(0).gameObject.SetActive(GameEntry.Dialog.CheckOutStory(OutingSceneState.Restaurant));
+            libraryBtn.transform.GetChild(0).gameObject.SetActive(GameEntry.Dialog.CheckOutStory(OutingSceneState.Library));
             clothingBtn.transform.GetChild(0).gameObject.SetActive(GameEntry.Dialog.CheckOutStory(OutingSceneState.Clothing));
             gymBtn.transform.GetChild(0).gameObject.SetActive(GameEntry.Dialog.CheckOutStory(OutingSceneState.Gym));
             benchBtn.transform.GetChild(0).gameObject.SetActive(GameEntry.Dialog.CheckOutStory(OutingSceneState.Beach));

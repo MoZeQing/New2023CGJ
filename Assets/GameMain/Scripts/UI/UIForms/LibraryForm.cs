@@ -50,6 +50,7 @@ namespace GameMain
 
         private void GameBtn_Click()
         {
+            GameEntry.UI.OpenUIForm(UIFormId.ChangeForm);
             GameEntry.UI.OpenUIForm(UIFormId.QueryForm, OnExit);
         }
 

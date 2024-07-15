@@ -137,5 +137,6 @@ namespace GameMain
         Restaurant,//餐馆
         Beach,//海滩
         Clothing,//服装店
+        Library=8//图书馆
     }
 }

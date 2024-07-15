@@ -18,6 +18,7 @@ namespace GameMain
         [SerializeField] private Sprite failSprite;
         [SerializeField] private Transform answerTitle;
         [SerializeField] private Text answerText;
+        [SerializeField] private Button answerTextBtn;
 
         [SerializeField] private Transform canvas;
         [SerializeField] private int totalQuery;
@@ -35,14 +36,13 @@ namespace GameMain
             base.OnOpen(userData);
             mAction = BaseFormData.Action;
 
-            canvas.transform.localPosition = Vector3.up * 1080f;
-            canvas.transform.DOLocalMove(Vector3.zero, 1f);
             answerTitle.gameObject.SetActive(false);
+            answerTextBtn.onClick.AddListener(ShowQuery);
 
             queries.Clear();
             queries = new List<DRQuery>(GameEntry.DataTable.GetDataTable<DRQuery>().GetAllDataRows());
 
-            queryCount = 1;
+            queryCount = 0;
             trueCount= 0;
 
             ShowQuery();
@@ -51,17 +51,31 @@ namespace GameMain
         protected override void OnClose(bool isShutdown, object userData)
         {
             base.OnClose(isShutdown, userData);
+            answerTextBtn.onClick.RemoveAllListeners();
         }
 
         private void ShowQuery()
         {
+            if (totalQuery <= queryCount)
+            {
+                float power = (float)trueCount / (float)totalQuery;
+                int wisdom = (int)(charData.wisdom * power);
+                Dictionary<ValueTag, int> dic = new Dictionary<ValueTag, int>();
+                dic.Add(ValueTag.Wisdom, wisdom);
+                GameEntry.UI.OpenUIForm(UIFormId.CompleteForm,OnExit,dic);
+                return;
+            }
             answerTitle.gameObject.SetActive(false);
             for (int i = 0; i < answerBtns.Length; i++)
             {
                 answerBtns[i].interactable = true;
             }
+            for (int i = 0; i < winFailImgs.Length; i++)
+            {
+                winFailImgs[i].gameObject.SetActive(false);
+            }
             query = queries[UnityEngine.Random.Range(0, queries.Count)];
-            queryText.text = $"Q{queryCount}：\n{query.Query}";
+            queryText.text = $"Q{queryCount+1}/{totalQuery}（完成的正确回答:{trueCount}）：\n{query.Query}";
             answerTexts[0].text = $"A.{query.Answer1}";
             answerTexts[1].text = $"B.{query.Answer2}";
             answerTexts[2].text = $"C.{query.Answer3}";
@@ -72,10 +86,13 @@ namespace GameMain
             {
                 queryImg.sprite = Resources.Load<Sprite>(query.ImagePath);
             }
-
+            answerBtns[0].onClick.RemoveAllListeners();
             answerBtns[0].onClick.AddListener(() => OnClick(1));
+            answerBtns[1].onClick.RemoveAllListeners();
             answerBtns[1].onClick.AddListener(() => OnClick(2));
+            answerBtns[2].onClick.RemoveAllListeners();
             answerBtns[2].onClick.AddListener(() => OnClick(3));
+            answerBtns[3].onClick.RemoveAllListeners();
             answerBtns[3].onClick.AddListener(() => OnClick(4));
             queries.Remove(query);
             queryCount++;
@@ -89,16 +106,18 @@ namespace GameMain
             }
             if (index == query.TrueAnswer)
             {
+                winFailImgs[index - 1].gameObject.SetActive(true);
                 winFailImgs[index - 1].sprite = winSprite;
                 //GameEntry.Sound.PlaySound();
                 trueCount++;
-                Invoke(nameof(ShowQuery), 3f);
+                Invoke(nameof(ShowQuery), 2f);
             }
             else
             {
+                winFailImgs[index - 1].gameObject.SetActive(true);
                 winFailImgs[index - 1].sprite = failSprite;
                 //GameEntry.Sound.PlaySound();
-                Invoke(nameof(ShowAnswer), 3f);
+                Invoke(nameof(ShowAnswer), 2f);
             }
         }
 
@@ -106,9 +125,16 @@ namespace GameMain
         {
             answerTitle.gameObject.SetActive(true);
             answerTitle.transform.localPosition = Vector3.up * 1080f;
-            answerText.text = query.AnswerTitle;
-            answerTitle.DOLocalMove(Vector3.zero, 1f);
-            Invoke(nameof(ShowQuery), 3f);
+            answerText.text = string.Empty;
+            Sequence sequence = DOTween.Sequence();
+            sequence.Append(answerTitle.DOLocalMove(Vector3.zero, 1f).SetEase(Ease.OutExpo));
+            sequence.Append(answerText.DOText($"{query.AnswerTitle}\n\n点击窗体进入下一题……", query.AnswerTitle.Length * 0.06f)); 
+        }
+
+        private void OnExit()
+        {
+            mAction();
+            GameEntry.UI.CloseUIForm(this.UIForm);
         }
     }
 }
