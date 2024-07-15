@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,7 @@ namespace GameMain
          * 5.×¢Òâ×¢ÏúButtonµÄ¼àÌý
          */
         [SerializeField] int pairCount = 8;
+        [SerializeField] List<Sprite> cardFront = new List<Sprite>();
         private int[] m_pariGenCount;
         [SerializeField] private GameObject flopCard;
         [SerializeField] private Transform genNode;
@@ -21,30 +23,47 @@ namespace GameMain
         [SerializeField] private FlopCard card01 = null;
         [SerializeField] private FlopCard card02 = null;
         [SerializeField] private float timeLimit;
+        private float timer;
         [SerializeField] private Text showTime;
 
         [SerializeField] private CharData charData;
         [SerializeField] private PlayerData playerData;
 
+        private Action mAction;
+        private int flipCount;
+
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            m_pariGenCount = new int[pairCount];
-            for (int i = 0; i < pairCount; i++)
-                m_pariGenCount[i] = 2;
-
+            mAction = BaseFormData.Action;
+            
             InitFlop();
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
-            if (timeLimit <= 0)
+            if (timer <= 0)
             {
-                GameOver();
+                Dictionary<ValueTag, int> dic = new Dictionary<ValueTag, int>();
+                float power = flipCount / pairCount;
+                int charm = (int)(charData.charm * power);
+                dic.Add(ValueTag.Charm, charm);
+                playerData.GetValueTag(dic);
+
+                GameEntry.UI.OpenUIForm(UIFormId.CompleteForm, OnExit, dic);
+            }
+            else if(flipCount <= pairCount)
+            {
+                Dictionary<ValueTag, int> dic = new Dictionary<ValueTag, int>();
+                dic.Add(ValueTag.Charm, charData.charm);
+                playerData.GetValueTag(dic);
+
+                GameEntry.UI.OpenUIForm(UIFormId.CompleteForm, OnExit, dic);
+                return;
             }
 
-            timeLimit -= Time.deltaTime;
+            timer -= Time.deltaTime;
             showTime.text = FormatTime((int)timeLimit);
 
             foreach (var card in m_cardList)
@@ -66,6 +85,7 @@ namespace GameMain
             {
                 if (card01.ID == card02.ID)
                 {
+                    flipCount++;
                     card01.canClick = false;
                     card01.isDone = true;
                     card02.canClick = false;
@@ -91,13 +111,22 @@ namespace GameMain
 
         private void InitFlop()
         {
+            timer = timeLimit;
+            flipCount = 0;
+
+            m_pariGenCount = new int[pairCount];
+            for (int i = 0; i < pairCount; i++)
+                m_pariGenCount[i] = 2;
+            m_cardList.Clear();
+
             do
             {
-                var index = Random.Range(0, 8);
+                var index = UnityEngine.Random.Range(0, 8);
                 if (m_pariGenCount[index] > 0)
                 {
                     var go = Instantiate(flopCard, genNode).GetComponent<FlopCard>();
                     go.ID = index;
+                    go.front = cardFront[index];
                     m_cardList.Add(go);
                     m_pariGenCount[index]--;
                 }
@@ -114,9 +143,10 @@ namespace GameMain
             return string.Format("{0:00}:{1:00}", minutes, seconds);
         }
 
-        private void GameOver()
+        private void OnExit()
         {
-
+            mAction();
+            GameEntry.UI.CloseUIForm(this.UIForm);
         }
     }
 }
