@@ -20,7 +20,10 @@ namespace GameMain
         [SerializeField] private Animator mAnimator;
         [SerializeField] private TeachingForm mTeachingForm;
         [SerializeField] private Image backgroundImg;
+        [SerializeField] private Image changeBackgroundImg;
         [SerializeField] private Image littleCatImg;
+        [SerializeField] private Image[] apPoints;
+        [SerializeField] private Image apProgress;
         [Header("Ö÷¿Ø")]
         [SerializeField] private Button loadBtn;
         [SerializeField] private Button saveBtn;
@@ -72,6 +75,7 @@ namespace GameMain
                     return;
                 ChangeTeach();
             }
+            ApUpdate();
         }
         protected override void OnClose(bool isShutdown, object userData)
         {
@@ -123,6 +127,7 @@ namespace GameMain
                 mTeachingForm.Click_Action();
             }
         }
+
         private void OnGameStateEvent(object sender, GameEventArgs e)
         {
             GameStateEventArgs args = (GameStateEventArgs)e;
@@ -134,33 +139,51 @@ namespace GameMain
         private WeatherTag weatherTag;
         private void BackgroundUpdate()
         {
-            //GameState gameState = GameEntry.Utils.GameState;
-            //WeatherTag weatherTag = WeatherTag.Morning;
-            //if (GameEntry.Utils.IsRain)
-            //{
-            //    weatherTag = WeatherTag.Rain;
-            //}
-            //else
-            //{
-            //    switch (gameState)
-            //    {
-            //        case GameState.Night:
-            //            weatherTag = WeatherTag.Night;
-            //            break;
-            //        case GameState.Afternoon:
-            //            weatherTag = WeatherTag.Afternoon;
-            //            break;
-            //        case GameState.Morning:
-            //            weatherTag = WeatherTag.Morning;
-            //            break;
-            //    }
-            //}
+            GameState gameState = GameEntry.Utils.GameState;
+            if (GameEntry.Utils.IsRain)
+            {
+                weatherTag = WeatherTag.Rain;
+            }
+            else
+            {
+                switch (gameState)
+                {
+                    case GameState.Night:
+                        if (GameEntry.Utils.Ap <= 2)
+                        {
+                            weatherTag = WeatherTag.Night;
+                        }
+                        else
+                        {
+                            weatherTag = WeatherTag.Afternoon;
+                        }
+                        break;
+                    case GameState.Morning:
+                        weatherTag = WeatherTag.Morning;
+                        break;
+                }
+            }
             if (weatherTag == GameEntry.Utils.WeatherTag)
                 return;
-            weatherTag=GameEntry.Utils.WeatherTag;
+            GameEntry.Utils.WeatherTag=weatherTag;
             DRWeather weather = GameEntry.DataTable.GetDataTable<DRWeather>().GetDataRow((int)GameEntry.Utils.WeatherTag);
+            changeBackgroundImg.sprite = backgroundImg.sprite;
+            changeBackgroundImg.gameObject.SetActive(true);
+            changeBackgroundImg.color = Color.white;
             backgroundImg.sprite = Resources.Load<Sprite>(weather.AssetName);
+            changeBackgroundImg.DOColor(Color.clear, 3f).OnComplete(() => changeBackgroundImg.gameObject.SetActive(false));
             GameEntry.Sound.PlaySound(weather.BackgroundMusicId);
+        }
+
+        private void ApUpdate()
+        {
+            int maxAp = GameEntry.Utils.MaxAp;
+            int ap = GameEntry.Utils.Ap;
+            for (int i = 0; i < apPoints.Length; i++)
+            {
+                apPoints[i].gameObject.SetActive(maxAp - ap <= i);
+            }
+            apProgress.fillAmount = (float)ap / (float)maxAp;
         }
     }
 

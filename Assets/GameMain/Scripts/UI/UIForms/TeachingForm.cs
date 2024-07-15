@@ -240,7 +240,7 @@ namespace GameMain
             //rentText.transform.parent.gameObject.SetActive(GameEntry.Utils.Rent != 0);
             //rentText.text = string.Format("距离下一次欠款缴纳还有{0}天\r\n下一次交纳欠款：{1}",6-(playerData.day + 20) % 7, GameEntry.Utils.Rent.ToString());
             BuffData buffData = GameEntry.Buff.GetBuff();
-            energyText.text = string.Format("{0}/{1}", playerData.energy, playerData.maxEnergy*buffData.EnergyMaxMulti+buffData.EnergyMaxPlus);
+            //energyText.text = string.Format("{0}/{1}", playerData.energy, playerData.maxEnergy*buffData.EnergyMaxMulti+buffData.EnergyMaxPlus);
             moneyText.text=string.Format("{0}", playerData.money.ToString());
             timeText.text = string.Format("第{0}周 第{1}天 星期{2}", playerData.day/7+1, playerData.day% 7+1, AssetUtility.GetWeekCN(playerData.day % 7));
         }
