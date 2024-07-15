@@ -3,106 +3,121 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FlopForm : MonoBehaviour
+namespace GameMain
 {
-    [SerializeField] int pairCount = 8;
-    private int[] m_pariGenCount;
-    [SerializeField] private GameObject flopCard;
-    [SerializeField] private Transform genNode;
-    private List<FlopCard> m_cardList = new List<FlopCard>();
-    [SerializeField] private FlopCard card01 = null;
-    [SerializeField] private FlopCard card02 = null;
-    [SerializeField] private float timeLimit;
-    [SerializeField] private Text showTime;
-
-    private void Start()
+    public class FlopForm : BaseForm
     {
-        m_pariGenCount = new int[pairCount];
-        for (int i = 0; i < pairCount; i++)
-            m_pariGenCount[i] = 2;
+        /* 1.将脚本改动到框架内
+         * 2.卡牌的数字改为图片——》图片使用表格管理，List
+         * 3.注意一下音效
+         * 4.计算结果，并把结果传给结算界面
+         * 5.注意注销Button的监听
+         */
+        [SerializeField] int pairCount = 8;
+        private int[] m_pariGenCount;
+        [SerializeField] private GameObject flopCard;
+        [SerializeField] private Transform genNode;
+        private List<FlopCard> m_cardList = new List<FlopCard>();
+        [SerializeField] private FlopCard card01 = null;
+        [SerializeField] private FlopCard card02 = null;
+        [SerializeField] private float timeLimit;
+        [SerializeField] private Text showTime;
 
-        InitFlop();
-    }
+        [SerializeField] private CharData charData;
+        [SerializeField] private PlayerData playerData;
 
-    private void Update()
-    {
-        if(timeLimit <= 0)
+        protected override void OnOpen(object userData)
         {
-            GameOver();
+            base.OnOpen(userData);
+            m_pariGenCount = new int[pairCount];
+            for (int i = 0; i < pairCount; i++)
+                m_pariGenCount[i] = 2;
+
+            InitFlop();
         }
 
-        timeLimit -= Time.deltaTime;
-        showTime.text = FormatTime((int)timeLimit);
-
-        foreach(var card in m_cardList)
+        protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
-            if(card.isFlip && !card.isDone)
+            base.OnUpdate(elapseSeconds, realElapseSeconds);
+            if (timeLimit <= 0)
             {
-                if(card01 == null)
+                GameOver();
+            }
+
+            timeLimit -= Time.deltaTime;
+            showTime.text = FormatTime((int)timeLimit);
+
+            foreach (var card in m_cardList)
+            {
+                if (card.isFlip && !card.isDone)
                 {
-                    card01 = card;
+                    if (card01 == null)
+                    {
+                        card01 = card;
+                    }
+                    else if (card02 == null && card01 != card)
+                    {
+                        card02 = card;
+                    }
                 }
-                else if(card02 == null && card01 != card)
+            }
+
+            if (card02 != null && card01 != null)
+            {
+                if (card01.ID == card02.ID)
                 {
-                    card02 = card;
+                    card01.canClick = false;
+                    card01.isDone = true;
+                    card02.canClick = false;
+                    card02.isDone = true;
+
+                    card01 = null;
+                    card02 = null;
+                }
+                else
+                {
+                    foreach (var card in m_cardList)
+                    {
+                        card.CoolDown();
+                    }
+                    card01.TrunBack();
+                    card02.TrunBack();
+
+                    card01 = null;
+                    card02 = null;
                 }
             }
         }
 
-        if(card02 != null && card01 != null)
+        private void InitFlop()
         {
-            if (card01.ID == card02.ID)
+            do
             {
-                card01.canClick = false;
-                card01.isDone = true;
-                card02.canClick = false;
-                card02.isDone = true;
-
-                card01 = null;
-                card02 = null;
-            }
-            else
-            {
-                foreach(var card in m_cardList)
+                var index = Random.Range(0, 8);
+                if (m_pariGenCount[index] > 0)
                 {
-                    card.CoolDown();
+                    var go = Instantiate(flopCard, genNode).GetComponent<FlopCard>();
+                    go.ID = index;
+                    m_cardList.Add(go);
+                    m_pariGenCount[index]--;
                 }
-                card01.TrunBack();
-                card02.TrunBack();
 
-                card01 = null;
-                card02 = null;
-            }
+            } while (m_cardList.Count < pairCount * 2);
         }
-    }
 
-    private void InitFlop()
-    {
-        do
+        public static string FormatTime(int totalSeconds)
         {
-            var index = Random.Range(0, 8);
-            if (m_pariGenCount[index] > 0)
-            {
-                var go = Instantiate(flopCard, genNode).GetComponent<FlopCard>();
-                go.ID = index;
-                m_cardList.Add(go);
-                m_pariGenCount[index]--;
-            }
+            int minutes = totalSeconds / 60; // 计算分钟数
+            int seconds = totalSeconds % 60; // 计算剩余的秒数
 
-        } while (m_cardList.Count < pairCount * 2);
-    }
+            // 格式化字符串，确保秒数至少有两位数字（如果需要的话）
+            return string.Format("{0:00}:{1:00}", minutes, seconds);
+        }
 
-    public static string FormatTime(int totalSeconds)
-    {
-        int minutes = totalSeconds / 60; // 计算分钟数
-        int seconds = totalSeconds % 60; // 计算剩余的秒数
+        private void GameOver()
+        {
 
-        // 格式化字符串，确保秒数至少有两位数字（如果需要的话）
-        return string.Format("{0:00}:{1:00}", minutes, seconds);
-    }
-
-    private void GameOver()
-    {
-
+        }
     }
 }
+

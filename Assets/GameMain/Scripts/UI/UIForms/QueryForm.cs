@@ -62,6 +62,7 @@ namespace GameMain
                 int wisdom = (int)(charData.wisdom * power);
                 Dictionary<ValueTag, int> dic = new Dictionary<ValueTag, int>();
                 dic.Add(ValueTag.Wisdom, wisdom);
+                playerData.GetValueTag(dic);
                 GameEntry.UI.OpenUIForm(UIFormId.CompleteForm,OnExit,dic);
                 return;
             }
