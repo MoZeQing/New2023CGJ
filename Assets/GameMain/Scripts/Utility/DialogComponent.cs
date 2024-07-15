@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityGameFramework.Runtime;
 
 namespace GameMain
@@ -153,6 +154,10 @@ namespace GameMain
             return false;
         }
 
+        public void PlayStory(DialogueGraph dialogueGraph)
+        {
+            GameEntry.UI.OpenUIForm(UIFormId.DialogForm, dialogueGraph);
+        }
         public bool PlayStory(string tag)
         {
             foreach (StorySO story in loadedStories)
