@@ -21,7 +21,7 @@ namespace GameMain
         [SerializeField] private TeachingForm mTeachingForm;
         [SerializeField] private Image backgroundImg;
         [SerializeField] private Image changeBackgroundImg;
-        [SerializeField] private Image littleCatImg;
+        [SerializeField] private List<Button> littleCatBtns;
         [SerializeField] private Image[] apPoints;
         [SerializeField] private Image apProgress;
         [Header("Ö÷¿Ø")]
@@ -55,6 +55,11 @@ namespace GameMain
             buffBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.BuffForm));
             GameEntry.Event.Subscribe(GameStateEventArgs.EventId, OnGameStateEvent);
             canvasGroup.interactable = true;
+
+            for (int i = 0; i < littleCatBtns.Count; i++)
+            {
+                littleCatBtns[i].onClick.AddListener(ChangeTeach);
+            }
         }
         private float nowTime;
         [SerializeField,Range(0,5f)] private float rateTime=5f;
@@ -65,7 +70,7 @@ namespace GameMain
             if (nowTime <= 0)
             {
                 nowTime = rateTime;
-                UpdateLittleCat();
+                ShowLittleCat();
             }
 
             BackgroundUpdate();
@@ -93,11 +98,27 @@ namespace GameMain
             outBtn.onClick.RemoveAllListeners();
             buffBtn.onClick.RemoveAllListeners();
             GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, OnGameStateEvent);
+
+            for (int i = 0; i < littleCatBtns.Count; i++)
+            {
+                littleCatBtns[i].onClick.RemoveAllListeners();
+            }
         }
-        private void UpdateLittleCat()
+        private void ShowLittleCat()
         {
+            HideLittleCat();
             DRLittleCat littleCat = GameEntry.DataTable.GetDataTable<DRLittleCat>().GetDataRow(GameEntry.Utils.Closet);
-            littleCatImg.sprite = Resources.Load<Sprite>($"{littleCat.ClothingPath}_{Random.Range(0, littleCat.Range)+1}");
+            int index = Random.Range(0, littleCatBtns.Count);
+            Button button = littleCatBtns[index];
+            button.gameObject.SetActive(true);
+            button.GetComponent<Image>().sprite = Resources.Load<Sprite>($"{littleCat.ClothingPath}_{index + 1}");
+        }
+        private void HideLittleCat()
+        {
+            for (int i = 0; i < littleCatBtns.Count; i++)
+            {
+                littleCatBtns[i].gameObject.SetActive(false);
+            }
         }
         private void Change(GamePos gamePos)
         {
@@ -118,7 +139,7 @@ namespace GameMain
         }
         private void ChangeTeach()
         {
-            littleCatImg.gameObject.SetActive(!littleCatImg.gameObject.activeSelf);
+            HideLittleCat();
             mAnimator.SetBool("Into", !mAnimator.GetBool("Into"));
             canvasGroup.interactable = !mAnimator.GetBool("Into");
             teachBtn1.interactable = mAnimator.GetBool("Into");
