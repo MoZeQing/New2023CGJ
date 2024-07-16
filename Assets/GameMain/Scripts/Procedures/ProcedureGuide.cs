@@ -97,8 +97,6 @@ namespace GameMain
                 mWorkForm = GameObject.Find("WorkForm").GetComponent<WorkForm>();
 
                 mOrderList.IsShowItem = false;
-                mWorkForm.IsGuide= true;
-                //mWorkForm.IsNext = false;
                 mWorkForm.OnLevel("Guide_1");
                 GameEntry.Utils.Day++;
                 mIndex++;
@@ -126,7 +124,6 @@ namespace GameMain
             if (args.GameState == GameState.AfterSpecial)
             {
                 mOrderList.IsShowItem = false;
-                mWorkForm.IsGuide = true;
                 //mWorkForm.IsNext = false;
                 if (mIndex == 1)
                 {

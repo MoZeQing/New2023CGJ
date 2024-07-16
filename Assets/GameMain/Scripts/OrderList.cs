@@ -12,13 +12,12 @@ namespace GameMain
     {
         [SerializeField] private List<Transform> plotsCanvas = new List<Transform>();
         [SerializeField] private List<OrderItem> orders = new List<OrderItem>();
-        [SerializeField] private Transform canvas;
-        [SerializeField] private GameObject orderPre;
-
-        private List<OrderData> finishOrders= new List<OrderData>();
 
         private bool mIsShowItem = true;
 
+        /// <summary>
+        /// 是否自动随机生成订单
+        /// </summary>
         public bool IsShowItem
         {
             get
@@ -49,27 +48,6 @@ namespace GameMain
             GameEntry.Event.Unsubscribe(LevelEventArgs.EventId, OnLevelEvent);
         }
 
-        //protected override void OnInit(object userData)
-        //{
-        //    base.OnInit(userData);
-        //}
-
-        //protected override void OnShow(object userData)
-        //{
-        //    base.OnShow(userData);
-        //    GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, ShowOrderSuccess);
-        //    GameEntry.Event.Subscribe(OrderEventArgs.EventId, OnOrderEvent);
-        //    GameEntry.Event.Subscribe(LevelEventArgs.EventId, OnLevelEvent);
-        //}
-
-        //protected override void OnHide(bool isShutdown, object userData)
-        //{
-        //    base.OnHide(isShutdown, userData);
-        //    GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, ShowOrderSuccess);
-        //    GameEntry.Event.Unsubscribe(OrderEventArgs.EventId, OnOrderEvent);
-        //    GameEntry.Event.Unsubscribe(LevelEventArgs.EventId, OnLevelEvent);
-        //}
-
         private float nowTime=5f;
         private float rateTime=10f;
 
@@ -95,20 +73,8 @@ namespace GameMain
                         coffees.Add((NodeTag)node.Id);
             }
             orderData.NodeTag = coffees[Random.Range(0, coffees.Count - 1)];
-            //生成好友订单
-            int friendRand = Random.Range(0, 12);
-            if (friendRand < 6)
-            {
-                List<string> keys = new List<string>(GameEntry.Utils._friends.Keys);
-                orderData.friendName = keys[friendRand];
-                orderData.friendFavor = 2;
-            }
-            //生成好友订单
             orderData.Grind = Random.Range(0, 2) == 1;
             orderData.OrderTime = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)orderData.NodeTag).Time;
-            orderData.Sugar = Random.Range(0, 2) == 1;
-            orderData.CondensedMilk = Random.Range(0, 2) == 1;
-            orderData.Salt = Random.Range(0, 2) == 1;
             orderData.NodeName = orderData.NodeTag.ToString();
             ShowItem(orderData);
         }

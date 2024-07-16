@@ -21,17 +21,17 @@ namespace GameMain
         [SerializeField] private OrderList orderList;
         [SerializeField] private Transform modeCanvas;
         [SerializeField] private Button commonBtn;
-
+        [SerializeField] private Image modeTitle;
         [SerializeField] public bool IsGuide { get; set; }
 
+        private List<OrderData> mOrderDatas;
         private LevelData mLevelData;
         private int mOrderCount;
         private float nowTime;
-        private float levelTime;
-        private bool isSpecial;
-        private bool isChoice;
 
-        private bool flag=false;
+        /// <summary>
+        /// 是否正在播放剧情
+        /// </summary>
         public bool IsDialog { get; set; }=false;
         public bool IsNext
         {
@@ -48,9 +48,7 @@ namespace GameMain
         private void Start()
         {
             orderList.IsShowItem = false;
-            isChoice = false;
-            isSpecial = false;
-            IsDialog = false;
+            IsDialog = true;
         }
 
         private void OnEnable()
@@ -58,11 +56,8 @@ namespace GameMain
             recipeBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.RecipeForm));
             guideBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.GuideForm));
 
-            if (!IsGuide)
-            {
-                commonBtn.onClick.AddListener(() => SetData(90,0,1f,1f));
-            }
-            mLevelData = GameEntry.Dialog.loadedLevelSOs[0].levelData;
+            commonBtn.onClick.AddListener(SetData);
+            mLevelData = GameEntry.Dialog.loadedLevelSOs[0].levelData;//默认订单
             GameEntry.Event.Subscribe(OrderEventArgs.EventId, OnOrderEvent);
         }
 
@@ -77,20 +72,11 @@ namespace GameMain
         {
             if (Input.GetKeyDown(KeyCode.J))
                 nowTime = 1f;
-
-            if(Input.GetKeyDown(KeyCode.Space))
-                flag= !flag;
-
-            if (flag)
-                return;
-
-            if (isChoice == false)
-                return;
             if (GameEntry.Dialog.InDialog)
                 return;
-            if (IsGuide)
-                return;
             if (IsDialog)
+                return;
+            if (modeCanvas.gameObject.activeSelf)
                 return;
             nowTime -= Time.deltaTime;
             if (nowTime > 0)
@@ -99,36 +85,26 @@ namespace GameMain
                 timeText.text = "∞";
             if (nowTime <= 0&&nowTime>-1)
             {
-                if (isSpecial)
-                {            
-                    GameEntry.Event.FireNow(this, LevelEventArgs.Create());
-                    GamePosUtility.Instance.GamePosChange(GamePos.Up);
-                    dialogBox.SetDialog(mLevelData.afterWork);
-                    dialogBox.SetComplete(OnAfterWorkComplete);
-                    IsDialog= true;
-                }
-                else
-                {
-                    OnLevel();
-                    IsDialog = true;
-                }
+                //如果时间不足，结束订单时间
+                GameEntry.Event.FireNow(this, LevelEventArgs.Create());
+                GamePosUtility.Instance.GamePosChange(GamePos.Up);
+                dialogBox.SetDialog(mLevelData.afterWork);
+                dialogBox.SetComplete(OnAfterWorkComplete);
+                IsDialog = true;
             }
         }
-        private void SetData(int time,int energy,float orderPower,float pricePower)
+        private void SetData()
         {
-            BuffData buffData = GameEntry.Buff.GetBuff();
-            levelTime = (int)(time*buffData.TimeMulti + buffData.TimePlus);
-            nowTime = levelTime;
-            GameEntry.Utils.Energy -= energy;
-            GameEntry.Utils.OrderPower = orderPower;
-            GameEntry.Utils.PricePower = pricePower;
+            //modeTitle.sprite = GameEntry.Utils.modeSprites[(int)mLevelData.levelTag];
+            nowTime = mLevelData.levelTime;
             modeCanvas.gameObject.SetActive(false);
-            isChoice = true;
             orderList.IsShowItem = true;
+            mOrderDatas = mLevelData.GetOrderDatas();
+            orderList.ShowItem(mOrderDatas);
+            orderList.IsShowItem = false;
         }
-        private void OnLevel()
+        public void OnLevel()
         {
-            GameEntry.Event.FireNow(this, LevelEventArgs.Create());
             List<LevelSO> levels = new List<LevelSO>();
             foreach (LevelSO level in GameEntry.Dialog.loadedLevelSOs)
             {
@@ -171,27 +147,28 @@ namespace GameMain
         { 
             mLevelData= levelData;
             mOrderCount = 0;
+            IsDialog = true;
             GamePosUtility.Instance.GamePosChange(GamePos.Up);
             dialogBox.SetDialog(mLevelData.foreWork);
             dialogBox.SetComplete(OnForeWorkComplete);
+            GameEntry.Event.FireNow(this, LevelEventArgs.Create());
             GameEntry.Event.Fire(this, GameStateEventArgs.Create(GameState.ForeSpecial));
         }
 
         private void OnForeWorkComplete()
         {
             GamePosUtility.Instance.GamePosChange(GamePos.Down);
-            nowTime = mLevelData.orderTime;
             orderList.IsShowItem= true;
-            orderList.ShowItem(mLevelData.orderDatas);
+            nowTime = mLevelData.levelTime;
+            mOrderDatas = mLevelData.GetOrderDatas();
             orderList.IsShowItem = false;
             IsDialog= false;
-            isSpecial = true;
             GameEntry.Event.Fire(this, GameStateEventArgs.Create(GameState.Special));
         }
 
         private void OnAfterWorkComplete()
         {
-            GameEntry.Event.Fire(this, GameStateEventArgs.Create(GameState.AfterSpecial));
+            GameEntry.Event.Fire(nowTime/(float)mLevelData.levelTime, GameStateEventArgs.Create(GameState.AfterSpecial));
         }
 
         private void OnOrderEvent(object sender, GameEventArgs e)
@@ -199,19 +176,18 @@ namespace GameMain
             OrderEventArgs args = (OrderEventArgs)e;
             if (mLevelData != null)
             {
-                if (mLevelData.orderDatas.Contains(args.OrderData))
+                if (mOrderDatas.Contains(args.OrderData))
                 {
-                    if (args.Income == 0)
-                        return;
+                    //if (args.Income == 0)
+                    //    return;
                     mOrderCount++;
-                    if (GameEntry.Utils.GetFriends().ContainsKey(mLevelData.charSO.name))
-                        GameEntry.Utils.AddFriendFavor(mLevelData.charSO.name, mLevelData.favor / mLevelData.orderDatas.Count);
                 }
-                if (mOrderCount == mLevelData.orderDatas.Count)
+                if (mOrderCount == mOrderDatas.Count)
                 {
                     GamePosUtility.Instance.GamePosChange(GamePos.Up);
                     dialogBox.SetDialog(mLevelData.afterWork);
                     dialogBox.SetComplete(OnAfterWorkComplete);
+
                 }
             }  
         }
@@ -236,7 +212,16 @@ namespace GameMain
             get;
             set;
         }
-
+        public float Power
+        {
+            get;
+            set;
+        }
+        public int Money
+        {
+            get;
+            set;
+        }
         public int Financial
         {
             get;

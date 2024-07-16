@@ -29,7 +29,6 @@ namespace GameMain
         [SerializeField] private Button saveBtn;
         [SerializeField] private Button optionBtn;
         [SerializeField] private Button guideBtn;
-        [SerializeField] private Button upgradeBtn;
         [SerializeField] private Button friendBtn;
         [SerializeField] private Button recipeBtn;
         [SerializeField] private Button closetBtn;
@@ -48,8 +47,7 @@ namespace GameMain
             optionBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.OptionForm, this));
             guideBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.GuideForm));
             friendBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.FriendForm));
-            recipeBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.GuideForm));
-            upgradeBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.UpgradeForm));
+            recipeBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.RecipeForm));
             closetBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.ClosetForm));
             outBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.MapForm));
             buffBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.BuffForm));
@@ -94,7 +92,6 @@ namespace GameMain
             friendBtn.onClick.RemoveAllListeners();
             recipeBtn.onClick.RemoveAllListeners();
             closetBtn.onClick.RemoveAllListeners();
-            upgradeBtn.onClick.RemoveAllListeners();
             outBtn.onClick.RemoveAllListeners();
             buffBtn.onClick.RemoveAllListeners();
             GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, OnGameStateEvent);

@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-07-16 20:16:44.754
+// 生成时间：2024-07-16 20:16:44.765
 //------------------------------------------------------------
 
 using GameFramework;
@@ -19,14 +19,14 @@ using UnityGameFramework.Runtime;
 namespace GameMain
 {
     /// <summary>
-    /// 小猫猫配置表。
+    /// 教学配置表。
     /// </summary>
-    public class DRLittleCat : DataRowBase
+    public class DRTag : DataRowBase
     {
         private int m_Id = 0;
 
         /// <summary>
-        /// 获取小猫猫编号。
+        /// 获取教学内容编号。
         /// </summary>
         public override int Id
         {
@@ -37,18 +37,9 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取标签内容。
+        /// 获取咖啡类别。
         /// </summary>
-        public string ClothingPath
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取范围。
-        /// </summary>
-        public int Range
+        public string NodeTags
         {
             get;
             private set;
@@ -66,8 +57,7 @@ namespace GameMain
             index++;
             m_Id = int.Parse(columnStrings[index++]);
             index++;
-            ClothingPath = columnStrings[index++];
-            Range = int.Parse(columnStrings[index++]);
+            NodeTags = columnStrings[index++];
 
             GeneratePropertyArray();
             return true;
@@ -80,8 +70,7 @@ namespace GameMain
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
-                    ClothingPath = binaryReader.ReadString();
-                    Range = binaryReader.Read7BitEncodedInt32();
+                    NodeTags = binaryReader.ReadString();
                 }
             }
 

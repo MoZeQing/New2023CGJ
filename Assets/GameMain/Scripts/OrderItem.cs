@@ -12,7 +12,7 @@ using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
 
 namespace GameMain
 {
-    public class OrderItem : Entity
+    public class OrderItem : Entity,IPointerClickHandler
     {
         [SerializeField] private Image coffeeItem;
         [SerializeField] private Text coffeeName;
@@ -23,10 +23,12 @@ namespace GameMain
         [SerializeField] private Image coarse;
         [SerializeField] private Image friendImg;
         [SerializeField] private Image timeLine;
+        [SerializeField] private Image badImg;
 
         private OrderItemData mOrderItemData = null;
         private OrderData mOrderData = null;
         private float nowTime = 0f;
+        private int badCount;
 
         protected override void OnInit(object userData)
         {
@@ -44,6 +46,7 @@ namespace GameMain
             //exitBtn = orderCanvas.Find("Exit").GetComponent<Button>();
             coffeeName = orderCanvas.Find("ItemText").GetComponent<Text>();
             timeLine = orderCanvas.Find("TimeLine").GetComponent<Image>();
+            badImg = orderCanvas.Find("BadImg").GetComponent<Image>();
 
             //exitBtn.onClick.AddListener(OnExit);
         }
@@ -59,15 +62,30 @@ namespace GameMain
             grind.gameObject.SetActive(!mOrderData.Grind);
             hot.gameObject.SetActive(!dRNode.Ice);
             ice.gameObject.SetActive(dRNode.Ice);
-            if (mOrderItemData.OrderData.friendName != null&& mOrderItemData.OrderData.friendName != string.Empty)
+            timeLine.gameObject.SetActive(mOrderData.Bad);
+            friendImg.sprite = GameEntry.Utils.orderSprite;
+            if (mOrderData.Urgent)
             {
-                friendImg.sprite = GameEntry.Utils.chars[mOrderItemData.OrderData.friendName].orderSprite;
+                nowTime = mOrderData.OrderTime;
+                timeLine.gameObject.SetActive(mOrderData.Urgent);
             }
             else
             {
-                friendImg.sprite = GameEntry.Utils.orderSprite;
+                timeLine.gameObject.SetActive(!mOrderData.Urgent);
             }
-            nowTime = mOrderData.OrderTime * 3 * GameEntry.Utils.OrderPower;
+            badCount = 0;
+            if (mOrderData.Bad)
+            {
+                badImg.gameObject.SetActive(mOrderData.Bad);
+                timeLine.gameObject.SetActive(mOrderData.Bad);
+                nowTime = 10f;
+                mOrderData.OrderTime = 10f;
+                badCount = 10;
+            }
+            else
+            {
+                badImg.gameObject.SetActive(mOrderData.Bad);
+            }
             Debug.Log(nowTime);
         }
 
@@ -75,17 +93,16 @@ namespace GameMain
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
             nowTime -= Time.deltaTime;
-            timeLine.fillAmount = nowTime / (mOrderData.OrderTime * 3 * GameEntry.Utils.OrderPower);
-            
-            if (nowTime < mOrderData.OrderTime * 3 * GameEntry.Utils.OrderPower)
+            timeLine.fillAmount = nowTime / mOrderData.OrderTime;       
+            if (nowTime < mOrderData.OrderTime)
             {
                 timeLine.color = Color.green;
             }
-            if (nowTime < mOrderData.OrderTime * 2 * GameEntry.Utils.OrderPower)
+            if (nowTime < mOrderData.OrderTime * 2f / 3f) 
             {
                 timeLine.color = Color.yellow;
             }
-            if (nowTime < mOrderData.OrderTime * GameEntry.Utils.OrderPower)
+            if (nowTime < mOrderData.OrderTime * 1f / 3f) 
             {
                 timeLine.color = Color.red;
             }
@@ -110,6 +127,8 @@ namespace GameMain
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
+            if (mOrderData.Bad)
+                return;
             BaseCompenent baseCompenent = null;
             if (collision.TryGetComponent<BaseCompenent>(out baseCompenent))
             {
@@ -120,11 +139,6 @@ namespace GameMain
                     int income = 0;
                     IDataTable<DRNode> dtNode = GameEntry.DataTable.GetDataTable<DRNode>();
                     income = dtNode.GetDataRow((int)mOrderData.NodeTag).Price;
-                    if (mOrderData.Urgent)
-                        income = (int)(income * 1.5f);
-                    income += mOrderData.Sugar ? 2 : 0;
-                    income += mOrderData.CondensedMilk ? 5 : 0;
-                    income += mOrderData.Salt ? 3 : 0;
                     float p = 1f;
                     if (nowTime > mOrderData.OrderTime * 2 * GameEntry.Utils.OrderPower)
                     {
@@ -145,10 +159,6 @@ namespace GameMain
                         GameEntry.Utils.PlayerData.ccoffee++;
                     }
                     income = (int)(income * p*GameEntry.Utils.PricePower);
-                    if (mOrderItemData.OrderData.friendName != null)
-                    {
-                        GameEntry.Utils.AddFriendFavor(mOrderItemData.OrderData.friendName, mOrderItemData.OrderData.friendFavor);
-                    }
                     GameEntry.Event.FireNow(this, OrderEventArgs.Create(mOrderData, income));
                     GameEntry.Entity.HideEntity(baseCompenent.transform.parent.GetComponent<BaseNode>().Entity);
                     GameEntry.Entity.HideEntity(this.Entity);
@@ -156,11 +166,18 @@ namespace GameMain
             }
         }
 
-        //public void OnPointerClick(PointerEventData eventData)
-        //{
-        //    GameEntry.Event.FireNow(this, OrderEventArgs.Create(mOrderData, 0));
-        //    GameEntry.Entity.HideEntity(this.Entity);
-        //}
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (badCount == 0)
+                return;
+            badCount--;
+            if (badCount == 0)
+            { 
+                badImg.gameObject.SetActive(false);
+                timeLine.gameObject.SetActive(false);
+                nowTime = -1;
+            }
+        }
     }
 
 }

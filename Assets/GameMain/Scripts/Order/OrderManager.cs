@@ -177,17 +177,34 @@ namespace GameMain
         //咖啡种类
         public NodeTag NodeTag;
         public string NodeName;
-        //好友名称和好感度
-        public string friendName;
-        public int friendFavor;
-        //制作咖啡的时间
+        //订单生成的时间
         public float OrderTime;
-        public string OrderChar;
-        public int CharFavor;
         public bool Grind;//粗细度
-        public bool Urgent;//是否加急
-        public bool Sugar;
-        public bool CondensedMilk;
-        public bool Salt;
+        public bool Urgent=false;//加急订单
+        public bool Bad = false;//糟糕的订单
+
+        public OrderData() { }
+
+        public OrderData(NodeTag nodeTag,LevelTag leveltag)
+        {
+            DRNode dRNode = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)nodeTag);
+            this.NodeTag = nodeTag;
+            this.NodeName = dRNode.AssetName;
+            this.OrderTime = -1;
+            switch (leveltag)
+            {
+                case LevelTag.Urgent:
+                    Urgent = true;
+                    break;
+                case LevelTag.Bad:
+                    Bad= Random.Range(0, 2) == 1;
+                    break;
+            }
+            if (Urgent)
+            {
+                this.OrderTime = dRNode.Time;
+            }
+            Grind =  Random.Range(0, 2) == 1;
+        }
     }
 }

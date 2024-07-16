@@ -14,6 +14,7 @@ namespace GameMain
 {
     public class UtilsComponent : GameFrameworkComponent
     {
+        public Sprite[] modeSprites;
         public Sprite orderSprite;
         public OutingSceneState outSceneState;
 

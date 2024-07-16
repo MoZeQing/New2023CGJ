@@ -4,6 +4,7 @@ using UnityEngine;
 using GameFramework.Event;
 using GameFramework.DataTable;
 using UnityEngine.UI;
+using System.Xml;
 
 namespace GameMain
 {
@@ -18,11 +19,57 @@ namespace GameMain
     public class LevelData
     {
         public CharSO charSO;
+        public LevelTag levelTag;
         public DialogueGraph foreWork;
         public DialogueGraph afterWork;
-        public DialogueGraph failWork;
-        public List<OrderData> orderDatas;
-        public int favor;//整体订单好感度，每完成一单则按照比例增加对应的favor，对话也应该分配对应的好感度
+        public List<NewOrderData> orderDatas;
+        public int levelTime;
+
+        public List<OrderData> GetOrderDatas()
+        { 
+            List<OrderData> ans= new List<OrderData>();
+            foreach (NewOrderData newOrderData in orderDatas)
+                ans.Add(newOrderData.GetOrderData(levelTag));
+            return ans;
+        }
+    }
+    //关卡类型
+    public enum LevelTag
+    {
+        Normal,//普通
+        Rain,//雨天
+        Urgent,//加急
+        Bad,//恶劣的客人
+        Damage//损坏的工作台
+    }
+
+    [System.Serializable]
+    public class NewOrderData
+    { 
+        /// <summary>
+        /// 该份订单的标签
+        /// </summary>
+        public int nodeNodeTag;
+        /// <summary>
+        /// 该份订单出现的时间
+        /// </summary>
         public int orderTime;
+
+        public OrderData GetOrderData(LevelTag levelTag)
+        { 
+            OrderData orderData=new OrderData();
+            DRTag dRTag=GameEntry.DataTable.GetDataTable<DRTag>().GetDataRow(nodeNodeTag);
+            string[] tagsText = dRTag.NodeTags.Split('-');
+            int[] tags=new int[tagsText.Length];
+            for (int i = 0; i < tagsText.Length; i++)
+            {
+                int tag = 0;
+                if (int.TryParse(tagsText[i], out tag))
+                {
+                    tags[i] = tag;
+                }
+            }
+            return new OrderData((NodeTag)tags[Random.Range(0, tags.Length)], levelTag);
+        }
     }
 }

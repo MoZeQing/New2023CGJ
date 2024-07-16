@@ -15,6 +15,10 @@ namespace GameMain
     {
         private GameState mGameState;
         private WorkData workData;
+
+        private string sceneAssetName;
+        private OrderList mOrderList;
+        private WorkForm mWorkForm;
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
@@ -23,6 +27,9 @@ namespace GameMain
             GamePosUtility.Instance.GamePosChange(GamePos.Down);
             GameEntry.Event.Subscribe(OrderEventArgs.EventId, OnOrderEvent);
             GameEntry.Event.Subscribe(GameStateEventArgs.EventId, OnGameStateEvent);
+            GameEntry.Event.Subscribe(LoadSceneSuccessEventArgs.EventId, OnLoadSceneSuccess);
+            GameEntry.Event.Subscribe(DialogEventArgs.EventId, OnDialogEvent);
+
             IDataTable<DRScene> dtScene = GameEntry.DataTable.GetDataTable<DRScene>();
             DRScene drScene = dtScene.GetDataRow(3);
             //加载主界面
@@ -35,12 +42,16 @@ namespace GameMain
             GameEntry.Scene.LoadScene(AssetUtility.GetSceneAsset(drScene.AssetName), /*Constant.AssetPriority.SceneAsset*/0, this);
             GameEntry.Utils.GameState = GameState.Work;
             GameEntry.Dialog.StoryUpdate();
+
+            sceneAssetName = AssetUtility.GetSceneAsset(drScene.AssetName);
         }
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
         {
             base.OnLeave(procedureOwner, isShutdown);
             GameEntry.Event.Unsubscribe(OrderEventArgs.EventId, OnOrderEvent);
             GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, OnGameStateEvent);
+            GameEntry.Event.Unsubscribe(LoadSceneSuccessEventArgs.EventId, OnLoadSceneSuccess);
+            GameEntry.Event.Unsubscribe(DialogEventArgs.EventId, OnDialogEvent);
 
             GameEntry.Entity.HideAllLoadedEntities();
             GameEntry.Entity.HideAllLoadingEntities();
@@ -77,6 +88,11 @@ namespace GameMain
                     break;
             }
         }
+        private void OnDialogEvent(object sender, GameEventArgs e)
+        {
+            DialogEventArgs args = (DialogEventArgs)e;
+            mWorkForm.IsNext = !args.InDialog;
+        }
         private void OnOrderEvent(object sender, GameEventArgs e)
         {
             OrderEventArgs args = (OrderEventArgs)e;
@@ -88,9 +104,26 @@ namespace GameMain
         private void OnGameStateEvent(object sender, GameEventArgs e)
         {
             GameStateEventArgs args = (GameStateEventArgs)e;
+            if (args.GameState != GameState.AfterSpecial)
+                return;
             mGameState = args.GameState;
+            float power = (float)sender;
+            workData.Power= power;
             if (args.GameState == GameState.AfterSpecial)
                 GameEntry.UI.OpenUIForm(UIFormId.SettleForm, workData);
+        }
+
+        private void OnLoadSceneSuccess(object sender, GameEventArgs e)
+        {
+            LoadSceneSuccessEventArgs args = (LoadSceneSuccessEventArgs)e;
+            if (args.SceneAssetName == sceneAssetName)
+            {
+                mOrderList = GameObject.Find("OrderList").GetComponent<OrderList>();
+                mWorkForm = GameObject.Find("WorkForm").GetComponent<WorkForm>();
+
+                mOrderList.IsShowItem = false;
+                mWorkForm.OnLevel();
+            }
         }
     }
 }
