@@ -52,6 +52,7 @@ namespace GameMain
                 playerData.GetValueTag(dic);
 
                 GameEntry.UI.OpenUIForm(UIFormId.CompleteForm, OnExit, dic);
+                return;
             }
             else if(flipCount <= pairCount)
             {

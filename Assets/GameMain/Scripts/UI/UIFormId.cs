@@ -42,6 +42,8 @@ namespace GameMain
         BuffForm=59,
         ActionForm=60,
         CompleteForm=61,
+        FlopForm=62,
+        RaceGameForm=63,
         QueryForm=200,
         PopTips =100,
         HighlightTips=101,
