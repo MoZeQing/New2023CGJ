@@ -18,6 +18,8 @@ namespace GameMain
         [SerializeField] private Transform canvas;
         [SerializeField] private CharData charData;
         [SerializeField] private PlayerData playerData;
+        //1-3成功的剧情、4-6失败的剧情
+        [SerializeField] private List<DialogueGraph> matchStories = new List<DialogueGraph>();
 
         protected override void OnOpen(object userData)
         {
@@ -28,6 +30,18 @@ namespace GameMain
             trainBtn.onClick.AddListener(TrainBtn_Click);
             matchBtn.onClick.AddListener(MatchBtn_Click);
             exitBtn.onClick.AddListener(OnExit);
+
+            if (GameEntry.Utils.Week == Week.Tuesday ||
+                GameEntry.Utils.Week == Week.Friday)
+            {
+                matchBtn.interactable = false;
+                matchBtn.transform.GetChild(0).gameObject.SetActive(false);
+            }
+            else
+            {
+                matchBtn.interactable = false;
+                matchBtn.transform.GetChild(0).gameObject.SetActive(true);
+            }
         }
 
         protected override void OnClose(bool isShutdown, object userData)
@@ -42,18 +56,19 @@ namespace GameMain
 
         private void QuickBtn_Click()
         {
-            Dictionary<ValueTag,int> dic= new Dictionary<ValueTag,int>();
+            Dictionary<ValueTag, int> dic = new Dictionary<ValueTag, int>();
             charData.GetValueTag(dic);
             playerData.GetValueTag(dic);
-            GameEntry.UI.OpenUIForm(UIFormId.ActionForm,OnExit,dic);
+            GameEntry.UI.OpenUIForm(UIFormId.ActionForm, OnExit, dic);
         }
 
         private void GameBtn_Click()
-        { 
-            
+        {
+            GameEntry.UI.OpenUIForm(UIFormId.ChangeForm);
+            GameEntry.UI.OpenUIForm(UIFormId.RaceGameForm, OnExit);
         }
 
-        private void TrainBtn_Click() 
+        private void TrainBtn_Click()
         {
             canvas.gameObject.SetActive(true);
 
@@ -68,9 +83,48 @@ namespace GameMain
             gameBtn.GetComponent<Image>().DOColor(Color.white, 0.3f);
         }
 
-        private void MatchBtn_Click() 
+        private void MatchBtn_Click()
         {
-
+            int level = GameEntry.Utils.outSceneDic[OutingSceneState.Gym];
+            switch (level)
+            {
+                case 1:
+                    if (GameEntry.Utils.CharData.stamina >= 30)
+                    {
+                        GameEntry.Dialog.PlayStory(matchStories[1]);
+                        GameEntry.Dialog.SetComplete(OnExit);
+                    }
+                    else
+                    {
+                        GameEntry.Dialog.PlayStory(matchStories[4]);
+                        GameEntry.Dialog.SetComplete(OnExit);
+                    }
+                    break;
+                case 2:
+                    if (GameEntry.Utils.CharData.stamina >= 80)
+                    {
+                        GameEntry.Dialog.PlayStory(matchStories[2]);
+                        GameEntry.Dialog.SetComplete(OnExit);
+                    }
+                    else
+                    {
+                        GameEntry.Dialog.PlayStory(matchStories[5]);
+                        GameEntry.Dialog.SetComplete(OnExit);
+                    }
+                    break;
+                case 3:
+                    if (GameEntry.Utils.CharData.stamina >= 100)
+                    {
+                        GameEntry.Dialog.PlayStory(matchStories[3]);
+                        GameEntry.Dialog.SetComplete(OnExit);
+                    }
+                    else
+                    {
+                        GameEntry.Dialog.PlayStory(matchStories[6]);
+                        GameEntry.Dialog.SetComplete(OnExit);
+                    }
+                    break;
+            }
         }
 
         private void OnExit()

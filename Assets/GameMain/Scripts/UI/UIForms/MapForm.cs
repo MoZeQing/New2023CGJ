@@ -29,7 +29,7 @@ namespace GameMain
             libraryBtn.onClick.AddListener(() => Outing(OutingSceneState.Library));
             clothingBtn.onClick.AddListener(() => Outing(OutingSceneState.Clothing));
             gymBtn.onClick.AddListener(() => Outing(OutingSceneState.Gym));
-            benchBtn.onClick.AddListener(() => Outing(OutingSceneState.Clothing));
+            benchBtn.onClick.AddListener(() => Outing(OutingSceneState.Beach));
             marketBtn.onClick.AddListener(() => Outing(OutingSceneState.Gym));
 
             libraryBtn.transform.GetChild(0).gameObject.SetActive(GameEntry.Dialog.CheckOutStory(OutingSceneState.Library));
