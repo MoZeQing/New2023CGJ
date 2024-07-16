@@ -29,13 +29,13 @@ namespace GameMain
         [SerializeField] private CharData charData;
         [SerializeField] private PlayerData playerData;
 
-        private Action mAction;
+        //private Action mAction;
         private int flipCount;
 
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            mAction = BaseFormData.Action;
+            //mAction = BaseFormData.Action;
             
             InitFlop();
         }
@@ -54,7 +54,7 @@ namespace GameMain
                 GameEntry.UI.OpenUIForm(UIFormId.CompleteForm, OnExit, dic);
                 return;
             }
-            else if(flipCount <= pairCount)
+            else if(flipCount >= pairCount)
             {
                 Dictionary<ValueTag, int> dic = new Dictionary<ValueTag, int>();
                 dic.Add(ValueTag.Charm, charData.charm);
@@ -65,7 +65,7 @@ namespace GameMain
             }
 
             timer -= Time.deltaTime;
-            showTime.text = FormatTime((int)timeLimit);
+            showTime.text = FormatTime((int)timer);
 
             foreach (var card in m_cardList)
             {
@@ -112,6 +112,9 @@ namespace GameMain
 
         private void InitFlop()
         {
+            foreach(Transform flop in genNode)
+                Destroy(flop.gameObject);
+
             timer = timeLimit;
             flipCount = 0;
 
@@ -146,7 +149,7 @@ namespace GameMain
 
         private void OnExit()
         {
-            mAction();
+            //mAction();
             GameEntry.UI.CloseUIForm(this.UIForm);
         }
     }

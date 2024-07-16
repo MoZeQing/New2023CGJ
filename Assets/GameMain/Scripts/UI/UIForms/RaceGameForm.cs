@@ -31,15 +31,21 @@ namespace GameMain
         [SerializeField] GameObject player;
         private int m_playerPosition;
 
-        private Action mAction;
+        //private Action mAction;
         [SerializeField] private CharData charData;
         [SerializeField] private PlayerData playerData;
+
+        [SerializeField] private Button startBtn;
+        private bool m_start;
 
 
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            mAction = BaseFormData.Action;
+            //mAction = BaseFormData.Action;
+
+            startBtn.onClick.AddListener(() => m_start = true);
+            m_start = false;
 
             currentBGI = barrierGenInterval;
             currentBS = barrierSpeed;
@@ -58,8 +64,17 @@ namespace GameMain
                 genNodeCount.Add(0);
         }
 
+        protected override void OnClose(bool isShutdown, object userData)
+        {
+            base.OnClose(isShutdown, userData);
+            startBtn.onClick.RemoveAllListeners();
+        }
+
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
+            if (!m_start)
+                return;
+
             base.OnUpdate(elapseSeconds, realElapseSeconds);
 
             if(m_done)
@@ -163,7 +178,7 @@ namespace GameMain
 
         private void OnExit()
         {
-            mAction();
+            //mAction();
             GameEntry.UI.CloseUIForm(this.UIForm);
         }
     }

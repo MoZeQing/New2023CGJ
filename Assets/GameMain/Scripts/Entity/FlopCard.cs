@@ -32,7 +32,7 @@ namespace GameMain
                 isFlip = true;
                 canClick = false;
                 GameEntry.Sound.PlaySound(10);
-                transform.DOScaleX(-transform.localScale.x, 0.5f);
+                transform.DOScaleX(-1, 0.5f);
                 DOVirtual.DelayedCall(0.14f, () => this.GetComponent<Image>().sprite = front);
             }
         }
@@ -40,7 +40,6 @@ namespace GameMain
         public void TrunBack()
         {
             isFlip = false;
-            canClick = true;
             GameEntry.Sound.PlaySound(10);
             StartCoroutine(TurnBackCall());
         }
@@ -53,11 +52,11 @@ namespace GameMain
 
         IEnumerator TurnBackCall()
         {
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1.5f);
 
 
-            transform.DOScaleX(-transform.localScale.x, 0.5f);
-            DOVirtual.DelayedCall(0.14f, () => this.GetComponent<Image>().sprite = back);
+            transform.DOScaleX(1, 0.5f);
+            DOVirtual.DelayedCall(0.14f, () => this.GetComponent<Image>().sprite = back).OnComplete(() => canClick = true);
         }
     }
 }
