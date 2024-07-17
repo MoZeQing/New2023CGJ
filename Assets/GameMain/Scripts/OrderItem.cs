@@ -24,6 +24,7 @@ namespace GameMain
         [SerializeField] private Image friendImg;
         [SerializeField] private Image timeLine;
         [SerializeField] private Image badImg;
+        [SerializeField] private Text badText;
 
         private OrderItemData mOrderItemData = null;
         private OrderData mOrderData = null;
@@ -47,12 +48,14 @@ namespace GameMain
             coffeeName = orderCanvas.Find("ItemText").GetComponent<Text>();
             timeLine = orderCanvas.Find("TimeLine").GetComponent<Image>();
             badImg = orderCanvas.Find("BadImg").GetComponent<Image>();
+            badText= badImg.transform.Find("BadText").GetComponent<Text>();
 
             //exitBtn.onClick.AddListener(OnExit);
         }
         protected override void OnShow(object userData)
         {
             base.OnShow(userData);
+            hasBad= false;
             mOrderItemData = (OrderItemData)userData;
             mOrderData = mOrderItemData.OrderData;
             DRNode dRNode = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)mOrderData.NodeTag);
@@ -65,6 +68,8 @@ namespace GameMain
             timeLine.gameObject.SetActive(false);
             nowTime = mOrderData.OrderTime;
             friendImg.sprite = GameEntry.Utils.orderSprite;
+            badImg.gameObject.SetActive(false);
+            badCount = 0;
             if (mOrderData.Urgent)
             {
                 timeLine.gameObject.SetActive(mOrderData.Urgent);
@@ -73,26 +78,16 @@ namespace GameMain
             {
                 timeLine.gameObject.SetActive(mOrderData.Urgent);
             }
-            badCount = 0;
-            if (mOrderData.Bad)
-            {
-                badImg.gameObject.SetActive(mOrderData.Bad);
-                timeLine.gameObject.SetActive(mOrderData.Bad);
-                nowTime = 10f;
-                mOrderData.OrderTime = 10f;
-                badCount = 10;
-            }
-            else
-            {
-                badImg.gameObject.SetActive(mOrderData.Bad);
-            }
             Debug.Log(nowTime);
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
+            Bad();
             if (mOrderData.LevelTag != LevelTag.Bad && mOrderData.LevelTag != LevelTag.Urgent)
+                return;
+            if (!hasBad)
                 return;
             nowTime -= Time.deltaTime;
             timeLine.fillAmount = nowTime / mOrderData.OrderTime;       
@@ -129,7 +124,7 @@ namespace GameMain
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (mOrderData.Bad)
+            if (hasBad&&timeLine.gameObject.activeSelf)
                 return;
             BaseCompenent baseCompenent = null;
             if (collision.TryGetComponent<BaseCompenent>(out baseCompenent))
@@ -148,11 +143,36 @@ namespace GameMain
             }
         }
 
+        private bool hasBad=false;
+
+        public void Bad()
+        {
+            if (timeLine.gameObject.activeSelf)
+                return;
+            if (UnityEngine.Random.Range(0, 301) != 300)
+                return;
+            if (hasBad)
+                return;
+            if (badCount > 0)
+                return;
+            if (mOrderData.LevelTag==LevelTag.Bad)
+            {
+                hasBad = true;
+                badImg.gameObject.SetActive(true);
+                timeLine.gameObject.SetActive(true);
+                nowTime = 5f;
+                mOrderData.OrderTime = nowTime;
+                badCount = 10;
+                badText.text=badCount.ToString();
+            }
+        }
+
         public void OnPointerClick(PointerEventData eventData)
         {
             if (badCount == 0)
                 return;
             badCount--;
+            badText.text= badCount.ToString(); 
             if (badCount == 0)
             { 
                 badImg.gameObject.SetActive(false);
