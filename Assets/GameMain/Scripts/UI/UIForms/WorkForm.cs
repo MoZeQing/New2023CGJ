@@ -28,6 +28,7 @@ namespace GameMain
         private LevelData mLevelData;
         private int mOrderCount;
         private float nowTime;
+        private float power;
 
         /// <summary>
         /// 是否正在播放剧情
@@ -168,7 +169,7 @@ namespace GameMain
 
         private void OnAfterWorkComplete()
         {
-            GameEntry.Event.Fire(nowTime/(float)mLevelData.levelTime, GameStateEventArgs.Create(GameState.AfterSpecial));
+            GameEntry.Event.Fire(power, GameStateEventArgs.Create(GameState.AfterSpecial));
         }
 
         private void OnOrderEvent(object sender, GameEventArgs e)
@@ -187,7 +188,7 @@ namespace GameMain
                     GamePosUtility.Instance.GamePosChange(GamePos.Up);
                     dialogBox.SetDialog(mLevelData.afterWork);
                     dialogBox.SetComplete(OnAfterWorkComplete);
-
+                    power = nowTime / (float)mLevelData.levelTime;
                 }
             }  
         }

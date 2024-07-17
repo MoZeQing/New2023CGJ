@@ -176,6 +176,7 @@ namespace GameMain
     {
         //咖啡种类
         public NodeTag NodeTag;
+        public LevelTag LevelTag;
         public string NodeName;
         //订单生成的时间
         public float OrderTime;
@@ -187,6 +188,7 @@ namespace GameMain
 
         public OrderData(NodeTag nodeTag,LevelTag leveltag)
         {
+            LevelTag= leveltag;
             DRNode dRNode = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)nodeTag);
             this.NodeTag = nodeTag;
             this.NodeName = dRNode.AssetName;

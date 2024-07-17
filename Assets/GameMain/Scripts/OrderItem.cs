@@ -62,7 +62,7 @@ namespace GameMain
             grind.gameObject.SetActive(!mOrderData.Grind);
             hot.gameObject.SetActive(!dRNode.Ice);
             ice.gameObject.SetActive(dRNode.Ice);
-            timeLine.gameObject.SetActive(mOrderData.Bad);
+            timeLine.gameObject.SetActive(false);
             friendImg.sprite = GameEntry.Utils.orderSprite;
             if (mOrderData.Urgent)
             {
@@ -92,6 +92,8 @@ namespace GameMain
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
+            if (mOrderData.LevelTag != LevelTag.Bad || mOrderData.LevelTag != LevelTag.Urgent)
+                return;
             nowTime -= Time.deltaTime;
             timeLine.fillAmount = nowTime / mOrderData.OrderTime;       
             if (nowTime < mOrderData.OrderTime)

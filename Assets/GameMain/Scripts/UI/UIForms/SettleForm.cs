@@ -5,6 +5,7 @@ using UnityGameFramework.Runtime;
 using UnityEngine.UI;
 using GameFramework.Event;
 using System.Text;
+using DG.Tweening;
 
 namespace GameMain
 {
@@ -17,6 +18,7 @@ namespace GameMain
         [SerializeField] private Text catText;
         [SerializeField] private Text settleText;
         [SerializeField] private Button mOKButton;
+        [SerializeField] private Image[] stars;
 
         private bool mIsRandom = false;
         private WorkData mWorkData;
@@ -27,12 +29,38 @@ namespace GameMain
             base.OnOpen(userData);
             mWorkData = (WorkData)BaseFormData.UserData;
             mIsRandom = false;
-
+            float level = GetPower(mWorkData);
+            Sequence sequence = DOTween.Sequence();
+            for (int i = 0; i < stars.Length; i++)
+            {
+                stars[i].gameObject.SetActive(i < level);
+                if (i < level)
+                {
+                    stars[i].transform.localScale = Vector3.zero;
+                    sequence.Append(stars[i].transform.DOScale(Vector3.one, 1f).SetEase(Ease.OutExpo).OnComplete(()=>
+                    {
+                        GameEntry.Sound.PlaySound(300+i);
+                    }));
+                }
+            }
+            sequence.AppendCallback(ShowSettleData);
             settleCanvas.gameObject.SetActive(true);
+        }
 
-            mOKButton.onClick.AddListener(OnClick);
-            //ShowRandomEvent();
-            ShowSettleData();
+        private int GetPower(WorkData workData)
+        {
+            //剩余时间大于1/3得到3星
+            //剩余时间大于1/6得到2星
+            //剩余时间大于0或至少完成1单得到1星
+            //剩余时间等于且完成没有完成订单得到0星
+            int a = (int)(workData.Power * 6);
+            if (a > 2)
+                return 3;
+            if (a > 1)
+                return 2;
+            if (a > 0 || workData.Income > 0)
+                return 1;
+            return 0;
         }
 
         private void OnEnable()
@@ -73,6 +101,7 @@ namespace GameMain
             coffeeText.text = string.Empty;
             catText.text = string.Empty;
             settleText.text = string.Empty;
+            Sequence sequence = DOTween.Sequence(); 
             foreach (OrderData order in mWorkData.orderDatas)
             {
                 DRNode dRNode = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)order.NodeTag);
@@ -82,14 +111,14 @@ namespace GameMain
                 if (!order.Grind) sb.Append("(细)");
                 if (dRNode.Ice) sb.Append("(冰)");
                 if (!dRNode.Ice) sb.Append("(热)");
-                coffeeText.text += (sb.ToString() + "\n");
+                sequence.Append(coffeeText.DOText(sb.ToString() + "\n", 1f));
             }
             //小猫列表
 
             //订单总体列表
-            settleText.text += string.Format("主营业务收入：{0}\n", mWorkData.Income);
-            settleText.text += string.Format("主营业务成本:{0}\n", mWorkData.Cost);
-            settleText.text += string.Format("当期净利润:{0}\n", mWorkData.Income - mWorkData.Cost - mWorkData.Administration - mWorkData.Financial);
+            int money = (int)(mWorkData.Money*mWorkData.Power+0.33f);
+            sequence.Append(DOTween.To(value => { settleText.text = Mathf.Floor(value).ToString(); }, startValue: 0, endValue: mWorkData.Money, duration: 10));
+            sequence.AppendCallback(() => mOKButton.onClick.AddListener(OnClick));
         }
 
         private void OnClick()
