@@ -18,22 +18,16 @@ namespace GameMain
         [SerializeField] private Button galleryForm;
         [SerializeField] private Button exitBtn;
 
-        private PlaySoundParams mainThemePlaySoundParams=new PlaySoundParams() ;
-
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
             m_ProcedureMenu = (ProcedureMenu)BaseFormData.UserData;
-
-            mainThemePlaySoundParams.Loop = true;
 
             startBtn.onClick.AddListener(m_ProcedureMenu.StartGame);
             loadBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.LoadForm, this));
             optionBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.OptionForm, this));
             galleryForm.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.GalleryForm, this));
             exitBtn.onClick.AddListener(() => UnityGameFramework.Runtime.GameEntry.Shutdown(ShutdownType.Quit));
-
-            GameEntry.Sound.PlaySound("Assets/GameMain/Audio/BGM/MainTheme.mp3", "BGM", mainThemePlaySoundParams);
         }
 
         protected override void OnClose(bool isShutdown, object userData)

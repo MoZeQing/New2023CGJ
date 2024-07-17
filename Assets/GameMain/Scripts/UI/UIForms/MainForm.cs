@@ -51,6 +51,7 @@ namespace GameMain
             closetBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.ClosetForm));
             outBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.MapForm));
             buffBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.BuffForm));
+            GameEntry.Event.Subscribe(OutEventArgs.EventId, BackMain);
             GameEntry.Event.Subscribe(GameStateEventArgs.EventId, OnGameStateEvent);
             canvasGroup.interactable = true;
 
@@ -94,6 +95,7 @@ namespace GameMain
             closetBtn.onClick.RemoveAllListeners();
             outBtn.onClick.RemoveAllListeners();
             buffBtn.onClick.RemoveAllListeners();
+            GameEntry.Event.Unsubscribe(OutEventArgs.EventId, BackMain);
             GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, OnGameStateEvent);
 
             for (int i = 0; i < littleCatBtns.Count; i++)
@@ -133,6 +135,19 @@ namespace GameMain
                     GameEntry.Utils.UpdateData();
                     break;
             }
+        }
+        private OutingSceneState outSceneState;
+        private void BackMain(object sender, GameEventArgs e)
+        {
+            OutEventArgs args = (OutEventArgs)e;
+            if (args.OutingSceneState == OutingSceneState.Home)
+            {
+                if (outSceneState != OutingSceneState.Home)
+                {
+                    GameEntry.Utils.WeatherTag = WeatherTag.None;
+                }
+            }
+            outSceneState = args.OutingSceneState;
         }
         private void ChangeTeach()
         {
@@ -207,6 +222,7 @@ namespace GameMain
 
     public enum WeatherTag
     {
+        None=0,
         Morning=1,
         Afternoon=2,
         Night=3,

@@ -29,6 +29,7 @@ namespace GameMain
             base.OnOpen(userData);
             mWorkData = (WorkData)BaseFormData.UserData;
             mIsRandom = false;
+            mOKButton.onClick.AddListener(OnClick);
             float level = GetPower(mWorkData);
             Sequence sequence = DOTween.Sequence();
             for (int i = 0; i < stars.Length; i++)
