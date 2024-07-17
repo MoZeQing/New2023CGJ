@@ -63,15 +63,15 @@ namespace GameMain
             hot.gameObject.SetActive(!dRNode.Ice);
             ice.gameObject.SetActive(dRNode.Ice);
             timeLine.gameObject.SetActive(false);
+            nowTime = mOrderData.OrderTime;
             friendImg.sprite = GameEntry.Utils.orderSprite;
             if (mOrderData.Urgent)
             {
-                nowTime = mOrderData.OrderTime;
                 timeLine.gameObject.SetActive(mOrderData.Urgent);
             }
             else
             {
-                timeLine.gameObject.SetActive(!mOrderData.Urgent);
+                timeLine.gameObject.SetActive(mOrderData.Urgent);
             }
             badCount = 0;
             if (mOrderData.Bad)
@@ -92,7 +92,7 @@ namespace GameMain
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
-            if (mOrderData.LevelTag != LevelTag.Bad || mOrderData.LevelTag != LevelTag.Urgent)
+            if (mOrderData.LevelTag != LevelTag.Bad && mOrderData.LevelTag != LevelTag.Urgent)
                 return;
             nowTime -= Time.deltaTime;
             timeLine.fillAmount = nowTime / mOrderData.OrderTime;       

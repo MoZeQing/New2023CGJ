@@ -109,7 +109,8 @@ namespace GameMain
                 return;
             WorkData work = (WorkData)sender;
             workData.Power= work.Power;
-            workData.Income += work.Income;
+            workData.Money = work.Money;
+            
             if (args.GameState == GameState.AfterSpecial)
                 GameEntry.UI.OpenUIForm(UIFormId.SettleForm, workData);
         }

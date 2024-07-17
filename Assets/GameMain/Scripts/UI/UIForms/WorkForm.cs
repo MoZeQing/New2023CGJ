@@ -190,7 +190,8 @@ namespace GameMain
                     dialogBox.SetComplete(OnAfterWorkComplete);
                     workData = new WorkData();
                     workData.Power = nowTime / (float)mLevelData.levelTime;
-                    workData.Income = mLevelData.levelMoney;
+                    workData.Money = mLevelData.levelMoney;
+                    workData.OrderCount=mLevelData.orderDatas.Count;
                 }
             }  
         }
@@ -226,6 +227,11 @@ namespace GameMain
             set;
         }
         public int Financial
+        {
+            get;
+            set;
+        }
+        public int OrderCount
         {
             get;
             set;

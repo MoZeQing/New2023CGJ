@@ -30,7 +30,7 @@ namespace GameMain
         { 
             List<OrderData> ans= new List<OrderData>();
             foreach (NewOrderData newOrderData in orderDatas)
-                ans.Add(newOrderData.GetOrderData(levelTag));
+                ans.Add(newOrderData.GetOrderData(levelTag, newOrderData.orderTime));
             return ans;
         }
     }
@@ -56,7 +56,7 @@ namespace GameMain
         /// </summary>
         public int orderTime;
 
-        public OrderData GetOrderData(LevelTag levelTag)
+        public OrderData GetOrderData(LevelTag levelTag,int orderTime)
         { 
             OrderData orderData=new OrderData();
             DRTag dRTag=GameEntry.DataTable.GetDataTable<DRTag>().GetDataRow(nodeNodeTag);
@@ -70,7 +70,7 @@ namespace GameMain
                     tags[i] = tag;
                 }
             }
-            return new OrderData((NodeTag)tags[Random.Range(0, tags.Length)], levelTag);
+            return new OrderData((NodeTag)tags[Random.Range(0, tags.Length)], levelTag,orderTime);
         }
     }
 }

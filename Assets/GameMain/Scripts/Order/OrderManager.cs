@@ -186,17 +186,24 @@ namespace GameMain
 
         public OrderData() { }
 
-        public OrderData(NodeTag nodeTag,LevelTag leveltag)
+        public OrderData(NodeTag nodeTag,LevelTag leveltag,int orderTime)
         {
             LevelTag= leveltag;
             DRNode dRNode = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)nodeTag);
             this.NodeTag = nodeTag;
             this.NodeName = dRNode.AssetName;
-            this.OrderTime = -1;
             switch (leveltag)
             {
                 case LevelTag.Urgent:
-                    Urgent = true;
+                    if (orderTime != 0)
+                    {
+                        this.Urgent = true;
+                        this.OrderTime = orderTime;
+                    }
+                    else
+                    {
+                        this.OrderTime = -2;
+                    }
                     break;
                 case LevelTag.Bad:
                     Bad= Random.Range(0, 2) == 1;

@@ -15,13 +15,16 @@ namespace GameMain
         [SerializeField] private Transform settleCanvas;
         //[SerializeField] private Text randomText;
         [SerializeField] private Text coffeeText;
-        [SerializeField] private Text catText;
+        [SerializeField] private Text incomeText;
+        [SerializeField] private Text levelText;
         [SerializeField] private Text settleText;
         [SerializeField] private Button mOKButton;
         [SerializeField] private Image[] stars;
 
         private bool mIsRandom = false;
         private WorkData mWorkData;
+        private int income;
+        private int levelMoney;
 
         //思考传入什么参数
         protected override void OnOpen(object userData)
@@ -57,7 +60,7 @@ namespace GameMain
             int a = (int)(workData.Power * 6);
             if (a > 2)
                 return 3;
-            if (a > 1)
+            if (a > 1&&workData.orderDatas.Count==workData.OrderCount)
                 return 2;
             if (a > 0 || workData.Income > 0)
                 return 1;
@@ -100,8 +103,7 @@ namespace GameMain
         {
             //咖啡列表
             coffeeText.text = string.Empty;
-            catText.text = string.Empty;
-            settleText.text = string.Empty;
+            levelText.text = string.Empty;
             Sequence sequence = DOTween.Sequence(); 
             foreach (OrderData order in mWorkData.orderDatas)
             {
@@ -117,9 +119,11 @@ namespace GameMain
             //小猫列表
 
             //订单总体列表
-            int money = (int)(mWorkData.Income*mWorkData.Power+0.33f);
-            sequence.Append(DOTween.To(value => { settleText.text = Mathf.Floor(value).ToString(); }, startValue: 0, endValue: money, duration: 0.5f));
-            GameEntry.Utils.Money += money;
+            income = (int)mWorkData.Income;
+            levelMoney = (int)(mWorkData.Money * (float)GetPower(mWorkData) / 3f);
+            sequence.Append(DOTween.To(value => { incomeText.text = Mathf.Floor(value).ToString(); }, startValue: 0, endValue: income, duration: 0.5f));
+            sequence.Append(DOTween.To(value => { levelText.text = Mathf.Floor(value).ToString(); }, startValue: 0, endValue: levelMoney, duration: 0.5f));
+            sequence.Append(DOTween.To(value => { settleText.text = Mathf.Floor(value).ToString(); }, startValue: 0, endValue: levelMoney+income, duration: 0.5f));
         }
 
         private void OnClick()
@@ -127,7 +131,7 @@ namespace GameMain
             GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Afternoon));
             GameEntry.UI.CloseUIForm(this.UIForm);
             BuffData buffData = GameEntry.Buff.GetBuff();
-            GameEntry.Utils.Money += (int)(mWorkData.Income * buffData.MoneyMulti  + buffData.MoneyPlus);
+            GameEntry.Utils.Money += (int)((levelMoney + income) * buffData.MoneyMulti  + buffData.MoneyPlus);
         }
     }
 }
