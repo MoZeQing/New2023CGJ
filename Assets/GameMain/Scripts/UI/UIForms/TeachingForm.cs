@@ -133,8 +133,6 @@ namespace GameMain
                 GameEntry.Utils.Energy -= (int)Mathf.Clamp((behavior.playerData.energy*buffData.EnergyMulti+buffData.EnergyPlus),0,9999999);
                 GameEntry.Utils.Money -= behavior.playerData.money;
                 GameEntry.Utils.MaxEnergy -= behavior.playerData.maxEnergy;
-                GameEntry.Utils.Ap -= behavior.playerData.ap;
-                GameEntry.Utils.MaxAp -= behavior.playerData.maxAp;
 
                 GameEntry.Utils.Favor += (int)(behavior.catData.favour * buffData.FavorMulti + buffData.FavorPlus);
 
@@ -207,6 +205,9 @@ namespace GameMain
             }
             else
             {
+                BehaviorData behavior = GameEntry.Cat.GetBehavior(mBehaviorTag);
+                GameEntry.Utils.Ap -= behavior.playerData.ap;
+                GameEntry.Utils.MaxAp -= behavior.playerData.maxAp;
                 dialogBox.gameObject.SetActive(false);
                 leftCanvas.gameObject.SetActive(true);
                 rightCanvas.gameObject.SetActive(true);
