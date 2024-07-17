@@ -256,6 +256,10 @@ public enum TriggerTag
     FMoney,//催债人
     FCourier,//外卖员
     FlagCount,
+
+    Wisdom,//智慧
+    Stamina,//体能
+    Charm//魅力
 }
 [System.Serializable]
 public enum EventTag

@@ -18,7 +18,7 @@ namespace GameMain
         [SerializeField] private Transform canvas;
         [SerializeField] private CharData charData;
         [SerializeField] private PlayerData playerData;
-        //1-3成功的剧情、4-6失败的剧情
+        //1-3成功的剧情、4-5失败的剧情
         [SerializeField] private List<DialogueGraph> matchStories = new List<DialogueGraph>();
 
         protected override void OnOpen(object userData)
@@ -85,14 +85,14 @@ namespace GameMain
 
         private void MatchBtn_Click()
         {
-            int level = GameEntry.Utils.outSceneDic[OutingSceneState.Gym];
-            switch (level)
+            switch (GameEntry.Utils.CharData.staminaLevel)
             {
                 case 1:
                     if (GameEntry.Utils.CharData.stamina >= 30)
                     {
                         GameEntry.Dialog.PlayStory(matchStories[1]);
                         GameEntry.Dialog.SetComplete(OnExit);
+                        GameEntry.Utils.CharData.staminaLevel++;
                     }
                     else
                     {
@@ -105,6 +105,7 @@ namespace GameMain
                     {
                         GameEntry.Dialog.PlayStory(matchStories[2]);
                         GameEntry.Dialog.SetComplete(OnExit);
+                        GameEntry.Utils.CharData.staminaLevel++;
                     }
                     else
                     {
@@ -113,16 +114,8 @@ namespace GameMain
                     }
                     break;
                 case 3:
-                    if (GameEntry.Utils.CharData.stamina >= 100)
-                    {
-                        GameEntry.Dialog.PlayStory(matchStories[3]);
-                        GameEntry.Dialog.SetComplete(OnExit);
-                    }
-                    else
-                    {
-                        GameEntry.Dialog.PlayStory(matchStories[6]);
-                        GameEntry.Dialog.SetComplete(OnExit);
-                    }
+                    GameEntry.Dialog.PlayStory(matchStories[3]);
+                    GameEntry.Dialog.SetComplete(OnExit);
                     break;
             }
         }

@@ -85,14 +85,14 @@ namespace GameMain
 
         private void MatchBtn_Click()
         {
-            int level = GameEntry.Utils.outSceneDic[OutingSceneState.Library];
-            switch (level)
+            switch (GameEntry.Utils.CharData.wisdomLevel)
             {
                 case 1:
                     if (GameEntry.Utils.CharData.wisdom >= 30)
                     {
                         GameEntry.Dialog.PlayStory(matchStories[1]);
                         GameEntry.Dialog.SetComplete(OnExit);
+                        GameEntry.Utils.CharData.wisdomLevel++;
                     }
                     else
                     {
@@ -105,6 +105,7 @@ namespace GameMain
                     {
                         GameEntry.Dialog.PlayStory(matchStories[2]);
                         GameEntry.Dialog.SetComplete(OnExit);
+                        GameEntry.Utils.CharData.wisdomLevel++;
                     }
                     else
                     {
@@ -113,16 +114,8 @@ namespace GameMain
                     }
                     break;
                 case 3:
-                    if (GameEntry.Utils.CharData.wisdom >= 100)
-                    {
-                        GameEntry.Dialog.PlayStory(matchStories[3]);
-                        GameEntry.Dialog.SetComplete(OnExit);
-                    }
-                    else
-                    {
-                        GameEntry.Dialog.PlayStory(matchStories[6]);
-                        GameEntry.Dialog.SetComplete(OnExit);
-                    }
+                    GameEntry.Dialog.PlayStory(matchStories[3]);
+                    GameEntry.Dialog.SetComplete(OnExit);
                     break;
             }
         }

@@ -36,6 +36,9 @@ namespace GameMain
         public int stamina;//体能
         public int wisdom;//智慧
         public int charm;//魅力
+        public int staminaLevel;//体能
+        public int wisdomLevel;//智慧
+        public int charmLevel;//魅力
 
         public CharData() { }
 

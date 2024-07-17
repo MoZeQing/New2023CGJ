@@ -49,6 +49,27 @@ public class CompleteForm : BaseForm
             sequence.Append(completeItem.transform.GetChild(0).DOLocalMoveY(0, 0.5f).SetEase(Ease.OutExpo));
             index++;
         }
+        foreach (KeyValuePair<ValueTag, int> pair in pairs)
+        {
+            switch (pair.Key)
+            {
+                case ValueTag.Ap:
+                    GameEntry.Utils.Ap += pair.Value;
+                    break;
+                case ValueTag.Money:
+                    GameEntry.Utils.Money+= pair.Value;
+                    break;
+                case ValueTag.Charm:
+                    GameEntry.Utils.Charm += pair.Value;
+                    break;
+                case ValueTag.Stamina:
+                    GameEntry.Utils.Stamina+= pair.Value;
+                    break;
+                case ValueTag.Wisdom:
+                    GameEntry.Utils.Wisdom+= pair.Value;
+                    break;
+            }
+        }
         sequence.AppendCallback(() => okBtn.gameObject.SetActive(true));
     }
 

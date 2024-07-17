@@ -17,9 +17,6 @@ namespace GameMain
         public Sprite[] modeSprites;
         public Sprite orderSprite;
         public OutingSceneState outSceneState;
-
-
-        public Dictionary<OutingSceneState,int> outSceneDic=new Dictionary<OutingSceneState,int>();
         public int Closet { get; set; }
         public bool PickUp { get; set; } = false;
 
@@ -340,7 +337,45 @@ namespace GameMain
                 GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
             }
         }
-
+        public int Wisdom
+        {
+            get
+            {
+                return mCharData.wisdom;
+            }
+            set
+            {
+                mCharData.wisdom = value;
+                _values[TriggerTag.Wisdom] = mCharData.favor.ToString();
+                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
+            }
+        }
+        public int Charm
+        {
+            get
+            {
+                return mCharData.charm;
+            }
+            set
+            {
+                mCharData.charm = value;
+                _values[TriggerTag.Charm] = mCharData.favor.ToString();
+                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
+            }
+        }
+        public int Stamina
+        {
+            get
+            { 
+                return mCharData.stamina;
+            }
+            set
+            {
+                mCharData.stamina = value;
+                _values[TriggerTag.Stamina] = mCharData.favor.ToString();
+                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
+            }
+        }
         public int Favor
         {
             get
