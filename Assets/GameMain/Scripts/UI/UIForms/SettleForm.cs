@@ -18,6 +18,9 @@ namespace GameMain
         [SerializeField] private Text incomeText;
         [SerializeField] private Text levelText;
         [SerializeField] private Text settleText;
+        [SerializeField] private Text catLevelText;
+        [SerializeField] private Text catText;
+        [SerializeField] private Text buffText;
         [SerializeField] private Button mOKButton;
         [SerializeField] private Image[] stars;
 
@@ -25,11 +28,14 @@ namespace GameMain
         private WorkData mWorkData;
         private int income;
         private int levelMoney;
+        private int catValue;
+        private int buffValue;
 
         //思考传入什么参数
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
+            catLevelText.text = $"猫猫Lv.{GameEntry.Utils.CharData.charmLevel}";
             mWorkData = (WorkData)BaseFormData.UserData;
             mIsRandom = false;
             mOKButton.onClick.AddListener(OnClick);
@@ -123,7 +129,12 @@ namespace GameMain
             levelMoney = (int)(mWorkData.Money * (float)GetPower(mWorkData) / 3f);
             sequence.Append(DOTween.To(value => { incomeText.text = Mathf.Floor(value).ToString(); }, startValue: 0, endValue: income, duration: 0.5f));
             sequence.Append(DOTween.To(value => { levelText.text = Mathf.Floor(value).ToString(); }, startValue: 0, endValue: levelMoney, duration: 0.5f));
-            sequence.Append(DOTween.To(value => { settleText.text = Mathf.Floor(value).ToString(); }, startValue: 0, endValue: levelMoney+income, duration: 0.5f));
+            catValue = (int)((levelMoney + income) * (GameEntry.Utils.CharData.charmLevel - 1) / 3f);
+            sequence.Append(DOTween.To(value => { catText.text = Mathf.Floor(value).ToString(); }, startValue: 0, endValue: catValue, duration: 0.5f));
+            BuffData buffData = GameEntry.Buff.GetBuff();
+            buffValue = (int)((levelMoney + income + catValue) * buffData.MoneyMulti + buffData.MoneyPlus);
+            sequence.Append(DOTween.To(value => { buffText.text = Mathf.Floor(value).ToString(); }, startValue: 0, endValue: buffValue-(levelMoney + income + catValue), duration: 0.5f));
+            sequence.Append(DOTween.To(value => { settleText.text = Mathf.Floor(value).ToString(); }, startValue: 0, endValue: levelMoney+income+catValue, duration: 0.5f));
         }
 
         private void OnClick()
@@ -131,7 +142,7 @@ namespace GameMain
             GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Afternoon));
             GameEntry.UI.CloseUIForm(this.UIForm);
             BuffData buffData = GameEntry.Buff.GetBuff();
-            GameEntry.Utils.Money += (int)((levelMoney + income) * buffData.MoneyMulti  + buffData.MoneyPlus);
+            GameEntry.Utils.Money += (int)((levelMoney + income+catValue) * buffData.MoneyMulti  + buffData.MoneyPlus);
         }
     }
 }
