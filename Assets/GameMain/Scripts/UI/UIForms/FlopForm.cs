@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -87,6 +88,8 @@ namespace GameMain
                 if (card01.ID == card02.ID)
                 {
                     flipCount++;
+                    GameEntry.Sound.PlaySound(44);
+
                     card01.canClick = false;
                     card01.isDone = true;
                     card02.canClick = false;

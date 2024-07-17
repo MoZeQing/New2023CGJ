@@ -12,6 +12,7 @@ namespace GameMain
         private float score;
         [SerializeField] private float targetScore;
         [SerializeField] Text scoreTitle;
+        [SerializeField] Text timeTitle;
 
         [SerializeField] List<Transform> genNodes;
         [SerializeField] List<int> genNodeCount;
@@ -27,6 +28,9 @@ namespace GameMain
         private float m_genTimer;
         private bool m_done;
         private List<GameObject> barriers = new List<GameObject>();
+
+        [SerializeField] private float gameTime;
+        private float m_gameTimer;
 
         [SerializeField] GameObject player;
         private int m_playerPosition;
@@ -44,12 +48,18 @@ namespace GameMain
             base.OnOpen(userData);
             mAction = BaseFormData.Action;
 
-            startBtn.onClick.AddListener(() => m_start = true);
+            scoreTitle.gameObject.SetActive(false);
+            timeTitle.gameObject.SetActive(false);
+            startBtn.gameObject.SetActive(true);
+
+            startBtn.onClick.AddListener(OnClickStartBtn);
             m_start = false;
+            m_done = false;
 
             currentBGI = barrierGenInterval;
             currentBS = barrierSpeed;
             m_genTimer = currentBGI;
+            m_gameTimer = gameTime;
 
             foreach (Transform t in genNodes)
             {
@@ -80,7 +90,7 @@ namespace GameMain
             if(m_done)
             {
                 Dictionary<ValueTag, int> dic = new Dictionary<ValueTag, int>();
-                float power = score / targetScore;
+                float power = (gameTime - m_gameTimer) / gameTime;
                 int stamina = (int)(charData.stamina * power);
                 dic.Add(ValueTag.Stamina, stamina);
                 playerData.GetValueTag(dic);
@@ -89,15 +99,18 @@ namespace GameMain
                 return;
             }
 
+            m_genTimer -= Time.deltaTime;
+            m_gameTimer -= Time.deltaTime;
             scoreTitle.text = ((int)score).ToString();
+            timeTitle.text = FlopForm.FormatTime((int)m_gameTimer);
+
             if (!m_done)
                 score += (1 + currentBS / 5) * Time.deltaTime;
 
-            m_genTimer -= Time.deltaTime;
             if (currentBS <= 30)
                 currentBS += Time.deltaTime * BSIncreaseRate;
 
-            if (currentBGI >= 0.2f)
+            if (currentBGI >= 0.1f)
                 currentBGI -= Time.deltaTime * BGIIncreaseRate;
 
 
@@ -105,17 +118,13 @@ namespace GameMain
             {
                 var nodeIndex = GenNodeIndex();
 
-                var node = genNodes[nodeIndex];
-                var barrier = barrierList[UnityEngine.Random.Range(0, barrierList.Count)];
-
-                var go = Instantiate(barrier, node);
-                barriers.Add(go);
-                go.GetComponent<Rigidbody2D>().velocity = new Vector3(-currentBS * 100, 0, 0);
+                GenOnSide(nodeIndex);
 
                 m_genTimer = currentBGI;
             }
 
             MoveVertical();
+
             if (PlayerCollisionResult() > 0)
             {
                 m_done = true;
@@ -124,6 +133,10 @@ namespace GameMain
                     DOTween.To(() => barrier.GetComponent<Rigidbody2D>().velocity, x => barrier.GetComponent<Rigidbody2D>().velocity = x, Vector2.zero, 2f).SetEase(Ease.OutQuad);
                 }
                 Debug.Log("GameOver");
+            }
+            else if(m_gameTimer <= 0)
+            {
+                m_done = true;
             }
         }
        
@@ -180,6 +193,44 @@ namespace GameMain
         {
             mAction();
             GameEntry.UI.CloseUIForm(this.UIForm);
+        }
+
+        private void OnClickStartBtn()
+        {
+            m_start = true;
+            scoreTitle.gameObject.SetActive(true);
+            timeTitle.gameObject.SetActive(true);
+            startBtn.gameObject.SetActive(false);
+        }
+
+        private void GenOnCenter(int index)
+        {
+            Transform node = genNodes[index];
+            GameObject barrier = barrierList[UnityEngine.Random.Range(0, barrierList.Count)];
+
+            GameObject go = Instantiate(barrier, node);
+            barriers.Add(go);
+            go.GetComponent<Rigidbody2D>().velocity = new Vector3(-currentBS * 100, 0, 0);
+        }
+
+        private void GenOnSide(int index)
+        {
+            List<Transform> nodes = new List<Transform>();
+            foreach(Transform node in genNodes)
+            {
+                if(node != genNodes[index])
+                {
+                    nodes.Add(node);
+                }
+            }
+
+            foreach(Transform node in nodes)
+            {
+                GameObject barrier = barrierList[UnityEngine.Random.Range(0, barrierList.Count)];
+                GameObject go = Instantiate(barrier, node);
+                barriers.Add(go);
+                go.GetComponent<Rigidbody2D>().velocity = new Vector3(-currentBS * 100, 0, 0);
+            }
         }
     }
 }
