@@ -104,11 +104,12 @@ namespace GameMain
         private void OnGameStateEvent(object sender, GameEventArgs e)
         {
             GameStateEventArgs args = (GameStateEventArgs)e;
+            mGameState = args.GameState;
             if (args.GameState != GameState.AfterSpecial)
                 return;
-            mGameState = args.GameState;
-            float power = (float)sender;
-            workData.Power= power;
+            WorkData work = (WorkData)sender;
+            workData.Power= work.Power;
+            workData.Income += work.Income;
             if (args.GameState == GameState.AfterSpecial)
                 GameEntry.UI.OpenUIForm(UIFormId.SettleForm, workData);
         }

@@ -51,5 +51,6 @@ public enum GameState
     Midnight,//ÍíÉÏÂÖ´Î
     Sleep,
     Guide,
-    Menu
+    Menu,
+    Weekend
 }

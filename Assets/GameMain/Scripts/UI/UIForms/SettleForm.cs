@@ -117,9 +117,9 @@ namespace GameMain
             //小猫列表
 
             //订单总体列表
-            int money = (int)(mWorkData.Money*mWorkData.Power+0.33f);
-            sequence.Append(DOTween.To(value => { settleText.text = Mathf.Floor(value).ToString(); }, startValue: 0, endValue: mWorkData.Money, duration: 10));
-            sequence.AppendCallback(() => mOKButton.onClick.AddListener(OnClick));
+            int money = (int)(mWorkData.Income*mWorkData.Power+0.33f);
+            sequence.Append(DOTween.To(value => { settleText.text = Mathf.Floor(value).ToString(); }, startValue: 0, endValue: money, duration: 0.5f));
+            GameEntry.Utils.Money += money;
         }
 
         private void OnClick()
@@ -127,8 +127,7 @@ namespace GameMain
             GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Afternoon));
             GameEntry.UI.CloseUIForm(this.UIForm);
             BuffData buffData = GameEntry.Buff.GetBuff();
-            DRUpgrade dRUpgrade = GameEntry.DataTable.GetDataTable<DRUpgrade>().GetDataRow(GameEntry.Utils.PlayerData.cafeID);
-            GameEntry.Utils.Money += (int)(mWorkData.Income * buffData.MoneyMulti * (1 + dRUpgrade.Money / 100) + buffData.MoneyPlus);
+            GameEntry.Utils.Money += (int)(mWorkData.Income * buffData.MoneyMulti  + buffData.MoneyPlus);
         }
     }
 }

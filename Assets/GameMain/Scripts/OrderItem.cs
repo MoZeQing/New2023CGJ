@@ -141,26 +141,6 @@ namespace GameMain
                     int income = 0;
                     IDataTable<DRNode> dtNode = GameEntry.DataTable.GetDataTable<DRNode>();
                     income = dtNode.GetDataRow((int)mOrderData.NodeTag).Price;
-                    float p = 1f;
-                    if (nowTime > mOrderData.OrderTime * 2 * GameEntry.Utils.OrderPower)
-                    {
-                        p = 1.5f;
-                        GameEntry.Utils.PlayerData.acoffee++;
-                        GameEntry.Utils.PlayerData.bcoffee++;
-                        GameEntry.Utils.PlayerData.ccoffee++;
-                    }
-                    else if (nowTime > mOrderData.OrderTime * 1 * GameEntry.Utils.OrderPower)
-                    {
-                        p = 1f;
-                        GameEntry.Utils.PlayerData.bcoffee++;
-                        GameEntry.Utils.PlayerData.ccoffee++;
-                    }
-                    else
-                    {
-                        p = 0.8f;
-                        GameEntry.Utils.PlayerData.ccoffee++;
-                    }
-                    income = (int)(income * p*GameEntry.Utils.PricePower);
                     GameEntry.Event.FireNow(this, OrderEventArgs.Create(mOrderData, income));
                     GameEntry.Entity.HideEntity(baseCompenent.transform.parent.GetComponent<BaseNode>().Entity);
                     GameEntry.Entity.HideEntity(this.Entity);

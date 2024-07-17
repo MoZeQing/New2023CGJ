@@ -24,6 +24,7 @@ namespace GameMain
         public DialogueGraph afterWork;
         public List<NewOrderData> orderDatas;
         public int levelTime;
+        public int levelMoney;
 
         public List<OrderData> GetOrderDatas()
         { 
