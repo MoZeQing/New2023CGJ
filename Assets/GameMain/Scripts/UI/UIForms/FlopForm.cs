@@ -29,13 +29,13 @@ namespace GameMain
         [SerializeField] private CharData charData;
         [SerializeField] private PlayerData playerData;
 
-        //private Action mAction;
+        private Action mAction;
         private int flipCount;
 
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            //mAction = BaseFormData.Action;
+            mAction = BaseFormData.Action;
             
             InitFlop();
         }
@@ -149,7 +149,7 @@ namespace GameMain
 
         private void OnExit()
         {
-            //mAction();
+            mAction();
             GameEntry.UI.CloseUIForm(this.UIForm);
         }
     }

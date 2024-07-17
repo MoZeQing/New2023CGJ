@@ -31,7 +31,7 @@ namespace GameMain
         [SerializeField] GameObject player;
         private int m_playerPosition;
 
-        //private Action mAction;
+        private Action mAction;
         [SerializeField] private CharData charData;
         [SerializeField] private PlayerData playerData;
 
@@ -42,7 +42,7 @@ namespace GameMain
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            //mAction = BaseFormData.Action;
+            mAction = BaseFormData.Action;
 
             startBtn.onClick.AddListener(() => m_start = true);
             m_start = false;
@@ -178,7 +178,7 @@ namespace GameMain
 
         private void OnExit()
         {
-            //mAction();
+            mAction();
             GameEntry.UI.CloseUIForm(this.UIForm);
         }
     }
