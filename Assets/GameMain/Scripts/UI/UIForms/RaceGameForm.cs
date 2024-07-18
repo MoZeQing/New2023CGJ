@@ -110,7 +110,7 @@ namespace GameMain
             if (currentBS <= 30)
                 currentBS += Time.deltaTime * BSIncreaseRate;
 
-            if (currentBGI >= 0.1f)
+            if (currentBGI >= 0.05f)
                 currentBGI -= Time.deltaTime * BGIIncreaseRate;
 
 

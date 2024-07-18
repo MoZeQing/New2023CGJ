@@ -55,6 +55,8 @@ namespace GameMain
         CompleteForm =61,
         FlopForm=201,
         RaceGameForm=202,
+        FlopForm20 = 203,
+        RaceGameForm90=204,
         QueryForm=200,
         PopTips =100,
         HighlightTips=101,
