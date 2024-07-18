@@ -108,6 +108,7 @@ namespace GameMain
             if (args.GameState != GameState.AfterSpecial)
                 return;
             WorkData work = (WorkData)sender;
+            if (work == null) return;
             workData.Power= work.Power;
             workData.Money = work.Money;
             

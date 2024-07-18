@@ -148,6 +148,7 @@ namespace GameMain
         private void OnLevel(LevelData levelData)
         { 
             mLevelData= levelData;
+            GameEntry.Utils.isClose=mLevelData.isClose;
             mOrderCount = 0;
             IsDialog = true;
             GamePosUtility.Instance.GamePosChange(GamePos.Up);
