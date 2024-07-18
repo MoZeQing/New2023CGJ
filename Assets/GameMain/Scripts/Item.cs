@@ -173,5 +173,6 @@ public enum ItemTag
     Closet2 = 1002,
     Closet3 = 1003,
     Closet4 = 1004,
-    Closet5=1005,
+    Closet5 = 1005,
+    Closet6 = 1006
 }

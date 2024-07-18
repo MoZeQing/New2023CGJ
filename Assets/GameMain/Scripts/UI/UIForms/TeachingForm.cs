@@ -24,7 +24,9 @@ namespace GameMain
         [SerializeField] private Text staminaLevelText;
         [SerializeField] private Text wisdomLevelText;
         [SerializeField] private Text charmLevelText;
-        [SerializeField] private Text timeText;
+        [SerializeField] private Text dayText;//日期文本框
+        [SerializeField] private Text apText;//行动力文本框
+        [SerializeField] private Text weekText;//星期文本框
         [SerializeField] private Text rentText;
         [Header("右侧操作栏")]
         [SerializeField] private Transform rightCanvas;
@@ -248,7 +250,9 @@ namespace GameMain
             BuffData buffData = GameEntry.Buff.GetBuff();
             //energyText.text = string.Format("{0}/{1}", playerData.energy, playerData.maxEnergy*buffData.EnergyMaxMulti+buffData.EnergyMaxPlus);
             moneyText.text=string.Format("{0}", playerData.money.ToString());
-            timeText.text = string.Format("第{0}周 第{1}天 星期{2}", playerData.day/7+1, playerData.day% 7+1, AssetUtility.GetWeekCN(playerData.day % 7));
+            weekText.text = $"星期{AssetUtility.GetWeekCN(playerData.day % 7)}";
+            apText.text = $"AP:{GameEntry.Utils.Ap}/{GameEntry.Utils.MaxAp}";
+            dayText.text = $"第{playerData.day% 7+1}天";
         }
         //单独给点击做一个方法调用
         public void Click_Action()
