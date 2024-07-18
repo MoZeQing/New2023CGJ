@@ -95,7 +95,9 @@ namespace GameMain
         {
             GameEntry.Utils.Money -= dRItem.Price;
             GameEntry.Utils.Favor += dRItem.Favor;
-            GameEntry.Utils.Energy += dRItem.Energy;
+            GameEntry.Utils.Charm += dRItem.Charm;
+            GameEntry.Utils.Wisdom += dRItem.Wisdom;
+            GameEntry.Utils.Stamina += dRItem.Stamina;
 
             index -= mItems.Count;
 

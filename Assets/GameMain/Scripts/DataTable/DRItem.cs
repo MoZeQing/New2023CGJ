@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-07-16 20:16:44.742
+// 生成时间：2024-07-18 16:49:58.679
 //------------------------------------------------------------
 
 using GameFramework;
@@ -208,6 +208,33 @@ namespace GameMain
         }
 
         /// <summary>
+        /// 获取魅力。
+        /// </summary>
+        public int Charm
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取体魄。
+        /// </summary>
+        public int Stamina
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取智慧。
+        /// </summary>
+        public int Wisdom
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
         /// 获取前置物品ID。
         /// </summary>
         public int Preposition
@@ -247,6 +274,9 @@ namespace GameMain
             Mood = int.Parse(columnStrings[index++]);
             Energy = int.Parse(columnStrings[index++]);
             Ap = int.Parse(columnStrings[index++]);
+            Charm = int.Parse(columnStrings[index++]);
+            Stamina = int.Parse(columnStrings[index++]);
+            Wisdom = int.Parse(columnStrings[index++]);
             Preposition = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
@@ -279,6 +309,9 @@ namespace GameMain
                     Mood = binaryReader.Read7BitEncodedInt32();
                     Energy = binaryReader.Read7BitEncodedInt32();
                     Ap = binaryReader.Read7BitEncodedInt32();
+                    Charm = binaryReader.Read7BitEncodedInt32();
+                    Stamina = binaryReader.Read7BitEncodedInt32();
+                    Wisdom = binaryReader.Read7BitEncodedInt32();
                     Preposition = binaryReader.Read7BitEncodedInt32();
                 }
             }
