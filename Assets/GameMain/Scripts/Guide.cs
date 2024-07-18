@@ -124,12 +124,12 @@ namespace GameMain
             {
                 if (baseCompenent.NodeTag != NodeTag.HotWater)
                     return;
-                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Kettle)
+                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.FilterBowl)
                 {
                     Position = Vector3.down * 6
                 });
                 GameEntry.UI.CloseUIForm(UIFormId.HighlightTips);
-                GameEntry.UI.OpenUIForm(UIFormId.HighlightTips, "将热水和细咖啡粉放置到过滤壶中，生成浓缩咖啡");
+                GameEntry.UI.OpenUIForm(UIFormId.HighlightTips, "将热水和粗咖啡粉放置到滤纸漏斗中，生成浓缩咖啡");
                 GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, Guide1_5);
                 GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, Guide1_6);
             }

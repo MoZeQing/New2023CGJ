@@ -26,12 +26,14 @@ namespace GameMain
         public int levelTime;
         public int levelMoney;
         public bool isClose;
+        public bool isCoarse;
+        public bool notCoarse;
 
         public List<OrderData> GetOrderDatas()
         { 
             List<OrderData> ans= new List<OrderData>();
             foreach (NewOrderData newOrderData in orderDatas)
-                ans.Add(newOrderData.GetOrderData(levelTag, newOrderData.orderTime));
+                ans.Add(newOrderData.GetOrderData(levelTag, newOrderData.orderTime,isCoarse,notCoarse));
             return ans;
         }
     }
@@ -57,7 +59,7 @@ namespace GameMain
         /// </summary>
         public int orderTime;
 
-        public OrderData GetOrderData(LevelTag levelTag,int orderTime)
+        public OrderData GetOrderData(LevelTag levelTag,int orderTime,bool isCoarse,bool notCoarse)
         { 
             OrderData orderData=new OrderData();
             DRTag dRTag=GameEntry.DataTable.GetDataTable<DRTag>().GetDataRow(nodeNodeTag);
@@ -71,7 +73,7 @@ namespace GameMain
                     tags[i] = tag;
                 }
             }
-            return new OrderData((NodeTag)tags[Random.Range(0, tags.Length)], levelTag,orderTime);
+            return new OrderData((NodeTag)tags[Random.Range(0, tags.Length)], levelTag,orderTime,isCoarse,notCoarse);
         }
     }
 }

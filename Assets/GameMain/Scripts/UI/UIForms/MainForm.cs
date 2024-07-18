@@ -40,6 +40,8 @@ namespace GameMain
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
+            GameEntry.Sound.PlaySound(102);
+            GameEntry.Utils.WeatherTag = WeatherTag.None;
             teachBtn.onClick.AddListener(ChangeTeach);
             teachBtn1.onClick.AddListener(ChangeTeach);
             loadBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.LoadForm, this));
@@ -105,19 +107,19 @@ namespace GameMain
         }
         private void ShowLittleCat()
         {
-            HideLittleCat();
-            DRLittleCat littleCat = GameEntry.DataTable.GetDataTable<DRLittleCat>().GetDataRow(GameEntry.Utils.Closet);
-            int index = Random.Range(0, littleCatBtns.Count);
-            Button button = littleCatBtns[index];
-            button.gameObject.SetActive(true);
-            button.GetComponent<Image>().sprite = Resources.Load<Sprite>($"{littleCat.ClothingPath}_{index + 1}");
+            //HideLittleCat();
+            //DRLittleCat littleCat = GameEntry.DataTable.GetDataTable<DRLittleCat>().GetDataRow(GameEntry.Utils.Closet);
+            //int index = Random.Range(0, littleCatBtns.Count);
+            //Button button = littleCatBtns[index];
+            //button.gameObject.SetActive(true);
+            //button.GetComponent<Image>().sprite = Resources.Load<Sprite>($"{littleCat.ClothingPath}_{index + 1}");
         }
         private void HideLittleCat()
         {
-            for (int i = 0; i < littleCatBtns.Count; i++)
-            {
-                littleCatBtns[i].gameObject.SetActive(false);
-            }
+            //for (int i = 0; i < littleCatBtns.Count; i++)
+            //{
+            //    littleCatBtns[i].gameObject.SetActive(false);
+            //}
         }
         private void Change(GamePos gamePos)
         {

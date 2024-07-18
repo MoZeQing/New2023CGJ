@@ -186,7 +186,7 @@ namespace GameMain
 
         public OrderData() { }
 
-        public OrderData(NodeTag nodeTag,LevelTag leveltag,int orderTime)
+        public OrderData(NodeTag nodeTag,LevelTag leveltag,int orderTime,bool isCoarse,bool notCoarse)
         {
             LevelTag= leveltag;
             DRNode dRNode = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)nodeTag);
@@ -213,7 +213,12 @@ namespace GameMain
             {
                 this.OrderTime = dRNode.Time;
             }
-            Grind =  Random.Range(0, 2) == 1;
+            if (isCoarse)
+                Grind = true;
+            else if(notCoarse)
+                Grind = false;
+            else
+                Grind = Random.Range(0, 2) == 1;
         }
     }
 }

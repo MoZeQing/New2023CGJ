@@ -60,6 +60,8 @@ namespace GameMain
         protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
+            if (Input.GetKey(KeyCode.Escape))
+                GameEntry.UI.OpenUIForm(UIFormId.ConsoleForm);
             if (GameEntry.Dialog.InDialog)
                 return;
             switch (mGameState)

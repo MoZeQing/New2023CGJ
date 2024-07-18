@@ -153,6 +153,7 @@ namespace GameMain
                 {
                     GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
                     InGuide = false;
+                    GameEntry.Sound.PlaySound(102);
                 }
             }
         }

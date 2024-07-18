@@ -54,6 +54,8 @@ namespace GameMain
 
         private void OnEnable()
         {
+            GameEntry.Sound.PlaySound(300);
+
             recipeBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.RecipeForm));
             guideBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.GuideForm));
 
@@ -151,6 +153,7 @@ namespace GameMain
             GameEntry.Utils.isClose=mLevelData.isClose;
             mOrderCount = 0;
             IsDialog = true;
+            modeCanvas.gameObject.SetActive(true);
             GamePosUtility.Instance.GamePosChange(GamePos.Up);
             dialogBox.SetDialog(mLevelData.foreWork);
             dialogBox.SetComplete(OnForeWorkComplete);
@@ -181,8 +184,6 @@ namespace GameMain
             {
                 if (mOrderDatas.Contains(args.OrderData))
                 {
-                    //if (args.Income == 0)
-                    //    return;
                     mOrderCount++;
                 }
                 if (mOrderCount == mOrderDatas.Count)
