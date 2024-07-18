@@ -482,7 +482,8 @@ namespace GameMain
                             {
                                 Producing = true;
                                 drRecipe = recipe;
-                                mProducingTime = drRecipe.ProducingTime;
+                                float power = (float)((GameEntry.Utils.CharData.wisdomLevel - 1f) / 4f);
+                                mProducingTime = drRecipe.ProducingTime * power;
                                 mTime = drRecipe.ProducingTime;
                                 isCoffee = drRecipe.IsCoffee;
                                 mProgressBarRenderer.gameObject.SetActive(true);

@@ -21,7 +21,9 @@ namespace GameMain
         [SerializeField] private Text staminaText;
         [SerializeField] private Text wisdomText;
         [SerializeField] private Text charmText;
-        [SerializeField] private Text skillText;
+        [SerializeField] private Text staminaLevelText;
+        [SerializeField] private Text wisdomLevelText;
+        [SerializeField] private Text charmLevelText;
         [SerializeField] private Text timeText;
         [SerializeField] private Text rentText;
         [Header("右侧操作栏")]
@@ -233,6 +235,9 @@ namespace GameMain
             staminaText.text = charData.stamina.ToString();
             wisdomText.text = charData.wisdom.ToString();
             charmText.text=charData.charm.ToString();
+            staminaLevelText.text = $"Lv.{charData.staminaLevel}";
+            wisdomLevelText.text = $"Lv.{charData.wisdomLevel}";
+            charmLevelText.text = $"Lv.{charData.charmLevel}";
         }
         private void PlayerDataEvent(object sender, GameEventArgs e)
         { 

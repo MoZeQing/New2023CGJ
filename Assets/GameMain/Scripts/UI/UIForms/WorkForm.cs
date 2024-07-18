@@ -97,7 +97,8 @@ namespace GameMain
         private void SetData()
         {
             //modeTitle.sprite = GameEntry.Utils.modeSprites[(int)mLevelData.levelTag];
-            nowTime = mLevelData.levelTime;
+            float power = 1f + (float)((GameEntry.Utils.CharData.staminaLevel - 1f) / 6f);
+            nowTime = mLevelData.levelTime*power;
             modeCanvas.gameObject.SetActive(false);
             orderList.IsShowItem = true;
             mOrderDatas = mLevelData.GetOrderDatas();
