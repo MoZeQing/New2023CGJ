@@ -138,22 +138,39 @@ namespace GameMain
                 GameEntry.Utils.Money -= behavior.playerData.money;
                 GameEntry.Utils.MaxEnergy -= behavior.playerData.maxEnergy;
 
-                GameEntry.Utils.Favor += (int)(behavior.catData.favour * buffData.FavorMulti + buffData.FavorPlus);
-
+                GameEntry.Utils.Favor += (int)(behavior.charData.favor * buffData.FavorMulti + buffData.FavorPlus);
                 GameEntry.Event.FireNow(this, BehaviorEventArgs.Create(behaviorTag));
             }
             else
             {
                 GameEntry.Utils.Ap = GameEntry.Utils.MaxAp;
             }
-            DialogueGraph dialogueGraph = behavior.dialogues[UnityEngine.Random.Range(0, behavior.dialogues.Count)];
-            dialogBox.gameObject.SetActive(true);
-            dialogBox.SetDialog(dialogueGraph);
-            InDialog = true;
-            dialogBox.SetComplete(OnComplete);
-            leftCanvas.gameObject.SetActive(false);
-            rightCanvas.gameObject.SetActive(false);
-            stage.gameObject.SetActive(true);
+            Dictionary<ValueTag, int> dic = new Dictionary<ValueTag, int>();
+            switch (behaviorTag)
+            {
+                case BehaviorTag.Read://智慧
+                    behavior.charData.GetValueTag(dic);
+                    GameEntry.UI.OpenUIForm(UIFormId.ActionForm3, OnComplete, dic);
+                    break;
+                case BehaviorTag.Sport://体魄
+                    behavior.charData.GetValueTag(dic);
+                    GameEntry.UI.OpenUIForm(UIFormId.ActionForm2, OnComplete, dic);
+                    break;
+                case BehaviorTag.Augur://魅力
+                    behavior.charData.GetValueTag(dic);
+                    GameEntry.UI.OpenUIForm(UIFormId.ActionForm1, OnComplete, dic);
+                    break;
+                default:
+                    DialogueGraph dialogueGraph = behavior.dialogues[UnityEngine.Random.Range(0, behavior.dialogues.Count)];
+                    dialogBox.gameObject.SetActive(true);
+                    dialogBox.SetDialog(dialogueGraph);
+                    InDialog = true;
+                    dialogBox.SetComplete(OnComplete);
+                    leftCanvas.gameObject.SetActive(false);
+                    rightCanvas.gameObject.SetActive(false);
+                    stage.gameObject.SetActive(true);
+                    break;
+            }
         }
         //不允许在回调中再设置回调，会导致回调错误
         //也就是说，在SetComplete方法中设置的方法不能有Behaviour等会设置回调的方法
@@ -195,17 +212,7 @@ namespace GameMain
             }
             else if (mBehaviorTag == BehaviorTag.Morning)
             {
-                if (GameEntry.Utils.Week != Week.Sunday)
-                    GameEntry.Utils.GameState = GameState.Work;
-                else
-                {
-                    GameEntry.Event.FireNow(this, MainFormEventArgs.Create(MainFormTag.Unlock));
-                    dialogBox.gameObject.SetActive(false);
-                    stage.gameObject.SetActive(true);
-                    leftCanvas.gameObject.SetActive(true);
-                    rightCanvas.gameObject.SetActive(true);
-                    GameEntry.Utils.GameState = GameState.Night;
-                }
+                GameEntry.Utils.GameState = GameState.Work;
             }
             else
             {

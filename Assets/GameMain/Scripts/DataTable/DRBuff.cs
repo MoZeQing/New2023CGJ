@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-07-18 16:49:58.684
+// 生成时间：2024-07-18 17:41:50.559
 //------------------------------------------------------------
 
 using GameFramework;
@@ -153,6 +153,33 @@ namespace GameMain
             private set;
         }
 
+        /// <summary>
+        /// 获取智慧加成。
+        /// </summary>
+        public int WisdomPlus
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取体魄加成。
+        /// </summary>
+        public int StaminaPlus
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取智慧加成。
+        /// </summary>
+        public int CharmPlus
+        {
+            get;
+            private set;
+        }
+
         public override bool ParseDataRow(string dataRowString, object userData)
         {
             string[] columnStrings = dataRowString.Split(DataTableExtension.DataSplitSeparators);
@@ -178,6 +205,9 @@ namespace GameMain
             FavorPlus = int.Parse(columnStrings[index++]);
             TimeMulti = int.Parse(columnStrings[index++]);
             TimePlus = int.Parse(columnStrings[index++]);
+            WisdomPlus = int.Parse(columnStrings[index++]);
+            StaminaPlus = int.Parse(columnStrings[index++]);
+            CharmPlus = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -203,6 +233,9 @@ namespace GameMain
                     FavorPlus = binaryReader.Read7BitEncodedInt32();
                     TimeMulti = binaryReader.Read7BitEncodedInt32();
                     TimePlus = binaryReader.Read7BitEncodedInt32();
+                    WisdomPlus = binaryReader.Read7BitEncodedInt32();
+                    StaminaPlus = binaryReader.Read7BitEncodedInt32();
+                    CharmPlus = binaryReader.Read7BitEncodedInt32();
                 }
             }
 

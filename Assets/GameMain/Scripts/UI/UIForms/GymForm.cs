@@ -25,30 +25,14 @@ namespace GameMain
         {
             base.OnOpen(userData);
             canvas.gameObject.SetActive(false);
-            quickBtn.onClick.AddListener(QuickBtn_Click);
-            gameBtn.onClick.AddListener(GameBtn_Click);
-            trainBtn.onClick.AddListener(TrainBtn_Click);
-            matchBtn.onClick.AddListener(MatchBtn_Click);
+            trainBtn.onClick.AddListener(QuickBtn_Click);
+            matchBtn.onClick.AddListener(GameBtn_Click);
             exitBtn.onClick.AddListener(OnExit);
-
-            if (GameEntry.Utils.Week == Week.Tuesday ||
-                GameEntry.Utils.Week == Week.Friday)
-            {
-                matchBtn.interactable = false;
-                matchBtn.transform.GetChild(0).gameObject.SetActive(false);
-            }
-            else
-            {
-                matchBtn.interactable = false;
-                matchBtn.transform.GetChild(0).gameObject.SetActive(true);
-            }
         }
 
         protected override void OnClose(bool isShutdown, object userData)
         {
             base.OnClose(isShutdown, userData);
-            quickBtn.onClick.RemoveAllListeners();
-            gameBtn.onClick.RemoveAllListeners();
             trainBtn.onClick.RemoveAllListeners();
             matchBtn.onClick.RemoveAllListeners();
             exitBtn.onClick.RemoveAllListeners();
@@ -59,7 +43,7 @@ namespace GameMain
             Dictionary<ValueTag, int> dic = new Dictionary<ValueTag, int>();
             charData.GetValueTag(dic);
             playerData.GetValueTag(dic);
-            GameEntry.UI.OpenUIForm(UIFormId.ActionForm, OnExit, dic);
+            GameEntry.UI.OpenUIForm(UIFormId.ActionForm2, OnExit, dic);
         }
 
         private void GameBtn_Click()

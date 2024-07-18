@@ -17,6 +17,9 @@ namespace GameMain
         public float FavorPlus { get; set; }
         public float TimeMulti { get; set; }
         public float TimePlus { get; set; }
+        public float WisdomPlus { get; set; }
+        public float StaminaPlus { get; set; }
+        public float CharmPlus { get; set; }
 
         public void AddBuff(DRBuff dRBuff)
         {
@@ -30,6 +33,9 @@ namespace GameMain
             FavorPlus += dRBuff.FavorPlus / 100f;
             TimeMulti += dRBuff.TimeMulti / 100f;
             TimePlus += dRBuff.TimePlus / 100f;
+            WisdomPlus += dRBuff.WisdomPlus / 100f;
+            StaminaPlus += dRBuff.StaminaPlus / 100f;
+            CharmPlus += dRBuff.CharmPlus / 100f;
         }
 
         public void AddBuff(int buffIndex)
@@ -59,6 +65,9 @@ namespace GameMain
             FavorPlus -= dRBuff.FavorPlus / 100f;
             TimeMulti -= dRBuff.TimeMulti / 100f;
             TimePlus -= dRBuff.TimePlus / 100f;
+            WisdomPlus -= dRBuff.WisdomPlus / 100f;
+            StaminaPlus -= dRBuff.StaminaPlus / 100f;
+            CharmPlus -= dRBuff.CharmPlus / 100f;
         }
 
         public BuffData()
@@ -73,6 +82,9 @@ namespace GameMain
             FavorPlus= 0;
             TimeMulti= 1;
             TimePlus= 0;
+            WisdomPlus = 0;
+            StaminaPlus = 0;
+            CharmPlus = 0;
         }
         public BuffData(DRBuff dRBuff)
         {
@@ -86,6 +98,9 @@ namespace GameMain
             FavorPlus = dRBuff.FavorPlus / 100f;
             TimeMulti = dRBuff.TimeMulti / 100f;
             TimePlus = dRBuff.TimePlus / 100f;
+            WisdomPlus = dRBuff.WisdomPlus / 100f;
+            StaminaPlus = dRBuff.StaminaPlus / 100f;
+            CharmPlus = dRBuff.CharmPlus / 100f;
         }
     }
 }

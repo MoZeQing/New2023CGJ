@@ -40,8 +40,19 @@ namespace GameMain
         InstrumentForm=57,
         UpgradeForm=58,
         BuffForm=59,
-        ActionForm=60,
-        CompleteForm=61,
+        /// <summary>
+        /// ÷ÈÁ¦
+        /// </summary>
+        ActionForm1=600,
+        /// <summary>
+        /// ÌåÆÇ
+        /// </summary>
+        ActionForm2 = 601,
+        /// <summary>
+        /// ÖÇ»Û
+        /// </summary>
+        ActionForm3 = 602,
+        CompleteForm =61,
         FlopForm=201,
         RaceGameForm=202,
         QueryForm=200,

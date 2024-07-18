@@ -96,7 +96,7 @@ namespace GameMain
         public BehaviorTag behaviorTag;
         public string behaviorName;
         public PlayerData playerData;
-        public CatData catData;
+        public CharData charData;
         public List<DialogueGraph> dialogues;
     }
 
@@ -114,6 +114,9 @@ namespace GameMain
         Sleep,
         Morning,
         Hug,
-        Teach
+        Teach,
+        Sport,
+        Read,
+        Augur
     }
 }
