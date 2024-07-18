@@ -25,6 +25,7 @@ namespace GameMain
         public List<NewOrderData> orderDatas;
         public int levelTime;
         public int levelMoney;
+        public bool isClose;
 
         public List<OrderData> GetOrderDatas()
         { 

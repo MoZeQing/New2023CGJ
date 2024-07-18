@@ -256,8 +256,18 @@ namespace GameMain
                 mProgressBar.gameObject.SetActive(false);
                 mProgressBar.GetComponent<Image>().fillAmount = 1;
             }
-
-            this.transform.position = new Vector3(Mathf.Clamp(this.transform.position.x, -8f, 8f), Mathf.Clamp(this.transform.position.y, -10f, -4f), 0);//���Ʒ�Χ
+            //范围限制
+            if (GameEntry.Utils.isClose)
+            {
+                BoundData boundData = GameEntry.Utils.closeBoundData;
+                this.transform.position = new Vector3(Mathf.Clamp(this.transform.position.x, boundData.leftLimit, boundData.rightLimit), Mathf.Clamp(this.transform.position.y, boundData.downLimit, boundData.upLimit), 0);//���Ʒ�Χ
+                //this.transform.position = new Vector3(Mathf.Clamp(this.transform.position.x, -8f, 8f), Mathf.Clamp(this.transform.position.y, -10f, -4f), 0);//���Ʒ�Χ
+            }
+            else
+            {
+                BoundData boundData = GameEntry.Utils.openBoundData;
+                this.transform.position = new Vector3(Mathf.Clamp(this.transform.position.x, boundData.leftLimit, boundData.rightLimit), Mathf.Clamp(this.transform.position.y, boundData.downLimit, boundData.upLimit), 0);//���Ʒ�Χ
+            }
             if (Parent != null && !mNodeData.Follow)//跟随父卡牌
             {
                 this.transform.DOMove(Parent.transform.position + Vector3.up * 0.5f, 0.1f);//�����ڵ�
@@ -778,6 +788,14 @@ namespace GameMain
         }
     }
 
+    [System.Serializable]
+    public class BoundData
+    {
+        public float upLimit;
+        public float downLimit;
+        public float leftLimit;
+        public float rightLimit;
+    }
     public enum NodeState
     {
         //δ����

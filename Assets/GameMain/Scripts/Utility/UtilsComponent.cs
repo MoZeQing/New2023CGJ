@@ -16,6 +16,11 @@ namespace GameMain
     {
         public Sprite[] modeSprites;
         public Sprite orderSprite;
+        public bool isClose;
+        public BoundData openBoundData;
+        public BoundData closeBoundData;
+        public Sprite openSprite;
+        public Sprite closeSprite;
         public OutingSceneState outSceneState;
         public int Closet { get; set; }
         public bool PickUp { get; set; } = false;
