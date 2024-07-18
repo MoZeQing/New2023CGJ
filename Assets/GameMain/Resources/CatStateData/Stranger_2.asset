@@ -20,9 +20,15 @@ MonoBehaviour:
       value: 5
       and:
       - key: 2
-        not: 1
+        not: 0
         equals: 0
         value: 40
+        and: []
+        or: []
+      - key: 2
+        not: 1
+        equals: 0
+        value: 80
         and: []
         or: []
       or: []
@@ -60,7 +66,7 @@ MonoBehaviour:
       behaviorName: "\u5BF9\u8BDD"
       playerData:
         maxEnergy: 0
-        energy: 10
+        energy: 0
         money: 0
         maxAp: 0
         ap: 1
@@ -76,7 +82,7 @@ MonoBehaviour:
         ccoffee: 0
         items: []
       charData:
-        favor: 0
+        favor: 6
         stamina: 0
         wisdom: 0
         charm: 0
@@ -86,66 +92,6 @@ MonoBehaviour:
       dialogues:
       - {fileID: 11400000, guid: 97f9089c7b38ac5478e0dcf2a8f36196, type: 2}
       - {fileID: 11400000, guid: c1abce275673fad4a9dfc4efb24b92e9, type: 2}
-    - behaviorTag: 7
-      behaviorName: "\u6478\u6478"
-      playerData:
-        maxEnergy: 0
-        energy: 20
-        money: 0
-        maxAp: 0
-        ap: 0
-        day: 0
-        rent: 0
-        heaterID: 0
-        burnisherID: 0
-        stirrerID: 0
-        pressID: 0
-        cafeID: 0
-        acoffee: 0
-        bcoffee: 0
-        ccoffee: 0
-        items: []
-      charData:
-        favor: 0
-        stamina: 0
-        wisdom: 0
-        charm: 0
-        staminaLevel: 1
-        wisdomLevel: 1
-        charmLevel: 1
-      dialogues:
-      - {fileID: 11400000, guid: d6283b9144a97fe44a90d7c8b7ddaffc, type: 2}
-      - {fileID: 11400000, guid: 2df9667931d2f4c4792a1d2cba62b91c, type: 2}
-    - behaviorTag: 5
-      behaviorName: "\u770B\u7535\u89C6"
-      playerData:
-        maxEnergy: 0
-        energy: 15
-        money: 0
-        maxAp: 0
-        ap: 0
-        day: 0
-        rent: 0
-        heaterID: 0
-        burnisherID: 0
-        stirrerID: 0
-        pressID: 0
-        cafeID: 0
-        acoffee: 0
-        bcoffee: 0
-        ccoffee: 0
-        items: []
-      charData:
-        favor: 0
-        stamina: 0
-        wisdom: 0
-        charm: 0
-        staminaLevel: 1
-        wisdomLevel: 1
-        charmLevel: 1
-      dialogues:
-      - {fileID: 11400000, guid: 4ac791c1ec7f00640a117fef1f531d45, type: 2}
-      - {fileID: 11400000, guid: 7c6e8ede114ccc445a9d76db797981c1, type: 2}
     - behaviorTag: 9
       behaviorName: "\u7761\u89C9\uFF08\u8FDB\u5165\u4E0B\u4E00\u5929\uFF09"
       playerData:
