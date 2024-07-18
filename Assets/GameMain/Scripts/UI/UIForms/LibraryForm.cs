@@ -125,6 +125,7 @@ namespace GameMain
             GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
             GameEntry.Utils.Location = OutingSceneState.Home;
             GameEntry.UI.CloseUIForm(this.UIForm);
+            GameEntry.Event.FireNow(this, OutEventArgs.Create(OutingSceneState.Home));
         }
     }
 }

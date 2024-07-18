@@ -7,7 +7,7 @@ using GameFramework.Event;
 
 namespace GameMain
 {
-    public class RestaurantForm : UIFormLogic
+    public class RestaurantForm : BaseForm
     {
         [SerializeField] private Button leftBtn;
         [SerializeField] private Button rightBtn;
@@ -108,6 +108,7 @@ namespace GameMain
             GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
             GameEntry.Utils.Location = OutingSceneState.Home;
             GameEntry.UI.CloseUIForm(this.UIForm);
+            GameEntry.Event.FireNow(this, OutEventArgs.Create(OutingSceneState.Home));
         }
     }
 }
