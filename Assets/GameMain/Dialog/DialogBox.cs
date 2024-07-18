@@ -89,6 +89,7 @@ public class DialogBox : MonoBehaviour
         dialogBtn.onClick.AddListener(Next);
         memoryBtn.onClick.AddListener(ShowMemoryPlane);
         exitMemoryBtn.onClick.AddListener(ExitMemoryPlane);
+        charSpeed = GameEntry.Utils.word;
     }
 
     private void OnDestroy()

@@ -21,6 +21,8 @@ namespace GameMain
         public BoundData closeBoundData;
         public Sprite openSprite;
         public Sprite closeSprite;
+        public float voice=0.5f;
+        public float word=0.015f;
         public OutingSceneState outSceneState;
         public int Closet { get; set; }
         public bool PickUp { get; set; } = false;
