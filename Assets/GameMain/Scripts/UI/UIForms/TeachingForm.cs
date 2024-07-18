@@ -72,6 +72,10 @@ namespace GameMain
         //}
         private void Update()
         {
+            moneyText.text = string.Format("{0}", GameEntry.Player.Money.ToString());
+            weekText.text = $"星期{AssetUtility.GetWeekCN(GameEntry.Utils.PlayerData.day % 7)}";
+            apText.text = $"AP:{GameEntry.Utils.Ap}/{GameEntry.Utils.MaxAp}";
+            dayText.text = $"第{GameEntry.Utils.PlayerData.day % 7 + 1}天";
             //if (Input.GetMouseButtonDown(1)&&!InDialog)
             //{
             //    GameEntry.Event.FireNow(this, MainFormEventArgs.Create(MainFormTag.Unlock));

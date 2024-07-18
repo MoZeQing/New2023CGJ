@@ -11,6 +11,10 @@ namespace GameMain
         [SerializeField] private Button loadBtn;
         [SerializeField] private Button cancelBtn;
         [SerializeField] private Text dayText;
+        [SerializeField] private Text favorText;
+        [SerializeField] private Text wisdomText;
+        [SerializeField] private Text charmText;
+        [SerializeField] private Text staminaText;
         [SerializeField] private Text systemText;
         [SerializeField] private Image backgroundImg;
 
@@ -48,6 +52,10 @@ namespace GameMain
         {
             dayText.text = string.Format("第{0}天", saveLoadData.day);
             systemText.text = saveLoadData.dataTime;
+            favorText.text = $"信任：{saveLoadData.charData.favor}";
+            wisdomText.text = $"智慧：{saveLoadData.charData.wisdom}";
+            charmText.text = $"魅力：{saveLoadData.charData.charm}";
+            staminaText.text = $"体魄：{saveLoadData.charData.stamina}";
             SetData(action, index);
         }
 
@@ -57,6 +65,10 @@ namespace GameMain
             mIndex = index;
             backgroundImg.sprite = empty;
             dayText.gameObject.SetActive(false);
+            favorText.gameObject.SetActive(false);
+            wisdomText.gameObject.SetActive(false);
+            charmText.gameObject.SetActive(false);
+            staminaText.gameObject.SetActive(false);
             systemText.gameObject.SetActive(false);
             cancelBtn.gameObject.SetActive(false);
         }
@@ -79,6 +91,10 @@ namespace GameMain
             loadBtn.interactable = true;
             backgroundImg.sprite = background;
             dayText.gameObject.SetActive(true);
+            favorText.gameObject.SetActive(false);
+            wisdomText.gameObject.SetActive(false);
+            charmText.gameObject.SetActive(false);
+            staminaText.gameObject.SetActive(false);
             systemText.gameObject.SetActive(true);
             cancelBtn.gameObject.SetActive(true);
         }
@@ -87,6 +103,10 @@ namespace GameMain
             loadBtn.interactable = false;
             backgroundImg.sprite = empty;
             dayText.gameObject.SetActive(false);
+            favorText.gameObject.SetActive(false);
+            wisdomText.gameObject.SetActive(false);
+            charmText.gameObject.SetActive(false);
+            staminaText.gameObject.SetActive(false);
             systemText.gameObject.SetActive(false);
             cancelBtn.gameObject.SetActive(false);
         }

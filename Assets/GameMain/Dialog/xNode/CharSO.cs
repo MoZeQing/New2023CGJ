@@ -37,8 +37,8 @@ namespace GameMain
         public int wisdom;//ÖÇ»Û
         public int charm;//÷ÈÁ¦
         public int staminaLevel=1;//ÌåÄÜ
-        public int wisdomLevel=2;//ÖÇ»Û
-        public int charmLevel=2;//÷ÈÁ¦
+        public int wisdomLevel=1;//ÖÇ»Û
+        public int charmLevel=1;//÷ÈÁ¦
 
         public CharData() { }
 
