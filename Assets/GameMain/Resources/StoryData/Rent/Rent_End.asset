@@ -14,19 +14,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unLoad: 1
   isRemove: 1
-  outingSceneState: -1
-  gameState: 2
+  outingSceneState: 0
+  gameState: 1
   trigger:
-    key: 17
+    key: 0
     not: 0
-    equals: 1
-    value: Monday
+    equals: 0
+    value: 
     and: []
     or:
     - key: 10
       not: 0
       equals: 1
-      value: 7
+      value: 5
+      and:
+      - key: 8
+        not: 1
+        equals: 0
+        value: 200
+        and: []
+        or: []
+      or: []
+    - key: 10
+      not: 0
+      equals: 1
+      value: 9
       and:
       - key: 8
         not: 1
@@ -38,12 +50,24 @@ MonoBehaviour:
     - key: 10
       not: 0
       equals: 1
-      value: 14
+      value: 13
       and:
       - key: 8
         not: 1
         equals: 0
-        value: 1000
+        value: 800
+        and: []
+        or: []
+      or: []
+    - key: 10
+      not: 0
+      equals: 1
+      value: 17
+      and:
+      - key: 8
+        not: 1
+        equals: 0
+        value: 1100
         and: []
         or: []
       or: []
@@ -59,18 +83,6 @@ MonoBehaviour:
         and: []
         or: []
       or: []
-    - key: 10
-      not: 0
-      equals: 1
-      value: 28
-      and:
-      - key: 8
-        not: 1
-        equals: 0
-        value: 2000
-        and: []
-        or: []
-      or: []
   dialogueGraph: {fileID: 11400000, guid: 30d1cc1955db408409e8263d182cca1d, type: 2}
   eventDatas: []
-  content: "\u79DF\u91D1\u4E8B\u4EF6\u94FEEnd\n\u4E0D\u591F\u94B1\uFF0C\u5BC4\u4E86"
+  content: 
