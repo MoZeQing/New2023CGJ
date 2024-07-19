@@ -13,6 +13,7 @@ namespace GameMain
         {
             if (GameEntry.Utils.PlayerData.guideID==3)
             {
+                //养成1
                 if (GameEntry.Utils.GameState == GameState.Afternoon&&
                     GameEntry.Utils.Day==3)
                 { 
@@ -22,6 +23,17 @@ namespace GameMain
             }
             if (GameEntry.Utils.PlayerData.guideID == 4)
             {
+                //工作
+                if (GameEntry.Utils.GameState == GameState.Afternoon &&
+                    GameEntry.Utils.Day == 4)
+                {
+                    GameEntry.UI.OpenUIForm(UIFormId.GuideForm, 5);
+                    GameEntry.Utils.PlayerData.guideID = 5;
+                }
+            }
+            if (GameEntry.Utils.PlayerData.guideID == 4)
+            {
+                //外出
                 if (GameEntry.Utils.GameState == GameState.Afternoon &&
                     GameEntry.Utils.Day == 4)
                 {
@@ -31,7 +43,11 @@ namespace GameMain
             }
             if (GameEntry.Utils.PlayerData.guideID == 5)
             {
-                if (GameEntry.Utils.GameState == GameState.Afternoon)
+                //外出的小游戏
+                if (GameEntry.Utils.GameState == GameState.Afternoon&&
+                    (GameEntry.Utils.outSceneState == OutingSceneState.Gym||
+                    GameEntry.Utils.outSceneState == OutingSceneState.Beach ||
+                    GameEntry.Utils.outSceneState == OutingSceneState.Library))
                 {
                     GameEntry.UI.OpenUIForm(UIFormId.GuideForm, 4);
                     GameEntry.Utils.PlayerData.guideID = 4;
