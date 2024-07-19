@@ -12,16 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9d3fe38b58a1ff4cbfd1f6e24dcdd50, type: 3}
   m_Name: Rent_End
   m_EditorClassIdentifier: 
-  unLoad: 1
+  unLoad: 0
   isRemove: 1
   outingSceneState: 0
   gameState: 1
   trigger:
-    key: 0
+    key: 10
     not: 0
-    equals: 0
-    value: 
-    and: []
+    equals: 1
+    value: 21
+    and:
+    - key: 8
+      not: 1
+      equals: 0
+      value: 1500
+      and: []
+      or: []
     or:
     - key: 10
       not: 0
@@ -68,18 +74,6 @@ MonoBehaviour:
         not: 1
         equals: 0
         value: 1100
-        and: []
-        or: []
-      or: []
-    - key: 10
-      not: 0
-      equals: 1
-      value: 21
-      and:
-      - key: 8
-        not: 1
-        equals: 0
-        value: 1500
         and: []
         or: []
       or: []
