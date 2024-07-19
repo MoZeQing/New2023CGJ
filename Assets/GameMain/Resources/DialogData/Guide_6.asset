@@ -22,7 +22,10 @@ MonoBehaviour:
       _node: {fileID: -8649257395389738181}
       _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
-      connections: []
+      connections:
+      - fieldName: a
+        node: {fileID: 6534182775892007990}
+        reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
@@ -57,17 +60,29 @@ MonoBehaviour:
   m_Name: Chat
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 0, y: 0}
+  position: {x: 456, y: 24}
   ports:
     keys:
     - a
     - chatDatas
+    - chatDatas 0
+    - chatDatas 1
+    - chatDatas 2
+    - chatDatas 3
+    - chatDatas 4
+    - chatDatas 5
+    - chatDatas 6
+    - chatDatas 7
+    - chatDatas 8
     values:
     - _fieldName: a
       _node: {fileID: 6534182775892007990}
       _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
-      connections: []
+      connections:
+      - fieldName: start
+        node: {fileID: -8649257395389738181}
+        reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
@@ -82,6 +97,87 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+    - _fieldName: chatDatas 0
+      _node: {fileID: 6534182775892007990}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: chatDatas 1
+      _node: {fileID: 6534182775892007990}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: chatDatas 2
+      _node: {fileID: 6534182775892007990}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: chatDatas 3
+      _node: {fileID: 6534182775892007990}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: chatDatas 4
+      _node: {fileID: 6534182775892007990}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: chatDatas 5
+      _node: {fileID: 6534182775892007990}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: chatDatas 6
+      _node: {fileID: 6534182775892007990}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: chatDatas 7
+      _node: {fileID: 6534182775892007990}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: chatDatas 8
+      _node: {fileID: 6534182775892007990}
+      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
   a: 0
   dialogId: 
   chatDatas:
