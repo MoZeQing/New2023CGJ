@@ -29,12 +29,6 @@ namespace GameMain
         protected override void OnClose(bool isShutdown, object userData)
         {
             base.OnClose(isShutdown, userData);
-            DRUIForms dRUIForms = GameEntry.DataTable.GetDataTable<DRUIForms>().GetDataRow((int)BaseFormData.UIFormId);
-            
-            if (dRUIForms.CloseSound != 0)
-            {
-                GameEntry.Sound.PlaySound(dRUIForms.CloseSound);
-            }
         }
     }
 
