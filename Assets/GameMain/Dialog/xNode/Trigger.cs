@@ -292,5 +292,6 @@ public enum EventTag
     ShowFlag,//展示所有的Flag数据
     AddBuff,//增加buff
     RemoveBuff,//卸载buff
-    Weather//天气
+    Weather,//天气
+    SetClothing//设置服装
 }

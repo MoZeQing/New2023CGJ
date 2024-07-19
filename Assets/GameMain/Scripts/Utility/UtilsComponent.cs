@@ -587,6 +587,10 @@ namespace GameMain
                 case EventTag.Weather:
                     GameEntry.Utils.WeatherTag = (WeatherTag)int.Parse(eventData.value1);
                     return true;
+                case EventTag.SetClothing:
+                    GameEntry.Utils.AddPlayerItem(new ItemData((ItemTag)int.Parse(eventData.value1)), 1);
+                    GameEntry.Utils.Closet = int.Parse(eventData.value1);
+                    break;
             }
             return false;
         }
