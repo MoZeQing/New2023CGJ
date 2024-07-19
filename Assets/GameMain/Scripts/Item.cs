@@ -169,10 +169,10 @@ public enum ItemTag
     Food3 = 62,
     Food4 = 63,
     Food5 = 64,
-    Closet1 = 1001,
-    Closet2 = 1002,
-    Closet3 = 1003,
-    Closet4 = 1004,
-    Closet5 = 1005,
-    Closet6 = 1006
+    Closet1 = 1001,//破旧衣服
+    Closet2 = 1002,//常服
+    Closet3 = 1003,//女仆装
+    Closet4 = 1004,//泳装
+    Closet5 = 1005,//运动服
+    Closet6 = 1006//晚礼服
 }
