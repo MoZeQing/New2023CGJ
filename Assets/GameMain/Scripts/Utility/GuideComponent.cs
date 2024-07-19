@@ -11,11 +11,11 @@ namespace GameMain
 
         private void Update()
         {
-            if (GameEntry.Utils.PlayerData.guideID==3)
+            if (GameEntry.Utils.PlayerData.guideID<=3)
             {
                 //养成1
                 if (GameEntry.Utils.GameState == GameState.Afternoon&&
-                    GameEntry.Utils.Day==3)
+                    GameEntry.Utils.Day==2)
                 { 
                     GameEntry.UI.OpenUIForm(UIFormId.GuideForm, 4);
                     GameEntry.Utils.PlayerData.guideID = 4;
@@ -24,8 +24,8 @@ namespace GameMain
             if (GameEntry.Utils.PlayerData.guideID == 4)
             {
                 //工作
-                if (GameEntry.Utils.GameState == GameState.Afternoon &&
-                    GameEntry.Utils.Day == 4)
+                if (GameEntry.Utils.GameState == GameState.Special &&
+                    GameEntry.Utils.Day == 3)
                 {
                     GameEntry.UI.OpenUIForm(UIFormId.GuideForm, 5);
                     GameEntry.Utils.PlayerData.guideID = 5;
@@ -35,13 +35,13 @@ namespace GameMain
             {
                 //外出
                 if (GameEntry.Utils.GameState == GameState.Afternoon &&
-                    GameEntry.Utils.Day == 4)
+                    GameEntry.Utils.Day == 3)
                 {
                     GameEntry.UI.OpenUIForm(UIFormId.GuideForm, 5);
                     GameEntry.Utils.PlayerData.guideID = 5;
                 }
             }
-            if (GameEntry.Utils.PlayerData.guideID == 6)
+            if (GameEntry.Utils.PlayerData.guideID >= 6)
             {
                 //外出的小游戏
                 if (GameEntry.Utils.GameState == GameState.Afternoon&&
@@ -52,13 +52,9 @@ namespace GameMain
                     GameEntry.UI.OpenUIForm(UIFormId.GuideForm, 6);
                     GameEntry.Utils.PlayerData.guideID = 6;
                 }
-            }
-            if (GameEntry.Utils.PlayerData.guideID == 7)
-            {
-                //猫猫的帮助
                 if (GameEntry.Utils.CharData.StaminaLevel > 1 ||
                     GameEntry.Utils.CharData.StaminaLevel > 2 ||
-                    GameEntry.Utils.CharData.StaminaLevel > 3 )
+                    GameEntry.Utils.CharData.StaminaLevel > 3)
                 {
                     GameEntry.UI.OpenUIForm(UIFormId.GuideForm, 7);
                     GameEntry.Utils.PlayerData.guideID = 7;
