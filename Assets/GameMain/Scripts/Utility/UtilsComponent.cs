@@ -591,6 +591,9 @@ namespace GameMain
                     GameEntry.Utils.AddPlayerItem(new ItemData((ItemTag)int.Parse(eventData.value1)), 1);
                     GameEntry.Utils.Closet = int.Parse(eventData.value1);
                     break;
+                case EventTag.ShowForm:
+                    GameEntry.UI.OpenUIForm((UIFormId)Enum.Parse(typeof(UIFormId), eventData.value1));
+                    break;
             }
             return false;
         }

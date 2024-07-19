@@ -8,7 +8,7 @@ using System.Text;
 using UnityEditor;
 using UnityEngine;
 
-//[CreateAssetMenu]
+[CreateAssetMenu]
 public class StorySO : ScriptableObject
 {
     [SerializeField]
