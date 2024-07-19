@@ -35,7 +35,7 @@ namespace GameMain
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            catLevelText.text = $"èèLv.{GameEntry.Utils.CharData.charmLevel}";
+            catLevelText.text = $"èèLv.{GameEntry.Utils.CharData.CharmLevel}";
             mWorkData = (WorkData)BaseFormData.UserData;
             mIsRandom = false;
             mOKButton.onClick.AddListener(OnClick);
@@ -129,7 +129,7 @@ namespace GameMain
             levelMoney = (int)(mWorkData.Money * (float)GetPower(mWorkData) / 3f);
             sequence.Append(DOTween.To(value => { incomeText.text = Mathf.Floor(value).ToString(); }, startValue: 0, endValue: income, duration: 0.5f));
             sequence.Append(DOTween.To(value => { levelText.text = Mathf.Floor(value).ToString(); }, startValue: 0, endValue: levelMoney, duration: 0.5f));
-            catValue = (int)((levelMoney + income) * (GameEntry.Utils.CharData.charmLevel - 1) / 3f);
+            catValue = (int)((levelMoney + income) * (GameEntry.Utils.CharData.CharmLevel - 1) / 3f);
             sequence.Append(DOTween.To(value => { catText.text = Mathf.Floor(value).ToString(); }, startValue: 0, endValue: catValue, duration: 0.5f));
             sequence.Append(DOTween.To(value => { settleText.text = Mathf.Floor(value).ToString(); }, startValue: 0, endValue: levelMoney+income+catValue, duration: 0.5f));
         }

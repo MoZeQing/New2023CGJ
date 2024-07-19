@@ -40,7 +40,6 @@ namespace GameMain
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            GameEntry.Sound.PlaySound(102);
             GameEntry.Utils.WeatherTag = WeatherTag.None;
             teachBtn.onClick.AddListener(ChangeTeach);
             teachBtn1.onClick.AddListener(ChangeTeach);

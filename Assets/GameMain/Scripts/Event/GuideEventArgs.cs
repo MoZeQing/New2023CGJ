@@ -18,9 +18,15 @@ namespace GameMain
             }
         }
 
-        public static GuideEventArgs Create()
+        public int GuideID
+        {
+            get;
+            set;
+        }
+        public static GuideEventArgs Create(int guideId)
         {
             GuideEventArgs args = ReferencePool.Acquire<GuideEventArgs>();
+            args.GuideID = guideId;
             return args;
         }
 

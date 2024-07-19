@@ -10,7 +10,7 @@ using CharData1 = CharData;//重复命名了，我真是傻逼
 
 namespace GameMain
 {
-    //[CreateAssetMenu(fileName = "DialogueGraph")]
+    [CreateAssetMenu(fileName = "DialogueGraph")]
     public class DialogueGraph : NodeGraph
     {
         [TextArea(5, 10)]
@@ -74,7 +74,7 @@ namespace GameMain
             Debug.Log(0);
         }
 
-        //[MenuItem("导入导出工具/对话文件转入")]
+        [MenuItem("导入导出工具/对话文件转入")]
         public static void ExcelToSO()
         {
             try
@@ -234,13 +234,13 @@ namespace GameMain
                         AssetDatabase.AddObjectToAsset(triggerNode, dialogue);
                     }
 
-                    for (int row = 3; row <= rowCount; row++)//表格从（1，1）开始
-                    {
-                        Node form = dialogue.nodes[int.Parse(worksheet.Cells[row, 2].ToString()) - 1];
-                        Node to = dialogue.nodes[int.Parse(worksheet.Cells[row, 20].ToString()) - 1];
-                        form.GetOutputPort(GetOutPortName(int.Parse(worksheet.Cells[row, 2].ToString()), int.Parse(worksheet.Cells[row, 3].ToString()) - 1)).Connect(to.GetInputPort("a"));//如何获取连接
-                        AssetDatabase.SaveAssets();
-                    }
+                    //for (int row = 3; row <= rowCount; row++)//表格从（1，1）开始
+                    //{
+                    //    Node form = dialogue.nodes[int.Parse(worksheet.Cells[row, 2].ToString()) - 1];
+                    //    Node to = dialogue.nodes[int.Parse(worksheet.Cells[row, 20].ToString()) - 1];
+                    //    form.GetOutputPort(GetOutPortName(int.Parse(worksheet.Cells[row, 2].ToString()), int.Parse(worksheet.Cells[row, 3].ToString()) - 1)).Connect(to.GetInputPort("a"));//如何获取连接
+                    //    AssetDatabase.SaveAssets();
+                    //}
                     EditorUtility.SetDirty(dialogue);
                 }
 

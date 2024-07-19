@@ -12,6 +12,7 @@ namespace GameMain
     {
         [SerializeField] private Text text;
         [SerializeField] private Text title;
+        [SerializeField] private Image guideImg;
         //[SerializeField] private RawImage image;
         [SerializeField] private Button exitBtn;
         [SerializeField] private Transform canvas;
@@ -26,6 +27,14 @@ namespace GameMain
             canvas.localPosition = Vector3.up * 1080f;
             canvas.DOLocalMove(Vector3.zero, 0.5f).SetEase(Ease.OutExpo);
 
+            if (userData != null)
+            {
+                int index = (int)BaseFormData.UserData;
+                if (index != 0)
+                    OnClick(index);
+                else
+                    OnClick(GameEntry.DataTable.GetDataTable<DRGuide>().GetDataRow(0));
+            }
             //renderTexture = RenderTexture.GetTemporary(1920, 1080);
 
             //image.texture = renderTexture;
@@ -34,7 +43,7 @@ namespace GameMain
 
             //videoPlayer.targetTexture = renderTexture;
 
-            OnClick(GameEntry.DataTable.GetDataTable<DRGuide>().GetDataRow(0));
+
             for (int i=0;i<buttons.Count;i++)
             {
                 DRGuide dRGuide = GameEntry.DataTable.GetDataTable<DRGuide>().GetDataRow(i);
@@ -59,6 +68,11 @@ namespace GameMain
             exitBtn.onClick.RemoveAllListeners();
         }
 
+        private void OnClick(int index)
+        {
+            DRGuide dRGuide = GameEntry.DataTable.GetDataTable<DRGuide>().GetDataRow(index);
+            OnClick(dRGuide);
+        }
 
         private void OnClick(DRGuide dRGuide)
         {
@@ -67,6 +81,10 @@ namespace GameMain
             //image.color = Color.white;
             title.text = dRGuide.Title;
             text.text = dRGuide.Text;
+            if (dRGuide.ImagePath != string.Empty)
+                guideImg.sprite = Resources.Load<Sprite>(dRGuide.ImagePath);
+            else
+                guideImg.gameObject.SetActive(false);
             text.text = text.text.Replace("\\n", "\n");
         }
     }

@@ -36,9 +36,27 @@ namespace GameMain
         public int stamina;//体能
         public int wisdom;//智慧
         public int charm;//魅力
-        public int staminaLevel=1;//体能
-        public int wisdomLevel=1;//智慧
-        public int charmLevel=1;//魅力
+        public int StaminaLevel 
+        {
+            get
+            {
+                return Mathf.Min(stamina / 40 + 1,3);
+            }
+        }//体能
+        public int WisdomLevel
+        {
+            get
+            {
+                return Mathf.Min(wisdom / 40 + 1, 3);
+            }
+        }//智慧
+        public int CharmLevel
+        {
+            get
+            {
+                return Mathf.Min(charm / 40 + 1, 3);
+            }
+        }//魅力
 
         public CharData() { }
 

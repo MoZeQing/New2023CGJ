@@ -614,6 +614,7 @@ namespace GameMain
         public int acoffee;
         public int bcoffee;
         public int ccoffee;
+        public int guideID;
         public List<PlayerItemData> items=new List<PlayerItemData>();
 
         public Dictionary<ValueTag, int> GetValueTag(Dictionary<ValueTag, int> dic)

@@ -7,7 +7,7 @@ using System;
 using System.Text;
 using System.IO;
 
-//[CreateAssetMenu]
+[CreateAssetMenu]
 public class LevelSO : ScriptableObject
 {
     [SerializeField]

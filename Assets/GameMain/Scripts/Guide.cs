@@ -271,7 +271,7 @@ namespace GameMain
                     return;
                 materials[7].SetActive(true);
                 GameEntry.UI.CloseUIForm(UIFormId.HighlightTips);
-                GameEntry.UI.OpenUIForm(UIFormId.HighlightTips, "继续完成细版本的冰卡布奇诺吧！");
+                GameEntry.UI.OpenUIForm(UIFormId.HighlightTips, "继续完成细版本的冰卡布奇诺吧！\n<size=24>（对于配方有疑惑，可以点击右下角的制作手册查看配方）</size>");
                 GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, Guide3_3);
                 GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, Guide3_5);
             }

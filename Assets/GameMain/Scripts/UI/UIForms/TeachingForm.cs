@@ -248,9 +248,9 @@ namespace GameMain
             staminaText.text = charData.stamina.ToString();
             wisdomText.text = charData.wisdom.ToString();
             charmText.text=charData.charm.ToString();
-            staminaLevelText.text = $"Lv.{charData.staminaLevel}";
-            wisdomLevelText.text = $"Lv.{charData.wisdomLevel}";
-            charmLevelText.text = $"Lv.{charData.charmLevel}";
+            staminaLevelText.text = $"Lv.{charData.StaminaLevel}";
+            wisdomLevelText.text = $"Lv.{charData.WisdomLevel}";
+            charmLevelText.text = $"Lv.{charData.CharmLevel}";
         }
         private void PlayerDataEvent(object sender, GameEventArgs e)
         { 
