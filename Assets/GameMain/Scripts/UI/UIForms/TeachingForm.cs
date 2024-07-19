@@ -72,6 +72,14 @@ namespace GameMain
         //}
         private void Update()
         {
+            if (GameEntry.Utils.PlayerData.guideID == 5)
+            {
+                buttonCanvas.gameObject.SetActive(false);
+            }
+            else
+            {
+                buttonCanvas.gameObject.SetActive(true);
+            }
             moneyText.text = string.Format("{0}", GameEntry.Utils.Money.ToString());
             weekText.text = $"星期{AssetUtility.GetWeekCN(GameEntry.Utils.PlayerData.day % 7)}";
             apText.text = $"AP:{GameEntry.Utils.Ap}/{GameEntry.Utils.MaxAp}";

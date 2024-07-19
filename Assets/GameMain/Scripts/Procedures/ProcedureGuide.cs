@@ -127,6 +127,7 @@ namespace GameMain
                 //mWorkForm.IsNext = false;
                 if (mIndex == 1)
                 {
+                    GameEntry.Utils.PlayerData.guideID = 0;
                     mWorkForm.OnLevel("(0)Guide_1");
                     mIndex++;
                     GameEntry.Utils.Day++;
@@ -134,6 +135,7 @@ namespace GameMain
                 }
                 else if (mIndex == 2)
                 {
+                    GameEntry.Utils.PlayerData.guideID = 1;
                     GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
                     mWorkForm.OnLevel("(1)Guide_2");
                     mIndex++;
@@ -142,6 +144,7 @@ namespace GameMain
                 }
                 else if (mIndex == 3)
                 {
+                    GameEntry.Utils.PlayerData.guideID = 2;
                     GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
                     mWorkForm.OnLevel("(2)Guide_3");
                     mIndex++;
@@ -151,6 +154,7 @@ namespace GameMain
                 }
                 else
                 {
+                    GameEntry.Utils.PlayerData.guideID = 3;
                     GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
                     InGuide = false;
                     GameEntry.Sound.PlaySound(102);

@@ -55,18 +55,22 @@ namespace GameMain
             GameEntry.Event.Subscribe(OutEventArgs.EventId, BackMain);
             GameEntry.Event.Subscribe(GameStateEventArgs.EventId, OnGameStateEvent);
             canvasGroup.interactable = true;
-
-            for (int i = 0; i < littleCatBtns.Count; i++)
-            {
-                littleCatBtns[i].onClick.AddListener(ChangeTeach);
-            }
         }
         private float nowTime;
         [SerializeField,Range(0,5f)] private float rateTime=5f;
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
-            nowTime-=Time.deltaTime;
+            ApUpdate();
+            if (GameEntry.Utils.PlayerData.guideID == 3)
+            {
+                outBtn.interactable = false;
+            }
+            else
+            {
+                outBtn.interactable = true;
+            }
+            nowTime -=Time.deltaTime;
             if (nowTime <= 0)
             {
                 nowTime = rateTime;

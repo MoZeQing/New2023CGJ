@@ -40,6 +40,18 @@ namespace GameMain
             mIsRandom = false;
             mOKButton.onClick.AddListener(OnClick);
             float level = GetPower(mWorkData);
+            coffeeText.text = string.Empty;
+            foreach (OrderData order in mWorkData.orderDatas)
+            {
+                DRNode dRNode = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)order.NodeTag);
+                StringBuilder sb = new StringBuilder();
+                sb.Append(dRNode.Description.ToString());
+                if (order.Grind) sb.Append("(粗)");
+                if (!order.Grind) sb.Append("(细)");
+                if (dRNode.Ice) sb.Append("(冰)");
+                if (!dRNode.Ice) sb.Append("(热)");
+                coffeeText.text += sb.ToString() + "\n";
+            }
             Sequence sequence = DOTween.Sequence();
             for (int i = 0; i < stars.Length; i++)
             {
@@ -108,20 +120,10 @@ namespace GameMain
         private void ShowSettleData()
         {
             //咖啡列表
-            coffeeText.text = string.Empty;
+
             levelText.text = string.Empty;
             Sequence sequence = DOTween.Sequence(); 
-            foreach (OrderData order in mWorkData.orderDatas)
-            {
-                DRNode dRNode = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)order.NodeTag);
-                StringBuilder sb= new StringBuilder();
-                sb.Append(dRNode.Description.ToString());
-                if (order.Grind) sb.Append("(粗)");
-                if (!order.Grind) sb.Append("(细)");
-                if (dRNode.Ice) sb.Append("(冰)");
-                if (!dRNode.Ice) sb.Append("(热)");
-                sequence.Append(coffeeText.DOText(sb.ToString() + "\n", 1f));
-            }
+
             //小猫列表
 
             //订单总体列表

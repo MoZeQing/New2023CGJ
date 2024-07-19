@@ -31,7 +31,7 @@ namespace GameMain
                     GameEntry.Utils.PlayerData.guideID = 5;
                 }
             }
-            if (GameEntry.Utils.PlayerData.guideID == 4)
+            if (GameEntry.Utils.PlayerData.guideID == 5)
             {
                 //外出
                 if (GameEntry.Utils.GameState == GameState.Afternoon &&
@@ -41,7 +41,7 @@ namespace GameMain
                     GameEntry.Utils.PlayerData.guideID = 5;
                 }
             }
-            if (GameEntry.Utils.PlayerData.guideID == 5)
+            if (GameEntry.Utils.PlayerData.guideID == 6)
             {
                 //外出的小游戏
                 if (GameEntry.Utils.GameState == GameState.Afternoon&&
@@ -49,23 +49,21 @@ namespace GameMain
                     GameEntry.Utils.outSceneState == OutingSceneState.Beach ||
                     GameEntry.Utils.outSceneState == OutingSceneState.Library))
                 {
-                    GameEntry.UI.OpenUIForm(UIFormId.GuideForm, 4);
-                    GameEntry.Utils.PlayerData.guideID = 4;
+                    GameEntry.UI.OpenUIForm(UIFormId.GuideForm, 6);
+                    GameEntry.Utils.PlayerData.guideID = 6;
                 }
             }
-            if (GameEntry.Utils.PlayerData.guideID == 3)
+            if (GameEntry.Utils.PlayerData.guideID == 7)
             {
-                if (GameEntry.Utils.GameState == GameState.Afternoon)
+                //猫猫的帮助
+                if (GameEntry.Utils.CharData.StaminaLevel > 1 ||
+                    GameEntry.Utils.CharData.StaminaLevel > 2 ||
+                    GameEntry.Utils.CharData.StaminaLevel > 3 )
                 {
-                    GameEntry.UI.OpenUIForm(UIFormId.GuideForm, 4);
-                    GameEntry.Utils.PlayerData.guideID = 4;
+                    GameEntry.UI.OpenUIForm(UIFormId.GuideForm, 7);
+                    GameEntry.Utils.PlayerData.guideID = 7;
                 }
             }
-        }
-        public void OnGuideEvent(object sender, GameEventArgs e)
-        { 
-            GuideEventArgs guide = (GuideEventArgs)e;
-            int guideId = guide.Id;
         }
     }
 }

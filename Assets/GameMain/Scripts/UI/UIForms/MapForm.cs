@@ -37,8 +37,19 @@ namespace GameMain
             //gymBtn.transform.GetChild(0).gameObject.SetActive(GameEntry.Dialog.CheckOutStory(OutingSceneState.Gym));
             //benchBtn.transform.GetChild(0).gameObject.SetActive(GameEntry.Dialog.CheckOutStory(OutingSceneState.Beach));
             //marketBtn.transform.GetChild(0).gameObject.SetActive(GameEntry.Dialog.CheckOutStory(OutingSceneState.Market));
+            if (GameEntry.Utils.PlayerData.guideID == 5)
+            {
+                libraryBtn.gameObject.SetActive(false);
+                benchBtn.gameObject.SetActive(false);
+                gymBtn.gameObject.SetActive(false);
+            }
+            else
+            {
+                libraryBtn.gameObject.SetActive(true);
+                benchBtn.gameObject.SetActive(true);
+                gymBtn.gameObject.SetActive(true);
+            }
         }
-
         protected override void OnClose(bool isShutdown, object userData)
         {
             base.OnClose(isShutdown, userData);
