@@ -97,7 +97,7 @@ namespace GameMain
                 mWorkForm = GameObject.Find("WorkForm").GetComponent<WorkForm>();
 
                 mOrderList.IsShowItem = false;
-                mWorkForm.OnLevel("Guide_1");
+                mWorkForm.OnLevel("(0)Guide_1");
                 GameEntry.Utils.Day++;
                 mIndex++;
             }
@@ -127,7 +127,7 @@ namespace GameMain
                 //mWorkForm.IsNext = false;
                 if (mIndex == 1)
                 {
-                    mWorkForm.OnLevel("Guide_1");
+                    mWorkForm.OnLevel("(0)Guide_1");
                     mIndex++;
                     GameEntry.Utils.Day++;
                     Debug.Log(GameEntry.Utils.Day);
@@ -135,7 +135,7 @@ namespace GameMain
                 else if (mIndex == 2)
                 {
                     GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
-                    mWorkForm.OnLevel("Guide_2");
+                    mWorkForm.OnLevel("(1)Guide_2");
                     mIndex++;
                     GameEntry.Utils.Day++;
                     Debug.Log(GameEntry.Utils.Day);
@@ -143,7 +143,7 @@ namespace GameMain
                 else if (mIndex == 3)
                 {
                     GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
-                    mWorkForm.OnLevel("Guide_3");
+                    mWorkForm.OnLevel("(2)Guide_3");
                     mIndex++;
                     GameEntry.Utils.Day++;
 
