@@ -66,6 +66,7 @@ namespace GameMain
             if (GameEntry.Utils.Ap <= 0)
             {
                 GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你的体力已经耗尽，该去睡觉了！");
+                return;
             }
 
             GameEntry.Utils.Location=outingSceneState;

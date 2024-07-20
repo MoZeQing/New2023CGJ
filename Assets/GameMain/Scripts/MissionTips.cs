@@ -11,17 +11,59 @@ namespace GameMain
 
         private void Update()
         {
-            if (GameEntry.Utils.Day > 14)
+            switch (GameEntry.Utils.Day)
             {
-                missionText.text = string.Format("想要举办沙龙，你需要邀请足够多的好友，尽可能在沙龙前将好友们的好感度提升到100！\r\n<size=24><color=red>好友的好感度会提升你的工作能力</color></size>\r\n", 35 - GameEntry.Utils.Day);
-            }
-            else if (GameEntry.Utils.Day < 7)
-            {
-                missionText.text = string.Format("想办法取得爱丽丝的信任，\n<size=28><color=red>在这周六前将爱丽丝的好感度提升到10以上吧</color></size>");
-            }
-            else
-            { 
-                missionText.text= string.Format("<size=28><color=red>尽可能的和咖啡店的老顾客们熟络感情吧！</color></size>\n你可以点击好友按钮来了解他们的好感度");
+                case 2:
+                case 3:
+                    this.gameObject.SetActive(true);
+                    missionText.text = "现在先培养爱丽丝吧！";
+                    break;
+                case 4:
+                    this.gameObject.SetActive(true);
+                    missionText.text = "<color=red>外出</color>去服装店拜访露希尔吧";
+                    break;
+                case 5:
+                case 6:
+                case 7:
+                    this.gameObject.SetActive(true);
+                    if (GameEntry.Utils.Money<500)
+                        missionText.text = "准备<color=red>500</color>元付房租吧！";
+                    else
+                        missionText.text = "准备500元付房租吧！";
+                    break;
+                case 8:
+                case 9:
+                case 10:
+                case 11:
+                    this.gameObject.SetActive(true);
+                    if (GameEntry.Utils.Money < 500)
+                        missionText.text = "准备<color=red>800</color>元付房租吧！";
+                    else
+                        missionText.text = "准备800元付房租吧！";
+                    break;
+                case 12:
+                case 13:
+                case 14:
+                case 15:
+                    this.gameObject.SetActive(true);
+                    if (GameEntry.Utils.Money < 500)
+                        missionText.text = "准备<color=red>1100</color>元付房租吧！";
+                    else
+                        missionText.text = "准备1100元付房租吧！";
+                    break;
+                case 16:
+                case 17:
+                case 18:
+                case 19:
+                    this.gameObject.SetActive(true);
+                    if (GameEntry.Utils.Money < 500)
+                        missionText.text = "准备<color=red>1500</color>元付房租吧！";
+                    else
+                        missionText.text = "准备1500元付房租吧！";
+                    break;
+                default:
+                    this.gameObject.SetActive(false);
+                    break;
             }
         }
     }
