@@ -10,6 +10,7 @@ public class RecipeItem : MonoBehaviour
 {
     [SerializeField] private Image mImage;
     [SerializeField] private Image mChoice;
+    [SerializeField] private Image mIce;
     private RecipeData mRecipe; 
     [SerializeField] private Button mBtn;
     private Action<RecipeData,NodeTag,RecipeItem> mAction;
@@ -39,12 +40,16 @@ public class RecipeItem : MonoBehaviour
         mBtn.onClick.AddListener(OnClick);
         mBtn.interactable = GameEntry.Player.HasRecipe(recipe.Id);
         mChoice.gameObject.SetActive(false);
+        DRNode node = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)nodeTag);
+        mIce.gameObject.SetActive(node.Ice);
     }
 
     public void SetData(NodeTag nodeTag)
     {
         mNodeTag = nodeTag;
         mImage.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)nodeTag).SpritePath);
+        DRNode node = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)nodeTag);
+        mIce.gameObject.SetActive(node.Ice);
     }
 
     private void OnClick()
