@@ -25,7 +25,7 @@ namespace GameMain
             canvas.transform.localPosition = Vector3.up * 1080f;
             canvas.transform.DOLocalMoveY(0, 1f).SetEase(Ease.OutExpo).OnComplete(() =>
             {
-                progressImg.DOFillAmount(1f, 5f).OnComplete(() =>
+                progressImg.DOFillAmount(1f, 3f).OnComplete(() =>
                 {
                     GameEntry.Sound.PlaySound(43);
                     GameEntry.UI.OpenUIForm(UIFormId.CompleteForm, OnExit, pairs);
