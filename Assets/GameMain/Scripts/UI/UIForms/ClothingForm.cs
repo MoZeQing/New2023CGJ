@@ -32,6 +32,8 @@ namespace GameMain
                     continue;
                 if (item.Id == 1001)
                     continue;
+                if (item.Id == 1002)
+                    continue;
                 if (item.Id == 1006)
                     continue;
                 dRItems.Add(item);

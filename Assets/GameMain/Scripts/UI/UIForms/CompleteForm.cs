@@ -29,7 +29,7 @@ public class CompleteForm : BaseForm
             mAction();
             GameEntry.UI.CloseUIForm(this.UIForm);
         });
-
+        BuffData buffData = GameEntry.Buff.GetBuff();
         okBtn.gameObject.SetActive(false);
         for (int i = 0; i < completeItems.Count; i++)
         {
@@ -38,7 +38,7 @@ public class CompleteForm : BaseForm
 
         if (pairs.ContainsKey(ValueTag.Stamina))
         {
-            completeItems[0].SetData(ValueTag.Stamina, pairs[ValueTag.Stamina]);
+            completeItems[0].SetData(ValueTag.Stamina, pairs[ValueTag.Stamina] + (int)buffData.StaminaPlus );
         }
         else
         {
@@ -48,7 +48,7 @@ public class CompleteForm : BaseForm
         sequence.Append(completeItems[0].transform.GetChild(0).DOLocalMoveY(0, 0.5f).SetEase(Ease.OutExpo));
         if (pairs.ContainsKey(ValueTag.Wisdom))
         {
-            completeItems[1].SetData(ValueTag.Wisdom, pairs[ValueTag.Wisdom]);
+            completeItems[1].SetData(ValueTag.Wisdom, pairs[ValueTag.Wisdom] + (int)buffData.WisdomPlus );
         }
         else
         {
@@ -58,7 +58,7 @@ public class CompleteForm : BaseForm
         sequence.Append(completeItems[1].transform.GetChild(0).DOLocalMoveY(0, 0.5f).SetEase(Ease.OutExpo));
         if (pairs.ContainsKey(ValueTag.Charm))
         {
-            completeItems[2].SetData(ValueTag.Charm, pairs[ValueTag.Charm]);
+            completeItems[2].SetData(ValueTag.Charm, pairs[ValueTag.Charm]+(int)buffData.CharmPlus );
         }
         else
         {
@@ -67,7 +67,6 @@ public class CompleteForm : BaseForm
         sequence.Append(completeItems[2].transform.GetChild(0).GetComponent<Image>().DOColor(Color.white, 0.1f).OnComplete(() => completeItems[2].gameObject.SetActive(true)));
         sequence.Append(completeItems[2].transform.GetChild(0).DOLocalMoveY(0, 0.5f).SetEase(Ease.OutExpo));
 
-        BuffData buffData = GameEntry.Buff.GetBuff();
         foreach (KeyValuePair<ValueTag, int> pair in pairs)
         {
             switch (pair.Key)
@@ -79,13 +78,13 @@ public class CompleteForm : BaseForm
                     GameEntry.Utils.Money+= pair.Value;
                     break;
                 case ValueTag.Charm:
-                    GameEntry.Utils.Charm += (pair.Value + (int)buffData.CharmPlus / 100);
+                    GameEntry.Utils.Charm += (pair.Value + (int)buffData.CharmPlus );
                     break;
                 case ValueTag.Stamina:
-                    GameEntry.Utils.Stamina+= (pair.Value + (int)buffData.StaminaPlus / 100);
+                    GameEntry.Utils.Stamina+= (pair.Value + (int)buffData.StaminaPlus );
                     break;
                 case ValueTag.Wisdom:
-                    GameEntry.Utils.Wisdom+= (pair.Value + (int)buffData.WisdomPlus / 100);
+                    GameEntry.Utils.Wisdom+= (pair.Value + (int)buffData.WisdomPlus );
                     break;
             }
         }

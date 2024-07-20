@@ -129,7 +129,7 @@ namespace GameMain
             answerText.text = string.Empty;
             Sequence sequence = DOTween.Sequence();
             sequence.Append(answerTitle.DOLocalMove(Vector3.zero, 1f).SetEase(Ease.OutExpo));
-            sequence.Append(answerText.DOText($"{query.AnswerTitle}\n\n点击窗体进入下一题……", query.AnswerTitle.Length * 0.06f)); 
+            sequence.Append(answerText.DOText($"{query.AnswerTitle}\n\n点击X键进入下一题……", query.AnswerTitle.Length * 0.06f)); 
         }
 
         private void OnExit()

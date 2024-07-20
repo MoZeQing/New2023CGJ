@@ -63,6 +63,11 @@ namespace GameMain
 
         private void Outing(OutingSceneState outingSceneState)
         {
+            if (GameEntry.Utils.Ap <= 0)
+            {
+                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你的体力已经耗尽，该去睡觉了！");
+            }
+
             GameEntry.Utils.Location=outingSceneState;
             GameEntry.Dialog.StoryUpdate();
             if (GameEntry.Utils.PlayerData.guideID == 6)
