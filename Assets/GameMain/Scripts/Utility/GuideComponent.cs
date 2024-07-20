@@ -50,7 +50,7 @@ namespace GameMain
                     GameEntry.Utils.PlayerData.guideID = 7;
                 }
             }
-            if (GameEntry.Utils.PlayerData.guideID >= 7)
+            if (GameEntry.Utils.PlayerData.guideID == 7)
             {
                 //外出的小游戏
                 if (GameEntry.Utils.GameState == GameState.Night&&

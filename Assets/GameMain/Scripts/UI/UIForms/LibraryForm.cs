@@ -30,6 +30,13 @@ namespace GameMain
             exitBtn.onClick.AddListener(OnExit);
         }
 
+        protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
+        {
+            base.OnUpdate(elapseSeconds, realElapseSeconds);
+            trainBtn.interactable = GameEntry.Utils.Money >= 200;
+            matchBtn.interactable = GameEntry.Utils.Money >= 200;
+        }
+
         protected override void OnClose(bool isShutdown, object userData)
         {
             base.OnClose(isShutdown, userData);
