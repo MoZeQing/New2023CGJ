@@ -18,7 +18,6 @@ namespace GameMain
 
         public void StartGame()
         {
-            GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
             GameEntry.SaveLoad.InitData();
             //GameEntry.Event.Subscribe(LoadingEventArgs.EventId, OnLoadingEvent);
         }
@@ -48,6 +47,7 @@ namespace GameMain
             GameEntry.Base.ResetNormalGameSpeed();
             GameEntry.UI.CloseUIGroup("Default");
             GameEntry.UI.CloseAllLoadingUIForms();
+            GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
             GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, GameStateEvent);
         }
         protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
