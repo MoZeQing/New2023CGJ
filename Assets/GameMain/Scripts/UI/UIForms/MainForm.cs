@@ -145,14 +145,16 @@ namespace GameMain
         private void BackMain(object sender, GameEventArgs e)
         {
             OutEventArgs args = (OutEventArgs)e;
-            if (args.OutingSceneState == OutingSceneState.Home)
-            {
-                if (outSceneState != OutingSceneState.Home)
-                {
-                    GameEntry.Utils.WeatherTag = WeatherTag.None;
-                }
-            }
-            outSceneState = args.OutingSceneState;
+            //if (args.OutingSceneState == OutingSceneState.Home)
+            //{
+            //    DRWeather weather = GameEntry.DataTable.GetDataTable<DRWeather>().GetDataRow((int)GameEntry.Utils.WeatherTag);
+            //    changeBackgroundImg.sprite = backgroundImg.sprite;
+            //    changeBackgroundImg.gameObject.SetActive(true);
+            //    changeBackgroundImg.color = Color.white;
+            //    backgroundImg.sprite = Resources.Load<Sprite>(weather.AssetName);
+            //    changeBackgroundImg.DOColor(Color.clear, 3f).OnComplete(() => changeBackgroundImg.gameObject.SetActive(false));
+            //    GameEntry.Sound.PlaySound(weather.BackgroundMusicId);
+            //}
         }
         private void ChangeTeach()
         {

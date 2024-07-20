@@ -37,7 +37,7 @@ namespace GameMain
             //gymBtn.transform.GetChild(0).gameObject.SetActive(GameEntry.Dialog.CheckOutStory(OutingSceneState.Gym));
             //benchBtn.transform.GetChild(0).gameObject.SetActive(GameEntry.Dialog.CheckOutStory(OutingSceneState.Beach));
             //marketBtn.transform.GetChild(0).gameObject.SetActive(GameEntry.Dialog.CheckOutStory(OutingSceneState.Market));
-            if (GameEntry.Utils.PlayerData.guideID == 5)
+            if (GameEntry.Utils.PlayerData.guideID == 6)
             {
                 libraryBtn.gameObject.SetActive(false);
                 benchBtn.gameObject.SetActive(false);
@@ -65,6 +65,8 @@ namespace GameMain
         {
             GameEntry.Utils.Location=outingSceneState;
             GameEntry.Dialog.StoryUpdate();
+            if (GameEntry.Utils.PlayerData.guideID == 6)
+                return;
             GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
             GameEntry.UI.OpenUIForm((UIFormId)outingSceneState + 20, this);
             GameEntry.Event.FireNow(this, OutEventArgs.Create(outingSceneState));

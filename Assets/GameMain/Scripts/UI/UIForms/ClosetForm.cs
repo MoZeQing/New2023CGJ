@@ -79,6 +79,7 @@ namespace GameMain
             closetImg.sprite = Resources.Load<Sprite>(dRItems[index].ImagePath);
             closetImg.color = GameEntry.Utils.GetPlayerItem((ItemTag)dRItems[index].Id) != null ? Color.white : Color.gray;
             titleText.text = dRItems[index].ItemName;
+            titleText.text = titleText.text.Replace("\\n", "\n");
         }
         private void Right()
         {
@@ -118,6 +119,7 @@ namespace GameMain
             closetImg.sprite = Resources.Load<Sprite>(dRItems[index].ImagePath);
             closetImg.color = GameEntry.Utils.GetPlayerItem((ItemTag)dRItems[index].Id) != null ? Color.white : Color.gray;
             titleText.text = dRItems[index].ItemName;
+            titleText.text = titleText.text.Replace("\\n", "\n");
         }
         private void Left()
         {
@@ -156,6 +158,7 @@ namespace GameMain
             closetImg.sprite = Resources.Load<Sprite>(dRItems[index].ImagePath);
             closetImg.color = GameEntry.Utils.GetPlayerItem((ItemTag)dRItems[index].Id) != null ? Color.white : Color.gray;
             titleText.text = dRItems[index].ItemName;
+            titleText.text = titleText.text.Replace("\\n", "\n");
         }
         private void OkBtn()
         {

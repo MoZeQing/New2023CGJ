@@ -110,6 +110,8 @@ namespace GameMain
             GameEntry.Utils.Location = OutingSceneState.Home;
             GameEntry.UI.CloseUIForm(this.UIForm);
             GameEntry.Event.FireNow(this, OutEventArgs.Create(OutingSceneState.Home));
+            DRWeather weather = GameEntry.DataTable.GetDataTable<DRWeather>().GetDataRow((int)GameEntry.Utils.WeatherTag);
+            GameEntry.Sound.PlaySound(weather.BackgroundMusicId);
         }
     }
 }
