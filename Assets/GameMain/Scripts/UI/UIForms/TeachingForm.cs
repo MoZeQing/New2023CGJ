@@ -47,6 +47,14 @@ namespace GameMain
 
         private void OnEnable()
         {
+            if (GameEntry.Utils.PlayerData.guideID == 5)
+            {
+                buttonCanvas.gameObject.SetActive(false);
+            }
+            else
+            {
+                buttonCanvas.gameObject.SetActive(true);
+            }
             GameEntry.Event.Subscribe(CharDataEventArgs.EventId, CharDataEvent);
             GameEntry.Event.Subscribe(PlayerDataEventArgs.EventId, PlayerDataEvent);
             GameEntry.Utils.UpdateData();
