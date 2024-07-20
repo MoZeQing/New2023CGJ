@@ -35,7 +35,7 @@ namespace GameMain
             {
                 //Íâ³ö
                 if (GameEntry.Utils.GameState == GameState.Night &&
-                    GameEntry.Utils.Day == 3)
+                    GameEntry.Utils.Day == 4)
                 {
                     GameEntry.UI.OpenUIForm(UIFormId.GuideForm, 5);
                     GameEntry.Utils.PlayerData.guideID = 6;

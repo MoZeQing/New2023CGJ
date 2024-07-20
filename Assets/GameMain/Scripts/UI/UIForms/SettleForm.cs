@@ -128,10 +128,10 @@ namespace GameMain
 
             //订单总体列表
             income = (int)mWorkData.Income;
-            levelMoney = (int)(mWorkData.Money * (float)GetPower(mWorkData) / 3f);
+            levelMoney = (int)(mWorkData.Money * (float)GetPower(mWorkData) / 3f * 1.5f);
             sequence.Append(DOTween.To(value => { incomeText.text = Mathf.Floor(value).ToString(); }, startValue: 0, endValue: income, duration: 0.5f));
             sequence.Append(DOTween.To(value => { levelText.text = Mathf.Floor(value).ToString(); }, startValue: 0, endValue: levelMoney, duration: 0.5f));
-            catValue = (int)((levelMoney + income) * (GameEntry.Utils.CharData.CharmLevel - 1) / 3f);
+            catValue = (int)((levelMoney + income) * (((float)GameEntry.Utils.CharData.CharmLevel - 1f) / 3f));
             sequence.Append(DOTween.To(value => { catText.text = Mathf.Floor(value).ToString(); }, startValue: 0, endValue: catValue, duration: 0.5f));
             sequence.Append(DOTween.To(value => { settleText.text = Mathf.Floor(value).ToString(); }, startValue: 0, endValue: levelMoney+income+catValue, duration: 0.5f));
         }

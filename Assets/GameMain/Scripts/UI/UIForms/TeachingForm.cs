@@ -77,14 +77,6 @@ namespace GameMain
         //}
         private void Update()
         {
-            if (GameEntry.Utils.PlayerData.guideID == 5)
-            {
-                buttonCanvas.gameObject.SetActive(false);
-            }
-            else
-            {
-                buttonCanvas.gameObject.SetActive(true);
-            }
             //if (Input.GetMouseButtonDown(1)&&!InDialog)
             //{
             //    GameEntry.Event.FireNow(this, MainFormEventArgs.Create(MainFormTag.Unlock));

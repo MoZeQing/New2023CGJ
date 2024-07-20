@@ -68,7 +68,15 @@ namespace GameMain
             apText.text = $"AP:{GameEntry.Utils.Ap}/{GameEntry.Utils.MaxAp}";
             dayText.text = $"µÚ{GameEntry.Utils.Day +1}Ìì";
             ApUpdate();
-            if (GameEntry.Utils.PlayerData.guideID == 6)
+            if (GameEntry.Utils.PlayerData.guideID <= 5&&GameEntry.Utils.Day<4)
+            {
+                outBtn.interactable = false;
+            }
+            else
+            {
+                outBtn.interactable = true;
+            }
+            if (GameEntry.Utils.PlayerData.guideID == 6 && GameEntry.Utils.Day == 4)
             {
                 teachBtn.interactable = false;
             }
