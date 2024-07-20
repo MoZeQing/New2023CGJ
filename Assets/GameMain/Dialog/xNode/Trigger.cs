@@ -295,4 +295,5 @@ public enum EventTag
     Weather,//天气
     SetClothing,//设置服装
     ShowForm,//显示窗体
+    AddCharm,
 }

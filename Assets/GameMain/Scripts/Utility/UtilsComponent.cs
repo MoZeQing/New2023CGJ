@@ -353,7 +353,7 @@ namespace GameMain
             set
             {
                 mCharData.wisdom = value;
-                _values[TriggerTag.Wisdom] = mCharData.favor.ToString();
+                _values[TriggerTag.Wisdom] = mCharData.wisdom.ToString();
                 GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
             }
         }
@@ -366,7 +366,7 @@ namespace GameMain
             set
             {
                 mCharData.charm = value;
-                _values[TriggerTag.Charm] = mCharData.favor.ToString();
+                _values[TriggerTag.Charm] = mCharData.charm.ToString();
                 GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
             }
         }
@@ -379,7 +379,7 @@ namespace GameMain
             set
             {
                 mCharData.stamina = value;
-                _values[TriggerTag.Stamina] = mCharData.favor.ToString();
+                _values[TriggerTag.Stamina] = mCharData.stamina.ToString();
                 GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
             }
         }
@@ -595,6 +595,9 @@ namespace GameMain
                     break;
                 case EventTag.ShowForm:
                     GameEntry.UI.OpenUIForm((UIFormId)Enum.Parse(typeof(UIFormId), eventData.value1));
+                    break;
+                case EventTag.AddCharm:
+                    GameEntry.Utils.Charm+= (int.Parse(eventData.value1));
                     break;
             }
             return false;
