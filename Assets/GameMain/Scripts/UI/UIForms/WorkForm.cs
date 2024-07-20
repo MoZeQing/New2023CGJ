@@ -57,7 +57,7 @@ namespace GameMain
             GameEntry.Sound.PlaySound(300);
 
             recipeBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.RecipeForm));
-            guideBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.GuideForm));
+            guideBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.GuideForm, 1));
 
             commonBtn.onClick.AddListener(SetData);
             mLevelData = GameEntry.Dialog.loadedLevelSOs[0].levelData;//默认订单
