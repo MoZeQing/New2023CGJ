@@ -171,7 +171,7 @@ namespace GameMain
         }
         private void ChangeTeach()
         {
-            HideLittleCat();
+            littleCatImg.gameObject.SetActive(mAnimator.GetBool("Into"));
             mAnimator.SetBool("Into", !mAnimator.GetBool("Into"));
             canvasGroup.interactable = !mAnimator.GetBool("Into");
             teachBtn1.interactable = mAnimator.GetBool("Into");
