@@ -73,7 +73,7 @@ namespace GameMain
             closetItems[1].sprite = Resources.Load<Sprite>(dRItems[dRItems.Count-1].IconPath);
             closetItems[1].transform.GetChild(0).gameObject.SetActive(GameEntry.Utils.GetPlayerItem((ItemTag)dRItems[dRItems.Count - 1].Id) == null);
             closetItems[1].transform.GetChild(1).gameObject.SetActive(GameEntry.Utils.Closet == dRItems[dRItems.Count - 1].Id);
-
+            index = index % dRItems.Count;
             infoText.text = dRItems[index].Info;
             infoText.text = infoText.text.Replace("\\n", "\n");
             closetImg.sprite = Resources.Load<Sprite>(dRItems[index].ImagePath);
@@ -167,10 +167,10 @@ namespace GameMain
             {
                 for (int i = 0; i < closetItems.Length; i++)
                 {
-                    closetItems[i].transform.GetChild(2).gameObject.SetActive(false);
+                    closetItems[i].transform.GetChild(1).gameObject.SetActive(false);
                 }
                 GameEntry.Utils.Closet = closet;
-                closetItems[2].transform.GetChild(2).gameObject.SetActive(true);
+                closetItems[2].transform.GetChild(1).gameObject.SetActive(true);
             }
         }
     }

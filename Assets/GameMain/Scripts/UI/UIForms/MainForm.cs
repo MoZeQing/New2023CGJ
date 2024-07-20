@@ -21,7 +21,7 @@ namespace GameMain
         [SerializeField] private TeachingForm mTeachingForm;
         [SerializeField] private Image backgroundImg;
         [SerializeField] private Image changeBackgroundImg;
-        [SerializeField] private List<Button> littleCatBtns;
+        [SerializeField] private Image littleCatImg;
         [SerializeField] private Image[] apPoints;
         [SerializeField] private Image apProgress;
         [SerializeField] private Text moneyText;
@@ -117,19 +117,18 @@ namespace GameMain
             GameEntry.Event.Unsubscribe(OutEventArgs.EventId, BackMain);
             GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, OnGameStateEvent);
 
-            for (int i = 0; i < littleCatBtns.Count; i++)
-            {
-                littleCatBtns[i].onClick.RemoveAllListeners();
-            }
         }
         private void ShowLittleCat()
         {
-            //HideLittleCat();
-            //DRLittleCat littleCat = GameEntry.DataTable.GetDataTable<DRLittleCat>().GetDataRow(GameEntry.Utils.Closet);
-            //int index = Random.Range(0, littleCatBtns.Count);
-            //Button button = littleCatBtns[index];
-            //button.gameObject.SetActive(true);
-            //button.GetComponent<Image>().sprite = Resources.Load<Sprite>($"{littleCat.ClothingPath}_{index + 1}");
+            DRLittleCat littleCat = GameEntry.DataTable.GetDataTable<DRLittleCat>().GetDataRow(GameEntry.Utils.Closet);
+            if (littleCat.Range == 0)
+            {
+                littleCatImg.gameObject.SetActive(false);
+                return;
+            }
+            littleCatImg.gameObject.SetActive(true);
+            int index = Random.Range(0, littleCat.Range);
+            littleCatImg.sprite = Resources.Load<Sprite>($"{littleCat.ClothingPath}_{index+1}");
         }
         private void HideLittleCat()
         {
