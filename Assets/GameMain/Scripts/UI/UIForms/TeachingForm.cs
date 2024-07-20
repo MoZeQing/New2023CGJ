@@ -11,7 +11,7 @@ using System;
 
 namespace GameMain
 {
-    public class TeachingForm : UIFormLogic
+    public class TeachingForm : MonoBehaviour
     {
         [Header("左侧信息栏")]
         [SerializeField] private Transform leftCanvas;
@@ -80,7 +80,6 @@ namespace GameMain
             {
                 buttonCanvas.gameObject.SetActive(true);
             }
-            moneyText.text = string.Format("{0}", GameEntry.Utils.Money.ToString());
             weekText.text = $"星期{AssetUtility.GetWeekCN(GameEntry.Utils.PlayerData.day % 7)}";
             apText.text = $"AP:{GameEntry.Utils.Ap}/{GameEntry.Utils.MaxAp}";
             dayText.text = $"第{GameEntry.Utils.PlayerData.day % 7 + 1}天";
@@ -264,14 +263,6 @@ namespace GameMain
         { 
             PlayerDataEventArgs playerDataEvent= (PlayerDataEventArgs)e;
             PlayerData playerData= playerDataEvent.PlayerData;
-            //rentText.transform.parent.gameObject.SetActive(GameEntry.Utils.Rent != 0);
-            //rentText.text = string.Format("距离下一次欠款缴纳还有{0}天\r\n下一次交纳欠款：{1}",6-(playerData.day + 20) % 7, GameEntry.Utils.Rent.ToString());
-            BuffData buffData = GameEntry.Buff.GetBuff();
-            //energyText.text = string.Format("{0}/{1}", playerData.energy, playerData.maxEnergy*buffData.EnergyMaxMulti+buffData.EnergyMaxPlus);
-            moneyText.text=string.Format("{0}", playerData.money.ToString());
-            weekText.text = $"星期{AssetUtility.GetWeekCN(playerData.day % 7)}";
-            apText.text = $"AP:{GameEntry.Utils.Ap}/{GameEntry.Utils.MaxAp}";
-            dayText.text = $"第{playerData.day% 7+1}天";
         }
         //单独给点击做一个方法调用
         public void Click_Action()

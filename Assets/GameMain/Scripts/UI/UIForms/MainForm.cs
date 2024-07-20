@@ -24,6 +24,9 @@ namespace GameMain
         [SerializeField] private List<Button> littleCatBtns;
         [SerializeField] private Image[] apPoints;
         [SerializeField] private Image apProgress;
+        [SerializeField] private Text moneyText;
+        [SerializeField] private Text dayText;//日期文本框
+        [SerializeField] private Text apText;//行动力文本框
         [Header("主控")]
         [SerializeField] private Button loadBtn;
         [SerializeField] private Button saveBtn;
@@ -61,6 +64,9 @@ namespace GameMain
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
+            moneyText.text = moneyText.text = string.Format("{0}", GameEntry.Utils.Money.ToString());
+            apText.text = $"AP:{GameEntry.Utils.Ap}/{GameEntry.Utils.MaxAp}";
+            dayText.text = $"第{GameEntry.Utils.PlayerData.day % 7 + 1}天";
             ApUpdate();
             if (GameEntry.Utils.PlayerData.guideID == 6)
             {
