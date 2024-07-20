@@ -558,7 +558,9 @@ namespace GameMain
                 case EventTag.PlayBgm:
                     return true;
                 case EventTag.EndGame:
+                    GameEntry.Dialog.SetComplete(null);
                     GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Menu));
+                    GameEntry.UI.OpenUIForm(UIFormId.EndForm);
                     return true;
                 case EventTag.AddDay:
                     GameEntry.Utils.Day += int.Parse(eventData.value1);

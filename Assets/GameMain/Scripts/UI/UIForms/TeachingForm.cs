@@ -24,9 +24,6 @@ namespace GameMain
         [SerializeField] private Text staminaLevelText;
         [SerializeField] private Text wisdomLevelText;
         [SerializeField] private Text charmLevelText;
-        [SerializeField] private Text dayText;//日期文本框
-        [SerializeField] private Text apText;//行动力文本框
-        [SerializeField] private Text weekText;//星期文本框
         [SerializeField] private Text rentText;
         [Header("右侧操作栏")]
         [SerializeField] private Transform rightCanvas;
@@ -80,9 +77,6 @@ namespace GameMain
             {
                 buttonCanvas.gameObject.SetActive(true);
             }
-            weekText.text = $"星期{AssetUtility.GetWeekCN(GameEntry.Utils.PlayerData.day % 7)}";
-            apText.text = $"AP:{GameEntry.Utils.Ap}/{GameEntry.Utils.MaxAp}";
-            dayText.text = $"第{GameEntry.Utils.PlayerData.day % 7 + 1}天";
             //if (Input.GetMouseButtonDown(1)&&!InDialog)
             //{
             //    GameEntry.Event.FireNow(this, MainFormEventArgs.Create(MainFormTag.Unlock));

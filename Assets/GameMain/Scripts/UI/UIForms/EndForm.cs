@@ -7,7 +7,7 @@ using GameFramework.Event;
 
 namespace GameMain
 {
-    public class EndForm : UIFormLogic
+    public class EndForm : BaseForm
     {
         [SerializeField] private Button mOKButton;
         protected override void OnOpen(object userData)
@@ -18,7 +18,7 @@ namespace GameMain
 
         private void Back()
         {
-            ProcedureMain main = (ProcedureMain)GameEntry.Procedure.CurrentProcedure;
+            GameEntry.UI.CloseUIForm(this.UIForm);
         }
     }
 }

@@ -66,7 +66,7 @@ namespace GameMain
             base.OnUpdate(elapseSeconds, realElapseSeconds);
             moneyText.text = moneyText.text = string.Format("{0}", GameEntry.Utils.Money.ToString());
             apText.text = $"AP:{GameEntry.Utils.Ap}/{GameEntry.Utils.MaxAp}";
-            dayText.text = $"第{GameEntry.Utils.PlayerData.day % 7 + 1}天";
+            dayText.text = $"第{GameEntry.Utils.Day +1}天";
             ApUpdate();
             if (GameEntry.Utils.PlayerData.guideID == 6)
             {
