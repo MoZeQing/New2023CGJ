@@ -116,7 +116,7 @@ namespace GameMain
             nowTime = 9999f;
         }
 
-        private void OnExit()
+        public void OnExit()
         {
             GameEntry.Event.FireNow(this, OrderEventArgs.Create(mOrderData, 0));
             GameEntry.Entity.HideEntity(this.Entity);

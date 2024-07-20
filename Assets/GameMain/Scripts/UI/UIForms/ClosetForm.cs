@@ -14,6 +14,7 @@ namespace GameMain
         [SerializeField] private Button leftBtn;
         [SerializeField] private Button rightBtn;
         [SerializeField] private Text infoText;
+        [SerializeField] private Text titleText;
         [SerializeField] private Image closetImg;
         [SerializeField] private Transform canvas;
         [Header("Ãªµã")]
@@ -77,6 +78,7 @@ namespace GameMain
             infoText.text = infoText.text.Replace("\\n", "\n");
             closetImg.sprite = Resources.Load<Sprite>(dRItems[index].ImagePath);
             closetImg.color = GameEntry.Utils.GetPlayerItem((ItemTag)dRItems[index].Id) != null ? Color.white : Color.gray;
+            titleText.text = dRItems[index].ItemName;
         }
         private void Right()
         {
@@ -115,6 +117,7 @@ namespace GameMain
             infoText.text = infoText.text.Replace("\\n", "\n");
             closetImg.sprite = Resources.Load<Sprite>(dRItems[index].ImagePath);
             closetImg.color = GameEntry.Utils.GetPlayerItem((ItemTag)dRItems[index].Id) != null ? Color.white : Color.gray;
+            titleText.text = dRItems[index].ItemName;
         }
         private void Left()
         {
@@ -152,6 +155,7 @@ namespace GameMain
             infoText.text = infoText.text.Replace("\\n", "\n");
             closetImg.sprite = Resources.Load<Sprite>(dRItems[index].ImagePath);
             closetImg.color = GameEntry.Utils.GetPlayerItem((ItemTag)dRItems[index].Id) != null ? Color.white : Color.gray;
+            titleText.text = dRItems[index].ItemName;
         }
         private void OkBtn()
         {

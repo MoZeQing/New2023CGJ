@@ -46,7 +46,7 @@ namespace GameMain
             loadBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.LoadForm, this));
             saveBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.SaveForm, this));
             optionBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.OptionForm, this));
-            guideBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.GuideForm, 1));
+            guideBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.GuideForm, 3));
             friendBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.FriendForm));
             recipeBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.RecipeForm));
             closetBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.ClosetForm));
@@ -62,13 +62,13 @@ namespace GameMain
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
             ApUpdate();
-            if (GameEntry.Utils.PlayerData.guideID == 3)
+            if (GameEntry.Utils.PlayerData.guideID == 6)
             {
-                outBtn.interactable = false;
+                teachBtn.interactable = false;
             }
             else
             {
-                outBtn.interactable = true;
+                teachBtn.interactable = true;
             }
             nowTime -=Time.deltaTime;
             if (nowTime <= 0)

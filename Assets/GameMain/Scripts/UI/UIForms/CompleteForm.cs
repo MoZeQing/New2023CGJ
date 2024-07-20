@@ -36,19 +36,38 @@ public class CompleteForm : BaseForm
             completeItems[i].gameObject.SetActive(false);
         }
 
-
-        int index = 0;
-        foreach (KeyValuePair<ValueTag, int> pair in pairs)
+        if (pairs.ContainsKey(ValueTag.Stamina))
         {
-            if (index > 2)
-                break;
-            CompleteItem completeItem = completeItems[index];
-            completeItem.SetData(pair.Key, pair.Value);
-            completeItem.transform.GetChild(0).transform.localPosition = Vector3.down * 50f;
-            sequence.Append(completeItem.transform.GetChild(0).GetComponent<Image>().DOColor(Color.white,0.1f).OnComplete(() => completeItem.gameObject.SetActive(true)));
-            sequence.Append(completeItem.transform.GetChild(0).DOLocalMoveY(0, 0.5f).SetEase(Ease.OutExpo));
-            index++;
+            completeItems[0].SetData(ValueTag.Stamina, pairs[ValueTag.Stamina]);
         }
+        else
+        {
+            completeItems[0].SetData(ValueTag.Stamina, 0);
+        }
+        sequence.Append(completeItems[0].transform.GetChild(0).GetComponent<Image>().DOColor(Color.white, 0.1f).OnComplete(() => completeItems[0].gameObject.SetActive(true)));
+        sequence.Append(completeItems[0].transform.GetChild(0).DOLocalMoveY(0, 0.5f).SetEase(Ease.OutExpo));
+        if (pairs.ContainsKey(ValueTag.Wisdom))
+        {
+            completeItems[1].SetData(ValueTag.Wisdom, pairs[ValueTag.Wisdom]);
+        }
+        else
+        {
+            completeItems[1].SetData(ValueTag.Wisdom, 0);
+        }
+        sequence.Append(completeItems[1].transform.GetChild(0).GetComponent<Image>().DOColor(Color.white, 0.1f).OnComplete(() => completeItems[1].gameObject.SetActive(true)));
+        sequence.Append(completeItems[1].transform.GetChild(0).DOLocalMoveY(0, 0.5f).SetEase(Ease.OutExpo));
+        if (pairs.ContainsKey(ValueTag.Charm))
+        {
+            completeItems[2].SetData(ValueTag.Charm, pairs[ValueTag.Charm]);
+        }
+        else
+        {
+            completeItems[2].SetData(ValueTag.Charm, 0);
+        }
+        sequence.Append(completeItems[2].transform.GetChild(0).GetComponent<Image>().DOColor(Color.white, 0.1f).OnComplete(() => completeItems[2].gameObject.SetActive(true)));
+        sequence.Append(completeItems[2].transform.GetChild(0).DOLocalMoveY(0, 0.5f).SetEase(Ease.OutExpo));
+
+        BuffData buffData = GameEntry.Buff.GetBuff();
         foreach (KeyValuePair<ValueTag, int> pair in pairs)
         {
             switch (pair.Key)
@@ -60,13 +79,13 @@ public class CompleteForm : BaseForm
                     GameEntry.Utils.Money+= pair.Value;
                     break;
                 case ValueTag.Charm:
-                    GameEntry.Utils.Charm += pair.Value;
+                    GameEntry.Utils.Charm += (pair.Value + (int)buffData.CharmPlus / 100);
                     break;
                 case ValueTag.Stamina:
-                    GameEntry.Utils.Stamina+= pair.Value;
+                    GameEntry.Utils.Stamina+= (pair.Value + (int)buffData.StaminaPlus / 100);
                     break;
                 case ValueTag.Wisdom:
-                    GameEntry.Utils.Wisdom+= pair.Value;
+                    GameEntry.Utils.Wisdom+= (pair.Value + (int)buffData.WisdomPlus / 100);
                     break;
             }
         }

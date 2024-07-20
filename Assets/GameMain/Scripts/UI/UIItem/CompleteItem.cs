@@ -10,7 +10,6 @@ public class CompleteItem : MonoBehaviour
     [SerializeField] private Text valueTagText;
     public void SetData(ValueTag valueTag, int value)
     {
-        valueTagImg.sprite = Resources.Load<Sprite>($"ValueTagIcon/{valueTag}");
         if (value > 0)
         {
             valueTagText.text = $"+{value}";

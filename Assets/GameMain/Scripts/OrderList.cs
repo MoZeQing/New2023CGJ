@@ -99,9 +99,14 @@ namespace GameMain
 
         public void ClearItems()
         {
-            foreach (OrderItem orderItem in orders)
+            OrderItem[] orderItems= new OrderItem[orders.Count];
+            for (int i=0;i<orderItems.Length;i++)
             {
-                GameEntry.Entity.HideEntity(orderItem.Entity);
+                orderItems[i] = orders[i];
+            }
+            for (int i = 0; i < orderItems.Length; i++)
+            {
+                orderItems[i].OnExit();
             }
             orders.Clear();
         }

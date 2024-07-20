@@ -93,6 +93,7 @@ namespace GameMain
                 GamePosUtility.Instance.GamePosChange(GamePos.Up);
                 dialogBox.SetDialog(mLevelData.afterWork);
                 dialogBox.SetComplete(OnAfterWorkComplete);
+                orderList.ClearItems();
                 IsDialog = true;
             }
         }
@@ -170,6 +171,7 @@ namespace GameMain
             orderList.IsShowItem = false;
             IsDialog= false;
             GameEntry.Event.Fire(this, GameStateEventArgs.Create(GameState.Special));
+            GameEntry.Utils.GameState = GameState.Special;
         }
 
         private void OnAfterWorkComplete()
