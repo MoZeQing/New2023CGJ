@@ -33,6 +33,7 @@ public class RecipeItem : MonoBehaviour
     public void SetData(RecipeData recipe,NodeTag nodeTag,Action<RecipeData,NodeTag,RecipeItem> action)
     {
         this.gameObject.SetActive(true);
+        mBtn.onClick.RemoveAllListeners();
         mRecipe = recipe;
         mAction= action;
         mNodeTag = nodeTag;

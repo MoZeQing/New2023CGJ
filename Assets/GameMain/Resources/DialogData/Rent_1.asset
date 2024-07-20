@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Chat
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 0, y: 0}
+  position: {x: 456, y: -72}
   ports:
     keys:
     - a
@@ -45,7 +45,10 @@ MonoBehaviour:
       _node: {fileID: -7656442433905323224}
       _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
-      connections: []
+      connections:
+      - fieldName: start
+        node: {fileID: -5528075618097191949}
+        reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
@@ -767,7 +770,10 @@ MonoBehaviour:
       _node: {fileID: -5528075618097191949}
       _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
-      connections: []
+      connections:
+      - fieldName: a
+        node: {fileID: -7656442433905323224}
+        reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
