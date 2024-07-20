@@ -45,6 +45,8 @@ namespace GameMain
                 dialogBox.IsNext = value;
             }
         }
+        private bool IsRecipe { get; set; }
+
 
         private void Start()
         {
@@ -56,8 +58,14 @@ namespace GameMain
         {
             GameEntry.Sound.PlaySound(300);
 
-            recipeBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.RecipeForm));
-            guideBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.GuideForm, 1));
+            recipeBtn.onClick.AddListener(() => 
+            {
+                GameEntry.UI.OpenUIForm(UIFormId.RecipeForm);
+            });
+            guideBtn.onClick.AddListener(() => 
+            {
+                GameEntry.UI.OpenUIForm(UIFormId.GuideForm, 1);               
+            });
 
             commonBtn.onClick.AddListener(SetData);
             mLevelData = GameEntry.Dialog.loadedLevelSOs[0].levelData;//默认订单
@@ -73,13 +81,13 @@ namespace GameMain
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.J))
-                nowTime = 1f;
             if (GameEntry.Dialog.InDialog)
                 return;
             if (IsDialog)
                 return;
             if (modeCanvas.gameObject.activeSelf)
+                return;
+            if (GameEntry.UI.HasUIForm(UIFormId.RecipeForm) || GameEntry.UI.HasUIForm(UIFormId.GuideForm))
                 return;
             nowTime -= Time.deltaTime;
             if (nowTime > 0)
