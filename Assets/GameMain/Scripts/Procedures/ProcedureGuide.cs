@@ -148,7 +148,6 @@ namespace GameMain
                     GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
                     mWorkForm.OnLevel("(2)Guide_3");
                     mIndex++;
-                    GameEntry.Utils.Day++;
 
                     Debug.Log(GameEntry.Utils.Day);
                 }
