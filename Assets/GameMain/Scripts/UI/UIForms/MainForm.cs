@@ -189,7 +189,7 @@ namespace GameMain
                 switch (gameState)
                 {
                     case GameState.Night:
-                        if (GameEntry.Utils.Ap <= 2)
+                        if (GameEntry.Utils.Ap <= 0)
                         {
                             weatherTag = WeatherTag.Night;
                         }

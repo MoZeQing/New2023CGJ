@@ -91,10 +91,10 @@ namespace GameMain
             loadBtn.interactable = true;
             backgroundImg.sprite = background;
             dayText.gameObject.SetActive(true);
-            favorText.gameObject.SetActive(false);
-            wisdomText.gameObject.SetActive(false);
-            charmText.gameObject.SetActive(false);
-            staminaText.gameObject.SetActive(false);
+            favorText.gameObject.SetActive(true);
+            wisdomText.gameObject.SetActive(true);
+            charmText.gameObject.SetActive(true);
+            staminaText.gameObject.SetActive(true);
             systemText.gameObject.SetActive(true);
             cancelBtn.gameObject.SetActive(true);
         }
