@@ -40,21 +40,21 @@ namespace GameMain
         {
             get
             {
-                return Mathf.Min(stamina / 40 + 1,3);
+                return Mathf.Min(stamina / 40 + 1,4);
             }
         }//ÌåÄÜ
         public int WisdomLevel
         {
             get
             {
-                return Mathf.Min(wisdom / 40 + 1, 3);
+                return Mathf.Min(wisdom / 40 + 1, 4);
             }
         }//ÖÇ»Û
         public int CharmLevel
         {
             get
             {
-                return Mathf.Min(charm / 40 + 1, 3);
+                return Mathf.Min(charm / 40 + 1, 4);
             }
         }//÷ÈÁ¦
 

@@ -599,6 +599,9 @@ namespace GameMain
                 case EventTag.AddCharm:
                     GameEntry.Utils.Charm+= (int.Parse(eventData.value1));
                     break;
+                case EventTag.AddStamina:
+                    GameEntry.Utils.Stamina += (int.Parse(eventData.value1));
+                    break;
             }
             return false;
         }

@@ -118,7 +118,7 @@ namespace GameMain
             }
             if (args.GameState == GameState.Special)
             {
-                GameEntry.UI.OpenUIForm(UIFormId.GuideForm, mIndex-1);
+                GameEntry.UI.OpenUIForm(UIFormId.GuideForm, mIndex-2);
 
             }
             if (args.GameState == GameState.AfterSpecial)
