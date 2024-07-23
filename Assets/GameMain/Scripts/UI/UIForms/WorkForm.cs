@@ -249,11 +249,6 @@ namespace GameMain
             get;
             set;
         }
-        public RandomEvent RandomEvent
-        {
-            get;
-            set;
-        } = new RandomEvent();
         public List<OrderData> orderDatas = new List<OrderData>();
         public List<OrderData> levelDatas = new List<OrderData>();       
     }

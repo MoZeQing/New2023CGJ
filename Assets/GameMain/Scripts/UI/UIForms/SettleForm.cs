@@ -101,22 +101,6 @@ namespace GameMain
             mOKButton.onClick.RemoveAllListeners();
         }
 
-        private void ShowRandomEvent()
-        {
-            RandomEventSO[] randomEvents = Resources.LoadAll<RandomEventSO>("RandomEvent");
-            List<RandomEvent> newEvents = new List<RandomEvent>();
-            foreach (RandomEventSO random in randomEvents)
-            {
-                if (GameEntry.Utils.Check(random.randomEvent.trigger))
-                {
-                    newEvents.Add(random.randomEvent);
-                }
-            }
-            RandomEvent randomEvent = newEvents[Random.Range(0, newEvents.Count - 1)];
-            //randomText.text = randomEvent.text;
-            mWorkData.RandomEvent = randomEvent;
-        }
-
         private void ShowSettleData()
         {
             //øß∑»¡–±Ì

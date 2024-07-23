@@ -55,7 +55,6 @@ namespace GameMain
             closetBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.ClosetForm));
             outBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.MapForm));
             buffBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.BuffForm));
-            GameEntry.Event.Subscribe(OutEventArgs.EventId, BackMain);
             GameEntry.Event.Subscribe(GameStateEventArgs.EventId, OnGameStateEvent);
             canvasGroup.interactable = true;
         }
@@ -64,10 +63,7 @@ namespace GameMain
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
-            moneyText.text = moneyText.text = string.Format("{0}", GameEntry.Utils.Money.ToString());
-            apText.text = $"AP:{GameEntry.Utils.Ap}/{GameEntry.Utils.MaxAp}";
-            dayText.text = $"第{GameEntry.Utils.Day +1}天";
-            ApUpdate();
+            TitleUpdate();
             if (GameEntry.Utils.PlayerData.guideID <= 5&&GameEntry.Utils.Day<4)
             {
                 outBtn.interactable = false;
@@ -98,7 +94,7 @@ namespace GameMain
                     return;
                 ChangeTeach();
             }
-            ApUpdate();
+            TitleUpdate();
         }
         protected override void OnClose(bool isShutdown, object userData)
         {
@@ -114,7 +110,6 @@ namespace GameMain
             closetBtn.onClick.RemoveAllListeners();
             outBtn.onClick.RemoveAllListeners();
             buffBtn.onClick.RemoveAllListeners();
-            GameEntry.Event.Unsubscribe(OutEventArgs.EventId, BackMain);
             GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, OnGameStateEvent);
 
         }
@@ -129,13 +124,6 @@ namespace GameMain
             littleCatImg.gameObject.SetActive(true);
             int index = Random.Range(0, littleCat.Range);
             littleCatImg.sprite = Resources.Load<Sprite>($"{littleCat.ClothingPath}_{index+1}");
-        }
-        private void HideLittleCat()
-        {
-            //for (int i = 0; i < littleCatBtns.Count; i++)
-            //{
-            //    littleCatBtns[i].gameObject.SetActive(false);
-            //}
         }
         private void Change(GamePos gamePos)
         {
@@ -154,21 +142,7 @@ namespace GameMain
                     break;
             }
         }
-        private OutingSceneState outSceneState;
-        private void BackMain(object sender, GameEventArgs e)
-        {
-            OutEventArgs args = (OutEventArgs)e;
-            //if (args.OutingSceneState == OutingSceneState.Home)
-            //{
-            //    DRWeather weather = GameEntry.DataTable.GetDataTable<DRWeather>().GetDataRow((int)GameEntry.Utils.WeatherTag);
-            //    changeBackgroundImg.sprite = backgroundImg.sprite;
-            //    changeBackgroundImg.gameObject.SetActive(true);
-            //    changeBackgroundImg.color = Color.white;
-            //    backgroundImg.sprite = Resources.Load<Sprite>(weather.AssetName);
-            //    changeBackgroundImg.DOColor(Color.clear, 3f).OnComplete(() => changeBackgroundImg.gameObject.SetActive(false));
-            //    GameEntry.Sound.PlaySound(weather.BackgroundMusicId);
-            //}
-        }
+
         private void ChangeTeach()
         {
             if (mAnimator.GetBool("Into"))
@@ -231,8 +205,11 @@ namespace GameMain
             GameEntry.Sound.PlaySound(weather.BackgroundMusicId);
         }
 
-        private void ApUpdate()
+        private void TitleUpdate()
         {
+            moneyText.text = moneyText.text = string.Format("{0}", GameEntry.Utils.Money.ToString());
+            apText.text = $"AP:{GameEntry.Utils.Ap}/{GameEntry.Utils.MaxAp}";
+            dayText.text = $"第{GameEntry.Utils.Day + 1}天";
             int maxAp = GameEntry.Utils.MaxAp;
             int ap = GameEntry.Utils.Ap;
             for (int i = 0; i < apPoints.Length; i++)
