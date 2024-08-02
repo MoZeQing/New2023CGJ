@@ -221,7 +221,7 @@ public class DialogBox : MonoBehaviour
                 });
             }
 
-            SkipSpeed = charSpeed * (chatData.text.Length)+0.1f;
+            SkipSpeed = charSpeed * chatData.text.Length;
 
             AddMemoryItem(chatData);
 
