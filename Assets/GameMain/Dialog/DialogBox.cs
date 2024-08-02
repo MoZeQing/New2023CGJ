@@ -206,12 +206,21 @@ public class DialogBox : MonoBehaviour
             nameText.text = chatData.charName == "0" ? string.Empty : chatData.charName;
             dialogText.DOPause();
             dialogText.text = string.Empty;
-            flag = true;
-            dialogText.DOText(chatData.text, charSpeed * chatData.text.Length, true).OnComplete(()=>
+            if (IsSkip)
             {
-                flag = false;
+                dialogText.text = chatData.text;
                 _index++;
-            });
+            }
+            else
+            {
+                flag = true;
+                dialogText.DOText(chatData.text, charSpeed * chatData.text.Length, true).OnComplete(() =>
+                {
+                    flag = false;
+                    _index++;
+                });
+            }
+
             SkipSpeed = charSpeed * (chatData.text.Length)+0.1f;
 
             AddMemoryItem(chatData);
