@@ -64,15 +64,15 @@ namespace GameMain
             GameEntry.Entity.HideAllLoadedEntities();
             GameEntry.Entity.HideAllLoadingEntities();
 
-            GameEntry.UI.CloseAllLoadedUIForms();
+            GameEntry.UI.CloseUIGroup("Default");
             GameEntry.UI.CloseAllLoadingUIForms();
+            //等待场景加载后手动初始化一下数据
+            GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
             string[] loadedSceneAssetNames = GameEntry.Scene.GetLoadedSceneAssetNames();
             for (int i = 0; i < loadedSceneAssetNames.Length; i++)
             {
                 GameEntry.Scene.UnloadScene(loadedSceneAssetNames[i]);
             }
-            //等待场景加载后手动初始化一下数据
-            GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
         }
 
         protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
