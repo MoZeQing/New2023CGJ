@@ -68,8 +68,8 @@ namespace GameMain
 
         private void OnWordChanged(float value)
         {
-            GameEntry.Utils.word=0.05f-0.005f*value;
-            wordText.text = $"{value * 10}";
+            GameEntry.Utils.word=0.1f-0.08f*value;
+            wordText.text = $"{GameEntry.Utils.word}";
             testText.text = string.Empty;
             testText.DOKill();
             testText.DOText($"²âÊÔÖÐ²âÊÔÖÐ²âÊÔÖÐ¡­¡­¡­¡­¡­¡­", GameEntry.Utils.word * "²âÊÔÖÐ²âÊÔÖÐ²âÊÔÖÐ¡­¡­¡­¡­¡­¡­".Length).OnComplete(()=> testText.text = string.Empty).SetLoops(-1);
