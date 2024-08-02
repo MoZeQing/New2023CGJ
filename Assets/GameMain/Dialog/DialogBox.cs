@@ -184,12 +184,21 @@ public class DialogBox : MonoBehaviour
             OnComplete = null;
         }
     }
+    private bool flag=false;
     private void Next(ChatNode chatNode)
     {
         if (_index < chatNode.chatDatas.Count)
         {
-            //角色控制
             ChatData chatData = chatNode.chatDatas[_index];
+            if (flag)
+            {
+                dialogText.DOKill();
+                dialogText.text = chatData.text;
+                flag = false;
+                _index++;
+                return;
+            }
+            //角色控制
 
             stage.ShowCharacter(chatData);
             stage.SetBackground(chatData.background);
@@ -197,7 +206,12 @@ public class DialogBox : MonoBehaviour
             nameText.text = chatData.charName == "0" ? string.Empty : chatData.charName;
             dialogText.DOPause();
             dialogText.text = string.Empty;
-            dialogText.DOText(chatData.text, charSpeed * chatData.text.Length, true);
+            flag = true;
+            dialogText.DOText(chatData.text, charSpeed * chatData.text.Length, true).OnComplete(()=>
+            {
+                flag = false;
+                _index++;
+            });
             SkipSpeed = charSpeed * (chatData.text.Length)+0.1f;
 
             AddMemoryItem(chatData);
@@ -207,7 +221,6 @@ public class DialogBox : MonoBehaviour
                 GameEntry.Utils.RunEvent(chatData.eventDatas[i]);
             }
             //角色控制
-            _index++;
         }
         else
         {
