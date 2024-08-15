@@ -31,10 +31,10 @@ public class DishItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private void OnClick()
     {
-        if (GameEntry.Utils.Money >= mShopItemData.price)
+        if (GameEntry.Player.Money >= mShopItemData.price)
         {
             mAction();
-            GameEntry.Utils.Money -= mShopItemData.price;
+            GameEntry.Player.Money -= mShopItemData.price;
             GameEntry.Dialog.PlayStory(mShopItemData.itemTag.ToString());
         }
     }

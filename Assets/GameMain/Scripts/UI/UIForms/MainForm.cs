@@ -64,7 +64,7 @@ namespace GameMain
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
             TitleUpdate();
-            if (GameEntry.Utils.PlayerData.guideID <= 5&&GameEntry.Utils.Day<4)
+            if (GameEntry.Utils.PlayerData.guideID <= 5&&GameEntry.Player.Day<4)
             {
                 outBtn.interactable = false;
             }
@@ -72,7 +72,7 @@ namespace GameMain
             {
                 outBtn.interactable = true;
             }
-            if (GameEntry.Utils.PlayerData.guideID == 6 && GameEntry.Utils.Day == 4)
+            if (GameEntry.Utils.PlayerData.guideID == 6 && GameEntry.Player.Day == 4)
             {
                 teachBtn.interactable = false;
             }
@@ -179,7 +179,7 @@ namespace GameMain
                 switch (gameState)
                 {
                     case GameState.Night:
-                        if (GameEntry.Utils.Ap <= 0)
+                        if (GameEntry.Player.Ap <= 0)
                         {
                             weatherTag = WeatherTag.Night;
                         }
@@ -207,11 +207,11 @@ namespace GameMain
 
         private void TitleUpdate()
         {
-            moneyText.text = moneyText.text = string.Format("{0}", GameEntry.Utils.Money.ToString());
-            apText.text = $"AP:{GameEntry.Utils.Ap}/{GameEntry.Utils.MaxAp}";
-            dayText.text = $"第{GameEntry.Utils.Day + 1}天";
-            int maxAp = GameEntry.Utils.MaxAp;
-            int ap = GameEntry.Utils.Ap;
+            moneyText.text = moneyText.text = string.Format("{0}", GameEntry.Player.Money.ToString());
+            apText.text = $"AP:{GameEntry.Player.Ap}/{GameEntry.Player.MaxAp}";
+            dayText.text = $"第{GameEntry.Player.Day + 1}天";
+            int maxAp = GameEntry.Player.MaxAp;
+            int ap = GameEntry.Player.Ap;
             for (int i = 0; i < apPoints.Length; i++)
             {
                 apPoints[i].gameObject.SetActive(maxAp - ap <= i);

@@ -7,11 +7,11 @@ namespace GameMain
 {
     public class CatComponent : GameFrameworkComponent
     {
-        private CatData mCatData;
         //猫猫状态数据，其中0为默认的状态，也是当所有条件都不满足时的状态，一般作为溢出状态
         private List<CatStateData> catStateDatas = new List<CatStateData>();
         private CatStateData catState;
         private Dictionary<BehaviorTag, BehaviorData> behaviors = new Dictionary<BehaviorTag, BehaviorData>();
+        private CharData mCharData;
 
         private void Start()
         {
@@ -22,29 +22,57 @@ namespace GameMain
                 catStateDatas.Add(catStateSO.catStateData);
             }
         }
-        public int Favour
+        public int Wisdom
         {
             get
             {
-                return mCatData.favour;
+                return mCharData.wisdom;
             }
-            private set { }
+            set
+            {
+                mCharData.wisdom = value;
+                //_values[TriggerTag.Wisdom] = mCharData.wisdom.ToString();
+                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
+            }
         }
-        public int Family
+        public int Charm
         {
             get
             {
-                return mCatData.family;
+                return mCharData.charm;
             }
-            private set { }
+            set
+            {
+                mCharData.charm = value;
+                //_values[TriggerTag.Charm] = mCharData.charm.ToString();
+                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
+            }
         }
-        public int Love
+        public int Stamina
         {
             get
             {
-                return mCatData.love;
+                return mCharData.stamina;
             }
-            private set { }
+            set
+            {
+                mCharData.stamina = value;
+                //_values[TriggerTag.Stamina] = mCharData.stamina.ToString();
+                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
+            }
+        }
+        public int Favor
+        {
+            get
+            {
+                return mCharData.favor;
+            }
+            set
+            {
+                mCharData.favor = value;
+                //_values[TriggerTag.Favor] = mCharData.favor.ToString();
+                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
+            }
         }
         public CatStateData GetCatState()
         {
@@ -82,13 +110,6 @@ namespace GameMain
     {
         public ParentTrigger trigger;
         public List<BehaviorData> behaviors;
-    }
-    [System.Serializable]
-    public class CatData
-    {
-        public int favour = 0;
-        public int love = 0;
-        public int family = 0;
     }
     [System.Serializable]
     public class BehaviorData

@@ -200,28 +200,12 @@ public class TriggerData
 public class EventData
 {
     public EventTag eventTag;
-    public string value1;
-    public string value2;
-    public string value3;
+    public string[] values;
 
     public EventData() { }
     public EventData(EventTag eventTag)
     { 
         this.eventTag= eventTag;
-    }
-    public EventData(EventTag eventTag, string value1, string value2, string value3)
-    {
-        this.eventTag= eventTag;   
-        this.value1= value1;
-        this.value2 = value2;
-        this.value3 = value3;
-    }
-    public EventData(EventTag eventTag, string[] values)
-    {
-        this.eventTag = eventTag;
-        this.value1 = values[0];
-        this.value2 = values[1];
-        this.value3 = values[2];
     }
 }
 [System.Serializable]

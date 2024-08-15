@@ -24,12 +24,12 @@ namespace GameMain
         //}
         //void Update()
         //{
-        //    if (GameEntry.Utils.Money >= mMusicItemData.price)
+        //    if (GameEntry.Player.Money >= mMusicItemData.price)
         //    {
         //        purchaseButton.interactable = true;
         //        warningText.gameObject.SetActive(false);
         //    }
-        //    if (GameEntry.Utils.Money < mMusicItemData.price)
+        //    if (GameEntry.Player.Money < mMusicItemData.price)
         //    {
         //        purchaseButton.interactable = false;
         //        warningText.gameObject.SetActive(true);
@@ -45,10 +45,10 @@ namespace GameMain
         //}
         //private void OnClick()
         //{
-        //    if (GameEntry.Utils.Money >= mMusicItemData.price)
+        //    if (GameEntry.Player.Money >= mMusicItemData.price)
         //    {
-        //        GameEntry.Utils.Money -= mMusicItemData.price;
-        //        GameEntry.Utils.Favor += mMusicItemData.favor;
+        //        GameEntry.Player.Money -= mMusicItemData.price;
+        //        GameEntry.Cat.Favor += mMusicItemData.favor;
         //        GameEntry.Utils.Mood += mMusicItemData.mood;
         //        GameEntry.Utils.Ability += mMusicItemData.ability;
         //        GameEntry.Dialog.PlayStory(mMusicItemData.itemTag.ToString());

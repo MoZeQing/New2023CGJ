@@ -42,7 +42,7 @@ namespace GameMain
         public void SetData(DRItem shopItemData)
         {
             mShopItemData = shopItemData;
-            if (GameEntry.Utils.Money < mShopItemData.Price * purchaseNumber)
+            if (GameEntry.Player.Money < mShopItemData.Price * purchaseNumber)
             {
                 tips.gameObject.SetActive(true);
                 PurchaseFormBuyBtn.interactable = false;
@@ -62,10 +62,10 @@ namespace GameMain
         }
         private void PurchaseComfirm()
         {
-            if (GameEntry.Utils.Money >= mShopItemData.Price * purchaseNumber)
+            if (GameEntry.Player.Money >= mShopItemData.Price * purchaseNumber)
             {
                 GameEntry.Utils.AddPlayerItem(new ShopItemData(mShopItemData), purchaseNumber);
-                GameEntry.Utils.Money -= mShopItemData.Price * purchaseNumber;
+                GameEntry.Player.Money -= mShopItemData.Price * purchaseNumber;
             }
             purchaseNum.text = 1.ToString();
             purchaseNumber = 1;
@@ -82,7 +82,7 @@ namespace GameMain
             {
                 purchaseNumber = 99;
             }
-            if (GameEntry.Utils.Money < mShopItemData.Price * purchaseNumber)
+            if (GameEntry.Player.Money < mShopItemData.Price * purchaseNumber)
             {
                 tips.gameObject.SetActive(true);
                 PurchaseFormBuyBtn.interactable = false;
@@ -98,7 +98,7 @@ namespace GameMain
             {
                 purchaseNumber = 99;
             }
-            if (GameEntry.Utils.Money < mShopItemData.Price * purchaseNumber)
+            if (GameEntry.Player.Money < mShopItemData.Price * purchaseNumber)
             {
                 tips.gameObject.SetActive(true);
                 PurchaseFormBuyBtn.interactable = false;
@@ -114,7 +114,7 @@ namespace GameMain
             {
                 purchaseNumber = 0;
             }
-            if (GameEntry.Utils.Money >= mShopItemData.Price * purchaseNumber)
+            if (GameEntry.Player.Money >= mShopItemData.Price * purchaseNumber)
             {
                 tips.gameObject.SetActive(false);
                 PurchaseFormBuyBtn.interactable = true;
@@ -130,7 +130,7 @@ namespace GameMain
             {
                 purchaseNumber = 0;
             }
-            if (GameEntry.Utils.Money >= mShopItemData.Price * purchaseNumber)
+            if (GameEntry.Player.Money >= mShopItemData.Price * purchaseNumber)
             {
                 tips.gameObject.SetActive(false);
                 PurchaseFormBuyBtn.interactable = true;

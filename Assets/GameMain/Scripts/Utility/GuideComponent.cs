@@ -15,7 +15,7 @@ namespace GameMain
             {
                 //养成1
                 if (GameEntry.Utils.GameState == GameState.Night&&
-                    GameEntry.Utils.Day==2)
+                    GameEntry.Player.Day==2)
                 {
                     GameEntry.UI.OpenUIForm(UIFormId.GuideForm, 3);
                     GameEntry.Utils.PlayerData.guideID = 4;
@@ -25,7 +25,7 @@ namespace GameMain
             {
                 //工作
                 if (GameEntry.Utils.GameState == GameState.Special &&
-                    GameEntry.Utils.Day == 3)
+                    GameEntry.Player.Day == 3)
                 {
                     GameEntry.UI.OpenUIForm(UIFormId.GuideForm, 4);
                     GameEntry.Utils.PlayerData.guideID = 5;
@@ -35,7 +35,7 @@ namespace GameMain
             {
                 //外出
                 if (GameEntry.Utils.GameState == GameState.Night &&
-                    GameEntry.Utils.Day == 4)
+                    GameEntry.Player.Day == 4)
                 {
                     GameEntry.UI.OpenUIForm(UIFormId.GuideForm, 5);
                     GameEntry.Utils.PlayerData.guideID = 6;

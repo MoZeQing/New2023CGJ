@@ -98,7 +98,7 @@ namespace GameMain
 
                 mOrderList.IsShowItem = false;
                 mWorkForm.OnLevel("(0)Guide_1");
-                GameEntry.Utils.Day++;
+                GameEntry.Player.Day++;
                 mIndex++;
             }
         }
@@ -130,8 +130,8 @@ namespace GameMain
                     GameEntry.Utils.PlayerData.guideID = 0;
                     mWorkForm.OnLevel("(0)Guide_1");
                     mIndex++;
-                    GameEntry.Utils.Day++;
-                    Debug.Log(GameEntry.Utils.Day);
+                    GameEntry.Player.Day++;
+                    Debug.Log(GameEntry.Player.Day);
                 }
                 else if (mIndex == 2)
                 {
@@ -139,8 +139,8 @@ namespace GameMain
                     GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
                     mWorkForm.OnLevel("(1)Guide_2");
                     mIndex++;
-                    GameEntry.Utils.Day++;
-                    Debug.Log(GameEntry.Utils.Day);
+                    GameEntry.Player.Day++;
+                    Debug.Log(GameEntry.Player.Day);
                 }
                 else if (mIndex == 3)
                 {
@@ -149,7 +149,7 @@ namespace GameMain
                     mWorkForm.OnLevel("(2)Guide_3");
                     mIndex++;
 
-                    Debug.Log(GameEntry.Utils.Day);
+                    Debug.Log(GameEntry.Player.Day);
                 }
                 else
                 {

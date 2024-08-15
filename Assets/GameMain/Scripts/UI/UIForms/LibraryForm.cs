@@ -33,8 +33,8 @@ namespace GameMain
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
-            trainBtn.interactable = GameEntry.Utils.Money >= 200;
-            matchBtn.interactable = GameEntry.Utils.Money >= 200;
+            trainBtn.interactable = GameEntry.Player.Money >= 200;
+            matchBtn.interactable = GameEntry.Player.Money >= 200;
         }
 
         protected override void OnClose(bool isShutdown, object userData)

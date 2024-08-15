@@ -72,19 +72,19 @@ public class CompleteForm : BaseForm
             switch (pair.Key)
             {
                 case ValueTag.Ap:
-                    GameEntry.Utils.Ap += pair.Value;
+                    GameEntry.Player.Ap += pair.Value;
                     break;
                 case ValueTag.Money:
-                    GameEntry.Utils.Money+= pair.Value;
+                    GameEntry.Player.Money+= pair.Value;
                     break;
                 case ValueTag.Charm:
-                    GameEntry.Utils.Charm += (pair.Value + (int)buffData.CharmPlus );
+                    GameEntry.Cat.Charm += (pair.Value + (int)buffData.CharmPlus );
                     break;
                 case ValueTag.Stamina:
-                    GameEntry.Utils.Stamina+= (pair.Value + (int)buffData.StaminaPlus );
+                    GameEntry.Cat.Stamina+= (pair.Value + (int)buffData.StaminaPlus );
                     break;
                 case ValueTag.Wisdom:
-                    GameEntry.Utils.Wisdom+= (pair.Value + (int)buffData.WisdomPlus );
+                    GameEntry.Cat.Wisdom+= (pair.Value + (int)buffData.WisdomPlus );
                     break;
             }
         }

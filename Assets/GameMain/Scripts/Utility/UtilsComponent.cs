@@ -209,18 +209,6 @@ namespace GameMain
                 _values[TriggerTag.BehaviorTag] = mBehaviorTag.ToString();
             }
         }
-        public Week Week
-        {
-            get
-            {
-                return mWeek;
-            }
-            set
-            {
-                mWeek = value;
-                _values[TriggerTag.Week] = mWeek.ToString();
-            }
-        }
         public GameState GameState
         {
             get
@@ -244,156 +232,6 @@ namespace GameMain
             {
                 mLocation = value;
                 _values[TriggerTag.Location] = mLocation.ToString();
-            }
-        }
-
-        public int Money
-        {
-            get
-            {
-                return mPlayerData.money;
-            }
-            set
-            {
-                mPlayerData.money = value;
-                _values[TriggerTag.Money] = mPlayerData.money.ToString();
-                GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
-            }
-        }
-        public int Energy
-        {
-            get
-            {
-                return mPlayerData.energy;
-            }
-            set
-            {
-                BuffData buffData = GameEntry.Buff.GetBuff();
-                if (value > MaxEnergy * buffData.EnergyMaxMulti + buffData.EnergyMaxPlus)
-                    mPlayerData.energy = (int)(MaxEnergy * buffData.EnergyMaxMulti + buffData.EnergyMaxPlus);
-                else
-                    mPlayerData.energy = value;
-                _values[TriggerTag.Energy] = mPlayerData.energy.ToString();
-                GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
-            }
-        }
-        public int MaxEnergy
-        {
-            get
-            {
-                return mPlayerData.maxEnergy;
-            }
-            set
-            {
-                mPlayerData.maxEnergy = value;
-                _values[TriggerTag.MaxEnergy] = mPlayerData.maxEnergy.ToString();
-                GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
-            }
-        }
-        public int MaxAp
-        {
-            get
-            {
-                return mPlayerData.maxAp;
-            }
-            set
-            {
-                mPlayerData.maxAp = value;
-                _values[TriggerTag.MaxAp] = mPlayerData.maxAp.ToString();
-                GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
-            }
-        }
-        public int Ap
-        {
-            get
-            {
-                return mPlayerData.ap;
-            }
-            set
-            {
-                mPlayerData.ap = value;
-                _values[TriggerTag.Ap] = mPlayerData.ap.ToString();
-                GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
-            }
-        }
-        public int Day
-        {
-            get
-            {
-                return mPlayerData.day;
-            }
-            set
-            {
-                mPlayerData.day = value;
-                Week = (Week)(Day % 7);
-                Debug.Log(Week);
-                _values[TriggerTag.Day] = mPlayerData.day.ToString();
-                GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
-            }
-        }
-        public int Rent
-        {
-            get
-            {
-                return mPlayerData.rent;
-            }
-            set
-            {
-                mPlayerData.rent = value;
-                _values[TriggerTag.Rent] = mPlayerData.rent.ToString();
-                GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
-            }
-        }
-        public int Wisdom
-        {
-            get
-            {
-                return mCharData.wisdom;
-            }
-            set
-            {
-                mCharData.wisdom = value;
-                _values[TriggerTag.Wisdom] = mCharData.wisdom.ToString();
-                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
-            }
-        }
-        public int Charm
-        {
-            get
-            {
-                return mCharData.charm;
-            }
-            set
-            {
-                mCharData.charm = value;
-                _values[TriggerTag.Charm] = mCharData.charm.ToString();
-                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
-            }
-        }
-        public int Stamina
-        {
-            get
-            { 
-                return mCharData.stamina;
-            }
-            set
-            {
-                mCharData.stamina = value;
-                _values[TriggerTag.Stamina] = mCharData.stamina.ToString();
-                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
-            }
-        }
-        public int Favor
-        {
-            get
-            { 
-                return mCharData.favor;
-            }
-            set
-            { 
-                mCharData.favor = value;
-                _values[TriggerTag.Favor]= mCharData.favor.ToString();
-                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
             }
         }
         public bool CheckFlag(string key)
@@ -505,20 +343,8 @@ namespace GameMain
             string[] console = text.Split(' ');
             EventTag eventTag = (EventTag)Enum.Parse(typeof(EventTag), console[0]);
             EventData eventData=new EventData(eventTag);
-            if (console.Length == 2)
             {
-                eventData.value1= console[1];
-            }
-            if (console.Length == 3)
-            {
-                eventData.value1 = console[1];
-                eventData.value2 = console[2];
-            }
-            if (console.Length == 4)
-            {
-                eventData.value1 = console[1];
-                eventData.value2 = console[2];
-                eventData.value2 = console[3];
+                eventData.values = console;
             }
             return RunEvent(eventData);
         }
@@ -528,31 +354,31 @@ namespace GameMain
             switch (eventData.eventTag)
             {
                 case EventTag.Play:
-                    GameEntry.Dialog.PlayStory(eventData.value1);
+                    GameEntry.Dialog.PlayStory(eventData.values[1]);
                     return true;
                 case EventTag.AddMoney:
-                    GameEntry.Utils.Money += int.Parse(eventData.value1);
+                    GameEntry.Player.Money += int.Parse(eventData.values[1]);
                     return true;
                 case EventTag.AddFavor:
-                    GameEntry.Utils.Favor += int.Parse(eventData.value1);
+                    GameEntry.Cat.Favor += int.Parse(eventData.values[1]);
                     return true;
                 case EventTag.AddEnergy:
-                    GameEntry.Utils.Energy += int.Parse(eventData.value1);
+                    GameEntry.Player.Energy += int.Parse(eventData.values[1]);
                     return true;
                 case EventTag.AddAp:
-                    GameEntry.Utils.Ap+= int.Parse(eventData.value1);
+                    GameEntry.Player.Ap+= int.Parse(eventData.values[1]);
                     return true;
                 case EventTag.AddItem:
-                    GameEntry.Utils.AddPlayerItem(new ItemData((ItemTag)Enum.Parse(typeof(ItemTag), eventData.value1)), int.Parse(eventData.value2));
+                    GameEntry.Utils.AddPlayerItem(new ItemData((ItemTag)Enum.Parse(typeof(ItemTag), eventData.values[1])), int.Parse(eventData.values[2]));
                     return true;
                 case EventTag.AddFlag:
-                    GameEntry.Utils.AddFlag(eventData.value1);
+                    GameEntry.Utils.AddFlag(eventData.values[1]);
                     return true;
                 case EventTag.RemoveFlag:
-                    GameEntry.Utils.RemoveFlag(eventData.value1);
+                    GameEntry.Utils.RemoveFlag(eventData.values[1]);
                     return true;
                 case EventTag.NextDay://重写逻辑
-                    GameEntry.Utils.Day++;
+                    GameEntry.Player.Day++;
                     GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Night));
                     return true;
                 case EventTag.PlayBgm:
@@ -563,44 +389,44 @@ namespace GameMain
                     GameEntry.UI.OpenUIForm(UIFormId.EndForm);
                     return true;
                 case EventTag.AddDay:
-                    GameEntry.Utils.Day += int.Parse(eventData.value1);
+                    GameEntry.Player.Day += int.Parse(eventData.values[1]);
                     return true;
                 case EventTag.Rent:
-                    //GameEntry.Utils.Rent=int.Parse(eventData.value1);
+                    //GameEntry.Utils.Rent=int.Parse(eventData.values[1]);
                     return true; 
                 case EventTag.AddFriend:
-                    GameEntry.Utils.AddFriendFavor(eventData.value1, int.Parse(eventData.value2));
+                    GameEntry.Utils.AddFriendFavor(eventData.values[1], int.Parse(eventData.values[2]));
                     return true; 
                 case EventTag.AddRecipe:
-                    GameEntry.Player.AddRecipe(int.Parse(eventData.value1));
+                    GameEntry.Player.AddRecipe(int.Parse(eventData.values[1]));
                     return true; 
                 case EventTag.AddScene:
-                    GameEntry.Utils.outingSceneStates.Add((OutingSceneState)int.Parse(eventData.value1));
+                    GameEntry.Utils.outingSceneStates.Add((OutingSceneState)int.Parse(eventData.values[1]));
                     return true;
                 case EventTag.Test:
                     GameEntry.Event.FireNow(this, ValueEventArgs.Create(TriggerTag.Energy,"成功"));
                     return true;
                 case EventTag.AddBuff:
-                    GameEntry.Buff.AddBuff(int.Parse(eventData.value1));
+                    GameEntry.Buff.AddBuff(int.Parse(eventData.values[1]));
                     return true;
                 case EventTag.RemoveBuff:
-                    GameEntry.Buff.RemoveBuff(int.Parse(eventData.value1));
+                    GameEntry.Buff.RemoveBuff(int.Parse(eventData.values[1]));
                     return true;
                 case EventTag.Weather:
-                    GameEntry.Utils.WeatherTag = (WeatherTag)int.Parse(eventData.value1);
+                    GameEntry.Utils.WeatherTag = (WeatherTag)int.Parse(eventData.values[1]);
                     return true;
                 case EventTag.SetClothing:
-                    GameEntry.Utils.AddPlayerItem(new ItemData((ItemTag)int.Parse(eventData.value1)), 1);
-                    GameEntry.Utils.Closet = int.Parse(eventData.value1);
+                    GameEntry.Utils.AddPlayerItem(new ItemData((ItemTag)int.Parse(eventData.values[1])), 1);
+                    GameEntry.Utils.Closet = int.Parse(eventData.values[1]);
                     break;
                 case EventTag.ShowForm:
-                    GameEntry.UI.OpenUIForm((UIFormId)Enum.Parse(typeof(UIFormId), eventData.value1));
+                    GameEntry.UI.OpenUIForm((UIFormId)Enum.Parse(typeof(UIFormId), eventData.values[1]));
                     break;
                 case EventTag.AddCharm:
-                    GameEntry.Utils.Charm+= (int.Parse(eventData.value1));
+                    GameEntry.Cat.Charm+= (int.Parse(eventData.values[1]));
                     break;
                 case EventTag.AddStamina:
-                    GameEntry.Utils.Stamina += (int.Parse(eventData.value1));
+                    GameEntry.Cat.Stamina += (int.Parse(eventData.values[1]));
                     break;
             }
             return false;

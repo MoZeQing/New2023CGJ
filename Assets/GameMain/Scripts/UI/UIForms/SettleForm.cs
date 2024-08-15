@@ -125,7 +125,7 @@ namespace GameMain
             GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Afternoon));
             GameEntry.UI.CloseUIForm(this.UIForm);
             BuffData buffData = GameEntry.Buff.GetBuff();
-            GameEntry.Utils.Money += (int)((levelMoney + income+catValue) * buffData.MoneyMulti  + buffData.MoneyPlus);
+            GameEntry.Player.Money += (int)((levelMoney + income+catValue) * buffData.MoneyMulti  + buffData.MoneyPlus);
         }
     }
 }
