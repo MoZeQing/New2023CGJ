@@ -11,8 +11,6 @@ namespace GameMain
         [Input] public float a;
         [Output] public float b;
         [SerializeField]
-        public CatData catData;
-        [SerializeField]
         public PlayerData playerData;
         // Use this for initialization
         protected override void Init()

@@ -112,7 +112,7 @@ namespace GameMain
         private void Upgrade()
         {
             DRUpgrade dRUpgrade = GameEntry.DataTable.GetDataTable<DRUpgrade>().GetDataRow(GameEntry.DataTable.GetDataTable<DRUpgrade>().GetDataRow(GameEntry.Utils.PlayerData.cafeID).UpgradeID);
-            GameEntry.Utils.Money -= GameEntry.DataTable.GetDataTable<DRUpgrade>().GetDataRow(GameEntry.Utils.PlayerData.cafeID).Money;
+            GameEntry.Player.Money -= GameEntry.DataTable.GetDataTable<DRUpgrade>().GetDataRow(GameEntry.Utils.PlayerData.cafeID).Money;
             GameEntry.Utils.PricePower = dRUpgrade.Increase/100f;
             GameEntry.Utils.PlayerData.cafeID = dRUpgrade.Id;
             string[] recipes = dRUpgrade.UnlockCoffee.Split('-');

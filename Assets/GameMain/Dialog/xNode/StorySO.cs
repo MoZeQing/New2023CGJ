@@ -46,7 +46,7 @@ public class StorySO : ScriptableObject
                 {
                     foreach (EventData eventData in story.eventDatas)
                     {
-                        sb.Append(eventData.eventTag.ToString() + " = " + eventData.value1.ToString());
+                        sb.Append(eventData.eventTag.ToString());
                         sb.Append(" ");
                     }
                 }
