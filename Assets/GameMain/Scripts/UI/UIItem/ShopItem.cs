@@ -31,8 +31,8 @@ namespace GameMain
             this.gameObject.SetActive(true);
             itemImage.sprite = Resources.Load<Sprite>(itemData.ImagePath);
             priceText.text = string.Format("гд{0}",itemData.Price.ToString());
-            if(GameEntry.Utils.GetPlayerItem((ItemTag)itemData.Id)!=null)
-                inventoryText.text =  GameEntry.Utils.GetPlayerItem((ItemTag)itemData.Id).itemNum.ToString(); 
+            if(GameEntry.Player.GetPlayerItem((ItemTag)itemData.Id)!=null)
+                inventoryText.text =  GameEntry.Player.GetPlayerItem((ItemTag)itemData.Id).itemNum.ToString(); 
             else
                 inventoryText.text = "0";
         }

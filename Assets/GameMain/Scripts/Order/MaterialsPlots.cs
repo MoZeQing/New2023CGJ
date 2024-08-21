@@ -20,13 +20,13 @@ public class MaterialsPlots : MonoBehaviour,IPointerDownHandler
         }
         else
         {
-            if (GameEntry.Utils.GetPlayerItem((ItemTag)(int)nodeTag) == null)
+            if (GameEntry.Player.GetPlayerItem((ItemTag)(int)nodeTag) == null)
             {
                 text.text = "0";
                 return;
             }    
-            if (GameEntry.Utils.GetPlayerItem((ItemTag)(int)nodeTag).itemNum <= 99)
-                text.text = GameEntry.Utils.GetPlayerItem((ItemTag)(int)nodeTag).itemNum.ToString();
+            if (GameEntry.Player.GetPlayerItem((ItemTag)(int)nodeTag).itemNum <= 99)
+                text.text = GameEntry.Player.GetPlayerItem((ItemTag)(int)nodeTag).itemNum.ToString();
             else
                 text.text = "99+";
         }
@@ -46,20 +46,20 @@ public class MaterialsPlots : MonoBehaviour,IPointerDownHandler
         }
         else if (!IsGuide)
         {
-            if (GameEntry.Utils.GetPlayerItem((ItemTag)(int)nodeTag) == null)
+            if (GameEntry.Player.GetPlayerItem((ItemTag)(int)nodeTag) == null)
             {
                 text.text = "0";
                 return;
             }
-            if (GameEntry.Utils.GetPlayerItem((ItemTag)(int)nodeTag).itemNum <= 0)
+            if (GameEntry.Player.GetPlayerItem((ItemTag)(int)nodeTag).itemNum <= 0)
             {
-                text.text = GameEntry.Utils.GetPlayerItem((ItemTag)(int)nodeTag).itemNum.ToString();
+                text.text = GameEntry.Player.GetPlayerItem((ItemTag)(int)nodeTag).itemNum.ToString();
                 text.color = Color.red;
                 GameEntry.UI.OpenUIForm(UIFormId.PopTips, "ÄãµÄ²ÄÁÏ²»×ã");
                 return;
             }
-            GameEntry.Utils.GetPlayerItem((ItemTag)(int)nodeTag).itemNum--;
-            text.text = GameEntry.Utils.GetPlayerItem((ItemTag)(int)nodeTag).itemNum.ToString();
+            GameEntry.Player.GetPlayerItem((ItemTag)(int)nodeTag).itemNum--;
+            text.text = GameEntry.Player.GetPlayerItem((ItemTag)(int)nodeTag).itemNum.ToString();
         }
         else
         {

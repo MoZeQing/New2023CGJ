@@ -14,15 +14,14 @@ namespace GameMain
 {
     public class UtilsComponent : GameFrameworkComponent
     {
-        public Sprite[] modeSprites;
         public Sprite orderSprite;
         public bool isClose;
         public BoundData openBoundData;
         public BoundData closeBoundData;
         public Sprite openSprite;
         public Sprite closeSprite;
-        public float voice=0.5f;
-        public float word=0.06f;
+        public float Voice { get; set; } = 0.5f;
+        public float Word { get; set; } = 0.06f;
         public OutingSceneState outSceneState;
         public int Closet { get; set; }
         public bool PickUp { get; set; } = false;
@@ -86,46 +85,6 @@ namespace GameMain
         }
 
         public Dictionary<string, int> _friends = new Dictionary<string, int>();//好友字典
-
-        public void ClearPlayerItem()
-        {
-            mPlayerData.items.Clear();
-        }
-
-        public void AddPlayerItem(ItemData itemData, int num)
-        {
-            if (GetPlayerItem(itemData.itemTag) == null)
-            {
-                mPlayerData.items.Add(new PlayerItemData(itemData, num));
-            }
-            else
-            {
-                GetPlayerItem(itemData.itemTag).itemNum += num;
-            }
-        }
-        public void AddPlayerItem(ItemData itemData, int num, bool equip)
-        {
-            if (GetPlayerItem(itemData.itemTag) == null)
-            {
-                PlayerItemData playerItem = new PlayerItemData(itemData, num);
-                playerItem.equiping = equip;
-                mPlayerData.items.Add(playerItem);
-            }
-            else
-            {
-                GetPlayerItem(itemData.itemTag).itemNum += num;
-            }
-        }
-        public PlayerItemData GetPlayerItem(ItemTag itemTag)
-        {
-            foreach (PlayerItemData itemData in mPlayerData.items)
-            {
-                if (itemData.itemTag == itemTag)
-                    return itemData;
-            }
-            return null;
-        }
-
         public bool IsRain
         {
             get
@@ -136,11 +95,6 @@ namespace GameMain
             { 
                 mIsRain= value;
             }
-        }
-
-        public void AddWork(WorkData workData)
-        {
-            mWorkDatas.Add(workData);
         }
         public PlayerData PlayerData
         {
@@ -369,7 +323,7 @@ namespace GameMain
                     GameEntry.Player.Ap+= int.Parse(eventData.values[1]);
                     return true;
                 case EventTag.AddItem:
-                    GameEntry.Utils.AddPlayerItem(new ItemData((ItemTag)Enum.Parse(typeof(ItemTag), eventData.values[1])), int.Parse(eventData.values[2]));
+                    GameEntry.Player.AddPlayerItem(new ItemData((ItemTag)Enum.Parse(typeof(ItemTag), eventData.values[1])), int.Parse(eventData.values[2]));
                     return true;
                 case EventTag.AddFlag:
                     GameEntry.Utils.AddFlag(eventData.values[1]);
@@ -416,7 +370,7 @@ namespace GameMain
                     GameEntry.Utils.WeatherTag = (WeatherTag)int.Parse(eventData.values[1]);
                     return true;
                 case EventTag.SetClothing:
-                    GameEntry.Utils.AddPlayerItem(new ItemData((ItemTag)int.Parse(eventData.values[1])), 1);
+                    GameEntry.Player.AddPlayerItem(new ItemData((ItemTag)int.Parse(eventData.values[1])), 1);
                     GameEntry.Utils.Closet = int.Parse(eventData.values[1]);
                     break;
                 case EventTag.ShowForm:

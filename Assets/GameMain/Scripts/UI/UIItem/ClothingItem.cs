@@ -17,7 +17,7 @@ namespace GameMain
             priceText.text = string.Format("¼Û¸ñ:{0}", itemData.Price.ToString());
             itemText.text = itemData.Info;
             itemText.text = itemText.text.Replace("\\n", "\n");
-            this.GetComponent<Button>().interactable = GameEntry.Utils.GetPlayerItem((ItemTag)itemData.Id) == null;
+            this.GetComponent<Button>().interactable = GameEntry.Player.GetPlayerItem((ItemTag)itemData.Id) == null;
         }
     }
 }

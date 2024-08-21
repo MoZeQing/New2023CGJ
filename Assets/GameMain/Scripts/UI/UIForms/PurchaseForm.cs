@@ -64,7 +64,7 @@ namespace GameMain
         {
             if (GameEntry.Player.Money >= mShopItemData.Price * purchaseNumber)
             {
-                GameEntry.Utils.AddPlayerItem(new ShopItemData(mShopItemData), purchaseNumber);
+                GameEntry.Player.AddPlayerItem(new ShopItemData(mShopItemData), purchaseNumber);
                 GameEntry.Player.Money -= mShopItemData.Price * purchaseNumber;
             }
             purchaseNum.text = 1.ToString();

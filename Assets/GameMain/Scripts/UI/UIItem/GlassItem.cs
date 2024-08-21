@@ -17,6 +17,6 @@ public class GlassItem : ShopItem
         itemText.text = itemData.Name;
         inventoryText.text = itemData.Info;
         inventoryText.text=inventoryText.text.Replace("\\n", "\n");
-        this.GetComponent<Button>().interactable = GameEntry.Utils.GetPlayerItem((ItemTag)itemData.Id) == null;
+        this.GetComponent<Button>().interactable = GameEntry.Player.GetPlayerItem((ItemTag)itemData.Id) == null;
     }
 }

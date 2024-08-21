@@ -18,24 +18,24 @@ namespace GameMain
             mPlayerData.items = new List<PlayerItemData>();
         }
 
-        public void ClearItem()
+        public void ClearPlayerItem()
         {
             mPlayerData.items.Clear();
         }
-        public void AddItem(ItemData itemData, int num)
+        public void AddPlayerItem(ItemData itemData, int num)
         {
-            if (GetItem(itemData.itemTag) == null)
+            if (GetPlayerItem(itemData.itemTag) == null)
             {
                 mPlayerData.items.Add(new PlayerItemData(itemData, num));
             }
             else
             {
-                GetItem(itemData.itemTag).itemNum += num;
+                GetPlayerItem(itemData.itemTag).itemNum += num;
             }
         }
-        public void AddItem(ItemData itemData, int num, bool equip)
+        public void AddPlayerItem(ItemData itemData, int num, bool equip)
         {
-            if (GetItem(itemData.itemTag) == null)
+            if (GetPlayerItem(itemData.itemTag) == null)
             {
                 PlayerItemData playerItem = new PlayerItemData(itemData, num);
                 playerItem.equiping = equip;
@@ -43,10 +43,10 @@ namespace GameMain
             }
             else
             {
-                GetItem(itemData.itemTag).itemNum += num;
+                GetPlayerItem(itemData.itemTag).itemNum += num;
             }
         }
-        public PlayerItemData GetItem(ItemTag itemTag)
+        public PlayerItemData GetPlayerItem(ItemTag itemTag)
         {
             foreach (PlayerItemData itemData in mPlayerData.items)
             {

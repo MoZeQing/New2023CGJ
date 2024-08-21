@@ -11,9 +11,9 @@ namespace GameMain
         {
             //foreach (ItemTag itemTag in GameEntry.SaveLoad.glassItemDatas)
             //{
-            //    if (GameEntry.Utils.GetPlayerItem(itemTag) != null)
+            //    if (GameEntry.Player.GetPlayerItem(itemTag) != null)
             //    {
-            //        if (!GameEntry.Utils.GetPlayerItem(itemTag).equiping)
+            //        if (!GameEntry.Player.GetPlayerItem(itemTag).equiping)
             //            continue;
             //        GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, (NodeTag)(int)itemTag)
             //        {

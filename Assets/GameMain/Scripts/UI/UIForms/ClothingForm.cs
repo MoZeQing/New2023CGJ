@@ -99,7 +99,7 @@ namespace GameMain
         private void UpdateItem()
         {
             GameEntry.Player.Money -= dRItem.Price;
-            GameEntry.Utils.AddPlayerItem(new ItemData(dRItem), 1);
+            GameEntry.Player.AddPlayerItem(new ItemData(dRItem), 1);
             if (dRItem.EventData != null&&dRItem.EventData!=string.Empty)
             {
                 GameEntry.Utils.RunEvent(dRItem.EventData);

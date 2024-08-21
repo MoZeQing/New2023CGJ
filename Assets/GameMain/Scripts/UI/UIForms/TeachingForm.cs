@@ -35,10 +35,8 @@ namespace GameMain
         [SerializeField] private CanvasGroup mCanvasGroup = null;
 
         private DialogForm mDialogForm = null;
-        [SerializeField] public ActionGraph mActionGraph = null;
         [SerializeField] private GameObject behaviorBtn;
         private CatStateData mCatStateData = null; 
-        private ActionNode mActionNode = null;
         private BehaviorTag mBehaviorTag;
         private ProcedureMain mProcedureMain = null;
         private bool InDialog;

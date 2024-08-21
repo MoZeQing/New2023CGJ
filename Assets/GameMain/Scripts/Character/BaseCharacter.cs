@@ -20,7 +20,6 @@ namespace GameMain
         }
 
         private CharacterData mCharacterData = null;
-        private ActionNode mActionNode = null;
         public CharSO mCharSO = null;
         public Image mImage = null;
 

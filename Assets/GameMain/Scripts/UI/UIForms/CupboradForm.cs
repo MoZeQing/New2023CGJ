@@ -32,7 +32,7 @@ namespace GameMain
             dRItems.Clear();
             foreach (DRItem item in GameEntry.DataTable.GetDataTable<DRItem>().GetAllDataRows())
             {
-                if (GameEntry.Utils.GetPlayerItem((ItemTag)item.Id)==null)
+                if (GameEntry.Player.GetPlayerItem((ItemTag)item.Id)==null)
                     continue;
                 if ((ItemKind)item.Kind != ItemKind.Materials)
                     continue;

@@ -23,14 +23,14 @@ namespace GameMain
         private void Start()
         {
             Check();
-            if (GameEntry.Utils.GetPlayerItem(closetTag) == null ||
-                GameEntry.Utils.GetPlayerItem(closetTag).itemNum == 0)
+            if (GameEntry.Player.GetPlayerItem(closetTag) == null ||
+                GameEntry.Player.GetPlayerItem(closetTag).itemNum == 0)
             {
                 lockOn.SetActive(true);
             }
             else
             {
-                //closetForm.SetData(GameEntry.Utils.GetPlayerItem(closetTag));
+                //closetForm.SetData(GameEntry.Player.GetPlayerItem(closetTag));
                 lockOn.SetActive(false);
             }
         }
@@ -63,8 +63,8 @@ namespace GameMain
                 state = ClosetItemState.PickUp;
                 this.transform.DOPause();
                 Check();
-                if (GameEntry.Utils.GetPlayerItem(closetTag) == null ||
-                    GameEntry.Utils.GetPlayerItem(closetTag).itemNum == 0)
+                if (GameEntry.Player.GetPlayerItem(closetTag) == null ||
+                    GameEntry.Player.GetPlayerItem(closetTag).itemNum == 0)
                 {
                     img.color = new Color(0.5f, 0.5f, 0.5f, 1f);
                     lockOn.SetActive(true);
@@ -72,7 +72,7 @@ namespace GameMain
                 }
                 else
                 {
-                    //closetForm.SetData(GameEntry.Utils.GetPlayerItem(closetTag));
+                    //closetForm.SetData(GameEntry.Player.GetPlayerItem(closetTag));
                     lockOn.SetActive(false);
                 }
                 this.transform.DOLocalMove(up.localPosition, 0.5f).SetEase(Ease.OutExpo);
@@ -99,7 +99,7 @@ namespace GameMain
             {
                 state = ClosetItemState.Choice;
                 //·¢ËÍÏûÏ¢
-                //closetForm.SetData(GameEntry.Utils.GetPlayerItem(closetTag), this);
+                //closetForm.SetData(GameEntry.Player.GetPlayerItem(closetTag), this);
             }
         }
     }

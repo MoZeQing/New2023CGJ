@@ -49,13 +49,6 @@ namespace GameMain
 
         public void LoadData()
         {
-            GameEntry.Utils.recipes.Clear();
-            foreach (DRRecipe recipe in GameEntry.DataTable.GetDataTable<DRRecipe>().GetAllDataRows())
-            {
-                GameEntry.Utils.recipes.Add(recipe.Id.ToString(), new RecipeData(recipe));
-            }
-
-            GameEntry.Utils.chars.Clear();
             GameEntry.Utils.ClearFriendFavor();
             CharSO[] charSOs = Resources.LoadAll<CharSO>("CharData");
             for (int i = 0; i < charSOs.Length; i++)
@@ -86,15 +79,15 @@ namespace GameMain
             GameEntry.Utils.PlayerData.burnisherID = 101;
             GameEntry.Utils.ClearFlag();
             GameEntry.Dialog.LoadGame();
-            GameEntry.Utils.ClearPlayerItem();
+            GameEntry.Player.ClearPlayerItem();
             for (int i = 0; i < playerItems.Count; i++)
-                GameEntry.Utils.AddPlayerItem(new ItemData(playerItems[i]), 5);
+                GameEntry.Player.AddPlayerItem(new ItemData(playerItems[i]), 5);
 
-            GameEntry.Utils.AddPlayerItem(new ItemData(ItemTag.Heater), 1, true);
-            GameEntry.Utils.AddPlayerItem(new ItemData(ItemTag.ManualGrinder), 1, true);
-            GameEntry.Utils.AddPlayerItem(new ItemData(ItemTag.Kettle), 1, true);
-            GameEntry.Utils.AddPlayerItem(new ItemData(ItemTag.Stirrer), 1, true);
-            GameEntry.Utils.AddPlayerItem(new ItemData((ItemTag)closet), 1, true);
+            GameEntry.Player.AddPlayerItem(new ItemData(ItemTag.Heater), 1, true);
+            GameEntry.Player.AddPlayerItem(new ItemData(ItemTag.ManualGrinder), 1, true);
+            GameEntry.Player.AddPlayerItem(new ItemData(ItemTag.Kettle), 1, true);
+            GameEntry.Player.AddPlayerItem(new ItemData(ItemTag.Stirrer), 1, true);
+            GameEntry.Player.AddPlayerItem(new ItemData((ItemTag)closet), 1, true);
 
             GameEntry.Utils.outingSceneStates.Clear();
             GameEntry.Utils.outingSceneStates.Add(OutingSceneState.Market);

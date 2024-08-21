@@ -15,8 +15,8 @@ public class Item : ShopItem
         mShopItemData = itemData;
         this.gameObject.SetActive(true);
         itemImage.sprite = Resources.Load<Sprite>(itemData.ImagePath);
-        if (GameEntry.Utils.GetPlayerItem((ItemTag)itemData.Id) != null)
-            inventoryText.text = string.Format("{0}", GameEntry.Utils.GetPlayerItem((ItemTag)itemData.Id).itemNum.ToString());
+        if (GameEntry.Player.GetPlayerItem((ItemTag)itemData.Id) != null)
+            inventoryText.text = string.Format("{0}", GameEntry.Player.GetPlayerItem((ItemTag)itemData.Id).itemNum.ToString());
         else
             inventoryText.text = string.Format("{0}", 0);
     }
@@ -25,8 +25,8 @@ public class Item : ShopItem
         mShopItemData = itemData;
         this.gameObject.SetActive(true);
         itemImage.sprite = Resources.Load<Sprite>(itemData.ImagePath);
-        if (GameEntry.Utils.GetPlayerItem((ItemTag)itemData.Id) != null)
-            inventoryText.text = string.Format("¿â´æ:{0}", GameEntry.Utils.GetPlayerItem((ItemTag)itemData.Id).itemNum.ToString());
+        if (GameEntry.Player.GetPlayerItem((ItemTag)itemData.Id) != null)
+            inventoryText.text = string.Format("¿â´æ:{0}", GameEntry.Player.GetPlayerItem((ItemTag)itemData.Id).itemNum.ToString());
         else
             inventoryText.text = string.Format("¿â´æ:{0}", 0);
         SetClick(onClick);
