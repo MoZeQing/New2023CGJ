@@ -23,22 +23,22 @@ namespace GameMain
             //    }
             //}
 
-            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, (NodeTag)(int)GameEntry.Utils.PlayerData.heaterID)
+            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Heater)
             {
                 Position = new Vector3(6.073708f, -6.272577f, 0),
                 Follow = false
             });
-            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, (NodeTag)(int)GameEntry.Utils.PlayerData.stirrerID)
+            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Stirrer)
             {
                 Position = new Vector3(6.073708f, -6.272577f, 0),
                 Follow = false
             });
-            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, (NodeTag)(int)GameEntry.Utils.PlayerData.pressID)
+            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.FrenchPress)
             {
                 Position = new Vector3(6.073708f, -6.272577f, 0),
                 Follow = false
             });
-            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, (NodeTag)(int)GameEntry.Utils.PlayerData.burnisherID)
+            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.ElectricGrinder)
             {
                 Position = new Vector3(6.073708f, -6.272577f, 0),
                 Follow = false

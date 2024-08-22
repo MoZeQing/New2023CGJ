@@ -56,27 +56,13 @@ namespace GameMain
             GameEntry.SaveLoad.LoadData();
             SaveLoadData saveLoadData = GameEntry.SaveLoad.LoadGame(index);
             GameEntry.SaveLoad.InitData();
-            GameEntry.Utils.PlayerData = saveLoadData.playerData;
-            GameEntry.Utils.CharData = saveLoadData.charData;
-            GameEntry.Player.Day = saveLoadData.day;
-            GameEntry.Utils.Closet = saveLoadData.closet;
-            GameEntry.Utils.Flags = saveLoadData.flags;
-            GameEntry.Utils._flagValues = saveLoadData.flagValue;
-            GameEntry.Utils.WorkDatas = saveLoadData.workDatas;
-            GameEntry.Utils._friends = saveLoadData.friends;
+            GameEntry.Player.LoadData(saveLoadData.playerData);
+            GameEntry.Cat.LoadData(saveLoadData.charData);
+            GameEntry.Utils.LoadData(saveLoadData.utilsData);
             GameEntry.Dialog.LoadGame(saveLoadData.storyData,saveLoadData.levelData);
             GameEntry.Player.LoadGame(saveLoadData);
-            GameEntry.Buff.AddBuff(saveLoadData.buffs);
-            GameEntry.Utils.outingSceneStates.Clear();
-            foreach (OutingSceneState outingSceneState in saveLoadData.outingSceneStates)
-            {
-                GameEntry.Utils.outingSceneStates.Add(outingSceneState);
-            }
+            GameEntry.Buff.LoadData(saveLoadData.buffData);
             GameEntry.Player.ClearRecipe();
-            foreach (int recipe in saveLoadData.recipes)
-            {
-                GameEntry.Player.AddRecipe(recipe);
-            }
             GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Night));
             GameEntry.UI.OpenUIForm(UIFormId.ChangeForm);
             GameEntry.UI.CloseUIForm(this.UIForm);

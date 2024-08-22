@@ -80,7 +80,7 @@ namespace GameMain
             if (mCharSO == null)
                 return;
             if (mCharSO.isMain)
-                mImage.sprite = mDiffs[(GameEntry.Utils.Closet - 1001) * 18 + (int)diffTag];
+                mImage.sprite = mDiffs[(GameEntry.Cat.Closet - 1001) * 18 + (int)diffTag];
             else
                 mImage.sprite = mDiffs[(int)diffTag];
         }

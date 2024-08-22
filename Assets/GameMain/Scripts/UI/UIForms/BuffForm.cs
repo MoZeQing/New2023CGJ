@@ -24,7 +24,7 @@ namespace GameMain
             exitBtn.onClick.AddListener(() => GameEntry.UI.CloseUIForm(this.UIForm));
 
             text.text = string.Empty;
-            foreach (int id in GameEntry.Buff.GetData())
+            foreach (int id in GameEntry.Buff.GetSaveData().buffs)
             { 
                 DRBuff dRBuff=GameEntry.DataTable.GetDataTable<DRBuff>().GetDataRow(id);
                 text.text += dRBuff.BuffName+":\n";
@@ -47,6 +47,7 @@ namespace GameMain
 
     public class BuffData
     {
+        public List<int> buffs = new List<int>();
         public float MoneyMulti { get; set; }
         public float MoneyPlus { get; set; }
         public float EnergyMulti { get; set; }

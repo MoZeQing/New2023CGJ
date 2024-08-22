@@ -10,14 +10,20 @@ namespace GameMain
     public class PlayerComponent : GameFrameworkComponent
     {
         public PlayerData mPlayerData  = new PlayerData();
-        public List<RecipeData> recipes = new List<RecipeData>();//已解锁的配方
 
         private void Start()
         {
-            recipes = new List<RecipeData>();
+            mPlayerData.recipes = new List<int>();
             mPlayerData.items = new List<PlayerItemData>();
         }
-
+        public PlayerData GetSaveData()
+        {
+            return mPlayerData;
+        }
+        public void LoadData(PlayerData playerData)
+        { 
+            mPlayerData= playerData;
+        }
         public void ClearPlayerItem()
         {
             mPlayerData.items.Clear();
@@ -58,7 +64,7 @@ namespace GameMain
 
         public void ClearRecipe()
         {
-            recipes.Clear();
+            mPlayerData.recipes.Clear();
         }
         public void AddRecipes(string[] indexs)
         {
@@ -75,62 +81,47 @@ namespace GameMain
             }
         }
 
-        public void AddRecipe(RecipeData recipeData)
-        {
-            if (!HasRecipe(recipeData.Id))
-            {
-                if (recipeData.IsCoffee)
-                    GameEntry.UI.OpenUIForm(UIFormId.UnlockForm, recipeData);
-                recipes.Add(recipeData);
-            }
-        }
-
         public void AddRecipe(int index)
         {
             if (HasRecipe(index))
                 return;
-            RecipeData recipeData = new RecipeData(GameEntry.DataTable.GetDataTable<DRRecipe>().GetDataRow(index));
-            recipes.Add(recipeData);
+            mPlayerData.recipes.Add(index);
         }
         public void RemoveRecipe(int index)
         {
-            RecipeData recipeData = null;
-            foreach (RecipeData recipe in recipes)
-            {
-                if (recipe.Id == index)
-                    recipeData = recipe;
-            }
-            recipes.Remove(recipeData);
+            if(HasRecipe(index))
+                mPlayerData.recipes.Remove(index);
         }
         public void LoadGame(SaveLoadData saveLoadData)
         {
-            recipes.Clear();
-            foreach (int index in saveLoadData.recipes)
-            {
-                GameEntry.Player.recipes.Add(new RecipeData(GameEntry.DataTable.GetDataTable<DRRecipe>().GetDataRow(index)));
-            }
-        }
 
+        }
         public bool HasRecipe(int id)
         {
-            foreach (RecipeData recipe in recipes)
-            {
-                if (recipe.Id==id)
-                    return true;
-            }
-            return false;
+            return mPlayerData.recipes.Contains(id);
         }
 
         public bool HasCoffeeRecipe(NodeTag nodeTag)
         {
-            foreach (RecipeData recipe in recipes)
+            foreach (int id in mPlayerData.recipes)
             {
-                if (recipe.products.Contains(nodeTag))
+                RecipeData recipe = new RecipeData(GameEntry.DataTable.GetDataTable<DRRecipe>().GetDataRow(id));
+                if(recipe.products.Contains(nodeTag))
                     return true;
             }
             return false;
         }
-
+        public int GuideId
+        {
+            get
+            {
+                return mPlayerData.guideID;
+            }
+            set
+            { 
+                mPlayerData.guideID = value;
+            }
+        }
         public int Money
         {
             get
@@ -233,5 +224,43 @@ namespace GameMain
                 GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
             }
         }
+    }
+
+    [System.Serializable]
+    public class PlayerData
+    {
+        public int maxEnergy;
+        public int energy;
+        public int money;
+        public int maxAp;
+        public int ap;
+        public int day;
+        public int rent;
+        public int guideID;
+        public List<PlayerItemData> items = new List<PlayerItemData>();
+        public List<int> recipes = new List<int>();
+
+        public Dictionary<ValueTag, int> GetValueTag(Dictionary<ValueTag, int> dic)
+        {
+            if (maxAp != 0)
+                dic.Add(ValueTag.MaxAp, maxAp);
+            if (ap != 0)
+                dic.Add(ValueTag.Ap, ap);
+            if (money != 0)
+                dic.Add(ValueTag.Money, money);
+            return dic;
+        }
+    }
+
+
+    public enum ValueTag
+    {
+        MaxAp,
+        Ap,
+        Money,
+        Favor,
+        Wisdom,
+        Stamina,
+        Charm
     }
 }

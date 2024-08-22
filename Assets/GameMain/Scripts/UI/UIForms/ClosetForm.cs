@@ -66,13 +66,13 @@ namespace GameMain
             //初始化，将编号为0，1和最大值的服装显示到左中右
             closetItems[2].sprite = Resources.Load<Sprite>(dRItems[0].IconPath);
             closetItems[2].transform.GetChild(0).gameObject.SetActive(GameEntry.Player.GetPlayerItem((ItemTag)dRItems[0].Id) == null);
-            closetItems[2].transform.GetChild(1).gameObject.SetActive(GameEntry.Utils.Closet==dRItems[0].Id);
+            closetItems[2].transform.GetChild(1).gameObject.SetActive(GameEntry.Cat.Closet==dRItems[0].Id);
             closetItems[3].sprite = Resources.Load<Sprite>(dRItems[1].IconPath);
             closetItems[3].transform.GetChild(0).gameObject.SetActive(GameEntry.Player.GetPlayerItem((ItemTag)dRItems[1].Id) == null);
-            closetItems[3].transform.GetChild(1).gameObject.SetActive(GameEntry.Utils.Closet == dRItems[1].Id);
+            closetItems[3].transform.GetChild(1).gameObject.SetActive(GameEntry.Cat.Closet == dRItems[1].Id);
             closetItems[1].sprite = Resources.Load<Sprite>(dRItems[dRItems.Count-1].IconPath);
             closetItems[1].transform.GetChild(0).gameObject.SetActive(GameEntry.Player.GetPlayerItem((ItemTag)dRItems[dRItems.Count - 1].Id) == null);
-            closetItems[1].transform.GetChild(1).gameObject.SetActive(GameEntry.Utils.Closet == dRItems[dRItems.Count - 1].Id);
+            closetItems[1].transform.GetChild(1).gameObject.SetActive(GameEntry.Cat.Closet == dRItems[dRItems.Count - 1].Id);
             index = index % dRItems.Count;
             infoText.text = dRItems[index].Info;
             infoText.text = infoText.text.Replace("\\n", "\n");
@@ -106,13 +106,13 @@ namespace GameMain
 
             closetItems[1].sprite = Resources.Load<Sprite>(dRItems[(index + dRItems.Count - 1) % dRItems.Count].IconPath);
             closetItems[1].transform.GetChild(0).gameObject.SetActive(GameEntry.Player.GetPlayerItem((ItemTag)dRItems[(index + dRItems.Count - 1) % dRItems.Count].Id) == null);
-            closetItems[1].transform.GetChild(1).gameObject.SetActive(GameEntry.Utils.Closet== dRItems[(index + dRItems.Count - 1) % dRItems.Count].Id);
+            closetItems[1].transform.GetChild(1).gameObject.SetActive(GameEntry.Cat.Closet== dRItems[(index + dRItems.Count - 1) % dRItems.Count].Id);
             closetItems[2].sprite = Resources.Load<Sprite>(dRItems[index].IconPath);
             closetItems[2].transform.GetChild(0).gameObject.SetActive(GameEntry.Player.GetPlayerItem((ItemTag)dRItems[index].Id) == null);
-            closetItems[2].transform.GetChild(1).gameObject.SetActive(GameEntry.Utils.Closet == dRItems[index].Id);
+            closetItems[2].transform.GetChild(1).gameObject.SetActive(GameEntry.Cat.Closet == dRItems[index].Id);
             closetItems[3].sprite = Resources.Load<Sprite>(dRItems[(index + dRItems.Count + 1) % dRItems.Count].IconPath);
             closetItems[3].transform.GetChild(0).gameObject.SetActive(GameEntry.Player.GetPlayerItem((ItemTag)dRItems[(index + dRItems.Count + 1) % dRItems.Count].Id) == null);
-            closetItems[3].transform.GetChild(1).gameObject.SetActive(GameEntry.Utils.Closet == dRItems[(index + dRItems.Count + 1) % dRItems.Count].Id);
+            closetItems[3].transform.GetChild(1).gameObject.SetActive(GameEntry.Cat.Closet == dRItems[(index + dRItems.Count + 1) % dRItems.Count].Id);
 
             infoText.text = dRItems[index].Info;
             infoText.text = infoText.text.Replace("\\n", "\n");
@@ -145,13 +145,13 @@ namespace GameMain
 
             closetItems[1].sprite = Resources.Load<Sprite>(dRItems[(index + dRItems.Count - 1) % dRItems.Count].IconPath);
             closetItems[1].transform.GetChild(0).gameObject.SetActive(GameEntry.Player.GetPlayerItem((ItemTag)dRItems[(index + dRItems.Count - 1) % dRItems.Count].Id) == null);
-            closetItems[1].transform.GetChild(1).gameObject.SetActive(GameEntry.Utils.Closet == dRItems[(index + dRItems.Count - 1) % dRItems.Count].Id);
+            closetItems[1].transform.GetChild(1).gameObject.SetActive(GameEntry.Cat.Closet == dRItems[(index + dRItems.Count - 1) % dRItems.Count].Id);
             closetItems[2].sprite = Resources.Load<Sprite>(dRItems[index].IconPath);
             closetItems[2].transform.GetChild(0).gameObject.SetActive(GameEntry.Player.GetPlayerItem((ItemTag)dRItems[index].Id) == null);
-            closetItems[2].transform.GetChild(1).gameObject.SetActive(GameEntry.Utils.Closet == dRItems[index].Id);
+            closetItems[2].transform.GetChild(1).gameObject.SetActive(GameEntry.Cat.Closet == dRItems[index].Id);
             closetItems[3].sprite = Resources.Load<Sprite>(dRItems[(index + dRItems.Count + 1) % dRItems.Count].IconPath);
             closetItems[3].transform.GetChild(0).gameObject.SetActive(GameEntry.Player.GetPlayerItem((ItemTag)dRItems[(index + dRItems.Count + 1) % dRItems.Count].Id) == null);
-            closetItems[3].transform.GetChild(1).gameObject.SetActive(GameEntry.Utils.Closet == dRItems[(index + dRItems.Count + 1) % dRItems.Count].Id);
+            closetItems[3].transform.GetChild(1).gameObject.SetActive(GameEntry.Cat.Closet == dRItems[(index + dRItems.Count + 1) % dRItems.Count].Id);
 
             infoText.text = dRItems[index].Info;
             infoText.text = infoText.text.Replace("\\n", "\n");
@@ -169,7 +169,7 @@ namespace GameMain
                 {
                     closetItems[i].transform.GetChild(1).gameObject.SetActive(false);
                 }
-                GameEntry.Utils.Closet = closet;
+                GameEntry.Cat.Closet = closet;
                 closetItems[2].transform.GetChild(1).gameObject.SetActive(true);
             }
         }

@@ -9,23 +9,26 @@ namespace GameMain
 {
     public class BuffComponent : GameFrameworkComponent
     {
-        private BuffData buffData=new BuffData();
-        private List<int> buffs= new List<int>();
+        private BuffData mBuffData=new BuffData();
 
-        public List<int> GetData()
+        public BuffData GetSaveData()
         {
-            return buffs;
+            return mBuffData;
+        }
+        public void LoadData(BuffData buffData)
+        { 
+            mBuffData= buffData;
         }
         public BuffData GetBuff()
         {
-            if(buffData==null)
-                buffData = new BuffData();
-            return buffData;
+            if(mBuffData==null)
+                mBuffData = new BuffData();
+            return mBuffData;
         }
         public void InitBuff()
         {
-            buffData = new BuffData();
-            buffs.Clear();
+            mBuffData = new BuffData();
+            mBuffData.buffs.Clear();
         }
         public void InitBuff(List<int> buffs)
         {
@@ -33,12 +36,12 @@ namespace GameMain
             {
                 AddBuff(buff);
             }
-            this.buffs = buffs;
+            this.mBuffData.buffs = buffs;
         }
         public void AddBuff(int buffIndex)
         {
-            buffData.AddBuff(buffIndex);
-            buffs.Add(buffIndex);
+            mBuffData.AddBuff(buffIndex);
+            mBuffData.buffs.Add(buffIndex);
         }
 
         public void AddBuff(List<int> buffs)
@@ -47,13 +50,13 @@ namespace GameMain
             { 
                 AddBuff(buff);
             }
-            this.buffs.AddRange(buffs);
+            this.mBuffData.buffs.AddRange(buffs);
         }
 
         public void RemoveBuff(int buffIndex) 
         {
-            buffData.RemoveBuff(buffIndex);
-            this.buffs.Remove(buffIndex);
+            mBuffData.RemoveBuff(buffIndex);
+            this.mBuffData.buffs.Remove(buffIndex);
         }
     }
 }

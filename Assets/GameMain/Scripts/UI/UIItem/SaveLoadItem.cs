@@ -50,7 +50,7 @@ namespace GameMain
 
         public void SetData(SaveLoadData saveLoadData,Action<int> action,int index)
         {
-            dayText.text = string.Format("第{0}天", saveLoadData.day+1);
+            dayText.text = string.Format("第{0}天", saveLoadData.playerData.day+1);
             systemText.text = saveLoadData.dataTime;
             favorText.text = $"信任：{saveLoadData.charData.favor}";
             wisdomText.text = $"智慧：{saveLoadData.charData.wisdom}";

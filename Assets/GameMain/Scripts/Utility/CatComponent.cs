@@ -11,7 +11,7 @@ namespace GameMain
         private List<CatStateData> catStateDatas = new List<CatStateData>();
         private CatStateData catState;
         private Dictionary<BehaviorTag, BehaviorData> behaviors = new Dictionary<BehaviorTag, BehaviorData>();
-        private CharData mCharData;
+        private CharData mCharData=new CharData();
 
         private void Start()
         {
@@ -20,6 +20,27 @@ namespace GameMain
             foreach (CatStateSO catStateSO in catStateSOs)
             {
                 catStateDatas.Add(catStateSO.catStateData);
+            }
+        }
+        public CharData GetSaveData()
+        { 
+            return mCharData;
+        }
+        public void LoadData(CharData charData)
+        {
+            mCharData = charData;
+        }
+        public int Closet
+        {
+            get
+            {
+                return mCharData.closet;
+            }
+            set
+            {
+                mCharData.closet = value;
+                //_values[TriggerTag.Wisdom] = mCharData.wisdom.ToString();
+                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
             }
         }
         public int Wisdom
@@ -72,6 +93,27 @@ namespace GameMain
                 mCharData.favor = value;
                 //_values[TriggerTag.Favor] = mCharData.favor.ToString();
                 GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
+            }
+        }
+        public int CharmLevel
+        {
+            get
+            {
+                return mCharData.charm / 40;
+            }
+        }
+        public int WisdomLevel
+        {
+            get
+            {
+                return mCharData.wisdom / 40;
+            }
+        }
+        public int StaminaLevel
+        {
+            get
+            {
+                return mCharData.stamina / 40;
             }
         }
         public CatStateData GetCatState()

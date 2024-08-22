@@ -32,6 +32,7 @@ namespace GameMain
     [System.Serializable]
     public class CharData
     {
+        public int closet;
         public int favor;//好感度
         public int stamina;//体能
         public int wisdom;//智慧

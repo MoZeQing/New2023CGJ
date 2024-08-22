@@ -37,7 +37,7 @@ namespace GameMain
 
         public void Check()
         {
-            if ((ItemTag)GameEntry.Utils.Closet == closetTag)
+            if ((ItemTag)GameEntry.Cat.Closet == closetTag)
             {
                 equipOn.SetActive(true);
                 img.color = Color.white;

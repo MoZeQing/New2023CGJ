@@ -67,7 +67,6 @@ namespace GameMain
             ice.gameObject.SetActive(dRNode.Ice);
             timeLine.gameObject.SetActive(false);
             nowTime = mOrderData.OrderTime;
-            friendImg.sprite = GameEntry.Utils.orderSprite;
             badImg.gameObject.SetActive(false);
             badCount = 0;
             if (mOrderData.Urgent)

@@ -54,12 +54,10 @@ namespace GameMain
         {
             string charName = friends[index];
             CharSO charSO = GameEntry.Utils.chars[charName];
-            int friendFavor = GameEntry.Utils._friends[charName];
             //չʾ
             friendIcon.sprite = charSO.sprite;
             friendNameText.text = charSO.charName;
             friendTextText.text = charSO.text;
-            friendFavorText.text= friendFavor.ToString();
             DRNode dRNode =GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)charSO.favorCoffee);
             coffeeIcon.sprite = Resources.Load<Sprite>(dRNode.MaterialPath);
             //progress.fillAmount = friendFavor / 100f;

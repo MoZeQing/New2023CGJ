@@ -108,7 +108,7 @@ namespace GameMain
         private void SetData()
         {
             //modeTitle.sprite = GameEntry.Utils.modeSprites[(int)mLevelData.levelTag];
-            float power = 1f + (float)((GameEntry.Utils.CharData.StaminaLevel - 1f) / 6f);
+            float power = 1f + (float)((GameEntry.Cat.StaminaLevel - 1f) / 6f);
             nowTime = mLevelData.levelTime*power;
             modeCanvas.gameObject.SetActive(false);
             orderList.IsShowItem = true;
@@ -159,7 +159,6 @@ namespace GameMain
         private void OnLevel(LevelData levelData)
         { 
             mLevelData= levelData;
-            GameEntry.Utils.isClose=mLevelData.isClose;
             mOrderCount = 0;
             IsDialog = true;
             modeCanvas.gameObject.SetActive(true);

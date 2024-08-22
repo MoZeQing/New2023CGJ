@@ -64,7 +64,7 @@ namespace GameMain
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
             TitleUpdate();
-            if (GameEntry.Utils.PlayerData.guideID <= 5&&GameEntry.Player.Day<4)
+            if (GameEntry.Player.GuideId <= 5&&GameEntry.Player.Day<4)
             {
                 outBtn.interactable = false;
             }
@@ -72,7 +72,7 @@ namespace GameMain
             {
                 outBtn.interactable = true;
             }
-            if (GameEntry.Utils.PlayerData.guideID == 6 && GameEntry.Player.Day == 4)
+            if (GameEntry.Player.GuideId == 6 && GameEntry.Player.Day == 4)
             {
                 teachBtn.interactable = false;
             }
@@ -115,7 +115,7 @@ namespace GameMain
         }
         private void ShowLittleCat()
         {
-            DRLittleCat littleCat = GameEntry.DataTable.GetDataTable<DRLittleCat>().GetDataRow(GameEntry.Utils.Closet);
+            DRLittleCat littleCat = GameEntry.DataTable.GetDataTable<DRLittleCat>().GetDataRow(GameEntry.Cat.Closet);
             if (littleCat.Range == 0)
             {
                 littleCatImg.gameObject.SetActive(false);
@@ -138,7 +138,7 @@ namespace GameMain
                     break;
                 case GamePos.Up:
                     mCanvas.transform.DOLocalMoveX(0, 1f).SetEase(Ease.InOutExpo);
-                    GameEntry.Utils.UpdateData();
+                    //GameEntry.Utils.UpdateData();
                     break;
             }
         }
@@ -170,12 +170,6 @@ namespace GameMain
         private void BackgroundUpdate()
         {
             GameState gameState = GameEntry.Utils.GameState;
-            if (GameEntry.Utils.IsRain)
-            {
-                weatherTag = WeatherTag.Rain;
-            }
-            else
-            {
                 switch (gameState)
                 {
                     case GameState.Night:
@@ -192,7 +186,6 @@ namespace GameMain
                         weatherTag = WeatherTag.Morning;
                         break;
                 }
-            }
             if (weatherTag == GameEntry.Utils.WeatherTag)
                 return;
             GameEntry.Utils.WeatherTag=weatherTag;

@@ -87,8 +87,8 @@ namespace GameMain
         private void LoadSceneSuccess(object sender, GameEventArgs e)
         {
             LoadSceneSuccessEventArgs args = (LoadSceneSuccessEventArgs)e;
-            if (args.SceneAssetName == sceneName)
-                GameEntry.Utils.UpdateData();
+            //if (args.SceneAssetName == sceneName)
+            //    GameEntry.Utils.UpdateData();
         }
     }
     /// <summary>

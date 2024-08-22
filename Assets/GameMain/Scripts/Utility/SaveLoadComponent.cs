@@ -23,25 +23,11 @@ namespace GameMain
         public int maxAp = 6;
         public int ap = 6;
         public int money = 3000;
-        public int mood = 0;
         public int favor = 0;
-        public int love = 0;
-        public int family= 0;
         public int day = 0;
         public int rent = 0;
-        public int closet = 101;
-        public List<int> recipes = new List<int>();
-        public List<string> clearFlags;
+        public int closet = 1001;
         public List<ItemTag> playerItems = new List<ItemTag>();
-        public List<ItemTag> greengrocerItemDatas=new List<ItemTag>();
-        public List<ItemTag> bookstoreItemDatas = new List<ItemTag>();
-        public List<ItemTag> musicHallItemDatas = new List<ItemTag>();
-        public List<ItemTag> glassItemDatas = new List<ItemTag>();
-        public List<ItemTag> restaurantItemDatas = new List<ItemTag>();
-        public List<ItemTag> bakeryItemDatas = new List<ItemTag>();
-        //初始化数据
-
-
         private void Start()
         {
             LoadGame();
@@ -72,11 +58,7 @@ namespace GameMain
             GameEntry.Cat.Favor = favor;
             GameEntry.Player.Day = day;
             GameEntry.Player.Rent= rent;
-            GameEntry.Utils.Closet = closet;
-            GameEntry.Utils.PlayerData.heaterID =104;
-            GameEntry.Utils.PlayerData.stirrerID = 110;
-            GameEntry.Utils.PlayerData.pressID = 108;
-            GameEntry.Utils.PlayerData.burnisherID = 101;
+            GameEntry.Cat.Closet = closet;
             GameEntry.Utils.ClearFlag();
             GameEntry.Dialog.LoadGame();
             GameEntry.Player.ClearPlayerItem();
@@ -88,9 +70,6 @@ namespace GameMain
             GameEntry.Player.AddPlayerItem(new ItemData(ItemTag.Kettle), 1, true);
             GameEntry.Player.AddPlayerItem(new ItemData(ItemTag.Stirrer), 1, true);
             GameEntry.Player.AddPlayerItem(new ItemData((ItemTag)closet), 1, true);
-
-            GameEntry.Utils.outingSceneStates.Clear();
-            GameEntry.Utils.outingSceneStates.Add(OutingSceneState.Market);
 
             foreach (KeyValuePair<string, CharSO> pair in GameEntry.Utils.chars)
                 GameEntry.Utils.AddFriendFavor(pair.Value.name, pair.Value.favor);
@@ -114,25 +93,12 @@ namespace GameMain
             GameEntry.Event.FireNow(this, SaveGameEventArgs.Create(saveLoadData));
             DateTime dateTime= DateTime.Now;
             saveLoadData.dataTime = dateTime.ToString("yyyy-MM-dd HH:mm:ss");
-            saveLoadData.day = GameEntry.Player.Day;
-            saveLoadData.closet = GameEntry.Utils.Closet;
-            saveLoadData.playerData = GameEntry.Utils.PlayerData;
-            saveLoadData.charData= GameEntry.Utils.CharData;
-            saveLoadData.flags= GameEntry.Utils.Flags;
-            saveLoadData.friends = GameEntry.Utils._friends;
-            saveLoadData.workDatas = GameEntry.Utils.WorkDatas;
+            saveLoadData.playerData = GameEntry.Player.GetSaveData();
+            saveLoadData.charData = GameEntry.Cat.GetSaveData();
+            saveLoadData.utilsData=GameEntry.Utils.GetSaveData();
             saveLoadData.storyData = GameEntry.Dialog.LoadedStories;
             saveLoadData.levelData = GameEntry.Dialog.LoadedLevels;
-            saveLoadData.flagValue = GameEntry.Utils._flagValues;
-            saveLoadData.buffs=GameEntry.Buff.GetData();
-            foreach (RecipeData recipeData in GameEntry.Player.recipes)
-            {
-                saveLoadData.recipes.Add(recipeData.Id);
-            }
-            foreach (OutingSceneState outingSceneState in GameEntry.Utils.outingSceneStates)
-            {
-                saveLoadData.outingSceneStates.Add((int)outingSceneState);
-            }
+            saveLoadData.buffData = GameEntry.Buff.GetSaveData();
             mSaveLoadData[index]= saveLoadData;
             SaveGame();
         }
@@ -210,19 +176,13 @@ namespace GameMain
     public class SaveLoadData
     {
         public string dataTime;
-        public int day;
-        public int closet;
         public CharData charData;
         public PlayerData playerData;
-        public List<int> buffs = new List<int>();
+        public UtilsData utilsData;
+        public BuffData buffData = new BuffData();
         public List<string> storyData = new List<string>();
         public List<string> levelData = new List<string>();
         public List<WorkData> workDatas= new List<WorkData>();
-        public List<string> flags=  new List<string>();
-        public Dictionary<string, int> flagValue = new Dictionary<string, int>();
-        public Dictionary<string, int> friends = new Dictionary<string, int>();//好友字典
-        public List<int> recipes = new List<int>();
-        public List<int> outingSceneStates = new List<int>();
     }
     [System.Serializable]
     public class GameData

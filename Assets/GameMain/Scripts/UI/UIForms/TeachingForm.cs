@@ -47,7 +47,7 @@ namespace GameMain
         {
             GameEntry.Event.Subscribe(CharDataEventArgs.EventId, CharDataEvent);
             GameEntry.Event.Subscribe(PlayerDataEventArgs.EventId, PlayerDataEvent);
-            GameEntry.Utils.UpdateData();
+            //GameEntry.Utils.UpdateData();
             ShowButtons();
             mCanvasGroup = this.GetComponent<CanvasGroup>();
         }
