@@ -8,9 +8,19 @@ namespace GameMain
 {
     public class GuideComponent : GameFrameworkComponent
     {
-
+        private bool flag;
         private void Update()
         {
+            if (Input.GetKeyDown(KeyCode.BackQuote))
+            { 
+                flag=!flag;
+                if(!flag)
+                    GameEntry.UI.OpenUIForm(UIFormId.ConsoleForm);
+                else
+                    GameEntry.UI.CloseUIForm(UIFormId.ConsoleForm);
+            }
+
+
             if (GameEntry.Player.GuideId<=3)
             {
                 //Ñø³É1
