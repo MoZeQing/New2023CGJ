@@ -12,40 +12,23 @@ namespace GameMain
 {
     public class WorkForm : MonoBehaviour
     {
-        [SerializeField] private BaseStage stage;
+        //将work里面的东西拿过来
         [SerializeField] private DialogBox dialogBox;
-        [SerializeField] private Transform mCanvas;
         [SerializeField] private Button recipeBtn;
         [SerializeField] private Button guideBtn;
         [SerializeField] private Text timeText;
         [SerializeField] private OrderList orderList;
         [SerializeField] private Transform modeCanvas;
         [SerializeField] private Button commonBtn;
-        [SerializeField] private Image modeTitle;
-        [SerializeField] public bool IsGuide { get; set; }
 
-        private List<OrderData> mOrderDatas;
         private LevelData mLevelData;
         private int mOrderCount;
         private float nowTime;
-        private WorkData workData;
-
+        private WorkData mWorkData;
         /// <summary>
         /// 是否正在播放剧情
         /// </summary>
         public bool IsDialog { get; set; }=false;
-        public bool IsNext
-        {
-            get
-            {
-                return dialogBox.IsNext;
-            }
-            set
-            { 
-                dialogBox.IsNext = value;
-            }
-        }
-        private bool IsRecipe { get; set; }
 
 
         private void Start()
@@ -90,19 +73,16 @@ namespace GameMain
             if (GameEntry.UI.HasUIForm(UIFormId.RecipeForm) || GameEntry.UI.HasUIForm(UIFormId.GuideForm))
                 return;
             nowTime -= Time.deltaTime;
+
             if (nowTime > 0)
                 timeText.text = Math.Floor(nowTime).ToString();
             else
                 timeText.text = "∞";
+
             if (nowTime <= 0&&nowTime>-1)
             {
                 //如果时间不足，结束订单时间
-                GameEntry.Event.FireNow(this, LevelEventArgs.Create());
-                GamePosUtility.Instance.GamePosChange(GamePos.Up);
-                dialogBox.SetDialog(mLevelData.afterWork);
-                dialogBox.SetComplete(OnAfterWorkComplete);
-                orderList.ClearItems();
-                IsDialog = true;
+                OnWorkComplete();
             }
         }
         private void SetData()
@@ -112,8 +92,7 @@ namespace GameMain
             nowTime = mLevelData.levelTime*power;
             modeCanvas.gameObject.SetActive(false);
             orderList.IsShowItem = true;
-            mOrderDatas = mLevelData.GetOrderDatas();
-            orderList.ShowItem(mOrderDatas);
+            orderList.ShowItem(mLevelData.GetOrderDatas());
             orderList.IsShowItem = false;
         }
         public void OnLevel()
@@ -155,7 +134,6 @@ namespace GameMain
                 }
             }
         }
-
         private void OnLevel(LevelData levelData)
         { 
             mLevelData= levelData;
@@ -168,22 +146,32 @@ namespace GameMain
             GameEntry.Event.FireNow(this, LevelEventArgs.Create());
             GameEntry.Event.Fire(this, GameStateEventArgs.Create(GameState.ForeSpecial));
         }
-
         private void OnForeWorkComplete()
         {
             GamePosUtility.Instance.GamePosChange(GamePos.Down);
-            orderList.IsShowItem= true;
-            nowTime = mLevelData.levelTime;
-            mOrderDatas = mLevelData.GetOrderDatas();
-            orderList.IsShowItem = false;
             IsDialog= false;
             GameEntry.Event.Fire(this, GameStateEventArgs.Create(GameState.Special));
             GameEntry.Utils.GameState = GameState.Special;
         }
+        private void OnWorkComplete()
+        {
+            GameEntry.Event.FireNow(this, LevelEventArgs.Create());
+            GamePosUtility.Instance.GamePosChange(GamePos.Up);
+            dialogBox.SetDialog(mLevelData.afterWork);
+            dialogBox.SetComplete(OnAfterWorkComplete);
+            orderList.ClearItems();
 
+            mWorkData = new WorkData();
+            mWorkData.Power = nowTime / (float)mLevelData.levelTime;
+            mWorkData.Money = mLevelData.levelMoney;
+            mWorkData.OrderCount = mLevelData.orderDatas.Count;
+
+            IsDialog = true;
+        }
         private void OnAfterWorkComplete()
         {
-            GameEntry.Event.Fire(workData, GameStateEventArgs.Create(GameState.AfterSpecial));
+            GameEntry.Event.Fire(mWorkData, GameStateEventArgs.Create(GameState.AfterSpecial));
+            GameEntry.UI.OpenUIForm(UIFormId.SettleForm, mWorkData);
         }
 
         private void OnOrderEvent(object sender, GameEventArgs e)
@@ -191,19 +179,17 @@ namespace GameMain
             OrderEventArgs args = (OrderEventArgs)e;
             if (mLevelData != null)
             {
-                if (mOrderDatas.Contains(args.OrderData))
+                if (mLevelData.GetOrderDatas().Contains(args.OrderData))
                 {
                     mOrderCount++;
+                    if (args.Income == 0)
+                        return;
+                    mWorkData.orderDatas.Add(args.OrderData);
+                    mWorkData.Income += args.Income;
                 }
-                if (mOrderCount == mOrderDatas.Count)
+                if (mOrderCount == mLevelData.GetOrderDatas().Count)
                 {
-                    GamePosUtility.Instance.GamePosChange(GamePos.Up);
-                    dialogBox.SetDialog(mLevelData.afterWork);
-                    dialogBox.SetComplete(OnAfterWorkComplete);
-                    workData = new WorkData();
-                    workData.Power = nowTime / (float)mLevelData.levelTime;
-                    workData.Money = mLevelData.levelMoney;
-                    workData.OrderCount=mLevelData.orderDatas.Count;
+                    OnWorkComplete();
                 }
             }  
         }

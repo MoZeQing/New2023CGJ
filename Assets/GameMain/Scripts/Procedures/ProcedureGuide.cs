@@ -36,7 +36,6 @@ namespace GameMain
 
             GameEntry.Event.Subscribe(LoadSceneSuccessEventArgs.EventId, OnLoadSceneSuccess);
             GameEntry.Event.Subscribe(GameStateEventArgs.EventId, OnGameStateEvent);
-            GameEntry.Event.Subscribe(DialogEventArgs.EventId, OnDialogEvent);
             // 还原游戏速度
             GameEntry.Base.ResetNormalGameSpeed();
             IDataTable<DRScene> dtScene = GameEntry.DataTable.GetDataTable<DRScene>();
@@ -59,7 +58,6 @@ namespace GameMain
             base.OnLeave(procedureOwner, isShutdown);
             GameEntry.Event.Unsubscribe(LoadSceneSuccessEventArgs.EventId, OnLoadSceneSuccess);
             GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, OnGameStateEvent);
-            GameEntry.Event.Unsubscribe(DialogEventArgs.EventId, OnDialogEvent);
 
             GameEntry.Entity.HideAllLoadedEntities();
             GameEntry.Entity.HideAllLoadingEntities();
@@ -101,12 +99,6 @@ namespace GameMain
                 GameEntry.Player.Day++;
                 mIndex++;
             }
-        }
-
-        private void OnDialogEvent(object sender, GameEventArgs e)
-        { 
-            DialogEventArgs args= (DialogEventArgs)e;
-            mWorkForm.IsNext = !args.InDialog;
         }
         private void OnGameStateEvent(object sender, GameEventArgs e)
         { 

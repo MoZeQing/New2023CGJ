@@ -14,8 +14,6 @@ namespace GameMain
     public class ProcedureWork : ProcedureBase
     {
         private GameState mGameState;
-        private WorkData workData;
-
         private string sceneAssetName;
         private OrderList mOrderList;
         private WorkForm mWorkForm;
@@ -23,12 +21,9 @@ namespace GameMain
         {
             base.OnEnter(procedureOwner);
             mGameState = GameState.Work;
-            workData = new WorkData();
             GamePosUtility.Instance.GamePosChange(GamePos.Down);
-            GameEntry.Event.Subscribe(OrderEventArgs.EventId, OnOrderEvent);
             GameEntry.Event.Subscribe(GameStateEventArgs.EventId, OnGameStateEvent);
             GameEntry.Event.Subscribe(LoadSceneSuccessEventArgs.EventId, OnLoadSceneSuccess);
-            GameEntry.Event.Subscribe(DialogEventArgs.EventId, OnDialogEvent);
 
             IDataTable<DRScene> dtScene = GameEntry.DataTable.GetDataTable<DRScene>();
             DRScene drScene = dtScene.GetDataRow(3);
@@ -48,10 +43,8 @@ namespace GameMain
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
         {
             base.OnLeave(procedureOwner, isShutdown);
-            GameEntry.Event.Unsubscribe(OrderEventArgs.EventId, OnOrderEvent);
             GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, OnGameStateEvent);
             GameEntry.Event.Unsubscribe(LoadSceneSuccessEventArgs.EventId, OnLoadSceneSuccess);
-            GameEntry.Event.Unsubscribe(DialogEventArgs.EventId, OnDialogEvent);
 
             GameEntry.Entity.HideAllLoadedEntities();
             GameEntry.Entity.HideAllLoadingEntities();
@@ -88,32 +81,10 @@ namespace GameMain
                     break;
             }
         }
-        private void OnDialogEvent(object sender, GameEventArgs e)
-        {
-            DialogEventArgs args = (DialogEventArgs)e;
-            mWorkForm.IsNext = !args.InDialog;
-        }
-        private void OnOrderEvent(object sender, GameEventArgs e)
-        {
-            OrderEventArgs args = (OrderEventArgs)e;
-            if (args.Income == 0)
-                return;
-            workData.orderDatas.Add(args.OrderData);
-            workData.Income += args.Income;
-        }
         private void OnGameStateEvent(object sender, GameEventArgs e)
         {
             GameStateEventArgs args = (GameStateEventArgs)e;
             mGameState = args.GameState;
-            if (args.GameState != GameState.AfterSpecial)
-                return;
-            WorkData work = (WorkData)sender;
-            if (work == null) return;
-            workData.Power= work.Power;
-            workData.Money = work.Money;
-            
-            if (args.GameState == GameState.AfterSpecial)
-                GameEntry.UI.OpenUIForm(UIFormId.SettleForm, workData);
         }
 
         private void OnLoadSceneSuccess(object sender, GameEventArgs e)
