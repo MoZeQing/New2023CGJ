@@ -59,7 +59,8 @@ namespace GameMain
             GameEntry.Player.LoadData(saveLoadData.playerData);
             GameEntry.Cat.LoadData(saveLoadData.charData);
             GameEntry.Utils.LoadData(saveLoadData.utilsData);
-            GameEntry.Dialog.LoadGame(saveLoadData.storyData,saveLoadData.levelData);
+            GameEntry.Dialog.LoadGame(saveLoadData.storyData);
+            GameEntry.Level.LoadGame(saveLoadData.levelData);
             GameEntry.Player.LoadGame(saveLoadData);
             GameEntry.Buff.LoadData(saveLoadData.buffData);
             GameEntry.Player.ClearRecipe();

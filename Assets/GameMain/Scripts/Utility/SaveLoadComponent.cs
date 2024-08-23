@@ -61,6 +61,7 @@ namespace GameMain
             GameEntry.Cat.Closet = closet;
             GameEntry.Utils.ClearFlag();
             GameEntry.Dialog.LoadGame();
+            GameEntry.Level.LoadGame();
             GameEntry.Player.ClearPlayerItem();
             for (int i = 0; i < playerItems.Count; i++)
                 GameEntry.Player.AddPlayerItem(new ItemData(playerItems[i]), 5);

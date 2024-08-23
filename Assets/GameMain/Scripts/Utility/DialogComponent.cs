@@ -171,7 +171,7 @@ namespace GameMain
             args.SaveLoadData.storyData= newStory;
         }
 
-        public void LoadGame(List<string> storyData,List<string> levelData)
+        public void LoadGame(List<string> storyData)
         {
             mLoadedStories.Clear();
             foreach (StorySO storySO in mStories)

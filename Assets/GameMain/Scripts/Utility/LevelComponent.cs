@@ -81,7 +81,7 @@ namespace GameMain
             }
             return null;
         }
-        public void LoadGame(List<string> storyData, List<string> levelData)
+        public void LoadGame( List<string> levelData)
         {
             mLoadedLevelSOs.Clear();
             foreach (LevelSO levelSO in mLevelSOs)
