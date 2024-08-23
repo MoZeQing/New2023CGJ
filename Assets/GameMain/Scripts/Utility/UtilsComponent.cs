@@ -81,7 +81,7 @@ namespace GameMain
             {
                 mUtilsData.gameState = value;
                 GameEntry.Event.FireNow(this, GameStateEventArgs.Create(mUtilsData.gameState));
-                mUtilsData.values[TriggerTag.TimeTag] = mUtilsData.gameState.ToString();
+                GameEntry.Utils.AddValue(TriggerTag.TimeTag, mUtilsData.gameState.ToString());
             }
         }
         public OutingSceneState Location
@@ -93,7 +93,7 @@ namespace GameMain
             set
             {
                 mUtilsData.location = value;
-                mUtilsData.values[TriggerTag.Location] = mUtilsData.location.ToString();
+                GameEntry.Utils.AddValue(TriggerTag.Location, mUtilsData.location.ToString());
             }
         }
 
@@ -207,6 +207,17 @@ namespace GameMain
                     else
                         return true;
                 }
+            }
+        }
+        public void AddValue(TriggerTag valueTag, string value)
+        {
+            if (!mUtilsData.values.ContainsKey(valueTag))
+            {
+                mUtilsData.values.Add(valueTag, value);
+            }
+            else
+            {
+                mUtilsData.values[valueTag] = value;
             }
         }
         public bool RunEvent(string text)

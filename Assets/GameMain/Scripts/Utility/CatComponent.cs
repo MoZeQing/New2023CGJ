@@ -39,7 +39,6 @@ namespace GameMain
             set
             {
                 mCharData.closet = value;
-                //_values[TriggerTag.Wisdom] = mCharData.wisdom.ToString();
                 GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
             }
         }
@@ -52,7 +51,7 @@ namespace GameMain
             set
             {
                 mCharData.wisdom = value;
-                //_values[TriggerTag.Wisdom] = mCharData.wisdom.ToString();
+                GameEntry.Utils.AddValue(TriggerTag.Wisdom, mCharData.wisdom.ToString());
                 GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
             }
         }
@@ -65,7 +64,7 @@ namespace GameMain
             set
             {
                 mCharData.charm = value;
-                //_values[TriggerTag.Charm] = mCharData.charm.ToString();
+                GameEntry.Utils.AddValue(TriggerTag.Charm, mCharData.charm.ToString());
                 GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
             }
         }
@@ -78,7 +77,7 @@ namespace GameMain
             set
             {
                 mCharData.stamina = value;
-                //_values[TriggerTag.Stamina] = mCharData.stamina.ToString();
+                GameEntry.Utils.AddValue(TriggerTag.Stamina, mCharData.stamina.ToString());
                 GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
             }
         }
@@ -91,7 +90,7 @@ namespace GameMain
             set
             {
                 mCharData.favor = value;
-                //_values[TriggerTag.Favor] = mCharData.favor.ToString();
+                GameEntry.Utils.AddValue(TriggerTag.Favor, mCharData.favor.ToString());
                 GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
             }
         }

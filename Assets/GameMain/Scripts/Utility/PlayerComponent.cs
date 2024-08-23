@@ -131,7 +131,7 @@ namespace GameMain
             set
             {
                 mPlayerData.money = value;
-                //_values[TriggerTag.Money] = mPlayerData.money.ToString();
+                GameEntry.Utils.AddValue(TriggerTag.Money, mPlayerData.money.ToString());
                 GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
             }
         }
@@ -148,7 +148,7 @@ namespace GameMain
                     mPlayerData.energy = (int)(MaxEnergy * buffData.EnergyMaxMulti + buffData.EnergyMaxPlus);
                 else
                     mPlayerData.energy = value;
-                //_values[TriggerTag.Energy] = mPlayerData.energy.ToString();
+                GameEntry.Utils.AddValue(TriggerTag.Energy, mPlayerData.energy.ToString());
                 GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
             }
         }
@@ -161,7 +161,7 @@ namespace GameMain
             set
             {
                 mPlayerData.maxEnergy = value;
-                //_values[TriggerTag.MaxEnergy] = mPlayerData.maxEnergy.ToString();
+                GameEntry.Utils.AddValue(TriggerTag.MaxEnergy, mPlayerData.maxEnergy.ToString());
                 GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
             }
         }
@@ -174,7 +174,7 @@ namespace GameMain
             set
             {
                 mPlayerData.maxAp = value;
-                //_values[TriggerTag.MaxAp] = mPlayerData.maxAp.ToString();
+                GameEntry.Utils.AddValue(TriggerTag.MaxAp, mPlayerData.maxAp.ToString());
                 GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
             }
         }
@@ -187,7 +187,7 @@ namespace GameMain
             set
             {
                 mPlayerData.ap = value;
-                //_values[TriggerTag.Ap] = mPlayerData.ap.ToString();
+                GameEntry.Utils.AddValue(TriggerTag.Ap, mPlayerData.ap.ToString());
                 GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
             }
         }
@@ -207,7 +207,7 @@ namespace GameMain
             set
             {
                 mPlayerData.day = value;
-                //_values[TriggerTag.Day] = mPlayerData.day.ToString();
+                GameEntry.Utils.AddValue(TriggerTag.Day, mPlayerData.day.ToString());
                 GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
             }
         }
@@ -220,7 +220,7 @@ namespace GameMain
             set
             {
                 mPlayerData.rent = value;
-                //_values[TriggerTag.Rent] = mPlayerData.rent.ToString();
+                GameEntry.Utils.AddValue(TriggerTag.Rent, mPlayerData.rent.ToString());
                 GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
             }
         }
