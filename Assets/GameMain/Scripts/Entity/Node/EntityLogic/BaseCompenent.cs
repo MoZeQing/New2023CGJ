@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 namespace GameMain
 {
-    public class BaseCompenent : Entity, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler,IPointerClickHandler
+    public class BaseCompenent : Entity, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler
     {
         /// <summary>
         /// 父卡牌
@@ -71,6 +71,11 @@ namespace GameMain
             get;
             protected set;
         } = false;
+        public bool Tool
+        {
+            get;
+            protected set;
+        }
         /// <summary>
         /// 卡牌是否处于锁定状态
         /// </summary>
@@ -161,7 +166,14 @@ namespace GameMain
             Sugar= false;
             Grind = mNodeData.Grind;
             Ice = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)mNodeData.NodeTag).Ice;
+            Tool= GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)mNodeData.NodeTag).Tool;
             CondensedMilk = false;
+
+            if (Tool)
+            {
+                Lock = true;
+                mRigidbody2D.bodyType = RigidbodyType2D.Static;
+            }
 
             UpdateIcon();
 
@@ -277,6 +289,8 @@ namespace GameMain
         }
         public void OnPointerDown(PointerEventData pointerEventData)
         {
+            if (Tool)
+                return;
             GameEntry.Sound.PlaySound("Assets/GameMain/Audio/Sounds/Pick_up.mp3", "Sound");
 
             if (Parent != null)
@@ -302,6 +316,8 @@ namespace GameMain
         }
         public void OnPointerUp(PointerEventData pointerEventData)
         {
+            if (Tool)
+                return;
             mSpriteRenderer.sortingLayerName = "GamePlay";
             mShader.sortingLayerName = "GamePlay";
             mBoxCollider2D.isTrigger = true;
@@ -348,6 +364,8 @@ namespace GameMain
                 return;
             if (Parent != null)
                 return;
+            if (Tool)
+                return;
             PitchOn();
         }
         public void OnPointerExit(PointerEventData pointerEventData)
@@ -355,6 +373,8 @@ namespace GameMain
             if (GameEntry.Utils.PickUp)
                 return;
             if (Parent != null)
+                return;
+            if (Tool)
                 return;
             PutDown();
         }
@@ -758,23 +778,6 @@ namespace GameMain
             }
             return true;
         }   
-        public void OnPointerClick(PointerEventData eventData)
-        {
-            if (eventData.button == PointerEventData.InputButton.Right)
-            {
-                Lock = !Lock;
-                if (Lock)
-                {
-                    mRigidbody2D.bodyType = RigidbodyType2D.Static;
-                    mSpriteRenderer.color = Color.red;
-                } 
-                else
-                {
-                    mRigidbody2D.bodyType = RigidbodyType2D.Dynamic;
-                    mSpriteRenderer.color = Color.white;
-                } 
-            }
-        }
     }
 
     [System.Serializable]

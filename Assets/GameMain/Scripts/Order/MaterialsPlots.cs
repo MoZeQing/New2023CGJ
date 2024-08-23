@@ -10,25 +10,25 @@ public class MaterialsPlots : MonoBehaviour,IPointerDownHandler
 {
     [SerializeField] private NodeTag nodeTag;
     [SerializeField] private bool IsGuide;
-    [SerializeField] private Text text;
+    //[SerializeField] private Text text;
 
     public void Start()
     {
         if (IsGuide)
         {
-            text.text = "¡Þ";
+            //text.text = "¡Þ";
         }
         else
         {
             if (GameEntry.Player.GetPlayerItem((ItemTag)(int)nodeTag) == null)
             {
-                text.text = "0";
+                //text.text = "0";
                 return;
             }    
-            if (GameEntry.Player.GetPlayerItem((ItemTag)(int)nodeTag).itemNum <= 99)
-                text.text = GameEntry.Player.GetPlayerItem((ItemTag)(int)nodeTag).itemNum.ToString();
-            else
-                text.text = "99+";
+            //if (GameEntry.Player.GetPlayerItem((ItemTag)(int)nodeTag).itemNum <= 99)
+                //text.text = GameEntry.Player.GetPlayerItem((ItemTag)(int)nodeTag).itemNum.ToString();
+            //else
+                //text.text = "99+";
         }
     }
 
@@ -41,29 +41,29 @@ public class MaterialsPlots : MonoBehaviour,IPointerDownHandler
                 Position = this.transform.position,
                 Jump = true
             });
-            text.text = "¡Þ";
+            //text.text = "¡Þ";
             return;
         }
         else if (!IsGuide)
         {
             if (GameEntry.Player.GetPlayerItem((ItemTag)(int)nodeTag) == null)
             {
-                text.text = "0";
+                //text.text = "0";
                 return;
             }
             if (GameEntry.Player.GetPlayerItem((ItemTag)(int)nodeTag).itemNum <= 0)
             {
-                text.text = GameEntry.Player.GetPlayerItem((ItemTag)(int)nodeTag).itemNum.ToString();
-                text.color = Color.red;
+                //text.text = GameEntry.Player.GetPlayerItem((ItemTag)(int)nodeTag).itemNum.ToString();
+                //text.color = Color.red;
                 GameEntry.UI.OpenUIForm(UIFormId.PopTips, "ÄãµÄ²ÄÁÏ²»×ã");
                 return;
             }
             GameEntry.Player.GetPlayerItem((ItemTag)(int)nodeTag).itemNum--;
-            text.text = GameEntry.Player.GetPlayerItem((ItemTag)(int)nodeTag).itemNum.ToString();
+            //text.text = GameEntry.Player.GetPlayerItem((ItemTag)(int)nodeTag).itemNum.ToString();
         }
         else
         {
-            text.text = "¡Þ";
+            //text.text = "¡Þ";
         }
         GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, nodeTag)
         {
