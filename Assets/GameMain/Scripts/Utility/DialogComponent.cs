@@ -11,11 +11,8 @@ namespace GameMain
 {
     public class DialogComponent : GameFrameworkComponent
     {      
-        private List<StorySO> stories=new List<StorySO>();
-        private List<StorySO> loadedStories=new List<StorySO>();
-        public List<LevelSO> levelSOs = new List<LevelSO>();
-        public List<LevelSO> loadedLevelSOs = new List<LevelSO>();
-
+        private List<StorySO> mStories=new List<StorySO>();
+        private List<StorySO> mLoadedStories=new List<StorySO>();
         private Action mAction;
 
         public List<string> LoadedStories
@@ -23,24 +20,11 @@ namespace GameMain
             get
             {
                 List<string> newStory = new List<string>();
-                foreach (StorySO storySO in loadedStories)
+                foreach (StorySO storySO in mLoadedStories)
                 {
                     newStory.Add(storySO.name);
                 }
                 return newStory;
-            }
-        }
-
-        public List<string> LoadedLevels
-        {
-            get
-            {
-                List<string> newLevel = new List<string>();
-                foreach (LevelSO levelSO in loadedLevelSOs)
-                {
-                    newLevel.Add(levelSO.name);
-                }
-                return newLevel;
             }
         }
 
@@ -56,16 +40,9 @@ namespace GameMain
             {
                 if (storySO.unLoad)
                     continue;
-                stories.Add(storySO);
-            }
-            foreach (LevelSO levelSO in Resources.LoadAll<LevelSO>("LevelData"))
-            {
-                if (levelSO.unLoad)
-                    continue;
-                levelSOs.Add(levelSO);
+                mStories.Add(storySO);
             }
         }
-
         public void SetComplete(Action action)
         {
             mAction = action;
@@ -81,7 +58,7 @@ namespace GameMain
 
         public bool CheckOutStory(OutingSceneState outingSceneState)
         {
-            foreach (StorySO story in loadedStories)
+            foreach (StorySO story in mLoadedStories)
             {
                 if (GameEntry.Utils.Location != story.outingSceneState)
                     continue;
@@ -99,7 +76,7 @@ namespace GameMain
         public bool StoryUpdate(Action action)
         {
             mAction = action;
-            foreach (StorySO story in loadedStories)
+            foreach (StorySO story in mLoadedStories)
             {
                 if (story.outingSceneState != OutingSceneState.Main)
                     if (GameEntry.Utils.Location != story.outingSceneState)
@@ -118,7 +95,7 @@ namespace GameMain
                         GameEntry.Utils.RunEvent(eventData);
                     }
                     if (story.isRemove)
-                        loadedStories.Remove(story);
+                        mLoadedStories.Remove(story);
                     return true;
                 }
             }
@@ -128,7 +105,7 @@ namespace GameMain
         public bool StoryUpdate()
         {
             mAction=null;
-            foreach (StorySO story in loadedStories)
+            foreach (StorySO story in mLoadedStories)
             {
                 if(story.outingSceneState!=OutingSceneState.Main)
                     if (GameEntry.Utils.Location != story.outingSceneState)
@@ -147,7 +124,7 @@ namespace GameMain
                         GameEntry.Utils.RunEvent(eventData);
                     }
                     if (story.isRemove)
-                        loadedStories.Remove(story);
+                        mLoadedStories.Remove(story);
                     return true;
                 }
             }
@@ -160,7 +137,7 @@ namespace GameMain
         }
         public bool PlayStory(string tag)
         {
-            foreach (StorySO story in loadedStories)
+            foreach (StorySO story in mLoadedStories)
             {
                 if (story.name == tag)
                 {
@@ -176,7 +153,7 @@ namespace GameMain
                     InDialog = true;
                     GameEntry.Event.FireNow(this, DialogEventArgs.Create(InDialog, story.dialogueGraph.name));
                     if (story.isRemove)
-                        loadedStories.Remove(story);
+                        mLoadedStories.Remove(story);
                     return true;
                 }
             }
@@ -187,7 +164,7 @@ namespace GameMain
         {
             SaveGameEventArgs args = (SaveGameEventArgs)e;
             List<string> newStory = new List<string>();
-            foreach (StorySO storySO in loadedStories)
+            foreach (StorySO storySO in mLoadedStories)
             {
                 newStory.Add(storySO.name);
             }
@@ -196,28 +173,19 @@ namespace GameMain
 
         public void LoadGame(List<string> storyData,List<string> levelData)
         {
-            loadedStories.Clear();
-            foreach (StorySO storySO in stories)
+            mLoadedStories.Clear();
+            foreach (StorySO storySO in mStories)
             {
                 if (storyData.Contains(storySO.name))
                 { 
-                    loadedStories.Add(storySO);
-                }
-            }
-            loadedLevelSOs.Clear();
-            foreach (LevelSO levelSO in levelSOs)
-            {
-                if (levelData.Contains(levelSO.name))
-                {
-                    loadedLevelSOs.Add(levelSO);
+                    mLoadedStories.Add(storySO);
                 }
             }
         }
 
         public void LoadGame()
         {
-            loadedStories = new List<StorySO>(stories);
-            loadedLevelSOs = new List<LevelSO>(levelSOs);
+            mLoadedStories = new List<StorySO>(mStories);
         }
     }
 }

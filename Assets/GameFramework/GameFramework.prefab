@@ -1156,22 +1156,11 @@ MonoBehaviour:
   maxAp: 4
   ap: 4
   money: 2000
-  mood: 0
   favor: 0
-  love: 0
-  family: 0
   day: 2
   rent: 0
   closet: 1001
-  recipes: 
-  clearFlags: []
   playerItems: 00000000040000000600000008000000090000000b0000000a0000000c0000000d000000e9030000
-  greengrocerItemDatas: 000000000600000008000000090000000b0000000c0000000d000000
-  bookstoreItemDatas: 1e0000001f000000200000002100000022000000
-  musicHallItemDatas: 28000000290000002a000000
-  glassItemDatas: 65000000660000006700000068000000690000006a0000006b0000006c0000006e000000
-  restaurantItemDatas: 3200000033000000340000003500000036000000
-  bakeryItemDatas: 3c0000003d0000003e0000003f00000040000000
 --- !u!1 &726163991
 GameObject:
   m_ObjectHideFlags: 0
@@ -1258,8 +1247,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 436039f63e3b79540b886fa00283bff6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelSOs: []
-  loadedLevelSOs: []
 --- !u!1 &807732007
 GameObject:
   m_ObjectHideFlags: 0
@@ -1355,9 +1342,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1789821904}
-  - component: {fileID: 1789821905}
   m_Layer: 0
-  m_Name: Test
+  m_Name: Level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1377,18 +1363,6 @@ Transform:
   m_Father: {fileID: 7834783850337708273}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1789821905
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1789821903}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4310f9000fbb784faa42b8cec5532ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1930264433
 GameObject:
   m_ObjectHideFlags: 0
@@ -1440,16 +1414,9 @@ MonoBehaviour:
     ap: 0
     day: 0
     rent: 0
-    heaterID: 0
-    burnisherID: 0
-    stirrerID: 0
-    pressID: 0
-    cafeID: 1
-    acoffee: 0
-    bcoffee: 0
-    ccoffee: 0
     guideID: 0
     items: []
+    recipes: 
 --- !u!1 &3345061919287022868
 GameObject:
   m_ObjectHideFlags: 0
@@ -1581,22 +1548,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35f7b61a17559314b8011a95310951ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modeSprites: []
-  orderSprite: {fileID: 21300000, guid: 403e665a73c88324f8f8b3725f50cc1e, type: 3}
-  isClose: 0
-  openBoundData:
-    upLimit: -4
-    downLimit: -10
-    leftLimit: -8
-    rightLimit: 8
-  closeBoundData:
-    upLimit: -5
-    downLimit: -9
-    leftLimit: -5
-    rightLimit: 5
-  openSprite: {fileID: 0}
-  closeSprite: {fileID: 0}
-  voice: 0.5
-  word: 0.025
-  outSceneState: 0
-  outingSceneStates: 

@@ -51,7 +51,6 @@ namespace GameMain
             });
 
             commonBtn.onClick.AddListener(SetData);
-            mLevelData = GameEntry.Dialog.loadedLevelSOs[0].levelData;//默认订单
             GameEntry.Event.Subscribe(OrderEventArgs.EventId, OnOrderEvent);
         }
 
@@ -97,44 +96,13 @@ namespace GameMain
         }
         public void OnLevel()
         {
-            List<LevelSO> levels = new List<LevelSO>();
-            foreach (LevelSO level in GameEntry.Dialog.loadedLevelSOs)
-            {
-                if (GameEntry.Utils.Check(level.trigger)&&!level.isRandom)
-                {
-                    levels.Add(level);
-                }
-            }
-            if (levels.Count != 0)
-            {
-                OnLevel(levels[UnityEngine.Random.Range(0, levels.Count)]);
-            }
+            LevelData levelData = GameEntry.Level.GetLevelData();
+            if (levelData != null)
+                SetLevelData(levelData);
             else
-            {
-                OnAfterWorkComplete();
-            }
+                SetLevelData(GameEntry.Level.GetRandLevelData());
         }
-
-        public void OnLevel(LevelSO levelSO)
-        {
-            GameEntry.Utils.AddFlag(levelSO.name);
-            OnLevel(levelSO.levelData);
-            if (GameEntry.Dialog.loadedLevelSOs.Contains(levelSO))
-                GameEntry.Dialog.loadedLevelSOs.Remove(levelSO);
-        }
-
-        public void OnLevel(string levelName)
-        {
-            foreach (LevelSO level in GameEntry.Dialog.loadedLevelSOs)
-            {
-                if (level.name==levelName)
-                {
-                    OnLevel(level.levelData);
-                    return;
-                }
-            }
-        }
-        private void OnLevel(LevelData levelData)
+        public void SetLevelData(LevelData levelData)
         { 
             mLevelData= levelData;
             mOrderCount = 0;

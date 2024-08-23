@@ -52,6 +52,12 @@ namespace GameMain
             private set;
         }
 
+        public static LevelComponent Level
+        {
+            get;
+            private set;
+        }
+
         private static void InitCustomComponents()
         {
             Utils = UnityGameFramework.Runtime.GameEntry.GetComponent<UtilsComponent>();
@@ -60,6 +66,7 @@ namespace GameMain
             SaveLoad = UnityGameFramework.Runtime.GameEntry.GetComponent<SaveLoadComponent>();
             Player = UnityGameFramework.Runtime.GameEntry.GetComponent<PlayerComponent>();
             Buff= UnityGameFramework.Runtime.GameEntry.GetComponent<BuffComponent>();
+            Level = UnityGameFramework.Runtime.GameEntry.GetComponent<LevelComponent>();
         }
     }
 }

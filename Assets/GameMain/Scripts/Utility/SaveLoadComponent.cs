@@ -97,7 +97,7 @@ namespace GameMain
             saveLoadData.charData = GameEntry.Cat.GetSaveData();
             saveLoadData.utilsData=GameEntry.Utils.GetSaveData();
             saveLoadData.storyData = GameEntry.Dialog.LoadedStories;
-            saveLoadData.levelData = GameEntry.Dialog.LoadedLevels;
+            saveLoadData.levelData = GameEntry.Level.LoadedLevels;
             saveLoadData.buffData = GameEntry.Buff.GetSaveData();
             mSaveLoadData[index]= saveLoadData;
             SaveGame();
