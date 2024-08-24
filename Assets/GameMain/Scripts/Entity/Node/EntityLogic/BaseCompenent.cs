@@ -55,22 +55,6 @@ namespace GameMain
             get;
             protected set;
         }
-        //加料
-        public bool Sugar
-        {
-            get;
-            protected set;
-        } = false;
-        public bool CondensedMilk
-        {
-            get;
-            protected set;
-        } = false;
-        public bool Salt
-        {
-            get;
-            protected set;
-        } = false;
         public bool Tool
         {
             get;
@@ -100,57 +84,36 @@ namespace GameMain
         //内部数据
         protected NodeData mNodeData = null;//卡牌的初始数据
         protected CompenentData mCompenentData = null;//卡牌的组件数据
-        protected Transform mProgressBar = null;//进度条
-        
         protected List<BaseCompenent> mCompenents = new List<BaseCompenent>();//储存被多个碰撞箱体碰撞时的所有碰撞箱体
-        protected RecipeData mRecipeData;//目前的启动的配方
-        protected List<NodeTag> mChildMaterials = new List<NodeTag>();//目前的子节点的全部标签
-        protected NodeTag tool = NodeTag.None;
-        protected float mProducingTime = 0f;
-        protected float mTime = 0f;
-        protected DRRecipe drRecipe = null;
-        //标识的组件
-        private SpriteRenderer mCondensedMilkPoint = null;
-        private SpriteRenderer mSugarPoint = null;
-        private SpriteRenderer mSaltPoint = null;
         //标识组件
         private SpriteRenderer mIcePoint = null;
         private SpriteRenderer mGrindPoint = null;
         private SpriteRenderer mHotPoint = null;
         private SpriteRenderer mMediumPoint = null;
-
-        private float mAddMaterialsTime = 0f;
-        private float mAddTime = 0f;
-        private bool flag = false;
-        private bool isCoffee = false;
+        //合成
+        protected RecipeData mRecipeData;//目前的启动的配方
+        protected float mProducingTime = 0f;
+        protected float mTime = 0f;
+        protected List<NodeTag> mChildMaterials = new List<NodeTag>();//目前的子节点的全部标签
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
             mCompenentData = (CompenentData)userData;
             mNodeData = mCompenentData.NodeData;
-            Materials = mCompenentData.materials;
             NodeTag = mCompenentData.NodeData.NodeTag;
             mRigidbody2D = this.GetComponent<Rigidbody2D>();
             mSpriteRenderer = this.transform.Find("Sprite").GetComponent<SpriteRenderer>();
             mSpriteRenderer.sortingLayerName = "GamePlay";
             mShader = this.transform.Find("Shader").GetComponent<SpriteRenderer>();
-            mProgressBar = this.transform.Find("ProgressBar").GetComponent<Transform>();
             mProgressBarRenderer = this.transform.Find("ProgressBar").GetComponent<Image>();
 
             mBoxCollider2D = this.GetComponent<BoxCollider2D>();
-
-            mCondensedMilkPoint = mSpriteRenderer.gameObject.transform.Find("CondensedMilk").GetComponent<SpriteRenderer>();
-            mSugarPoint = mSpriteRenderer.gameObject.transform.Find("Sugar").GetComponent<SpriteRenderer>();
-            mSaltPoint = mSpriteRenderer.gameObject.transform.Find("Salt").GetComponent<SpriteRenderer>();
 
             mIcePoint= mSpriteRenderer.gameObject.transform.Find("Ice").GetComponent<SpriteRenderer>();
             mGrindPoint = mSpriteRenderer.gameObject.transform.Find("Grind").GetComponent<SpriteRenderer>();
             mHotPoint= mSpriteRenderer.gameObject.transform.Find("Hot").GetComponent<SpriteRenderer>();
             mMediumPoint = mSpriteRenderer.gameObject.transform.Find("Medium").GetComponent<SpriteRenderer>();
 
-            mAddMaterialsTime = 5f;
-
-            Materials = mNodeData.Materials;
             GameEntry.Entity.AttachEntity(this.Id, mCompenentData.OwnerId);
         }
         protected override void OnShow(object userData)
@@ -162,12 +125,9 @@ namespace GameMain
             NodeTag = mCompenentData.NodeData.NodeTag;
 
             Lock = false;
-            Salt = false;
-            Sugar= false;
             Grind = mNodeData.Grind;
             Ice = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)mNodeData.NodeTag).Ice;
             Tool= GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)mNodeData.NodeTag).Tool;
-            CondensedMilk = false;
 
             if (Tool)
             {
@@ -181,9 +141,6 @@ namespace GameMain
             mSpriteRenderer.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)mNodeData.NodeTag).SpritePath);
             mProgressBarRenderer.gameObject.SetActive(false);
 
-            mCondensedMilkPoint.gameObject.SetActive(false);
-            mSugarPoint.gameObject.SetActive(false);
-            mSaltPoint.gameObject.SetActive(false);
             GameEntry.Entity.AttachEntity(this.Id, mCompenentData.OwnerId);
             this.transform.position = mNodeData.Position;
             //处理特殊情况
@@ -206,9 +163,9 @@ namespace GameMain
             }
         }
 
-        private void UpdateIcon()
+        protected virtual void UpdateIcon()
         {
-            if (mNodeData.IsCoffee)
+            if (GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)NodeTag).Coffee)
             {
                 mIcePoint.gameObject.SetActive(Ice);
                 mHotPoint.gameObject.SetActive(!Ice);
@@ -261,22 +218,17 @@ namespace GameMain
             {
                 this.transform.DOMove(MouseToWorld(Input.mousePosition), 0.05f);
                 Producing = false;
-                tool = NodeTag.None;
                 mProducingTime = 0;
                 mTime = 0f;
                 mRecipeData = null;
-                mProgressBar.gameObject.SetActive(false);
-                mProgressBar.GetComponent<Image>().fillAmount = 1;
+                mProgressBarRenderer.gameObject.SetActive(false);
+                mProgressBarRenderer.fillAmount = 1;
             }
             this.transform.position = new Vector3(Mathf.Clamp(this.transform.position.x, -8f, 8f), Mathf.Clamp(this.transform.position.y, -10f, -4f), 0);//���Ʒ�Χ
             if (Parent != null && !mNodeData.Follow)//跟随父卡牌
             {
                 this.transform.DOMove(Parent.transform.position + Vector3.up * 0.5f, 0.1f);//�����ڵ�
             }
-            //if (Parent == null && !mNodeData.Follow)//如果没有
-            //{
-            //    this.transform.DOMove(Parent.transform.position + Vector3.up * 0.5f, 0.1f);//�����ڵ�
-            //}
             //刷新子集
             mChildMaterials = GenerateMaterialList();
             Compound();
@@ -410,7 +362,7 @@ namespace GameMain
         /// <summary>
         /// ����״̬
         /// </summary>
-        public void PickUp()
+        protected virtual void PickUp()
         {
             mSpriteRenderer.gameObject.transform.DOPause();
             mShader.gameObject.transform.DOPause();
@@ -426,7 +378,7 @@ namespace GameMain
         /// <summary>
         /// ѡ��
         /// </summary>
-        public void PitchOn()
+        protected virtual void PitchOn()
         {
             mSpriteRenderer.gameObject.transform.DOPause();
             mShader.gameObject.transform.DOPause();
@@ -442,7 +394,7 @@ namespace GameMain
         /// <summary>
         /// ����
         /// </summary>
-        public void PutDown()
+        protected virtual void PutDown()
         {
             mSpriteRenderer.gameObject.transform.DOPause();
             mShader.gameObject.transform.DOPause();
@@ -463,21 +415,66 @@ namespace GameMain
                 Child.Parent = null;
             GameEntry.Entity.HideEntity(mNodeData.Id);
         }
-        public NodeTag TransToEnum(string value)
+        public void RemoveChildren()
         {
-            return (NodeTag)Enum.Parse(typeof(NodeTag), value);
+            List<BaseCompenent> mMaterialBaseCompenet = new List<BaseCompenent>();
+            BaseCompenent child = Child;
+            while (child != null)
+            {
+                mMaterialBaseCompenet.Add(child);
+                child = child.Child;
+            }
+            for (int i = 0; i < mMaterialBaseCompenet.Count; i++)
+            {
+                mMaterialBaseCompenet[i].Remove();
+            }
         }
 
-        public List<NodeTag> TransToEnumList(List<string> valueList)
+        public bool GetChildGrind()
         {
-            List<NodeTag> temp = new List<NodeTag>();
-            foreach (var VarIAble in valueList)
+            BaseCompenent child = Child;
+            while (child != null)
             {
-                temp.Add((NodeTag)Enum.Parse(typeof(NodeTag), VarIAble));
+                if (child.Grind||child.NodeTag==NodeTag.EspressoG)
+                    return true;
+                child = child.Child;
             }
-            return temp;
+            return false;
         }
-        public void Compound()
+        public List<NodeTag> GenerateMaterialList()
+        {
+            List<NodeTag> Material = new List<NodeTag>();
+            BaseCompenent child = Child;
+            while (child != null)
+            {
+                Material.Add(child.NodeTag);
+                child = child.Child;
+            }
+            return Material;
+        }
+        /// <summary>
+        /// 检查队列是否相同
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="a">队列1</param>
+        /// <param name="b">队列2</param>
+        /// <returns></returns>
+        public bool CheckList<T>(List<T> a1, List<T> b1)
+        {
+            List<T> list1 = new List<T>(a1);
+            List<T> list2 = new List<T>(b1);
+            if (list1.Count != list2.Count)
+                return false;
+            else
+            {
+                foreach (T a in list1)
+                {
+                    if (!list2.Remove(a)) return false;
+                }
+            }
+            return true;
+        }
+        protected virtual void Compound()
         {
             //层级刷新
             mProgressBarRenderer.GetComponent<Canvas>().sortingOrder = mSpriteRenderer.sortingOrder + 1;
@@ -497,14 +494,12 @@ namespace GameMain
                         if (NodeTag == mRecipeData.tool)
                         {
                             //比较逻辑
-                            if (CheckList<NodeTag>(mRecipeData.materials,mChildMaterials))
+                            if (CheckList<NodeTag>(mRecipeData.materials, mChildMaterials))
                             {
                                 Producing = true;
-                                drRecipe = recipe;
-                                float power = (float)(1f-((float)GameEntry.Cat.WisdomLevel - 1f) / 6f);
-                                mProducingTime = drRecipe.ProducingTime * power;
-                                mTime = drRecipe.ProducingTime;
-                                isCoffee = drRecipe.IsCoffee;
+                                float power = (float)(1f - ((float)GameEntry.Cat.WisdomLevel - 1f) / 6f);
+                                mProducingTime = recipe.ProducingTime * power;
+                                mTime = recipe.ProducingTime * power;
                                 mProgressBarRenderer.gameObject.SetActive(true);
                                 return;
                             }
@@ -514,290 +509,58 @@ namespace GameMain
             }
             else//如果正在制作中
             {
-                mProgressBar.gameObject.SetActive(true);
-                mProgressBar.GetComponent<Image>().fillAmount=1 - (1 - mProducingTime / mTime);
+                mProgressBarRenderer.gameObject.SetActive(true);
+                mProgressBarRenderer.fillAmount = 1 - (1 - mProducingTime / mTime);
                 mProducingTime -= Time.deltaTime;
                 if (!CheckList<NodeTag>(mRecipeData.materials, mChildMaterials))
                 {
-                    tool = NodeTag.None;
                     mProducingTime = 0;
                     mTime = 0f;
-                    mProgressBar.gameObject.SetActive(false);
-                    mProgressBar.GetComponent<Image>().fillAmount=1;
+                    mProgressBarRenderer.gameObject.SetActive(false);
+                    mProgressBarRenderer.fillAmount = 1;
                     Producing = false;
                     return;
                 }
-
                 if (mProducingTime <= 0)//如果完成制作
                 {
-                    Grind = GetChildGrind();
                     if (Child != null)//删除全部的子节点
                     {
-                        List<BaseCompenent> mMaterialBaseCompenet = new List<BaseCompenent>();
-                        BaseCompenent child = Child;
-                        while (child != null)
-                        {
-                            mMaterialBaseCompenet.Add(child);
-                            child = child.Child;
-                        }
-                        for (int i = 0; i < mMaterialBaseCompenet.Count; i++)
-                        {
-                            mMaterialBaseCompenet[i].Remove();
-                        }
+                        RemoveChildren();
                     }//根据完成品进行产出
                     for (int i = 0; i < mRecipeData.products.Count; i++)
                     {
-                        if (mRecipeData.products[i] == NodeTag.Espresso)
+                        if (mRecipeData.products[i] == NodeTag.EspressoG)
                         {
-                            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Espresso,true)
-                            {
-                                Position = this.transform.position + new Vector3(0.5f, 0, 0),
-                                RamdonJump = true,
-                                Grind = false
-                            });
-                        }
-                        else if (mRecipeData.products[i]==NodeTag.EspressoG)
-                        {
-                            Grind = true;
-                            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Espresso,true)
+                            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Espresso)
                             {
                                 Position = this.transform.position + new Vector3(0.5f, 0, 0),
                                 RamdonJump = true,
                                 Grind = true
                             });
                         }
-                        else if (mRecipeData.IsCoffee)
+                        else
                         {
-                            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, mRecipeData.products[i], true)
+                            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, mRecipeData.products[i])
                             {
                                 Position = this.transform.position + new Vector3(0.5f, 0, 0),
                                 RamdonJump = true,
-                                Grind = this.Grind,
+                                Grind = GetChildGrind()
                             });
                         }
-                        else
-                        {
-                            //if (mRecipeData.products[i] == NodeTag.CoarseGroundCoffee ||
-                            //    mRecipeData.products[i] == NodeTag.MidGroundCoffee ||
-                            //    mRecipeData.products[i] == NodeTag.LowFoamingMilk)
-                            //{
-                            //    GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, mRecipeData.products[i])
-                            //    {
-                            //        Position = this.transform.position + new Vector3(0.5f, 0, 0),
-                            //        Adsorb = this,
-                            //        Grind = this.Grind
-                            //    });
-                            //}
-                            //else
-                            //{
-                                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, mRecipeData.products[i])
-                                {
-                                    Position = this.transform.position + new Vector3(0.5f, 0, 0),
-                                    RamdonJump = true,
-                                    Grind = this.Grind
-                                });
-                            //}
-                        }
                     }
-                    Materials.Clear();
                     if (this.NodeTag == NodeTag.Cup)
                     {
                         this.Remove();
                     }
-                    tool = NodeTag.None;
                     mProducingTime = 0;
                     mTime = 0f;
                     mRecipeData = null;
-                    mProgressBar.gameObject.SetActive(false);
+                    mProgressBarRenderer.gameObject.SetActive(false);
                     Producing = false;
                     return;
-
                 }
             }
         }
-        public bool GetChildGrind()
-        {
-            BaseCompenent child = Child;
-            while (child != null)
-            {
-                if (child.Grind)
-                    return true;
-                child = child.Child;
-            }
-            return false;
-        }
-        public List<NodeTag> GenerateMaterialList()
-        {
-            List<NodeTag> Material = new List<NodeTag>();
-            BaseCompenent child = Child;
-            while (child != null)
-            {
-                Material.Add(child.NodeTag);
-                child = child.Child;
-            }
-            return Material;
-        }
-        #region
-        //public void AddMaterials()
-        //{
-        //    if(Child!=null)
-        //    {
-        //        mCondensedMilkPoint.sortingOrder = Child.mSpriteRenderer.sortingOrder - 1;
-        //        mSaltPoint.sortingOrder = Child.mSpriteRenderer.sortingOrder - 1;
-        //        mSugarPoint.sortingOrder = Child.mSpriteRenderer.sortingOrder - 1;
-        //    }
-        //    if(Child==null)
-        //    {
-        //        mCondensedMilkPoint.sortingOrder = mSpriteRenderer.sortingOrder + 1;
-        //        mSaltPoint.sortingOrder = mSpriteRenderer.sortingOrder + 1;
-        //        mSugarPoint.sortingOrder = mSpriteRenderer.sortingOrder + 1;
-        //    }
-        //    mCondensedMilkPoint.sortingLayerName = mSpriteRenderer.sortingLayerName;
-        //    mSaltPoint.sortingLayerName = mSpriteRenderer.sortingLayerName;
-        //    mSugarPoint.sortingLayerName = mSpriteRenderer.sortingLayerName;
-        //    if (Parent == null && Child != null && Child.Child == null && flag == false)
-        //    {
-        //        if (Child.NodeTag == NodeTag.CondensedMilk)
-        //        {
-        //            flag = true;
-        //            CondensedMilk = true;
-        //            mAddTime = mAddMaterialsTime;
-        //        }
-        //        else if (Child.NodeTag == NodeTag.Sugar)
-        //        {
-        //            flag = true;
-        //            Sugar = true;
-        //            mAddTime = mAddMaterialsTime;
-        //        }
-        //        else if (Child.NodeTag == NodeTag.Salt)
-        //        {
-        //            flag = true;
-        //            Salt = true;
-        //            mAddTime = mAddMaterialsTime;
-        //        }
-        //    }
-        //    if (flag == true)
-        //    {
-        //        if (CondensedMilk ==true&&!mCondensedMilkPoint.gameObject.activeSelf)
-        //        {
-        //            mProgressBar.gameObject.SetActive(true);
-        //            mProgressBar.GetComponent<Image>().fillAmount=1 - (1 - mAddTime / mAddMaterialsTime);
-        //            mAddTime -= Time.deltaTime;
-        //            if (Parent != null || Child == null||Child.Child!=null)
-        //            {
-        //                flag = false;
-        //                CondensedMilk = false;
-        //                mProgressBar.gameObject.SetActive(false);
-        //                mProgressBar.GetComponent<Image>().fillAmount=1;
-        //                return;
-        //            }
-        //            if (mAddTime <= 0)
-        //            {
-        //                mProgressBar.gameObject.SetActive(false);
-        //                mCondensedMilkPoint.gameObject.SetActive(true);
-        //                if (Child != null)
-        //                {
-        //                    Child.Remove();
-        //                }
-        //                CondensedMilk = true;
-        //                flag = false;
-        //            }
-        //        }
-        //        else if (Sugar==true&&!mSugarPoint.gameObject.activeSelf)
-        //        {
-        //            mProgressBar.gameObject.SetActive(true);
-        //            mProgressBar.GetComponent<Image>().fillAmount=1 - (1 - mAddTime / mAddMaterialsTime);
-        //            mAddTime -= Time.deltaTime;
-        //            if (Parent != null || Child == null || Child.Child != null)
-        //            {
-        //                flag = false;
-        //                Sugar = false; ;
-        //                mProgressBar.gameObject.SetActive(false);
-        //                mProgressBar.GetComponent<Image>().fillAmount = 1;
-        //                return;
-        //            }
-        //            if (mAddTime <= 0)
-        //            {
-        //                mProgressBar.gameObject.SetActive(false);
-        //                mSugarPoint.gameObject.SetActive(true);
-        //                if (Child != null)
-        //                {
-        //                    Child.Remove();
-        //                }
-        //                Sugar = true;
-        //                flag = false;
-        //            }
-        //        }
-        //        else if (Salt == true && !mSaltPoint.gameObject.activeSelf)
-        //        {
-        //            mProgressBar.gameObject.SetActive(true);
-        //            mProgressBar.GetComponent<Image>().fillAmount = 1 - (1 - mAddTime / mAddMaterialsTime);
-        //            mAddTime -= Time.deltaTime;
-        //            if (Parent != null || Child == null || Child.Child != null)
-        //            {
-        //                flag = false;
-        //                Salt = false; ;
-        //                mProgressBar.gameObject.SetActive(false);
-        //                mProgressBar.GetComponent<Image>().fillAmount = 1;
-        //                return;
-        //            }
-        //            if (mAddTime <= 0)
-        //            {
-        //                mProgressBar.gameObject.SetActive(false);
-        //                mSaltPoint.gameObject.SetActive(true);
-        //                if (Child != null)
-        //                {
-        //                    Child.Remove();
-        //                }
-        //                Salt = true;
-        //                flag = false;
-        //            }
-        //        }
-        //    }
-        //}
-        #endregion
-        /// <summary>
-        /// 检查队列是否相同
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="a">队列1</param>
-        /// <param name="b">队列2</param>
-        /// <returns></returns>
-        public bool CheckList<T>(List<T> a1, List<T> b1)
-        {
-            List<T> list1= new List<T>(a1);
-            List<T> list2= new List<T>(b1);
-            if (list1.Count != list2.Count)
-                return false;
-            else
-            {
-                foreach (T a in list1)
-                {
-                    if (!list2.Remove(a)) return false;
-                }
-            }
-            return true;
-        }   
-    }
-
-    [System.Serializable]
-    public class BoundData
-    {
-        public float upLimit;
-        public float downLimit;
-        public float leftLimit;
-        public float rightLimit;
-    }
-    public enum NodeState
-    {
-        //δ����
-        InActive,
-        //����
-        Idle,
-        //������
-        PickUp,
-        //��ѡ��
-        PitchOn
     }
 }
 

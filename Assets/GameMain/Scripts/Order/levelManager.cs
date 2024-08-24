@@ -29,7 +29,7 @@ namespace GameMain
         public bool isCoarse;
         public bool notCoarse;
 
-        public List<OrderData> GetOrderDatas()
+        public List<OrderData> GetRandOrderDatas()
         { 
             List<OrderData> ans= new List<OrderData>();
             foreach (NewOrderData newOrderData in orderDatas)

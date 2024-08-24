@@ -25,6 +25,7 @@ namespace GameMain
         private int mOrderCount;
         private float nowTime;
         private WorkData mWorkData;
+        private List<OrderData> orderDatas= new List<OrderData>();
         /// <summary>
         /// 是否正在播放剧情
         /// </summary>
@@ -90,9 +91,11 @@ namespace GameMain
             float power = 1f + (float)((GameEntry.Cat.StaminaLevel - 1f) / 6f);
             nowTime = mLevelData.levelTime*power;
             modeCanvas.gameObject.SetActive(false);
+            orderDatas = mLevelData.GetRandOrderDatas();
             orderList.IsShowItem = true;
-            orderList.ShowItem(mLevelData.GetOrderDatas());
+            orderList.ShowItem(orderDatas);
             orderList.IsShowItem = false;
+            mWorkData = new WorkData();
         }
         public void OnLevel()
         {
@@ -129,7 +132,6 @@ namespace GameMain
             dialogBox.SetComplete(OnAfterWorkComplete);
             orderList.ClearItems();
 
-            mWorkData = new WorkData();
             mWorkData.Power = nowTime / (float)mLevelData.levelTime;
             mWorkData.Money = mLevelData.levelMoney;
             mWorkData.OrderCount = mLevelData.orderDatas.Count;
@@ -147,7 +149,7 @@ namespace GameMain
             OrderEventArgs args = (OrderEventArgs)e;
             if (mLevelData != null)
             {
-                if (mLevelData.GetOrderDatas().Contains(args.OrderData))
+                if (orderDatas.Contains(args.OrderData))
                 {
                     mOrderCount++;
                     if (args.Income == 0)
@@ -155,7 +157,7 @@ namespace GameMain
                     mWorkData.orderDatas.Add(args.OrderData);
                     mWorkData.Income += args.Income;
                 }
-                if (mOrderCount == mLevelData.GetOrderDatas().Count)
+                if (mOrderCount == orderDatas.Count)
                 {
                     OnWorkComplete();
                 }

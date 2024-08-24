@@ -8,18 +8,18 @@ public class MaterialsBound : MonoBehaviour,IPointerEnterHandler,IPointerExitHan
 {
     [SerializeField] private Transform canvas;
 
-    //private void Start()
-    //{
-    //    canvas.transform.DOLocalMoveY(-14.8f, 0.5f);
-    //}
+    private void Start()
+    {
+        canvas.transform.DOLocalMoveY(-200f, 0.5f);
+    }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        //canvas.transform.DOLocalMoveY(-12.8f, 0.5f);
+        canvas.transform.DOLocalMoveY(0f, 0.5f).SetEase(Ease.InOutExpo);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        //canvas.transform.DOLocalMoveY(-14.8f, 0.5f);
+        canvas.transform.DOLocalMoveY(-200f, 0.5f).SetEase(Ease.InOutExpo);
     }
 }
