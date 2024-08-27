@@ -230,7 +230,13 @@ namespace GameMain
             }
             return RunEvent(eventData);
         }
-
+        public void RunEvent(List<EventData> eventDatas)
+        {
+            foreach (EventData eventData in eventDatas)
+            {
+                RunEvent(eventData);
+            }
+        }
         public bool RunEvent(EventData eventData)
         {
             switch (eventData.eventTag)

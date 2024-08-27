@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices.ComTypes;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class BaseStage : MonoBehaviour
 {
     [SerializeField] protected bool IsWorld; 
 
     [SerializeField] protected Image mBG;
+    [SerializeField] protected Image mMaskBG;
     [SerializeField] protected Transform mCanvas;
     [SerializeField] protected GameObject mCharacter;
     [SerializeField] protected List<Transform> mPositions = new List<Transform>();
@@ -92,14 +94,16 @@ public class BaseStage : MonoBehaviour
             mChars[(int)pos].SetDiff(diffTag);
         }
     }
-    public virtual void SetBackground(Sprite sprite)
-    { 
-        if(sprite!=null)
-            mBG.sprite = sprite;
+    public virtual void SetBackground(Sprite background)
+    {
+        if (background == null)
+            return;
+        if (background == mBG.sprite)
+            return;
+        mMaskBG.gameObject.SetActive(true);
+        mMaskBG.sprite = mBG.sprite;
+        mBG.sprite = background;
+        mMaskBG.color = Color.white;
+        mMaskBG.DOColor(Color.clear, 1f).OnComplete(()=>mMaskBG.gameObject.SetActive(false));
     }   
-
-    public virtual void SetBackground(string path) 
-    { 
-        
-    }
 }

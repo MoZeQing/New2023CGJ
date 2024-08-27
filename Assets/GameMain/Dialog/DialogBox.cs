@@ -1,13 +1,11 @@
+using DG.Tweening;
 using GameMain;
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using XNode;
-using DG.Tweening;
-using XNode.Examples.LogicToy;
-using System.Runtime.InteropServices.ComTypes;
 
 public class DialogBox : MonoBehaviour
 {
@@ -34,14 +32,13 @@ public class DialogBox : MonoBehaviour
     [Range(0.01f,0.1f)]
     [SerializeField] private float charSpeed=0.05f;
 
-    private int _index;
-    private DialogueGraph m_Dialogue = null;
+    private int mIndex;
+    private DialogueGraph mDialogue = null;
     private ChatTag chatTag;
-    private Node m_Node = null;
+    private Node mNode = null;
     private List<GameObject> m_Btns = new List<GameObject>();
     private Action OnComplete;
 
-    private Dictionary<CharSO, BaseCharacter> mCharChace = new Dictionary<CharSO, BaseCharacter>();
     private bool optionFlag;
     //规定一个最小的动画效果
 
@@ -81,7 +78,6 @@ public class DialogBox : MonoBehaviour
         } 
     }
     public bool IsMemory { get; set; } = false;
-    public bool IsNext { get; set; } = true;
     private void Start()
     {
         skipBtn.onClick.AddListener(() => IsSkip = !IsSkip);
@@ -143,6 +139,18 @@ public class DialogBox : MonoBehaviour
             m_Btns.Add(go);
         }
     }
+    private void Option_Onclick(object sender, EventArgs e)
+    {
+        OptionData optionData = (OptionData)sender;
+        if (optionData == null)
+            return;
+        optionFlag = false;
+        ClearButtons();
+        GameEntry.Utils.RunEvent(optionData.eventDatas);
+        OptionNode optionNode = (OptionNode)mNode;
+        NextNode(mNode, string.Format("optionDatas {0}", optionNode.optionDatas.IndexOf(optionData)));
+        AddMemoryItem(optionNode.optionDatas, optionData);
+    }
     public void ClearButtons()
     {
         foreach (GameObject go in m_Btns)
@@ -155,95 +163,69 @@ public class DialogBox : MonoBehaviour
     {
         if (IsMemory)
             return;
-        if (IsNext == false)
-            return;
-        if (m_Node == null)
+        if (mNode == null)
             return;
         switch (chatTag)
         {
             case ChatTag.Start:
-                StartNode startNode = (StartNode)m_Node;
+                StartNode startNode = (StartNode)mNode;
                 Next(startNode);
                 break;
             case ChatTag.Chat:
-                ChatNode chatNode = (ChatNode)m_Node;
+                ChatNode chatNode = (ChatNode)mNode;
                 Next(chatNode);
                 break;
             case ChatTag.Option:
-                OptionNode optionNode = (OptionNode)m_Node;
+                OptionNode optionNode = (OptionNode)mNode;
                 ShowButtons(optionNode.optionDatas);
                 break;
         }
     }
     private void Next(StartNode startNode)
     {
-        if (!NextNode(startNode, "start"))
-        {
-            if (OnComplete != null)
-                OnComplete();
-            OnComplete = null;
-        }
+        NextNode(startNode, "start");
     }
-    private bool flag=false;
     private void Next(ChatNode chatNode)
     {
-        if (_index < chatNode.chatDatas.Count)
+        if (mIndex < chatNode.chatDatas.Count)
         {
-            ChatData chatData = chatNode.chatDatas[_index];
-            if (flag)
-            {
-                dialogText.DOKill();
-                dialogText.text = chatData.text;
-                flag = false;
-                _index++;
-                return;
-            }
+            ChatData chatData = chatNode.chatDatas[mIndex];
             //角色控制
 
             stage.ShowCharacter(chatData);
             stage.SetBackground(chatData.background);
 
             nameText.text = chatData.charName == "0" ? string.Empty : chatData.charName;
-            dialogText.DOPause();
+            dialogText.DOKill();
             dialogText.text = string.Empty;
             if (IsSkip)
             {
                 dialogText.text = chatData.text;
-                _index++;
+                mIndex++;
             }
             else
             {
-                flag = true;
-                dialogText.DOText(chatData.text, charSpeed * chatData.text.Length, true).OnComplete(() =>
+                if (DOTween.IsTweening(dialogText))
                 {
-                    flag = false;
-                    _index++;
-                });
+                    dialogText.text = chatData.text;
+                }
+                else
+                {
+                    dialogText.DOText(chatData.text, charSpeed * chatData.text.Length, true);
+                    SkipSpeed = charSpeed * (chatData.text.Length) + 0.1f;
+                }
             }
 
             SkipSpeed = charSpeed * chatData.text.Length;
 
             AddMemoryItem(chatData);
 
-            for (int i = 0; i < chatData.eventDatas.Count; i++)
-            {
-                GameEntry.Utils.RunEvent(chatData.eventDatas[i]);
-            }
+            GameEntry.Utils.RunEvent(chatData.eventDatas);
             //角色控制
         }
         else
         {
-            if (NextNode(chatNode, string.Format("chatDatas {0}", _index-1)))
-                return;
-            //播放完毕
-            nameText.text = string.Empty;
-            dialogText.text = string.Empty;
-            _index = 0;
-            m_Dialogue = null;
-            m_Node = null;
-            if (OnComplete != null)
-                OnComplete();
-            OnComplete = null;
+            NextNode(chatNode, string.Format("chatDatas {0}", mIndex - 1));
         }
     }
     private bool NextNode(Node node, string nodeName)
@@ -258,82 +240,49 @@ public class DialogBox : MonoBehaviour
                 switch (nextNode.GetType().ToString())
                 {
                     case "ChatNode":
-                        m_Node = nextNode;
+                        mNode = nextNode;
                         chatTag = ChatTag.Chat;
                         break;
                     case "OptionNode":
-                        m_Node = nextNode;
+                        mNode = nextNode;
                         chatTag = ChatTag.Option;
                         break;
                     case "TriggerNode":
-                        m_Node = nextNode;
+                        mNode = nextNode;
                         chatTag = ChatTag.Trigger;
                         break;
                 }
-                _index = 0;
+                mIndex = 0;
                 Next();
                 return true;
             }
         }
+        if (OnComplete != null)
+            OnComplete();
+        OnComplete = null;
+        //播放完毕
+        nameText.text = string.Empty;
+        dialogText.text = string.Empty;
+        mIndex = 0;
+        mDialogue = null;
+        mNode = null;
         return false;
-    }
-    public void SetDialog(ChatNode chatNode, Action action)
-    {
-        OnComplete = null;
-        SetComplete(action);
-        SetDialog(chatNode);
-    }
-    public void SetDialog(DialogueGraph dialogueGraph, Action action)
-    {
-        OnComplete = null;
-        SetComplete(action);
-        SetDialog(dialogueGraph);
-    }
-    public void SetDialog(ChatNode chatNode)
-    {
-        IsSkip = false;
-        OnComplete = null;
-        _index = 0;
-        m_Node = chatNode;
-        chatTag = ChatTag.Chat;
-        Next();
     }
     public void SetDialog(DialogueGraph graph)
     {
         IsSkip = false;
         OnComplete = null;
-        m_Dialogue = graph;
-        _index = 0;
-        foreach (Node node in m_Dialogue.nodes)
-        {
-            if (node.GetType().ToString() == "StartNode")
-            {
-                m_Node = node;
-                chatTag = ChatTag.Start;
-            }
-        }
+        mDialogue = graph;
+        mIndex = 0;
+        mNode = graph.GetStartNode();
+        chatTag = ChatTag.Start;
         Next();
     }
     public void SetComplete(Action action)
     { 
         OnComplete=action;
     }
-    private void Option_Onclick(object sender, EventArgs e)
-    {
-        OptionData optionData = (OptionData)sender;
-        if (optionData == null)
-            return;
-        optionFlag = false;
-        ClearButtons();
-        foreach (EventData eventData in optionData.eventDatas)
-        {
-            GameEntry.Utils.RunEvent(eventData);
-        }
-        OptionNode optionNode = (OptionNode)m_Node;
-        NextNode(m_Node, string.Format("optionDatas {0}", optionNode.optionDatas.IndexOf(optionData)));
-        AddMemoryItem(optionNode.optionDatas, optionData);
-    }
-
+    //回想
     private void AddMemoryItem(ChatData chatData)
     {
         GameObject go = Instantiate(memoryPre, memoryCanvas);

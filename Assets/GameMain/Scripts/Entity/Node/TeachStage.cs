@@ -41,9 +41,4 @@ public class TeachStage : BaseStage
     {
         
     }
-
-    public override void SetBackground(string path)
-    {
-        
-    }
 }
