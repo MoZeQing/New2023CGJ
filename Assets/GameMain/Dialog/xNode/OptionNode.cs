@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using XNode;
+using Dialog;
 
 [NodeWidth(400)]
 public class OptionNode : Node {
@@ -22,13 +23,4 @@ public class OptionNode : Node {
 	public override object GetValue(NodePort port) {
 		return null; // Replace this
 	}
-}
-
-[Serializable]
-public class OptionData
-{
-	public ParentTrigger trigger;
-	[TextArea]
-	public string text;
-	public List<EventData> eventDatas = new List<EventData>();
 }

@@ -11,6 +11,7 @@ using GameMain;
 using DG.Tweening;
 using System.Runtime.InteropServices;
 using UnityEngine.SocialPlatforms.Impl;
+using Dialog;
 
 namespace GameMain
 {
@@ -30,7 +31,9 @@ namespace GameMain
         public void SetData(DialogueGraph dialogue)
         {
             dialogueGraph= dialogue;
-            mDialogBox.SetDialog(dialogueGraph);
+            XNodeSerializeHelper helper=new XNodeSerializeHelper();
+            DialogData dialogData = new DialogData(helper, dialogue);
+            mDialogBox.SetDialog(dialogData);
             mDialogBox.SetComplete(CloseForm);
         }
         private void OnComplete()

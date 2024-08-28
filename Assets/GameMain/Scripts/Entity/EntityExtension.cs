@@ -15,11 +15,6 @@ namespace GameMain
         // 正值用于和服务器通信的实体（如玩家角色、NPC、怪等，服务器只产生正值）
         // 负值用于本地生成的临时实体（如特效、FakeObject等）
         private static int s_SerialId = 0;
-
-        public static void ShowCharacter(this EntityComponent entityComponent, CharacterData data)
-        {
-            entityComponent.ShowEntity(typeof(BaseCharacter), "Dialog", 90, data);
-        }
         public static void ShowNode(this EntityComponent entityComponent, NodeData data)
         {
             entityComponent.ShowEntity(typeof(BaseNode), "Coffee", 90, data);

@@ -217,7 +217,6 @@ namespace GameMain
                 dialogBox.gameObject.SetActive(false);
                 leftCanvas.gameObject.SetActive(true);
                 rightCanvas.gameObject.SetActive(true);
-                stage.ShowDiff(DialogPos.Middle, DiffTag.MoRen);
                 ShowButtons();
             }
         }

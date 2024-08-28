@@ -37,11 +37,6 @@ namespace GameMain
         {
             GameEntry.Utils.ClearFriendFavor();
             CharSO[] charSOs = Resources.LoadAll<CharSO>("CharData");
-            for (int i = 0; i < charSOs.Length; i++)
-                if (charSOs[i].friend)
-                    GameEntry.Utils.chars.Add(charSOs[i].name, charSOs[i]);
-
-
         }
 
         /// <summary>
@@ -71,9 +66,6 @@ namespace GameMain
             GameEntry.Player.AddPlayerItem(new ItemData(ItemTag.Kettle), 1, true);
             GameEntry.Player.AddPlayerItem(new ItemData(ItemTag.Stirrer), 1, true);
             GameEntry.Player.AddPlayerItem(new ItemData((ItemTag)closet), 1, true);
-
-            foreach (KeyValuePair<string, CharSO> pair in GameEntry.Utils.chars)
-                GameEntry.Utils.AddFriendFavor(pair.Value.name, pair.Value.favor);
 
             GameEntry.Event.FireNow(this, GameStateEventArgs.Create(gameState));
 

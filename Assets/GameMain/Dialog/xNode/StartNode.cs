@@ -1,11 +1,13 @@
-﻿using System.Collections;
+﻿using Dialog;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using XNode;
 
 public class StartNode : Node {
 
-	[Output] public float start; 
+	[Output] public float start;
+	public StartData startData;
 	// Use this for initialization
 	protected override void Init() {
 		base.Init();

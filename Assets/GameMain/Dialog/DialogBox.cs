@@ -1,113 +1,51 @@
-using DG.Tweening;
 using GameMain;
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using XNode;
+using DG.Tweening;
+using XNode.Examples.LogicToy;
+using System.Runtime.InteropServices.ComTypes;
+using Dialog;
 
 public class DialogBox : MonoBehaviour
 {
-    [Header("图片")]
-    [SerializeField] private Sprite autoSpr1;
-    [SerializeField] private Sprite autoSpr2;
-    [SerializeField] private Sprite skipSpr1;
-    [SerializeField] private Sprite skipSpr2;
-    [Header("锚点")]
-    [SerializeField] private Transform memoryPlane;
-    [SerializeField] private Transform memoryCanvas;
-    [SerializeField] private BaseStage stage;
+    [SerializeField] protected BaseStage stage;
     [Header("UI对话区域")]
-    [SerializeField] private Button skipBtn;
-    [SerializeField] private Button autoBtn;
-    [SerializeField] private Button memoryBtn;
-    [SerializeField] private Button exitMemoryBtn;
-    [SerializeField] private Button dialogBtn;
-    [SerializeField] private Text dialogText;
-    [SerializeField] private Text nameText;
-    [SerializeField] private Transform optionCanvas;
-    [SerializeField] private GameObject btnPre;
-    [SerializeField] private GameObject memoryPre;
-    [Range(0.01f,0.1f)]
-    [SerializeField] private float charSpeed=0.05f;
+    [SerializeField] protected Button dialogBtn;
+    [SerializeField] protected Text dialogText;
+    [SerializeField] protected Text nameText;
+    [SerializeField] protected Transform optionCanvas;
+    [SerializeField] protected GameObject btnPre;
+    [Range(0.01f,0.5f)]
+    [SerializeField] protected float charSpeed=0.05f;
 
-    private int mIndex;
-    private DialogueGraph mDialogue = null;
-    private ChatTag chatTag;
-    private Node mNode = null;
-    private List<GameObject> m_Btns = new List<GameObject>();
-    private Action OnComplete;
+    protected DialogData m_DialogData = null;
+    protected BaseData m_Data = null;
 
-    private bool optionFlag;
-    //规定一个最小的动画效果
+    protected ChatTag mChatTag;
+    protected int mIndex;
 
-    private bool mIsAuto = false;
-    private bool mIsSkip = false;
+    protected bool optionFlag;
+    protected List<GameObject> m_Btns = new List<GameObject>();
 
-    public bool IsAuto 
-    { 
-        get
-        {
-            return mIsAuto;
-        }
-        set
-        {
-            if (mIsSkip)
-            {
-                IsSkip = false;
-            }
-            mIsAuto = value;
-            autoBtn.GetComponent<Image>().sprite = mIsAuto ? autoSpr1 : autoSpr2;
-        }
-    }
-    public bool IsSkip 
-    { 
-        get 
-        {
-            return mIsSkip;
-        } 
-        set 
-        { 
-            if (mIsAuto)
-            { 
-                IsAuto= false;
-            }
-            mIsSkip = value;
-            skipBtn.GetComponent<Image>().sprite = mIsSkip ? skipSpr1: skipSpr2;
-        } 
-    }
-    public bool IsMemory { get; set; } = false;
+    protected Action OnComplete;
+
+    public bool IsSkip { get; set; } = false;
+    public bool IsNext { get; set; } = true;
     private void Start()
     {
-        skipBtn.onClick.AddListener(() => IsSkip = !IsSkip);
-        autoBtn.onClick.AddListener(() => IsAuto = !IsAuto);
         dialogBtn.onClick.AddListener(Next);
-        memoryBtn.onClick.AddListener(ShowMemoryPlane);
-        exitMemoryBtn.onClick.AddListener(ExitMemoryPlane);
-        charSpeed = GameEntry.Utils.Word;
-        //测试
-        charSpeed = 0.1f;
     }
 
-    private void OnDestroy()
-    {
-        skipBtn.onClick.RemoveAllListeners();
-        autoBtn.onClick.RemoveAllListeners();
-        dialogBtn.onClick.RemoveAllListeners();
-        memoryBtn.onClick.RemoveAllListeners();
-        exitMemoryBtn.onClick.RemoveAllListeners();
-    }
-
-    private float _time = 0f;
+    protected float _time = 0f;
     public float SkipSpeed { get; set; } = 0.05f;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftControl))
-            IsSkip = true;
-        if(Input.GetKeyUp(KeyCode.LeftControl))
-            IsSkip= false;
+        IsSkip = Input.GetKey(KeyCode.LeftControl);
         _time += Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
             Next();
@@ -119,39 +57,6 @@ public class DialogBox : MonoBehaviour
                 _time = 0;
             }
         }
-        if (IsAuto)
-        {
-            if (_time > SkipSpeed+1f)
-            {
-                Next();
-                _time = 0;
-            }
-        }
-    }
-    public void ShowButtons(List<OptionData> options)
-    {
-        if (optionFlag) 
-            return;
-        optionFlag = true;
-        ClearButtons();
-        foreach (OptionData option in options)
-        {
-            GameObject go = GameObject.Instantiate(btnPre, optionCanvas);
-            go.GetComponent<OptionItem>().OnInit(option, Option_Onclick);
-            m_Btns.Add(go);
-        }
-    }
-    private void Option_Onclick(object sender, EventArgs e)
-    {
-        OptionData optionData = (OptionData)sender;
-        if (optionData == null)
-            return;
-        optionFlag = false;
-        ClearButtons();
-        GameEntry.Utils.RunEvent(optionData.eventDatas);
-        OptionNode optionNode = (OptionNode)mNode;
-        NextNode(mNode, string.Format("optionDatas {0}", optionNode.optionDatas.IndexOf(optionData)));
-        AddMemoryItem(optionNode.optionDatas, optionData);
     }
     public void ClearButtons()
     {
@@ -161,158 +66,110 @@ public class DialogBox : MonoBehaviour
         }
         m_Btns.Clear();
     }
-    public void Next()
+    protected virtual void Option_Onclick(object sender, EventArgs e)
     {
-        if (IsMemory)
+        BaseData optionData = sender as BaseData;
+        if (optionData == null)
             return;
-        if (mNode == null)
+        optionFlag = false;
+        ClearButtons();
+        m_Data = optionData;
+        Next();
+    }
+    protected virtual void Next()
+    {
+        if (optionFlag)
             return;
-        switch (chatTag)
+        if (IsNext == false)
+            return;
+        if (m_Data == null)
+            return;
+        if (m_Data.After.Count != 0)
         {
-            case ChatTag.Start:
-                StartNode startNode = (StartNode)mNode;
-                Next(startNode);
-                break;
-            case ChatTag.Chat:
-                ChatNode chatNode = (ChatNode)mNode;
-                Next(chatNode);
-                break;
-            case ChatTag.Option:
-                OptionNode optionNode = (OptionNode)mNode;
-                ShowButtons(optionNode.optionDatas);
-                break;
-        }
-    }
-    private void Next(StartNode startNode)
-    {
-        NextNode(startNode, "start");
-    }
-    private void Next(ChatNode chatNode)
-    {
-        if (mIndex < chatNode.chatDatas.Count)
-        {
-            ChatData chatData = chatNode.chatDatas[mIndex];
-            //角色控制
-
-            stage.ShowCharacter(chatData);
-            stage.SetBackground(chatData.background);
-
-            nameText.text = chatData.charName == "0" ? string.Empty : chatData.charName;
-            if (IsSkip)
+            foreach (BaseData after in m_Data.After)
             {
-                dialogText.text = chatData.text;
-                mIndex++;
-            }
-            else
-            {
-                if (DOTween.IsTweening(dialogText))
+                string dialogTag = after.GetType().Name;
+                switch (dialogTag)
                 {
-                    dialogText.DOKill();
-                    dialogText.text = string.Empty;
-                    dialogText.text = chatData.text;
-                    mIndex++;
-                }
-                else
-                {
-                    dialogText.DOKill();
-                    dialogText.text = string.Empty;
-                    dialogText.DOText(chatData.text, charSpeed * chatData.text.Length, true).OnComplete(()=>mIndex++);
-                    SkipSpeed = charSpeed * (chatData.text.Length) + 0.1f;
+                    case "StartData":
+                        StartData startData = (StartData)after;
+                        InitDailog(startData);
+                        break;
+                    case "ChatData":
+                        ChatData chatData = (ChatData)after;
+                        ShowChat(chatData);
+                        break;
+                    case "OptionData":
+                        OptionData optionData = (OptionData)after;
+                        ShowOption(optionData);
+                        break;
                 }
             }
-
-            SkipSpeed = charSpeed * chatData.text.Length;
-
-            AddMemoryItem(chatData);
-
-            GameEntry.Utils.RunEvent(chatData.eventDatas);
-            //角色控制
         }
         else
         {
-            NextNode(chatNode, string.Format("chatDatas {0}", mIndex - 1));
+            ClearButtons();
+            nameText.text = string.Empty;
+            dialogText.text = string.Empty;
+            mIndex = 0;
+            m_DialogData = null;
+            m_Data = null;
+            if (OnComplete != null)
+                OnComplete();
+            OnComplete = null;
         }
     }
-    private bool NextNode(Node node, string nodeName)
+    protected virtual void InitDailog(StartData startData)
     {
-        //如果没有中途跳转
-        if (node.GetPort(nodeName) != null)
-        {
-            NodePort nodePort = node.GetPort(nodeName);
-            if (nodePort.Connection != null)
-            {
-                Node nextNode = nodePort.Connection.node;
-                switch (nextNode.GetType().ToString())
-                {
-                    case "ChatNode":
-                        mNode = nextNode;
-                        chatTag = ChatTag.Chat;
-                        break;
-                    case "OptionNode":
-                        mNode = nextNode;
-                        chatTag = ChatTag.Option;
-                        break;
-                }
-                mIndex = 0;
-                Next();
-                return true;
-            }
-        }
-        if (OnComplete != null)
-            OnComplete();
-        OnComplete = null;
-        //播放完毕
-        nameText.text = string.Empty;
-        dialogText.text = string.Empty;
-        mIndex = 0;
-        mDialogue = null;
-        mNode = null;
-        return false;
+        Next();
     }
-    public void SetDialog(DialogueGraph graph)
+    protected virtual void ShowOption(OptionData optionData)
+    {
+        optionFlag = true;
+        GameObject go = GameObject.Instantiate(btnPre, optionCanvas);
+        go.GetComponent<OptionItem>().OnInit(optionData, Option_Onclick);
+        m_Btns.Add(go);
+    }
+    protected virtual void ShowChat(ChatData chatData)
+    {
+        stage.ShowCharacter(chatData);
+        stage.SetBackground(chatData.background);
+        nameText.text = chatData.charName == "0" ? string.Empty : chatData.charName;
+
+        if (DOTween.IsTweening(dialogText))
+        {
+            dialogText.DOKill();
+            dialogText.text = string.Empty;
+            dialogText.text = chatData.text;
+            m_Data = chatData;
+        }
+        else
+        {
+            dialogText.DOKill();
+            dialogText.text = string.Empty;
+            dialogText.DOText(chatData.text, charSpeed * chatData.text.Length, true).OnComplete(() => m_Data = chatData);
+            SkipSpeed = charSpeed * (chatData.text.Length) + 0.1f;
+        }
+
+        GameEntry.Utils.RunEvent(chatData.eventData);
+    }
+    public virtual void SetDialog(DialogueGraph dialogueGraph)
+    {
+        XNodeSerializeHelper helper = new XNodeSerializeHelper();
+        DialogData dialogData = new DialogData(helper, dialogueGraph);
+        SetDialog(dialogData);
+    }
+    public virtual void SetDialog(DialogData dialogData)
     {
         IsSkip = false;
         OnComplete = null;
-        mDialogue = graph;
+        m_DialogData = dialogData;
+        m_Data = dialogData.GetStartData();
         mIndex = 0;
-        mNode = graph.GetStartNode();
-        chatTag = ChatTag.Start;
         Next();
     }
-    public void SetComplete(Action action)
+    public virtual void SetComplete(Action action)
     { 
         OnComplete=action;
-    }
-    //回想
-    private void AddMemoryItem(ChatData chatData)
-    {
-        GameObject go = Instantiate(memoryPre, memoryCanvas);
-        MemoryItem memoryItem=go.GetComponent<MemoryItem>();
-        memoryItem.SetData(chatData);
-    }
-
-    private void AddMemoryItem(List<OptionData> optionDatas,OptionData index)
-    {
-        GameObject go = Instantiate(memoryPre, memoryCanvas);
-        MemoryItem memoryItem = go.GetComponent<MemoryItem>();
-        memoryItem.SetData(optionDatas,index);
-    }
-
-    private void ShowMemoryPlane()
-    {
-        IsMemory = true;
-        memoryPlane.gameObject.SetActive(true);
-        memoryPlane.transform.localPosition = Vector3.down * 1080f;
-        memoryPlane.transform.DOLocalMoveY(0f, 0.5f).SetEase(Ease.OutExpo);
-    }
-
-    private void ExitMemoryPlane()
-    {
-        IsMemory = false;
-        memoryPlane.transform.localPosition = Vector3.zero;
-        memoryPlane.transform.DOLocalMoveY(-1080f, 0.5f).SetEase(Ease.OutExpo).OnComplete(()=>
-        {
-            memoryPlane.gameObject.SetActive(false);
-        });
     }
 }

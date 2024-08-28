@@ -207,6 +207,13 @@ public class EventData
     { 
         this.eventTag= eventTag;
     }
+    public override string ToString()
+    { 
+        string ans=eventTag.ToString();
+        for(int i=0;i<values.Length;i++)
+            ans += $" {values[i]}";
+        return ans;
+    }
 }
 [System.Serializable]
 public enum TriggerTag

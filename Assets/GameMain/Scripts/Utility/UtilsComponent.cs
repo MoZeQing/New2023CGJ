@@ -220,13 +220,20 @@ namespace GameMain
                 mUtilsData.values[valueTag] = value;
             }
         }
-        public bool RunEvent(string text)
+        public void RunEvent(string[] consoles)
         {
-            string[] console = text.Split(' ');
-            EventTag eventTag = (EventTag)Enum.Parse(typeof(EventTag), console[0]);
+            foreach (string console in consoles)
+            { 
+                RunEvent(console);
+            }
+        }
+        public bool RunEvent(string consoleStr)
+        {
+            string[] consoleStrs = consoleStr.Split(' ');
+            EventTag eventTag = (EventTag)Enum.Parse(typeof(EventTag), consoleStrs[0]);
             EventData eventData=new EventData(eventTag);
             {
-                eventData.values = console;
+                eventData.values = consoleStrs;
             }
             return RunEvent(eventData);
         }

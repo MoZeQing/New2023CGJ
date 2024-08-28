@@ -57,8 +57,8 @@ namespace GameMain
             //չʾ
             friendIcon.sprite = charSO.sprite;
             friendNameText.text = charSO.charName;
-            friendTextText.text = charSO.text;
             DRNode dRNode =GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)charSO.favorCoffee);
+            friendTextText.text = charSO.text;
             coffeeIcon.sprite = Resources.Load<Sprite>(dRNode.MaterialPath);
             //progress.fillAmount = friendFavor / 100f;
 

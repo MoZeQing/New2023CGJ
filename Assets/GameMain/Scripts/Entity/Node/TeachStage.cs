@@ -5,38 +5,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityGameFramework.Runtime;
+using Dialog;
 
 public class TeachStage : BaseStage
 {
     [SerializeField] protected BaseCharacter baseCharacter;
 
     private CharSO charSO=null;
-    protected override void ShowCharacter(CharData left, CharData middle, CharData right)
-    {
-
-    }
-
-    protected override void ShowCharacter(CharData charData, GameMain.DialogPos pos)
-    {
-
-    }
 
     public override void ShowCharacter(ChatData chatData)
     {
-        if (chatData.middle.charSO != null&&charSO==null)
+        if (chatData.middleAction.charSO != null&&charSO==null)
         {
-            baseCharacter.SetData(chatData.middle.charSO);
-            charSO = chatData.middle.charSO;
+            baseCharacter.SetData(chatData.middleAction.charSO);
+            charSO = chatData.middleAction.charSO;
         }
-        baseCharacter.SetAction(chatData.middle.actionTag);
-        baseCharacter.SetDiff(chatData.middle.diffTag);
-    }
-    public override void ShowDiff(DialogPos pos, DiffTag diffTag)
-    {
-        if (baseCharacter != null)
-        {
-            baseCharacter.SetDiff(diffTag);
-        }
+        baseCharacter.SetAction(chatData.middleAction.actionTag);
+        baseCharacter.SetDiff(chatData.middleAction.diffTag);
     }
     public override void SetBackground(Sprite sprite)
     {

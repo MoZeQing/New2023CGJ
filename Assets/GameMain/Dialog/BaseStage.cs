@@ -4,21 +4,26 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices.ComTypes;
 using UnityEngine;
 using UnityEngine.UI;
+using Dialog;
 using DG.Tweening;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup;
 
 public class BaseStage : MonoBehaviour
 {
-    [SerializeField] protected bool IsWorld; 
-
     [SerializeField] protected Image mBG;
-    [SerializeField] protected Image mMaskBG;
     [SerializeField] protected Transform mCanvas;
     [SerializeField] protected GameObject mCharacter;
     [SerializeField] protected List<Transform> mPositions = new List<Transform>();
-    [SerializeField] protected List<BaseCharacter> mChars = new List<BaseCharacter>();
+    protected List<BaseCharacter> mChars = new List<BaseCharacter>();
     protected Dictionary<CharSO, BaseCharacter> mCharChace = new Dictionary<CharSO, BaseCharacter>();
-    //缓存区
 
+    private void Awake()
+    {
+        for (int i = 0; i < mPositions.Count; i++)
+        {
+            mChars.Add(null);//忽略初始化项目
+        }
+    }
     /// <summary>
     /// 设置位置
     /// </summary>
@@ -31,14 +36,12 @@ public class BaseStage : MonoBehaviour
             if (i == (int)dialogPos)
             {
                 if (mChars[i] != baseCharacter && mChars[i]!=null)
-                    mChars[i].gameObject.SetActive(false);
+                    mChars[i].Hide();
                 if (mChars[i] == baseCharacter)
                     continue;
                 mChars[i] = baseCharacter;
-                Vector3 offset = mChars[i].mCharSO.offset;
-                if (IsWorld) offset /= 100;
-                mChars[i].transform.position = mPositions[(int)dialogPos].transform.position+ offset;
-                mChars[i].gameObject.SetActive(true);
+                Vector3 offset = mChars[i].CharSO.offset;
+                mChars[i].transform.DOMove(mPositions[(int)dialogPos].transform.position + offset, 0.5f);
             }
             else
             {
@@ -49,21 +52,37 @@ public class BaseStage : MonoBehaviour
     }
     public virtual void ShowCharacter(ChatData chatData)
     {
-        ShowCharacter(chatData.left, chatData.middle, chatData.right);
+        ShowCharacter(chatData.leftAction, chatData.middleAction, chatData.rightAction);
+        HighLightCharacter(chatData.chatPos);
     }
-    protected virtual void ShowCharacter(CharData left, CharData middle, CharData right)
+    protected virtual void ShowCharacter(ActionData left, ActionData middle, ActionData right)
     {
         ShowCharacter(left, DialogPos.Left);
         ShowCharacter(middle, DialogPos.Middle);
         ShowCharacter(right, DialogPos.Right);
     }
-    protected virtual void ShowCharacter(CharData charData,DialogPos pos)
+    protected virtual void HighLightCharacter(DialogPos dialogPos)
     {
-        CharSO charSO = charData.charSO;
+        if(dialogPos == DialogPos.None) return;
+        for (int i = 0; i < mChars.Count; i++)
+        {
+            if (i == (int)dialogPos||dialogPos==DialogPos.All)
+            {
+                mChars[i]?.MainShow();
+            }
+            else
+            {
+                mChars[i]?.SubShow();
+            }
+        }
+    }
+    protected virtual void ShowCharacter(ActionData actionData, DialogPos pos)
+    {
+        CharSO charSO=actionData.charSO;
         if (charSO == null)
         {
-            if (mChars[(int)pos]!=null)
-                mChars[(int)pos].gameObject.SetActive(false);
+            if (mChars[(int)pos] != null)
+                mChars[(int)pos].Hide();
             mChars[(int)pos] = null;
             return;
         }
@@ -72,32 +91,29 @@ public class BaseStage : MonoBehaviour
             GameObject charObj = BaseCharacter.Instantiate(mCharacter, mCanvas);
             BaseCharacter baseCharacter = charObj.GetComponent<BaseCharacter>();
             baseCharacter.SetData(charSO);
+            Vector3 offset = baseCharacter.CharSO.offset;
+            baseCharacter.transform.position = mPositions[(int)pos].transform.position + offset;
             mCharChace.Add(charSO, baseCharacter);
             baseCharacter.transform.localScale *= charSO.scale;
         }
         SetDialogPos(mCharChace[charSO], pos);
-        mCharChace[charSO].SetDiff(charData.diffTag);
-        mCharChace[charSO].SetAction(charData.actionTag);
+        mChars[(int)pos].SetAction(actionData.actionTag);
+        mChars[(int)pos].SetDiff(actionData.diffTag);
         mChars[(int)pos] = mCharChace[charSO];
         //生成
     }
-    public virtual void ShowDiff(DialogPos pos, DiffTag diffTag)
-    {
-        if (mChars[(int)pos] != null)
-        {
-            mChars[(int)pos].SetDiff(diffTag);
-        }
-    }
-    public virtual void SetBackground(Sprite background)
-    {
-        if (background == null)
-            return;
-        if (background == mBG.sprite)
-            return;
-        mMaskBG.gameObject.SetActive(true);
-        mMaskBG.sprite = mBG.sprite;
-        mBG.sprite = background;
-        mMaskBG.color = Color.white;
-        mMaskBG.DOColor(Color.clear, 1f).OnComplete(()=>mMaskBG.gameObject.SetActive(false));
+    public virtual void SetBackground(Sprite sprite)
+    { 
+        if(sprite!=null)
+            mBG.sprite = sprite;
     }   
+}
+
+public enum DialogPos
+{
+    Left = 0,//左侧
+    Middle = 1,//中间
+    Right = 2,//两边
+    All=3,
+    None=4
 }
