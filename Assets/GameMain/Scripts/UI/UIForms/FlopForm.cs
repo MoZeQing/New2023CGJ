@@ -27,7 +27,7 @@ namespace GameMain
         private float timer;
         [SerializeField] private Text showTime;
 
-        [SerializeField] private CharData charData;
+        [SerializeField] private CatData charData;
         [SerializeField] private PlayerData playerData;
 
         private Action mAction;

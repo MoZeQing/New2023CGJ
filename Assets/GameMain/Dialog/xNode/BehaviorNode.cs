@@ -13,7 +13,7 @@ namespace GameMain
 		[SerializeField, Output(dynamicPortList = true)]
 		private List<BehaviorTag> behaviors = new List<BehaviorTag>();
 		[SerializeField]
-		private CharData charData;
+		private CatData charData;
 
 		protected override void Init()
 		{

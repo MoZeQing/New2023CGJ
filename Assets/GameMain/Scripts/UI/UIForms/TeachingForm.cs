@@ -234,7 +234,7 @@ namespace GameMain
         private void CharDataEvent(object sender, GameEventArgs e) 
         { 
             CharDataEventArgs charDataEvent= (CharDataEventArgs)e;
-            CharData charData=charDataEvent.CharData;
+            CatData charData=charDataEvent.CharData;
             favorText.text = charData.favor.ToString();
             staminaText.text = charData.stamina.ToString();
             wisdomText.text = charData.wisdom.ToString();

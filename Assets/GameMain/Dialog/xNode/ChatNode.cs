@@ -207,7 +207,9 @@ public class CharData
     [SerializeField]
     public CharSO charSO;
     [SerializeField]
-    public ActionData actionData;
+    public ActionTag actionTag = ActionTag.None;
+    [SerializeField]
+    public DiffTag diffTag = DiffTag.MoRen;
 }
 
 public enum ChatTag

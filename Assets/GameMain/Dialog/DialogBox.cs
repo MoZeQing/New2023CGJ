@@ -86,6 +86,8 @@ public class DialogBox : MonoBehaviour
         memoryBtn.onClick.AddListener(ShowMemoryPlane);
         exitMemoryBtn.onClick.AddListener(ExitMemoryPlane);
         charSpeed = GameEntry.Utils.Word;
+        //²âÊÔ
+        charSpeed = 0.1f;
     }
 
     private void OnDestroy()
@@ -196,8 +198,6 @@ public class DialogBox : MonoBehaviour
             stage.SetBackground(chatData.background);
 
             nameText.text = chatData.charName == "0" ? string.Empty : chatData.charName;
-            dialogText.DOKill();
-            dialogText.text = string.Empty;
             if (IsSkip)
             {
                 dialogText.text = chatData.text;
@@ -207,11 +207,16 @@ public class DialogBox : MonoBehaviour
             {
                 if (DOTween.IsTweening(dialogText))
                 {
+                    dialogText.DOKill();
+                    dialogText.text = string.Empty;
                     dialogText.text = chatData.text;
+                    mIndex++;
                 }
                 else
                 {
-                    dialogText.DOText(chatData.text, charSpeed * chatData.text.Length, true);
+                    dialogText.DOKill();
+                    dialogText.text = string.Empty;
+                    dialogText.DOText(chatData.text, charSpeed * chatData.text.Length, true).OnComplete(()=>mIndex++);
                     SkipSpeed = charSpeed * (chatData.text.Length) + 0.1f;
                 }
             }
@@ -246,10 +251,6 @@ public class DialogBox : MonoBehaviour
                     case "OptionNode":
                         mNode = nextNode;
                         chatTag = ChatTag.Option;
-                        break;
-                    case "TriggerNode":
-                        mNode = nextNode;
-                        chatTag = ChatTag.Trigger;
                         break;
                 }
                 mIndex = 0;

@@ -116,15 +116,6 @@ namespace GameMain
                     break;
             }
         }
-        /// <summary>
-        /// …Ë÷√∂Øª≠
-        /// </summary>
-        /// <param name="baseCharacter"></param>
-        /// <param name="actionData"></param>
-        private void SetDialogAction(BaseCharacter baseCharacter, ActionData actionData)
-        { 
-            
-        }
 
         public void ShowCharacter(ChatData chatData)
         {

@@ -29,50 +29,5 @@ namespace GameMain
         public string text;//描述
         public List<EventData> awards= new List<EventData>();//效果
     }
-    [System.Serializable]
-    public class CharData
-    {
-        public int closet;
-        public int favor;//好感度
-        public int stamina;//体能
-        public int wisdom;//智慧
-        public int charm;//魅力
-        public int StaminaLevel 
-        {
-            get
-            {
-                return Mathf.Min(stamina / 40 + 1,4);
-            }
-        }//体能
-        public int WisdomLevel
-        {
-            get
-            {
-                return Mathf.Min(wisdom / 40 + 1, 4);
-            }
-        }//智慧
-        public int CharmLevel
-        {
-            get
-            {
-                return Mathf.Min(charm / 40 + 1, 4);
-            }
-        }//魅力
-
-        public CharData() { }
-
-        public Dictionary<ValueTag, int> GetValueTag(Dictionary<ValueTag, int> dic)
-        {
-            if (favor != 0)
-                dic.Add(ValueTag.Favor, favor);
-            if (stamina != 0)
-                dic.Add(ValueTag.Stamina, stamina);
-            if (wisdom != 0)
-                dic.Add(ValueTag.Wisdom, wisdom);
-            if (charm != 0)
-                dic.Add(ValueTag.Charm, charm);
-            return dic;
-        }
-    }
 }
 

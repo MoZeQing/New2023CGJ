@@ -22,7 +22,7 @@ namespace GameMain
 
         [SerializeField] private Transform canvas;
         [SerializeField] private int totalQuery;
-        [SerializeField] private CharData charData;
+        [SerializeField] private CatData charData;
         [SerializeField] private PlayerData playerData;
 
         private Action mAction;

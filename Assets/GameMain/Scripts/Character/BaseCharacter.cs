@@ -24,7 +24,6 @@ namespace GameMain
         public Image mImage = null;
 
         private List<Sprite> mDiffs = new List<Sprite>();//²î·Ö
-        private ActionState mActionState;
 
         protected override void OnInit(object userData)
         {
@@ -47,10 +46,9 @@ namespace GameMain
         {
 
         }
-        public void SetAction(ActionData actionData)
+        public void SetAction(ActionTag actionTag)
         {
-            SetDiff(actionData.diffTag);
-            switch (actionData.actionTag)
+            switch (actionTag)
             {
                 case ActionTag.Jump:
                     JumpAction();
@@ -95,13 +93,7 @@ namespace GameMain
             mImage.gameObject.transform.DOLocalMoveX(0f, 0.3f);
         }
     }
-    [System.Serializable]
-    public class ActionData
-    {
-        public DiffTag diffTag;
-        public ActionTag actionTag;
-        public SoundTag soundTag;
-    }
+
     //²î·ÖTag
     public enum DiffTag
     {
@@ -131,11 +123,5 @@ namespace GameMain
         Jump,//ÉÏÏÂÌø¶¯
         Shake,//×óÓÒ¶¶¶¯
         Squat
-    }
-    public enum ActionState
-    {
-        Idle,//¾²Ö¹×´Ì¬
-        Click,//µã»÷×´Ì¬
-        Coffee,//¿§·È×´Ì¬
     }
 }

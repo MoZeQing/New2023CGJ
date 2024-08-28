@@ -11,7 +11,7 @@ namespace GameMain
         private List<CatStateData> catStateDatas = new List<CatStateData>();
         private CatStateData catState;
         private Dictionary<BehaviorTag, BehaviorData> behaviors = new Dictionary<BehaviorTag, BehaviorData>();
-        private CharData mCharData=new CharData();
+        private CatData mCatData=new CatData();
 
         private void Start()
         {
@@ -22,97 +22,97 @@ namespace GameMain
                 catStateDatas.Add(catStateSO.catStateData);
             }
         }
-        public CharData GetSaveData()
+        public CatData GetSaveData()
         { 
-            return mCharData;
+            return mCatData;
         }
-        public void LoadData(CharData charData)
+        public void LoadData(CatData charData)
         {
-            mCharData = charData;
+            mCatData = charData;
         }
         public int Closet
         {
             get
             {
-                return mCharData.closet;
+                return mCatData.closet;
             }
             set
             {
-                mCharData.closet = value;
-                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
+                mCatData.closet = value;
+                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCatData));
             }
         }
         public int Wisdom
         {
             get
             {
-                return mCharData.wisdom;
+                return mCatData.wisdom;
             }
             set
             {
-                mCharData.wisdom = value;
-                GameEntry.Utils.AddValue(TriggerTag.Wisdom, mCharData.wisdom.ToString());
-                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
+                mCatData.wisdom = value;
+                GameEntry.Utils.AddValue(TriggerTag.Wisdom, mCatData.wisdom.ToString());
+                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCatData));
             }
         }
         public int Charm
         {
             get
             {
-                return mCharData.charm;
+                return mCatData.charm;
             }
             set
             {
-                mCharData.charm = value;
-                GameEntry.Utils.AddValue(TriggerTag.Charm, mCharData.charm.ToString());
-                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
+                mCatData.charm = value;
+                GameEntry.Utils.AddValue(TriggerTag.Charm, mCatData.charm.ToString());
+                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCatData));
             }
         }
         public int Stamina
         {
             get
             {
-                return mCharData.stamina;
+                return mCatData.stamina;
             }
             set
             {
-                mCharData.stamina = value;
-                GameEntry.Utils.AddValue(TriggerTag.Stamina, mCharData.stamina.ToString());
-                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
+                mCatData.stamina = value;
+                GameEntry.Utils.AddValue(TriggerTag.Stamina, mCatData.stamina.ToString());
+                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCatData));
             }
         }
         public int Favor
         {
             get
             {
-                return mCharData.favor;
+                return mCatData.favor;
             }
             set
             {
-                mCharData.favor = value;
-                GameEntry.Utils.AddValue(TriggerTag.Favor, mCharData.favor.ToString());
-                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCharData));
+                mCatData.favor = value;
+                GameEntry.Utils.AddValue(TriggerTag.Favor, mCatData.favor.ToString());
+                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCatData));
             }
         }
         public int CharmLevel
         {
             get
             {
-                return mCharData.charm / 40;
+                return mCatData.charm / 40;
             }
         }
         public int WisdomLevel
         {
             get
             {
-                return mCharData.wisdom / 40;
+                return mCatData.wisdom / 40;
             }
         }
         public int StaminaLevel
         {
             get
             {
-                return mCharData.stamina / 40;
+                return mCatData.stamina / 40;
             }
         }
         public CatStateData GetCatState()
@@ -158,10 +158,54 @@ namespace GameMain
         public BehaviorTag behaviorTag;
         public string behaviorName;
         public PlayerData playerData;
-        public CharData charData;
+        public CatData charData;
         public List<DialogueGraph> dialogues;
     }
+    [System.Serializable]
+    public class CatData
+    {
+        public int closet;
+        public int favor;//好感度
+        public int stamina;//体能
+        public int wisdom;//智慧
+        public int charm;//魅力
+        public int StaminaLevel
+        {
+            get
+            {
+                return Mathf.Min(stamina / 40 + 1, 4);
+            }
+        }//体能
+        public int WisdomLevel
+        {
+            get
+            {
+                return Mathf.Min(wisdom / 40 + 1, 4);
+            }
+        }//智慧
+        public int CharmLevel
+        {
+            get
+            {
+                return Mathf.Min(charm / 40 + 1, 4);
+            }
+        }//魅力
 
+        public CatData() { }
+
+        public Dictionary<ValueTag, int> GetValueTag(Dictionary<ValueTag, int> dic)
+        {
+            if (favor != 0)
+                dic.Add(ValueTag.Favor, favor);
+            if (stamina != 0)
+                dic.Add(ValueTag.Stamina, stamina);
+            if (wisdom != 0)
+                dic.Add(ValueTag.Wisdom, wisdom);
+            if (charm != 0)
+                dic.Add(ValueTag.Charm, charm);
+            return dic;
+        }
+    }
     public enum BehaviorTag
     {
         Click,

@@ -16,7 +16,7 @@ namespace GameMain
         [SerializeField] private Button quickBtn;
         [SerializeField] private Button gameBtn;
         [SerializeField] private Transform canvas;
-        [SerializeField] private CharData charData;
+        [SerializeField] private CatData charData;
         [SerializeField] private PlayerData playerData;
         //1-3成功的剧情、4-5失败的剧情
         [SerializeField] private List<DialogueGraph> matchStories = new List<DialogueGraph>();

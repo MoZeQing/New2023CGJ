@@ -28,7 +28,8 @@ public class TeachStage : BaseStage
             baseCharacter.SetData(chatData.middle.charSO);
             charSO = chatData.middle.charSO;
         }
-        baseCharacter.SetAction(chatData.middle.actionData);
+        baseCharacter.SetAction(chatData.middle.actionTag);
+        baseCharacter.SetDiff(chatData.middle.diffTag);
     }
     public override void ShowDiff(DialogPos pos, DiffTag diffTag)
     {

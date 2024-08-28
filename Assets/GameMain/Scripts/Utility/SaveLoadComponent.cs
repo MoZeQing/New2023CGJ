@@ -177,7 +177,7 @@ namespace GameMain
     public class SaveLoadData
     {
         public string dataTime;
-        public CharData charData;
+        public CatData charData;
         public PlayerData playerData;
         public UtilsData utilsData;
         public BuffData buffData = new BuffData();

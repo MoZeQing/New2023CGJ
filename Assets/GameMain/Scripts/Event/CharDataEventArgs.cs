@@ -18,13 +18,13 @@ namespace GameMain
             }
         }
 
-        public CharData CharData
+        public CatData CharData
         {
             get;
             set;
         }
 
-        public static CharDataEventArgs Create(CharData charData)
+        public static CharDataEventArgs Create(CatData charData)
         {
             CharDataEventArgs args = ReferencePool.Acquire<CharDataEventArgs>();
             args.CharData = charData;

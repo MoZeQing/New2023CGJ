@@ -76,16 +76,10 @@ public class BaseStage : MonoBehaviour
             baseCharacter.transform.localScale *= charSO.scale;
         }
         SetDialogPos(mCharChace[charSO], pos);
-        mCharChace[charSO].SetAction(charData.actionData);
+        mCharChace[charSO].SetDiff(charData.diffTag);
+        mCharChace[charSO].SetAction(charData.actionTag);
         mChars[(int)pos] = mCharChace[charSO];
         //Éú³É
-    }
-    public virtual void ShowAction(DialogPos pos, ActionData actionData)
-    {
-        if (mChars[(int)pos] != null)
-        {
-            mChars[(int)pos].SetAction(actionData);
-        }
     }
     public virtual void ShowDiff(DialogPos pos, DiffTag diffTag)
     {

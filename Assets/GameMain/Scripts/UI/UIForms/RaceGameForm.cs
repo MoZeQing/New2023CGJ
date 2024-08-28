@@ -36,7 +36,7 @@ namespace GameMain
         private int m_playerPosition;
 
         private Action mAction;
-        [SerializeField] private CharData charData;
+        [SerializeField] private CatData charData;
         [SerializeField] private PlayerData playerData;
 
         [SerializeField] private Button startBtn;
