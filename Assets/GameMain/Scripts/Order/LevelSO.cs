@@ -18,6 +18,8 @@ public class LevelSO : ScriptableObject
     public ParentTrigger trigger;
     [SerializeField]
     public LevelData levelData;
+    [SerializeField]
+    public string text;
 
     //[MenuItem("Data/LevelToCSV")]
     //public static void StoryToCSV()
