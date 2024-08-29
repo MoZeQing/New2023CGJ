@@ -71,43 +71,4 @@ public class StorySO : ScriptableObject
     { 
         
     }
-
-    public static StringBuilder TriggerToString(Trigger trigger,StringBuilder sb,int sort)
-    {
-        if (trigger == null)
-            return sb;
-        sb.Append('\t',sort);
-        if (trigger.not)
-        {
-            if (trigger.equals)
-                sb.Append(trigger.key.ToString() + "不等于" + trigger.value.ToString());
-            else
-                sb.Append(trigger.key.ToString() + "小于" + trigger.value.ToString());
-        }
-        else
-        {
-            if (trigger.equals)
-                sb.Append(trigger.key.ToString() + "等于" + trigger.value.ToString());
-            else
-                sb.Append(trigger.key.ToString() + "大于" + trigger.value.ToString());
-        }
-        sb.Append('\n');
-        if (trigger.GetAndTrigger().Count != 0)
-        {
-            sb.Append("以下的要求全部满足:\n");
-            foreach (Trigger tr in trigger.GetAndTrigger())
-            {
-                TriggerToString(tr, sb,sort+1);
-            }
-        }
-        if (trigger.GetOrTrigger().Count != 0)
-        {
-            sb.Append("满足一下任意要求:\n");
-            foreach (Trigger tr in trigger.GetAndTrigger())
-            {
-                TriggerToString(tr, sb, sort + 1);
-            }
-        }
-        return sb;
-    }
 }

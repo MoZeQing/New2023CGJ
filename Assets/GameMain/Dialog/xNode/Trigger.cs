@@ -10,14 +10,19 @@ public class Trigger
     public bool not;//是否取反
     public bool equals;
     public string value;//至少的数值
-    public virtual List<Trigger> GetAndTrigger()
+    public virtual List<Trigger> GetTriggers()
     {
         return null;
     }
 
-    public virtual List<Trigger> GetOrTrigger()
+    public Trigger() { }
+    public Trigger(string triggerText)
     {
-        return null;
+        string[] triggers = triggerText.Split('[', ']' );
+        foreach (string trigger in triggers)
+        { 
+            
+        }
     }
 
     public string TriggerToString()
@@ -29,36 +34,45 @@ public class Trigger
     {
         if (trigger == null)
             return sb;
-        if (trigger.not)
+        if (trigger.key == TriggerTag.Or)
         {
-            if (trigger.equals)
-                sb.Append(trigger.key.ToString() + "!=" + trigger.value.ToString());
-            else
-                sb.Append(trigger.key.ToString() + "<" + trigger.value.ToString());
+            if (trigger.GetTriggers().Count != 0)
+            {
+                sb.Append("(|");
+                List<Trigger> orTriggers = trigger.GetTriggers();
+                for (int i = 0; i < orTriggers.Count; i++)
+                {
+                    TriggerToString(orTriggers[i], sb);
+                }
+                sb.Append(")");
+            }
         }
         else
         {
-            if (trigger.equals)
-                sb.Append(trigger.key.ToString() + "=" + trigger.value.ToString());
-            else
-                sb.Append(trigger.key.ToString() + ">" + trigger.value.ToString());
-        }
-        if (trigger.GetAndTrigger().Count != 0)
-        {
-            sb.Append("(");
-            foreach (Trigger tr in trigger.GetAndTrigger())
+            if (trigger.GetTriggers().Count != 0)
+                sb.Append("(&");
+            if (trigger.not)
             {
-                TriggerToString(tr, sb);
-                sb.Append("&&");
+                if (trigger.equals)
+                    sb.Append($"[{trigger.key}!={trigger.value}]");
+                else
+                    sb.Append($"[{trigger.key}<{trigger.value}]");
             }
-        }
-        if (trigger.GetOrTrigger().Count != 0)
-        {
-            sb.Append("(");
-            foreach (Trigger tr in trigger.GetAndTrigger())
+            else
             {
-                TriggerToString(tr, sb);
-                sb.Append("||");
+                if (trigger.equals)
+                    sb.Append($"[{trigger.key}={trigger.value}]");
+                else
+                    sb.Append($"[{trigger.key}>{trigger.value}]");
+            }
+            if (trigger.GetTriggers().Count != 0)
+            {
+                List<Trigger> andTriggers = trigger.GetTriggers();
+                for (int i = 0; i < andTriggers.Count; i++)
+                {
+                    TriggerToString(andTriggers[i], sb);
+                }
+                sb.Append(")");
             }
         }
         return sb;
@@ -68,23 +82,11 @@ public class Trigger
 public class ParentTrigger : Trigger
 {
     public List<FirstTrigger> and = new List<FirstTrigger>();
-    public List<FirstTrigger> or = new List<FirstTrigger>();
 
-    public override List<Trigger> GetAndTrigger()
+    public override List<Trigger> GetTriggers()
     {
         List<Trigger> ans = new List<Trigger>();
         foreach (FirstTrigger firstTrigger in and)
-        {
-            Trigger trigger = firstTrigger;
-            ans.Add(trigger);
-        }
-        return ans;
-    }
-
-    public override List<Trigger> GetOrTrigger()
-    {
-        List<Trigger> ans = new List<Trigger>();
-        foreach (FirstTrigger firstTrigger in or)
         {
             Trigger trigger = firstTrigger;
             ans.Add(trigger);
@@ -96,22 +98,10 @@ public class ParentTrigger : Trigger
 public class FirstTrigger : Trigger
 {
     public List<SceondTrigger> and = new List<SceondTrigger>();
-    public List<SceondTrigger> or=new List<SceondTrigger>();
-    public override List<Trigger> GetAndTrigger()
+    public override List<Trigger> GetTriggers()
     {
         List<Trigger> ans = new List<Trigger>();
         foreach (SceondTrigger firstTrigger in and)
-        {
-            Trigger trigger = firstTrigger;
-            ans.Add(trigger);
-        }
-        return ans;
-    }
-
-    public override List<Trigger> GetOrTrigger()
-    {
-        List<Trigger> ans = new List<Trigger>();
-        foreach (SceondTrigger firstTrigger in or)
         {
             Trigger trigger = firstTrigger;
             ans.Add(trigger);
@@ -123,22 +113,10 @@ public class FirstTrigger : Trigger
 public class SceondTrigger : Trigger
 {
     public List<ThirdTrigger> and = new List<ThirdTrigger>();
-    public List<ThirdTrigger> or = new List<ThirdTrigger>();
-    public override List<Trigger> GetAndTrigger()
+    public override List<Trigger> GetTriggers()
     {
         List<Trigger> ans = new List<Trigger>();
         foreach (ThirdTrigger firstTrigger in and)
-        {
-            Trigger trigger = firstTrigger;
-            ans.Add(trigger);
-        }
-        return ans;
-    }
-
-    public override List<Trigger> GetOrTrigger()
-    {
-        List<Trigger> ans = new List<Trigger>();
-        foreach (ThirdTrigger firstTrigger in or)
         {
             Trigger trigger = firstTrigger;
             ans.Add(trigger);
@@ -149,39 +127,7 @@ public class SceondTrigger : Trigger
 [System.Serializable]
 public class ThirdTrigger : Trigger
 {
-    public List<FourthTrigger> and = new List<FourthTrigger>();
-    public List<FourthTrigger> or = new List<FourthTrigger>();
-    public override List<Trigger> GetOrTrigger()
-    {
-        List<Trigger> ans = new List<Trigger>();
-        foreach (FourthTrigger firstTrigger in or)
-        {
-            Trigger trigger = firstTrigger;
-            ans.Add(trigger);
-        }
-        return ans;
-    }
-
-    public override List<Trigger> GetAndTrigger()
-    {
-        List<Trigger> ans = new List<Trigger>();
-        foreach (FourthTrigger firstTrigger in and)
-        {
-            Trigger trigger = firstTrigger;
-            ans.Add(trigger);
-        }
-        return ans;
-    }
-}
-[System.Serializable]
-public class FourthTrigger : Trigger
-{
-    public override List<Trigger> GetAndTrigger()
-    {
-        return new List<Trigger>();
-    }
-
-    public override List<Trigger> GetOrTrigger()
+    public override List<Trigger> GetTriggers()
     {
         return new List<Trigger>();
     }
@@ -219,6 +165,7 @@ public class EventData
 public enum TriggerTag
 {
     None,
+    Or,
     Flag,//剧情挂起
     Favor,//当前角色的好感度
     Hope,//希望

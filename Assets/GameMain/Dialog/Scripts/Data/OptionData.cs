@@ -7,6 +7,7 @@ namespace Dialog
     [System.Serializable]
     public class OptionData:BaseData
     {
+        public ParentTrigger trigger;
         public string text;
     }
 }

@@ -151,63 +151,70 @@ namespace GameMain
         {
             if (trigger == null)
                 return true;
-            if (trigger.GetAndTrigger().Count != 0)
+            if (trigger.key == TriggerTag.Or)
             {
-                foreach (Trigger tr in trigger.GetAndTrigger())
+                if (trigger.GetTriggers().Count != 0)
                 {
-                    if (!Check(tr))
+                    foreach (Trigger tr in trigger.GetTriggers())
                     {
-                        return false;
+                        if (Check(tr))
+                        {
+                            return true;
+                        }
                     }
-                }
-            }
-            if (trigger.GetOrTrigger().Count != 0)
-            {
-                foreach (Trigger tr in trigger.GetOrTrigger())
-                {
-                    if (Check(tr))
-                    {
-                        return true;
-                    }
-                }
-                return false;
-            }
-            if (trigger.key == TriggerTag.None)
-                return true;
-            if (trigger.key == TriggerTag.Flag)
-            {
-                string[] strings = trigger.value.Split('|');
-                if (!trigger.not)
-                    return CheckFlag(strings[0], int.Parse(strings[1]));
-                else
-                    return !CheckFlag(strings[0], int.Parse(strings[1]));
-            }
-            if (!mUtilsData.values.ContainsKey(trigger.key))
-                return false;
-            if (trigger.equals)
-            {
-                if (mUtilsData.values[trigger.key] == trigger.value)
-                    return true;
-                else
                     return false;
+                }
+                return true;
             }
             else
             {
-                if (trigger.not)//�ж�����
+                if (trigger.GetTriggers().Count != 0)
                 {
-                    if (int.Parse(mUtilsData.values[trigger.key]) > int.Parse(trigger.value))
-                        return false;
+                    foreach (Trigger tr in trigger.GetTriggers())
+                    {
+                        if (!Check(tr))
+                        {
+                            return false;
+                        }
+                    }
+                }
+                if (trigger.key == TriggerTag.None)
+                    return true;
+                if (trigger.key == TriggerTag.Flag)
+                {
+                    string[] strings = trigger.value.Split('|');
+                    if (!trigger.not)
+                        return CheckFlag(strings[0], int.Parse(strings[1]));
                     else
+                        return !CheckFlag(strings[0], int.Parse(strings[1]));
+                }
+                if (!mUtilsData.values.ContainsKey(trigger.key))
+                    return false;
+                if (trigger.equals)
+                {
+                    if (mUtilsData.values[trigger.key] == trigger.value)
                         return true;
+                    else
+                        return false;
                 }
                 else
                 {
-                    if (int.Parse(mUtilsData.values[trigger.key]) < int.Parse(trigger.value))
-                        return false;
+                    if (trigger.not)//�ж�����
+                    {
+                        if (int.Parse(mUtilsData.values[trigger.key]) > int.Parse(trigger.value))
+                            return false;
+                        else
+                            return true;
+                    }
                     else
-                        return true;
+                    {
+                        if (int.Parse(mUtilsData.values[trigger.key]) < int.Parse(trigger.value))
+                            return false;
+                        else
+                            return true;
+                    }
                 }
-            }
+            }            
         }
         public void AddValue(TriggerTag valueTag, string value)
         {
