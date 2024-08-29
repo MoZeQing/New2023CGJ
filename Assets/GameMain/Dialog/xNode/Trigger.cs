@@ -195,7 +195,15 @@ public class ParentTrigger : Trigger
         {
             if (triggerTexts[i] == "|")
             {
-                key = TriggerTag.Or;
+                if (key == TriggerTag.None)
+                    key = TriggerTag.Or;
+                else 
+                {
+                    FirstTrigger trigger = new FirstTrigger();
+                    trigger.key = TriggerTag.Or;
+                    i = trigger.InitTrigger(triggerTexts, i + 1);
+                    and.Add(trigger);
+                }
             }
             else if (triggerTexts[i] == "&")
             {
@@ -288,7 +296,15 @@ public class FirstTrigger : Trigger
         {
             if (triggerTexts[i] == "|")
             {
-                key = TriggerTag.Or;
+                if (key == TriggerTag.None)
+                    key = TriggerTag.Or;
+                else
+                {
+                    SceondTrigger trigger = new SceondTrigger();
+                    trigger.key = TriggerTag.Or;
+                    i = trigger.InitTrigger(triggerTexts, i + 1);
+                    and.Add(trigger);
+                }
             }
             else if (triggerTexts[i] == "&")
             {
@@ -380,7 +396,15 @@ public class SceondTrigger : Trigger
         {
             if (triggerTexts[i] == "|")
             {
-                key = TriggerTag.Or;
+                if (key == TriggerTag.None)
+                    key = TriggerTag.Or;
+                else
+                {
+                    ThirdTrigger trigger = new ThirdTrigger();
+                    trigger.key = TriggerTag.Or;
+                    i = trigger.InitTrigger(triggerTexts, i + 1);
+                    and.Add(trigger);
+                }
             }
             else if (triggerTexts[i] == "&")
             {
