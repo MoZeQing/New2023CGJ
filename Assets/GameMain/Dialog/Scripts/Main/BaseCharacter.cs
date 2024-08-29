@@ -1,11 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using XNode;
 using DG.Tweening;
 
 public class BaseCharacter :MonoBehaviour
@@ -53,28 +50,31 @@ public class BaseCharacter :MonoBehaviour
     //入场动画
     public void Show()
     {
+        if (CharacterTag == CharacterTag.Show)
+            return;
         CharacterTag = CharacterTag.Show;
         mImage.color = Color.gray;
         mImage.DOKill();
-        mImage.DOColor(Color.white, 0.3f);
-        mImage.gameObject.transform.localPosition += Vector3.right * 100f;
-        mImage.gameObject.transform.DOLocalMoveX(0f, 0.3f);
+        mImage.DOColor(Color.white, 0.5f);
     }
 
     public void Hide()
     {
+        if (CharacterTag == CharacterTag.Hide)
+            return;
         CharacterTag = CharacterTag.Hide;
         mImage.DOKill();
         //淡出
-        mImage.DOFade(0, 0.3f);
-        mImage.gameObject.transform.DOLocalMoveX(0, 0.3f);
+        mImage.DOColor(Color.clear, 0.5f);
+        mImage.gameObject.transform.DOLocalMoveX(0, 0.5f);
+        mImage.gameObject.transform.localScale = Vector3.one;
+        mImage.canvas.sortingOrder = 1;
     }
 
     public void MainShow()
     {
         mImage.DOKill();
-        //主要角色亮起且稍稍变大，为什么现在没有DOScale直接调整啊？？？
-        mImage.DOColor(Color.white, 0.3f);
+        mImage.DOColor(Color.white, 0.5f);
         mImage.gameObject.transform.DOScale(1.05f, 0.3f);
         mImage.canvas.sortingOrder = 2;
     }
@@ -82,7 +82,6 @@ public class BaseCharacter :MonoBehaviour
     public void SubShow()
     {
         mImage.DOKill();
-        //非主要角色变灰
         mImage.DOColor(Color.grey, 0.3f);
         mImage.gameObject.transform.DOScale(1f, 0.3f);
         mImage.canvas.sortingOrder = 1;
@@ -90,6 +89,7 @@ public class BaseCharacter :MonoBehaviour
 }
 public enum CharacterTag
 { 
+    None,
     Show,
     Hide
 }

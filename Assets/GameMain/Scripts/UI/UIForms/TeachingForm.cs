@@ -39,7 +39,7 @@ namespace GameMain
         private CatStateData mCatStateData = null; 
         private BehaviorTag mBehaviorTag;
         private ProcedureMain mProcedureMain = null;
-        private bool InDialog;
+        public bool InDialog { get; set; }
         //Dialog区域
         private List<GameObject> m_Btns = new List<GameObject>();
 

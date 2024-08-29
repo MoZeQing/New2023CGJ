@@ -50,9 +50,42 @@ public class BaseStage : MonoBehaviour
             }
         }
     }
+    protected virtual void SetDialogPos(ChatData chatData)
+    {
+        List<BaseCharacter> newChars = new List<BaseCharacter>
+        {
+            chatData.leftAction.charSO!=null?mCharChace[chatData.leftAction.charSO]:null,
+            chatData.middleAction.charSO!=null?mCharChace[chatData.middleAction.charSO]:null,
+            chatData.rightAction.charSO!=null?mCharChace[chatData.rightAction.charSO]:null
+        };
+        foreach (BaseCharacter character in mCharChace.Values)
+        {
+            if (newChars.Contains(character))
+            {
+                Vector3? offset = character.CharSO.offset;
+                if (character.CharacterTag == CharacterTag.Hide)
+                    character.transform.position = mPositions[(int)newChars.IndexOf(character)].transform.position + (Vector3)offset;
+                else
+                    character.transform.DOMove(mPositions[(int)newChars.IndexOf(character)].transform.position + (Vector3)offset, 0.5f);
+                character.Show();
+            }
+            else
+            {
+                character.Hide();
+            }
+        }
+        for (int i=0;i< newChars.Count;i++)
+        {
+            Vector3? offset = newChars[i]?.CharSO.offset;
+            newChars[i]?.transform.DOMove(mPositions[(int)i].transform.position + (Vector3)offset, 0.5f);
+        }
+        mChars= newChars;
+    }
     public virtual void ShowCharacter(ChatData chatData)
     {
         ShowCharacter(chatData.leftAction, chatData.middleAction, chatData.rightAction);
+        SetDialogPos(chatData);
+        SetAction(chatData);
         HighLightCharacter(chatData.chatPos);
     }
     protected virtual void ShowCharacter(ActionData left, ActionData middle, ActionData right)
@@ -76,6 +109,15 @@ public class BaseStage : MonoBehaviour
             }
         }
     }
+    protected virtual void SetAction(ChatData chatData)
+    {
+        mChars[(int)DialogPos.Left]?.SetAction(chatData.leftAction.actionTag);
+        mChars[(int)DialogPos.Left]?.SetDiff(chatData.leftAction.diffTag);
+        mChars[(int)DialogPos.Middle]?.SetAction(chatData.middleAction.actionTag);
+        mChars[(int)DialogPos.Middle]?.SetDiff(chatData.middleAction.diffTag);
+        mChars[(int)DialogPos.Right]?.SetAction(chatData.rightAction.actionTag);
+        mChars[(int)DialogPos.Right]?.SetDiff(chatData.rightAction.diffTag);
+    }
     protected virtual void ShowCharacter(ActionData actionData, DialogPos pos)
     {
         CharSO charSO=actionData.charSO;
@@ -96,10 +138,6 @@ public class BaseStage : MonoBehaviour
             mCharChace.Add(charSO, baseCharacter);
             baseCharacter.transform.localScale *= charSO.scale;
         }
-        SetDialogPos(mCharChace[charSO], pos);
-        mChars[(int)pos].SetAction(actionData.actionTag);
-        mChars[(int)pos].SetDiff(actionData.diffTag);
-        mChars[(int)pos] = mCharChace[charSO];
         //Éú³É
     }
     public virtual void SetBackground(Sprite sprite)
