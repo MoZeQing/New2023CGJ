@@ -1,5 +1,7 @@
 using Dialog;
 using OfficeOpenXml;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +17,7 @@ public class CSVSerializeHelper : IDialogSerializeHelper
     {
         Dictionary<string,BaseData> mapsDialogData= new Dictionary<string,BaseData>();
         string dialogText = data.ToString();
-        string[] dialogRows = dialogText.Split(new string[] { "||" }, System.StringSplitOptions.None);
+        string[] dialogRows = dialogText.Split(new string[] { "\r\n" }, System.StringSplitOptions.None);
 
         StartData startData = new StartData();
         dialogData.DialogDatas.Add(startData);
@@ -47,6 +49,10 @@ public class CSVSerializeHelper : IDialogSerializeHelper
             {
                 baseData = OptionSerialize(dialogs);
             }
+            if (dialogs[1] == "2")
+            {
+                baseData = BackgroundSerialize(dialogs);
+            }
             mapsDialogData.Add($"{dialogs[2]}_{dialogs[3]}", baseData);
             dialogData.DialogDatas.Add(baseData);
         }
@@ -67,7 +73,7 @@ public class CSVSerializeHelper : IDialogSerializeHelper
                     if (!baseData.Fore.Contains(fore))
                         baseData.Fore.Add(fore);
                 }
-                string[] tags = dialogs[17].Split('-');
+                string[] tags = dialogs[16].Split('-');
                 foreach (string tag in tags)
                 {
                     if (tag == "0")
@@ -91,16 +97,23 @@ public class CSVSerializeHelper : IDialogSerializeHelper
         Debug.Log(0);
     }
 
+    private BaseData BackgroundSerialize(string[] csvString)
+    {
+        BackgroundData backgroundData = new BackgroundData();
+        backgroundData.backgroundTag = (BackgroundTag)int.Parse(csvString[11]);
+        backgroundData.parmOne = int.Parse(csvString[12]);
+        backgroundData.parmTwo = int.Parse(csvString[13]);
+        backgroundData.parmThree = csvString[14];
+        backgroundData.backgroundSpr = Resources.Load<Sprite>("Background/" + csvString[15]);
+        return backgroundData;
+    }
+
     public BaseData ChatSerialize(string[] csvString)
     { 
         ChatData chatData=new ChatData();
         chatData.chatPos = (DialogPos)int.Parse(csvString[13]);
         chatData.charName = csvString[14];
         chatData.text= csvString[15];
-        if (csvString[16] != string.Empty)
-        {
-            chatData.background = Resources.Load<Sprite>($"Background/{csvString[16]}");
-        }
         chatData.leftAction = new ActionData();
         if (csvString[4] != string.Empty)
         {

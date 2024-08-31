@@ -6,13 +6,17 @@ using UnityEngine;
 public class MyDailogBox : DialogBox
 {
     [SerializeField] protected Transform canvas;
+    [SerializeField] protected BaseBackground background;
 
-    protected bool IsCG { get; set; }
-    protected override void Next()
+    public bool IsCG { get; set; }
+    public bool IsBackground { get; set; }
+    public override void Next()
     {
         if (optionFlag)
             return;
         if (IsCG)
+            return;
+        if (IsBackground)
             return;
         if (IsNext == false)
             return;
@@ -41,6 +45,10 @@ public class MyDailogBox : DialogBox
                         CGData cgData= (CGData)after;
                         ShowCG(cgData);
                         break;
+                    case "BackgroundData":
+                        BackgroundData backgroundData = (BackgroundData)after;
+                        ShowBackground(backgroundData);
+                        break;
                 }
             }
         }
@@ -57,13 +65,16 @@ public class MyDailogBox : DialogBox
             OnComplete = null;
         }
     }
-
+    public virtual void ShowBackground(BackgroundData backgroundData)
+    {
+        background.SetBackground(backgroundData,this);
+        IsBackground = true;
+        m_Data = backgroundData;
+    }
     protected virtual void ShowCG(CGData cgGData)
     {
-        stage.SetBackground(Resources.Load<Sprite>($"Dialog/CG/{cgGData.cgName}"));
-        canvas.gameObject.SetActive(false);
-        IsCG= true;
-        Invoke(nameof(HideDialogBox), cgGData.cgTime);
+        IsCG = true;
+        m_Data= cgGData;
     }
 
     protected virtual void HideDialogBox()

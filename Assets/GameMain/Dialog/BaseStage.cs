@@ -10,7 +10,6 @@ using OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup;
 
 public class BaseStage : MonoBehaviour
 {
-    [SerializeField] protected Image mBG;
     [SerializeField] protected Transform mCanvas;
     [SerializeField] protected GameObject mCharacter;
     [SerializeField] protected List<Transform> mPositions = new List<Transform>();
@@ -140,11 +139,6 @@ public class BaseStage : MonoBehaviour
         }
         //Éú³É
     }
-    public virtual void SetBackground(Sprite sprite)
-    { 
-        if(sprite!=null)
-            mBG.sprite = sprite;
-    }   
 }
 
 public enum DialogPos

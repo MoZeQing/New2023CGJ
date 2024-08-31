@@ -46,17 +46,13 @@ public class ExcelSerializeHelper : IDialogSerializeHelper
         {
             //标准名称格式：1_1
             string chatTag = $"{worksheet.Cells[row, 2].Value}_{worksheet.Cells[row, 3].Value}";
-            //策略化
+            //对话模式
             if (worksheet.Cells[row, 1].Value.ToString() == "0")
             {
                 ChatData chatData = new ChatData();
                 chatData.charName = worksheet.Cells[row, 14].Value.ToString();
                 chatData.text = worksheet.Cells[row, 15].Value.ToString();
                 chatData.chatPos = (DialogPos)int.Parse(worksheet.Cells[row, 13].Value.ToString());
-                if (worksheet.Cells[row, 16].Value.ToString() != "0")
-                {
-                    chatData.background = Resources.Load<Sprite>("Background/" + worksheet.Cells[row, 15].Value.ToString());
-                }
                 chatData.leftAction = new ActionData();
                 if (worksheet.Cells[row, 4].Value.ToString() != "0")
                 {
@@ -81,13 +77,25 @@ public class ExcelSerializeHelper : IDialogSerializeHelper
                 mapsDialogData.Add(chatTag, chatData);
                 dialogData.DialogDatas.Add(chatData);
             }
-
+            //选择模式
             if (worksheet.Cells[row, 1].Value.ToString() == "1")
             {
                 OptionData optionData = new OptionData();
                 optionData.text = worksheet.Cells[row, 15].Value.ToString();
                 mapsDialogData.Add(chatTag, optionData);
                 dialogData.DialogDatas.Add(optionData);
+            }
+            //背景模式
+            if (worksheet.Cells[row, 1].Value.ToString() == "2")
+            { 
+                BackgroundData backgroundData=new BackgroundData();
+                backgroundData.backgroundTag = (BackgroundTag)int.Parse(worksheet.Cells[row, 11].Value.ToString());
+                backgroundData.parmOne = int.Parse(worksheet.Cells[row, 12].Value.ToString());
+                backgroundData.parmTwo = int.Parse(worksheet.Cells[row, 13].Value.ToString());
+                backgroundData.parmThree = worksheet.Cells[row, 14].Value.ToString();
+                backgroundData.backgroundSpr= Resources.Load<Sprite>("Background/" + worksheet.Cells[row, 15].Value.ToString());
+                mapsDialogData.Add(chatTag, backgroundData);
+                dialogData.DialogDatas.Add(backgroundData);
             }
         }
         BaseData fore = startData;
@@ -104,10 +112,10 @@ public class ExcelSerializeHelper : IDialogSerializeHelper
                     if (!baseData.Fore.Contains(fore))
                         baseData.Fore.Add(fore);
                 }
-                string[] tags = worksheet.Cells[row, 17].Value.ToString().Split('-');
+                string[] tags = worksheet.Cells[row, 16].Value.ToString().Split('-');
                 foreach (string tag in tags)
                 {
-                    if (worksheet.Cells[row, 17].Value.ToString() == "0")
+                    if (worksheet.Cells[row, 16].Value.ToString() == "0")
                         continue;
                     BaseData nextBaseData = mapsDialogData[tag];
                     if (nextBaseData != null)

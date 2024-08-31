@@ -76,7 +76,7 @@ public class DialogBox : MonoBehaviour
         m_Data = optionData;
         Next();
     }
-    protected virtual void Next()
+    public virtual void Next()
     {
         if (optionFlag)
             return;
@@ -133,7 +133,6 @@ public class DialogBox : MonoBehaviour
     protected virtual void ShowChat(ChatData chatData)
     {
         stage.ShowCharacter(chatData);
-        stage.SetBackground(chatData.background);
         nameText.text = chatData.charName == "0" ? string.Empty : chatData.charName;
 
         if (DOTween.IsTweening(dialogText))
@@ -151,7 +150,7 @@ public class DialogBox : MonoBehaviour
             SkipSpeed = charSpeed * (chatData.text.Length) + 0.1f;
         }
 
-        GameEntry.Utils.RunEvent(chatData.eventData);
+        GameEntry.Utils?.RunEvent(chatData.eventData);
     }
     public virtual void SetDialog(DialogueGraph dialogueGraph)
     {

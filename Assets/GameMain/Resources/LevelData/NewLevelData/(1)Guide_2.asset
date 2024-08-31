@@ -15,12 +15,21 @@ MonoBehaviour:
   unLoad: 0
   isRandom: 0
   trigger:
-    key: 10
+    key: 1
     not: 0
-    equals: 1
-    value: 1
-    and: []
-    or: []
+    equals: 0
+    value: 
+    and:
+    - key: 8
+      not: 1
+      equals: 1
+      value: 75
+      and: []
+    - key: 15
+      not: 1
+      equals: 0
+      value: 7
+      and: []
   levelData:
     charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
     levelTag: 0
@@ -34,3 +43,4 @@ MonoBehaviour:
     isClose: 0
     isCoarse: 1
     notCoarse: 0
+  text: '[None > ]'

@@ -6,7 +6,16 @@ namespace Dialog
 {
     public class CGData : BaseData
     {
-        public string cgName;
-        public int cgTime;
+        public CGTag cgTag;
+        public int parmOne;
+        public int parmTwo;
+        public string parmThree;
+        public Sprite cgSpr;
+    }
+
+    public enum CGTag
+    { 
+        None,
+        HideDialogBox
     }
 }

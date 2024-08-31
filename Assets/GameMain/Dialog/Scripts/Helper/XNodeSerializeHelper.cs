@@ -36,6 +36,9 @@ namespace Dialog
                 case "OptionNode":
                     Next(dialogData, fore, (OptionNode)node);
                     break;
+                case "BackgroundNode":
+                    Next(dialogData, fore, (BackgroundNode)node);
+                    break;
             }
         }
         private void Next(DialogData dialogData, StartNode startNode, BaseData fore = null)
@@ -84,6 +87,20 @@ namespace Dialog
                 if (node != null)
                     Next(dialogData, optionData, node);
             }
+        }
+        private void Next(DialogData dialogData, BaseData fore, BackgroundNode backgroundNode)
+        {
+            BackgroundData backgroundData = backgroundNode.backgroundData;
+            if (!backgroundData.Fore.Contains(fore))
+                backgroundData.Fore.Add(fore);
+            if (!fore.After.Contains(backgroundData))
+                fore.After.Add(backgroundData);
+            if (!dialogData.DialogDatas.Contains(backgroundData))
+                dialogData.DialogDatas.Add(backgroundData);
+
+            Node node = NextNode(backgroundNode, "output");
+            if (node != null)
+                Next(dialogData, backgroundData, node);
         }
         private Node NextNode(Node node, string nodeName)
         {

@@ -60,8 +60,4 @@ public class WorkStage : BaseStage
         }
         //Éú³É
     }
-    public override void SetBackground(Sprite sprite)
-    {
-
-    }
 }
