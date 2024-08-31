@@ -29,6 +29,7 @@ namespace Dialog
             if(backgroundData.backgroundSpr!=null)
                 mImage.sprite= backgroundData.backgroundSpr;
             myDailogBox.IsBackground = false;
+            myDailogBox.Next();
         }
 
         public virtual void FadeState(BackgroundData backgroundData, MyDailogBox myDailogBox)

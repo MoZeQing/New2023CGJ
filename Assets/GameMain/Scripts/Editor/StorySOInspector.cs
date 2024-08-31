@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using log4net.Core;
 
 [CustomEditor(typeof(StorySO))]
 public class StorySOInspector : Editor
@@ -18,9 +19,9 @@ public class StorySOInspector : Editor
         GUIStyle style = new GUIStyle();
         style.normal.textColor = Color.white;
         style.wordWrap = true;
-        style.fontSize=18;
-
+        style.fontSize = 16;
         EditorGUILayout.SelectableLabel($"×Ö·û´®½âÎö£º\n{storySO.trigger.TriggerToString()}", style, GUILayout.MaxHeight(80));
+        EditorGUILayout.Space(20);
         base.OnInspectorGUI();
     }
 }

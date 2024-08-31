@@ -14,7 +14,7 @@ namespace GameMain
             if (Input.GetKeyDown(KeyCode.BackQuote))
             { 
                 flag=!flag;
-                if(!flag)
+                if(flag)
                     GameEntry.UI.OpenUIForm(UIFormId.ConsoleForm);
                 else
                     GameEntry.UI.CloseUIForm(UIFormId.ConsoleForm);

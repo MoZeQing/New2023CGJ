@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class StringSerializeHelper : IDialogSerializeHelper
 {
-    public void Serialize(DialogData dialogData, object data)
+    public DialogData Serialize(object data)
     {
         throw new System.NotImplementedException();
     }

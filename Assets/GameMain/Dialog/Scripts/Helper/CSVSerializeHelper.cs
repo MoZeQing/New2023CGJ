@@ -13,13 +13,16 @@ public class CSVSerializeHelper : IDialogSerializeHelper
     /// </summary>
     /// <param name="baseDatas"></param>
     /// <param name="data">Excel表格</param>
-    public void Serialize(DialogData dialogData, object data)
+    public DialogData Serialize(object data)
     {
+        DialogData dialogData = new DialogData();
         Dictionary<string,BaseData> mapsDialogData= new Dictionary<string,BaseData>();
         string dialogText = data.ToString();
         string[] dialogRows = dialogText.Split(new string[] { "\r\n" }, System.StringSplitOptions.None);
-
+        string[] startRows = dialogRows[2].Split(',');
         StartData startData = new StartData();
+        startData.dialogName = startRows[4];
+        dialogData.DialogName = startRows[4];
         dialogData.DialogDatas.Add(startData);
         /*格式要求
          * 从第二列开始
@@ -35,7 +38,7 @@ public class CSVSerializeHelper : IDialogSerializeHelper
          *  跳转（当前块的出块，若为空则默认退出对话）16
          *  事件（使用|字符进行分割）17
          */
-        for (int i = 2; i < dialogRows.Length-1; i++)//表格从（1，1）开始
+        for (int i = 3; i < dialogRows.Length-1; i++)//表格从（1，1）开始
         {
             string[] dialogs = dialogRows[i].Split(',');
             if (dialogs[0]=="#")
@@ -57,7 +60,7 @@ public class CSVSerializeHelper : IDialogSerializeHelper
             dialogData.DialogDatas.Add(baseData);
         }
         BaseData fore = startData;
-        for (int i = 2; i < dialogRows.Length-1; i++)
+        for (int i = 3; i < dialogRows.Length-1; i++)
         {
             string[] dialogs = dialogRows[i].Split(',');
             if (dialogs[0] == "#")
@@ -95,6 +98,7 @@ public class CSVSerializeHelper : IDialogSerializeHelper
             fore = baseData;
         }
         Debug.Log(0);
+        return dialogData;
     }
 
     private BaseData BackgroundSerialize(string[] csvString)

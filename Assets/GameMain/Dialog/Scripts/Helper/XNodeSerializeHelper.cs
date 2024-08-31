@@ -13,11 +13,14 @@ namespace Dialog
 {
     public class XNodeSerializeHelper : IDialogSerializeHelper
     {
-        public void Serialize(DialogData dialogData, object data)
+        private DialogueGraph dialogueGraph;
+        public DialogData Serialize(object data)
         {
-            DialogueGraph dialogueGraph = data as DialogueGraph;
+            DialogData dialogData = new DialogData();
+            dialogueGraph = data as DialogueGraph;
             StartNode startNode = dialogueGraph.GetStartNode() as StartNode;
             Next(dialogData, startNode);
+            return dialogData;
         }
 
         public void Next(DialogData dialogData, BaseData fore, Node node)
@@ -44,6 +47,7 @@ namespace Dialog
         private void Next(DialogData dialogData, StartNode startNode, BaseData fore = null)
         {
             dialogData.DialogDatas.Add(startNode.startData);
+            dialogData.DialogName = string.IsNullOrEmpty(startNode.startData.dialogName) ? dialogueGraph.name : startNode.startData.dialogName;
             Node node = NextNode(startNode, "start");
             if (node != null)
                 Next(dialogData, startNode.startData, node);
@@ -60,13 +64,15 @@ namespace Dialog
                 if (!newFore.After.Contains(chatData))
                     newFore.After.Add(chatData);
                 if (!dialogData.DialogDatas.Contains(chatData))
+                {
                     dialogData.DialogDatas.Add(chatData);
-                newFore = chatData;
-                mIndex++;
+                    newFore = chatData;
 
-                Node node = NextNode(chatNode, $"chatDatas {mIndex - 1}");
-                if (node != null)
-                    Next(dialogData, newFore, node);
+                    Node node = NextNode(chatNode, $"chatDatas {mIndex}");
+                    if (node != null)
+                        Next(dialogData, newFore, node);
+                }
+                mIndex++;
             }
         }
         private void Next(DialogData dialogData, BaseData fore, OptionNode optionNode)
@@ -80,12 +86,14 @@ namespace Dialog
                 if (!fore.After.Contains(optionData))
                     fore.After.Add(optionData);
                 if (!dialogData.DialogDatas.Contains(optionData))
+                {
                     dialogData.DialogDatas.Add(optionData);
-                mIndex++;
 
-                Node node = NextNode(optionNode, $"optionDatas {mIndex - 1}");
-                if (node != null)
-                    Next(dialogData, optionData, node);
+                    Node node = NextNode(optionNode, $"optionDatas {mIndex}");
+                    if (node != null)
+                        Next(dialogData, optionData, node);
+                }
+                mIndex++;
             }
         }
         private void Next(DialogData dialogData, BaseData fore, BackgroundNode backgroundNode)

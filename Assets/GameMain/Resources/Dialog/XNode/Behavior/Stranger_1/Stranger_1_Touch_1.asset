@@ -53,7 +53,7 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: chatDatas
       _node: {fileID: 2441248660941167001}
-      _typeQualifiedName: System.Collections.Generic.List`1[[ChatData, Assembly-CSharp,
+      _typeQualifiedName: System.Collections.Generic.List`1[[Dialog.ChatData, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
         Culture=neutral, PublicKeyToken=b77a5c561934e089
       connections: []
@@ -63,7 +63,7 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: chatDatas 0
       _node: {fileID: 2441248660941167001}
-      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      _typeQualifiedName: Dialog.ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections: []
       _direction: 1
@@ -72,7 +72,7 @@ MonoBehaviour:
       _dynamic: 1
     - _fieldName: chatDatas 1
       _node: {fileID: 2441248660941167001}
-      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      _typeQualifiedName: Dialog.ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections: []
       _direction: 1
@@ -81,7 +81,7 @@ MonoBehaviour:
       _dynamic: 1
     - _fieldName: chatDatas 2
       _node: {fileID: 2441248660941167001}
-      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      _typeQualifiedName: Dialog.ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections: []
       _direction: 1
@@ -90,7 +90,7 @@ MonoBehaviour:
       _dynamic: 1
     - _fieldName: chatDatas 3
       _node: {fileID: 2441248660941167001}
-      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      _typeQualifiedName: Dialog.ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections: []
       _direction: 1
@@ -100,94 +100,74 @@ MonoBehaviour:
   a: 0
   dialogId: 
   chatDatas:
-  - charName: 
-    left:
+  - chatPos: 0
+    charName: 
+    leftAction:
       charSO: {fileID: 0}
-      actionData:
-        diffTag: 0
-        actionTag: 0
-        soundTag: 0
-    middle:
-      charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
-      actionData:
-        diffTag: 0
-        actionTag: 0
-        soundTag: 0
-    right:
+      diffTag: 0
+      actionTag: 0
+    middleAction:
       charSO: {fileID: 0}
-      actionData:
-        diffTag: 0
-        actionTag: 0
-        soundTag: 0
+      diffTag: 0
+      actionTag: 0
+    rightAction:
+      charSO: {fileID: 0}
+      diffTag: 0
+      actionTag: 0
     background: {fileID: 0}
-    eventDatas: []
     text: "\u4F60\u53D1\u73B0\u7231\u4E3D\u4E1D\u7684\u5934\u53D1\u53C8\u4E71\u7CDF\u7CDF\u7684\u4E86"
-  - charName: 
-    left:
+    eventData: []
+  - chatPos: 0
+    charName: 
+    leftAction:
       charSO: {fileID: 0}
-      actionData:
-        diffTag: 0
-        actionTag: 0
-        soundTag: 0
-    middle:
-      charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
-      actionData:
-        diffTag: 0
-        actionTag: 0
-        soundTag: 0
-    right:
+      diffTag: 0
+      actionTag: 0
+    middleAction:
       charSO: {fileID: 0}
-      actionData:
-        diffTag: 0
-        actionTag: 0
-        soundTag: 0
+      diffTag: 0
+      actionTag: 0
+    rightAction:
+      charSO: {fileID: 0}
+      diffTag: 0
+      actionTag: 0
     background: {fileID: 0}
-    eventDatas: []
     text: "\u4F60\u62FF\u51FA\u68B3\u5B50\uFF0C\u5E2E\u5979\u68B3\u7406\u5934\u53D1"
-  - charName: 
-    left:
+    eventData: []
+  - chatPos: 0
+    charName: 
+    leftAction:
       charSO: {fileID: 0}
-      actionData:
-        diffTag: 0
-        actionTag: 0
-        soundTag: 0
-    middle:
-      charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
-      actionData:
-        diffTag: 0
-        actionTag: 0
-        soundTag: 0
-    right:
+      diffTag: 0
+      actionTag: 0
+    middleAction:
       charSO: {fileID: 0}
-      actionData:
-        diffTag: 0
-        actionTag: 0
-        soundTag: 0
+      diffTag: 0
+      actionTag: 0
+    rightAction:
+      charSO: {fileID: 0}
+      diffTag: 0
+      actionTag: 0
     background: {fileID: 0}
-    eventDatas: []
     text: "\u7231\u4E3D\u4E1D\u53EA\u662F\u5750\u6B63\u4E86\u8EAB\u4F53\uFF0C\u8BA9\u5979\u7684\u957F\u53D1\u5782\u4E0B\uFF0C\u8BA9\u4F60\u628A\u6742\u4E71\u7684\u5934\u53D1\u7406\u987A"
-  - charName: 
-    left:
+    eventData: []
+  - chatPos: 0
+    charName: 
+    leftAction:
       charSO: {fileID: 0}
-      actionData:
-        diffTag: 0
-        actionTag: 0
-        soundTag: 0
-    middle:
-      charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
-      actionData:
-        diffTag: 0
-        actionTag: 0
-        soundTag: 0
-    right:
+      diffTag: 0
+      actionTag: 0
+    middleAction:
       charSO: {fileID: 0}
-      actionData:
-        diffTag: 0
-        actionTag: 0
-        soundTag: 0
+      diffTag: 0
+      actionTag: 0
+    rightAction:
+      charSO: {fileID: 0}
+      diffTag: 0
+      actionTag: 0
     background: {fileID: 0}
-    eventDatas: []
     text: "\u5979\u95ED\u7740\u773C\u775B\uFF0C\u8033\u6735\u8D34\u5728\u8111\u888B\u4E0A\uFF0C\u770B\u8D77\u6765\u5F88\u559C\u6B22\u4F60\u7684\u68B3\u7406"
+    eventData: []
 --- !u!114 &7290977704436413403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,3 +199,5 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   start: 0
+  startData:
+    dialogName: 

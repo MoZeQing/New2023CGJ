@@ -16,8 +16,9 @@ public class ExcelSerializeHelper : IDialogSerializeHelper
     /// </summary>
     /// <param name="baseDatas"></param>
     /// <param name="data">Excel表格</param>
-    public void Serialize(DialogData dialogData, object data)
-    {
+    public DialogData Serialize( object data)
+    { 
+        DialogData dialogData=new DialogData();
         ExcelPackage package = data as ExcelPackage;
         ExcelWorksheet worksheet = package.Workbook.Worksheets[1];//剧情文件默认只使用表1
         Dictionary<string,BaseData> mapsDialogData= new Dictionary<string,BaseData>();
@@ -25,7 +26,7 @@ public class ExcelSerializeHelper : IDialogSerializeHelper
 
         StartData startData = new StartData()
         {
-            DialogTag = worksheet.Name
+            dialogName = worksheet.Cells[3, 4].Value.ToString()
         };
         dialogData.DialogDatas.Add(startData);
         /*格式要求
@@ -42,7 +43,7 @@ public class ExcelSerializeHelper : IDialogSerializeHelper
          *  事件（使用|字符进行分割）16
          *  跳转（当前块的出块，若为空则默认退出对话）17
          */
-        for (int row = 3; row <= rowCount; row++)//表格从（1，1）开始
+        for (int row = 4; row <= rowCount; row++)//表格从（1，1）开始
         {
             //标准名称格式：1_1
             string chatTag = $"{worksheet.Cells[row, 2].Value}_{worksheet.Cells[row, 3].Value}";
@@ -99,7 +100,7 @@ public class ExcelSerializeHelper : IDialogSerializeHelper
             }
         }
         BaseData fore = startData;
-        for (int row = 3; row <= rowCount; row++)
+        for (int row = 4; row <= rowCount; row++)
         {
             string chatTag = $"{worksheet.Cells[row, 2].Value}_{worksheet.Cells[row, 3].Value}";
             BaseData baseData = mapsDialogData[chatTag];
@@ -134,5 +135,6 @@ public class ExcelSerializeHelper : IDialogSerializeHelper
             fore = baseData;
         }
         Debug.Log(0);
+        return dialogData;
     }
 }

@@ -31,7 +31,7 @@ public class MyDailogBox : DialogBox
                 {
                     case "StartData":
                         StartData startData = (StartData)after;
-                        InitDailog(startData);
+                        InitDialog(startData);
                         break;
                     case "ChatData":
                         ChatData chatData = (ChatData)after;
@@ -67,9 +67,9 @@ public class MyDailogBox : DialogBox
     }
     public virtual void ShowBackground(BackgroundData backgroundData)
     {
-        background.SetBackground(backgroundData,this);
         IsBackground = true;
         m_Data = backgroundData;
+        background.SetBackground(backgroundData,this);
     }
     protected virtual void ShowCG(CGData cgGData)
     {

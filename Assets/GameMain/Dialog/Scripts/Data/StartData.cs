@@ -7,6 +7,6 @@ namespace Dialog
     [System.Serializable]
     public class StartData : BaseData
     {
-        public string DialogTag { get; set; }
+        public string dialogName;
     }
 }

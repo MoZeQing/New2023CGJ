@@ -24,19 +24,19 @@ public class DialogManager : MonoBehaviour
         {
             case 0:
                 helper = new XNodeSerializeHelper();
-                dialogData = new DialogData(helper, dialogueGraph);
+                dialogData = helper.Serialize(dialogueGraph);
                 break;
             case 1:
                 helper = new ExcelSerializeHelper();
                 FileInfo fileInfo = new FileInfo(dialogExcelPath);
                 ExcelPackage package = new ExcelPackage(fileInfo);
-                dialogData = new DialogData(helper, package);
+                dialogData = helper.Serialize(package);
                 break;
             case 2:
                 helper = new CSVSerializeHelper();
                 string csvPath = dialogCSVPath.Replace($"{Application.dataPath}/Dialog/Resources/", string.Empty).Replace(".csv", string.Empty);
                 TextAsset textAsset = Resources.Load<TextAsset>(csvPath);
-                dialogData = new DialogData(helper, textAsset.text);
+                dialogData = helper.Serialize(textAsset.text);
                 break;
         }
         dialogBox.SetDialog(dialogData);

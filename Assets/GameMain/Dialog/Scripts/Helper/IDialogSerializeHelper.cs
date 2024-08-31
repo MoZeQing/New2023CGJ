@@ -6,6 +6,6 @@ namespace Dialog
 {
     public interface IDialogSerializeHelper
     {
-        public void Serialize(DialogData dialogData, object data);
+        public DialogData Serialize( object data);
     }
 }

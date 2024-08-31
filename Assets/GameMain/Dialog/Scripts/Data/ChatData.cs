@@ -13,7 +13,6 @@ namespace Dialog
         public ActionData leftAction;
         public ActionData middleAction;
         public ActionData rightAction;
-        public Sprite background;
         public string text;
         public string[] eventData;
 

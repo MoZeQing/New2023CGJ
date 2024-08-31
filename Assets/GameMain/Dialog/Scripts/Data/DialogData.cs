@@ -7,9 +7,8 @@ namespace Dialog
     [System.Serializable]
     public class DialogData
     {
-        private string m_DialogName;
+        public string DialogName { get; set; }
         private List<BaseData> m_DialogDatas = new List<BaseData>();
-        public string DialogName => m_DialogName;
         public List<BaseData> DialogDatas 
         {
             get
@@ -37,11 +36,6 @@ namespace Dialog
         public void Remove(BaseData baseData) 
         { 
             
-        }
-
-        public DialogData(IDialogSerializeHelper helper, object data)
-        {
-            helper.Serialize(this,data);
         }
     }
 }

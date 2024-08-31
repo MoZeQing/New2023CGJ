@@ -93,7 +93,7 @@ public class DialogBox : MonoBehaviour
                 {
                     case "StartData":
                         StartData startData = (StartData)after;
-                        InitDailog(startData);
+                        InitDialog(startData);
                         break;
                     case "ChatData":
                         ChatData chatData = (ChatData)after;
@@ -119,7 +119,7 @@ public class DialogBox : MonoBehaviour
             OnComplete = null;
         }
     }
-    protected virtual void InitDailog(StartData startData)
+    protected virtual void InitDialog(StartData startData)
     {
         Next();
     }
@@ -155,7 +155,7 @@ public class DialogBox : MonoBehaviour
     public virtual void SetDialog(DialogueGraph dialogueGraph)
     {
         XNodeSerializeHelper helper = new XNodeSerializeHelper();
-        DialogData dialogData = new DialogData(helper, dialogueGraph);
+        DialogData dialogData = helper.Serialize(dialogueGraph);
         SetDialog(dialogData);
     }
     public virtual void SetDialog(DialogData dialogData)

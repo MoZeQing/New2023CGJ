@@ -25,14 +25,18 @@ namespace GameMain
         {
             base.OnOpen(userData);
             GameEntry.UI.OpenUIForm(UIFormId.ChangeForm);
-            SetData((DialogueGraph)BaseFormData.UserData);
+            SetData((DialogData)BaseFormData.UserData);
         }
-
+        public void SetData(DialogData dialogData)
+        {
+            mDialogBox.SetDialog(dialogData);
+            mDialogBox.SetComplete(CloseForm);
+        }
         public void SetData(DialogueGraph dialogue)
         {
             dialogueGraph= dialogue;
             XNodeSerializeHelper helper=new XNodeSerializeHelper();
-            DialogData dialogData = new DialogData(helper, dialogue);
+            DialogData dialogData = helper.Serialize(dialogue);
             mDialogBox.SetDialog(dialogData);
             mDialogBox.SetComplete(CloseForm);
         }
