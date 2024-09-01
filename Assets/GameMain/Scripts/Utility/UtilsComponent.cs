@@ -7,8 +7,6 @@ using System.Security.Claims;
 using UnityEditor;
 using UnityEngine;
 using UnityGameFramework.Runtime;
-using XNode;
-using Random = UnityEngine.Random;
 
 namespace GameMain
 {
@@ -229,6 +227,7 @@ namespace GameMain
         }
         public void RunEvent(string[] consoles)
         {
+            if (consoles == null) return;
             foreach (string console in consoles)
             { 
                 RunEvent(console);

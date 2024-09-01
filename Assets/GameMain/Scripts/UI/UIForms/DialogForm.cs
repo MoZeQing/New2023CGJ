@@ -20,7 +20,7 @@ namespace GameMain
         [SerializeField] private DialogBox mDialogBox;
         [SerializeField] private BaseStage mStage;
 
-        private DialogueGraph dialogueGraph;
+        private DialogData m_DialogData;
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
@@ -29,12 +29,12 @@ namespace GameMain
         }
         public void SetData(DialogData dialogData)
         {
+            m_DialogData = dialogData;
             mDialogBox.SetDialog(dialogData);
             mDialogBox.SetComplete(CloseForm);
         }
         public void SetData(DialogueGraph dialogue)
         {
-            dialogueGraph= dialogue;
             XNodeSerializeHelper helper=new XNodeSerializeHelper();
             DialogData dialogData = helper.Serialize(dialogue);
             mDialogBox.SetDialog(dialogData);
@@ -49,7 +49,7 @@ namespace GameMain
             GameEntry.UI.OpenUIForm(UIFormId.ChangeForm);
             GameEntry.Dialog.InDialog = false;
             Invoke(nameof(OnComplete), 1f);
-            GameEntry.Event.FireNow(this, DialogEventArgs.Create(GameEntry.Dialog.InDialog, dialogueGraph.name));
+            GameEntry.Event.FireNow(this, DialogEventArgs.Create(GameEntry.Dialog.InDialog, m_DialogData.DialogName));
             GameEntry.UI.CloseUIForm(this.UIForm);
         }
     }

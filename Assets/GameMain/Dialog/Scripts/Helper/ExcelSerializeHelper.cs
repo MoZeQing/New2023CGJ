@@ -94,7 +94,7 @@ public class ExcelSerializeHelper : IDialogSerializeHelper
                 backgroundData.parmOne = int.Parse(worksheet.Cells[row, 12].Value.ToString());
                 backgroundData.parmTwo = int.Parse(worksheet.Cells[row, 13].Value.ToString());
                 backgroundData.parmThree = worksheet.Cells[row, 14].Value.ToString();
-                backgroundData.backgroundSpr= Resources.Load<Sprite>("Background/" + worksheet.Cells[row, 15].Value.ToString());
+                backgroundData.backgroundSpr= Resources.Load<Sprite>("Dialog/Background/" + worksheet.Cells[row, 15].Value.ToString());
                 mapsDialogData.Add(chatTag, backgroundData);
                 dialogData.DialogDatas.Add(backgroundData);
             }

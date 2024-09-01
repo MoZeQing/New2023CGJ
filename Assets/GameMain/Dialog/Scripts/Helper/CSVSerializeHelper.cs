@@ -108,7 +108,7 @@ public class CSVSerializeHelper : IDialogSerializeHelper
         backgroundData.parmOne = int.Parse(csvString[12]);
         backgroundData.parmTwo = int.Parse(csvString[13]);
         backgroundData.parmThree = csvString[14];
-        backgroundData.backgroundSpr = Resources.Load<Sprite>("Background/" + csvString[15]);
+        backgroundData.backgroundSpr = Resources.Load<Sprite>("Dialog/Background/" + csvString[15]);
         return backgroundData;
     }
 
