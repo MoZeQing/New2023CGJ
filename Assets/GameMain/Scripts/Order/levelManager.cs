@@ -15,28 +15,6 @@ namespace GameMain
             
         }
     }
-    [System.Serializable]
-    public class LevelData
-    {
-        public CharSO charSO;
-        public LevelTag levelTag;
-        public DialogueGraph foreWork;
-        public DialogueGraph afterWork;
-        public List<NewOrderData> orderDatas;
-        public int levelTime;
-        public int levelMoney;
-        public bool isClose;
-        public bool isCoarse;
-        public bool notCoarse;
-
-        public List<OrderData> GetRandOrderDatas()
-        { 
-            List<OrderData> ans= new List<OrderData>();
-            foreach (NewOrderData newOrderData in orderDatas)
-                ans.Add(newOrderData.GetOrderData(levelTag, newOrderData.orderTime,isCoarse,notCoarse));
-            return ans;
-        }
-    }
     //πÿø®¿‡–Õ
     public enum LevelTag
     {

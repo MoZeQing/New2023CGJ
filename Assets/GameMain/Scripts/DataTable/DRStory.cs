@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-09-01 15:48:22.628
+// 生成时间：2024-09-01 15:48:22.666
 //------------------------------------------------------------
 
 using GameFramework;
@@ -19,14 +19,14 @@ using UnityGameFramework.Runtime;
 namespace GameMain
 {
     /// <summary>
-    /// Recipe配置文件。
+    /// Story配置表。
     /// </summary>
-    public class DRRecipe : DataRowBase
+    public class DRStory : DataRowBase
     {
         private int m_Id = 0;
 
         /// <summary>
-        /// 获取成品ID。
+        /// 获取教学内容编号。
         /// </summary>
         public override int Id
         {
@@ -37,63 +37,63 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取制作时间。
+        /// 获取故事触发器名称。
         /// </summary>
-        public float ProducingTime
+        public string StoryName
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取制作工具。
+        /// 获取是否移除。
         /// </summary>
-        public string Tool
+        public bool IsRemove
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取配方表。
+        /// 获取外出场景。
         /// </summary>
-        public List<String> Recipe
+        public int OutingSceneState
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取成品。
+        /// 获取游戏模式。
         /// </summary>
-        public List<String> Product
+        public int GameState
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取生成咖啡等级。
+        /// 获取触发器条件。
         /// </summary>
-        public int CoffeeLevel
+        public string Trigger
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取是否为除浓缩咖啡以外的其它咖啡。
+        /// 获取故事名称。
         /// </summary>
-        public bool IsCoffee
+        public string DialogName
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取生产所需要的原材料。
+        /// 获取事件。
         /// </summary>
-        public List<String> Materials
+        public string EventText
         {
             get;
             private set;
@@ -111,13 +111,13 @@ namespace GameMain
             index++;
             m_Id = int.Parse(columnStrings[index++]);
             index++;
-            ProducingTime = float.Parse(columnStrings[index++]);
-            Tool = columnStrings[index++];
-            Recipe = DataTableExtension.ParseListString(columnStrings[index++]);
-            Product = DataTableExtension.ParseListString(columnStrings[index++]);
-            CoffeeLevel = int.Parse(columnStrings[index++]);
-            IsCoffee = bool.Parse(columnStrings[index++]);
-            Materials = DataTableExtension.ParseListString(columnStrings[index++]);
+            StoryName = columnStrings[index++];
+            IsRemove = bool.Parse(columnStrings[index++]);
+            OutingSceneState = int.Parse(columnStrings[index++]);
+            GameState = int.Parse(columnStrings[index++]);
+            Trigger = columnStrings[index++];
+            DialogName = columnStrings[index++];
+            EventText = columnStrings[index++];
 
             GeneratePropertyArray();
             return true;
@@ -130,13 +130,13 @@ namespace GameMain
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
-                    ProducingTime = binaryReader.ReadSingle();
-                    Tool = binaryReader.ReadString();
-                    Recipe = binaryReader.ReadListString();
-                    Product = binaryReader.ReadListString();
-                    CoffeeLevel = binaryReader.Read7BitEncodedInt32();
-                    IsCoffee = binaryReader.ReadBoolean();
-                    Materials = binaryReader.ReadListString();
+                    StoryName = binaryReader.ReadString();
+                    IsRemove = binaryReader.ReadBoolean();
+                    OutingSceneState = binaryReader.Read7BitEncodedInt32();
+                    GameState = binaryReader.Read7BitEncodedInt32();
+                    Trigger = binaryReader.ReadString();
+                    DialogName = binaryReader.ReadString();
+                    EventText = binaryReader.ReadString();
                 }
             }
 

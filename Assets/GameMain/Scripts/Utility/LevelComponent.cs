@@ -2,6 +2,7 @@ using GameFramework.Event;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
@@ -11,20 +12,29 @@ namespace GameMain
 {
     public class LevelComponent : GameFrameworkComponent
     {
-        private List<LevelSO> mLevelSOs = new List<LevelSO>();
-        private List<LevelSO> mLoadedLevelSOs = new List<LevelSO>();
+        private List<LevelData> m_LevelDatas = new List<LevelData>();
+        private List<LevelData> m_LoadedLevelDatas = new List<LevelData>();
 
         public List<string> LoadedLevels
         {
             get
             {
                 List<string> newLevel = new List<string>();
-                foreach (LevelSO levelSO in mLoadedLevelSOs)
+                foreach (LevelData levelData in m_LoadedLevelDatas)
                 {
-                    newLevel.Add(levelSO.name);
+                    newLevel.Add(levelData.levelName);
                 }
                 return newLevel;
             }
+        }
+
+        public int GetLoadedLevelCount
+        {
+            get { return m_LoadedLevelDatas.Count; }
+        }
+        public int GetAllLevelCount
+        {
+            get { return m_LevelDatas.Count; }
         }
 
         public bool InDialog
@@ -33,32 +43,47 @@ namespace GameMain
             set;
         }
 
-        private void OnEnable()
+        public void LoadAllLevel()
+        {
+            LoadAllLevelSO();
+            LoadAllLevelDataTable();
+        }
+        public void LoadAllLevelSO()
         {
             foreach (LevelSO levelSO in Resources.LoadAll<LevelSO>("LevelData"))
             {
                 if (levelSO.unLoad)
                     continue;
-                mLevelSOs.Add(levelSO);
+                m_LevelDatas.Add(new LevelData(levelSO));
             }
         }
+
+        public void LoadAllLevelDataTable()
+        {
+            DRLevel[] levels=GameEntry.DataTable.GetDataTable<DRLevel>().GetAllDataRows();
+            foreach (DRLevel dRLevel in levels)
+            {
+                m_LevelDatas.Add(new LevelData(dRLevel));
+            }
+        }
+
         public LevelData GetLevelData()
         {
-            List<LevelSO> levels = new List<LevelSO>();
-            foreach (LevelSO level in mLoadedLevelSOs)
+            List<LevelData> levels = new List<LevelData>();
+            foreach (LevelData level in m_LoadedLevelDatas)
             {
-                if (GameEntry.Utils.Check(level.trigger) && !level.isRandom)
+                if (GameEntry.Utils.Check(level.trigger))
                 {
                     levels.Add(level);
                 }
             }
             if (levels.Count != 0)
             {
-                LevelSO levelSO = levels[UnityEngine.Random.Range(0, levels.Count)];
-                GameEntry.Utils.AddFlag(levelSO.name);
-                if (mLoadedLevelSOs.Contains(levelSO))
-                    mLoadedLevelSOs.Remove(levelSO);
-                return levelSO.levelData;
+                LevelData levelData = levels[UnityEngine.Random.Range(0, levels.Count)];
+                GameEntry.Utils.AddFlag(levelData.levelName);
+                if (m_LoadedLevelDatas.Contains(levelData))
+                    m_LoadedLevelDatas.Remove(levelData);
+                return levelData;
             }
             else
             {
@@ -72,30 +97,30 @@ namespace GameMain
         }
         public LevelData GetLevelData(string levelName)
         {
-            foreach (LevelSO levelSO in mLoadedLevelSOs)
+            foreach (LevelData levelData in m_LoadedLevelDatas)
             {
-                if (levelSO.name == levelName)
+                if (levelData.levelName == levelName)
                 {
-                    return levelSO.levelData;
+                    return levelData;
                 }
             }
             return null;
         }
-        public void LoadGame( List<string> levelData)
+        public void LoadGame(List<string> levelDatas)
         {
-            mLoadedLevelSOs.Clear();
-            foreach (LevelSO levelSO in mLevelSOs)
+            m_LoadedLevelDatas.Clear();
+            foreach (LevelData levelData in m_LevelDatas)
             {
-                if (levelData.Contains(levelSO.name))
+                if (!m_LoadedLevelDatas.Contains(levelData))
                 {
-                    mLoadedLevelSOs.Add(levelSO);
+                    m_LoadedLevelDatas.Add(levelData);
                 }
             }
         }
 
         public void LoadGame()
         {
-            mLoadedLevelSOs = new List<LevelSO>(mLevelSOs);
+            m_LoadedLevelDatas = new List<LevelData>(m_LevelDatas);
         }
     }
 }

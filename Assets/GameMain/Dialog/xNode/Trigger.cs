@@ -530,6 +530,12 @@ public class EventData
     { 
         this.eventTag= eventTag;
     }
+    public EventData(string eventText)
+    {
+        if (string.IsNullOrEmpty(eventText)) return;
+        string[] strings = eventText.Split(' ');
+        eventTag = (EventTag)Enum.Parse(typeof(EventTag), eventText);
+    }
     public override string ToString()
     { 
         string ans=eventTag.ToString();

@@ -16,8 +16,8 @@ namespace GameMain
         //[SerializeField] private const string m_ExcelDialogPath;
         [SerializeField] private const string m_XNodeDialogPath = "Dialog/XNode";
 
-        private List<StorySO> m_Stories=new List<StorySO>();
-        private List<StorySO> m_LoadedStories=new List<StorySO>();
+        private List<StoryData> m_Stories=new List<StoryData>();
+        private List<StoryData> m_LoadedStories=new List<StoryData>();
         
         private Dictionary<string,DialogData> m_MapsDialogs= new Dictionary<string,DialogData>();
 
@@ -41,14 +41,20 @@ namespace GameMain
             get
             {
                 List<string> newStory = new List<string>();
-                foreach (StorySO storySO in m_LoadedStories)
+                foreach (StoryData storySO in m_LoadedStories)
                 {
-                    newStory.Add(storySO.name);
+                    newStory.Add(storySO.storyName);
                 }
                 return newStory;
             }
         }
-
+        public DialogData GetDialogData(string dialogName)
+        { 
+            if(m_MapsDialogs.ContainsKey(dialogName))
+                return m_MapsDialogs[dialogName];
+            else
+                return null;
+        }
         public void LoadCsvDialogData()
         {
             TextAsset[] dialogTexts = Resources.LoadAll<TextAsset>(m_CsvDialogPath);
@@ -93,18 +99,36 @@ namespace GameMain
             set;
         }
 
+        public void LoadAllStory()
+        {
+            LoadAllStorySO();
+            LoadAllStoryDataTable();
+        }
+
         private void OnEnable()
         {
             LoadCsvDialogData();
             LoadXNodeDialogData();
+        }
 
+        private void LoadAllStorySO()
+        {
             foreach (StorySO storySO in Resources.LoadAll<StorySO>("StoryData"))
             {
                 if (storySO.unLoad)
                     continue;
-                m_Stories.Add(storySO);
+                m_Stories.Add(new StoryData(storySO));
             }
         }
+        private void LoadAllStoryDataTable()
+        {
+            DRStory[] stories = GameEntry.DataTable.GetDataTable<DRStory>().GetAllDataRows();
+            foreach (DRStory story in stories)
+            {
+                m_Stories.Add(new StoryData(story));
+            }
+        }
+
         public void SetComplete(Action action)
         {
             mAction = action;
@@ -118,27 +142,10 @@ namespace GameMain
             mAction=null;
         }
 
-        public bool CheckOutStory(OutingSceneState outingSceneState)
-        {
-            foreach (StorySO story in m_LoadedStories)
-            {
-                if (GameEntry.Utils.Location != story.outingSceneState)
-                    continue;
-                if (GameEntry.Utils.GameState != story.gameState)
-                    if (story.gameState != GameState.None)
-                        continue;
-                if (GameEntry.Utils.Check(story.trigger))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
         public bool StoryUpdate(Action action)
         {
             mAction = action;
-            foreach (StorySO story in m_LoadedStories)
+            foreach (StoryData story in m_LoadedStories)
             {
                 if (story.outingSceneState != OutingSceneState.Main)
                     if (GameEntry.Utils.Location != story.outingSceneState)
@@ -148,10 +155,10 @@ namespace GameMain
                         continue;
                 if (GameEntry.Utils.Check(story.trigger))
                 {
-                    GameEntry.UI.OpenUIForm(UIFormId.DialogForm, story.dialogueGraph);
+                    GameEntry.UI.OpenUIForm(UIFormId.DialogForm, story.dialogName);
                     InDialog = true;
-                    GameEntry.Event.FireNow(this, DialogEventArgs.Create(InDialog, story.dialogueGraph.name));
-                    GameEntry.Event.FireNow(this, StoryEventArgs.Create(story.name));
+                    GameEntry.Event.FireNow(this, DialogEventArgs.Create(InDialog, story.dialogName));
+                    GameEntry.Event.FireNow(this, StoryEventArgs.Create(story.storyName));
                     foreach (EventData eventData in story.eventDatas)
                     {
                         GameEntry.Utils.RunEvent(eventData);
@@ -167,7 +174,7 @@ namespace GameMain
         public bool StoryUpdate()
         {
             mAction=null;
-            foreach (StorySO story in m_LoadedStories)
+            foreach (StoryData story in m_LoadedStories)
             {
                 if(story.outingSceneState!=OutingSceneState.Main)
                     if (GameEntry.Utils.Location != story.outingSceneState)
@@ -177,10 +184,10 @@ namespace GameMain
                         continue;
                 if (GameEntry.Utils.Check(story.trigger))
                 {
-                    GameEntry.UI.OpenUIForm(UIFormId.DialogForm, story.dialogueGraph);
+                    GameEntry.UI.OpenUIForm(UIFormId.DialogForm, story.dialogName);
                     InDialog = true;
-                    GameEntry.Event.FireNow(this, DialogEventArgs.Create(InDialog, story.dialogueGraph.name));
-                    GameEntry.Event.FireNow(this, StoryEventArgs.Create(story.name));
+                    GameEntry.Event.FireNow(this, DialogEventArgs.Create(InDialog, story.dialogName));
+                    GameEntry.Event.FireNow(this, StoryEventArgs.Create(story.storyName));
                     foreach (EventData eventData in story.eventDatas)
                     {
                         GameEntry.Utils.RunEvent(eventData);
@@ -222,9 +229,9 @@ namespace GameMain
         {
             SaveGameEventArgs args = (SaveGameEventArgs)e;
             List<string> newStory = new List<string>();
-            foreach (StorySO storySO in m_LoadedStories)
+            foreach (StoryData storySO in m_LoadedStories)
             {
-                newStory.Add(storySO.name);
+                newStory.Add(storySO.storyName);
             }
             args.SaveLoadData.storyData= newStory;
         }
@@ -232,18 +239,18 @@ namespace GameMain
         public void LoadGame(List<string> storyData)
         {
             m_LoadedStories.Clear();
-            foreach (StorySO storySO in m_Stories)
+            foreach (StoryData story in m_Stories)
             {
-                if (storyData.Contains(storySO.name))
+                if (storyData.Contains(story.storyName))
                 { 
-                    m_LoadedStories.Add(storySO);
+                    m_LoadedStories.Add(story);
                 }
             }
         }
 
         public void LoadGame()
         {
-            m_LoadedStories = new List<StorySO>(m_Stories);
+            m_LoadedStories = new List<StoryData>(m_Stories);
         }
     }
 }

@@ -7,6 +7,7 @@ using XNode;
 using GameFramework.Event;
 using System;
 using DG.Tweening;
+using Dialog;
 
 namespace GameMain
 {
@@ -112,7 +113,8 @@ namespace GameMain
             IsDialog = true;
             modeCanvas.gameObject.SetActive(true);
             GamePosUtility.Instance.GamePosChange(GamePos.Up);
-            dialogBox.SetDialog(mLevelData.foreWork);
+            DialogData foreWorkDialog = GameEntry.Dialog.GetDialogData(mLevelData.foreWork);
+            dialogBox.SetDialog(foreWorkDialog);
             dialogBox.SetComplete(OnForeWorkComplete);
             GameEntry.Event.FireNow(this, LevelEventArgs.Create());
             GameEntry.Event.Fire(this, GameStateEventArgs.Create(GameState.ForeSpecial));
@@ -128,7 +130,8 @@ namespace GameMain
         {
             GameEntry.Event.FireNow(this, LevelEventArgs.Create());
             GamePosUtility.Instance.GamePosChange(GamePos.Up);
-            dialogBox.SetDialog(mLevelData.afterWork);
+            DialogData afterWorkDialog = GameEntry.Dialog.GetDialogData(mLevelData.afterWork);
+            dialogBox.SetDialog(afterWorkDialog);
             dialogBox.SetComplete(OnAfterWorkComplete);
             orderList.ClearItems();
 

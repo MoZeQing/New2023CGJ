@@ -13,13 +13,25 @@ public class LevelSO : ScriptableObject
     [SerializeField]
     public bool unLoad;
     [SerializeField]
-    public bool isRandom;
+    public bool isRemove;
     [SerializeField]
     public ParentTrigger trigger;
     [SerializeField]
-    public LevelData levelData;
+    public LevelTag levelTag;
     [SerializeField]
-    public string text;
+    public DialogueGraph foreWork;
+    [SerializeField]
+    public DialogueGraph afterWork;
+    [SerializeField]
+    public List<NewOrderData> orderDatas;
+    [SerializeField]
+    public int levelTime;
+    [SerializeField]
+    public int levelMoney;
+    [SerializeField]
+    public bool isCoarse;
+    [SerializeField]
+    public bool notCoarse;
 
     //[MenuItem("Data/LevelToCSV")]
     //public static void StoryToCSV()

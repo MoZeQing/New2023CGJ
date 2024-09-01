@@ -33,7 +33,9 @@ namespace GameMain
             "Weather",
             "LittleCat",
             "Query",
-            "Tag"
+            "Tag",
+            "Story",
+            "Level"
         };
 
         private Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>();
@@ -78,6 +80,8 @@ namespace GameMain
                 }
             }
             procedureOwner.SetData<VarInt32>("NextSceneId", GameEntry.Config.GetInt("Scene.Main"));
+            GameEntry.Dialog.LoadAllStory();
+            GameEntry.Level.LoadAllLevel();
             ChangeState<ProcedureMenu>(procedureOwner);
         }
 
