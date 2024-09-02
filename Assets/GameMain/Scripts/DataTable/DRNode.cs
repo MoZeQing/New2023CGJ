@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-09-01 15:48:22.616
+// 生成时间：2024-09-03 00:25:17.612
 //------------------------------------------------------------
 
 using GameFramework;
@@ -46,9 +46,9 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取精灵路径。
+        /// 获取名称。
         /// </summary>
-        public string SpritePath
+        public string Name
         {
             get;
             private set;
@@ -67,15 +67,6 @@ namespace GameMain
         /// 获取实物路径。
         /// </summary>
         public string MaterialPath
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取是否是原材料。
-        /// </summary>
-        public bool Material
         {
             get;
             private set;
@@ -109,24 +100,6 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取所在层。
-        /// </summary>
-        public string Layer
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取所在层级。
-        /// </summary>
-        public int Layerint
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
         /// 获取价格。
         /// </summary>
         public int Price
@@ -145,7 +118,43 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取制作的合理时间。
+        /// 获取悬浮音效路径。
+        /// </summary>
+        public string HoldSound
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取点击音效路径。
+        /// </summary>
+        public string ClickSound
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取卡牌效果。
+        /// </summary>
+        public string DoTweenAnim
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取特效效果。
+        /// </summary>
+        public string EffectsAnim
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取制作时间。
         /// </summary>
         public int Time
         {
@@ -166,17 +175,18 @@ namespace GameMain
             m_Id = int.Parse(columnStrings[index++]);
             index++;
             AssetName = columnStrings[index++];
-            SpritePath = columnStrings[index++];
+            Name = columnStrings[index++];
             ImagePath = columnStrings[index++];
             MaterialPath = columnStrings[index++];
-            Material = bool.Parse(columnStrings[index++]);
             Tool = bool.Parse(columnStrings[index++]);
             Coffee = bool.Parse(columnStrings[index++]);
             Ice = bool.Parse(columnStrings[index++]);
-            Layer = columnStrings[index++];
-            Layerint = int.Parse(columnStrings[index++]);
             Price = int.Parse(columnStrings[index++]);
             Description = columnStrings[index++];
+            HoldSound = columnStrings[index++];
+            ClickSound = columnStrings[index++];
+            DoTweenAnim = columnStrings[index++];
+            EffectsAnim = columnStrings[index++];
             Time = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
@@ -191,17 +201,18 @@ namespace GameMain
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
                     AssetName = binaryReader.ReadString();
-                    SpritePath = binaryReader.ReadString();
+                    Name = binaryReader.ReadString();
                     ImagePath = binaryReader.ReadString();
                     MaterialPath = binaryReader.ReadString();
-                    Material = binaryReader.ReadBoolean();
                     Tool = binaryReader.ReadBoolean();
                     Coffee = binaryReader.ReadBoolean();
                     Ice = binaryReader.ReadBoolean();
-                    Layer = binaryReader.ReadString();
-                    Layerint = binaryReader.Read7BitEncodedInt32();
                     Price = binaryReader.Read7BitEncodedInt32();
                     Description = binaryReader.ReadString();
+                    HoldSound = binaryReader.ReadString();
+                    ClickSound = binaryReader.ReadString();
+                    DoTweenAnim = binaryReader.ReadString();
+                    EffectsAnim = binaryReader.ReadString();
                     Time = binaryReader.Read7BitEncodedInt32();
                 }
             }

@@ -25,8 +25,8 @@ namespace GameMain
         protected override void Compound()
         {
             //层级刷新
-            mProgressBarRenderer.GetComponent<Canvas>().sortingOrder = mSpriteRenderer.sortingOrder + 1;
-            mProgressBarRenderer.GetComponent<Canvas>().sortingLayerName = mSpriteRenderer.sortingLayerName;
+            mProgressBarRenderer.GetComponent<Canvas>().sortingOrder = mIconSprite.sortingOrder + 1;
+            mProgressBarRenderer.GetComponent<Canvas>().sortingLayerName = mIconSprite.sortingLayerName;
             //如果不在制作中，开始检查是否开始制作
             if (!Producing)
             {

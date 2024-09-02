@@ -146,7 +146,7 @@ namespace GameMain
             item.Choice = true;
             mTool.gameObject.SetActive(true);
             //mProduct.gameObject.SetActive(true);
-            mTool.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)recipeData.tool).SpritePath);
+            mTool.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)recipeData.tool).MaterialPath);
             //mProduct.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)recipeData.products[0]).SpritePath);
         }
 

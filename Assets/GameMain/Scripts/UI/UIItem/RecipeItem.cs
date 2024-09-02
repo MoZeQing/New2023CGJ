@@ -9,6 +9,7 @@ using System.Linq;
 public class RecipeItem : MonoBehaviour
 {
     [SerializeField] private Image mImage;
+    [SerializeField] private Image mBGImg;
     [SerializeField] private Image mChoice;
     [SerializeField] private Image mIce;
     private RecipeData mRecipe; 
@@ -19,7 +20,8 @@ public class RecipeItem : MonoBehaviour
     private void Start()
     {
         mBtn= GetComponent<Button>();
-        mImage= GetComponent<Image>();
+        mImage=this.transform.Find("Icon").GetComponent<Image>();
+        mBGImg.GetComponent<Image>();
     }
 
     public bool Choice
@@ -37,7 +39,8 @@ public class RecipeItem : MonoBehaviour
         mRecipe = recipe;
         mAction= action;
         mNodeTag = nodeTag;
-        mImage.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)nodeTag).SpritePath);
+        mImage.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)nodeTag).MaterialPath);
+        mBGImg.sprite= Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)nodeTag).ImagePath);
         mBtn.onClick.AddListener(OnClick);
         mBtn.interactable = GameEntry.Player.HasRecipe(recipe.Id);
         mChoice.gameObject.SetActive(false);
@@ -48,7 +51,8 @@ public class RecipeItem : MonoBehaviour
     public void SetData(NodeTag nodeTag)
     {
         mNodeTag = nodeTag;
-        mImage.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)nodeTag).SpritePath);
+        mImage.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)nodeTag).MaterialPath);
+        mBGImg.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)nodeTag).ImagePath);
         DRNode node = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)nodeTag);
         mIce.gameObject.SetActive(node.Ice);
     }
