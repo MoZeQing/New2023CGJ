@@ -82,6 +82,7 @@ namespace GameMain
         protected BoxCollider2D mBoxCollider2D = null;
         protected Rigidbody2D mRigidbody2D = null;
         protected Transform mCoverImg = null;
+        protected Transform mHoldSprite = null;
         protected Text mTextText= null;
         //内部数据
         protected NodeData mNodeData = null;//卡牌的初始数据
@@ -104,25 +105,27 @@ namespace GameMain
             mNodeData = mCompenentData.NodeData;
             NodeTag = mCompenentData.NodeData.NodeTag;
             mRigidbody2D = this.GetComponent<Rigidbody2D>();
-            mIconSprite = this.transform.Find("Icon").GetComponent<SpriteRenderer>();
-            mIconSprite.sortingLayerName = "GamePlay";
             mBackgroundSprite = this.transform.Find("Sprite").GetComponent<SpriteRenderer>();
             mProgressBarRenderer = this.transform.Find("ProgressBar").GetComponent<Image>();
-            mCoverImg= this.transform.Find("Cover");
-            mTextText= this.transform.Find("Text").GetComponent<Text>();
-
+            mCoverImg= mBackgroundSprite.transform.Find("Cover");
+            mTextText= mBackgroundSprite.transform.Find("Text").GetComponent<Text>();
+            mHoldSprite = mBackgroundSprite.transform.Find("Mask").transform.Find("Hold");
+            mIconSprite = mBackgroundSprite.transform.Find("Icon").GetComponent<SpriteRenderer>();
+            mIconSprite.sortingLayerName = "GamePlay";
             mBoxCollider2D = this.GetComponent<BoxCollider2D>();
 
-            mIcePoint= mIconSprite.gameObject.transform.Find("Ice").GetComponent<SpriteRenderer>();
-            mGrindPoint = mIconSprite.gameObject.transform.Find("Grind").GetComponent<SpriteRenderer>();
-            mHotPoint= mIconSprite.gameObject.transform.Find("Hot").GetComponent<SpriteRenderer>();
-            mMediumPoint = mIconSprite.gameObject.transform.Find("Medium").GetComponent<SpriteRenderer>();
+            mIcePoint= this.transform.Find("Tag").Find("Ice").GetComponent<SpriteRenderer>();
+            mGrindPoint = this.transform.Find("Tag").Find("Grind").GetComponent<SpriteRenderer>();
+            mHotPoint= this.transform.Find("Tag").Find("Hot").GetComponent<SpriteRenderer>();
+            mMediumPoint = this.transform.Find("Tag").Find("Medium").GetComponent<SpriteRenderer>();
 
             GameEntry.Entity.AttachEntity(this.Id, mCompenentData.OwnerId);
         }
         protected override void OnShow(object userData)
         {
             base.OnShow(userData);
+            mHoldSprite.localScale = Vector3.zero;
+
             mCompenentData = (CompenentData)userData;
             mNodeData = mCompenentData.NodeData;
             Materials = mCompenentData.materials;
@@ -164,7 +167,7 @@ namespace GameMain
             { 
                 Parent=mNodeData.Adsorb;
                 mNodeData.Adsorb.Child=this;
-                mIconSprite.sortingOrder = GameEntry.Utils.CartSort;
+                //mIconSprite.sortingOrder = GameEntry.Utils.CartSort;
                 mIconSprite.sortingLayerName = "GamePlay";
             }
         }
@@ -202,7 +205,7 @@ namespace GameMain
             }
             if (Child == null)
             {
-                mBoxCollider2D.size = mIconSprite.size;
+                mBoxCollider2D.size = mBackgroundSprite.size;
                 mBoxCollider2D.offset = new Vector2(0, 0.04449272f);
             }
             if (Child != null)
@@ -214,6 +217,8 @@ namespace GameMain
             {
                 mNodeData.Follow = false;
                 GameEntry.Utils.PickUp = false;
+                mHoldSprite.localScale = Vector3.zero;
+                mHoldSprite.GetComponent<SpriteRenderer>().DOColor(Color.clear, 0.4f).SetEase(Ease.OutExpo);
                 if (mNodeData.Jump)
                 {
                     ExecuteEvents.Execute<IPointerUpHandler>(this.gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.pointerUpHandler);
@@ -222,13 +227,18 @@ namespace GameMain
             }
             if (mNodeData.Follow)//跟随鼠标
             {
-                this.transform.DOMove(MouseToWorld(Input.mousePosition), 0.05f);
+                mHoldSprite.GetComponent<SpriteRenderer>().DOColor(Color.white,0.4f).SetEase(Ease.OutExpo);
+                this.transform.DOMove(MouseToWorld(Input.mousePosition), 0.1f);
                 Producing = false;
                 mProducingTime = 0;
                 mTime = 0f;
                 mRecipeData = null;
                 mProgressBarRenderer.gameObject.SetActive(false);
                 mProgressBarRenderer.fillAmount = 1;
+            }
+            else
+            {
+
             }
             this.transform.position = new Vector3(Mathf.Clamp(this.transform.position.x, -8f, 8f), Mathf.Clamp(this.transform.position.y, -10f, -4f), 0);//���Ʒ�Χ
             if (Parent != null && !mNodeData.Follow)//跟随父卡牌
@@ -257,9 +267,11 @@ namespace GameMain
                 Parent = null;
             }
             mNodeData.Follow = true;
+            mHoldSprite.localScale = Vector3.zero;
+            mHoldSprite.DOScale(0.75f, 0.4f).SetEase(Ease.OutExpo);//圆环特效
             GameEntry.Utils.PickUp = true;
             mBoxCollider2D.isTrigger = true;
-            mIconSprite.sortingOrder = GameEntry.Utils.CartSort;
+            //mIconSprite.sortingOrder = GameEntry.Utils.CartSort;
             mIconSprite.sortingLayerName = "Controller";
 
             PickUp();
@@ -281,7 +293,6 @@ namespace GameMain
                 return;
             if (Parent != null)
                 return;
-
             BaseCompenent bestCompenent = mCompenents[0];
             foreach (BaseCompenent baseCompenent in mCompenents)
             {
@@ -367,9 +378,7 @@ namespace GameMain
         /// </summary>
         protected virtual void PickUp()
         {
-            mIconSprite.gameObject.transform.DOPause();
-            mIconSprite.gameObject.transform.DOLocalMove(Vector3.up * 0.16f, 0.2f);
-            mIconSprite.sortingOrder = GameEntry.Utils.CartSort;
+            //mIconSprite.sortingOrder = GameEntry.Utils.CartSort;
             mIconSprite.sortingLayerName = "Controller";
             if (Child != null)
                 Child.PickUp();
@@ -379,10 +388,11 @@ namespace GameMain
         /// </summary>
         protected virtual void PitchOn()
         {
-            mIconSprite.gameObject.transform.DOPause();
-            mIconSprite.gameObject.transform.DOLocalMove(Vector3.up * 0.08f, 0.2f);
-            mIconSprite.sortingOrder = GameEntry.Utils.CartSort;
-            mIconSprite.sortingLayerName = "GamePlay";
+            mBackgroundSprite.gameObject.transform.DOPause();
+            mBackgroundSprite.gameObject.transform.DOLocalMove(Vector3.up * 0.08f, 0.2f);
+            mCoverImg.gameObject.SetActive(true);
+            //mBackgroundSprite.sortingOrder = GameEntry.Utils.CartSort;
+            mBackgroundSprite.sortingLayerName = "GamePlay";
             if (Child != null)
                 Child.PitchOn();
         }
@@ -391,10 +401,11 @@ namespace GameMain
         /// </summary>
         protected virtual void PutDown()
         {
-            mIconSprite.gameObject.transform.DOPause();
-            mIconSprite.gameObject.transform.DOLocalMove(Vector3.zero, 0.016f);
-            mIconSprite.sortingOrder = GameEntry.Utils.CartSort;
-            mIconSprite.sortingLayerName = "GamePlay";
+            mBackgroundSprite.gameObject.transform.DOPause();
+            mBackgroundSprite.gameObject.transform.DOLocalMove(Vector3.zero, 0.2f);
+            mCoverImg.gameObject.SetActive(false);
+            //mBackgroundSprite.sortingOrder = GameEntry.Utils.CartSort;
+            mBackgroundSprite.sortingLayerName = "GamePlay";
             if (Child != null)
                 Child.PutDown();
         }

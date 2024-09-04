@@ -12,30 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa74bb4d628ce184db8a9ecb7f25bb9c, type: 3}
   m_Name: (2)Guide_3
   m_EditorClassIdentifier: 
-  unLoad: 0
-  isRandom: 0
+  unLoad: 1
+  isRemove: 0
   trigger:
-    key: 2
+    key: 11
     not: 0
     equals: 1
-    value: 12
+    value: 2
     and:
     - key: 7
       not: 0
       equals: 0
       value: 456
       and: []
-  levelData:
-    charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
-    levelTag: 0
-    foreWork: {fileID: 11400000, guid: 491726df013441c44b20dc71269e3574, type: 2}
-    afterWork: {fileID: 11400000, guid: 4e577114ddab7444f98855550e05e33f, type: 2}
-    orderDatas:
-    - nodeNodeTag: 102
-      orderTime: 0
-    levelTime: -999
-    levelMoney: 70
-    isClose: 0
-    isCoarse: 0
-    notCoarse: 1
-  text: 
+  levelTag: 0
+  foreWork: {fileID: 0}
+  afterWork: {fileID: 0}
+  orderDatas: []
+  levelTime: 0
+  levelMoney: 0
+  isCoarse: 0
+  notCoarse: 0
