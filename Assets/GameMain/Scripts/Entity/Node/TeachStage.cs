@@ -15,12 +15,12 @@ public class TeachStage : BaseStage
 
     public override void ShowCharacter(ChatData chatData)
     {
-        if (chatData.middleAction.charSO != null&&charSO==null)
-        {
-            baseCharacter.SetData(chatData.middleAction.charSO);
-            charSO = chatData.middleAction.charSO;
-        }
-        baseCharacter.SetAction(chatData.middleAction.actionTag);
-        baseCharacter.SetDiff(chatData.middleAction.diffTag);
+        //if (chatData.middleAction.charSO != null&&charSO==null)
+        //{
+        //    baseCharacter.SetData(chatData.middleAction.charSO);
+        //    charSO = chatData.middleAction.charSO;
+        //}
+        //baseCharacter.SetAction(chatData.middleAction.actionTag);
+        //baseCharacter.SetDiff(chatData.middleAction.diffTag);
     }
 }

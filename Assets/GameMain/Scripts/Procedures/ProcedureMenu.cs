@@ -64,6 +64,9 @@ namespace GameMain
                 case GameState.Guide:
                     ChangeState<ProcedureGuide>(procedureOwner);
                     break;
+                case GameState.Work:
+                    ChangeState<ProcedureWork>(procedureOwner);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

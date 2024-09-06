@@ -618,4 +618,5 @@ public enum EventTag
     ShowForm,//ÏÔÊ¾´°Ìå
     AddCharm,
     AddStamina,
+    WorkTest
 }

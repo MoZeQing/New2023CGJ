@@ -247,7 +247,7 @@ public class GamePosUtility
 
     public void GamePosChange(GamePos gamePos)
     {
-        GamePos= gamePos;
+        GamePos = gamePos;
         switch (GamePos)
         {
             case GamePos.Up:
