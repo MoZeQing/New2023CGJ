@@ -10,18 +10,12 @@ public class MyDailogBox : DialogBox
 
     public bool IsCG { get; set; }
     public bool IsBackground { get; set; }
+
     public override void Next()
     {
-        if (optionFlag)
+        if (optionFlag || IsCG || IsBackground || !IsNext || m_Data == null)
             return;
-        if (IsCG)
-            return;
-        if (IsBackground)
-            return;
-        if (IsNext == false)
-            return;
-        if (m_Data == null)
-            return;
+
         if (m_Data.After.Count != 0)
         {
             foreach (BaseData after in m_Data.After)
@@ -30,56 +24,48 @@ public class MyDailogBox : DialogBox
                 switch (dialogTag)
                 {
                     case "StartData":
-                        StartData startData = (StartData)after;
-                        InitDialog(startData);
+                        InitDailog((StartData)after);
                         break;
                     case "ChatData":
-                        ChatData chatData = (ChatData)after;
-                        ShowChat(chatData);
+                        ShowChat((ChatData)after);
                         break;
                     case "OptionData":
-                        OptionData optionData = (OptionData)after;
-                        ShowOption(optionData);
+                        ShowOption((OptionData)after);
                         break;
                     case "CGData":
-                        CGData cgData= (CGData)after;
-                        ShowCG(cgData);
+                        ShowCG((CGData)after);
                         break;
                     case "BackgroundData":
-                        BackgroundData backgroundData = (BackgroundData)after;
-                        ShowBackground(backgroundData);
+                        ShowBackground((BackgroundData)after);
+                        break;
+                    case "BlackData":
+                        ShowBlackChat((BlackData)after); // 直接调用父类的ShowBlack方法
                         break;
                 }
             }
         }
         else
         {
-            ClearButtons();
-            nameText.text = string.Empty;
-            dialogText.text = string.Empty;
-            mIndex = 0;
-            m_DialogData = null;
-            m_Data = null;
-            if (OnComplete != null)
-                OnComplete();
-            OnComplete = null;
+            CompleteDialog();
         }
     }
+
     public virtual void ShowBackground(BackgroundData backgroundData)
     {
+        background.SetBackground(backgroundData, this);
         IsBackground = true;
         m_Data = backgroundData;
-        background.SetBackground(backgroundData,this);
     }
-    protected virtual void ShowCG(CGData cgGData)
+
+    protected virtual void ShowCG(CGData cgData)
     {
         IsCG = true;
-        m_Data= cgGData;
+        m_Data = cgData;
     }
 
     protected virtual void HideDialogBox()
     {
         canvas.gameObject.SetActive(true);
-        IsCG=false;
+        IsCG = false;
     }
 }

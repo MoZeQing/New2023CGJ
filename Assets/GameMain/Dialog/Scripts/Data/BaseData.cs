@@ -9,6 +9,8 @@ namespace Dialog
     {
         private List<BaseData> m_Fore { get; set; } = new List<BaseData>();
         private List<BaseData> m_After { get; set; } = new List<BaseData>();
+        public string Identifier { get; set; } // 新增的标识符属性
+
         /// <summary>
         /// 前置节点
         /// </summary>

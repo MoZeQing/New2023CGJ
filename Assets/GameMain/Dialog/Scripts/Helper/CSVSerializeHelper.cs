@@ -8,144 +8,150 @@ using UnityEngine;
 
 public class CSVSerializeHelper : IDialogSerializeHelper
 {
-    /// <summary>
-    /// 数据解析
-    /// </summary>
-    /// <param name="baseDatas"></param>
-    /// <param name="data">Excel表格</param>
-    public DialogData Serialize(object data)
+    public DialogData Serialize( object data)
     {
-        DialogData dialogData = new DialogData();
-        Dictionary<string,BaseData> mapsDialogData= new Dictionary<string,BaseData>();
+        DialogData dialogData=new DialogData();
+        Dictionary<string, BaseData> mapsDialogData = new Dictionary<string, BaseData>();
         string dialogText = data.ToString();
-        string[] dialogRows = dialogText.Split(new string[] { "\r\n" }, System.StringSplitOptions.None);
-        string[] startRows = dialogRows[2].Split(',');
+        string[] dialogRows = dialogText.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
         StartData startData = new StartData();
-        startData.dialogName = startRows[4];
-        dialogData.DialogName = startRows[4];
         dialogData.DialogDatas.Add(startData);
-        /*格式要求
-         * 从第二列开始
-         *  块类型（其中0为的对话，1为选择，2为判断）1
-         *  块序号（第几个块）2
-         *  该选项在当前块中的序号3
-         *  左角色（ID 差分 动效 音效）仅在对话块中有效4 5 6
-         *  中角色（ID 差分 动效 音效）仅在对话块中有效7 8 9
-         *  右角色（ID 差分 动效 音效）仅在对话块中有效10 11 12
-         *  角色名称（实际对话中的名称）13
-         *  文本（在选项中）在判断块中用于输出判断逻辑（不推荐）14
-         *  背景15
-         *  跳转（当前块的出块，若为空则默认退出对话）16
-         *  事件（使用|字符进行分割）17
-         */
-        for (int i = 3; i < dialogRows.Length-1; i++)//表格从（1，1）开始
-        {
-            string[] dialogs = dialogRows[i].Split(',');
-            if (dialogs[0]=="#")
-                continue;
-            BaseData baseData = null;
-            if (dialogs[1] == "0")
-            {
-                baseData = ChatSerialize(dialogs);
-            }
-            if (dialogs[1] == "1")
-            {
-                baseData = OptionSerialize(dialogs);
-            }
-            if (dialogs[1] == "2")
-            {
-                baseData = BackgroundSerialize(dialogs);
-            }
-            mapsDialogData.Add($"{dialogs[2]}_{dialogs[3]}", baseData);
-            dialogData.DialogDatas.Add(baseData);
-        }
-        BaseData fore = startData;
-        for (int i = 3; i < dialogRows.Length-1; i++)
+
+        for (int i = 2; i < dialogRows.Length - 1; i++) // 表格从（1，1）开始
         {
             string[] dialogs = dialogRows[i].Split(',');
             if (dialogs[0] == "#")
                 continue;
-            string chatTag = $"{dialogs[2]}_{dialogs[3]}";
-            BaseData baseData = mapsDialogData[chatTag];
-            if (baseData != null)
-            {
-                if (baseData.Fore.Count == 0)
-                {
-                    if (!fore.After.Contains(baseData))
-                        fore.After.Add(baseData);
-                    if (!baseData.Fore.Contains(fore))
-                        baseData.Fore.Add(fore);
-                }
-                string[] tags = dialogs[16].Split('-');
-                foreach (string tag in tags)
-                {
-                    if (tag == "0")
-                        continue;
-                    BaseData nextBaseData = mapsDialogData[tag];
-                    if (nextBaseData != null)
-                    {
-                        if (!nextBaseData.Fore.Contains(baseData))
-                            nextBaseData.Fore.Add(baseData);
-                        if (!baseData.Fore.Contains(nextBaseData))
-                            baseData.After.Add(nextBaseData);
-                    }
-                }
-            }
-            else
-            {
 
+            try
+            {
+                BaseData baseData = dialogs[1] switch
+                {
+                    "0" => ChatSerialize(dialogs),
+                    "1" => OptionSerialize(dialogs),
+                    "2" => BackgroundSerialize(dialogs),
+                    "3" => BlackSerialize(dialogs),
+                    _ => throw new CSVParseException(i, $"Unknown type '{dialogs[1]}'")
+                };
+
+                string identifier = dialogs[2];
+                baseData.Identifier = identifier; // 设置标识符到 BaseData
+                mapsDialogData.Add(identifier, baseData); // 使用标识符作为键
+                dialogData.DialogDatas.Add(baseData);
             }
+            catch (Exception ex) when (ex is FormatException || ex is ArgumentException)
+            {
+                // 这里使用 CSVParseException 并将当前行号传递进去
+                throw new CSVParseException(i + 1, $"Error processing row {i + 1}: {ex.Message}");
+            }
+        }
+
+        // 连接数据的逻辑保持不变
+        BaseData fore = startData;
+        for (int i = 2; i < dialogRows.Length - 1; i++)
+        {
+            string[] dialogs = dialogRows[i].Split(',');
+            if (dialogs[0] == "#")
+                continue;
+
+            string chatTag = dialogs[2];
+            if (!mapsDialogData.TryGetValue(chatTag, out var baseData))
+            {
+                continue; // 处理未找到的情况
+            }
+
+            if (baseData.Fore.Count == 0)
+            {
+                if (!fore.After.Contains(baseData))
+                    fore.After.Add(baseData);
+                if (!baseData.Fore.Contains(fore))
+                    baseData.Fore.Add(fore);
+            }
+
+            string[] tags = dialogs[15].Split('-');
+            foreach (string tag in tags)
+            {
+                if (tag == "0")
+                    continue;
+
+                if (mapsDialogData.TryGetValue(tag, out var nextBaseData))
+                {
+                    if (!nextBaseData.Fore.Contains(baseData))
+                        nextBaseData.Fore.Add(baseData);
+                    if (!baseData.After.Contains(nextBaseData))
+                        baseData.After.Add(nextBaseData);
+                }
+            }
+
             fore = baseData;
         }
-        Debug.Log(0);
         return dialogData;
     }
 
     private BaseData BackgroundSerialize(string[] csvString)
     {
-        BackgroundData backgroundData = new BackgroundData();
-        backgroundData.backgroundTag = (BackgroundTag)int.Parse(csvString[11]);
-        backgroundData.parmOne = int.Parse(csvString[12]);
-        backgroundData.parmTwo = int.Parse(csvString[13]);
-        backgroundData.parmThree = csvString[14];
-        backgroundData.backgroundSpr = Resources.Load<Sprite>("Dialog/Background/" + csvString[15]);
-        return backgroundData;
+        return new BackgroundData
+        {
+            backgroundTag = (BackgroundTag)int.Parse(csvString[10]),
+            parmOne = int.Parse(csvString[11]),
+            parmTwo = int.Parse(csvString[12]),
+            parmThree = csvString[13],
+            backgroundSpr = Resources.Load<Sprite>("Background/" + csvString[14])
+        };
     }
 
     public BaseData ChatSerialize(string[] csvString)
-    { 
-        ChatData chatData=new ChatData();
-        chatData.chatPos = (DialogPos)int.Parse(csvString[13]);
-        chatData.charName = csvString[14];
-        chatData.text= csvString[15];
+    {
+        ChatData chatData = new ChatData();
+        chatData.chatPos = (DialogPos)int.Parse(csvString[12]);
+        chatData.charName = csvString[13];
+        chatData.text = csvString[14];
         chatData.leftAction = new ActionData();
-        if (csvString[4] != string.Empty)
+        if (csvString[3] != string.Empty)
         {
-            chatData.leftAction.charSO = Resources.Load<CharSO>($"CharSO/{csvString[4]}");
-            chatData.leftAction.diffTag = (DiffTag)int.Parse(csvString[5]);
-            chatData.leftAction.actionTag= (ActionTag)int.Parse(csvString[6]);
+            chatData.leftAction.charSO = Resources.Load<CharSO>($"CharSO/{csvString[3]}");
+            chatData.leftAction.diffTag = (DiffTag)int.Parse(csvString[4]);
+            chatData.leftAction.actionTag = (ActionTag)int.Parse(csvString[5]);
         }
         chatData.middleAction = new ActionData();
-        if (csvString[7] != string.Empty)
+        if (csvString[6] != string.Empty)
         {
-            chatData.middleAction.charSO = Resources.Load<CharSO>($"CharSO/{csvString[7]}");
-            chatData.middleAction.diffTag = (DiffTag)int.Parse(csvString[8]);
-            chatData.middleAction.actionTag = (ActionTag)int.Parse(csvString[9]);
+            chatData.middleAction.charSO = Resources.Load<CharSO>($"CharSO/{csvString[6]}");
+            chatData.middleAction.diffTag = (DiffTag)int.Parse(csvString[7]);
+            chatData.middleAction.actionTag = (ActionTag)int.Parse(csvString[8]);
         }
+
         chatData.rightAction = new ActionData();
-        if (csvString[10] != string.Empty)
+        if (csvString[9] != string.Empty)
         {
-            chatData.rightAction.charSO = Resources.Load<CharSO>($"CharSO/{csvString[10]}");
-            chatData.rightAction.diffTag = (DiffTag)int.Parse(csvString[11]);
-            chatData.rightAction.actionTag = (ActionTag)int.Parse(csvString[12]);
+            chatData.rightAction.charSO = Resources.Load<CharSO>($"CharSO/{csvString[9]}");
+            chatData.rightAction.diffTag = (DiffTag)int.Parse(csvString[10]);
+            chatData.rightAction.actionTag = (ActionTag)int.Parse(csvString[11]);
         }
         return chatData;
     }
-
+    public BaseData BlackSerialize(string[] csvString)
+    {
+        BlackData blackData = new BlackData();
+        blackData.text = csvString[14];
+        return blackData;
+    }
     public BaseData OptionSerialize(string[] csvString)
-    { 
-        OptionData optionData=new OptionData();
-        optionData.text = csvString[15];
-        return optionData;
+    {
+        return new OptionData { text = csvString[14] };
+    }
+}
+
+/// <summary>
+/// 自定义异常类，用于 CSV 解析中的错误定位
+/// </summary>
+public class CSVParseException : Exception
+{
+    public int Row { get; private set; }
+
+    public CSVParseException(int row, string message) : base(message)
+    {
+        Row = row;
     }
 }

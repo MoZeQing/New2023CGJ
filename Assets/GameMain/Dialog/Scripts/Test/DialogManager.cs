@@ -34,9 +34,19 @@ public class DialogManager : MonoBehaviour
                 break;
             case 2:
                 helper = new CSVSerializeHelper();
-                string csvPath = dialogCSVPath.Replace($"{Application.dataPath}/Dialog/Resources/", string.Empty).Replace(".csv", string.Empty);
+                // 将 CSV 文件路径中的 “Assets/GameMain/Dialog/Resources/” 和 “.csv” 去除
+                string csvPath = dialogCSVPath.Replace($"{Application.dataPath}/GameMain/Dialog/Resources/", string.Empty).Replace(".csv", string.Empty);
                 TextAsset textAsset = Resources.Load<TextAsset>(csvPath);
-                dialogData = helper.Serialize(textAsset.text);
+
+                if (textAsset == null)
+                {
+                    Debug.LogError($"Failed to load CSV file at path: {csvPath}. Please ensure the file is located in the Resources folder.");
+                }
+                else
+                {
+                    Debug.Log(textAsset.text);
+                    dialogData = helper.Serialize(textAsset.text);
+                }
                 break;
         }
         dialogBox.SetDialog(dialogData);
