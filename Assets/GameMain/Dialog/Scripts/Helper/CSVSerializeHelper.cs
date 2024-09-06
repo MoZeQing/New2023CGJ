@@ -146,12 +146,17 @@ public class CSVSerializeHelper : IDialogSerializeHelper
 /// <summary>
 /// 自定义异常类，用于 CSV 解析中的错误定位
 /// </summary>
+/// <summary>
+/// 自定义异常类，用于 CSV 解析错误
+/// </summary>
 public class CSVParseException : Exception
 {
-    public int Row { get; private set; }
+    public int Row { get; }
 
+    // 确保只存在一个构造函数
     public CSVParseException(int row, string message) : base(message)
     {
         Row = row;
     }
 }
+
