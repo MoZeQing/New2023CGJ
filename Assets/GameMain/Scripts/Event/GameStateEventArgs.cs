@@ -52,5 +52,6 @@ public enum GameState
     Sleep,
     Guide,
     Menu,
-    Weekend
+    Weekend,
+    Test
 }

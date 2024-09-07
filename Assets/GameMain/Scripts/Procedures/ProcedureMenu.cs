@@ -55,7 +55,8 @@ namespace GameMain
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
             switch (mGameState)
             {
-                case GameState.Menu:
+                case GameState.Test:
+                    ChangeState<ProcedureTest>(procedureOwner);
                     break;
                 case GameState.Night:
                     ChangeState<ProcedureMain>(procedureOwner);
@@ -67,8 +68,6 @@ namespace GameMain
                 case GameState.Work:
                     ChangeState<ProcedureWork>(procedureOwner);
                     break;
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
         }
         private void GameStateEvent(object sender, GameEventArgs e)

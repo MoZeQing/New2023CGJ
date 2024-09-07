@@ -14,11 +14,15 @@ public class CSVSerializeHelper : IDialogSerializeHelper
         Dictionary<string, BaseData> mapsDialogData = new Dictionary<string, BaseData>();
         string dialogText = data.ToString();
         string[] dialogRows = dialogText.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-
-        StartData startData = new StartData();
+        string[] startDialogs = dialogRows[2].Split(',');
+        StartData startData = new StartData()
+        { 
+            dialogName= startDialogs[4]
+        };
+        dialogData.DialogName = startData.dialogName;
         dialogData.DialogDatas.Add(startData);
 
-        for (int i = 2; i < dialogRows.Length - 1; i++) // 表格从（1，1）开始
+        for (int i = 3; i < dialogRows.Length - 1; i++) // 表格从（1，1）开始
         {
             string[] dialogs = dialogRows[i].Split(',');
             if (dialogs[0] == "#")
@@ -32,7 +36,7 @@ public class CSVSerializeHelper : IDialogSerializeHelper
                     "1" => OptionSerialize(dialogs),
                     "2" => BackgroundSerialize(dialogs),
                     "3" => BlackSerialize(dialogs),
-                    _ => throw new CSVParseException(i, $"Unknown type '{dialogs[1]}'")
+                    _ => throw new CSVParseException(i, $"{dialogData.DialogName} Unknown type '{dialogs[1]}'")
                 };
 
                 string identifier = dialogs[2];
@@ -43,13 +47,13 @@ public class CSVSerializeHelper : IDialogSerializeHelper
             catch (Exception ex) when (ex is FormatException || ex is ArgumentException)
             {
                 // 这里使用 CSVParseException 并将当前行号传递进去
-                throw new CSVParseException(i + 1, $"Error processing row {i + 1}: {ex.Message}");
+                throw new CSVParseException(i + 1, $"{dialogData.DialogName} Error processing row {i + 1}: {ex.Message}");
             }
         }
 
         // 连接数据的逻辑保持不变
         BaseData fore = startData;
-        for (int i = 2; i < dialogRows.Length - 1; i++)
+        for (int i = 3; i < dialogRows.Length - 1; i++)
         {
             string[] dialogs = dialogRows[i].Split(',');
             if (dialogs[0] == "#")

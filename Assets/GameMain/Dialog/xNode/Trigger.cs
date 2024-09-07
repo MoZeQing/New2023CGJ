@@ -585,6 +585,7 @@ public enum TriggerTag
 [System.Serializable]
 public enum EventTag
 {
+    None,
     Play,//播放剧情（在有链接时默认播放链接剧情，否则播放参数指定的剧情）
     AddFavor,//增加好感度（参数为角色ID）
     AddLove,

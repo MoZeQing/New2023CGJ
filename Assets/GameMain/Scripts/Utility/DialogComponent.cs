@@ -23,18 +23,9 @@ namespace GameMain
 
         private Action mAction;
 
-        public int GetLoadedStoryCount
-        {
-            get { return m_LoadedStories.Count; }
-        }
-        public int GetLoadedDialogCount
-        {
-            get { return m_MapsDialogs.Count; }
-        }
-        public int GetAllStoryCount
-        {
-            get { return m_Stories.Count; }
-        }
+        public int GetLoadedStoryCount=> m_LoadedStories.Count; 
+        public int GetLoadedDialogCount=> m_MapsDialogs.Count;
+        public int GetAllStoryCount => m_Stories.Count;
 
         public List<string> LoadedStories
         { 

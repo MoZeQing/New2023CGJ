@@ -1,26 +1,21 @@
+using GameFramework.Event;
+using GameFramework.Fsm;
+using GameFramework.Procedure;
+using UnityGameFramework.Runtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GameFramework.Procedure;
 using GameFramework.DataTable;
-using GameFramework.Event;
-using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
-using UnityGameFramework.Runtime;
-using GameFramework.Fsm;
-using System;
 
 namespace GameMain
 {
-    public class ProcedureWork : ProcedureBase
+    public class ProcedureTest : ProcedureBase
     {
         private GameState mGameState;
         private string sceneAssetName;
-        private OrderList mOrderList;
-        private WorkForm mWorkForm;
-        protected override void OnEnter(ProcedureOwner procedureOwner)
+        protected override void OnEnter(IFsm<IProcedureManager> procedureOwner)
         {
             base.OnEnter(procedureOwner);
-            mGameState = GameState.Work;
             GameEntry.Event.Subscribe(GameStateEventArgs.EventId, OnGameStateEvent);
             GameEntry.Event.Subscribe(LoadSceneSuccessEventArgs.EventId, OnLoadSceneSuccess);
 
@@ -38,7 +33,22 @@ namespace GameMain
             GameEntry.Dialog.StoryUpdate();
             sceneAssetName = AssetUtility.GetSceneAsset(drScene.AssetName);
         }
-        protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
+
+        protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
+        {
+            base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
+            if (Input.GetKey(KeyCode.Escape))
+                GameEntry.UI.OpenUIForm(UIFormId.OptionForm);
+            switch (mGameState)
+            {
+                case GameState.Menu:
+                    ChangeState<ProcedureMenu>(procedureOwner);
+                    //ÇÐ»»bgm
+                    break;
+            }
+        }
+
+        protected override void OnLeave(IFsm<IProcedureManager> procedureOwner, bool isShutdown)
         {
             base.OnLeave(procedureOwner, isShutdown);
             GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, OnGameStateEvent);
@@ -56,29 +66,8 @@ namespace GameMain
             {
                 GameEntry.Scene.UnloadScene(loadedSceneAssetNames[i]);
             }
-            GameEntry.Utils.GameState = GameState.Afternoon;
         }
-        protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
-        {
-            base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
-            if (GameEntry.Dialog.InDialog)
-                return;
-            switch (mGameState)
-            {
-                case GameState.Afternoon:
-                    ChangeState<ProcedureMain>(procedureOwner);
-                    //ÇÐ»»bgm
-                    break;
-                case GameState.Work:
-                    //ÇÐ»»bgm
-                    break;
-                case GameState.Menu:
-                    ChangeState<ProcedureMenu>(procedureOwner);
-                    break;
-                default:
-                    break;
-            }
-        }
+
         private void OnGameStateEvent(object sender, GameEventArgs e)
         {
             GameStateEventArgs args = (GameStateEventArgs)e;
@@ -91,12 +80,8 @@ namespace GameMain
             if (args.SceneAssetName == sceneAssetName)
             {
                 GamePosUtility.Instance.GamePosChange(GamePos.Down);
-                mOrderList = GameObject.Find("OrderList").GetComponent<OrderList>();
-                mWorkForm = GameObject.Find("WorkForm").GetComponent<WorkForm>();
-
-                mOrderList.IsShowItem = false;
-                mWorkForm.OnLevel();
             }
         }
     }
+
 }

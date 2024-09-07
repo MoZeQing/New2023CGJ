@@ -236,7 +236,8 @@ namespace GameMain
         public bool RunEvent(string consoleStr)
         {
             string[] consoleStrs = consoleStr.Split(' ');
-            EventTag eventTag = (EventTag)Enum.Parse(typeof(EventTag), consoleStrs[0]);
+            EventTag eventTag;
+            Enum.TryParse<EventTag>(consoleStrs[0],out eventTag);
             EventData eventData=new EventData(eventTag);
             {
                 eventData.values = consoleStrs;
@@ -328,7 +329,7 @@ namespace GameMain
                 case EventTag.WorkTest:
                     if (GameEntry.Procedure.CurrentProcedure is ProcedureMenu)
                     {
-                        GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Work));
+                        GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Test));
                     }
                     break;
             }

@@ -100,6 +100,7 @@ namespace GameMain
         }
         public void OnLevel()
         {
+            modeCanvas.gameObject.SetActive(false);
             LevelData levelData = GameEntry.Level.GetLevelData();
             if (levelData != null)
                 SetLevelData(levelData);
