@@ -325,6 +325,12 @@ namespace GameMain
                 case EventTag.AddStamina:
                     GameEntry.Cat.Stamina += (int.Parse(eventData.values[1]));
                     break;
+                case EventTag.WorkTest:
+                    if (GameEntry.Procedure.CurrentProcedure is ProcedureMenu)
+                    {
+                        GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Work));
+                    }
+                    break;
             }
             return false;
         }
