@@ -111,7 +111,6 @@ namespace GameMain
             mTextText= mBackgroundSprite.transform.Find("Text").GetComponent<Text>();
             mHoldSprite = mBackgroundSprite.transform.Find("Mask").transform.Find("Hold");
             mIconSprite = mBackgroundSprite.transform.Find("Icon").GetComponent<SpriteRenderer>();
-            mIconSprite.sortingLayerName = "GamePlay";
             mBoxCollider2D = this.GetComponent<BoxCollider2D>();
 
             mIcePoint= this.transform.Find("Tag").Find("Ice").GetComponent<SpriteRenderer>();
@@ -160,6 +159,7 @@ namespace GameMain
             }
             if (mNodeData.Jump)
             {
+                PitchOn();
                 ExecuteEvents.Execute<IPointerDownHandler>(this.gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.pointerDownHandler);
                 Vector3 newPos = -(mNodeData.Position - Vector3.down * 4.2f).normalized;
             }
@@ -167,11 +167,16 @@ namespace GameMain
             { 
                 Parent=mNodeData.Adsorb;
                 mNodeData.Adsorb.Child=this;
-                //mIconSprite.sortingOrder = GameEntry.Utils.CartSort;
-                mIconSprite.sortingLayerName = "GamePlay";
             }
         }
-
+        protected virtual void UpdateCard()
+        {
+            mBackgroundSprite.sortingOrder = GameEntry.Utils.CartSort;
+            mHoldSprite.GetComponent<SpriteRenderer>().sortingOrder = GameEntry.Utils.CartSort;
+            mIconSprite.sortingOrder = GameEntry.Utils.CartSort;
+            mTextText.GetComponent<Canvas>().sortingOrder= GameEntry.Utils.CartSort;
+            mCoverImg.GetComponent<SpriteRenderer>().sortingOrder= GameEntry.Utils.CartSort;
+        }
         protected virtual void UpdateIcon()
         {
             if (GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)NodeTag).Coffee)
@@ -266,13 +271,12 @@ namespace GameMain
                 Parent.Child = null;
                 Parent = null;
             }
+            UpdateCard();
             mNodeData.Follow = true;
             mHoldSprite.localScale = Vector3.zero;
             mHoldSprite.DOScale(0.75f, 0.4f).SetEase(Ease.OutExpo);//圆环特效
             GameEntry.Utils.PickUp = true;
             mBoxCollider2D.isTrigger = true;
-            //mIconSprite.sortingOrder = GameEntry.Utils.CartSort;
-            mIconSprite.sortingLayerName = "Controller";
 
             PickUp();
         }
@@ -286,7 +290,6 @@ namespace GameMain
         {
             if (Tool)
                 return;
-            mIconSprite.sortingLayerName = "GamePlay";
             mBoxCollider2D.isTrigger = true;
             PitchOn();
             if (mCompenents.Count == 0)
@@ -304,7 +307,7 @@ namespace GameMain
                 }
             }
             mCompenents.Clear();
-
+            UpdateCard();            
             BaseCompenent parent = bestCompenent;
 
             int block = 1000;
@@ -378,8 +381,7 @@ namespace GameMain
         /// </summary>
         protected virtual void PickUp()
         {
-            //mIconSprite.sortingOrder = GameEntry.Utils.CartSort;
-            mIconSprite.sortingLayerName = "Controller";
+            UpdateCard();
             if (Child != null)
                 Child.PickUp();
         }
@@ -388,11 +390,10 @@ namespace GameMain
         /// </summary>
         protected virtual void PitchOn()
         {
+            UpdateCard();
             mBackgroundSprite.gameObject.transform.DOPause();
             mBackgroundSprite.gameObject.transform.DOLocalMove(Vector3.up * 0.08f, 0.2f);
             mCoverImg.gameObject.SetActive(true);
-            //mBackgroundSprite.sortingOrder = GameEntry.Utils.CartSort;
-            mBackgroundSprite.sortingLayerName = "GamePlay";
             if (Child != null)
                 Child.PitchOn();
         }
@@ -401,11 +402,10 @@ namespace GameMain
         /// </summary>
         protected virtual void PutDown()
         {
+            UpdateCard();
             mBackgroundSprite.gameObject.transform.DOPause();
             mBackgroundSprite.gameObject.transform.DOLocalMove(Vector3.zero, 0.2f);
             mCoverImg.gameObject.SetActive(false);
-            //mBackgroundSprite.sortingOrder = GameEntry.Utils.CartSort;
-            mBackgroundSprite.sortingLayerName = "GamePlay";
             if (Child != null)
                 Child.PutDown();
         }
