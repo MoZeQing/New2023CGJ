@@ -31,6 +31,10 @@ namespace GameMain
             GameEntry.Scene.LoadScene(AssetUtility.GetSceneAsset(drScene.AssetName), /*Constant.AssetPriority.SceneAsset*/0, this);
             GameEntry.Utils.GameState = GameState.Work;
             GameEntry.Dialog.StoryUpdate();
+            foreach (DRRecipe recipe in GameEntry.DataTable.GetDataTable<DRRecipe>().GetAllDataRows())
+            {
+                GameEntry.Player.AddRecipe(recipe.Id);
+            }
             sceneAssetName = AssetUtility.GetSceneAsset(drScene.AssetName);
         }
 
@@ -60,6 +64,8 @@ namespace GameMain
             GameEntry.UI.CloseAllLoadingUIForms();
             GameEntry.UI.CloseUIGroup("Default");
             GameEntry.UI.OpenUIForm(UIFormId.ChangeForm);
+
+            GameEntry.Player.ClearRecipes();
 
             string[] loadedSceneAssetNames = GameEntry.Scene.GetLoadedSceneAssetNames();
             for (int i = 0; i < loadedSceneAssetNames.Length; i++)

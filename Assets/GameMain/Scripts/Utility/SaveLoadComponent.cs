@@ -69,7 +69,7 @@ namespace GameMain
 
             GameEntry.Event.FireNow(this, GameStateEventArgs.Create(gameState));
 
-            GameEntry.Player.ClearRecipe();
+            GameEntry.Player.ClearRecipes();
             DRRecipe[] drrecipes = GameEntry.DataTable.GetDataTable<DRRecipe>().GetAllDataRows();
             for (int i = 0; i < drrecipes.Length; i++)
             {

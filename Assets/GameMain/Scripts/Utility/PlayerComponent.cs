@@ -62,7 +62,7 @@ namespace GameMain
             return null;
         }
 
-        public void ClearRecipe()
+        public void ClearRecipes()
         {
             mPlayerData.recipes.Clear();
         }
