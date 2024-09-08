@@ -94,11 +94,12 @@ namespace GameMain
         protected NodeData mNodeData = null;//卡牌的初始数据
         protected CompenentData mCompenentData = null;//卡牌的组件数据
         protected List<BaseCompenent> mCompenents = new List<BaseCompenent>();//储存被多个碰撞箱体碰撞时的所有碰撞箱体
+        protected DRNode mDRNode = null;
         //标识组件
-        private SpriteRenderer mIcePoint = null;
-        private SpriteRenderer mGrindPoint = null;
-        private SpriteRenderer mHotPoint = null;
-        private SpriteRenderer mMediumPoint = null;
+        protected SpriteRenderer mIcePoint = null;
+        protected SpriteRenderer mGrindPoint = null;
+        protected SpriteRenderer mHotPoint = null;
+        protected SpriteRenderer mMediumPoint = null;
         //合成
         protected RecipeData mRecipeData;//目前的启动的配方
         protected float mProducingTime = 0f;
@@ -137,12 +138,12 @@ namespace GameMain
             Materials = mCompenentData.materials;
             NodeTag = mCompenentData.NodeData.NodeTag;
 
-            DRNode dRNode = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)mNodeData.NodeTag);
+            mDRNode = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)mNodeData.NodeTag);
 
             Lock = false;
             Grind = mNodeData.Grind;
-            Ice = dRNode.Ice;
-            Tool= dRNode.Tool;
+            Ice = mDRNode.Ice;
+            Tool= mDRNode.Tool;
 
             if (Tool)
             {
@@ -153,10 +154,10 @@ namespace GameMain
             UpdateIcon();
 
             Producing = false;
-            mIconSprite.sprite = Resources.Load<Sprite>(dRNode.IconPath);
-            mBackgroundSprite.sprite= Resources.Load<Sprite>(dRNode.BackgroundPath);
-            mBoundSprite.sprite = Resources.Load<Sprite>(dRNode.BoundPath);
-            mTextText.text = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)mNodeData.NodeTag).Name;
+            mIconSprite.sprite = Resources.Load<Sprite>(mDRNode.IconPath);
+            mBackgroundSprite.sprite= Resources.Load<Sprite>(mDRNode.BackgroundPath);
+            mBoundSprite.sprite = Resources.Load<Sprite>(mDRNode.BoundPath);
+            mTextText.text = mDRNode.Name;
             mProgressBarRenderer.gameObject.SetActive(false);
 
             GameEntry.Entity.AttachEntity(this.Id, mCompenentData.OwnerId);
@@ -216,15 +217,6 @@ namespace GameMain
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
-            if (Parent != null)
-            {
-                mBoxCollider2D.isTrigger = true;
-            }
-            else
-            {
-                if (!GameEntry.Utils.PickUp)
-                    mBoxCollider2D.isTrigger = false;
-            }
             if (Child == null)
             {
                 mBoxCollider2D.size = mBackgroundSprite.size;
@@ -256,6 +248,7 @@ namespace GameMain
             this.transform.position = new Vector3(Mathf.Clamp(this.transform.position.x, -8f, 8f), Mathf.Clamp(this.transform.position.y, -10f, -4f), 0);//���Ʒ�Χ
             if (Parent != null && !mNodeData.Follow)//跟随父卡牌
             {
+                mBoxCollider2D.isTrigger = true;
                 this.transform.DOMove(Parent.transform.position + Vector3.up * 0.5f, 0.1f);//�����ڵ�
             }
             //刷新子集
@@ -279,26 +272,27 @@ namespace GameMain
             if (Tool)
                 return;
             mNodeData.Follow = true;
-            GameEntry.Utils.PickUp = true;
-            GameEntry.Sound.PlaySound("Assets/GameMain/Audio/Sounds/Pick_up.mp3", "Sound");
 
+            //刷新子节点
             if (Parent != null)
             {
                 Parent.Child = null;
                 Parent = null;
             }
             PickUp();
+
+            if (mDRNode.ClickSound != string.Empty)
+                GameEntry.Sound.PlaySound(mDRNode.ClickSound, "Sound");
         }
         public void OnPointerUp(PointerEventData pointerEventData)
         {
             if (Tool)
                 return;
             mNodeData.Follow = false;
-            GameEntry.Utils.PickUp = false;
             if (Parent != null)
                 return;
             PutDown();
-
+            //刷新子节点
             if (mCompenents.Count == 0)
                 return;
             BaseCompenent bestCompenent = mCompenents[0];
@@ -333,24 +327,19 @@ namespace GameMain
         public void OnPointerEnter(PointerEventData pointerEventData)
         {
             Check = true;
-            //if (GameEntry.Utils.PickUp)
-            //    return;
-            PitchOn();
-            if (Parent != null)
-                return;
             if (Tool)
                 return;
+            PitchOn();
+
+            if (mDRNode.HoldSound != string.Empty)
+                GameEntry.Sound.PlaySound(mDRNode.HoldSound, "Sound");
         }
         public void OnPointerExit(PointerEventData pointerEventData)
         {
             Check = false;
-            //if (GameEntry.Utils.PickUp)
-            //    return;
-            PitchOut();
-            if (Parent != null)
-                return;
             if (Tool)
                 return;
+            PitchOut();
         }
         private void OnTriggerStay2D(Collider2D collision)
         {
@@ -391,10 +380,13 @@ namespace GameMain
             //修改层级为Controller，卡牌向上移动并播放圆环特效
             UpdateCard("Controller");
             mBoxCollider2D.isTrigger = true;
-            mBackgroundSprite?.gameObject.transform.DOPause();
-            mBackgroundSprite?.gameObject.transform.DOLocalMove(Vector3.up * 0.08f, 0.2f);
             mHoldSprite.transform.localScale = Vector3.zero;
-            mHoldSprite.GetComponent<SpriteRenderer>().DOColor(Color.white, 0.4f).SetEase(Ease.OutExpo);
+            mHoldSprite.GetComponent<SpriteRenderer>().DOColor(Color.white, 0.2f).SetEase(Ease.OutExpo)
+                .OnComplete(()=>
+                {
+                    mBackgroundSprite?.gameObject.transform.DOPause();
+                    mBackgroundSprite?.gameObject.transform.DOLocalMove(Vector3.up * 0.08f, 0.2f);
+                });
             mHoldSprite?.transform.DOScale(0.75f, 0.4f).SetEase(Ease.OutExpo);//圆环特效
             Child?.PickUp();
         }
@@ -407,7 +399,7 @@ namespace GameMain
             mBoxCollider2D.isTrigger = false;
             mBackgroundSprite?.gameObject.transform.DOPause();
             mBackgroundSprite?.gameObject.transform.DOLocalMove(Vector3.zero, 0.2f);
-            mHoldSprite?.GetComponent<SpriteRenderer>().DOColor(Color.clear, 0.4f).SetEase(Ease.OutExpo);
+            mHoldSprite?.GetComponent<SpriteRenderer>().DOColor(Color.clear, 0.2f).SetEase(Ease.OutExpo);
             Child?.PutDown();
         }
         /// <summary>
