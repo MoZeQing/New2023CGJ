@@ -40,7 +40,7 @@ public class CSVSerializeHelper : IDialogSerializeHelper
                 };
 
                 string identifier = dialogs[2];
-                baseData.Identifier = identifier; // 设置标识符到 BaseData
+                baseData.Id = int.Parse(identifier); // 设置标识符到 BaseData
                 mapsDialogData.Add(identifier, baseData); // 使用标识符作为键
                 dialogData.DialogDatas.Add(baseData);
             }

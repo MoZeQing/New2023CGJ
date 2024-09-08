@@ -45,7 +45,7 @@ namespace GameMain
             get;
             set;
         } = 0;
-        public bool Jump
+        public bool FirstFollow
         {
             get;
             set;

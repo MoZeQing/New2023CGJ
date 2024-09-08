@@ -8,7 +8,7 @@ using System.Linq;
 
 public class RecipeItem : MonoBehaviour
 {
-    [SerializeField] private Image mImage;
+    [SerializeField] private Image mIconImg;
     [SerializeField] private Image mBGImg;
     [SerializeField] private Image mChoice;
     [SerializeField] private Image mIce;
@@ -20,7 +20,7 @@ public class RecipeItem : MonoBehaviour
     private void Start()
     {
         mBtn= GetComponent<Button>();
-        mImage=this.transform.Find("Icon").GetComponent<Image>();
+        mIconImg=this.transform.Find("Icon").GetComponent<Image>();
         mBGImg.GetComponent<Image>();
     }
 
@@ -39,8 +39,8 @@ public class RecipeItem : MonoBehaviour
         mRecipe = recipe;
         mAction= action;
         mNodeTag = nodeTag;
-        mImage.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)nodeTag).MaterialPath);
-        mBGImg.sprite= Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)nodeTag).ImagePath);
+        mIconImg.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)nodeTag).IconPath);
+        mBGImg.sprite= Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)nodeTag).BackgroundPath);
         mBtn.onClick.AddListener(OnClick);
         mBtn.interactable = GameEntry.Player.HasRecipe(recipe.Id);
         mChoice.gameObject.SetActive(false);
@@ -51,8 +51,8 @@ public class RecipeItem : MonoBehaviour
     public void SetData(NodeTag nodeTag)
     {
         mNodeTag = nodeTag;
-        mImage.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)nodeTag).MaterialPath);
-        mBGImg.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)nodeTag).ImagePath);
+        mIconImg.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)nodeTag).IconPath);
+        mBGImg.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)nodeTag).BackgroundPath);
         DRNode node = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)nodeTag);
         mIce.gameObject.SetActive(node.Ice);
     }

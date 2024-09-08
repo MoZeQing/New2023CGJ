@@ -59,7 +59,7 @@ namespace GameMain
             mOrderItemData = (OrderItemData)userData;
             mOrderData = mOrderItemData.OrderData;
             DRNode dRNode = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)mOrderData.NodeTag);
-            coffeeItem.sprite = Resources.Load<Sprite>(dRNode.ImagePath);
+            coffeeItem.sprite = Resources.Load<Sprite>(dRNode.IconPath);
             coffeeName.text = dRNode.Description;
             coarse.gameObject.SetActive(mOrderData.Grind);
             grind.gameObject.SetActive(!mOrderData.Grind);

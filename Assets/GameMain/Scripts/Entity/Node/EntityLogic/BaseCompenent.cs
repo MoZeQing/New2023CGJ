@@ -60,6 +60,11 @@ namespace GameMain
             get;
             protected set;
         }
+        public bool Check
+        {
+            get;
+            protected set;
+        }
         /// <summary>
         /// 卡牌是否处于锁定状态
         /// </summary>
@@ -78,11 +83,12 @@ namespace GameMain
         //卡牌身上的组件
         protected SpriteRenderer mIconSprite = null;
         protected SpriteRenderer mBackgroundSprite = null;
+        protected SpriteRenderer mBoundSprite= null;
+        protected SpriteRenderer mCoverSprite = null;
+        protected SpriteRenderer mHoldSprite = null;
         protected Image mProgressBarRenderer = null;
         protected BoxCollider2D mBoxCollider2D = null;
         protected Rigidbody2D mRigidbody2D = null;
-        protected Transform mCoverImg = null;
-        protected Transform mHoldSprite = null;
         protected Text mTextText= null;
         //内部数据
         protected NodeData mNodeData = null;//卡牌的初始数据
@@ -107,10 +113,11 @@ namespace GameMain
             mRigidbody2D = this.GetComponent<Rigidbody2D>();
             mBackgroundSprite = this.transform.Find("Sprite").GetComponent<SpriteRenderer>();
             mProgressBarRenderer = this.transform.Find("ProgressBar").GetComponent<Image>();
-            mCoverImg= mBackgroundSprite.transform.Find("Cover");
-            mTextText= mBackgroundSprite.transform.Find("Text").GetComponent<Text>();
-            mHoldSprite = mBackgroundSprite.transform.Find("Mask").transform.Find("Hold");
+            mCoverSprite = mBackgroundSprite.transform.Find("Cover").GetComponent<SpriteRenderer>();
+            mTextText = mBackgroundSprite.transform.Find("Text").GetComponent<Text>();
+            mHoldSprite = mBackgroundSprite.transform.Find("Mask").transform.Find("Hold").GetComponent<SpriteRenderer>();
             mIconSprite = mBackgroundSprite.transform.Find("Icon").GetComponent<SpriteRenderer>();
+            mBoundSprite = mBackgroundSprite.transform.Find("Bound").GetComponent<SpriteRenderer>();
             mBoxCollider2D = this.GetComponent<BoxCollider2D>();
 
             mIcePoint= this.transform.Find("Tag").Find("Ice").GetComponent<SpriteRenderer>();
@@ -123,17 +130,19 @@ namespace GameMain
         protected override void OnShow(object userData)
         {
             base.OnShow(userData);
-            mHoldSprite.localScale = Vector3.zero;
+            mHoldSprite.transform.localScale = Vector3.zero;
 
             mCompenentData = (CompenentData)userData;
             mNodeData = mCompenentData.NodeData;
             Materials = mCompenentData.materials;
             NodeTag = mCompenentData.NodeData.NodeTag;
 
+            DRNode dRNode = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)mNodeData.NodeTag);
+
             Lock = false;
             Grind = mNodeData.Grind;
-            Ice = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)mNodeData.NodeTag).Ice;
-            Tool= GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)mNodeData.NodeTag).Tool;
+            Ice = dRNode.Ice;
+            Tool= dRNode.Tool;
 
             if (Tool)
             {
@@ -144,8 +153,9 @@ namespace GameMain
             UpdateIcon();
 
             Producing = false;
-            mIconSprite.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)mNodeData.NodeTag).MaterialPath);
-            mBackgroundSprite.sprite= Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)mNodeData.NodeTag).ImagePath);
+            mIconSprite.sprite = Resources.Load<Sprite>(dRNode.IconPath);
+            mBackgroundSprite.sprite= Resources.Load<Sprite>(dRNode.BackgroundPath);
+            mBoundSprite.sprite = Resources.Load<Sprite>(dRNode.BoundPath);
             mTextText.text = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)mNodeData.NodeTag).Name;
             mProgressBarRenderer.gameObject.SetActive(false);
 
@@ -157,9 +167,9 @@ namespace GameMain
                 Vector3 newPos = UnityEngine.Random.insideUnitCircle;
                 this.transform.DOMove(mNodeData.Position + newPos * 2f, 0.5f).SetEase(Ease.OutExpo);
             }
-            if (mNodeData.Jump)
+            if (mNodeData.FirstFollow)
             {
-                PitchOn();
+                mCoverSprite.gameObject.SetActive(true);
                 ExecuteEvents.Execute<IPointerDownHandler>(this.gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.pointerDownHandler);
                 Vector3 newPos = -(mNodeData.Position - Vector3.down * 4.2f).normalized;
             }
@@ -169,13 +179,21 @@ namespace GameMain
                 mNodeData.Adsorb.Child=this;
             }
         }
-        protected virtual void UpdateCard()
+        protected virtual void UpdateCard(string layerName)
         {
+            mBackgroundSprite.sortingLayerName = layerName;
+            mHoldSprite.GetComponent<SpriteRenderer>().sortingLayerName = layerName;
+            mIconSprite.sortingLayerName = layerName;
+            mTextText.GetComponent<Canvas>().sortingLayerName = layerName;
+            mCoverSprite.GetComponent<SpriteRenderer>().sortingLayerName = layerName;
+            mBoundSprite.sortingLayerName = layerName;
+
             mBackgroundSprite.sortingOrder = GameEntry.Utils.CartSort;
             mHoldSprite.GetComponent<SpriteRenderer>().sortingOrder = GameEntry.Utils.CartSort;
             mIconSprite.sortingOrder = GameEntry.Utils.CartSort;
             mTextText.GetComponent<Canvas>().sortingOrder= GameEntry.Utils.CartSort;
-            mCoverImg.GetComponent<SpriteRenderer>().sortingOrder= GameEntry.Utils.CartSort;
+            mCoverSprite.GetComponent<SpriteRenderer>().sortingOrder= GameEntry.Utils.CartSort;
+            mBoundSprite.sortingOrder= GameEntry.Utils.CartSort;
         }
         protected virtual void UpdateIcon()
         {
@@ -201,7 +219,6 @@ namespace GameMain
             if (Parent != null)
             {
                 mBoxCollider2D.isTrigger = true;
-
             }
             else
             {
@@ -220,19 +237,14 @@ namespace GameMain
             }
             if (!Input.GetMouseButton(0))
             {
-                mNodeData.Follow = false;
-                GameEntry.Utils.PickUp = false;
-                mHoldSprite.localScale = Vector3.zero;
-                mHoldSprite.GetComponent<SpriteRenderer>().DOColor(Color.clear, 0.4f).SetEase(Ease.OutExpo);
-                if (mNodeData.Jump)
+                if (mNodeData.FirstFollow)
                 {
                     ExecuteEvents.Execute<IPointerUpHandler>(this.gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.pointerUpHandler);
-                    mNodeData.Jump = false;
+                    mNodeData.FirstFollow = false;
                 }
             }
             if (mNodeData.Follow)//跟随鼠标
             {
-                mHoldSprite.GetComponent<SpriteRenderer>().DOColor(Color.white,0.4f).SetEase(Ease.OutExpo);
                 this.transform.DOMove(MouseToWorld(Input.mousePosition), 0.1f);
                 Producing = false;
                 mProducingTime = 0;
@@ -240,10 +252,6 @@ namespace GameMain
                 mRecipeData = null;
                 mProgressBarRenderer.gameObject.SetActive(false);
                 mProgressBarRenderer.fillAmount = 1;
-            }
-            else
-            {
-
             }
             this.transform.position = new Vector3(Mathf.Clamp(this.transform.position.x, -8f, 8f), Mathf.Clamp(this.transform.position.y, -10f, -4f), 0);//���Ʒ�Χ
             if (Parent != null && !mNodeData.Follow)//跟随父卡牌
@@ -260,10 +268,18 @@ namespace GameMain
             mousePos.z = screenPosition.z;
             return Camera.main.ScreenToWorldPoint(mousePos);
         }
+        protected override void OnHide(bool isShutdown, object userData)
+        {
+            base.OnHide(isShutdown, userData);
+            Parent = null;
+            Child = null;
+        }
         public void OnPointerDown(PointerEventData pointerEventData)
         {
             if (Tool)
                 return;
+            mNodeData.Follow = true;
+            GameEntry.Utils.PickUp = true;
             GameEntry.Sound.PlaySound("Assets/GameMain/Audio/Sounds/Pick_up.mp3", "Sound");
 
             if (Parent != null)
@@ -271,30 +287,19 @@ namespace GameMain
                 Parent.Child = null;
                 Parent = null;
             }
-            UpdateCard();
-            mNodeData.Follow = true;
-            mHoldSprite.localScale = Vector3.zero;
-            mHoldSprite.DOScale(0.75f, 0.4f).SetEase(Ease.OutExpo);//圆环特效
-            GameEntry.Utils.PickUp = true;
-            mBoxCollider2D.isTrigger = true;
-
             PickUp();
-        }
-        protected override void OnHide(bool isShutdown, object userData)
-        {
-            base.OnHide(isShutdown, userData);
-            Parent = null;
-            Child = null;
         }
         public void OnPointerUp(PointerEventData pointerEventData)
         {
             if (Tool)
                 return;
-            mBoxCollider2D.isTrigger = true;
-            PitchOn();
-            if (mCompenents.Count == 0)
-                return;
+            mNodeData.Follow = false;
+            GameEntry.Utils.PickUp = false;
             if (Parent != null)
+                return;
+            PutDown();
+
+            if (mCompenents.Count == 0)
                 return;
             BaseCompenent bestCompenent = mCompenents[0];
             foreach (BaseCompenent baseCompenent in mCompenents)
@@ -306,8 +311,7 @@ namespace GameMain
                     bestCompenent = baseCompenent;
                 }
             }
-            mCompenents.Clear();
-            UpdateCard();            
+            mCompenents.Clear();         
             BaseCompenent parent = bestCompenent;
 
             int block = 1000;
@@ -315,37 +319,38 @@ namespace GameMain
             {
                 parent = parent.Parent;
                 if (parent == this)
-                    return;
+                    break;
                 block--;
                 if (block < 0)
-                    return;
+                    break;
             }
             if(bestCompenent.Child==null)
             {
                 Parent = bestCompenent;
                 Parent.Child = this;
             }
-           
         }
         public void OnPointerEnter(PointerEventData pointerEventData)
         {
-            if (GameEntry.Utils.PickUp)
-                return;
+            Check = true;
+            //if (GameEntry.Utils.PickUp)
+            //    return;
+            PitchOn();
             if (Parent != null)
                 return;
             if (Tool)
                 return;
-            PitchOn();
         }
         public void OnPointerExit(PointerEventData pointerEventData)
         {
-            if (GameEntry.Utils.PickUp)
-                return;
+            Check = false;
+            //if (GameEntry.Utils.PickUp)
+            //    return;
+            PitchOut();
             if (Parent != null)
                 return;
             if (Tool)
                 return;
-            PutDown();
         }
         private void OnTriggerStay2D(Collider2D collision)
         {
@@ -353,6 +358,8 @@ namespace GameMain
                 return;
             BaseCompenent baseCompenent = null;
             if (!collision.TryGetComponent<BaseCompenent>(out baseCompenent))
+                return;
+            if (!baseCompenent.Check)
                 return;
             if (!mCompenents.Contains(baseCompenent))
             {
@@ -377,37 +384,47 @@ namespace GameMain
             }
         }
         /// <summary>
-        /// ����״̬
+        /// 鼠标点击效果
         /// </summary>
         protected virtual void PickUp()
         {
-            UpdateCard();
-            if (Child != null)
-                Child.PickUp();
+            //修改层级为Controller，卡牌向上移动并播放圆环特效
+            UpdateCard("Controller");
+            mBoxCollider2D.isTrigger = true;
+            mBackgroundSprite?.gameObject.transform.DOPause();
+            mBackgroundSprite?.gameObject.transform.DOLocalMove(Vector3.up * 0.08f, 0.2f);
+            mHoldSprite.transform.localScale = Vector3.zero;
+            mHoldSprite.GetComponent<SpriteRenderer>().DOColor(Color.white, 0.4f).SetEase(Ease.OutExpo);
+            mHoldSprite?.transform.DOScale(0.75f, 0.4f).SetEase(Ease.OutExpo);//圆环特效
+            Child?.PickUp();
         }
         /// <summary>
-        /// ѡ��
-        /// </summary>
-        protected virtual void PitchOn()
-        {
-            UpdateCard();
-            mBackgroundSprite.gameObject.transform.DOPause();
-            mBackgroundSprite.gameObject.transform.DOLocalMove(Vector3.up * 0.08f, 0.2f);
-            mCoverImg.gameObject.SetActive(true);
-            if (Child != null)
-                Child.PitchOn();
-        }
-        /// <summary>
-        /// ����
+        /// 鼠标放下效果
         /// </summary>
         protected virtual void PutDown()
         {
-            UpdateCard();
-            mBackgroundSprite.gameObject.transform.DOPause();
-            mBackgroundSprite.gameObject.transform.DOLocalMove(Vector3.zero, 0.2f);
-            mCoverImg.gameObject.SetActive(false);
-            if (Child != null)
-                Child.PutDown();
+            UpdateCard("GamePlay");
+            mBoxCollider2D.isTrigger = false;
+            mBackgroundSprite?.gameObject.transform.DOPause();
+            mBackgroundSprite?.gameObject.transform.DOLocalMove(Vector3.zero, 0.2f);
+            mHoldSprite?.GetComponent<SpriteRenderer>().DOColor(Color.clear, 0.4f).SetEase(Ease.OutExpo);
+            Child?.PutDown();
+        }
+        /// <summary>
+        /// 鼠标进入效果
+        /// </summary>
+        protected virtual void PitchOn()
+        {
+            mCoverSprite?.gameObject.SetActive(true);
+            Child?.PitchOn();
+        }
+        /// <summary>
+        /// 鼠标退出效果
+        /// </summary>
+        protected virtual void PitchOut()
+        {
+            mCoverSprite?.gameObject.SetActive(false);
+            Child?.PitchOut();
         }
         public void Remove()
         {
@@ -437,7 +454,7 @@ namespace GameMain
             BaseCompenent child = Child;
             while (child != null)
             {
-                if (child.Grind||child.NodeTag==NodeTag.EspressoG)
+                if (child.Grind || child.NodeTag==NodeTag.EspressoG)
                     return true;
                 child = child.Child;
             }
@@ -525,10 +542,7 @@ namespace GameMain
                 }
                 if (mProducingTime <= 0)//如果完成制作
                 {
-                    if (Child != null)//删除全部的子节点
-                    {
-                        RemoveChildren();
-                    }//根据完成品进行产出
+                    RemoveChildren();//删除全部的子节点
                     for (int i = 0; i < mRecipeData.products.Count; i++)
                     {
                         if (mRecipeData.products[i] == NodeTag.EspressoG)

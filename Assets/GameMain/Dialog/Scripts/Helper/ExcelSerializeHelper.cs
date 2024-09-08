@@ -45,7 +45,7 @@ public class ExcelSerializeHelper : IDialogSerializeHelper
                     _ => throw new CSVParseException(row, $"Unknown type '{dialogType}'")
                 };
 
-                baseData.Identifier = identifier; // 设置标识符
+                baseData.Id = int.Parse(identifier); // 设置标识符
                 mapsDialogData.Add(identifier, baseData); // 将 baseData 以 identifier 为键存入字典
                 dialogData.DialogDatas.Add(baseData);
             }

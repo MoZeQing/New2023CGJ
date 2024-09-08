@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-09-03 00:25:17.612
+// 生成时间：2024-09-08 15:18:39.402
 //------------------------------------------------------------
 
 using GameFramework;
@@ -55,18 +55,27 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取图片路径。
+        /// 获取背景路径。
         /// </summary>
-        public string ImagePath
+        public string BackgroundPath
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取实物路径。
+        /// 获取边框路径。
         /// </summary>
-        public string MaterialPath
+        public string BoundPath
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取图标路径。
+        /// </summary>
+        public string IconPath
         {
             get;
             private set;
@@ -176,8 +185,9 @@ namespace GameMain
             index++;
             AssetName = columnStrings[index++];
             Name = columnStrings[index++];
-            ImagePath = columnStrings[index++];
-            MaterialPath = columnStrings[index++];
+            BackgroundPath = columnStrings[index++];
+            BoundPath = columnStrings[index++];
+            IconPath = columnStrings[index++];
             Tool = bool.Parse(columnStrings[index++]);
             Coffee = bool.Parse(columnStrings[index++]);
             Ice = bool.Parse(columnStrings[index++]);
@@ -202,8 +212,9 @@ namespace GameMain
                     m_Id = binaryReader.Read7BitEncodedInt32();
                     AssetName = binaryReader.ReadString();
                     Name = binaryReader.ReadString();
-                    ImagePath = binaryReader.ReadString();
-                    MaterialPath = binaryReader.ReadString();
+                    BackgroundPath = binaryReader.ReadString();
+                    BoundPath = binaryReader.ReadString();
+                    IconPath = binaryReader.ReadString();
                     Tool = binaryReader.ReadBoolean();
                     Coffee = binaryReader.ReadBoolean();
                     Ice = binaryReader.ReadBoolean();

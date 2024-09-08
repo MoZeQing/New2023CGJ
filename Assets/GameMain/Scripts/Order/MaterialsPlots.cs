@@ -39,7 +39,7 @@ public class MaterialsPlots : MonoBehaviour,IPointerDownHandler
             GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, nodeTag)
             {
                 Position = this.transform.position,
-                Jump = true
+                FirstFollow = true
             });
             //text.text = "¡Þ";
             return;
@@ -68,7 +68,7 @@ public class MaterialsPlots : MonoBehaviour,IPointerDownHandler
         GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, nodeTag)
         {
             Position = this.transform.position,
-            Jump = true
+            FirstFollow = true
         }); 
     }
 }

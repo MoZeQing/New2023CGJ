@@ -161,7 +161,7 @@ public class DialogBox : MonoBehaviour
         }
         catch (Exception ex)
         {
-            Debug.LogError($"Error occurred in Next(): {ex.Message}\nBaseData identifier: {m_Data.Identifier}\nStack Trace: {ex.StackTrace}");
+            Debug.LogError($"Error occurred in Next(): {ex.Message}\nBaseData identifier: {m_Data.Id}\nStack Trace: {ex.StackTrace}");
         }
         isTextComplete = false;
     }
@@ -200,7 +200,7 @@ public class DialogBox : MonoBehaviour
         }
         catch (Exception ex)
         {
-            Debug.LogError($"Error showing option: {ex.Message}\nOptionData identifier: {optionData.Identifier}");
+            Debug.LogError($"Error showing option: {ex.Message}\nOptionData identifier: {optionData.Id}");
         }
     }
 
@@ -225,7 +225,7 @@ public class DialogBox : MonoBehaviour
         }
         catch (Exception ex)
         {
-            Debug.LogError($"Error showing chat: {ex.Message}\nChatData identifier: {chatData.Identifier}");
+            Debug.LogError($"Error showing chat: {ex.Message}\nChatData identifier: {chatData.Id}");
         }
     }
 

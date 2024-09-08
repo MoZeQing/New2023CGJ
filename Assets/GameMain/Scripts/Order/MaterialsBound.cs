@@ -9,6 +9,8 @@ public class MaterialsBound : MonoBehaviour,IPointerEnterHandler,IPointerExitHan
 {
     [SerializeField] private Transform mBG;
     [SerializeField] private Transform mCanvas;
+    [SerializeField, Range(0, 1f)] private float speed = 0.5f;
+    [SerializeField] Ease ease= Ease.InExpo;
 
     private void Start()
     {
@@ -21,18 +23,18 @@ public class MaterialsBound : MonoBehaviour,IPointerEnterHandler,IPointerExitHan
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        mBG.transform.DOLocalMoveY(0f, 0.5f).SetEase(Ease.InExpo);
-        mBG.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.InExpo);
-        mCanvas.GetComponent<CanvasGroup>().DOFade(1f,0.5f).SetEase(Ease.InExpo);
+        mBG.transform.DOLocalMoveY(0f, speed).SetEase(ease);
+        mBG.transform.DOScale(Vector3.one, speed).SetEase(ease);
+        mCanvas.GetComponent<CanvasGroup>().DOFade(1f, speed).SetEase(ease);
         mCanvas.GetComponent<CanvasGroup>().interactable = true;
         mCanvas.GetComponent<CanvasGroup>().blocksRaycasts = true;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        mBG.transform.DOLocalMoveY(-100, 0.5f).SetEase(Ease.InExpo);
-        mBG.transform.DOScale(Vector3.one * 0.5f, 0.5f).SetEase(Ease.InExpo);
-        mCanvas.GetComponent<CanvasGroup>().DOFade(0f, 0.5f).SetEase(Ease.InExpo);
+        mBG.transform.DOLocalMoveY(-100, speed).SetEase(ease);
+        mBG.transform.DOScale(Vector3.one * 0.5f, speed).SetEase(ease);
+        mCanvas.GetComponent<CanvasGroup>().DOFade(0f, speed).SetEase(ease);
         mCanvas.GetComponent<CanvasGroup>().interactable = false;
         mCanvas.GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
