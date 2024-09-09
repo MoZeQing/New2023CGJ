@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-09-08 15:18:39.526
+// 生成时间：2024-09-08 18:31:33.480
 //------------------------------------------------------------
 
 using GameFramework;
@@ -136,114 +136,6 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取加值描述。
-        /// </summary>
-        public string AMInfo
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取商店标签。
-        /// </summary>
-        public int ShopIndex
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取亲情。
-        /// </summary>
-        public int Family
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取爱情。
-        /// </summary>
-        public int Love
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取信任。
-        /// </summary>
-        public int Favor
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取希望。
-        /// </summary>
-        public int Hope
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取心情。
-        /// </summary>
-        public int Mood
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取体力。
-        /// </summary>
-        public int Energy
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取AP。
-        /// </summary>
-        public int Ap
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取魅力。
-        /// </summary>
-        public int Charm
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取体魄。
-        /// </summary>
-        public int Stamina
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取智慧。
-        /// </summary>
-        public int Wisdom
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
         /// 获取前置物品ID。
         /// </summary>
         public int Preposition
@@ -275,18 +167,6 @@ namespace GameMain
             Equipable = bool.Parse(columnStrings[index++]);
             MaxNum = int.Parse(columnStrings[index++]);
             Kind = int.Parse(columnStrings[index++]);
-            AMInfo = columnStrings[index++];
-            ShopIndex = int.Parse(columnStrings[index++]);
-            Family = int.Parse(columnStrings[index++]);
-            Love = int.Parse(columnStrings[index++]);
-            Favor = int.Parse(columnStrings[index++]);
-            Hope = int.Parse(columnStrings[index++]);
-            Mood = int.Parse(columnStrings[index++]);
-            Energy = int.Parse(columnStrings[index++]);
-            Ap = int.Parse(columnStrings[index++]);
-            Charm = int.Parse(columnStrings[index++]);
-            Stamina = int.Parse(columnStrings[index++]);
-            Wisdom = int.Parse(columnStrings[index++]);
             Preposition = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
@@ -311,18 +191,6 @@ namespace GameMain
                     Equipable = binaryReader.ReadBoolean();
                     MaxNum = binaryReader.Read7BitEncodedInt32();
                     Kind = binaryReader.Read7BitEncodedInt32();
-                    AMInfo = binaryReader.ReadString();
-                    ShopIndex = binaryReader.Read7BitEncodedInt32();
-                    Family = binaryReader.Read7BitEncodedInt32();
-                    Love = binaryReader.Read7BitEncodedInt32();
-                    Favor = binaryReader.Read7BitEncodedInt32();
-                    Hope = binaryReader.Read7BitEncodedInt32();
-                    Mood = binaryReader.Read7BitEncodedInt32();
-                    Energy = binaryReader.Read7BitEncodedInt32();
-                    Ap = binaryReader.Read7BitEncodedInt32();
-                    Charm = binaryReader.Read7BitEncodedInt32();
-                    Stamina = binaryReader.Read7BitEncodedInt32();
-                    Wisdom = binaryReader.Read7BitEncodedInt32();
                     Preposition = binaryReader.Read7BitEncodedInt32();
                 }
             }

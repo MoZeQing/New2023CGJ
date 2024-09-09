@@ -61,12 +61,6 @@ public class ItemData
         itemKind = (ItemKind)item.Kind;
         itemInfo = item.Info;
         price = item.Price;
-        family = item.Family;
-        hope = item.Hope;
-        mood = item.Mood;
-        love = item.Love;
-        favor = item.Favor;
-        ability = item.Ap;
         maxNum = item.MaxNum;
         equipable = item.Equipable;
         itemImgPath = item.ImagePath;
@@ -81,12 +75,6 @@ public class ItemData
         itemKind = (ItemKind)item.Kind;
         itemInfo = item.Info;
         price = item.Price;
-        family = item.Family;
-        hope = item.Hope;
-        mood = item.Mood;
-        love = item.Love;
-        favor = item.Favor;
-        ability = item.Ap;
         maxNum = item.MaxNum;
         equipable = item.Equipable;
     }

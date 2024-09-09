@@ -86,6 +86,7 @@ namespace GameMain
         protected SpriteRenderer mBoundSprite= null;
         protected SpriteRenderer mCoverSprite = null;
         protected SpriteRenderer mHoldSprite = null;
+        protected SpriteRenderer mShaderSprite = null;
         protected Image mProgressBarRenderer = null;
         protected BoxCollider2D mBoxCollider2D = null;
         protected Rigidbody2D mRigidbody2D = null;
@@ -119,6 +120,7 @@ namespace GameMain
             mHoldSprite = mBackgroundSprite.transform.Find("Mask").transform.Find("Hold").GetComponent<SpriteRenderer>();
             mIconSprite = mBackgroundSprite.transform.Find("Icon").GetComponent<SpriteRenderer>();
             mBoundSprite = mBackgroundSprite.transform.Find("Bound").GetComponent<SpriteRenderer>();
+            mShaderSprite= this.transform.Find("Shader").GetComponent<SpriteRenderer>();
             mBoxCollider2D = this.GetComponent<BoxCollider2D>();
 
             mIcePoint= this.transform.Find("Tag").Find("Ice").GetComponent<SpriteRenderer>();
