@@ -21,6 +21,11 @@ namespace GameMain
         protected Action<DRItem> mAction;
         protected Action<bool, DRItem> mTouchAction;
 
+        public bool Interactable
+        {
+            get => itemBtn.interactable;
+            set=> itemBtn.interactable = value;
+        }
         public void Hide()
         {
             this.gameObject.SetActive(false);
@@ -30,11 +35,16 @@ namespace GameMain
             mShopItemData = itemData;
             this.gameObject.SetActive(true);
             itemImage.sprite = Resources.Load<Sprite>(itemData.ImagePath);
-            priceText.text = string.Format("гд{0}",itemData.Price.ToString());
+            itemText.text = itemData.Info;
+            priceText.text = $"{itemData.Price}";
             if(GameEntry.Player.GetPlayerItem((ItemTag)itemData.Id)!=null)
-                inventoryText.text =  GameEntry.Player.GetPlayerItem((ItemTag)itemData.Id).itemNum.ToString(); 
-            else
-                inventoryText.text = "0";
+                itemBtn.interactable = (itemData.MaxNum > GameEntry.Player.GetPlayerItem((ItemTag)itemData.Id).itemNum);
+            else 
+                itemBtn.interactable = true;
+            //if(GameEntry.Player.GetPlayerItem((ItemTag)itemData.Id)!=null)
+            //    inventoryText.text =  GameEntry.Player.GetPlayerItem((ItemTag)itemData.Id).itemNum.ToString(); 
+            //else
+            //    inventoryText.text = "0";
         }
         public virtual void SetData(DRItem itemData, Action<DRItem> click, Action<bool, DRItem> touch)
         {

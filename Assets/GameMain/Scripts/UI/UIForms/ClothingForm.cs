@@ -10,112 +10,46 @@ using GameMain;
 
 namespace GameMain
 {
-    public class ClothingForm : BaseForm
+    public class ClothingForm : ShopForm
     {
-        [SerializeField] private Button exitBtn;
-        [SerializeField] private Button leftBtn;
-        [SerializeField] private Button rightBtn;
-        [SerializeField] private Text pageText;
-        [SerializeField] private List<ShopItem> mItems = new List<ShopItem>();
+        [Header("工作区域")]
+        [SerializeField] private Text salaryInfoText;
+        [SerializeField] private Text salaryText;
+        [SerializeField] private Button salaryBtn;
+        [Header("工资额度")]
+        [SerializeField] private int salary;
 
-        private List<DRItem> dRItems = new List<DRItem>();
-        private DRItem dRItem;
-        private int index = 0;
-
-        protected override void OnOpen(object userData)
+        protected override void OnInitValue(object userData)
         {
-            base.OnOpen(userData);
+            base.OnInitValue(userData);
             dRItems.Clear();
             foreach (DRItem item in GameEntry.DataTable.GetDataTable<DRItem>().GetAllDataRows())
             {
                 if ((ItemKind)item.Kind != ItemKind.Clothes)
                     continue;
-                if (item.Id == 1001)
-                    continue;
-                if (item.Id == 1002)
-                    continue;
-                if (item.Id == 1006)
-                    continue;
                 dRItems.Add(item);
             }
 
-            leftBtn.interactable = false;
-            rightBtn.interactable = dRItems.Count > mItems.Count;
-
-            exitBtn.onClick.AddListener(OnExit);
-            leftBtn.onClick.AddListener(Left);
-            rightBtn.onClick.AddListener(Right);
-
-            index = 0;
-            ShowItems();
+            salaryBtn.onClick.AddListener(SalaryBtn_OnClick);
         }
-        protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
+        protected override void UpdateItem()
         {
-            base.OnUpdate(elapseSeconds, realElapseSeconds);
+            salaryInfoText.text = $"工作,消耗一点体力，增加{salary}金钱";
+            salaryText.text = $"+{salary}";
+            salaryBtn.interactable = !GameEntry.Utils.CheckFlag("Work");
+            base.UpdateItem();
         }
-
-        protected override void OnClose(bool isShutdown, object userData)
+        private void SalaryBtn_OnClick()
         {
-            base.OnClose(isShutdown, userData);
-            exitBtn.onClick.RemoveAllListeners();
-        }
-        private void ShowItems()
-        {
-            leftBtn.interactable = (index != 0);
-
-            for (int i = 0; i < mItems.Count; i++)
-            {
-                if (index < dRItems.Count)
-                {
-                    mItems[i].SetData(dRItems[index]);
-                    mItems[i].SetClick(OnClick);
-                }
-                else
-                    mItems[i].Hide();
-                index++;
-            }
-
-            rightBtn.interactable = index < dRItems.Count;
-            pageText.text = (index / mItems.Count).ToString();
-        }
-        private void OnClick(DRItem itemData)
-        {
-            dRItem = itemData;
-            if (itemData.Price > GameEntry.Player.Money)
-                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你的资金不足");
-            else
-                GameEntry.UI.OpenUIForm(UIFormId.OkTips,UpdateItem, "你确定要购买吗？");
-        }
-        private void Right()
-        {
-            ShowItems();
+            GameEntry.UI.OpenUIForm(UIFormId.OkTips, SalaryBtn_OnConfirm, "你确定要工作吗？");
         }
 
-        private void Left()
+        private void SalaryBtn_OnConfirm()
         {
-            index -= 2 * mItems.Count;
-            ShowItems();
-        }
-        private void UpdateItem()
-        {
-            GameEntry.Player.Money -= dRItem.Price;
-            GameEntry.Player.AddPlayerItem(new ItemData(dRItem), 1);
-            if (dRItem.EventData != null&&dRItem.EventData!=string.Empty)
-            {
-                GameEntry.Utils.RunEvent(dRItem.EventData);
-            }
-
-            index -= mItems.Count;
-            ShowItems();
-        }
-        private void OnExit()
-        {
-            GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
-            GameEntry.Utils.Location = OutingSceneState.Home;
-            GameEntry.UI.CloseUIForm(this.UIForm);
-            GameEntry.Event.FireNow(this, OutEventArgs.Create(OutingSceneState.Home));
-            DRWeather weather = GameEntry.DataTable.GetDataTable<DRWeather>().GetDataRow((int)GameEntry.Utils.WeatherTag);
-            GameEntry.Sound.PlaySound(weather.BackgroundMusicId);
+            GameEntry.Player.Ap--;
+            GameEntry.Player.Money += salary;
+            GameEntry.Utils.AddFlag("Work");
+            UpdateItem();
         }
     }
 }

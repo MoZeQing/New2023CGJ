@@ -6,128 +6,57 @@ using GameFramework.DataTable;
 
 namespace GameMain
 {
-    public class MarketForm : BaseForm
+    public class MarketForm : ShopForm
     {
-        [SerializeField] private Button exitBtn;
-        [SerializeField] private Button leftBtn;
-        [SerializeField] private Button rightBtn;
-        [SerializeField] private Text pageText;
-        [SerializeField] private PurchaseForm purchaseForm;
-        [SerializeField] private List<ShopItem> mItems = new List<ShopItem>();
+        [Header("购买区域的东西")]
+        [SerializeField] private ItemKind kind;
+        [Header("投资金额")]
+        [SerializeField] private int invest = 500;
+        [Header("投资区域")]
+        [SerializeField] private Button investBtn;
+        [SerializeField] private Text investText;
+        [SerializeField] private Text financialText;
 
-        private List<DRItem> dRItems = new List<DRItem>();
-        private ItemData mItemData = new ItemData();
-        private int index = 0;
-
-        protected override void OnOpen(object userData)
+        protected override void OnInitValue(object userData)
         {
-            base.OnOpen(userData);
+            base.OnInitValue(userData);
             dRItems.Clear();
             foreach (DRItem item in GameEntry.DataTable.GetDataTable<DRItem>().GetAllDataRows())
             {
-                if ((ItemKind)item.Kind != ItemKind.Materials)
+                if ((ItemKind)item.Kind != kind)
                     continue;
                 dRItems.Add(item);
             }
-
-            leftBtn.interactable = false;
-            rightBtn.interactable = dRItems.Count > mItems.Count;
-
-            exitBtn.onClick.AddListener(OnExit);
-            leftBtn.onClick.AddListener(Left);
-            rightBtn.onClick.AddListener(Right);
-
-            index = 0;
-            ShowItems();
+            investBtn.onClick.AddListener(InvestBtn_OnClick);
         }
-
-        protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
+        private void InvestBtn_OnClick()
         {
-            base.OnUpdate(elapseSeconds, realElapseSeconds);
-        }
-
-        protected override void OnClose(bool isShutdown, object userData)
-        {
-            base.OnClose(isShutdown, userData);
-            exitBtn.onClick.RemoveAllListeners();
-        }
-        private void ShowItems()
-        {
-            leftBtn.interactable = index != 0;
-
-            for (int i = 0; i < mItems.Count; i++)
+            if (GameEntry.Player.Money < invest)
             {
-                if (index < dRItems.Count)
-                {
-                    mItems[i].SetData(dRItems[index]);
-                    mItems[i].SetClick(OnClick);
-                }
-                else
-                    mItems[i].Hide();
-                index++;
+                GameEntry.UI.OpenUIForm(UIFormId.PopTips, $"你的金钱少于{invest}");
+                return;
             }
-            rightBtn.interactable = index < dRItems.Count;
-            pageText.text = (index / mItems.Count).ToString();
+            GameEntry.UI.OpenUIForm(UIFormId.OkTips, InvestBtn_OnConfirm, "你确定要投资吗？");
         }
-        private void OnClick(DRItem itemData)
+        protected override void OnConfirm(DRItem itemData)
         {
-            purchaseForm.SetData(itemData);
-            purchaseForm.gameObject.SetActive(true);
-            purchaseForm.SetClick(UpdateItem);
+            base.OnConfirm(itemData);
         }
-        private void Right()
+        private void InvestBtn_OnConfirm()
         {
-            ShowItems();
+            GameEntry.Player.Investment += invest;
+            GameEntry.Player.Money -= invest;
+            GameEntry.Utils.AddFlag("Invest");
+            UpdateItem();
         }
+        protected override void UpdateItem()
+        {
+            financialText.text = $"投资额：{GameEntry.Player.Investment}";
+            investText.text = $"投资回报（每天）：{GameEntry.Player.Investment / invest + 9}%";
+            investBtn.interactable = !GameEntry.Utils.CheckFlag("Invest");
 
-        private void Left()
-        {
-            index -= 2 * mItems.Count;
-            ShowItems();
-        }
-        private void UpdateItem()
-        {
-            index -= mItems.Count;
-            ShowItems();
-        }
-        private void OnTouch(bool flag, DRItem itemData)
-        {
-
-        }
-
-        private void OnExit()
-        {
-            GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
-            GameEntry.Utils.Location = OutingSceneState.Home;
-            GameEntry.UI.CloseUIForm(this.UIForm);
+            base.UpdateItem();
         }
     }
-
-    public class ShopItemData : ItemData
-    {
-
-        public int itemNum;
-
-        public ShopItemData() { }
-
-        public ShopItemData(DRItem item)
-            : base(item)
-        {
-            this.maxNum = item.MaxNum;
-        }
-        public ShopItemData(ItemTag itemTag)
-            : base(itemTag)
-        {
-            IDataTable<DRItem> items = GameMain.GameEntry.DataTable.GetDataTable<DRItem>();
-            DRItem item = items.GetDataRow((int)itemTag);
-            this.maxNum = item.MaxNum;
-        }
-        public ShopItemData(ItemTag itemTag, int maxNum)
-            : base(itemTag)
-        {
-            this.maxNum = maxNum;
-        }
-    }
-
 }
 

@@ -61,7 +61,8 @@ namespace GameMain
         PopTips =100,
         HighlightTips=101,
         PropertyTips=102,
-        OkTips=103
+        OkTips=103,
+        PurchaseForm=300
     }
 }
 

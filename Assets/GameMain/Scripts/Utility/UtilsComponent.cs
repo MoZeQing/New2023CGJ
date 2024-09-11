@@ -117,7 +117,10 @@ namespace GameMain
                 mUtilsData.word = value;
             }
         }
-
+        public bool CheckFlag(string key)
+        {
+            return mUtilsData.flags.ContainsKey(key);
+        }
         public bool CheckFlag(string key, int value)
         {
             if (mUtilsData.flags.ContainsKey(key))

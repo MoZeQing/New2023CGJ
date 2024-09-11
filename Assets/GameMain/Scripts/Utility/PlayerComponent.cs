@@ -28,6 +28,11 @@ namespace GameMain
         {
             mPlayerData.items.Clear();
         }
+        public void AddPlayerItem(ItemTag itemTag, int num)
+        { 
+            ItemData itemData= new ItemData(itemTag);
+            AddPlayerItem(itemData,num);
+        }
         public void AddPlayerItem(ItemData itemData, int num)
         {
             if (GetPlayerItem(itemData.itemTag) == null)
@@ -152,6 +157,18 @@ namespace GameMain
                 GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
             }
         }
+        public int Investment
+        {
+            get
+            {
+                return mPlayerData.investment;
+            }
+            set
+            {
+                mPlayerData.investment = value;
+                GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
+            }
+        }
         public int MaxEnergy
         {
             get
@@ -236,6 +253,7 @@ namespace GameMain
         public int ap;
         public int day;
         public int rent;
+        public int investment;
         public int guideID;
         public List<PlayerItemData> items = new List<PlayerItemData>();
         public List<int> recipes = new List<int>();

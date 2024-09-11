@@ -15,6 +15,7 @@ namespace GameMain
         [SerializeField] private Button gymBtn;
         [SerializeField] private Button marketBtn;
         [SerializeField] private Button benchBtn;
+        [SerializeField] private Button restaurantBtn;
         [SerializeField] private Button exitBtn;
         [SerializeField] private Transform canvas;
 
@@ -31,7 +32,7 @@ namespace GameMain
             gymBtn.onClick.AddListener(() => Outing(OutingSceneState.Gym));
             benchBtn.onClick.AddListener(() => Outing(OutingSceneState.Beach));
             marketBtn.onClick.AddListener(() => Outing(OutingSceneState.Market));
-
+            restaurantBtn.onClick.AddListener(() => Outing(OutingSceneState.Restaurant));
             //libraryBtn.transform.GetChild(0).gameObject.SetActive(GameEntry.Dialog.CheckOutStory(OutingSceneState.Library));
             //clothingBtn.transform.GetChild(0).gameObject.SetActive(GameEntry.Dialog.CheckOutStory(OutingSceneState.Clothing));
             //gymBtn.transform.GetChild(0).gameObject.SetActive(GameEntry.Dialog.CheckOutStory(OutingSceneState.Gym));
@@ -58,7 +59,8 @@ namespace GameMain
             gymBtn.onClick.RemoveAllListeners();
             exitBtn.onClick.RemoveAllListeners();
             benchBtn.onClick.RemoveAllListeners(); 
-            marketBtn.onClick.RemoveAllListeners(); 
+            marketBtn.onClick.RemoveAllListeners();
+            restaurantBtn.onClick.RemoveAllListeners();
         }
 
         private void Outing(OutingSceneState outingSceneState)

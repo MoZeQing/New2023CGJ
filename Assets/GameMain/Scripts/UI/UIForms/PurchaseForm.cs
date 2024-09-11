@@ -6,7 +6,7 @@ using System;
 
 namespace GameMain
 {
-    public class PurchaseForm : MonoBehaviour
+    public class PurchaseForm : BaseForm
     {
         [SerializeField] private Text purchaseNum;
         [SerializeField] private Text purchaseTotal;
@@ -19,12 +19,13 @@ namespace GameMain
         [SerializeField] private Image iconImage;
         [SerializeField] private GameObject tips;
 
-        private DRItem mShopItemData;
+        private DRItem mDRItem;
         private Action mAction;
         private int purchaseNumber;
 
-        void Start()
+        protected override void OnOpen(object userData)
         {
+            base.OnOpen(userData);
             exitPurchaseFormBtn.onClick.AddListener(ExitPurchaseForm);
             plusBtn.onClick.AddListener(Plus);
             superPlusBtn.onClick.AddListener(SuperPlus);
@@ -33,110 +34,66 @@ namespace GameMain
             PurchaseFormBuyBtn.onClick.AddListener(PurchaseComfirm); ;
             purchaseNumber = 1;
             purchaseNum.text = purchaseNumber.ToString();
+            mDRItem = userData as DRItem;
+            Check();
+            mAction = BaseFormData.Action;
         }
-        void Update()
+
+        protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
+            base.OnUpdate(elapseSeconds, realElapseSeconds);
             purchaseNum.text = "X" + purchaseNumber.ToString();
-            purchaseTotal.text = string.Format("花销：{0}", purchaseNumber * mShopItemData.Price);
-        }
-        public void SetData(DRItem shopItemData)
-        {
-            mShopItemData = shopItemData;
-            if (GameEntry.Player.Money < mShopItemData.Price * purchaseNumber)
-            {
-                tips.gameObject.SetActive(true);
-                PurchaseFormBuyBtn.interactable = false;
-                iconImage.sprite = Resources.Load<Sprite>(shopItemData.IconPath);
-            }
-        }
-        public void SetClick(Action action)
-        {
-            mAction = action;
+            purchaseTotal.text = string.Format("花销：{0}", purchaseNumber * mDRItem.Price);
         }
 
         private void ExitPurchaseForm()
         {
             purchaseNum.text = 1.ToString();
             purchaseNumber = 1;
-            this.gameObject.SetActive(false);
+            GameEntry.UI.CloseUIForm(this.UIForm);
+        }
+        private void Check()
+        {
+            if (GameEntry.Player.Money < mDRItem.Price * purchaseNumber)
+            {
+                tips.gameObject.SetActive(true);
+                PurchaseFormBuyBtn.interactable = false;
+            }
         }
         private void PurchaseComfirm()
         {
-            if (GameEntry.Player.Money >= mShopItemData.Price * purchaseNumber)
+            if (GameEntry.Player.Money >= mDRItem.Price * purchaseNumber)
             {
-                GameEntry.Player.AddPlayerItem(new ShopItemData(mShopItemData), purchaseNumber);
-                GameEntry.Player.Money -= mShopItemData.Price * purchaseNumber;
+                GameEntry.Player.AddPlayerItem(new ShopItemData(mDRItem), purchaseNumber);
+                GameEntry.Player.Money -= mDRItem.Price * purchaseNumber;
             }
-            purchaseNum.text = 1.ToString();
-            purchaseNumber = 1;
             mAction();
-            this.gameObject.SetActive(false);
+            GameEntry.UI.CloseUIForm(this.UIForm);
+            Check();
         }
         private void Plus()
         {
-            if (purchaseNumber >= 0 && purchaseNumber <= 98)
-            {
-                purchaseNumber++;
-            }
-            if (purchaseNumber > 99)
-            {
-                purchaseNumber = 99;
-            }
-            if (GameEntry.Player.Money < mShopItemData.Price * purchaseNumber)
-            {
-                tips.gameObject.SetActive(true);
-                PurchaseFormBuyBtn.interactable = false;
-            }
+            purchaseNumber++;
+            purchaseNumber = Mathf.Min(purchaseNumber,99);
+
         }
         private void SuperPlus()
         {
-            if (purchaseNumber >= 0 && purchaseNumber <= 98)
-            {
-                purchaseNumber = purchaseNumber + 5;
-            }
-            if (purchaseNumber > 99)
-            {
-                purchaseNumber = 99;
-            }
-            if (GameEntry.Player.Money < mShopItemData.Price * purchaseNumber)
-            {
-                tips.gameObject.SetActive(true);
-                PurchaseFormBuyBtn.interactable = false;
-            }
+            purchaseNumber += 5;
+            purchaseNumber = Mathf.Min(purchaseNumber, 99);
+            Check();
         }
         private void Minus()
         {
-            if (purchaseNumber > 0)
-            {
-                purchaseNumber--;
-            }
-            if (purchaseNumber < 0)
-            {
-                purchaseNumber = 0;
-            }
-            if (GameEntry.Player.Money >= mShopItemData.Price * purchaseNumber)
-            {
-                tips.gameObject.SetActive(false);
-                PurchaseFormBuyBtn.interactable = true;
-            }
+            purchaseNumber--;
+            purchaseNumber = Mathf.Max(purchaseNumber, 0);
+            Check();
         }
         private void SuperMinus()
         {
-            if (purchaseNumber > 0)
-            {
-                purchaseNumber = purchaseNumber - 5;
-            }
-            if (purchaseNumber < 0)
-            {
-                purchaseNumber = 0;
-            }
-            if (GameEntry.Player.Money >= mShopItemData.Price * purchaseNumber)
-            {
-                tips.gameObject.SetActive(false);
-                PurchaseFormBuyBtn.interactable = true;
-            }
+            purchaseNumber -= 5;
+            purchaseNumber = Mathf.Max(purchaseNumber, 0);
+            Check();
         }
-
-
     }
 }

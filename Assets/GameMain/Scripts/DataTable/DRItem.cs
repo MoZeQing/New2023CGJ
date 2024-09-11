@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-09-08 18:31:33.480
+// 生成时间：2024-09-11 18:05:00.916
 //------------------------------------------------------------
 
 using GameFramework;
@@ -135,15 +135,6 @@ namespace GameMain
             private set;
         }
 
-        /// <summary>
-        /// 获取前置物品ID。
-        /// </summary>
-        public int Preposition
-        {
-            get;
-            private set;
-        }
-
         public override bool ParseDataRow(string dataRowString, object userData)
         {
             string[] columnStrings = dataRowString.Split(DataTableExtension.DataSplitSeparators);
@@ -167,7 +158,6 @@ namespace GameMain
             Equipable = bool.Parse(columnStrings[index++]);
             MaxNum = int.Parse(columnStrings[index++]);
             Kind = int.Parse(columnStrings[index++]);
-            Preposition = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -191,7 +181,6 @@ namespace GameMain
                     Equipable = binaryReader.ReadBoolean();
                     MaxNum = binaryReader.Read7BitEncodedInt32();
                     Kind = binaryReader.Read7BitEncodedInt32();
-                    Preposition = binaryReader.Read7BitEncodedInt32();
                 }
             }
 
