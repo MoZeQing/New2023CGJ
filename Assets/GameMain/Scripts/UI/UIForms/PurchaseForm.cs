@@ -67,7 +67,7 @@ namespace GameMain
                 GameEntry.Player.AddPlayerItem(new ShopItemData(mDRItem), purchaseNumber);
                 GameEntry.Player.Money -= mDRItem.Price * purchaseNumber;
             }
-            mAction();
+            mAction?.Invoke();
             GameEntry.UI.CloseUIForm(this.UIForm);
             Check();
         }

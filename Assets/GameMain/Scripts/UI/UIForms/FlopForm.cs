@@ -152,7 +152,7 @@ namespace GameMain
 
         private void OnExit()
         {
-            mAction();
+            mAction?.Invoke();
             GameEntry.UI.CloseUIForm(this.UIForm);
         }
     }

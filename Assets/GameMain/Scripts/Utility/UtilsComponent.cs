@@ -117,6 +117,31 @@ namespace GameMain
                 mUtilsData.word = value;
             }
         }
+        public bool CheckDayPassFlag(string key)
+        {
+            return mUtilsData.dayPassFlags.ContainsKey(key) && mUtilsData.dayPassFlags[key] > 0;
+        }
+        public void AddDayPassFlag(string flag)
+        {
+            if (mUtilsData.dayPassFlags.ContainsKey(flag))
+            {
+                mUtilsData.dayPassFlags[flag]++;
+                mUtilsData.flags[flag] = mUtilsData.dayPassFlags[flag];
+            }
+            else
+            {
+                mUtilsData.dayPassFlags.Add(flag, 1);
+                mUtilsData.flags.Add(flag, 1);
+            }
+        }
+        public void DayPass(int day)
+        {
+            foreach (KeyValuePair<string, int> pair in mUtilsData.dayPassFlags)
+            {
+                mUtilsData.dayPassFlags[pair.Key]-=day;
+                mUtilsData.flags[pair.Key] = mUtilsData.dayPassFlags[pair.Key];
+            }
+        }
         public bool CheckFlag(string key)
         {
             return mUtilsData.flags.ContainsKey(key);
@@ -348,6 +373,7 @@ namespace GameMain
         public float word;
         public Dictionary<TriggerTag, string> values = new Dictionary<TriggerTag, string>();
         public Dictionary<string, int> flags = new Dictionary<string, int>();
+        public Dictionary<string,int> dayPassFlags=new Dictionary<string, int>();
         public Dictionary<string, int> friends = new Dictionary<string, int>();//好友字典
         public OutingSceneState location;
         public GameState gameState=GameState.None;

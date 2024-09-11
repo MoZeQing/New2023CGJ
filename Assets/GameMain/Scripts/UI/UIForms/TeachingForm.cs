@@ -189,11 +189,6 @@ namespace GameMain
             if (!GameEntry.Dialog.StoryUpdate(PassDay))
                 Behaviour(BehaviorTag.Sleep);
         }
-        //private void OnMorning()
-        //{
-        //    if (!GameEntry.Dialog.StoryUpdate())
-        //        Behaviour(BehaviorTag.Morning);
-        //}
         private void OnComplete()
         {
             InDialog=false;

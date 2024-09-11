@@ -127,9 +127,7 @@ namespace GameMain
 
         public void OnComplete()
         {
-            if(mAction!=null)
-                mAction();
-
+            mAction?.Invoke();
             mAction=null;
         }
 

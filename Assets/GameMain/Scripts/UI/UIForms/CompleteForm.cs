@@ -27,7 +27,7 @@ public class CompleteForm : BaseForm
 
         okBtn.onClick.AddListener(() =>
         {
-            mAction();
+            mAction?.Invoke();
             GameEntry.UI.CloseUIForm(this.UIForm);
         });
         BuffData buffData = GameEntry.Buff.GetBuff();

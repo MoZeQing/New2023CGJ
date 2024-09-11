@@ -36,7 +36,7 @@ namespace GameMain
         {
             salaryInfoText.text = $"工作,消耗一点体力，增加{salary}金钱";
             salaryText.text = $"+{salary}";
-            salaryBtn.interactable = !GameEntry.Utils.CheckFlag("Work");
+            salaryBtn.interactable = !GameEntry.Utils.CheckDayPassFlag("Work");
             base.UpdateItem();
         }
         private void SalaryBtn_OnClick()
@@ -48,7 +48,7 @@ namespace GameMain
         {
             GameEntry.Player.Ap--;
             GameEntry.Player.Money += salary;
-            GameEntry.Utils.AddFlag("Work");
+            GameEntry.Utils.AddDayPassFlag("Work");
             UpdateItem();
         }
     }

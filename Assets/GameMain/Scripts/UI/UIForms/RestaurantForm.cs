@@ -44,15 +44,14 @@ namespace GameMain
                 {
                     mItems[i].SetData(dRItems[index]);
                     mItems[i].SetClick(OnClick);
-                    mItems[i].Interactable = !GameEntry.Utils.CheckFlag(((ItemTag)dRItems[index].Id).ToString());
+                    mItems[i].Interactable = !GameEntry.Utils.CheckDayPassFlag(((ItemTag)dRItems[index].Id).ToString());
                 }
                 else
                     mItems[i].Hide();
                 index++;
             }
             rightBtn.interactable = index < dRItems.Count;
-            if (pageText != null)
-                pageText.text = (index / mItems.Count).ToString();
+            pageText.text = (index / mItems.Count).ToString();
         }
         protected override void OnConfirm(DRItem itemData)
         {
@@ -61,7 +60,7 @@ namespace GameMain
         }
         protected override void UpdateItem()
         {
-            cakeItem.Interactable = salePrice < GameEntry.Player.Money && !GameEntry.Utils.CheckFlag(sales[(int)GameEntry.Player.Week].ToString());
+            cakeItem.Interactable = salePrice < GameEntry.Player.Money && !GameEntry.Utils.CheckDayPassFlag(sales[(int)GameEntry.Player.Week].ToString());
 
             base.UpdateItem();
         }
@@ -74,7 +73,7 @@ namespace GameMain
         private void CakeItem_OnConfirm(DRItem dRItem)
         {
             GameEntry.Player.AddPlayerItem((ItemTag)dRItem.Id, 1);
-            GameEntry.Utils.AddFlag(((ItemTag)dRItem.Id).ToString());
+            GameEntry.Utils.AddDayPassFlag(((ItemTag)dRItem.Id).ToString());
             GameEntry.Utils.RunEvent(dRItem.EventData);
             GameEntry.UI.CloseUIForm(this.UIForm);
         }

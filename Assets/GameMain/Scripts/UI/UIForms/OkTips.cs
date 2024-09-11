@@ -14,12 +14,9 @@ namespace GameMain
         [SerializeField] private Button okBtn;
         [SerializeField] private Button cancelBtn;
 
-        private Action mAction;
-
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            mAction = BaseFormData.Action;
             titleText.text = BaseFormData.UserData.ToString();
             titleText.text= titleText.text.Replace("\\n", "\n");
             okBtn.onClick.AddListener(OnClick);
@@ -40,8 +37,7 @@ namespace GameMain
 
         private void OnClick()
         {
-            if (BaseFormData.Action != null)
-                BaseFormData.Action();
+            BaseFormData.Action?.Invoke();
             GameEntry.UI.CloseUIForm(this.UIForm);
         }
     }

@@ -33,7 +33,7 @@ public class DishItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         if (GameEntry.Player.Money >= mShopItemData.price)
         {
-            mAction();
+            mAction?.Invoke();
             GameEntry.Player.Money -= mShopItemData.price;
             GameEntry.Dialog.PlayStory(mShopItemData.itemTag.ToString());
         }

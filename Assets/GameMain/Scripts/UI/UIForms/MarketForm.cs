@@ -46,14 +46,14 @@ namespace GameMain
         {
             GameEntry.Player.Investment += invest;
             GameEntry.Player.Money -= invest;
-            GameEntry.Utils.AddFlag("Invest");
+            GameEntry.Utils.AddDayPassFlag("Invest");
             UpdateItem();
         }
         protected override void UpdateItem()
         {
             financialText.text = $"投资额：{GameEntry.Player.Investment}";
             investText.text = $"投资回报（每天）：{GameEntry.Player.Investment / invest + 9}%";
-            investBtn.interactable = !GameEntry.Utils.CheckFlag("Invest");
+            investBtn.interactable = !GameEntry.Utils.CheckDayPassFlag("Invest");
 
             base.UpdateItem();
         }

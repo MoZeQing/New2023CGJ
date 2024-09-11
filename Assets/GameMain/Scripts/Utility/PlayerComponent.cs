@@ -223,6 +223,7 @@ namespace GameMain
             }
             set
             {
+                GameEntry.Utils.DayPass(Mathf.Abs(value - mPlayerData.day));
                 mPlayerData.day = value;
                 GameEntry.Utils.AddValue(TriggerTag.Day, mPlayerData.day.ToString());
                 GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
