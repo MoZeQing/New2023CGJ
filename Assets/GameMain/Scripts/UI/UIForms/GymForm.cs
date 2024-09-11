@@ -47,7 +47,6 @@ namespace GameMain
         {
             Dictionary<ValueTag, int> dic = new Dictionary<ValueTag, int>();
             charData.GetValueTag(dic);
-            playerData.GetValueTag(dic);
             GameEntry.UI.OpenUIForm(UIFormId.ActionForm2, OnExit, dic);
         }
 
@@ -71,44 +70,6 @@ namespace GameMain
             gameBtn.transform.DOLocalMoveY(0f, 0.3f).SetEase(Ease.InOutExpo);
             gameBtn.GetComponent<Image>().DOColor(Color.white, 0.3f);
         }
-
-        //private void MatchBtn_Click()
-        //{
-        //    switch (GameEntry.Utils.CharData.StaminaLevel)
-        //    {
-        //        case 1:
-        //            if (GameEntry.Utils.CharData.stamina >= 30)
-        //            {
-        //                GameEntry.Dialog.PlayStory(matchStories[1]);
-        //                GameEntry.Dialog.SetComplete(OnExit);
-        //                GameEntry.Utils.CharData.StaminaLevel++;
-        //            }
-        //            else
-        //            {
-        //                GameEntry.Dialog.PlayStory(matchStories[4]);
-        //                GameEntry.Dialog.SetComplete(OnExit);
-        //            }
-        //            break;
-        //        case 2:
-        //            if (GameEntry.Utils.CharData.stamina >= 80)
-        //            {
-        //                GameEntry.Dialog.PlayStory(matchStories[2]);
-        //                GameEntry.Dialog.SetComplete(OnExit);
-        //                GameEntry.Utils.CharData.StaminaLevel++;
-        //            }
-        //            else
-        //            {
-        //                GameEntry.Dialog.PlayStory(matchStories[5]);
-        //                GameEntry.Dialog.SetComplete(OnExit);
-        //            }
-        //            break;
-        //        case 3:
-        //            GameEntry.Dialog.PlayStory(matchStories[3]);
-        //            GameEntry.Dialog.SetComplete(OnExit);
-        //            break;
-        //    }
-        //}
-
         private void OnExit()
         {
             GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);

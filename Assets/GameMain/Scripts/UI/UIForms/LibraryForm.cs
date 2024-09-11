@@ -49,7 +49,6 @@ namespace GameMain
         {
             Dictionary<ValueTag, int> dic = new Dictionary<ValueTag, int>();
             charData.GetValueTag(dic);
-            playerData.GetValueTag(dic);
             GameEntry.UI.OpenUIForm(UIFormId.ActionForm3, OnExit, dic);
         }
 

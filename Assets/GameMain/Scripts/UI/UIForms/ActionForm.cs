@@ -13,6 +13,8 @@ namespace GameMain
         [SerializeField] private Image progressImg;
         [SerializeField] private Image catImg;
         [SerializeField] private Transform canvas;
+        [SerializeField] private Animator animator;
+        [SerializeField,Range(0f,2f)] private float speed=1f;
 
         private Action mAction;
 
@@ -23,9 +25,9 @@ namespace GameMain
             mAction = BaseFormData.Action;
             progressImg.fillAmount = 0;
             canvas.transform.localPosition = Vector3.up * 1080f;
-            canvas.transform.DOLocalMoveY(0, 1f).SetEase(Ease.OutExpo).OnComplete(() =>
+            canvas.transform.DOLocalMoveY(0, 1f*speed).SetEase(Ease.OutExpo).OnComplete(() =>
             {
-                progressImg.DOFillAmount(1f, 3f).OnComplete(() =>
+                progressImg.DOFillAmount(1f, 3f*speed).OnComplete(() =>
                 {
                     GameEntry.Sound.PlaySound(43);
                     GameEntry.UI.OpenUIForm(UIFormId.CompleteForm, OnExit, pairs);
@@ -43,5 +45,14 @@ namespace GameMain
             mAction();
             GameEntry.UI.CloseUIForm(this.UIForm);
         }
+    }
+
+    public enum ActionTag
+    { 
+        Read,
+        Augur,
+        Run,
+        Cake,
+        Work
     }
 }
