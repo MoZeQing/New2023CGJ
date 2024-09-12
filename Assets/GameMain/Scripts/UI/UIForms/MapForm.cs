@@ -22,10 +22,7 @@ namespace GameMain
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            canvas.localPosition = Vector3.up * 1080f;
-            canvas.DOLocalMove(Vector3.zero, 0.5f).SetEase(Ease.OutExpo);
-
-            exitBtn.onClick.AddListener(() => GameEntry.UI.CloseUIForm(this.UIForm));
+            exitBtn.onClick.AddListener(OnExit);
 
             libraryBtn.onClick.AddListener(() => Outing(OutingSceneState.Library));
             clothingBtn.onClick.AddListener(() => Outing(OutingSceneState.Clothing));
@@ -62,7 +59,11 @@ namespace GameMain
             marketBtn.onClick.RemoveAllListeners();
             restaurantBtn.onClick.RemoveAllListeners();
         }
-
+        private void OnExit()
+        {
+            GameEntry.UI.OpenUIForm(UIFormId.ChangeForm);
+            GameEntry.UI.CloseUIForm(this.UIForm);
+        }
         private void Outing(OutingSceneState outingSceneState)
         {
             if (GameEntry.Player.Ap <= 0)
