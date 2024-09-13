@@ -34,8 +34,6 @@ namespace GameMain
             {
                 if (GameEntry.Player.GetPlayerItem((ItemTag)item.Id)==null)
                     continue;
-                if ((ItemKind)item.Kind != ItemKind.Materials)
-                    continue;
                 dRItems.Add(item);
             }
 
