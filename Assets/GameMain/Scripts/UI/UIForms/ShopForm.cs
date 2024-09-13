@@ -104,6 +104,7 @@ namespace GameMain
         protected virtual void OnExit()
         {
             GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
+            GameEntry.UI.OpenUIForm(UIFormId.MapForm);
             GameEntry.Utils.Location = OutingSceneState.Home;
             GameEntry.UI.CloseUIForm(this.UIForm);
         }

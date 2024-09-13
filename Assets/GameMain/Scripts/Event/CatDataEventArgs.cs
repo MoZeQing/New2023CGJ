@@ -6,9 +6,9 @@ using UnityEngine;
 
 namespace GameMain
 {
-    public class CharDataEventArgs : GameEventArgs
+    public class CatDataEventArgs : GameEventArgs
     {
-        public static readonly int EventId = typeof(CharDataEventArgs).GetHashCode();
+        public static readonly int EventId = typeof(CatDataEventArgs).GetHashCode();
 
         public override int Id
         {
@@ -18,16 +18,16 @@ namespace GameMain
             }
         }
 
-        public CatData CharData
+        public CatData CatData
         {
             get;
             set;
         }
 
-        public static CharDataEventArgs Create(CatData charData)
+        public static CatDataEventArgs Create(CatData charData)
         {
-            CharDataEventArgs args = ReferencePool.Acquire<CharDataEventArgs>();
-            args.CharData = charData;
+            CatDataEventArgs args = ReferencePool.Acquire<CatDataEventArgs>();
+            args.CatData = charData;
             return args;
         }
 

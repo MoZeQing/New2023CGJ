@@ -11,7 +11,7 @@ using GameFramework.Event;
 
 namespace GameMain
 {
-    public partial class MainForm : UIFormLogic
+    public partial class MainForm : BaseForm
     {
         [Header("固定区域")]
         [SerializeField] private Button teachBtn;
@@ -28,6 +28,7 @@ namespace GameMain
         [SerializeField] private Text dayText;//日期文本框
         [SerializeField] private Text apText;//行动力文本框
         [Header("主控")]
+        [SerializeField] private Button warehouseBtn;
         [SerializeField] private Button loadBtn;
         [SerializeField] private Button saveBtn;
         [SerializeField] private Button optionBtn;
@@ -38,14 +39,18 @@ namespace GameMain
         [SerializeField] private Button outBtn;
         [SerializeField] private Button buffBtn;
         [SerializeField] private CanvasGroup canvasGroup;
+
         private PlaySoundParams playSoundParams = PlaySoundParams.Create();
+        private float nowTime;
+        [SerializeField, Range(0, 5f)] private float rateTime = 5f;
 
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            GameEntry.Utils.WeatherTag = WeatherTag.None;
             teachBtn.onClick.AddListener(ChangeTeach);
             teachBtn1.onClick.AddListener(ChangeTeach);
+
+            warehouseBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.CupboradForm));
             loadBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.LoadForm, this));
             saveBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.SaveForm, this));
             optionBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.OptionForm, this));
@@ -53,13 +58,45 @@ namespace GameMain
             friendBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.FriendForm));
             recipeBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.RecipeForm));
             closetBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.ClosetForm));
-            outBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.MapForm));
+            outBtn.onClick.AddListener(Out_OnClick);
             buffBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.BuffForm));
-            GameEntry.Event.Subscribe(GameStateEventArgs.EventId, OnGameStateEvent);
+
             canvasGroup.interactable = true;
+
+            GameEntry.Event.Subscribe(GameStateEventArgs.EventId, OnGameStateEvent);
+            GameEntry.Event.Subscribe(PlayerDataEventArgs.EventId, OnPlayerDataEvent);
+            GameEntry.Event.Subscribe(CatDataEventArgs.EventId, OnCatDataEvent);
+            GameEntry.Event.Subscribe(PlayerDataEventArgs.EventId, mTeachingForm.OnPlayerDataEvent);
+            GameEntry.Event.Subscribe(CatDataEventArgs.EventId, mTeachingForm.OnCatDataEvent);
         }
-        private float nowTime;
-        [SerializeField,Range(0,5f)] private float rateTime=5f;
+        protected override void OnClose(bool isShutdown, object userData)
+        {
+            base.OnClose(isShutdown, userData);
+            teachBtn.onClick.RemoveAllListeners();
+            teachBtn1.onClick.RemoveAllListeners();
+            loadBtn.onClick.RemoveAllListeners();
+            saveBtn.onClick.RemoveAllListeners();
+            optionBtn.onClick.RemoveAllListeners();
+            guideBtn.onClick.RemoveAllListeners();
+            friendBtn.onClick.RemoveAllListeners();
+            recipeBtn.onClick.RemoveAllListeners();
+            closetBtn.onClick.RemoveAllListeners();
+            outBtn.onClick.RemoveAllListeners();
+            buffBtn.onClick.RemoveAllListeners();
+
+            GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, OnGameStateEvent);
+            GameEntry.Event.Unsubscribe(PlayerDataEventArgs.EventId, OnPlayerDataEvent);
+            GameEntry.Event.Unsubscribe(CatDataEventArgs.EventId, OnCatDataEvent);
+            GameEntry.Event.Unsubscribe(PlayerDataEventArgs.EventId, mTeachingForm.OnPlayerDataEvent);
+            GameEntry.Event.Unsubscribe(CatDataEventArgs.EventId, mTeachingForm.OnCatDataEvent);
+        }
+        protected override void OnStart(object userData)
+        {
+            MainUpdate();
+            TitleUpdate();
+            mTeachingForm.ShowButtons();
+        }
+
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
@@ -87,31 +124,18 @@ namespace GameMain
                 ShowLittleCat();
             }
 
-            BackgroundUpdate();
             if (Input.GetMouseButtonDown(1))
             {
                 if (!mAnimator.GetBool("Into"))
                     return;
                 ChangeTeach();
             }
-            TitleUpdate();
         }
-        protected override void OnClose(bool isShutdown, object userData)
+        private void Out_OnClick()
         {
-            base.OnClose(isShutdown, userData);
-            teachBtn.onClick.RemoveAllListeners();
-            teachBtn1.onClick.RemoveAllListeners();
-            loadBtn.onClick.RemoveAllListeners();
-            saveBtn.onClick.RemoveAllListeners();
-            optionBtn.onClick.RemoveAllListeners();
-            guideBtn.onClick.RemoveAllListeners();
-            friendBtn.onClick.RemoveAllListeners();
-            recipeBtn.onClick.RemoveAllListeners();
-            closetBtn.onClick.RemoveAllListeners();
-            outBtn.onClick.RemoveAllListeners();
-            buffBtn.onClick.RemoveAllListeners();
-            GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, OnGameStateEvent);
-
+            GameEntry.UI.OpenUIForm(UIFormId.ChangeForm);
+            GameEntry.UI.OpenUIForm(UIFormId.MapForm);
+            GameEntry.UI.CloseUIForm(this.UIForm);
         }
         private void ShowLittleCat()
         {
@@ -124,23 +148,6 @@ namespace GameMain
             littleCatImg.gameObject.SetActive(true);
             int index = Random.Range(0, littleCat.Range);
             littleCatImg.sprite = Resources.Load<Sprite>($"{littleCat.ClothingPath}_{index+1}");
-        }
-        private void Change(GamePos gamePos)
-        {
-            Debug.Log(gamePos);
-            switch (gamePos)
-            {
-                case GamePos.Left:
-                    mCanvas.transform.DOLocalMoveX(1920f, 1f).SetEase(Ease.InOutExpo);
-                    break;
-                case GamePos.Right:
-                    mCanvas.transform.DOLocalMoveX(-1920f, 1f).SetEase(Ease.InOutExpo);
-                    break;
-                case GamePos.Up:
-                    mCanvas.transform.DOLocalMoveX(0, 1f).SetEase(Ease.InOutExpo);
-                    //GameEntry.Utils.UpdateData();
-                    break;
-            }
         }
 
         private void ChangeTeach()
@@ -157,38 +164,46 @@ namespace GameMain
                 mTeachingForm.Click_Action();
             }
         }
-
+        private void OnCatDataEvent(object sender, GameEventArgs e)
+        {
+            CatDataEventArgs args = (CatDataEventArgs)e;
+            MainUpdate();
+            TitleUpdate();
+        }
+        private void OnPlayerDataEvent(object sender, GameEventArgs e)
+        { 
+            PlayerDataEventArgs args= (PlayerDataEventArgs)e;
+            MainUpdate();
+            TitleUpdate();
+        }
         private void OnGameStateEvent(object sender, GameEventArgs e)
         {
             GameStateEventArgs args = (GameStateEventArgs)e;
+            MainUpdate();
             if (args.GameState == GameState.Night || args.GameState == GameState.Afternoon || args.GameState == GameState.Morning)
             {
                 canvasGroup.interactable = true;
             }
         }
-        private WeatherTag weatherTag;
-        private void BackgroundUpdate()
+        protected virtual void MainUpdate()
         {
-            GameState gameState = GameEntry.Utils.GameState;
-                switch (gameState)
-                {
-                    case GameState.Night:
-                        if (GameEntry.Player.Ap <= 0)
-                        {
-                            weatherTag = WeatherTag.Night;
-                        }
-                        else
-                        {
-                            weatherTag = WeatherTag.Afternoon;
-                        }
-                        break;
-                    case GameState.Morning:
-                        weatherTag = WeatherTag.Morning;
-                        break;
-                }
+            WeatherTag weatherTag=WeatherTag.None;
+            switch (GameEntry.Utils.GameState)
+            {
+                case GameState.Night:
+                    if (GameEntry.Player.Ap <= 0)
+                        weatherTag = WeatherTag.Night;
+                    else
+                        weatherTag = WeatherTag.Afternoon;
+                    break;
+                case GameState.Morning:
+                    weatherTag = WeatherTag.Morning;
+                    break;
+            }
             if (weatherTag == GameEntry.Utils.WeatherTag)
                 return;
-            GameEntry.Utils.WeatherTag=weatherTag;
+
+            GameEntry.Utils.WeatherTag = weatherTag;
             DRWeather weather = GameEntry.DataTable.GetDataTable<DRWeather>().GetDataRow((int)GameEntry.Utils.WeatherTag);
             changeBackgroundImg.sprite = backgroundImg.sprite;
             changeBackgroundImg.gameObject.SetActive(true);
@@ -197,6 +212,7 @@ namespace GameMain
             changeBackgroundImg.DOColor(Color.clear, 3f).OnComplete(() => changeBackgroundImg.gameObject.SetActive(false));
             GameEntry.Sound.PlaySound(weather.BackgroundMusicId);
         }
+
 
         private void TitleUpdate()
         {

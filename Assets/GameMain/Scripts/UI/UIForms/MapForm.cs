@@ -30,11 +30,6 @@ namespace GameMain
             benchBtn.onClick.AddListener(() => Outing(OutingSceneState.Beach));
             marketBtn.onClick.AddListener(() => Outing(OutingSceneState.Market));
             restaurantBtn.onClick.AddListener(() => Outing(OutingSceneState.Restaurant));
-            //libraryBtn.transform.GetChild(0).gameObject.SetActive(GameEntry.Dialog.CheckOutStory(OutingSceneState.Library));
-            //clothingBtn.transform.GetChild(0).gameObject.SetActive(GameEntry.Dialog.CheckOutStory(OutingSceneState.Clothing));
-            //gymBtn.transform.GetChild(0).gameObject.SetActive(GameEntry.Dialog.CheckOutStory(OutingSceneState.Gym));
-            //benchBtn.transform.GetChild(0).gameObject.SetActive(GameEntry.Dialog.CheckOutStory(OutingSceneState.Beach));
-            //marketBtn.transform.GetChild(0).gameObject.SetActive(GameEntry.Dialog.CheckOutStory(OutingSceneState.Market));
             if (GameEntry.Player.GuideId == 6)
             {
                 libraryBtn.gameObject.SetActive(false);
@@ -62,6 +57,7 @@ namespace GameMain
         private void OnExit()
         {
             GameEntry.UI.OpenUIForm(UIFormId.ChangeForm);
+            GameEntry.UI.OpenUIForm(UIFormId.MainForm);
             GameEntry.UI.CloseUIForm(this.UIForm);
         }
         private void Outing(OutingSceneState outingSceneState)

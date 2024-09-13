@@ -11,16 +11,20 @@ namespace GameMain
     public class BaseForm : UIFormLogic
     {
         protected BaseFormData BaseFormData { get; set; }
-        protected override void OnOpen(object userData)
+        protected virtual void OnStart(object userData)
         {
-            base.OnOpen(userData);
             BaseFormData = (BaseFormData)userData;
-            DRUIForms dRUIForms=GameEntry.DataTable.GetDataTable<DRUIForms>().GetDataRow((int)BaseFormData.UIFormId);
+            DRUIForms dRUIForms = GameEntry.DataTable.GetDataTable<DRUIForms>().GetDataRow((int)BaseFormData.UIFormId);
 
             if (dRUIForms.OpenSound != 0)
             {
                 GameEntry.Sound.PlaySound(dRUIForms.OpenSound);
             }
+        }
+        protected override void OnOpen(object userData)
+        {
+            base.OnOpen(userData);
+            OnStart(userData);
         }
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {

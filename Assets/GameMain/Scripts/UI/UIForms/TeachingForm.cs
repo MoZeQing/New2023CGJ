@@ -43,42 +43,14 @@ namespace GameMain
         //Dialog区域
         private List<GameObject> m_Btns = new List<GameObject>();
 
-        private void OnEnable()
-        {
-            GameEntry.Event.Subscribe(CharDataEventArgs.EventId, CharDataEvent);
-            GameEntry.Event.Subscribe(PlayerDataEventArgs.EventId, PlayerDataEvent);
-            //GameEntry.Utils.UpdateData();
-            ShowButtons();
-            mCanvasGroup = this.GetComponent<CanvasGroup>();
-        }
-
-        private void OnDisable()
-        {
-            GameEntry.Event.Unsubscribe(CharDataEventArgs.EventId, CharDataEvent);
-            GameEntry.Event.Unsubscribe(PlayerDataEventArgs.EventId, PlayerDataEvent);
-        }
-        //private void Start()
-        //{
-        //    GameEntry.Event.Subscribe(CharDataEventArgs.EventId, CharDataEvent);
-        //    GameEntry.Event.Subscribe(PlayerDataEventArgs.EventId, PlayerDataEvent);
-        //    GameEntry.Utils.UpdateData();
-        //    ShowButtons();
-        //    mCanvasGroup = this.GetComponent<CanvasGroup>();
-        //}
         private void Update()
         {
-            //if (Input.GetMouseButtonDown(1)&&!InDialog)
-            //{
-            //    GameEntry.Event.FireNow(this, MainFormEventArgs.Create(MainFormTag.Unlock));
-            //    dialogBox.gameObject.SetActive(false);
-            //    stage.gameObject.SetActive(false);
-            //}
             if (mCanvasGroup.alpha < 1)
             {
                 mCanvasGroup.alpha = Mathf.Lerp(mCanvasGroup.alpha, 1, 0.3f);
             }
         }
-        private void ShowButtons()
+        public void ShowButtons()
         {
             if (mCatStateData == GameEntry.Cat.GetCatState())
                 return;
@@ -90,10 +62,12 @@ namespace GameMain
                     continue;
                 if (behaviorData.behaviorTag == BehaviorTag.Click)
                     continue;
+                if (behaviorData.behaviorTag == BehaviorTag.Out)
+                    continue;
                 GameObject go = GameObject.Instantiate(behaviorBtn, buttonCanvas);
                 Button button=go.GetComponent<Button>();
                 Text text = go.transform.Find("Text").GetComponent<Text>();
-                if(behaviorData.behaviorTag==BehaviorTag.Sleep)
+                if (mBehaviorTag == BehaviorTag.Sleep)
                     button.onClick.AddListener(OnSleep);
                 else
                     button.onClick.AddListener(() => Behaviour(behaviorData.behaviorTag));
@@ -140,20 +114,17 @@ namespace GameMain
             {
                 GameEntry.Player.Ap = GameEntry.Player.MaxAp;
             }
-            Dictionary<ValueTag, int> dic = new Dictionary<ValueTag, int>();
+
             switch (behaviorTag)
             {
                 case BehaviorTag.Read://智慧
-                    behavior.charData.GetValueTag(dic);
-                    GameEntry.UI.OpenUIForm(UIFormId.ActionForm3, OnComplete, dic);
+                    OnRead(behavior);
                     break;
                 case BehaviorTag.Sport://体魄
-                    behavior.charData.GetValueTag(dic);
-                    GameEntry.UI.OpenUIForm(UIFormId.ActionForm2, OnComplete, dic);
+                    OnSport(behavior);
                     break;
                 case BehaviorTag.Augur://魅力
-                    behavior.charData.GetValueTag(dic);
-                    GameEntry.UI.OpenUIForm(UIFormId.ActionForm1, OnComplete, dic);
+                    OnAugur(behavior);
                     break;
                 default:
                     DialogueGraph dialogueGraph = behavior.dialogues[UnityEngine.Random.Range(0, behavior.dialogues.Count)];
@@ -169,7 +140,36 @@ namespace GameMain
         }
         //不允许在回调中再设置回调，会导致回调错误
         //也就是说，在SetComplete方法中设置的方法不能有Behaviour等会设置回调的方法
-        private void PassDay()
+
+        //操作区域
+        private void OnAugur(BehaviorData behavior)
+        {
+            Dictionary<ValueTag, int> dic = new Dictionary<ValueTag, int>();
+            behavior.charData.GetValueTag(dic);
+            GameEntry.UI.OpenUIForm(UIFormId.ActionForm1, OnComplete, dic);
+        }
+        private void OnSport(BehaviorData behavior)
+        {
+            Dictionary<ValueTag, int> dic = new Dictionary<ValueTag, int>();
+            behavior.charData.GetValueTag(dic);
+            GameEntry.UI.OpenUIForm(UIFormId.ActionForm2, OnComplete, dic);
+        }
+        private void OnRead(BehaviorData behavior)
+        {
+            Dictionary<ValueTag, int> dic = new Dictionary<ValueTag, int>();
+            behavior.charData.GetValueTag(dic);
+            GameEntry.UI.OpenUIForm(UIFormId.ActionForm3, OnComplete, dic);
+        }
+        private void OnSleep()
+        {
+            InDialog = false;
+            BuffData buffData = GameEntry.Buff.GetBuff();
+            GameEntry.Player.Energy = (int)(GameEntry.Player.MaxEnergy * buffData.EnergyMaxMulti + buffData.EnergyMaxPlus);
+            GameEntry.Utils.GameState = GameState.Midnight;
+            if (!GameEntry.Dialog.StoryUpdate(OnPassDay))
+                Behaviour(BehaviorTag.Sleep);
+        }
+        private void OnPassDay()
         {
             GameEntry.Player.Ap = GameEntry.Player.MaxAp;
             rightCanvas.gameObject.SetActive(false);
@@ -179,15 +179,6 @@ namespace GameMain
             GameEntry.Utils.GameState = GameState.Morning;
             GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Morning));
             Invoke(nameof(OnFaded), 4f);
-        }
-        private void OnSleep()
-        {
-            InDialog = false;
-            BuffData buffData = GameEntry.Buff.GetBuff();
-            GameEntry.Player.Energy = (int)(GameEntry.Player.MaxEnergy * buffData.EnergyMaxMulti + buffData.EnergyMaxPlus);
-            GameEntry.Utils.GameState = GameState.Midnight;
-            if (!GameEntry.Dialog.StoryUpdate(PassDay))
-                Behaviour(BehaviorTag.Sleep);
         }
         private void OnComplete()
         {
@@ -225,19 +216,19 @@ namespace GameMain
                 Behaviour(BehaviorTag.Morning);
             }
         }
-        private void CharDataEvent(object sender, GameEventArgs e) 
-        { 
-            CharDataEventArgs charDataEvent= (CharDataEventArgs)e;
-            CatData charData=charDataEvent.CharData;
-            favorText.text = charData.favor.ToString();
-            staminaText.text = charData.stamina.ToString();
-            wisdomText.text = charData.wisdom.ToString();
-            charmText.text=charData.charm.ToString();
-            staminaLevelText.text = $"Lv.{charData.StaminaLevel}";
-            wisdomLevelText.text = $"Lv.{charData.WisdomLevel}";
-            charmLevelText.text = $"Lv.{charData.CharmLevel}";
+        public void OnCatDataEvent(object sender, GameEventArgs e) 
+        {
+            CatDataEventArgs charDataEvent = (CatDataEventArgs)e;
+            CatData catData=charDataEvent.CatData;
+            favorText.text = catData.favor.ToString();
+            staminaText.text = catData.stamina.ToString();
+            wisdomText.text = catData.wisdom.ToString();
+            charmText.text=catData.charm.ToString();
+            staminaLevelText.text = $"Lv.{catData.StaminaLevel}";
+            wisdomLevelText.text = $"Lv.{catData.WisdomLevel}";
+            charmLevelText.text = $"Lv.{catData.CharmLevel}";
         }
-        private void PlayerDataEvent(object sender, GameEventArgs e)
+        public void OnPlayerDataEvent(object sender, GameEventArgs e)
         { 
             PlayerDataEventArgs playerDataEvent= (PlayerDataEventArgs)e;
             PlayerData playerData= playerDataEvent.PlayerData;

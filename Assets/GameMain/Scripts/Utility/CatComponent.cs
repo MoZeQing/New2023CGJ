@@ -39,7 +39,7 @@ namespace GameMain
             set
             {
                 mCatData.closet = value;
-                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCatData));
+                GameEntry.Event.FireNow(this, CatDataEventArgs.Create(mCatData));
             }
         }
         public int Wisdom
@@ -52,7 +52,7 @@ namespace GameMain
             {
                 mCatData.wisdom = value;
                 GameEntry.Utils.AddValue(TriggerTag.Wisdom, mCatData.wisdom.ToString());
-                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCatData));
+                GameEntry.Event.FireNow(this, CatDataEventArgs.Create(mCatData));
             }
         }
         public int Charm
@@ -65,7 +65,7 @@ namespace GameMain
             {
                 mCatData.charm = value;
                 GameEntry.Utils.AddValue(TriggerTag.Charm, mCatData.charm.ToString());
-                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCatData));
+                GameEntry.Event.FireNow(this, CatDataEventArgs.Create(mCatData));
             }
         }
         public int Stamina
@@ -78,7 +78,7 @@ namespace GameMain
             {
                 mCatData.stamina = value;
                 GameEntry.Utils.AddValue(TriggerTag.Stamina, mCatData.stamina.ToString());
-                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCatData));
+                GameEntry.Event.FireNow(this, CatDataEventArgs.Create(mCatData));
             }
         }
         public int Favor
@@ -91,7 +91,7 @@ namespace GameMain
             {
                 mCatData.favor = value;
                 GameEntry.Utils.AddValue(TriggerTag.Favor, mCatData.favor.ToString());
-                GameEntry.Event.FireNow(this, CharDataEventArgs.Create(mCatData));
+                GameEntry.Event.FireNow(this, CatDataEventArgs.Create(mCatData));
             }
         }
         public int CharmLevel
@@ -223,6 +223,7 @@ namespace GameMain
         Teach,
         Sport,
         Read,
-        Augur
+        Augur,
+        Out
     }
 }

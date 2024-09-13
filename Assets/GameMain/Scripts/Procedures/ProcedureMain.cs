@@ -14,7 +14,6 @@ namespace GameMain
     public class ProcedureMain : ProcedureBase
     {
         private GameState mGameState;
-        private string sceneName;
 
         protected override void OnEnter(IFsm<IProcedureManager> procedureOwner)
         {
@@ -28,7 +27,6 @@ namespace GameMain
             GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Afternoon));
             mGameState = GameState.Night;
             GameEntry.Utils.GameState = GameState.Night;
-            GameEntry.Event.Subscribe(LoadSceneSuccessEventArgs.EventId, LoadSceneSuccess);
             GameEntry.Event.Subscribe(GameStateEventArgs.EventId, GameStateEvent);
             IDataTable<DRScene> dtScene = GameEntry.DataTable.GetDataTable<DRScene>();
             DRScene drScene = dtScene.GetDataRow(2);
@@ -39,14 +37,12 @@ namespace GameMain
                 return;
             }
             //≥°æ∞º”‘ÿ
-            sceneName = AssetUtility.GetSceneAsset(drScene.AssetName);
             GameEntry.Scene.LoadScene(AssetUtility.GetSceneAsset(drScene.AssetName), 0, this);
         }
         protected override void OnLeave(IFsm<IProcedureManager> procedureOwner, bool isShutdown)
         {
             base.OnLeave(procedureOwner, isShutdown);
             GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, GameStateEvent);
-            GameEntry.Event.Unsubscribe(LoadSceneSuccessEventArgs.EventId, LoadSceneSuccess);
             GameEntry.UI.CloseUIGroup("Default");
             GameEntry.UI.CloseAllLoadingUIForms();
             string[] loadedSceneAssetNames = GameEntry.Scene.GetLoadedSceneAssetNames();
@@ -81,12 +77,6 @@ namespace GameMain
         { 
             GameStateEventArgs args= (GameStateEventArgs)e;
             mGameState = args.GameState;
-        }
-        private void LoadSceneSuccess(object sender, GameEventArgs e)
-        {
-            LoadSceneSuccessEventArgs args = (LoadSceneSuccessEventArgs)e;
-            //if (args.SceneAssetName == sceneName)
-            //    GameEntry.Utils.UpdateData();
         }
     }
     /// <summary>

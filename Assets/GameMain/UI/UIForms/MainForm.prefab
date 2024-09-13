@@ -2876,7 +2876,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6464790139472687299
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2893,7 +2893,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 467, y: -40}
+  m_AnchoredPosition: {x: 858, y: 3}
   m_SizeDelta: {x: 153, y: 238.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8420079839266792599
@@ -3448,6 +3448,7 @@ MonoBehaviour:
   moneyText: {fileID: 2116892938076534689}
   dayText: {fileID: 4678299835742099273}
   apText: {fileID: 4812581788017040375}
+  warehouseBtn: {fileID: 2953455630045956587}
   loadBtn: {fileID: 1511784605036315843}
   saveBtn: {fileID: 5232913263244073329}
   optionBtn: {fileID: 5874996750979732445}
@@ -4342,12 +4343,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stage: {fileID: 7651422577599043175}
+  uIBtnsControl: {fileID: 0}
   dialogBtn: {fileID: 7521209746736631613}
   dialogText: {fileID: 2179920568344951640}
   nameText: {fileID: 8528141168343475968}
   optionCanvas: {fileID: 7535759962920168670}
   btnPre: {fileID: 5987136253704189614, guid: d276e9ac9e40bc54984d0d4504c20996, type: 3}
   charSpeed: 0.05
+  blackScreenCanvasGroup: {fileID: 0}
+  blackScreenText: {fileID: 0}
+  autoPlayDelay: 1
+  isAutoPlay: 0
+  isSkipbtn: 0
 --- !u!1 &6852997439107433851
 GameObject:
   m_ObjectHideFlags: 0
@@ -5842,6 +5849,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3789160272434208335}
     m_Modifications:
+    - target: {fileID: 1341083899, guid: 2e45ccbb7b672fb4fb08800bceee2e08, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1341083899, guid: 2e45ccbb7b672fb4fb08800bceee2e08, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1341083899, guid: 2e45ccbb7b672fb4fb08800bceee2e08, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1341083899, guid: 2e45ccbb7b672fb4fb08800bceee2e08, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1983934622, guid: 2e45ccbb7b672fb4fb08800bceee2e08, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1983934622, guid: 2e45ccbb7b672fb4fb08800bceee2e08, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1983934622, guid: 2e45ccbb7b672fb4fb08800bceee2e08, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1983934622, guid: 2e45ccbb7b672fb4fb08800bceee2e08, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1431559985338324810, guid: 2e45ccbb7b672fb4fb08800bceee2e08, type: 3}
       propertyPath: stage
       value: 
