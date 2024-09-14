@@ -1,8 +1,10 @@
+using DG.Tweening;
 using Dialog;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class MyDailogBox : DialogBox
 {
     [SerializeField] protected Transform canvas;
@@ -10,6 +12,12 @@ public class MyDailogBox : DialogBox
 
     public bool IsCG { get; set; }
     public bool IsBackground { get; set; }
+
+    // 黑屏和白色文本相关
+    [Header("黑屏与白色文本")]
+    [SerializeField] private CanvasGroup blackScreenCanvasGroup; // 黑屏 CanvasGroup
+    [SerializeField] private Text blackScreenText; // 显示黑屏下的白色文字
+    [SerializeField] private bool isBlackScreenActive = false; // 标记当前是否处于黑屏状态
 
     public override void Next()
     {
@@ -50,6 +58,48 @@ public class MyDailogBox : DialogBox
         }
     }
 
+    public override void CompleteDialog()
+    {
+        ClearButtons();
+        nameText.text = string.Empty;
+        dialogText.text = string.Empty;
+        blackScreenText.text = string.Empty; // 清空黑屏文字
+        blackScreenCanvasGroup.DOFade(0, 0.5f).OnComplete(() =>
+        {
+            blackScreenCanvasGroup.gameObject.SetActive(false);
+            isBlackScreenActive = false; // 结束黑屏状态
+        });
+        mIndex = 0;
+        m_DialogData = null;
+        m_Data = null;
+        OnComplete?.Invoke();
+        OnComplete = null;
+    }
+
+    protected override void ShowChat(ChatData chatData)
+    {
+        try
+        {
+            if (isBlackScreenActive)
+            {
+                // 如果当前是黑屏状态，需要退出黑屏
+                blackScreenCanvasGroup.DOFade(0, 0.5f).OnComplete(() =>
+                {
+                    blackScreenCanvasGroup.gameObject.SetActive(false);
+                    isBlackScreenActive = false;
+                    DisplayChat(chatData);
+                });
+            }
+            else
+            {
+                DisplayChat(chatData);
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Error showing chat: {ex.Message}\nChatData identifier: {chatData.Id}");
+        }
+    }
     public virtual void ShowBackground(BackgroundData backgroundData)
     {
         background.SetBackground(backgroundData, this);
@@ -67,5 +117,48 @@ public class MyDailogBox : DialogBox
     {
         canvas.gameObject.SetActive(true);
         IsCG = false;
+    }
+    protected virtual void ShowBlackChat(BlackData blackData)
+    {
+        // 清空普通对话框的内容，防止黑屏结束后显示之前的内容
+        dialogText.text = string.Empty;
+        nameText.text = string.Empty;
+
+        if (!isBlackScreenActive)
+        {
+            // 初次进入黑屏状态，执行黑屏渐入效果
+            blackScreenCanvasGroup.gameObject.SetActive(true);
+            blackScreenCanvasGroup.DOFade(1, 0.5f).OnComplete(() =>
+            {
+                // 黑屏完全显示后，开始显示文字
+                UpdateBlackScreenText(blackData);
+            });
+            isBlackScreenActive = true;
+        }
+        else
+        {
+            // 如果已经处于黑屏状态，直接更新文字
+            UpdateBlackScreenText(blackData);
+        }
+
+        m_Data = blackData;
+    }
+
+
+
+    private void UpdateBlackScreenText(BlackData blackData)
+    {
+        blackScreenText.DOKill(); // 确保没有之前的动画干扰
+        blackScreenText.text = string.Empty;
+
+        // 使用 DOText 方法逐字显示文字
+        blackScreenText.DOText(blackData.text, charSpeed * blackData.text.Length, true)
+            .OnComplete(() =>
+            {
+                // 文本播放完毕，设置标识
+                isTextComplete = true;
+            });
+
+
     }
 }

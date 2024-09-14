@@ -23,10 +23,7 @@ public class DialogBox : MonoBehaviour
     [Range(0.1f, 0.5f)]
     [SerializeField] protected float charSpeed = 0.05f;
 
-    // 黑屏和白色文本相关
-    [Header("黑屏与白色文本")]
-    [SerializeField] private CanvasGroup blackScreenCanvasGroup; // 黑屏 CanvasGroup
-    [SerializeField] private Text blackScreenText; // 显示黑屏下的白色文字
+
 
     protected DialogData m_DialogData = null;
     protected BaseData m_Data = null;
@@ -43,11 +40,10 @@ public class DialogBox : MonoBehaviour
     public bool IsNext { get; set; } = true;
     protected float _time = 0f;
     public float SkipSpeed { get; set; } = 20f;
-    private bool isBlackScreenActive = false; // 标记当前是否处于黑屏状态
     public float autoPlayDelay = 1f; // 自动播放结束时的延迟
     public bool isAutoPlay;
     public bool isSkipbtn;
-    private bool isTextComplete = false; // 标识当前对话文本是否播放完毕
+    protected bool isTextComplete = false; // 标识当前对话文本是否播放完毕
     private float autoPlayTimer = 0f; // 自动播放的计时器
 
     private void Start()
@@ -144,10 +140,6 @@ public class DialogBox : MonoBehaviour
                             OptionData optionData = (OptionData)after;
                             ShowOption(optionData);
                             break;
-                        case "BlackData":
-                            BlackData blackData = (BlackData)after;
-                            ShowBlackChat(blackData);
-                            break;
                         default:
                             Debug.LogWarning($"Unknown dialog tag '{dialogTag}' encountered in Next().");
                             break;
@@ -171,12 +163,6 @@ public class DialogBox : MonoBehaviour
         ClearButtons();
         nameText.text = string.Empty;
         dialogText.text = string.Empty;
-        blackScreenText.text = string.Empty; // 清空黑屏文字
-        blackScreenCanvasGroup.DOFade(0, 0.5f).OnComplete(() =>
-        {
-            blackScreenCanvasGroup.gameObject.SetActive(false);
-            isBlackScreenActive = false; // 结束黑屏状态
-        });
         mIndex = 0;
         m_DialogData = null;
         m_Data = null;
@@ -208,20 +194,7 @@ public class DialogBox : MonoBehaviour
     {
         try
         {
-            if (isBlackScreenActive)
-            {
-                // 如果当前是黑屏状态，需要退出黑屏
-                blackScreenCanvasGroup.DOFade(0, 0.5f).OnComplete(() =>
-                {
-                    blackScreenCanvasGroup.gameObject.SetActive(false);
-                    isBlackScreenActive = false;
-                    DisplayChat(chatData);
-                });
-            }
-            else
-            {
-                DisplayChat(chatData);
-            }
+            DisplayChat(chatData);
         }
         catch (Exception ex)
         {
@@ -229,7 +202,7 @@ public class DialogBox : MonoBehaviour
         }
     }
 
-    private void DisplayChat(ChatData chatData)
+    protected void DisplayChat(ChatData chatData)
     {
         stage.ShowCharacter(chatData);
         nameText.text = chatData.charName == "0" ? string.Empty : chatData.charName;
@@ -255,49 +228,7 @@ public class DialogBox : MonoBehaviour
         }
     }
 
-    protected virtual void ShowBlackChat(BlackData blackData)
-    {
-        // 清空普通对话框的内容，防止黑屏结束后显示之前的内容
-        dialogText.text = string.Empty;
-        nameText.text = string.Empty;
-
-        if (!isBlackScreenActive)
-        {
-            // 初次进入黑屏状态，执行黑屏渐入效果
-            blackScreenCanvasGroup.gameObject.SetActive(true);
-            blackScreenCanvasGroup.DOFade(1, 0.5f).OnComplete(() =>
-            {
-                // 黑屏完全显示后，开始显示文字
-                UpdateBlackScreenText(blackData);
-            });
-            isBlackScreenActive = true;
-        }
-        else
-        {
-            // 如果已经处于黑屏状态，直接更新文字
-            UpdateBlackScreenText(blackData);
-        }
-
-        m_Data = blackData;
-    }
-
-
-
-    private void UpdateBlackScreenText(BlackData blackData)
-    {
-        blackScreenText.DOKill(); // 确保没有之前的动画干扰
-        blackScreenText.text = string.Empty;
-
-        // 使用 DOText 方法逐字显示文字
-        blackScreenText.DOText(blackData.text, charSpeed * blackData.text.Length, true)
-            .OnComplete(() =>
-            {
-                // 文本播放完毕，设置标识
-                isTextComplete = true;
-            });
-
-
-    }
+    
 
     public virtual void SetDialog(DialogData dialogData)
     {
