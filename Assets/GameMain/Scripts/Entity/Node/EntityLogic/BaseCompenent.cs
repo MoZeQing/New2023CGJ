@@ -159,6 +159,7 @@ namespace GameMain
             mIconSprite.sprite = Resources.Load<Sprite>(mDRNode.IconPath);
             mBackgroundSprite.sprite= Resources.Load<Sprite>(mDRNode.BackgroundPath);
             mBoundSprite.sprite = Resources.Load<Sprite>(mDRNode.BoundPath);
+            mCoverSprite.sprite = Resources.Load<Sprite>(mDRNode.CoverPath);
             mTextText.text = mDRNode.Name;
             mProgressBarRenderer.gameObject.SetActive(false);
 
@@ -167,8 +168,7 @@ namespace GameMain
             //处理特殊情况
             if (mNodeData.RamdonJump)
             {
-                Vector3 newPos = UnityEngine.Random.insideUnitCircle;
-                this.transform.DOMove(mNodeData.Position + newPos * 2f, 0.5f).SetEase(Ease.OutExpo);
+                this.transform.DOMove(mNodeData.Position + Vector3.down * 3f, 0.5f).SetEase(Ease.OutExpo);
             }
             if (mNodeData.FirstFollow)
             {
