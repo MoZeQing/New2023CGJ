@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityGameFramework.Runtime;
 using UnityEngine.UI;
+using UnityEngine.Rendering;
 
 namespace GameMain
 {
@@ -85,6 +86,7 @@ namespace GameMain
         protected SpriteRenderer mBackgroundSprite = null;
         protected SpriteRenderer mBoundSprite= null;
         protected SpriteRenderer mCoverSprite = null;
+        protected SortingGroup mMask = null;
         protected SpriteRenderer mHoldSprite = null;
         protected SpriteRenderer mShaderSprite = null;
         protected Image mProgressBarRenderer = null;
@@ -117,6 +119,7 @@ namespace GameMain
             mProgressBarRenderer = this.transform.Find("ProgressBar").GetComponent<Image>();
             mCoverSprite = mBackgroundSprite.transform.Find("Cover").GetComponent<SpriteRenderer>();
             mTextText = mBackgroundSprite.transform.Find("Text").GetComponent<Text>();
+            mMask = mBackgroundSprite.transform.Find("Mask").GetComponent<SortingGroup>();
             mHoldSprite = mBackgroundSprite.transform.Find("Mask").transform.Find("Hold").GetComponent<SpriteRenderer>();
             mIconSprite = mBackgroundSprite.transform.Find("Icon").GetComponent<SpriteRenderer>();
             mBoundSprite = mBackgroundSprite.transform.Find("Bound").GetComponent<SpriteRenderer>();
@@ -185,14 +188,16 @@ namespace GameMain
         protected virtual void UpdateCard(string layerName)
         {
             mBackgroundSprite.sortingLayerName = layerName;
-            mHoldSprite.GetComponent<SpriteRenderer>().sortingLayerName = layerName;
+            mMask.sortingLayerName = layerName;
+            //mHoldSprite.GetComponent<SpriteRenderer>().sortingLayerName = layerName;
             mIconSprite.sortingLayerName = layerName;
             mTextText.GetComponent<Canvas>().sortingLayerName = layerName;
             mCoverSprite.GetComponent<SpriteRenderer>().sortingLayerName = layerName;
             mBoundSprite.sortingLayerName = layerName;
 
             mBackgroundSprite.sortingOrder = GameEntry.Utils.CartSort;
-            mHoldSprite.GetComponent<SpriteRenderer>().sortingOrder = GameEntry.Utils.CartSort;
+            mMask.sortingOrder = GameEntry.Utils.CartSort;
+            //mHoldSprite.GetComponent<SpriteRenderer>().sortingOrder = GameEntry.Utils.CartSort;
             mIconSprite.sortingOrder = GameEntry.Utils.CartSort;
             mTextText.GetComponent<Canvas>().sortingOrder= GameEntry.Utils.CartSort;
             mCoverSprite.GetComponent<SpriteRenderer>().sortingOrder= GameEntry.Utils.CartSort;
@@ -307,6 +312,19 @@ namespace GameMain
                 return;
             PutDown();
             //刷新子节点
+            mCompenents.Clear();
+            BaseCompenent parent = bestCompenent;
+
+            int block = 1000;
+            while (parent != null)
+            {
+                parent = parent.Parent;
+                if (parent == this)
+                    return;
+                block--;
+                if (block < 0)
+                    break;
+            }
             if (bestCompenent!=null && bestCompenent.Child == null)
             {
                 Parent = bestCompenent;
@@ -317,6 +335,8 @@ namespace GameMain
         {
             if (Tool)
                 return;
+            if (!mNodeData.Follow)
+                return;
             PitchOn();
 
             if (mDRNode.HoldSound != string.Empty)
@@ -325,6 +345,8 @@ namespace GameMain
         public void OnPointerExit(PointerEventData pointerEventData)
         {
             if (Tool)
+                return;
+            if (!mNodeData.Follow)
                 return;
             PitchOut();
         }
@@ -353,19 +375,6 @@ namespace GameMain
                         continue;
                     bestCompenent = compenent;
                 }
-            }
-            mCompenents.Clear();
-            BaseCompenent parent = bestCompenent;
-
-            int block = 1000;
-            while (parent != null)
-            {
-                parent = parent.Parent;
-                if (parent == this)
-                    break;
-                block--;
-                if (block < 0)
-                    break;
             }
             bestCompenent.PitchOn();
         }
