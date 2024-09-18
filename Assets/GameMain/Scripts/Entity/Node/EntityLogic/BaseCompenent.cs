@@ -256,6 +256,17 @@ namespace GameMain
             //刷新子集
             mChildMaterials = GenerateMaterialList();
             Compound();
+            Check=IsMouseInside(this.gameObject);
+        }
+        private bool IsMouseInside(GameObject go)
+        {
+            Vector2 size = mBackgroundSprite.size;
+            Vector3 position = this.transform.position;
+            Vector3 mousePos = MouseToWorld(Input.mousePosition);
+            return (position.x - size.x / 2) < mousePos.x &&
+                (position.x + size.x / 2) > mousePos.x &&
+                (position.y - size.y / 2) < mousePos.y &&
+                (position.y + size.y / 2) > mousePos.y;
         }
         protected Vector3 MouseToWorld(Vector3 mousePos)
         {
@@ -286,6 +297,7 @@ namespace GameMain
             if (mDRNode.ClickSound != string.Empty)
                 GameEntry.Sound.PlaySound(mDRNode.ClickSound, "Sound");
         }
+        private BaseCompenent bestCompenent;
         public void OnPointerUp(PointerEventData pointerEventData)
         {
             if (Tool)
@@ -295,32 +307,7 @@ namespace GameMain
                 return;
             PutDown();
             //刷新子节点
-            if (mCompenents.Count == 0)
-                return;
-            BaseCompenent bestCompenent = mCompenents[0];
-            foreach (BaseCompenent baseCompenent in mCompenents)
-            {
-                if ((baseCompenent.transform.position - this.transform.position).magnitude < (bestCompenent.transform.position - this.transform.position).magnitude)
-                {
-                    if (baseCompenent.Child != null)
-                        continue;
-                    bestCompenent = baseCompenent;
-                }
-            }
-            mCompenents.Clear();         
-            BaseCompenent parent = bestCompenent;
-
-            int block = 1000;
-            while (parent != null)
-            {
-                parent = parent.Parent;
-                if (parent == this)
-                    break;
-                block--;
-                if (block < 0)
-                    break;
-            }
-            if(bestCompenent.Child==null)
+            if (bestCompenent!=null && bestCompenent.Child == null)
             {
                 Parent = bestCompenent;
                 Parent.Child = this;
@@ -328,7 +315,6 @@ namespace GameMain
         }
         public void OnPointerEnter(PointerEventData pointerEventData)
         {
-            Check = true;
             if (Tool)
                 return;
             PitchOn();
@@ -338,7 +324,6 @@ namespace GameMain
         }
         public void OnPointerExit(PointerEventData pointerEventData)
         {
-            Check = false;
             if (Tool)
                 return;
             PitchOut();
@@ -355,7 +340,34 @@ namespace GameMain
             if (!mCompenents.Contains(baseCompenent))
             {
                 mCompenents.Add(baseCompenent);
+                baseCompenent.PitchOn();
             }
+            if (mCompenents.Count == 0)
+                return;
+            bestCompenent = mCompenents[0];
+            foreach (BaseCompenent compenent in mCompenents)
+            {
+                if ((compenent.transform.position - this.transform.position).magnitude < (bestCompenent.transform.position - this.transform.position).magnitude)
+                {
+                    if (compenent.Child != null)
+                        continue;
+                    bestCompenent = compenent;
+                }
+            }
+            mCompenents.Clear();
+            BaseCompenent parent = bestCompenent;
+
+            int block = 1000;
+            while (parent != null)
+            {
+                parent = parent.Parent;
+                if (parent == this)
+                    break;
+                block--;
+                if (block < 0)
+                    break;
+            }
+            bestCompenent.PitchOn();
         }
         private void OnTriggerExit2D(Collider2D collision)
         {
@@ -364,6 +376,11 @@ namespace GameMain
             BaseCompenent baseCompenent = null;
             if (!collision.TryGetComponent<BaseCompenent>(out baseCompenent))
                 return;
+            if (bestCompenent == baseCompenent)
+            {
+                bestCompenent.PitchOut();
+                bestCompenent = null;
+            }
             if (Parent == baseCompenent)
             {
                 Parent.Child = null;
