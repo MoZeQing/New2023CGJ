@@ -119,6 +119,7 @@ namespace GameMain
 
     public enum NodeTag
     {
+        None=-1,
         //≤ƒ¡œ£®1-100£©
         CoffeeBean,//øß∑»∂π
         CoarseGroundCoffee,//¥÷øß∑»∑€
@@ -171,7 +172,6 @@ namespace GameMain
         SaltCoffee =218,//∫£—Œ
         Mediterranean =219,//µÿ÷–∫£
         Cat =999,//√®√®ø®£®999£©
-        None=0
     }
 }
 

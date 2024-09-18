@@ -9,6 +9,7 @@ using XNode.Examples.RuntimeMathNodes;
 using UnityEngine.EventSystems;
 using UnityGameFramework.Runtime;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
+using DG.Tweening;
 
 namespace GameMain
 {
@@ -89,18 +90,10 @@ namespace GameMain
             if (!hasBad)
                 return;
             nowTime -= Time.deltaTime;
-            timeLine.fillAmount = nowTime / mOrderData.OrderTime;       
-            if (nowTime < mOrderData.OrderTime)
+            timeLine.fillAmount = Mathf.Max(nowTime - 10f / mOrderData.OrderTime - 10f, 0f);       
+            if (nowTime < mOrderData.OrderTime - 10f) 
             {
-                timeLine.color = Color.green;
-            }
-            if (nowTime < mOrderData.OrderTime * 2f / 3f) 
-            {
-                timeLine.color = Color.yellow;
-            }
-            if (nowTime < mOrderData.OrderTime * 1f / 3f) 
-            {
-                timeLine.color = Color.red;
+                DOTween.To(() => timeLine.color, x => timeLine.color = x, Color.white, 0.7f).SetLoops(-1, LoopType.Yoyo);
             }
             if (nowTime <= 0f && nowTime > -1f)
             {

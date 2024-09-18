@@ -44,6 +44,7 @@ namespace GameMain
             mCoverSprite.sprite = Resources.Load<Sprite>(mDRNode.CoverPath);
             mShaderSprite.gameObject.SetActive(false);
 
+            mProgressBarRenderer.transform.localPosition = Vector3.down * 1.5f;
             GameEntry.Entity.AttachEntity(this.Id, mCompenentData.OwnerId);
             this.transform.position = mNodeData.Position;
             //处理特殊情况
@@ -64,7 +65,7 @@ namespace GameMain
                 mNodeData.Adsorb.Child = this;
             }
         }
-        private void HideChildren()
+        protected void HideChildren()
         {
             List<BaseCompenent> mMaterialBaseCompenet = new List<BaseCompenent>();
             BaseCompenent child = Child;
@@ -77,6 +78,7 @@ namespace GameMain
             {
                 mMaterialBaseCompenet[i].gameObject.SetActive(false);
             }
+            this.Child = null;
         }
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {

@@ -36,16 +36,18 @@ namespace GameMain
 
         private void OnEnable()
         {
-            GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, ShowOrderSuccess);
+            GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, OnShowOrderSuccess);
             GameEntry.Event.Subscribe(OrderEventArgs.EventId, OnOrderEvent);
             GameEntry.Event.Subscribe(LevelEventArgs.EventId, OnLevelEvent);
+            GameEntry.Event.Subscribe(EventEventArgs.EventId, OnEventEvent);
         }
 
         private void OnDisable()
         {
-            GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, ShowOrderSuccess);
+            GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, OnShowOrderSuccess);
             GameEntry.Event.Unsubscribe(OrderEventArgs.EventId, OnOrderEvent);
             GameEntry.Event.Unsubscribe(LevelEventArgs.EventId, OnLevelEvent);
+            GameEntry.Event.Unsubscribe(EventEventArgs.EventId, OnEventEvent);
         }
 
         private float nowTime=5f;
@@ -61,6 +63,15 @@ namespace GameMain
                 ShowItem();
                 nowTime = UnityEngine.Random.Range(12f, 25f);
             }
+        }
+        public void ShowItem(int id)
+        {
+            OrderData orderData = new OrderData();
+            orderData.NodeTag = (NodeTag)id;
+            orderData.Grind = Random.Range(0, 2) == 1;
+            orderData.OrderTime = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)orderData.NodeTag).Time;
+            orderData.NodeName = orderData.NodeTag.ToString();
+            ShowItem(orderData);
         }
         public void ShowItem()
         {
@@ -93,7 +104,7 @@ namespace GameMain
                 return;
             GameEntry.Entity.ShowOrder(new OrderItemData(GameEntry.Entity.GenerateSerialId(), 10011, orderData)
             {
-                Position = plotsCanvas[4].position
+                Position = plotsCanvas[plotsCanvas.Count-1].position
             });
         }
 
@@ -119,6 +130,15 @@ namespace GameMain
             }
         }
 
+        public void OnEventEvent(object sender, GameEventArgs e)
+        { 
+            EventEventArgs args= (EventEventArgs)e;
+            string[] values = (string[])sender;
+            IsShowItem = true;
+            ShowItem(int.Parse(values[1]));
+            IsShowItem=false;
+        }
+
         public void OnOrderEvent(object sender,GameEventArgs e)
         {
             OrderEventArgs args = (OrderEventArgs)e;
@@ -127,7 +147,7 @@ namespace GameMain
             orders.Remove(orderItem);
         }
 
-        private void ShowOrderSuccess(object sender, GameEventArgs e)
+        private void OnShowOrderSuccess(object sender, GameEventArgs e)
         {
             ShowEntitySuccessEventArgs args = (ShowEntitySuccessEventArgs)e;
             OrderItem orderItem = null;

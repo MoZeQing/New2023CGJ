@@ -360,6 +360,9 @@ namespace GameMain
                         GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Test));
                     }
                     break;
+                case EventTag.OrderTest:
+                    GameEntry.Event.FireNow(eventData.values, EventEventArgs.Create());
+                    break;
             }
             return false;
         }

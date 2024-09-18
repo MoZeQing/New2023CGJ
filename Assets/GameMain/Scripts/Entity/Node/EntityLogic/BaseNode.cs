@@ -28,7 +28,15 @@ namespace GameMain
             DRNode dRNode = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)NodeData.NodeTag);
             if (dRNode.Tool)
             {
-                GameEntry.Entity.ShowToolComponent(data);
+                switch ((NodeTag)dRNode.Id)
+                {
+                    case NodeTag.FrenchPress:
+                        GameEntry.Entity.ShowPressComponent(data);
+                        break;
+                    default:
+                        GameEntry.Entity.ShowToolComponent(data);
+                        break;
+                }
             }
             else
             {
