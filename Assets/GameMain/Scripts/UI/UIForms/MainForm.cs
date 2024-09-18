@@ -222,13 +222,6 @@ namespace GameMain
             moneyText.text = moneyText.text = string.Format("{0}", GameEntry.Player.Money.ToString());
             apText.text = $"AP:{GameEntry.Player.Ap}/{GameEntry.Player.MaxAp}";
             dayText.text = $"µÚ{GameEntry.Player.Day + 1}Ìì";
-            int maxAp = GameEntry.Player.MaxAp;
-            int ap = GameEntry.Player.Ap;
-            for (int i = 0; i < apPoints.Length; i++)
-            {
-                apPoints[i].gameObject.SetActive(maxAp - ap <= i);
-            }
-            apProgress.fillAmount = (float)ap / (float)maxAp;
         }
     }
 
