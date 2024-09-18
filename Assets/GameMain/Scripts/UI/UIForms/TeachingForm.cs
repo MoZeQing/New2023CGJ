@@ -160,7 +160,7 @@ namespace GameMain
             behavior.charData.GetValueTag(dic);
             GameEntry.UI.OpenUIForm(UIFormId.ActionForm3, OnComplete, dic);
         }
-        private void OnSleep()
+        public void OnSleep()
         {
             InDialog = false;
             BuffData buffData = GameEntry.Buff.GetBuff();
