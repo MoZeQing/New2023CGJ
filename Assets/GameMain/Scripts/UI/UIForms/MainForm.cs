@@ -48,7 +48,7 @@ namespace GameMain
         {
             base.OnOpen(userData);
             teachBtn.onClick.AddListener(ChangeTeach);
-            teachBtn1.onClick.AddListener(ChangeTeach);
+            //teachBtn1.onClick.AddListener(ChangeTeach);
 
             warehouseBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.CupboradForm));
             loadBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.LoadForm, this));
@@ -73,7 +73,7 @@ namespace GameMain
         {
             base.OnClose(isShutdown, userData);
             teachBtn.onClick.RemoveAllListeners();
-            teachBtn1.onClick.RemoveAllListeners();
+            //teachBtn1.onClick.RemoveAllListeners();
             loadBtn.onClick.RemoveAllListeners();
             saveBtn.onClick.RemoveAllListeners();
             optionBtn.onClick.RemoveAllListeners();
@@ -161,7 +161,7 @@ namespace GameMain
             teachBtn1.interactable = mAnimator.GetBool("Into");
             if (mAnimator.GetBool("Into"))
             {
-                mTeachingForm.Click_Action();
+                mTeachingForm.OnSleep();
             }
         }
         private void OnCatDataEvent(object sender, GameEventArgs e)
@@ -190,6 +190,9 @@ namespace GameMain
             WeatherTag weatherTag=WeatherTag.None;
             switch (GameEntry.Utils.GameState)
             {
+                case GameState.Midnight:
+                    weatherTag = WeatherTag.Night;
+                    break;
                 case GameState.Night:
                     if (GameEntry.Player.Ap <= 0)
                         weatherTag = WeatherTag.Night;
