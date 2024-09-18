@@ -247,11 +247,11 @@ namespace GameMain
                 mProgressBarRenderer.gameObject.SetActive(false);
                 mProgressBarRenderer.fillAmount = 1;
             }
-            this.transform.position = new Vector3(Mathf.Clamp(this.transform.position.x, -8f, 8f), Mathf.Clamp(this.transform.position.y, -10f, -4f), 0);//���Ʒ�Χ
+            this.transform.position = new Vector3(Mathf.Clamp(this.transform.position.x, -6f, 6f), Mathf.Clamp(this.transform.position.y, -9f, -5f), 0);
             if (Parent != null && !mNodeData.Follow)//跟随父卡牌
             {
                 mBoxCollider2D.isTrigger = true;
-                this.transform.DOMove(Parent.transform.position + Vector3.up * 0.5f, 0.1f);//�����ڵ�
+                this.transform.DOMove(Parent.transform.position + Vector3.up * 0.5f, 0.1f);
             }
             //刷新子集
             mChildMaterials = GenerateMaterialList();

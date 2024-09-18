@@ -1,3 +1,4 @@
+using GameFramework.Event;
 using GameFramework.Sound;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,6 +19,8 @@ namespace GameMain
         [SerializeField] private Button galleryForm;
         [SerializeField] private Button exitBtn;
 
+        [SerializeField] private Button workTestBtn;
+        
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
@@ -28,6 +31,7 @@ namespace GameMain
             optionBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.OptionForm, this));
             galleryForm.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.GalleryForm, this));
             exitBtn.onClick.AddListener(() => UnityGameFramework.Runtime.GameEntry.Shutdown(ShutdownType.Quit));
+            workTestBtn.onClick.AddListener(() => GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Test)));
         }
 
         protected override void OnClose(bool isShutdown, object userData)

@@ -145,7 +145,7 @@ public enum DialogPos
 {
     Left = 0,//×ó²à
     Middle = 1,//ÖÐ¼ä
-    Right = 2,//Á½±ß
+    Right = 2,//ÓÒ²à
     All=3,
     None=4
 }
