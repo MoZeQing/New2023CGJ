@@ -26,8 +26,16 @@ public class MyDailogBox : DialogBox
 
         if (m_Data.After.Count != 0)
         {
+            // 输出当前 BaseData 节点的信息
+            Debug.Log($"Current BaseData ID: {m_Data.Id}");
+            Debug.Log($"Fore Count: {m_Data.Fore.Count}, After Count: {m_Data.After.Count}");
             foreach (BaseData after in m_Data.After)
             {
+                Debug.Log($"After BaseData ID: {after.Id}, Type: {after.GetType().Name}");
+            }
+            foreach (BaseData after in m_Data.After)
+            {
+ 
                 string dialogTag = after.GetType().Name;
                 switch (dialogTag)
                 {
@@ -60,6 +68,7 @@ public class MyDailogBox : DialogBox
 
     public override void CompleteDialog()
     {
+        Debug.Log($"CompleteDialog called for BaseData ID: {m_Data?.Id ?? -1}");
         ClearButtons();
         nameText.text = string.Empty;
         dialogText.text = string.Empty;

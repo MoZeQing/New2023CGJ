@@ -36,6 +36,16 @@ namespace Dialog
             }
             set
             {
+                Debug.Log($"Setting After for BaseData ID: {Id}, New After Count: {value.Count}");
+
+                if (value.Count > 0)
+                {
+                    foreach (BaseData after in value)
+                    {
+                        Debug.Log($"After BaseData ID: {after.Id}");
+                    }
+                }
+
                 m_After = value;
             }
         }

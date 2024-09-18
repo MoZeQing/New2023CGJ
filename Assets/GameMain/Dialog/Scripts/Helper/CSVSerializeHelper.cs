@@ -22,7 +22,7 @@ public class CSVSerializeHelper : IDialogSerializeHelper
         dialogData.DialogName = startData.dialogName;
         dialogData.DialogDatas.Add(startData);
 
-        for (int i = 3; i < dialogRows.Length - 1; i++) // 表格从（1，1）开始
+        for (int i = 3; i < dialogRows.Length ; i++) // 表格从（1，1）开始
         {
             string[] dialogs = dialogRows[i].Split(',');
             if (dialogs[0] == "#")
@@ -53,9 +53,10 @@ public class CSVSerializeHelper : IDialogSerializeHelper
 
         // 连接数据的逻辑保持不变
         BaseData fore = startData;
-        for (int i = 3; i < dialogRows.Length - 1; i++)
+        for (int i = 3; i < dialogRows.Length ; i++)
         {
             string[] dialogs = dialogRows[i].Split(',');
+            Debug.Log($"Processing row {i}: {string.Join(",", dialogs)}");
             if (dialogs[0] == "#")
                 continue;
 
@@ -64,9 +65,10 @@ public class CSVSerializeHelper : IDialogSerializeHelper
             {
                 continue; // 处理未找到的情况
             }
-
+            // 如果当前节点没有 Fore 并且前一个节点是普通对话，则连接
             if (baseData.Fore.Count == 0)
             {
+                // 将自己与上一个普通对话节点连接
                 if (!fore.After.Contains(baseData))
                     fore.After.Add(baseData);
                 if (!baseData.Fore.Contains(fore))
@@ -76,15 +78,32 @@ public class CSVSerializeHelper : IDialogSerializeHelper
             string[] tags = dialogs[15].Split('-');
             foreach (string tag in tags)
             {
-                if (tag == "0")
+                Debug.Log($"Current tag processing: {tag}"); // 输出当前处理的标签
+
+                if (tag == "0") // 忽略 '0' 标签，但也记录它
+                {
+                    Debug.Log("Skipping tag '0'");
                     continue;
+                }
 
                 if (mapsDialogData.TryGetValue(tag, out var nextBaseData))
                 {
+                    Debug.Log($"Found next base data for tag {tag} with ID {nextBaseData.Id}"); // 找到标签对应的基础数据
+
                     if (!nextBaseData.Fore.Contains(baseData))
-                        nextBaseData.Fore.Add(baseData);
+                    {
+                        nextBaseData.Fore.Add(baseData); // 添加到前置节点
+                        Debug.Log($"Added to fore of {tag}");
+                    }
                     if (!baseData.After.Contains(nextBaseData))
-                        baseData.After.Add(nextBaseData);
+                    {
+                        baseData.After.Add(nextBaseData); // 添加到后置节点
+                        Debug.Log($"Added to after of {tag}");
+                    }
+                }
+                else
+                {
+                    Debug.Log($"No base data found for tag {tag}"); // 未找到对应的基础数据
                 }
             }
 
