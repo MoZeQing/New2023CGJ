@@ -297,6 +297,7 @@ namespace GameMain
                 Parent.Child = null;
                 Parent = null;
             }
+            Debug.Log("卡牌被长按");
             PickUp();
 
             if (mDRNode.ClickSound != string.Empty)
@@ -310,6 +311,7 @@ namespace GameMain
             mNodeData.Follow = false;
             if (Parent != null)
                 return;
+            Debug.Log("卡牌被松开");
             PutDown();
             //刷新子节点
             mCompenents.Clear();
@@ -335,8 +337,6 @@ namespace GameMain
         {
             if (Tool)
                 return;
-            if (!mNodeData.Follow)
-                return;
             PitchOn();
 
             if (mDRNode.HoldSound != string.Empty)
@@ -345,8 +345,6 @@ namespace GameMain
         public void OnPointerExit(PointerEventData pointerEventData)
         {
             if (Tool)
-                return;
-            if (!mNodeData.Follow)
                 return;
             PitchOut();
         }
@@ -409,6 +407,8 @@ namespace GameMain
             UpdateCard("Controller");
             mBoxCollider2D.isTrigger = true;
             mHoldSprite.transform.localScale = Vector3.zero;
+            mBackgroundSprite?.gameObject.transform.DOKill();
+            mHoldSprite?.GetComponent<SpriteRenderer>().DOKill();
             mHoldSprite.GetComponent<SpriteRenderer>().DOColor(Color.white, 0.2f).SetEase(Ease.OutExpo)
                 .OnComplete(()=>
                 {
@@ -425,7 +425,8 @@ namespace GameMain
         {
             UpdateCard("GamePlay");
             mBoxCollider2D.isTrigger = false;
-            mBackgroundSprite?.gameObject.transform.DOPause();
+            mBackgroundSprite?.gameObject.transform.DOKill();
+            mHoldSprite?.GetComponent<SpriteRenderer>().DOKill();
             mBackgroundSprite?.gameObject.transform.DOLocalMove(Vector3.zero, 0.2f);
             mHoldSprite?.GetComponent<SpriteRenderer>().DOColor(Color.clear, 0.2f).SetEase(Ease.OutExpo);
             Child?.PutDown();
