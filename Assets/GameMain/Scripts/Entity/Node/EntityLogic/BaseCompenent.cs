@@ -256,6 +256,7 @@ namespace GameMain
             if (Parent != null && !mNodeData.Follow)//跟随父卡牌
             {
                 mBoxCollider2D.isTrigger = true;
+                Debug.Log($"{this.gameObject.name}的Parent是{Parent?.gameObject.name}");
                 this.transform.DOMove(Parent.transform.position + Vector3.up * 0.5f, 0.1f);
             }
             //刷新子集
@@ -263,7 +264,7 @@ namespace GameMain
             Compound();
             Check=IsMouseInside(this.gameObject);
         }
-        private bool IsMouseInside(GameObject go)
+        protected bool IsMouseInside(GameObject go)
         {
             Vector2 size = mBackgroundSprite.size;
             Vector3 position = this.transform.position;
@@ -303,7 +304,7 @@ namespace GameMain
             if (mDRNode.ClickSound != string.Empty)
                 GameEntry.Sound.PlaySound(mDRNode.ClickSound, "Sound");
         }
-        private BaseCompenent bestCompenent;
+        public BaseCompenent BestCompenent { get; set; }
         public void OnPointerUp(PointerEventData pointerEventData)
         {
             if (Tool)
@@ -315,7 +316,7 @@ namespace GameMain
             PutDown();
             //刷新子节点
             mCompenents.Clear();
-            BaseCompenent parent = bestCompenent;
+            BaseCompenent parent = BestCompenent;
 
             int block = 1000;
             while (parent != null)
@@ -327,25 +328,22 @@ namespace GameMain
                 if (block < 0)
                     break;
             }
-            if (bestCompenent!=null && bestCompenent.Child == null)
+            if (BestCompenent!=null && BestCompenent.Child == null)
             {
-                Parent = bestCompenent;
+                Parent = BestCompenent;
                 Parent.Child = this;
             }
+            Debug.Log($"组件组内的数量是{mCompenents.Count}");
         }
         public void OnPointerEnter(PointerEventData pointerEventData)
         {
-            if (Tool)
-                return;
             PitchOn();
-
+            Debug.Log($"{this.gameObject.name}的Parent是{Parent?.gameObject.name}");
             if (mDRNode.HoldSound != string.Empty)
                 GameEntry.Sound.PlaySound(mDRNode.HoldSound, "Sound");
         }
         public void OnPointerExit(PointerEventData pointerEventData)
         {
-            if (Tool)
-                return;
             PitchOut();
         }
         private void OnTriggerStay2D(Collider2D collision)
@@ -364,17 +362,17 @@ namespace GameMain
             }
             if (mCompenents.Count == 0)
                 return;
-            bestCompenent = mCompenents[0];
+            BestCompenent = mCompenents[0];
             foreach (BaseCompenent compenent in mCompenents)
             {
-                if ((compenent.transform.position - this.transform.position).magnitude < (bestCompenent.transform.position - this.transform.position).magnitude)
+                if ((compenent.transform.position - this.transform.position).magnitude < (BestCompenent.transform.position - this.transform.position).magnitude)
                 {
                     if (compenent.Child != null)
                         continue;
-                    bestCompenent = compenent;
+                    BestCompenent = compenent;
                 }
             }
-            bestCompenent.PitchOn();
+            BestCompenent.PitchOn();
         }
         private void OnTriggerExit2D(Collider2D collision)
         {
@@ -383,10 +381,10 @@ namespace GameMain
             BaseCompenent baseCompenent = null;
             if (!collision.TryGetComponent<BaseCompenent>(out baseCompenent))
                 return;
-            if (bestCompenent == baseCompenent)
+            if (BestCompenent == baseCompenent)
             {
-                bestCompenent.PitchOut();
-                bestCompenent = null;
+                BestCompenent.PitchOut();
+                BestCompenent = null;
             }
             if (Parent == baseCompenent)
             {
@@ -563,7 +561,6 @@ namespace GameMain
                 }
                 if (mProducingTime <= 0)//如果完成制作
                 {
-                    RemoveChildren();//删除全部的子节点
                     for (int i = 0; i < mRecipeData.products.Count; i++)
                     {
                         if (mRecipeData.products[i] == NodeTag.EspressoG)
@@ -585,6 +582,7 @@ namespace GameMain
                             });
                         }
                     }
+                    RemoveChildren();//删除全部的子节点
                     if (this.NodeTag == NodeTag.Cup)
                     {
                         this.Remove();

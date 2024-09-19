@@ -120,13 +120,13 @@ namespace GameMain
     public enum OutingSceneState
     {
         Main=-1,
-        Home,//家
-        Market,//市场
-        Glass,//玻璃仪器店
-        Gym,//体育馆
-        Restaurant,//餐馆
-        Beach,//海滩
-        Clothing,//服装店
-        Library=8//图书馆
+        Home=0,//家
+        Market=1,//市场
+        Glass=2,//玻璃仪器店
+        Gym=3,//体育馆
+        Restaurant=4,//餐馆
+        Beach=5,//海滩
+        Clothing=6,//服装店
+        Library=7//图书馆
     }
 }

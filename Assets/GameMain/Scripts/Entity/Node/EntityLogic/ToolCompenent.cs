@@ -37,7 +37,7 @@ namespace GameMain
             Producing = false;
             mIconSprite.gameObject.SetActive(false);
             mBackgroundSprite.sprite= Resources.Load<Sprite>(mDRNode.BackgroundPath);
-            mBoxCollider2D.size = mBackgroundSprite.size;
+            mBoxCollider2D.size = mBackgroundSprite.size*0.8f;
             mBoundSprite.gameObject.SetActive(false);
             mTextText.gameObject.SetActive(false);
             mProgressBarRenderer.gameObject.SetActive(false);
@@ -64,6 +64,7 @@ namespace GameMain
                 Parent = mNodeData.Adsorb;
                 mNodeData.Adsorb.Child = this;
             }
+            Check = IsMouseInside(this.gameObject);
         }
         protected void HideChildren()
         {
@@ -85,6 +86,7 @@ namespace GameMain
             //刷新子集
             mChildMaterials = GenerateMaterialList();
             Compound();
+            Check = IsMouseInside(this.gameObject);
         }
         protected override void Compound()
         {
@@ -122,14 +124,18 @@ namespace GameMain
                 if (!Producing&&Child!=null)
                 {
                     BaseCompenent baseCompenent = Child;
-                    Child = null;
                     baseCompenent.Parent = null;
-                    baseCompenent.transform.DOMove(mNodeData.Position + Vector3.down*3f, 0.5f).SetEase(Ease.OutExpo);
-                    GameEntry.UI.OpenUIForm(UIFormId.PopTips, "这个器械没办法处理这个材料");
+                    baseCompenent.BestCompenent = null;
+                    Child = null;
+                    this.mBoxCollider2D.enabled = false;
+                    baseCompenent.transform.DOMove(mNodeData.Position + Vector3.down * 3f, 0.5f).SetEase(Ease.OutExpo)
+                        .OnComplete(() => this.mBoxCollider2D.enabled = true);
+                    GameEntry.Event.FireNow(this,WorkEventArgs.Create("这个器械没办法处理这个材料"));
                 }
             }
             else//如果正在制作中
             {
+                mBackgroundSprite.sprite = Resources.Load<Sprite>($"Image/Card/{mDRNode.AssetName}_anim");
                 mProgressBarRenderer.gameObject.SetActive(true);
                 mProgressBarRenderer.fillAmount = 1 - (1 - mProducingTime / mTime);
                 mProducingTime -= Time.deltaTime;
@@ -164,6 +170,7 @@ namespace GameMain
                     {
                         this.Remove();
                     }
+                    mBackgroundSprite.sprite = Resources.Load<Sprite>(mDRNode.BackgroundPath);
                     mProducingTime = 0;
                     mTime = 0f;
                     mRecipeData = null;

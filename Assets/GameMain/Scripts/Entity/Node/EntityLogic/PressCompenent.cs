@@ -19,19 +19,19 @@ namespace GameMain
                     if (Child.NodeTag == NodeTag.CoarseGroundCoffee)
                     {
                         coffeeBean = NodeTag.CoarseGroundCoffee;
-                        mBackgroundSprite.sprite = Resources.Load<Sprite>("Image/Card/CoarseGroundCoffee");
+                        mBackgroundSprite.sprite = Resources.Load<Sprite>("Image/Card/press_anim_2");
                         HideChildren();
                     }
                     else if (Child.NodeTag == NodeTag.FineGroundCoffee)
                     {
                         coffeeBean = NodeTag.FineGroundCoffee;
-                        mBackgroundSprite.sprite = Resources.Load<Sprite>("Image/Card/FineGroundCoffee");
+                        mBackgroundSprite.sprite = Resources.Load<Sprite>("Image/Card/press_anim_2");
                         HideChildren();
                     }
                     else if (Child.NodeTag == NodeTag.HotWater)
                     {
                         water = NodeTag.HotWater;
-                        mBackgroundSprite.sprite = Resources.Load<Sprite>("Image/Card/HotWater");
+                        mBackgroundSprite.sprite = Resources.Load<Sprite>("Image/Card/press_anim_1");
                         HideChildren();
                     }
                 }
@@ -40,7 +40,7 @@ namespace GameMain
                     DRRecipe recipe = null;
                     if (coffeeBean == NodeTag.CoarseGroundCoffee)
                     {
-                        recipe = GameEntry.DataTable.GetDataTable<DRRecipe>().GetDataRow(18);
+                        recipe = GameEntry.DataTable.GetDataTable<DRRecipe>().GetDataRow(17);
                         mRecipeData = new RecipeData(recipe);
                     }
                     if (coffeeBean == NodeTag.FineGroundCoffee)
@@ -59,10 +59,13 @@ namespace GameMain
                 if (!Producing && Child != null)
                 {
                     BaseCompenent baseCompenent = Child;
-                    Child = null;
                     baseCompenent.Parent = null;
-                    baseCompenent.transform.DOMove(mNodeData.Position + Vector3.down * 3f, 0.5f).SetEase(Ease.OutExpo);
-                    GameEntry.UI.OpenUIForm(UIFormId.PopTips, "这个器械没办法处理这个材料");
+                    baseCompenent.BestCompenent = null;
+                    Child = null;
+                    this.mBoxCollider2D.enabled = false;
+                    baseCompenent.transform.DOMove(mNodeData.Position + Vector3.down * 3f, 0.5f).SetEase(Ease.OutExpo)
+                        .OnComplete(() => this.mBoxCollider2D.enabled = true);
+                    GameEntry.Event.FireNow(this, WorkEventArgs.Create("这个器械没办法处理这个材料"));
                 }
             }
             else//如果正在制作中

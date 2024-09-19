@@ -191,7 +191,7 @@ namespace GameMain
             LevelTag= leveltag;
             DRNode dRNode = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)nodeTag);
             this.NodeTag = nodeTag;
-            this.NodeName = dRNode.AssetName;
+            this.NodeName = dRNode.Name;
             switch (leveltag)
             {
                 case LevelTag.Urgent:

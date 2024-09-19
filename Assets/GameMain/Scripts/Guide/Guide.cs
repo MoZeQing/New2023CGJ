@@ -8,34 +8,9 @@ namespace GameMain
 {
     public class Guide : MonoBehaviour
     {
-        //Lv1
-        //点击咖啡豆之后才会生成研磨器（显示提示）
 
-        //研磨三次之后后才会显示水和加热器（显示提示）
         [SerializeField] private List<GameObject> materials = new List<GameObject>();
-        //加热水之后才会增加过滤器（提示）
 
-        //过滤后要求交单
-
-        //Lv2
-        //要求制作热拿铁
-
-        //生成牛奶和打泡器
-
-        //要求打发牛奶
-
-        //打发后生成咖啡杯
-
-        //提示交单
-
-        //Lv3
-        //要求制作冰拿铁（加糖）
-
-        //要求制作冰拿铁
-
-        //显示加糖，要求加糖
-
-        // Start is called before the first frame update
         void Start()
         {
             GameEntry.Event.Subscribe(GameStateEventArgs.EventId, Guide1_1);
@@ -49,11 +24,6 @@ namespace GameMain
             if (args.GameState == GameState.Special)
             {
                 //初始化
-                materials.Add(GameObject.Find("Materials").transform.Find("CoffeeBean").gameObject);
-                materials.Add(GameObject.Find("Materials").transform.Find("Water").gameObject);
-                materials.Add(GameObject.Find("Materials").transform.Find("Milk").gameObject);
-                materials.Add(GameObject.Find("Materials").transform.Find("Cup").gameObject);
-                materials.Add(GameObject.Find("Materials").transform.Find("Sugar").gameObject);
 
                 materials[(int)NodeTag.CoffeeBean].SetActive(true);
                 GameEntry.UI.OpenUIForm(UIFormId.HighlightTips, "点击咖啡豆槽位，会生成对应的材料卡");
@@ -72,7 +42,7 @@ namespace GameMain
                     return;
                 GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.ManualGrinder)
                 {
-                    Position = Vector3.down * 6
+                    Position = new Vector3(-1.86f, -3.68f+1.6f, 0f)
                 });
                 GameEntry.UI.CloseUIForm(UIFormId.HighlightTips);
                 GameEntry.UI.OpenUIForm(UIFormId.HighlightTips, "使用研磨器将咖啡粉研磨为粗咖啡粉");
@@ -107,8 +77,8 @@ namespace GameMain
                     return;
                 GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Heater)
                 {
-                    Position = Vector3.down * 6
-                }) ;
+                    Position = new Vector3(2.96f, -3.74f+1.6f, 0f)
+                });
                 GameEntry.UI.CloseUIForm(UIFormId.HighlightTips);
                 GameEntry.UI.OpenUIForm(UIFormId.HighlightTips, "使用加热器将水加热");
                 GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, Guide1_4);
@@ -124,9 +94,9 @@ namespace GameMain
             {
                 if (baseCompenent.NodeTag != NodeTag.HotWater)
                     return;
-                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.FilterBowl)
+                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.FrenchPress)
                 {
-                    Position = Vector3.down * 6
+                    Position = new Vector3(0.21f, -3.66f+1.6f, 0f)
                 });
                 GameEntry.UI.CloseUIForm(UIFormId.HighlightTips);
                 GameEntry.UI.OpenUIForm(UIFormId.HighlightTips, "将热水和粗咖啡粉放置到滤纸漏斗中，生成浓缩咖啡");
@@ -144,7 +114,7 @@ namespace GameMain
                 if (baseCompenent.NodeTag != NodeTag.Espresso)
                     return;
                 GameEntry.UI.CloseUIForm(UIFormId.HighlightTips);
-                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "拖动生成的咖啡卡牌到左上角的对应订单处");
+                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "拖动生成的咖啡卡牌到左边的对应订单处");
                 GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, Guide1_6);
                 GameEntry.Event.Subscribe(GameStateEventArgs.EventId, Guide2_1);
             }
@@ -188,7 +158,7 @@ namespace GameMain
                     return;
                 GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Stirrer)
                 {
-                    Position = Vector3.down * 6
+                    Position = new Vector3(5.26f, -3.73f+1.6f, 0f)
                 });
                 GameEntry.UI.CloseUIForm(UIFormId.HighlightTips);
                 GameEntry.UI.OpenUIForm(UIFormId.HighlightTips, "使用搅拌器将牛奶打发");

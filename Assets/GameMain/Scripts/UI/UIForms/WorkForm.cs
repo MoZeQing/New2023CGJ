@@ -21,6 +21,7 @@ namespace GameMain
         [SerializeField] private OrderList orderList;
         [SerializeField] private Transform modeCanvas;
         [SerializeField] private Button commonBtn;
+        [SerializeField] private Text tipsText;
 
         private LevelData mLevelData;
         private int mOrderCount;
@@ -54,6 +55,7 @@ namespace GameMain
 
             commonBtn.onClick.AddListener(SetData);
             GameEntry.Event.Subscribe(OrderEventArgs.EventId, OnOrderEvent);
+            GameEntry.Event.Subscribe(WorkEventArgs.EventId, OnWorkTipsEvent);
         }
 
         private void OnDisable()
@@ -61,6 +63,7 @@ namespace GameMain
             recipeBtn.onClick.RemoveAllListeners();
             guideBtn.onClick.RemoveAllListeners();
             GameEntry.Event.Unsubscribe(OrderEventArgs.EventId, OnOrderEvent);
+            GameEntry.Event.Subscribe(WorkEventArgs.EventId, OnWorkTipsEvent);
         }
 
         private void Update()
@@ -144,9 +147,19 @@ namespace GameMain
         private void OnAfterWorkComplete()
         {
             GameEntry.Event.Fire(mWorkData, GameStateEventArgs.Create(GameState.AfterSpecial));
-            GameEntry.UI.OpenUIForm(UIFormId.SettleForm, mWorkData);
         }
-
+        private void OnWorkTipsEvent(object sender, GameEventArgs e)
+        { 
+            WorkEventArgs args=e as WorkEventArgs;
+            tipsText.text = args.Text;
+            tipsText.color = Color.clear;
+            tipsText.DOKill();
+            Sequence sequence = DOTween.Sequence(tipsText);
+            sequence.Append(tipsText.DOColor(Color.black, 0.5f));
+            sequence.Append(tipsText.DOColor(Color.clear, 0.5f));
+            sequence.SetLoops(2);
+            sequence.OnComplete(() => tipsText.text = string.Empty);
+        }
         private void OnOrderEvent(object sender, GameEventArgs e)
         {
             OrderEventArgs args = (OrderEventArgs)e;

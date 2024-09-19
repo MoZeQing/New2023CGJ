@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa74bb4d628ce184db8a9ecb7f25bb9c, type: 3}
   m_Name: (2)Guide_3
   m_EditorClassIdentifier: 
-  unLoad: 1
+  unLoad: 0
   isRemove: 0
   trigger:
     key: 11
@@ -26,10 +26,12 @@ MonoBehaviour:
       value: 456
       and: []
   levelTag: 0
-  foreWork: {fileID: 0}
-  afterWork: {fileID: 0}
-  orderDatas: []
-  levelTime: 0
+  foreWork: {fileID: 11400000, guid: 491726df013441c44b20dc71269e3574, type: 2}
+  afterWork: {fileID: 11400000, guid: 4e577114ddab7444f98855550e05e33f, type: 2}
+  orderDatas:
+  - nodeNodeTag: 102
+    orderTime: -999
+  levelTime: -999
   levelMoney: 0
   isCoarse: 0
-  notCoarse: 0
+  notCoarse: 1

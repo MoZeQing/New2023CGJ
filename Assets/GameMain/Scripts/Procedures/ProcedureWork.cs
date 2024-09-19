@@ -83,6 +83,11 @@ namespace GameMain
         {
             GameStateEventArgs args = (GameStateEventArgs)e;
             mGameState = args.GameState;
+            if (mGameState == GameState.AfterSpecial)
+            {
+                WorkData mWorkData=sender as WorkData;
+                GameEntry.UI.OpenUIForm(UIFormId.SettleForm, mWorkData);
+            }
         }
 
         private void OnLoadSceneSuccess(object sender, GameEventArgs e)
