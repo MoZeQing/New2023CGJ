@@ -34,7 +34,7 @@ namespace GameMain
         {
             mShopItemData = itemData;
             this.gameObject.SetActive(true);
-            itemImage.sprite = Resources.Load<Sprite>(itemData.ImagePath);
+            itemImage.sprite = Resources.Load<Sprite>(itemData.IconPath);
             itemText.text = itemData.Info;
             priceText.text = $"{itemData.Price}";
             if(GameEntry.Player.GetPlayerItem((ItemTag)itemData.Id)!=null)
