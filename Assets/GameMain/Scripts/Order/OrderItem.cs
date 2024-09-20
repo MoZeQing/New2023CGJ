@@ -70,14 +70,7 @@ namespace GameMain
             nowTime = mOrderData.OrderTime;
             badImg.gameObject.SetActive(false);
             badCount = 0;
-            if (mOrderData.Urgent)
-            {
-                timeLine.gameObject.SetActive(mOrderData.Urgent);
-            }
-            else
-            {
-                timeLine.gameObject.SetActive(mOrderData.Urgent);
-            }
+            timeLine.gameObject.SetActive(mOrderData.OrderTime>0);
             Debug.Log(nowTime);
         }
 

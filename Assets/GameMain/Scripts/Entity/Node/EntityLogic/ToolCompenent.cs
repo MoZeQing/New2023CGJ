@@ -50,8 +50,6 @@ namespace GameMain
             mCoverSprite.gameObject.SetActive(false);
             mTextText.text = mDRNode.Name;
             mShaderSprite.gameObject.SetActive(false);
-
-            mProgressBarRenderer.transform.localPosition = Vector3.down * 1.5f;
             GameEntry.Entity.AttachEntity(this.Id, mCompenentData.OwnerId);
             this.transform.position = mNodeData.Position;
             //处理特殊情况

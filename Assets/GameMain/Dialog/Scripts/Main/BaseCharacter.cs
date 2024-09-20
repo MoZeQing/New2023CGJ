@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class BaseCharacter :MonoBehaviour
+public class BaseCharacter : MonoBehaviour
 {
     [SerializeField] private Image mImage = null;
     public CharacterTag CharacterTag { get; set; }
@@ -88,7 +88,7 @@ public class BaseCharacter :MonoBehaviour
     }
 }
 public enum CharacterTag
-{ 
+{
     None,
     Show,
     Hide
@@ -102,7 +102,7 @@ public class ActionData
 
     public ActionData() { }
     public ActionData(CharSO charSO)
-    { 
+    {
         this.charSO = charSO;
         diffTag = DiffTag.Idle;
         actionTag = ActionTag.None;
@@ -111,14 +111,18 @@ public class ActionData
 //差分Tag
 public enum DiffTag
 {
-    Idle,
-    Smile
+    Idle = 0,// 默认
+    Happy = 1,// 开心
+    Sad = 2,// 伤心
+    Upset = 3,// 难过
+    Fear = 4,// 胆怯
+    Steady = 5// 坚定
 }
 //动作Tag
 public enum ActionTag
 {
-    None,//无
-    Jump,//上下跳动
-    Shake//左右抖动
+    None = 0,//无
+    Jump = 1,//上下跳动
+    Shake = 2//左右抖动
 }
 

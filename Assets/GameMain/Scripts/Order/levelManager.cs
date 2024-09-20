@@ -33,9 +33,13 @@ namespace GameMain
         /// </summary>
         public int nodeNodeTag;
         /// <summary>
-        /// 该份订单出现的时间
+        /// 该份订单出现的时间，只要不为零则自动视为带时限的订单
         /// </summary>
         public int orderTime;
+        /// <summary>
+        /// 是否为VIP客人
+        /// </summary>
+        public bool vip;
 
         public OrderData GetOrderData(LevelTag levelTag,int orderTime,bool isCoarse,bool notCoarse)
         { 
