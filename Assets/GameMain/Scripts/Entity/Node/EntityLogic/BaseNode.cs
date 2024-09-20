@@ -24,8 +24,8 @@ namespace GameMain
 
         private void AttachNode()
         {
-            CompenentData data = new CompenentData(GameEntry.Entity.GenerateSerialId(), 10001,this.Id, NodeData);
             DRNode dRNode = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)NodeData.NodeTag);
+            CompenentData data = new CompenentData(GameEntry.Entity.GenerateSerialId(), dRNode.Tool? 10012:10001,this.Id, NodeData);
             if (dRNode.Tool)
             {
                 switch ((NodeTag)dRNode.Id)

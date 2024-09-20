@@ -187,6 +187,7 @@ namespace GameMain
         }
         protected virtual void UpdateCard(string layerName)
         {
+            mShaderSprite.sortingLayerName = layerName;
             mBackgroundSprite.sortingLayerName = layerName;
             mMask.sortingLayerName = layerName;
             //mHoldSprite.GetComponent<SpriteRenderer>().sortingLayerName = layerName;
@@ -195,6 +196,7 @@ namespace GameMain
             mCoverSprite.GetComponent<SpriteRenderer>().sortingLayerName = layerName;
             mBoundSprite.sortingLayerName = layerName;
 
+            mShaderSprite.sortingOrder = GameEntry.Utils.CartSort;
             mBackgroundSprite.sortingOrder = GameEntry.Utils.CartSort;
             mMask.sortingOrder = GameEntry.Utils.CartSort;
             //mHoldSprite.GetComponent<SpriteRenderer>().sortingOrder = GameEntry.Utils.CartSort;

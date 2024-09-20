@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using XNode.Examples.RuntimeMathNodes;
 
 namespace GameMain
@@ -10,6 +11,11 @@ namespace GameMain
     //¹Ì¶¨¹¤¾ß¿¨
     public class ToolCompenent : BaseCompenent
     {
+        protected override void OnInit(object userData)
+        {
+            base.OnInit(userData);
+            mTextText = mBackgroundSprite.transform.Find("Cover").Find("Canvas").Find("Text").GetComponent<Text>();
+        }
         protected override void OnShow(object userData)
         {
             mHoldSprite.transform.localScale = Vector3.zero;
@@ -39,9 +45,10 @@ namespace GameMain
             mBackgroundSprite.sprite= Resources.Load<Sprite>(mDRNode.BackgroundPath);
             mBoxCollider2D.size = mBackgroundSprite.size*0.8f;
             mBoundSprite.gameObject.SetActive(false);
-            mTextText.gameObject.SetActive(false);
             mProgressBarRenderer.gameObject.SetActive(false);
             mCoverSprite.sprite = Resources.Load<Sprite>(mDRNode.CoverPath);
+            mCoverSprite.gameObject.SetActive(false);
+            mTextText.text = mDRNode.Name;
             mShaderSprite.gameObject.SetActive(false);
 
             mProgressBarRenderer.transform.localPosition = Vector3.down * 1.5f;
