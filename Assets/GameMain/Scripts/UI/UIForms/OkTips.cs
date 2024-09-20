@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityGameFramework.Runtime;
 using System;
+using DG.Tweening;
 
 namespace GameMain
 {
@@ -13,10 +14,14 @@ namespace GameMain
         [SerializeField] private Text titleText;
         [SerializeField] private Button okBtn;
         [SerializeField] private Button cancelBtn;
+        [SerializeField] private Transform canvas;
 
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
+            canvas.localPosition = Vector3.down * 100f;
+            canvas.DOLocalMove(Vector3.zero, 0.5f).SetEase(Ease.OutExpo);
+
             titleText.text = BaseFormData.UserData.ToString();
             titleText.text= titleText.text.Replace("\\n", "\n");
             okBtn.onClick.AddListener(OnClick);
