@@ -24,10 +24,17 @@ namespace GameMain
             set;
         }
 
-        public static WorkEventArgs Create(string text)
+        public WorkTips WorkTips
+        {
+            get;
+            set;
+        }
+
+        public static WorkEventArgs Create(string text,WorkTips workTips)
         {
             WorkEventArgs args = ReferencePool.Acquire<WorkEventArgs>();
             args.Text = text;
+            args.WorkTips = workTips;
             return args;
         }
 
@@ -35,5 +42,11 @@ namespace GameMain
         {
 
         }
+    }
+
+    public enum WorkTips
+    { 
+        None,
+        Tips
     }
 }

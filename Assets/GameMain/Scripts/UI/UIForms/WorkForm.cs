@@ -21,6 +21,8 @@ namespace GameMain
         [SerializeField] private OrderList orderList;
         [SerializeField] private Transform modeCanvas;
         [SerializeField] private Button commonBtn;
+        [SerializeField] private Text workText;
+        [SerializeField] private Image tipsImg;
         [SerializeField] private Text tipsText;
 
         private LevelData mLevelData;
@@ -151,14 +153,28 @@ namespace GameMain
         private void OnWorkTipsEvent(object sender, GameEventArgs e)
         { 
             WorkEventArgs args=e as WorkEventArgs;
-            tipsText.text = args.Text;
-            tipsText.color = Color.clear;
-            tipsText.DOKill();
-            Sequence sequence = DOTween.Sequence(tipsText);
-            sequence.Append(tipsText.DOColor(Color.black, 0.5f));
-            sequence.Append(tipsText.DOColor(Color.clear, 0.5f));
-            sequence.SetLoops(2);
-            sequence.OnComplete(() => tipsText.text = string.Empty);
+            switch (args.WorkTips)
+            {
+                case WorkTips.None:
+                    tipsImg.gameObject.SetActive(false);
+                    workText.text = args.Text;
+                    break;
+                case WorkTips.Tips:
+                    tipsImg.gameObject.SetActive(true);
+                    tipsText.text = args.Text;
+                    tipsText.color = Color.clear;
+                    tipsText.DOKill();
+                    Sequence sequence = DOTween.Sequence(tipsText);
+                    sequence.Append(tipsText.DOColor(Color.black, 0.5f));
+                    sequence.Append(tipsText.DOColor(Color.clear, 0.5f));
+                    sequence.SetLoops(2);
+                    sequence.OnComplete(() =>
+                    {
+                        tipsText.text = string.Empty;
+                        tipsImg.gameObject.SetActive(false);
+                    });
+                    break;
+            }
         }
         private void OnOrderEvent(object sender, GameEventArgs e)
         {

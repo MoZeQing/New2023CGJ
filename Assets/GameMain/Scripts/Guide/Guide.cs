@@ -26,7 +26,7 @@ namespace GameMain
                 //初始化
 
                 materials[(int)NodeTag.CoffeeBean].SetActive(true);
-                GameEntry.UI.OpenUIForm(UIFormId.HighlightTips, "点击咖啡豆槽位，会生成对应的材料卡");
+                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("点击咖啡豆槽位，会生成对应的材料卡", WorkTips.None));
                 GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, Guide1_1);
                 GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, Guide1_2);
             }
@@ -44,8 +44,7 @@ namespace GameMain
                 {
                     Position = new Vector3(-1.86f, -3.68f+1.6f, 0f)
                 });
-                GameEntry.UI.CloseUIForm(UIFormId.HighlightTips);
-                GameEntry.UI.OpenUIForm(UIFormId.HighlightTips, "使用研磨器将咖啡粉研磨为粗咖啡粉");
+                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("使用研磨器将咖啡粉研磨为粗咖啡粉", WorkTips.None));
                 GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, Guide1_2);
                 GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, Guide1_3);
             }
@@ -60,8 +59,7 @@ namespace GameMain
                 if (baseCompenent.NodeTag != NodeTag.CoarseGroundCoffee)
                     return;
                 materials[1].SetActive(true);//水
-                GameEntry.UI.CloseUIForm(UIFormId.HighlightTips);
-                GameEntry.UI.OpenUIForm(UIFormId.HighlightTips, "点击水槽位，会生成对应的材料卡");
+                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("点击水槽位，会生成对应的材料卡", WorkTips.None));
                 GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, Guide1_3);
                 GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, Guide1_4);
             }
@@ -79,8 +77,7 @@ namespace GameMain
                 {
                     Position = new Vector3(2.96f, -3.74f+1.6f, 0f)
                 });
-                GameEntry.UI.CloseUIForm(UIFormId.HighlightTips);
-                GameEntry.UI.OpenUIForm(UIFormId.HighlightTips, "使用加热器将水加热");
+                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("使用加热器将水加热", WorkTips.None));
                 GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, Guide1_4);
                 GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, Guide1_5);
             }
@@ -98,8 +95,7 @@ namespace GameMain
                 {
                     Position = new Vector3(0.21f, -3.66f+1.6f, 0f)
                 });
-                GameEntry.UI.CloseUIForm(UIFormId.HighlightTips);
-                GameEntry.UI.OpenUIForm(UIFormId.HighlightTips, "将热水和粗咖啡粉放置到滤纸漏斗中，生成浓缩咖啡");
+                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("将热水和粗咖啡粉放置到滤纸漏斗中，生成浓缩咖啡", WorkTips.None));
                 GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, Guide1_5);
                 GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, Guide1_6);
             }
@@ -113,8 +109,7 @@ namespace GameMain
             {
                 if (baseCompenent.NodeTag != NodeTag.Espresso)
                     return;
-                GameEntry.UI.CloseUIForm(UIFormId.HighlightTips);
-                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "拖动生成的咖啡卡牌到左边的对应订单处");
+                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("拖动生成的咖啡卡牌到左边的对应订单处", WorkTips.None));
                 GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, Guide1_6);
                 GameEntry.Event.Subscribe(GameStateEventArgs.EventId, Guide2_1);
             }
@@ -125,8 +120,7 @@ namespace GameMain
             GameStateEventArgs args = (GameStateEventArgs)e;
             if (args.GameState == GameState.Special)
             {
-                GameEntry.UI.CloseUIForm(UIFormId.HighlightTips);
-                GameEntry.UI.OpenUIForm(UIFormId.HighlightTips, "现在，制作一个新的浓缩咖啡吧");
+                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("现在，制作一个新的浓缩咖啡吧", WorkTips.None));
                 GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, Guide2_1);
                 GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, Guide2_2);
             }
@@ -141,8 +135,7 @@ namespace GameMain
                 if (baseCompenent.NodeTag != NodeTag.Espresso)
                     return;
                 materials[2].SetActive(true);
-                GameEntry.UI.CloseUIForm(UIFormId.HighlightTips);
-                GameEntry.UI.OpenUIForm(UIFormId.HighlightTips, "点击牛奶槽位，会生成对应的材料卡");
+                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("点击牛奶槽位，会生成对应的材料卡", WorkTips.None));
                 GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, Guide2_2);
                 GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, Guide2_3);
             }
@@ -160,8 +153,7 @@ namespace GameMain
                 {
                     Position = new Vector3(5.26f, -3.73f+1.6f, 0f)
                 });
-                GameEntry.UI.CloseUIForm(UIFormId.HighlightTips);
-                GameEntry.UI.OpenUIForm(UIFormId.HighlightTips, "使用搅拌器将牛奶打发");
+                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("使用搅拌器将牛奶打发", WorkTips.None));
                 GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, Guide2_3);
                 GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, Guide2_4);
             }
@@ -176,8 +168,7 @@ namespace GameMain
                 if (baseCompenent.NodeTag != NodeTag.LowFoamingMilk)
                     return;
                 materials[3].SetActive(true);
-                GameEntry.UI.CloseUIForm(UIFormId.HighlightTips);
-                GameEntry.UI.OpenUIForm(UIFormId.HighlightTips, "点击杯槽位，会生成对应的材料卡");
+                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("点击杯槽位，会生成对应的材料卡", WorkTips.None));
                 GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, Guide2_4);
                 GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, Guide2_5);
             }
@@ -191,8 +182,7 @@ namespace GameMain
             {
                 if (baseCompenent.NodeTag != NodeTag.Cup)
                     return;
-                GameEntry.UI.CloseUIForm(UIFormId.HighlightTips);
-                GameEntry.UI.OpenUIForm(UIFormId.HighlightTips, "使用杯子将浓缩咖啡和低泡牛奶合成为卡布奇诺");
+                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("使用杯子将浓缩咖啡和低泡牛奶合成为卡布奇诺", WorkTips.None));
                 GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, Guide2_5);
                 GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, Guide2_6);
             }
@@ -206,8 +196,7 @@ namespace GameMain
             {
                 if (baseCompenent.NodeTag != NodeTag.Kapuziner)
                     return;
-                GameEntry.UI.CloseUIForm(UIFormId.HighlightTips);
-                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "使用卡布奇诺交单");
+                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("使用卡布奇诺交单", WorkTips.None));
                 GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, Guide2_6);
                 GameEntry.Event.Subscribe(GameStateEventArgs.EventId, Guide3_1);
             }
@@ -218,8 +207,7 @@ namespace GameMain
             GameStateEventArgs args = (GameStateEventArgs)e;
             if (args.GameState == GameState.Special)
             {
-                GameEntry.UI.CloseUIForm(UIFormId.HighlightTips);
-                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "现在制作一杯细浓缩咖啡，因此我们先制作细咖啡粉");
+                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("现在制作一杯细浓缩咖啡，因此我们先制作细咖啡粉", WorkTips.None));
                 GameEntry.Player.AddRecipe(1);
                 GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, Guide3_1);
                 GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, Guide3_3);
@@ -240,8 +228,7 @@ namespace GameMain
                 if (baseCompenent.NodeTag != NodeTag.FineGroundCoffee)
                     return;
                 materials[7].SetActive(true);
-                GameEntry.UI.CloseUIForm(UIFormId.HighlightTips);
-                GameEntry.UI.OpenUIForm(UIFormId.HighlightTips, "继续完成细版本的冰卡布奇诺吧！\n<size=24>（对于配方有疑惑，可以点击右下角的制作手册查看配方）</size>");
+                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("继续完成细版本的冰卡布奇诺吧！\n<size=24>（对于配方有疑惑，可以点击右下角的制作手册查看配方）</size>", WorkTips.None));
                 GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, Guide3_3);
                 GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, Guide3_5);
             }
@@ -277,8 +264,7 @@ namespace GameMain
             {
                 if (baseCompenent.NodeTag != NodeTag.IceKapuziner)
                     return;
-                GameEntry.UI.CloseUIForm(UIFormId.HighlightTips);
-                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "那么将咖啡拖动到对应的订单上");
+                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("那么将咖啡拖动到对应的订单上", WorkTips.None));
                 GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, Guide3_5);
             }
         }

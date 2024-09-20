@@ -130,7 +130,7 @@ namespace GameMain
                     this.mBoxCollider2D.enabled = false;
                     baseCompenent.transform.DOMove(mNodeData.Position + Vector3.down * 3f, 0.5f).SetEase(Ease.OutExpo)
                         .OnComplete(() => this.mBoxCollider2D.enabled = true);
-                    GameEntry.Event.FireNow(this,WorkEventArgs.Create("这个器械没办法处理这个材料"));
+                    GameEntry.Event.FireNow(this, WorkEventArgs.Create("这个器械没办法处理这个材料", WorkTips.Tips));
                 }
             }
             else//如果正在制作中
