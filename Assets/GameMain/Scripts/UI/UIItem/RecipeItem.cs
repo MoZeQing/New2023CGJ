@@ -10,51 +10,54 @@ public class RecipeItem : MonoBehaviour
 {
     [SerializeField] private Image mIconImg;
     [SerializeField] private Image mBGImg;
-    [SerializeField] private Image mChoice;
-    [SerializeField] private Image mIce;
-    private RecipeData mRecipe; 
+    [SerializeField] private Image mChoiceImg;
+    [SerializeField] private Image mIceImg;
+    [SerializeField] private Image mBoundImg;
+    [SerializeField] private Text mNameText;
     [SerializeField] private Button mBtn;
+    private RecipeData mRecipe; 
     private Action<RecipeData,NodeTag,RecipeItem> mAction;
     private NodeTag mNodeTag;
-
-    private void Start()
-    {
-        mBtn= GetComponent<Button>();
-        mIconImg=this.transform.Find("Icon").GetComponent<Image>();
-        mBGImg.GetComponent<Image>();
-    }
 
     public bool Choice
     {
         set
         {
-            mChoice.gameObject.SetActive(value);
+            mChoiceImg.gameObject.SetActive(value);
         }
     }
 
     public void SetData(RecipeData recipe,NodeTag nodeTag,Action<RecipeData,NodeTag,RecipeItem> action)
     {
+        DRNode dRNode = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)nodeTag);
+
         this.gameObject.SetActive(true);
         mBtn.onClick.RemoveAllListeners();
         mRecipe = recipe;
         mAction= action;
         mNodeTag = nodeTag;
-        mIconImg.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)nodeTag).IconPath);
-        mBGImg.sprite= Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)nodeTag).BackgroundPath);
+        mNameText.text = dRNode.Name;
+        mBoundImg.sprite = Resources.Load<Sprite>(dRNode.BoundPath);
+        mIconImg.sprite = Resources.Load<Sprite>(dRNode.IconPath);
+        mBGImg.sprite= Resources.Load<Sprite>(dRNode.BackgroundPath);
         mBtn.onClick.AddListener(OnClick);
         mBtn.interactable = GameEntry.Player.HasRecipe(recipe.Id);
-        mChoice.gameObject.SetActive(false);
+        mChoiceImg.gameObject.SetActive(false);
         DRNode node = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)nodeTag);
-        mIce.gameObject.SetActive(node.Ice);
+        mIceImg.gameObject.SetActive(node.Ice);
     }
 
     public void SetData(NodeTag nodeTag)
     {
+        DRNode dRNode = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)nodeTag);
+
         mNodeTag = nodeTag;
-        mIconImg.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)nodeTag).IconPath);
-        mBGImg.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)nodeTag).BackgroundPath);
+        mNameText.text = dRNode.Name;
+        mBoundImg.sprite = Resources.Load<Sprite>(dRNode.BoundPath);
+        mIconImg.sprite = Resources.Load<Sprite>(dRNode.IconPath);
+        mBGImg.sprite = Resources.Load<Sprite>(dRNode.BackgroundPath);
         DRNode node = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)nodeTag);
-        mIce.gameObject.SetActive(node.Ice);
+        mIceImg.gameObject.SetActive(node.Ice);
     }
 
     private void OnClick()
