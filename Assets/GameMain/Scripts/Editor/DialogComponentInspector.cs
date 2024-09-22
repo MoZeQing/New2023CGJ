@@ -19,6 +19,13 @@ public class DialogComponentInspector : Editor
             GUILayout.Label($"已经加载的Dialog数量:{dialogComponent.GetLoadedDialogCount}", style);
             GUILayout.Label($"已经加载的Story数量:{dialogComponent.GetLoadedStoryCount}", style);
             GUILayout.Label($"全部的Story数量:{dialogComponent.GetAllStoryCount}", style);
+            GUILayout.Space(5); 
+            GUILayout.Label("全部已经加载的Story名称：",style);
+            foreach (string story in dialogComponent.LoadedStories)
+            { 
+                GUILayout.Label(story);
+            }
+            
         }
     }
 }
