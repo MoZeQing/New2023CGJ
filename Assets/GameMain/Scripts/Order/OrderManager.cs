@@ -176,49 +176,45 @@ namespace GameMain
     {
         //咖啡种类
         public NodeTag NodeTag;
-        public LevelTag LevelTag;
+        public OrderTag OrderTag;
         public string NodeName;
         //订单生成的时间
         public float OrderTime;
-        public bool Grind;//粗细度
-        public bool Urgent=false;//加急订单
-        public bool Bad = false;//糟糕的订单
+        public bool Grind;
 
         public OrderData() { }
 
-        public OrderData(NodeTag nodeTag,LevelTag leveltag,int orderTime,bool isCoarse,bool notCoarse)
+        public OrderData(NodeTag nodeTag, OrderTag orderTag,int orderTime)
         {
-            LevelTag= leveltag;
+            this.OrderTag= orderTag;
             DRNode dRNode = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)nodeTag);
             this.NodeTag = nodeTag;
             this.NodeName = dRNode.Name;
-            switch (leveltag)
+            Grind = Random.Range(0, 2) == 1;
+            switch (orderTag)
             {
-                case LevelTag.Urgent:
-                    if (orderTime != 0)
-                    {
-                        this.Urgent = true;
-                        this.OrderTime = orderTime;
-                    }
-                    else
-                    {
-                        this.OrderTime = -2;
-                    }
+                case OrderTag.None:
                     break;
-                case LevelTag.Bad:
-                    Bad= Random.Range(0, 2) == 1;
+                case OrderTag.Urgent:
+                    OrderTime = orderTime;
+                    break;
+                case OrderTag.Coarse:
+                    Grind = true;
+                    break;
+                case OrderTag.Fine:
+                    Grind= false;
                     break;
             }
-            if (Urgent)
-            {
-                this.OrderTime = dRNode.Time;
-            }
-            if (isCoarse)
-                Grind = true;
-            else if(notCoarse)
-                Grind = false;
-            else
-                Grind = Random.Range(0, 2) == 1;
         }
+    }
+
+    public enum OrderTag
+    { 
+        None,
+        Coarse,
+        Fine,
+        Urgent,
+        Vip,
+
     }
 }

@@ -17,8 +17,6 @@ public class LevelSO : ScriptableObject
     [SerializeField]
     public ParentTrigger trigger;
     [SerializeField]
-    public LevelTag levelTag;
-    [SerializeField]
     public DialogueGraph foreWork;
     [SerializeField]
     public DialogueGraph afterWork;
@@ -28,10 +26,6 @@ public class LevelSO : ScriptableObject
     public int levelTime;
     [SerializeField]
     public int levelMoney;
-    [SerializeField]
-    public bool isCoarse;
-    [SerializeField]
-    public bool notCoarse;
 
     //[MenuItem("Data/LevelToCSV")]
     //public static void StoryToCSV()
