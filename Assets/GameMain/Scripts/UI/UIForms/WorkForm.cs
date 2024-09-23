@@ -118,11 +118,18 @@ namespace GameMain
             IsDialog = true;
             modeCanvas.gameObject.SetActive(true);
             GamePosUtility.Instance.GamePosChange(GamePos.Up);
-            DialogData foreWorkDialog = GameEntry.Dialog.GetDialogData(mLevelData.foreWork);
-            dialogBox.SetDialog(foreWorkDialog);
-            dialogBox.SetComplete(OnForeWorkComplete);
-            GameEntry.Event.FireNow(this, LevelEventArgs.Create());
-            GameEntry.Event.Fire(this, GameStateEventArgs.Create(GameState.ForeSpecial));
+            if (string.IsNullOrEmpty(mLevelData.foreWork))
+            {
+                DialogData foreWorkDialog = GameEntry.Dialog.GetDialogData(mLevelData.foreWork);
+                dialogBox.SetDialog(foreWorkDialog);
+                dialogBox.SetComplete(OnForeWorkComplete);
+                GameEntry.Event.FireNow(this, LevelEventArgs.Create());
+                GameEntry.Event.Fire(this, GameStateEventArgs.Create(GameState.ForeSpecial));
+            }
+            else
+            {
+                OnForeWorkComplete();
+            }
         }
         private void OnForeWorkComplete()
         {
@@ -133,13 +140,20 @@ namespace GameMain
         }
         private void OnWorkComplete()
         {
-            GameEntry.Event.FireNow(this, LevelEventArgs.Create());
-            GamePosUtility.Instance.GamePosChange(GamePos.Up);
-            DialogData afterWorkDialog = GameEntry.Dialog.GetDialogData(mLevelData.afterWork);
-            dialogBox.SetDialog(afterWorkDialog);
-            dialogBox.SetComplete(OnAfterWorkComplete);
-            orderList.ClearItems();
+            if (string.IsNullOrEmpty(mLevelData.afterWork))
+            {
+                GameEntry.Event.FireNow(this, LevelEventArgs.Create());
+                GamePosUtility.Instance.GamePosChange(GamePos.Up);
+                DialogData afterWorkDialog = GameEntry.Dialog.GetDialogData(mLevelData.afterWork);
+                dialogBox.SetDialog(afterWorkDialog);
+                dialogBox.SetComplete(OnAfterWorkComplete);
+            }
+            else
+            {
+                OnAfterWorkComplete();
+            }
 
+            orderList.ClearItems();
             mWorkData.Power = nowTime / (float)mLevelData.levelTime;
             mWorkData.Money = mLevelData.levelMoney;
             mWorkData.OrderCount = mLevelData.orderDatas.Count;
