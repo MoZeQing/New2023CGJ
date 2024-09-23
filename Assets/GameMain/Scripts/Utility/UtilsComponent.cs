@@ -263,6 +263,8 @@ namespace GameMain
         }
         public bool RunEvent(string consoleStr)
         {
+            if (String.IsNullOrEmpty(consoleStr))
+                return false;
             string[] consoleStrs = consoleStr.Split(' ');
             EventTag eventTag;
             Enum.TryParse<EventTag>(consoleStrs[0],out eventTag);
