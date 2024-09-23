@@ -184,10 +184,11 @@ namespace GameMain
                 if (orderDatas.Contains(args.OrderData))
                 {
                     mOrderCount++;
-                    if (args.Income == 0)
-                        return;
-                    mWorkData.orderDatas.Add(args.OrderData);
-                    mWorkData.Income += args.Income;
+                    if (args.Income != 0)
+                    {
+                        mWorkData.orderDatas.Add(args.OrderData);
+                        mWorkData.Income += args.Income;
+                    }
                 }
                 if (mOrderCount == orderDatas.Count)
                 {

@@ -10,6 +10,7 @@ using UnityEngine.EventSystems;
 using UnityGameFramework.Runtime;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
 using DG.Tweening;
+using GameFramework.Event;
 
 namespace GameMain
 {
@@ -26,6 +27,7 @@ namespace GameMain
         [SerializeField] private Image timeLine;
         [SerializeField] private Image badImg;
         [SerializeField] private Text badText;
+        [SerializeField] private SpriteRenderer backgroundSpr;
 
         private OrderItemData mOrderItemData = null;
         private OrderData mOrderData = null;
@@ -46,6 +48,7 @@ namespace GameMain
             timeLine = orderCanvas.Find("TimeLine").GetComponent<Image>();
             badImg = orderCanvas.Find("BadImg").GetComponent<Image>();
             badText= badImg.transform.Find("BadText").GetComponent<Text>();
+            backgroundSpr = this.transform.Find("BG").GetComponent<SpriteRenderer>();
         }
         protected override void OnShow(object userData)
         {
@@ -64,6 +67,15 @@ namespace GameMain
             badImg.gameObject.SetActive(false);
             badCount = 0;
             timeLine.gameObject.SetActive(mOrderData.OrderTime > 0);
+            if (mOrderData.OrderTag == OrderTag.Vip)
+            {
+                backgroundSpr.sprite = Resources.Load<Sprite>("Image/Card/order_bg_vip");
+            }
+            else
+            {
+                backgroundSpr.sprite = Resources.Load<Sprite>("Image/Card/order_bg");
+            }
+            GameEntry.Event.Subscribe(OrderEventArgs.EventId, OnOrderEvent);
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
@@ -83,6 +95,7 @@ namespace GameMain
         protected override void OnHide(bool isShutdown, object userData)
         {
             base.OnHide(isShutdown, userData);
+            GameEntry.Event.Unsubscribe(OrderEventArgs.EventId, OnOrderEvent);
             nowTime = 9999f;
         }
 
@@ -107,6 +120,22 @@ namespace GameMain
                     GameEntry.Event.FireNow(this, OrderEventArgs.Create(mOrderData, income));
                     GameEntry.Entity.HideEntity(baseCompenent.transform.parent.GetComponent<BaseNode>().Entity);
                     GameEntry.Entity.HideEntity(this.Entity);
+                }
+            }
+        }
+
+        private void OnOrderEvent(object sender, GameEventArgs e)
+        { 
+            OrderEventArgs args= e as OrderEventArgs;
+            OrderItem orderItem=sender as OrderItem;
+            if (orderItem == this)
+                return;
+            if (mOrderData.OrderTag == OrderTag.Vip)
+            {
+                if (args.Income != 0)
+                {
+                    nowTime = -9999;
+                    OnExit();
                 }
             }
         }
