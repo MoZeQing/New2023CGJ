@@ -162,7 +162,12 @@ public class CSVSerializeHelper : IDialogSerializeHelper
     }
     public BaseData OptionSerialize(string[] csvString)
     {
-        return new OptionData { text = csvString[14] };
+        return new OptionData
+        {
+            trigger = new ParentTrigger(csvString[13]),
+            eventData = csvString[9],
+            text = csvString[14] 
+        };
     }
 }
 

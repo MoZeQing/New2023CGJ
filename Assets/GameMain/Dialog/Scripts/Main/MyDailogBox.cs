@@ -1,5 +1,6 @@
 using DG.Tweening;
 using Dialog;
+using GameMain;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -64,6 +65,13 @@ public class MyDailogBox : DialogBox
         {
             CompleteDialog();
         }
+    }
+
+    protected override void Option_Onclick(object sender, EventArgs e)
+    {
+        base.Option_Onclick(sender, e);
+        OptionData optionData = sender as OptionData;
+        GameEntry.Utils.RunEvent(optionData.eventData);
     }
 
     public override void CompleteDialog()
