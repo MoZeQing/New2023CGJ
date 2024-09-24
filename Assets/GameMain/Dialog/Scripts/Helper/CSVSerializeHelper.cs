@@ -2,12 +2,47 @@ using Dialog;
 using OfficeOpenXml;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup;
 using System;
+using System.Text;
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CSVSerializeHelper : IDialogSerializeHelper
 {
+    public void Deserialize(DialogData dialogData,string path,string fileName)
+    {
+        try
+        {
+            string savePath = $"{path}/{fileName}.csv";
+            StreamWriter sw = new StreamWriter(savePath);
+            foreach (BaseData baseData in dialogData.DialogDatas)
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append(baseData.Id).Append(',');
+                switch (baseData.GetType().ToString())
+                {
+                    case "Dialog.ChatData":
+                        ChatData chatData = baseData as ChatData;
+                        sb.Append("0").Append(',');
+                        sb.Append(chatData.charName).Append(',');
+                        sb.Append(chatData.text).Append(',');
+                        break;
+                    case "Dialog.OptionData":
+                        OptionData optionData = baseData as OptionData;
+                        sb.Append("1").Append(',').Append(',');
+                        sb.Append(optionData.text).Append(',');
+                        break;
+                }
+                sw.WriteLine(sb.ToString());
+            }
+            sw.Close();
+        }
+        catch (Exception e)
+        {
+            Debug.LogError(e.ToString());
+        }
+    }
     public DialogData Serialize( object data)
     {
         DialogData dialogData=new DialogData();
