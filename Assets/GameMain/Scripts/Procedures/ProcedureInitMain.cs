@@ -25,7 +25,6 @@ namespace GameMain
         protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
-
             if (GameEntry.Scene.GetLoadedSceneAssetNames().Length == 0 &&
                 GameEntry.Scene.GetLoadingSceneAssetNames().Length == 0)
             {
