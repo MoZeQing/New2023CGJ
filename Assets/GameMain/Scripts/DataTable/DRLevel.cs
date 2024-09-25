@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-09-17 23:46:57.691
+// 生成时间：2024-09-25 16:24:30.387
 //------------------------------------------------------------
 
 using GameFramework;
@@ -117,24 +117,6 @@ namespace GameMain
             private set;
         }
 
-        /// <summary>
-        /// 获取是否全都为粗。
-        /// </summary>
-        public bool IsCoarse
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取是否全部不为粗。
-        /// </summary>
-        public bool NotCoarse
-        {
-            get;
-            private set;
-        }
-
         public override bool ParseDataRow(string dataRowString, object userData)
         {
             string[] columnStrings = dataRowString.Split(DataTableExtension.DataSplitSeparators);
@@ -156,8 +138,6 @@ namespace GameMain
             OrderDatas = columnStrings[index++];
             LevelTime = int.Parse(columnStrings[index++]);
             LevelMoney = int.Parse(columnStrings[index++]);
-            IsCoarse = bool.Parse(columnStrings[index++]);
-            NotCoarse = bool.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -179,8 +159,6 @@ namespace GameMain
                     OrderDatas = binaryReader.ReadString();
                     LevelTime = binaryReader.Read7BitEncodedInt32();
                     LevelMoney = binaryReader.Read7BitEncodedInt32();
-                    IsCoarse = binaryReader.ReadBoolean();
-                    NotCoarse = binaryReader.ReadBoolean();
                 }
             }
 
