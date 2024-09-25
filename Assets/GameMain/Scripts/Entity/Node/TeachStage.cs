@@ -10,17 +10,12 @@ using Dialog;
 public class TeachStage : BaseStage
 {
     [SerializeField] protected BaseCharacter baseCharacter;
-
-    private CharSO charSO=null;
+    [SerializeField] private CharSO charSO=null;
 
     public override void ShowCharacter(ChatData chatData)
     {
-        //if (chatData.middleAction.charSO != null&&charSO==null)
-        //{
-        //    baseCharacter.SetData(chatData.middleAction.charSO);
-        //    charSO = chatData.middleAction.charSO;
-        //}
-        //baseCharacter.SetAction(chatData.middleAction.actionTag);
-        //baseCharacter.SetDiff(chatData.middleAction.diffTag);
+        baseCharacter.SetData(charSO);
+        baseCharacter.SetAction(chatData.middleAction.actionTag);
+        baseCharacter.SetDiff(chatData.middleAction.diffTag);
     }
 }

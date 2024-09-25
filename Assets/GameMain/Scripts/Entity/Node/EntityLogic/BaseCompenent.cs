@@ -136,6 +136,7 @@ namespace GameMain
         protected override void OnShow(object userData)
         {
             base.OnShow(userData);
+            UpdateCard("GamePlay");
             mHoldSprite.transform.localScale = Vector3.zero;
 
             mCompenentData = (CompenentData)userData;
@@ -163,6 +164,16 @@ namespace GameMain
             mBackgroundSprite.sprite= Resources.Load<Sprite>(mDRNode.BackgroundPath);
             mBoundSprite.sprite = Resources.Load<Sprite>(mDRNode.BoundPath);
             mCoverSprite.sprite = Resources.Load<Sprite>(mDRNode.CoverPath);
+            if (!string.IsNullOrEmpty(mDRNode.EffectPath))
+            {
+                GameObject go = Resources.Load<GameObject>(mDRNode.EffectPath);
+                Instantiate(go, mMask.transform);
+            }
+            else
+            {
+                if(mMask.transform.childCount!=1)
+                    Destroy(mMask.transform.GetChild(1).gameObject);
+            }
             mTextText.text = mDRNode.Name;
             mProgressBarRenderer.gameObject.SetActive(false);
 

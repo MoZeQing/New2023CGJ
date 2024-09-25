@@ -33,11 +33,10 @@ namespace GameMain
         [SerializeField] private Button saveBtn;
         [SerializeField] private Button optionBtn;
         [SerializeField] private Button guideBtn;
-        [SerializeField] private Button friendBtn;
-        [SerializeField] private Button recipeBtn;
         [SerializeField] private Button closetBtn;
         [SerializeField] private Button outBtn;
         [SerializeField] private Button buffBtn;
+        [SerializeField] private Button sleepBtn;
         [SerializeField] private CanvasGroup canvasGroup;
 
         private PlaySoundParams playSoundParams = PlaySoundParams.Create();
@@ -48,16 +47,19 @@ namespace GameMain
         {
             base.OnOpen(userData);
             teachBtn.onClick.AddListener(ChangeTeach);
-            //teachBtn1.onClick.AddListener(ChangeTeach);
+            teachBtn1.onClick.AddListener(ChangeTeach);
 
             warehouseBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.CupboradForm));
             loadBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.LoadForm, this));
             saveBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.SaveForm, this));
             optionBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.OptionForm, this));
             guideBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.GuideForm, 3));
-            friendBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.FriendForm));
-            recipeBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.RecipeForm));
             closetBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.ClosetForm));
+            sleepBtn.onClick.AddListener(()=>
+            {
+                ChangeTeach();
+                mTeachingForm.OnSleep();
+            });
             outBtn.onClick.AddListener(Out_OnClick);
             buffBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.BuffForm));
 
@@ -73,16 +75,15 @@ namespace GameMain
         {
             base.OnClose(isShutdown, userData);
             teachBtn.onClick.RemoveAllListeners();
-            //teachBtn1.onClick.RemoveAllListeners();
+            teachBtn1.onClick.RemoveAllListeners();
             loadBtn.onClick.RemoveAllListeners();
             saveBtn.onClick.RemoveAllListeners();
             optionBtn.onClick.RemoveAllListeners();
             guideBtn.onClick.RemoveAllListeners();
-            friendBtn.onClick.RemoveAllListeners();
-            recipeBtn.onClick.RemoveAllListeners();
             closetBtn.onClick.RemoveAllListeners();
             outBtn.onClick.RemoveAllListeners();
             buffBtn.onClick.RemoveAllListeners();
+            sleepBtn.onClick.RemoveAllListeners();
 
             GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, OnGameStateEvent);
             GameEntry.Event.Unsubscribe(PlayerDataEventArgs.EventId, OnPlayerDataEvent);
@@ -161,7 +162,7 @@ namespace GameMain
             teachBtn1.interactable = mAnimator.GetBool("Into");
             if (mAnimator.GetBool("Into"))
             {
-                mTeachingForm.OnSleep();
+                mTeachingForm.Click_Action();
             }
         }
         private void OnCatDataEvent(object sender, GameEventArgs e)

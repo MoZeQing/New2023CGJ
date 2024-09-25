@@ -11,15 +11,18 @@ namespace GameMain
     //固定工具卡
     public class ToolCompenent : BaseCompenent
     {
+        [SerializeField] protected Animator mAnimator;
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
             mTextText = mBackgroundSprite.transform.Find("Cover").Find("Canvas").Find("Text").GetComponent<Text>();
+            mAnimator = this.GetComponent<Animator>();
         }
         protected override void OnShow(object userData)
         {
             mHoldSprite.transform.localScale = Vector3.zero;
 
+            mAnimator.SetBool("Producing", false);
             mCompenentData = (CompenentData)userData;
             mNodeData = mCompenentData.NodeData;
             Materials = mCompenentData.materials;
@@ -120,6 +123,7 @@ namespace GameMain
                                 mProducingTime = recipe.ProducingTime * power;
                                 mTime = recipe.ProducingTime * power;
                                 mProgressBarRenderer.gameObject.SetActive(true);
+                                mAnimator.SetBool("Producing", true);
                                 HideChildren();//直接隐藏所有的子项目
                                 return;
                             }
@@ -175,6 +179,7 @@ namespace GameMain
                     {
                         this.Remove();
                     }
+                    mAnimator.SetBool("Producing", false);
                     mBackgroundSprite.sprite = Resources.Load<Sprite>(mDRNode.BackgroundPath);
                     mProducingTime = 0;
                     mTime = 0f;

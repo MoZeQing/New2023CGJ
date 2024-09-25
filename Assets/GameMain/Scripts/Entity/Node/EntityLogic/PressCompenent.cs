@@ -48,6 +48,7 @@ namespace GameMain
                         recipe = GameEntry.DataTable.GetDataTable<DRRecipe>().GetDataRow(22);
                         mRecipeData = new RecipeData(recipe);
                     }
+                    mAnimator.SetBool("Producing", true);
                     Producing = true;
                     float power = (float)(1f - ((float)GameEntry.Cat.WisdomLevel - 1f) / 6f);
                     mProducingTime = recipe.ProducingTime * power;
@@ -105,6 +106,7 @@ namespace GameMain
                     {
                         this.Remove();
                     }
+                    mAnimator.SetBool("Producing", false);
                     mBackgroundSprite.sprite = Resources.Load<Sprite>(mDRNode.BackgroundPath);
                     mProducingTime = 0;
                     mTime = 0f;

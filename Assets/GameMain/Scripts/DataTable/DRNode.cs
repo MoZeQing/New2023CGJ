@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-09-17 23:46:57.432
+// 生成时间：2024-09-25 21:47:16.421
 //------------------------------------------------------------
 
 using GameFramework;
@@ -91,6 +91,15 @@ namespace GameMain
         }
 
         /// <summary>
+        /// 获取特效路径。
+        /// </summary>
+        public string EffectPath
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
         /// 获取是否是工具。
         /// </summary>
         public bool Tool
@@ -154,24 +163,6 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取卡牌效果。
-        /// </summary>
-        public string DoTweenAnim
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取特效效果。
-        /// </summary>
-        public string EffectsAnim
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
         /// 获取制作时间。
         /// </summary>
         public int Time
@@ -198,6 +189,7 @@ namespace GameMain
             BoundPath = columnStrings[index++];
             IconPath = columnStrings[index++];
             CoverPath = columnStrings[index++];
+            EffectPath = columnStrings[index++];
             Tool = bool.Parse(columnStrings[index++]);
             Coffee = bool.Parse(columnStrings[index++]);
             Ice = bool.Parse(columnStrings[index++]);
@@ -205,8 +197,6 @@ namespace GameMain
             Description = columnStrings[index++];
             HoldSound = columnStrings[index++];
             ClickSound = columnStrings[index++];
-            DoTweenAnim = columnStrings[index++];
-            EffectsAnim = columnStrings[index++];
             Time = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
@@ -226,6 +216,7 @@ namespace GameMain
                     BoundPath = binaryReader.ReadString();
                     IconPath = binaryReader.ReadString();
                     CoverPath = binaryReader.ReadString();
+                    EffectPath = binaryReader.ReadString();
                     Tool = binaryReader.ReadBoolean();
                     Coffee = binaryReader.ReadBoolean();
                     Ice = binaryReader.ReadBoolean();
@@ -233,8 +224,6 @@ namespace GameMain
                     Description = binaryReader.ReadString();
                     HoldSound = binaryReader.ReadString();
                     ClickSound = binaryReader.ReadString();
-                    DoTweenAnim = binaryReader.ReadString();
-                    EffectsAnim = binaryReader.ReadString();
                     Time = binaryReader.Read7BitEncodedInt32();
                 }
             }
