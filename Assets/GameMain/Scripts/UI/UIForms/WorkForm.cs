@@ -118,7 +118,7 @@ namespace GameMain
             IsDialog = true;
             modeCanvas.gameObject.SetActive(true);
             GamePosUtility.Instance.GamePosChange(GamePos.Up);
-            if (string.IsNullOrEmpty(mLevelData.foreWork))
+            if (!string.IsNullOrEmpty(mLevelData.foreWork))
             {
                 DialogData foreWorkDialog = GameEntry.Dialog.GetDialogData(mLevelData.foreWork);
                 dialogBox.SetDialog(foreWorkDialog);
@@ -140,7 +140,7 @@ namespace GameMain
         }
         private void OnWorkComplete()
         {
-            if (string.IsNullOrEmpty(mLevelData.afterWork))
+            if (!string.IsNullOrEmpty(mLevelData.afterWork))
             {
                 GameEntry.Event.FireNow(this, LevelEventArgs.Create());
                 GamePosUtility.Instance.GamePosChange(GamePos.Up);

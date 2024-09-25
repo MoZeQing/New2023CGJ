@@ -1,5 +1,7 @@
-#	教学配置表												
-#	Id		LevelName	IsRemove	Trigger	LevelTag	ForeDialogName	AfterDialogName	OrderDatas	LevelTime	LevelMoney	IsCoarse	NotCoarse
-#	int		string	bool	string	int	string	string	string	int	int	bool	bool
-#	教学内容编号	备注	故事触发器名称	是否移除	触发器条件	关卡类型	前故事名称	后故事名称	订单信息	关卡时间	关卡金钱	是否全都为粗	是否全部不为粗
-#	0		Chapter_01-00	FALSE	[Day = 0]	0	Chapter_01-00		100=0	-999	70	TRUE	FALSE
+#	教学配置表										
+#	Id		LevelName	IsRemove	Trigger	LevelTag	ForeDialogName	AfterDialogName	OrderDatas	LevelTime	LevelMoney
+#	int		string	bool	string	int	string	string	string	int	int
+#	教学内容编号	备注	故事触发器名称	是否移除	触发器条件	关卡类型	前故事名称	后故事名称	订单信息	关卡时间	关卡金钱
+	10000		Chapter_01_00	TRUE	[Day = 0]	0	Chapter_01_01_forework	Chapter_01_01_afterwork	100=1=-999	-999	0
+	10001		Chapter_01_01	TRUE	[Day = 1]	0	Chapter_01_02_forework	Chapter_01_02_afterwork	101=1=-999	-999	0
+	10002		Chapter_01_02	TRUE	[Day = 2]	0	Chapter_01_03_forework	Chapter_01_03_afterwork	102=2=-999	-999	0

@@ -95,7 +95,7 @@ namespace GameMain
                 mWorkForm = GameObject.Find("WorkForm").GetComponent<WorkForm>();
 
                 mOrderList.IsShowItem = false;
-                mWorkForm.SetLevelData(GameEntry.Level.GetLevelData("(0)Guide_1"));
+                mWorkForm.SetLevelData(GameEntry.Level.GetLevelData("Chapter_01_00"));
                 GameEntry.Player.Day++;
                 mIndex++;
             }
@@ -120,7 +120,7 @@ namespace GameMain
                 if (mIndex == 1)
                 {
                     GameEntry.Player.GuideId = 0;
-                    mWorkForm.SetLevelData(GameEntry.Level.GetLevelData("(0)Guide_1"));
+                    mWorkForm.SetLevelData(GameEntry.Level.GetLevelData("Chapter_01_00"));
                     mIndex++;
                     GameEntry.Player.Day++;
                     Debug.Log(GameEntry.Player.Day);
@@ -129,7 +129,7 @@ namespace GameMain
                 {
                     GameEntry.Player.GuideId = 1;
                     GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
-                    mWorkForm.SetLevelData(GameEntry.Level.GetLevelData("(1)Guide_2"));
+                    mWorkForm.SetLevelData(GameEntry.Level.GetLevelData("Chapter_01_01"));
                     mIndex++;
                     GameEntry.Player.Day++;
                     Debug.Log(GameEntry.Player.Day);
@@ -138,7 +138,7 @@ namespace GameMain
                 {
                     GameEntry.Player.GuideId = 2;
                     GameEntry.UI.OpenUIForm(UIFormId.ChangeForm, this);
-                    mWorkForm.SetLevelData(GameEntry.Level.GetLevelData("(2)Guide_3"));
+                    mWorkForm.SetLevelData(GameEntry.Level.GetLevelData("Chapter_01_02"));
                     mIndex++;
 
                     Debug.Log(GameEntry.Player.Day);

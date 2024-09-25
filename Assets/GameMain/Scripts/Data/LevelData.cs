@@ -28,7 +28,7 @@ public class LevelData
         afterWork=level.AfterDialogName;
         if(!string.IsNullOrEmpty(level.OrderDatas))
         {
-            string[] orderTexts = level.OrderDatas.Split('-');
+            string[] orderTexts = level.OrderDatas.Split('|');
             foreach (string orderText in orderTexts)
             {
                 string[] orders = orderText.Split('=');
