@@ -369,7 +369,7 @@ namespace GameMain
             return false;
         }
     }
-
+    [System.Serializable]
     public class UtilsData
     {
         public float orderPower;

@@ -44,7 +44,7 @@ namespace GameMain
             exitBtn.onClick.RemoveAllListeners();
         }
     }
-
+    [System.Serializable]
     public class BuffData
     {
         public List<int> buffs = new List<int>();

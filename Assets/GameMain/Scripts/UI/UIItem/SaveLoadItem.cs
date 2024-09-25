@@ -63,6 +63,7 @@ namespace GameMain
         {
             mAction = action;
             mIndex = index;
+            loadBtn.interactable = true;
             backgroundImg.sprite = empty;
             dayText.gameObject.SetActive(false);
             favorText.gameObject.SetActive(false);

@@ -16,22 +16,17 @@ namespace GameMain
         [Header("固定区域")]
         [SerializeField] private Button teachBtn;
         [SerializeField] private Button teachBtn1;
-        [SerializeField] private Transform mCanvas;
         [SerializeField] private Animator mAnimator;
         [SerializeField] private TeachingForm mTeachingForm;
         [SerializeField] private Image backgroundImg;
         [SerializeField] private Image changeBackgroundImg;
         [SerializeField] private Image littleCatImg;
-        [SerializeField] private Image[] apPoints;
-        [SerializeField] private Image apProgress;
         [SerializeField] private Text moneyText;
         [SerializeField] private Text dayText;//日期文本框
         [SerializeField] private Text apText;//行动力文本框
         [Header("主控")]
         [SerializeField] private Button warehouseBtn;
-        [SerializeField] private Button loadBtn;
-        [SerializeField] private Button saveBtn;
-        [SerializeField] private Button optionBtn;
+        [SerializeField] private Button saveLoadBtn;
         [SerializeField] private Button guideBtn;
         [SerializeField] private Button closetBtn;
         [SerializeField] private Button outBtn;
@@ -50,9 +45,7 @@ namespace GameMain
             teachBtn1.onClick.AddListener(ChangeTeach);
 
             warehouseBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.CupboradForm));
-            loadBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.LoadForm, this));
-            saveBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.SaveForm, this));
-            optionBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.OptionForm, this));
+            saveLoadBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.SaveLoadForm, this));
             guideBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.GuideForm, 3));
             closetBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.ClosetForm));
             sleepBtn.onClick.AddListener(()=>
@@ -76,9 +69,7 @@ namespace GameMain
             base.OnClose(isShutdown, userData);
             teachBtn.onClick.RemoveAllListeners();
             teachBtn1.onClick.RemoveAllListeners();
-            loadBtn.onClick.RemoveAllListeners();
-            saveBtn.onClick.RemoveAllListeners();
-            optionBtn.onClick.RemoveAllListeners();
+            saveLoadBtn.onClick.RemoveAllListeners();
             guideBtn.onClick.RemoveAllListeners();
             closetBtn.onClick.RemoveAllListeners();
             outBtn.onClick.RemoveAllListeners();

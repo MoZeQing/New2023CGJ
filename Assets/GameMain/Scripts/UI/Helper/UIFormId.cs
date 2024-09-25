@@ -18,7 +18,7 @@ namespace GameMain
         DialogForm=9,
         ShopForm=10,
         MapForm=11,
-        SaveForm=12,
+        SaveLoadForm = 12,
         LoadForm=13,
         OptionForm=14,
         GreengrocerForm=21,
