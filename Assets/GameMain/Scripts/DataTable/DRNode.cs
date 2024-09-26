@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-09-25 21:47:16.421
+// 生成时间：2024-09-27 00:43:02.143
 //------------------------------------------------------------
 
 using GameFramework;
@@ -58,15 +58,6 @@ namespace GameMain
         /// 获取背景路径。
         /// </summary>
         public string BackgroundPath
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取边框路径。
-        /// </summary>
-        public string BoundPath
         {
             get;
             private set;
@@ -136,6 +127,15 @@ namespace GameMain
         }
 
         /// <summary>
+        /// 获取制作时间。
+        /// </summary>
+        public int Time
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
         /// 获取描述。
         /// </summary>
         public string Description
@@ -162,15 +162,6 @@ namespace GameMain
             private set;
         }
 
-        /// <summary>
-        /// 获取制作时间。
-        /// </summary>
-        public int Time
-        {
-            get;
-            private set;
-        }
-
         public override bool ParseDataRow(string dataRowString, object userData)
         {
             string[] columnStrings = dataRowString.Split(DataTableExtension.DataSplitSeparators);
@@ -186,7 +177,6 @@ namespace GameMain
             AssetName = columnStrings[index++];
             Name = columnStrings[index++];
             BackgroundPath = columnStrings[index++];
-            BoundPath = columnStrings[index++];
             IconPath = columnStrings[index++];
             CoverPath = columnStrings[index++];
             EffectPath = columnStrings[index++];
@@ -194,10 +184,10 @@ namespace GameMain
             Coffee = bool.Parse(columnStrings[index++]);
             Ice = bool.Parse(columnStrings[index++]);
             Price = int.Parse(columnStrings[index++]);
+            Time = int.Parse(columnStrings[index++]);
             Description = columnStrings[index++];
             HoldSound = columnStrings[index++];
             ClickSound = columnStrings[index++];
-            Time = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -213,7 +203,6 @@ namespace GameMain
                     AssetName = binaryReader.ReadString();
                     Name = binaryReader.ReadString();
                     BackgroundPath = binaryReader.ReadString();
-                    BoundPath = binaryReader.ReadString();
                     IconPath = binaryReader.ReadString();
                     CoverPath = binaryReader.ReadString();
                     EffectPath = binaryReader.ReadString();
@@ -221,10 +210,10 @@ namespace GameMain
                     Coffee = binaryReader.ReadBoolean();
                     Ice = binaryReader.ReadBoolean();
                     Price = binaryReader.Read7BitEncodedInt32();
+                    Time = binaryReader.Read7BitEncodedInt32();
                     Description = binaryReader.ReadString();
                     HoldSound = binaryReader.ReadString();
                     ClickSound = binaryReader.ReadString();
-                    Time = binaryReader.Read7BitEncodedInt32();
                 }
             }
 

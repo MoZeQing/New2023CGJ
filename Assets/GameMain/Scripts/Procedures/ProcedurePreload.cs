@@ -31,7 +31,8 @@ namespace GameMain
             "Query",
             "Tag",
             "Story",
-            "Level"
+            "Level",
+            "Gallery"
         };
 
         private Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>();

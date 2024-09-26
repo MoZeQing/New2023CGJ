@@ -41,7 +41,6 @@ namespace GameMain
             OnInitValue(userData);
             UpdateItem();
             index = 0;
-            moneyText.text = $"{GameEntry.Player.Money}";
             ShowItems();
         }
         protected override void OnClose(bool isShutdown, object userData)

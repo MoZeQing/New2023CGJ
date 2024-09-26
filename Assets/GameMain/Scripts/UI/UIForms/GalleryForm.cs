@@ -13,11 +13,12 @@ namespace GameMain
         [SerializeField] private Button exitBtn;
         [SerializeField] private Button leftBtn;
         [SerializeField] private Button rightBtn;
-        [SerializeField] private Text text;
+        [SerializeField] private Text pageText;
         [SerializeField] private Transform canvas;
-        [SerializeField] private Transform canvas1;
-        [SerializeField] private Transform canvas2;
-        [SerializeField] private List<GalleryItem> items;
+        [SerializeField] private List<GalleryItem> mItems;
+
+        protected List<DRGallery> dRGalleries = new List<DRGallery>();
+        protected int index;
 
         protected override void OnOpen(object userData)
         {
@@ -25,16 +26,13 @@ namespace GameMain
             canvas.localPosition = Vector3.up * 1080f;
             canvas.DOLocalMove(Vector3.zero, 0.5f).SetEase(Ease.OutExpo);
 
-            exitBtn.onClick.AddListener(()=>GameEntry.UI.CloseUIForm(this.UIForm));
-            leftBtn.onClick.AddListener(OnNext);
-            rightBtn.onClick.AddListener(OnNext);
-            leftBtn.interactable = canvas2.gameObject.activeSelf;
-            rightBtn.interactable = canvas1.gameObject.activeSelf;
+            exitBtn.onClick.AddListener(() => GameEntry.UI.CloseUIForm(this.UIForm));
+            leftBtn?.onClick.AddListener(Left);
+            rightBtn?.onClick.AddListener(Right);
 
-            for (int i = 0; i < items.Count; i++)
-            {
-                items[i].SetAction(OnClick);
-            }
+            index = 0;
+            dRGalleries = new List<DRGallery>(GameEntry.DataTable.GetDataTable<DRGallery>().GetAllDataRows());
+            ShowItems();
         }
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
@@ -54,19 +52,39 @@ namespace GameMain
             leftBtn.onClick.RemoveAllListeners();
             rightBtn.onClick.RemoveAllListeners();
         }
-        private void OnNext()
+        protected virtual void ShowItems()
         {
-            bool flag = canvas1.gameObject.activeSelf;
-            canvas1.gameObject.SetActive(!flag);
-            canvas2.gameObject.SetActive(flag);
-            text.text = (flag ? 2 : 1).ToString();
-            leftBtn.interactable = flag;
-            rightBtn.interactable=!flag;
+            leftBtn.interactable = index != 0;
+
+            for (int i = 0; i < mItems.Count; i++)
+            {
+                if (index < dRGalleries.Count)
+                {
+                    mItems[i].SetData(dRGalleries[index]);
+                    mItems[i].SetClick(OnClick);
+                }
+                else
+                    mItems[i].Hide();
+                index++;
+            }
+            rightBtn.interactable = index < dRGalleries.Count;
+            if (pageText != null)
+                pageText.text = (index / mItems.Count).ToString();
         }
-        private void OnClick(Sprite sprite)
+        protected virtual void Right()
+        {
+            ShowItems();
+        }
+
+        protected virtual void Left()
+        {
+            index -= 2 * mItems.Count;
+            ShowItems();
+        }
+        private void OnClick(DRGallery gallery)
         {
             display.gameObject.SetActive(true);
-            display.sprite = sprite;
+            display.sprite = Resources.Load<Sprite>(gallery.CGPath);
         }
     }
 }

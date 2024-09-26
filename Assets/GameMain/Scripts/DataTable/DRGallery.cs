@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-09-27 00:43:02.167
+// 生成时间：2024-09-27 00:43:02.173
 //------------------------------------------------------------
 
 using GameFramework;
@@ -19,14 +19,14 @@ using UnityGameFramework.Runtime;
 namespace GameMain
 {
     /// <summary>
-    /// 教学配置表。
+    /// CG配置表。
     /// </summary>
-    public class DRTag : DataRowBase
+    public class DRGallery : DataRowBase
     {
         private int m_Id = 0;
 
         /// <summary>
-        /// 获取教学内容编号。
+        /// 获取CG内容编号。
         /// </summary>
         public override int Id
         {
@@ -37,9 +37,9 @@ namespace GameMain
         }
 
         /// <summary>
-        /// 获取咖啡类别。
+        /// 获取CG路径。
         /// </summary>
-        public string NodeTags
+        public string CGPath
         {
             get;
             private set;
@@ -57,7 +57,7 @@ namespace GameMain
             index++;
             m_Id = int.Parse(columnStrings[index++]);
             index++;
-            NodeTags = columnStrings[index++];
+            CGPath = columnStrings[index++];
 
             GeneratePropertyArray();
             return true;
@@ -70,7 +70,7 @@ namespace GameMain
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
-                    NodeTags = binaryReader.ReadString();
+                    CGPath = binaryReader.ReadString();
                 }
             }
 

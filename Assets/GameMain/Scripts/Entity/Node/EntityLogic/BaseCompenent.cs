@@ -162,7 +162,6 @@ namespace GameMain
             Producing = false;
             mIconSprite.sprite = Resources.Load<Sprite>(mDRNode.IconPath);
             mBackgroundSprite.sprite= Resources.Load<Sprite>(mDRNode.BackgroundPath);
-            mBoundSprite.sprite = Resources.Load<Sprite>(mDRNode.BoundPath);
             mCoverSprite.sprite = Resources.Load<Sprite>(mDRNode.CoverPath);
             if (!string.IsNullOrEmpty(mDRNode.EffectPath))
             {

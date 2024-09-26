@@ -37,7 +37,6 @@ public class RecipeItem : MonoBehaviour
         mAction= action;
         mNodeTag = nodeTag;
         mNameText.text = dRNode.Name;
-        mBoundImg.sprite = Resources.Load<Sprite>(dRNode.BoundPath);
         mIconImg.sprite = Resources.Load<Sprite>(dRNode.IconPath);
         mBGImg.sprite= Resources.Load<Sprite>(dRNode.BackgroundPath);
         mBtn.onClick.AddListener(OnClick);
@@ -53,7 +52,6 @@ public class RecipeItem : MonoBehaviour
 
         mNodeTag = nodeTag;
         mNameText.text = dRNode.Name;
-        mBoundImg.sprite = Resources.Load<Sprite>(dRNode.BoundPath);
         mIconImg.sprite = Resources.Load<Sprite>(dRNode.IconPath);
         mBGImg.sprite = Resources.Load<Sprite>(dRNode.BackgroundPath);
         DRNode node = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)nodeTag);
