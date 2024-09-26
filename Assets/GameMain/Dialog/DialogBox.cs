@@ -18,6 +18,7 @@ public class DialogBox : MonoBehaviour
     [SerializeField] protected Button dialogBtn;
     [SerializeField] protected Text dialogText;
     [SerializeField] protected Text nameText;
+    [SerializeField] protected Image chatIconImg;
     [SerializeField] protected Transform optionCanvas;
     [SerializeField] protected GameObject btnPre;
     [Range(0.1f, 0.5f)]
@@ -214,14 +215,17 @@ public class DialogBox : MonoBehaviour
             dialogText.text = chatData.text;
             m_Data = chatData;
             isTextComplete = true; // 文本直接显示完毕
+            chatIconImg.gameObject.SetActive(true);
         }
         else
         {
             dialogText.DOKill();
+            chatIconImg.gameObject.SetActive(false);
             dialogText.text = string.Empty;
             dialogText.DOText(chatData.text, charSpeed * chatData.text.Length, true)
                 .OnComplete(() =>
                 {
+                    chatIconImg.gameObject.SetActive(true);
                     m_Data = chatData;
                     isTextComplete = true; // 文本播放完毕，设置标识
                 });

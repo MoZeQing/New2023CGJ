@@ -34,11 +34,9 @@ namespace GameMain
         [SerializeField] private BaseStage stage;
         [SerializeField] private CanvasGroup mCanvasGroup = null;
 
-        private DialogForm mDialogForm = null;
         [SerializeField] private GameObject behaviorBtn;
         private CatStateData mCatStateData = null; 
         private BehaviorTag mBehaviorTag;
-        private ProcedureMain mProcedureMain = null;
         public bool InDialog { get; set; }
         //Dialog区域
         private List<GameObject> m_Btns = new List<GameObject>();
