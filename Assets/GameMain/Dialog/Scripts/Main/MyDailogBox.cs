@@ -119,9 +119,9 @@ public class MyDailogBox : DialogBox
     }
     public virtual void ShowBackground(BackgroundData backgroundData)
     {
-        background.SetBackground(backgroundData, this);
-        IsBackground = true;
         m_Data = backgroundData;
+        IsBackground = true;
+        background.SetBackground(backgroundData, this);
     }
 
     protected virtual void ShowCG(CGData cgData)
