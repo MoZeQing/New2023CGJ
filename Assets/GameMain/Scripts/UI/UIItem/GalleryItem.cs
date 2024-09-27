@@ -10,6 +10,7 @@ namespace GameMain
     {
         [SerializeField] private Button button;
         [SerializeField] private Image image;
+        [SerializeField] private Text textText;
 
         private DRGallery gallery;
         private Action<DRGallery> mAction;
@@ -24,6 +25,18 @@ namespace GameMain
             Display();
             gallery = dRGallery;
             image.sprite = Resources.Load<Sprite>(dRGallery.CGPath);
+            if (GameEntry.SaveLoad.ContainsCGFlag(dRGallery.Trigger))
+            {
+                image.color = Color.white;
+                textText.text = string.Empty;
+                button.interactable = true;
+            }
+            else
+            {
+                image.color = Color.gray;
+                textText.text = dRGallery.Text.Replace("\\n","\n");
+                button.interactable = false;
+            }
         }
 
         public void SetClick(Action<DRGallery> onClick)

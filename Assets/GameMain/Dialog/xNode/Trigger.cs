@@ -620,5 +620,6 @@ public enum EventTag
     AddCharm,
     AddStamina,
     WorkTest,
-    OrderTest
+    OrderTest,
+    AddCGFlag
 }

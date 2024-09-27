@@ -15,7 +15,7 @@ namespace GameMain
     public class SaveLoadComponent : GameFrameworkComponent
     {
         //规定，其中0为自动存档、1~4为玩家手动存档的位置
-        private SaveLoadData[] mSaveLoadData = new SaveLoadData[6];
+        private GameData mGameData = new GameData();
         //初始化数据
         public GameState gameState;
         public int maxEnergy = 80;
@@ -31,6 +31,35 @@ namespace GameMain
         private void Start()
         {
             LoadGame();
+        }
+        public void AddCGFlag(string cgTag)
+        {
+            if (!mGameData.cgFlags.Contains(cgTag))
+                mGameData.cgFlags.Add(cgTag);
+        }
+
+        public bool ContainsCGFlag(string cgTag) => mGameData.cgFlags.Contains(cgTag);
+        public float Voice
+        {
+            get
+            {
+                return mGameData.voice;
+            }
+            set
+            {
+                mGameData.voice = value;
+            }
+        }
+        public float Word
+        {
+            get
+            {
+                return mGameData.word;
+            }
+            set
+            {
+                mGameData.word = value;
+            }
         }
 
         public void LoadData()
@@ -92,28 +121,27 @@ namespace GameMain
             saveLoadData.storyData = GameEntry.Dialog.LoadedStories;
             saveLoadData.levelData = GameEntry.Level.LoadedLevels;
             saveLoadData.buffData = GameEntry.Buff.GetSaveData();
-            mSaveLoadData[index]= saveLoadData;
+            mGameData.saveLoadData[index]= saveLoadData;
             SaveGame();
         }
 
         private void SaveGame()
         {
-            GameData gameData = new GameData(mSaveLoadData);
             FileStream fs = File.Create(Application.persistentDataPath + "/save.sav");
             BinaryFormatter bf=new BinaryFormatter();
-            bf.Serialize(fs, gameData);
+            bf.Serialize(fs, mGameData);
             fs.Close();
         }
 
         public SaveLoadData LoadGame(int index)
         {
             LoadGame();
-            if (mSaveLoadData[index] == null)
+            if (mGameData.saveLoadData[index] == null)
             {
                 Debug.LogWarning("错误，不存在该存档文件");
                 return null;
             }
-            SaveLoadData saveLoadData = mSaveLoadData[index];
+            SaveLoadData saveLoadData = mGameData.saveLoadData[index];
             GameEntry.Event.FireNow(this, LoadGameEventArgs.Create(saveLoadData));
             return saveLoadData;
         }
@@ -126,8 +154,13 @@ namespace GameMain
                     FileStream fs = File.OpenRead(Application.persistentDataPath + "/save.sav");
                     BinaryFormatter bf = new BinaryFormatter();
                     GameData gameData = (GameData)bf.Deserialize(fs);
-                    mSaveLoadData = gameData.saveLoadData;
+                    mGameData = gameData;
                     fs.Close();
+                }
+                else
+                {
+                    mGameData = new GameData();
+                    SaveGame();
                 }
             }
             catch(Exception e)
@@ -137,7 +170,7 @@ namespace GameMain
         }
         public void RemoveGame(int index)
         {
-            mSaveLoadData[index] = null;
+            mGameData.saveLoadData[index] = null;
             SaveGame();
         }
         //摄屏
@@ -180,7 +213,10 @@ namespace GameMain
     [System.Serializable]
     public class GameData
     {
-        public SaveLoadData[] saveLoadData = new SaveLoadData[5];
+        public float voice;
+        public float word;
+        public List<string> cgFlags = new List<string>();
+        public SaveLoadData[] saveLoadData = new SaveLoadData[6];
 
         public GameData() { }
         public GameData(SaveLoadData[] saveLoadData) 

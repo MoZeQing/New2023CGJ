@@ -30,10 +30,10 @@ namespace GameMain
             voiceScrollbar.onValueChanged.AddListener(OnVoiceChanged);
             wordScrollbar.onValueChanged.AddListener(OnWordChanged);
 
-            voiceText.text = $"{GameEntry.Utils.Voice * 5}";
-            wordText.text = $"{GameEntry.Utils.Word * 10}";
+            voiceText.text = $"{GameEntry.SaveLoad.Voice * 5}";
+            wordText.text = $"{GameEntry.SaveLoad.Word * 10}";
             testText.text = string.Empty;
-            testText.DOText($"²âÊÔÖÐ²âÊÔÖÐ²âÊÔÖÐ¡­¡­¡­¡­¡­¡­", GameEntry.Utils.Word* "²âÊÔÖÐ²âÊÔÖÐ²âÊÔÖÐ¡­¡­¡­¡­¡­¡­".Length);
+            testText.DOText($"²âÊÔÖÐ²âÊÔÖÐ²âÊÔÖÐ¡­¡­¡­¡­¡­¡­", GameEntry.SaveLoad.Word* "²âÊÔÖÐ²âÊÔÖÐ²âÊÔÖÐ¡­¡­¡­¡­¡­¡­".Length);
 
             exit.onClick.AddListener(()=> GameEntry.UI.CloseUIForm(this.UIForm));
             main.onClick.AddListener(() => 
@@ -58,21 +58,21 @@ namespace GameMain
 
         private void OnVoiceChanged(float value)
         { 
-            GameEntry.Utils.Voice=value;
+            GameEntry.SaveLoad.Voice=value;
             voiceText.text = $"{value * 5}";
-            GameEntry.Sound.SetVolume("BGM", GameEntry.Utils.Voice);
-            GameEntry.Sound.SetVolume("Sound", GameEntry.Utils.Voice);
-            GameEntry.Sound.SetVolume("Voice", GameEntry.Utils.Voice);
-            GameEntry.Sound.SetVolume("UI", GameEntry.Utils.Voice);
+            GameEntry.Sound.SetVolume("BGM", GameEntry.SaveLoad.Voice);
+            GameEntry.Sound.SetVolume("Sound", GameEntry.SaveLoad.Voice);
+            GameEntry.Sound.SetVolume("Voice", GameEntry.SaveLoad.Voice);
+            GameEntry.Sound.SetVolume("UI", GameEntry.SaveLoad.Voice);
         }
 
         private void OnWordChanged(float value)
         {
-            GameEntry.Utils.Word=0.1f-0.08f*value;
-            wordText.text = $"{GameEntry.Utils.Word}";
+            GameEntry.SaveLoad.Word=0.1f-0.08f*value;
+            wordText.text = $"{GameEntry.SaveLoad.Word}";
             testText.text = string.Empty;
             testText.DOKill();
-            testText.DOText($"²âÊÔÖÐ²âÊÔÖÐ²âÊÔÖÐ¡­¡­¡­¡­¡­¡­", GameEntry.Utils.Word * "²âÊÔÖÐ²âÊÔÖÐ²âÊÔÖÐ¡­¡­¡­¡­¡­¡­".Length).OnComplete(()=> testText.text = string.Empty).SetLoops(-1);
+            testText.DOText($"²âÊÔÖÐ²âÊÔÖÐ²âÊÔÖÐ¡­¡­¡­¡­¡­¡­", GameEntry.SaveLoad.Word * "²âÊÔÖÐ²âÊÔÖÐ²âÊÔÖÐ¡­¡­¡­¡­¡­¡­".Length).OnComplete(()=> testText.text = string.Empty).SetLoops(-1);
         }
     }
 }

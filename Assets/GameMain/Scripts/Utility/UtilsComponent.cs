@@ -94,29 +94,6 @@ namespace GameMain
                 GameEntry.Utils.AddValue(TriggerTag.Location, mUtilsData.location.ToString());
             }
         }
-
-        public float Voice
-        {
-            get
-            {
-                return mUtilsData.voice;
-            }
-            set
-            { 
-                mUtilsData.voice = value;
-            }
-        }
-        public float Word
-        {
-            get
-            {
-                return mUtilsData.word;
-            }
-            set
-            {
-                mUtilsData.word = value;
-            }
-        }
         public bool CheckDayPassFlag(string key)
         {
             return mUtilsData.dayPassFlags.ContainsKey(key) && mUtilsData.dayPassFlags[key] > 0;
@@ -365,6 +342,9 @@ namespace GameMain
                 case EventTag.OrderTest:
                     GameEntry.Event.FireNow(eventData.values, EventEventArgs.Create());
                     break;
+                case EventTag.AddCGFlag:
+                    GameEntry.SaveLoad.AddCGFlag(eventData.values[1]);
+                    break;
             }
             return false;
         }
@@ -374,8 +354,6 @@ namespace GameMain
     {
         public float orderPower;
         public float pricePower;
-        public float voice;
-        public float word;
         public Dictionary<TriggerTag, string> values = new Dictionary<TriggerTag, string>();
         public Dictionary<string, int> flags = new Dictionary<string, int>();
         public Dictionary<string,int> dayPassFlags=new Dictionary<string, int>();

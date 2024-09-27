@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-09-27 00:43:02.173
+// 生成时间：2024-09-27 16:11:12.584
 //------------------------------------------------------------
 
 using GameFramework;
@@ -37,9 +37,27 @@ namespace GameMain
         }
 
         /// <summary>
+        /// 获取解锁条件。
+        /// </summary>
+        public string Trigger
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
         /// 获取CG路径。
         /// </summary>
         public string CGPath
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取条件描述。
+        /// </summary>
+        public string Text
         {
             get;
             private set;
@@ -57,7 +75,9 @@ namespace GameMain
             index++;
             m_Id = int.Parse(columnStrings[index++]);
             index++;
+            Trigger = columnStrings[index++];
             CGPath = columnStrings[index++];
+            Text = columnStrings[index++];
 
             GeneratePropertyArray();
             return true;
@@ -70,7 +90,9 @@ namespace GameMain
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
+                    Trigger = binaryReader.ReadString();
                     CGPath = binaryReader.ReadString();
+                    Text = binaryReader.ReadString();
                 }
             }
 
