@@ -40,7 +40,7 @@ public class DialogBox : MonoBehaviour
     public bool IsSkip { get; set; } = false;
     public bool IsNext { get; set; } = true;
     protected float _time = 0f;
-    public float SkipSpeed { get; set; } = 20f;
+    public float SkipSpeed { get; set; } = 5f;
     public float autoPlayDelay = 1f; // 自动播放结束时的延迟
     public bool isAutoPlay;
     public bool isSkipbtn;
@@ -54,8 +54,10 @@ public class DialogBox : MonoBehaviour
 
     private void Update()
     {
-        IsSkip = Input.GetKey(KeyCode.LeftControl);
-        if(IsSkip)
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+            IsSkip = !IsSkip;
+        chatIconImg.GetComponent<Animator>().SetBool("Skipping", IsSkip);
+        if (IsSkip)
         {
             uIBtnsControl.skipBtnImage.sprite = uIBtnsControl.skipUsing;
         }
@@ -162,6 +164,8 @@ public class DialogBox : MonoBehaviour
     virtual public void CompleteDialog()
     {
         ClearButtons();
+        IsSkip = false;
+        isAutoPlay = false;
         nameText.text = string.Empty;
         dialogText.text = string.Empty;
         mIndex = 0;
@@ -181,6 +185,7 @@ public class DialogBox : MonoBehaviour
         try
         {
             optionFlag = true;
+            IsSkip = false;
             GameObject go = Instantiate(btnPre, optionCanvas);
             go.GetComponent<OptionItem>().OnInit(optionData, Option_Onclick);
             m_Btns.Add(go);
@@ -208,6 +213,16 @@ public class DialogBox : MonoBehaviour
         stage.ShowCharacter(chatData);
         nameText.text = chatData.charName == "0" ? string.Empty : chatData.charName;
 
+        if (IsSkip)
+        {
+            dialogText.DOKill();
+            dialogText.text = string.Empty;
+            dialogText.text = chatData.text;
+            m_Data = chatData;
+            isTextComplete = true; // 文本直接显示完毕
+            chatIconImg.gameObject.SetActive(true);
+            return;
+        }
         if (DOTween.IsTweening(dialogText))
         {
             dialogText.DOKill();
@@ -267,13 +282,6 @@ public class DialogBox : MonoBehaviour
     }
     public void ChangeSkipPlay()
     {
-        if (isSkipbtn)
-        {
-            isSkipbtn = false;
-        }
-        else
-        {
-            isSkipbtn = true;
-        }
+        IsSkip = !IsSkip;
     }
 }
