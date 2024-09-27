@@ -50,7 +50,6 @@ namespace GameMain
             Debug.Log("Start Load Scene");
             GameEntry.Scene.LoadScene(AssetUtility.GetSceneAsset(drScene.AssetName), /*Constant.AssetPriority.SceneAsset*/0, this);
             sceneAssetName = AssetUtility.GetSceneAsset(drScene.AssetName);
-
         }
 
         protected override void OnLeave(IFsm<IProcedureManager> procedureOwner, bool isShutdown)

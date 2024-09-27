@@ -62,7 +62,8 @@ namespace GameMain
         HighlightTips=101,
         PropertyTips=102,
         OkTips=103,
-        PurchaseForm=300
+        PurchaseForm=300,
+        ArrowForm=500
     }
 }
 
