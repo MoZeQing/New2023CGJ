@@ -216,7 +216,7 @@ namespace GameMain
         }
         public void Guide3_2()
         {
-            GameEntry.UI.OpenUIForm(UIFormId.HighlightTips, "所谓细咖啡粉，就是再研磨一次的粗咖啡粉");
+            GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("所谓细咖啡粉，就是再研磨一次的粗咖啡粉", WorkTips.None));
         }
         //现在，继续完成细拿铁吧
         public void Guide3_3(object sender, GameEventArgs e)
