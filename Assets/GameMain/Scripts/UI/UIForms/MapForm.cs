@@ -17,6 +17,7 @@ namespace GameMain
         [SerializeField] private Button benchBtn;
         [SerializeField] private Button restaurantBtn;
         [SerializeField] private Button exitBtn;
+        [SerializeField] private Button saveLoadBtn;
         [SerializeField] private Transform canvas;
 
         protected override void OnOpen(object userData)
@@ -30,6 +31,7 @@ namespace GameMain
             benchBtn.onClick.AddListener(() => Outing(OutingSceneState.Beach));
             marketBtn.onClick.AddListener(() => Outing(OutingSceneState.Market));
             restaurantBtn.onClick.AddListener(() => Outing(OutingSceneState.Restaurant));
+            saveLoadBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.SaveLoadForm, this));
             if (GameEntry.Player.GuideId == 6)
             {
                 libraryBtn.gameObject.SetActive(false);
@@ -53,6 +55,7 @@ namespace GameMain
             benchBtn.onClick.RemoveAllListeners(); 
             marketBtn.onClick.RemoveAllListeners();
             restaurantBtn.onClick.RemoveAllListeners();
+            saveLoadBtn.onClick.RemoveAllListeners();
         }
         private void OnExit()
         {

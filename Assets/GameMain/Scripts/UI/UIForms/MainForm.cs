@@ -33,6 +33,7 @@ namespace GameMain
         [SerializeField] private Button buffBtn;
         [SerializeField] private Button sleepBtn;
         [SerializeField] private CanvasGroup canvasGroup;
+        [SerializeField] private Button galleryForm;
 
         private PlaySoundParams playSoundParams = PlaySoundParams.Create();
         private float nowTime;
@@ -48,6 +49,7 @@ namespace GameMain
             saveLoadBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.SaveLoadForm, this));
             guideBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.GuideForm, 3));
             closetBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.ClosetForm));
+            galleryForm.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.GalleryForm, this));
             sleepBtn.onClick.AddListener(()=>
             {
                 ChangeTeach();
@@ -63,6 +65,7 @@ namespace GameMain
             GameEntry.Event.Subscribe(CatDataEventArgs.EventId, OnCatDataEvent);
             GameEntry.Event.Subscribe(PlayerDataEventArgs.EventId, mTeachingForm.OnPlayerDataEvent);
             GameEntry.Event.Subscribe(CatDataEventArgs.EventId, mTeachingForm.OnCatDataEvent);
+
         }
         protected override void OnClose(bool isShutdown, object userData)
         {
@@ -72,6 +75,7 @@ namespace GameMain
             saveLoadBtn.onClick.RemoveAllListeners();
             guideBtn.onClick.RemoveAllListeners();
             closetBtn.onClick.RemoveAllListeners();
+            galleryForm.onClick.RemoveAllListeners();
             outBtn.onClick.RemoveAllListeners();
             buffBtn.onClick.RemoveAllListeners();
             sleepBtn.onClick.RemoveAllListeners();
