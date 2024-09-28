@@ -213,7 +213,7 @@ namespace GameMain
     [System.Serializable]
     public class GameData
     {
-        public float voice;
+        public float voice=1f;
         public float word;
         public List<string> cgFlags = new List<string>();
         public SaveLoadData[] saveLoadData = new SaveLoadData[6];

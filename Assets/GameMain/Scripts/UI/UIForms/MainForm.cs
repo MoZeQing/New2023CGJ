@@ -65,6 +65,7 @@ namespace GameMain
             GameEntry.Event.Subscribe(CatDataEventArgs.EventId, OnCatDataEvent);
             GameEntry.Event.Subscribe(PlayerDataEventArgs.EventId, mTeachingForm.OnPlayerDataEvent);
             GameEntry.Event.Subscribe(CatDataEventArgs.EventId, mTeachingForm.OnCatDataEvent);
+            GameEntry.Event.Subscribe(DialogEventArgs.EventId, OnDialogEvent);
 
         }
         protected override void OnClose(bool isShutdown, object userData)
@@ -85,6 +86,7 @@ namespace GameMain
             GameEntry.Event.Unsubscribe(CatDataEventArgs.EventId, OnCatDataEvent);
             GameEntry.Event.Unsubscribe(PlayerDataEventArgs.EventId, mTeachingForm.OnPlayerDataEvent);
             GameEntry.Event.Unsubscribe(CatDataEventArgs.EventId, mTeachingForm.OnCatDataEvent);
+            GameEntry.Event.Unsubscribe(DialogEventArgs.EventId, OnDialogEvent);
         }
         protected override void OnStart(object userData)
         {
@@ -159,6 +161,12 @@ namespace GameMain
             {
                 mTeachingForm.Click_Action();
             }
+        }
+        private void OnDialogEvent(object sender, GameEventArgs e)
+        {
+            DialogEventArgs args = (DialogEventArgs)e;
+            if (!args.InDialog)
+                MainUpdate();
         }
         private void OnCatDataEvent(object sender, GameEventArgs e)
         {

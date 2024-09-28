@@ -58,6 +58,9 @@ public class MyDailogBox : DialogBox
                     case "BlackData":
                         ShowBlackChat((BlackData)after); // 直接调用父类的ShowBlack方法
                         break;
+                    case "VoiceData":
+                        ShowVoice((VoiceData)after);
+                        break;
                 }
             }
         }
@@ -116,6 +119,12 @@ public class MyDailogBox : DialogBox
         {
             Debug.LogError($"Error showing chat: {ex.Message}\nChatData identifier: {chatData.Id}");
         }
+    }
+    public virtual void ShowVoice(VoiceData voiceData)
+    {
+        m_Data = voiceData;
+        GameEntry.Sound.PlaySound(voiceData.voice, "BGM");
+        Next();
     }
     public virtual void ShowBackground(BackgroundData backgroundData)
     {

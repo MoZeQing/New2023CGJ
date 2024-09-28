@@ -22,7 +22,7 @@ namespace GameMain
             PlaySoundParams playSoundParams = PlaySoundParams.Create();
             playSoundParams.Priority = drSound.Priority;
             playSoundParams.Loop = drSound.Loop;
-            playSoundParams.VolumeInSoundGroup = drSound.Volume * GameEntry.SaveLoad.Voice;
+            playSoundParams.VolumeInSoundGroup = drSound.Volume/* * GameEntry.SaveLoad.Voice*/;
             playSoundParams.SpatialBlend = drSound.SpatialBlend;
             return soundComponent.PlaySound(AssetUtility.GetMusicAsset(drSound.AssetName), drSound.Group, 30, playSoundParams, bindingEntity != null ? bindingEntity.Entity : null, userData);
         }

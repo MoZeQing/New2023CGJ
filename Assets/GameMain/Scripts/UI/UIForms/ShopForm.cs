@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using GameFramework.Event;
 
 namespace GameMain
 {
@@ -42,11 +43,28 @@ namespace GameMain
             UpdateItem();
             index = 0;
             ShowItems();
+
+            GameEntry.Event.Subscribe(DialogEventArgs.EventId, OnDialogEvent);
         }
         protected override void OnClose(bool isShutdown, object userData)
         {
             base.OnClose(isShutdown, userData);
             exitBtn.onClick.RemoveAllListeners();
+
+            GameEntry.Event.Unsubscribe(DialogEventArgs.EventId, OnDialogEvent);
+        }
+        private void OnDialogEvent(object sender, GameEventArgs e)
+        {
+            DialogEventArgs args = (DialogEventArgs)e;
+            if (!args.InDialog)
+            {
+                DRUIForms dRUIForms = GameEntry.DataTable.GetDataTable<DRUIForms>().GetDataRow((int)BaseFormData.UIFormId);
+
+                if (dRUIForms.OpenSound != 0)
+                {
+                    GameEntry.Sound.PlaySound(dRUIForms.OpenSound);
+                }
+            }
         }
         protected virtual void ShowItems()
         {

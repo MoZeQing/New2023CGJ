@@ -71,6 +71,8 @@ public class CSVSerializeHelper : IDialogSerializeHelper
                     "1" => OptionSerialize(dialogs),
                     "2" => BackgroundSerialize(dialogs),
                     "3" => BlackSerialize(dialogs),
+                    "4" => VoiceSerialize(dialogs),
+                    "5" => CGSerialize(dialogs),
                     _ => throw new CSVParseException(i, $"{dialogData.DialogName} Unknown type '{dialogs[1]}'")
                 };
 
@@ -145,6 +147,26 @@ public class CSVSerializeHelper : IDialogSerializeHelper
             fore = baseData;
         }
         return dialogData;
+    }
+
+    private BaseData CGSerialize(string[] csvString)
+    {
+        return new CGData
+        {
+            cgTag = (CGTag)int.Parse(csvString[10]),
+            parmOne = int.Parse(csvString[11]),
+            parmTwo = int.Parse(csvString[12]),
+            parmThree = csvString[13],
+            cgSpr = Resources.Load<Sprite>("Dialog/CG/" + csvString[14])
+        };
+    }
+
+    private BaseData VoiceSerialize(string[] csvString)
+    {
+        return new VoiceData
+        {
+            voice = csvString[14]
+        };
     }
 
     private BaseData BackgroundSerialize(string[] csvString)

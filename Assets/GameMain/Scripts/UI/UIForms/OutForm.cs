@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using GameFramework.Event;
 
 namespace GameMain
 {
@@ -25,6 +26,8 @@ namespace GameMain
             matchBtn.onClick.AddListener(GameBtn_Click);
             exitBtn.onClick.AddListener(OnExit);
             moneyText.text=GameEntry.Player.Money.ToString();
+
+            GameEntry.Event.Subscribe(DialogEventArgs.EventId, OnDialogEvent);
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
@@ -40,8 +43,22 @@ namespace GameMain
             trainBtn.onClick.RemoveAllListeners();
             matchBtn.onClick.RemoveAllListeners();
             exitBtn.onClick.RemoveAllListeners();
-        }
 
+            GameEntry.Event.Unsubscribe(DialogEventArgs.EventId, OnDialogEvent);
+        }
+        private void OnDialogEvent(object sender, GameEventArgs e)
+        {
+            DialogEventArgs args = (DialogEventArgs)e;
+            if (!args.InDialog)
+            {
+                DRUIForms dRUIForms = GameEntry.DataTable.GetDataTable<DRUIForms>().GetDataRow((int)BaseFormData.UIFormId);
+
+                if (dRUIForms.OpenSound != 0)
+                {
+                    GameEntry.Sound.PlaySound(dRUIForms.OpenSound);
+                }
+            }
+        }
         protected virtual void QuickBtn_Click()
         {
             Dictionary<ValueTag, int> dic = new Dictionary<ValueTag, int>();

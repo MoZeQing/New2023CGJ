@@ -49,7 +49,7 @@ namespace GameMain
             GameEntry.UI.OpenUIForm(UIFormId.ChangeForm);
             GameEntry.Dialog.InDialog = false;
             Invoke(nameof(OnComplete), 1f);
-            GameEntry.Event.FireNow(this, DialogEventArgs.Create(GameEntry.Dialog.InDialog, m_DialogData.DialogName));
+            GameEntry.Event.FireNow(this, DialogEventArgs.Create(false, m_DialogData.DialogName));
             GameEntry.UI.CloseUIForm(this.UIForm);
         }
     }
