@@ -9,6 +9,6 @@ namespace Dialog
     {
         public ParentTrigger trigger;
         public string text;
-        public string eventData;
+        public string[] eventData;
     }
 }

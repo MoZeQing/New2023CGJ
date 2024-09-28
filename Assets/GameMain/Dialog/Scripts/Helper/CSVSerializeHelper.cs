@@ -165,6 +165,7 @@ public class CSVSerializeHelper : IDialogSerializeHelper
         chatData.chatPos = (DialogPos)int.Parse(csvString[12]);
         chatData.charName = csvString[13];
         chatData.text = csvString[14];
+        //chatData.eventData = string.IsNullOrEmpty(csvString[15]) ? null : csvString[15].Split('|');
         chatData.leftAction = new ActionData();
         if (csvString[3] != string.Empty)
         {
@@ -200,7 +201,7 @@ public class CSVSerializeHelper : IDialogSerializeHelper
         return new OptionData
         {
             trigger = new ParentTrigger(csvString[13]),
-            eventData = csvString[9],
+            eventData = string.IsNullOrEmpty(csvString[9]) ? null : csvString[15].Split('|'),
             text = csvString[14] 
         };
     }
