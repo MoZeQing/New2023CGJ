@@ -63,10 +63,7 @@ public class DialogBox : MonoBehaviour
         }
         else
         {
-            if(!uIBtnsControl.isSkip)
-            {
-                uIBtnsControl.skipBtnImage.sprite = uIBtnsControl.skipNormal;
-            }
+            uIBtnsControl.skipBtnImage.sprite = uIBtnsControl.skipNormal;
         }
         _time += Time.deltaTime;
 
