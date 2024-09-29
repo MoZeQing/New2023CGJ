@@ -43,11 +43,11 @@ namespace GameMain
 
     public enum OrderTag
     {
-        None,
-        Coarse,
-        Fine,
-        Urgent,
-        Vip,
+        None=0,
+        Coarse=1,
+        Fine=2,
+        Urgent=3,
+        Vip=4,
     }
 
 }

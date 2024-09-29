@@ -98,21 +98,21 @@ namespace GameMain
         {
             get
             {
-                return mCatData.charm / 40;
+                return mCatData.charm / 40+1;
             }
         }
         public int WisdomLevel
         {
             get
             {
-                return mCatData.wisdom / 40;
+                return mCatData.wisdom / 40+1;
             }
         }
         public int StaminaLevel
         {
             get
             {
-                return mCatData.stamina / 40;
+                return mCatData.stamina / 40+1;
             }
         }
         public CatStateData GetCatState()
