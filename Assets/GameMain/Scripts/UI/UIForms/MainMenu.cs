@@ -45,8 +45,6 @@ namespace GameMain
             optionBtn.onClick.RemoveAllListeners();
             galleryForm.onClick.RemoveAllListeners();
 
-            GameEntry.Sound.StopAllLoadedSounds();
-
             GameEntry.Event.Unsubscribe(DialogEventArgs.EventId, OnDialogEvent);
         }
 
