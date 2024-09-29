@@ -120,6 +120,7 @@ namespace GameMain
                     GameEntry.Event.FireNow(this, OrderEventArgs.Create(mOrderData, income));
                     GameEntry.Entity.HideEntity(baseCompenent.transform.parent.GetComponent<BaseNode>().Entity);
                     GameEntry.Entity.HideEntity(this.Entity);
+                    GameEntry.Sound.PlaySound(43);
                 }
             }
         }
