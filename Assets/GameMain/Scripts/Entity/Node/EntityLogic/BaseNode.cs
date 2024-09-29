@@ -26,7 +26,11 @@ namespace GameMain
         {
             DRNode dRNode = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)NodeData.NodeTag);
             CompenentData data = new CompenentData(GameEntry.Entity.GenerateSerialId(), dRNode.Tool? 10012:10001,this.Id, NodeData);
-            if (dRNode.Tool)
+            if ((NodeTag)dRNode.Id == NodeTag.Cat)
+            {
+                GameEntry.Entity.ShowCatComponent(data);
+            }
+            else if (dRNode.Tool)
             {
                 switch ((NodeTag)dRNode.Id)
                 {

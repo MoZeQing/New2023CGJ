@@ -45,6 +45,11 @@ namespace GameMain
             get;
             protected set;
         }
+        public bool IsCoffee
+        {
+            get;
+            protected set;
+        }
         //基础特征
         public bool Ice
         {
@@ -160,6 +165,7 @@ namespace GameMain
             Grind = mNodeData.Grind;
             Ice = mDRNode.Ice;
             Tool= mDRNode.Tool;
+            IsCoffee = mDRNode.Coffee;
 
             if (Tool)
             {

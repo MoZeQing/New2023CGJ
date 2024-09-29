@@ -32,6 +32,10 @@ namespace GameMain
         {
             entityComponent.ShowEntity(typeof(PressCompenent), "Coffee", 90, compenentData);
         }
+        public static void ShowCatComponent(this EntityComponent entityComponent, CompenentData compenentData)
+        {
+            entityComponent.ShowEntity(typeof(CatCompenent), "Coffee", 90, compenentData);
+        }
         public static void ShowOrder(this EntityComponent entityComponent, OrderItemData data)
         {
             entityComponent.ShowEntity(typeof(OrderItem), "Order", 90, data);
