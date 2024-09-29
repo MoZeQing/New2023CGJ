@@ -44,6 +44,51 @@ namespace GameMain
                 benchBtn.gameObject.SetActive(true);
                 gymBtn.gameObject.SetActive(true);
             }
+
+            GameEntry.Event.Subscribe(OutEventArgs.EventId, OnOutEvent);
+        }
+        private void OnOutEvent(object sender, GameEventArgs e)
+        {
+            OutEventArgs args = e as OutEventArgs;
+            if (args.OutingSceneState != OutingSceneState.Home)
+                return;
+            if (!MainUpdate())
+            {
+                DRWeather weather = GameEntry.DataTable.GetDataTable<DRWeather>().GetDataRow((int)GameEntry.Utils.WeatherTag);
+                GameEntry.Sound.PlaySound(weather.BackgroundMusicId);
+            }
+        }
+        protected virtual bool MainUpdate()
+        {
+            WeatherTag weatherTag = WeatherTag.None;
+            switch (GameEntry.Utils.GameState)
+            {
+                case GameState.Midnight:
+                    weatherTag = WeatherTag.Night;
+                    break;
+                case GameState.Night:
+                    if (GameEntry.Player.Ap <= 0)
+                        weatherTag = WeatherTag.Night;
+                    else
+                        weatherTag = WeatherTag.Afternoon;
+                    break;
+                case GameState.Morning:
+                    weatherTag = WeatherTag.Morning;
+                    break;
+            }
+            if (weatherTag == GameEntry.Utils.WeatherTag)
+                return false;
+
+            GameEntry.Utils.WeatherTag = weatherTag;
+            DRWeather weather = GameEntry.DataTable.GetDataTable<DRWeather>().GetDataRow((int)GameEntry.Utils.WeatherTag);
+            //changeBackgroundImg.sprite = backgroundImg.sprite;
+            //changeBackgroundImg.gameObject.SetActive(true);
+            //changeBackgroundImg.color = Color.white;
+            //backgroundImg.sprite = Resources.Load<Sprite>(weather.AssetName);
+            //changeBackgroundImg.DOColor(Color.clear, 3f).OnComplete(() => changeBackgroundImg.gameObject.SetActive(false));
+            GameEntry.Sound.GetSoundGroup("BGM").StopAllLoadedSounds();
+            GameEntry.Sound.PlaySound(weather.BackgroundMusicId);
+            return true;
         }
         protected override void OnClose(bool isShutdown, object userData)
         {
@@ -56,6 +101,8 @@ namespace GameMain
             marketBtn.onClick.RemoveAllListeners();
             restaurantBtn.onClick.RemoveAllListeners();
             saveLoadBtn.onClick.RemoveAllListeners();
+
+            GameEntry.Event.Unsubscribe(OutEventArgs.EventId, OnOutEvent);
         }
         private void OnExit()
         {
