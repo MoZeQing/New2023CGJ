@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-09-27 16:11:12.528
+// 生成时间：2024-09-29 22:41:24.978
 //------------------------------------------------------------
 
 using GameFramework;
@@ -145,6 +145,15 @@ namespace GameMain
         }
 
         /// <summary>
+        /// 获取生成时音效。
+        /// </summary>
+        public string ShowSound
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
         /// 获取悬浮音效路径。
         /// </summary>
         public string HoldSound
@@ -186,6 +195,7 @@ namespace GameMain
             Price = int.Parse(columnStrings[index++]);
             Time = int.Parse(columnStrings[index++]);
             Description = columnStrings[index++];
+            ShowSound = columnStrings[index++];
             HoldSound = columnStrings[index++];
             ClickSound = columnStrings[index++];
 
@@ -212,6 +222,7 @@ namespace GameMain
                     Price = binaryReader.Read7BitEncodedInt32();
                     Time = binaryReader.Read7BitEncodedInt32();
                     Description = binaryReader.ReadString();
+                    ShowSound = binaryReader.ReadString();
                     HoldSound = binaryReader.ReadString();
                     ClickSound = binaryReader.ReadString();
                 }

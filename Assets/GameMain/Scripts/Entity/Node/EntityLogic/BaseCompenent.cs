@@ -74,6 +74,11 @@ namespace GameMain
             get;
             protected set;
         }
+        protected bool IsPickUp
+        {
+            get;
+            set;
+        }
         /// <summary>
         /// 卡牌制造过程中的原材料
         /// </summary>
@@ -145,6 +150,11 @@ namespace GameMain
             NodeTag = mCompenentData.NodeData.NodeTag;
 
             mDRNode = GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)mNodeData.NodeTag);
+
+            if (!string.IsNullOrEmpty(mDRNode.ShowSound))
+            {
+                GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/{mDRNode.ShowSound}", "Sound");
+            }
 
             Lock = false;
             Grind = mNodeData.Grind;
@@ -351,6 +361,9 @@ namespace GameMain
         {
             PitchOn();
             Debug.Log($"{this.gameObject.name}的Parent是{Parent?.gameObject.name}");
+
+            if (IsPickUp)
+                return;
             if (mDRNode.HoldSound != string.Empty)
                 GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/{mDRNode.HoldSound}", "Sound");
         }
@@ -414,6 +427,7 @@ namespace GameMain
         protected virtual void PickUp()
         {
             //修改层级为Controller，卡牌向上移动并播放圆环特效
+            IsPickUp = true;
             UpdateCard("Controller");
             mBoxCollider2D.isTrigger = true;
             mHoldSprite.transform.localScale = Vector3.zero;
@@ -433,6 +447,7 @@ namespace GameMain
         /// </summary>
         protected virtual void PutDown()
         {
+            IsPickUp = false;
             UpdateCard("GamePlay");
             mBoxCollider2D.isTrigger = false;
             mBackgroundSprite?.gameObject.transform.DOKill();
