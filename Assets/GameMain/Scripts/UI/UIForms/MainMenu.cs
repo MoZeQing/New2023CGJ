@@ -32,6 +32,8 @@ namespace GameMain
             galleryForm.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.GalleryForm, this));
             exitBtn.onClick.AddListener(() => UnityGameFramework.Runtime.GameEntry.Shutdown(ShutdownType.Quit));
             workTestBtn.onClick.AddListener(() => GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Test)));
+
+            GameEntry.Event.Subscribe(DialogEventArgs.EventId, OnDialogEvent);
         }
 
         protected override void OnClose(bool isShutdown, object userData)
@@ -44,6 +46,22 @@ namespace GameMain
             galleryForm.onClick.RemoveAllListeners();
 
             GameEntry.Sound.StopAllLoadedSounds();
+
+            GameEntry.Event.Unsubscribe(DialogEventArgs.EventId, OnDialogEvent);
+        }
+
+        private void OnDialogEvent(object sender, GameEventArgs e)
+        {
+            DialogEventArgs args = (DialogEventArgs)e;
+            if (!args.InDialog)
+            {
+                DRUIForms dRUIForms = GameEntry.DataTable.GetDataTable<DRUIForms>().GetDataRow((int)BaseFormData.UIFormId);
+
+                if (dRUIForms.OpenSound != 0)
+                {
+                    GameEntry.Sound.PlaySound(dRUIForms.OpenSound);
+                }
+            }
         }
     }
 

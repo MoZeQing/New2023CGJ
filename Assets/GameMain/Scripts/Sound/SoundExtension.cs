@@ -24,7 +24,21 @@ namespace GameMain
             playSoundParams.Loop = drSound.Loop;
             playSoundParams.VolumeInSoundGroup = drSound.Volume/* * GameEntry.SaveLoad.Voice*/;
             playSoundParams.SpatialBlend = drSound.SpatialBlend;
-            return soundComponent.PlaySound(AssetUtility.GetMusicAsset(drSound.AssetName), drSound.Group, 30, playSoundParams, bindingEntity != null ? bindingEntity.Entity : null, userData);
+            if(drSound.Group=="BGM")
+                GameEntry.Sound.GetSoundGroup("BGM").StopAllLoadedSounds();
+            return soundComponent.PlaySound(AssetUtility.GetMusicAsset(drSound.AssetName), drSound.Group, GameEntry.Utils.SoundSort, playSoundParams, bindingEntity != null ? bindingEntity.Entity : null, userData);
+        }
+
+        public static int? PlaySound(this SoundComponent soundComponent, string soundAssetName,string soundGroup="BGM", Entity bindingEntity = null, object userData = null)
+        {
+            GameEntry.Sound.GetSoundGroup("BGM").StopAllLoadedSounds();
+
+            PlaySoundParams playSoundParams = PlaySoundParams.Create();
+            playSoundParams.Priority = 1;
+            playSoundParams.Loop = true;
+            playSoundParams.VolumeInSoundGroup = 1/* * GameEntry.SaveLoad.Voice*/;
+            playSoundParams.SpatialBlend = 1;
+            return soundComponent.PlaySound(AssetUtility.GetMusicAsset(soundAssetName), soundGroup, GameEntry.Utils.SoundSort, playSoundParams, bindingEntity != null ? bindingEntity.Entity : null, userData);
         }
     }
 }

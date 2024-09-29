@@ -21,6 +21,14 @@ namespace GameMain
                 return mCarfSort++;
             }
         }
+        private int mSoundSort = 10;
+        public int SoundSort
+        {
+            get
+            {
+                return mSoundSort++;
+            }
+        }
         //接下来尽可能使得utils只用于存储资源信息，而数据信息都给其它的类
         public Dictionary<string, RecipeData> recipes = new Dictionary<string, RecipeData>();
         public Dictionary<string, CharSO> chars = new Dictionary<string, CharSO>();

@@ -123,7 +123,7 @@ public class MyDailogBox : DialogBox
     public virtual void ShowVoice(VoiceData voiceData)
     {
         m_Data = voiceData;
-        GameEntry.Sound.PlaySound(voiceData.voice, "BGM");
+        GameEntry.Sound.PlaySound(voiceData.voice);
         Next();
     }
     public virtual void ShowBackground(BackgroundData backgroundData)
