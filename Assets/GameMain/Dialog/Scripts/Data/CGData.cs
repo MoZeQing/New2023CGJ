@@ -6,6 +6,7 @@ namespace Dialog
 {
     public class CGData : BaseData
     {
+        public string cgFlag;
         public CGTag cgTag;
         public int parmOne;
         public int parmTwo;

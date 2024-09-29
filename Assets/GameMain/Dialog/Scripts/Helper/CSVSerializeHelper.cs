@@ -153,10 +153,11 @@ public class CSVSerializeHelper : IDialogSerializeHelper
     {
         return new CGData
         {
+            cgFlag=csvString[9],
             cgTag = (CGTag)int.Parse(csvString[10]),
             parmOne = int.Parse(csvString[11]),
             parmTwo = int.Parse(csvString[12]),
-            parmThree = csvString[13],
+            parmThree = $"Dialog/CG/{csvString[13]}",
             cgSpr = Resources.Load<Sprite>("Dialog/CG/" + csvString[14])
         };
     }

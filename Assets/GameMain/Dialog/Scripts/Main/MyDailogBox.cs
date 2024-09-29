@@ -135,8 +135,18 @@ public class MyDailogBox : DialogBox
 
     protected virtual void ShowCG(CGData cgData)
     {
-        IsCG = true;
         m_Data = cgData;
+        GameEntry.SaveLoad.AddCGFlag(cgData.cgFlag);
+        BackgroundData backgroundData = new BackgroundData
+        {
+            backgroundTag = BackgroundTag.Fade,
+            parmOne = cgData.parmOne,
+            parmTwo = cgData.parmTwo,
+            parmThree = cgData.parmThree,
+            backgroundSpr = cgData.cgSpr
+        };
+        IsBackground = true;
+        background.SetBackground(backgroundData, this);
     }
 
     protected virtual void HideDialogBox()
