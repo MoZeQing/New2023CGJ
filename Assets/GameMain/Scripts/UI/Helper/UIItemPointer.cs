@@ -96,6 +96,8 @@ public class UIItemPointer : MonoBehaviour,IPointerEnterHandler,IPointerExitHand
                     if (image != null)
                         image.gameObject.SetActive(false);
                     break;
+                default:
+                    break;
             }
         }
         catch (Exception e)
@@ -118,6 +120,8 @@ public class UIItemPointer : MonoBehaviour,IPointerEnterHandler,IPointerExitHand
                 case UIItemTag.Holding:
                     if (image != null)
                         image.gameObject.SetActive(true);
+                    break;
+                default:
                     break;
             }
             if (soundId != 0)
@@ -163,5 +167,6 @@ public enum UIItemAction
 public enum UIItemTag
 {
     Scaling,
-    Holding
+    Holding,
+    None
 }
