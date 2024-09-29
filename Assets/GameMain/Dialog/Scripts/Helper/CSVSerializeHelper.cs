@@ -73,6 +73,7 @@ public class CSVSerializeHelper : IDialogSerializeHelper
                     "3" => BlackSerialize(dialogs),
                     "4" => VoiceSerialize(dialogs),
                     "5" => CGSerialize(dialogs),
+                    "6" => EventEffectSerialize(dialogs),
                     _ => throw new CSVParseException(i, $"{dialogData.DialogName} Unknown type '{dialogs[1]}'")
                 };
 
@@ -149,6 +150,13 @@ public class CSVSerializeHelper : IDialogSerializeHelper
         return dialogData;
     }
 
+    private BaseData EventEffectSerialize(string[] csvString)
+    {
+        return new EventEffectData
+        {
+            eventData = string.IsNullOrEmpty(csvString[14]) ? null : csvString[14].Split('|')
+        };
+    }
     private BaseData CGSerialize(string[] csvString)
     {
         return new CGData

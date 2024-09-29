@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu]
 public class CharSO : ScriptableObject
 {
+    public bool isMain;
     public Vector3 offset;
     public float scale=1f;
     public List<Sprite> diffs = new List<Sprite>();

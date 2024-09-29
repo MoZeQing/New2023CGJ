@@ -61,6 +61,9 @@ public class MyDailogBox : DialogBox
                     case "VoiceData":
                         ShowVoice((VoiceData)after);
                         break;
+                    case "EventEffectData":
+                        ShowEventEffect((EventEffectData)after);
+                        break;
                 }
             }
         }
@@ -119,6 +122,12 @@ public class MyDailogBox : DialogBox
         {
             Debug.LogError($"Error showing chat: {ex.Message}\nChatData identifier: {chatData.Id}");
         }
+    }
+    public virtual void ShowEventEffect(EventEffectData eventEffectData)
+    {
+        m_Data = eventEffectData;
+        GameEntry.Utils.RunEvent(eventEffectData.eventData);
+        Next();
     }
     public virtual void ShowVoice(VoiceData voiceData)
     {

@@ -13,30 +13,30 @@ MonoBehaviour:
   m_Name: Courier_1
   m_EditorClassIdentifier: 
   unLoad: 1
-  isRandom: 0
+  isRemove: 0
   trigger:
-    key: 17
+    key: 11
     not: 0
     equals: 1
-    value: Monday
+    value: 8
     and:
-    - key: 10
+    - key: 1
       not: 0
       equals: 0
-      value: 7
-      and: []
-      or: []
-    or: []
-  levelData:
-    charSO: {fileID: 11400000, guid: f2cf712c6d4e025469007254608067d8, type: 2}
-    levelTag: 2
-    foreWork: {fileID: 11400000, guid: 517e55da7c3cccf459a9e7024e38ea55, type: 2}
-    afterWork: {fileID: 11400000, guid: 55c86cd20f4e0bd48b5044b5e09d5b9d, type: 2}
-    orderDatas:
-    - nodeNodeTag: 1
-      orderTime: 0
-    levelTime: 50
-    levelMoney: 200
-    isClose: 1
-    isCoarse: 0
-    notCoarse: 0
+      value: 
+      and:
+      - key: 9
+        not: 0
+        equals: 0
+        value: 500
+        and: []
+      - key: 9
+        not: 0
+        equals: 1
+        value: 500
+        and: []
+  foreWork: {fileID: 0}
+  afterWork: {fileID: 0}
+  orderDatas: []
+  levelTime: 0
+  levelMoney: 0

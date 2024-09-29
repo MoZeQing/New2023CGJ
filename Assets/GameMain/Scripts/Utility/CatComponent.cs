@@ -34,7 +34,7 @@ namespace GameMain
         {
             get
             {
-                return mCatData.closet;
+                return Mathf.Clamp(mCatData.closet, 1002, 1006);
             }
             set
             {

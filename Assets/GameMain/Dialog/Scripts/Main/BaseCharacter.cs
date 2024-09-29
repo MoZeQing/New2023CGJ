@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using GameMain;
 
 public class BaseCharacter : MonoBehaviour
 {
-    [SerializeField] private Image mImage = null;
+    [SerializeField] protected Image mImage = null;
     public CharacterTag CharacterTag { get; set; }
     public CharSO CharSO { get; set; } = null;
 
@@ -37,13 +38,19 @@ public class BaseCharacter : MonoBehaviour
         mImage.gameObject.transform.localPosition = Vector3.zero;
         mImage.gameObject.transform.DOLocalJump(Vector3.zero, 200, 1, 0.3f, false);
     }
-    public void SetDiff(DiffTag diffTag)
+    public virtual void SetDiff(DiffTag diffTag)
     {
         if (CharSO == null)
+        {
+            mImage.sprite = CharSO.diffs[(int)DiffTag.Idle];
             return;
-        mImage.sprite = CharSO.diffs[(int)diffTag];
+        }
+        if (CharSO.isMain)
+            mImage.sprite = CharSO.diffs[(int)diffTag + 6 * (GameEntry.Cat.Closet - 1002)];
+        else
+            mImage.sprite = CharSO.diffs[(int)diffTag];
     }
-    public void SetData(CharSO charSO)
+    public virtual void SetData(CharSO charSO)
     {
         CharSO = charSO;
     }
