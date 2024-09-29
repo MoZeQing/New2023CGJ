@@ -314,7 +314,7 @@ namespace GameMain
             PickUp();
 
             if (mDRNode.ClickSound != string.Empty)
-                GameEntry.Sound.PlaySound(mDRNode.ClickSound, "Sound");
+                GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/{mDRNode.ClickSound}", "Sound");
         }
         public BaseCompenent BestCompenent { get; set; }
         public void OnPointerUp(PointerEventData pointerEventData)
@@ -352,7 +352,7 @@ namespace GameMain
             PitchOn();
             Debug.Log($"{this.gameObject.name}的Parent是{Parent?.gameObject.name}");
             if (mDRNode.HoldSound != string.Empty)
-                GameEntry.Sound.PlaySound(mDRNode.HoldSound, "Sound");
+                GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/{mDRNode.HoldSound}", "Sound");
         }
         public void OnPointerExit(PointerEventData pointerEventData)
         {
