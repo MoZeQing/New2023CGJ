@@ -27,6 +27,12 @@ namespace GameMain
             {
                 if ((ItemKind)item.Kind != ItemKind.Clothes)
                     continue;
+                if ((ItemTag)item.Id == ItemTag.Closet1)
+                    continue;
+                if ((ItemTag)item.Id == ItemTag.Closet2)
+                    continue;
+                if ((ItemTag)item.Id == ItemTag.Closet6)
+                    continue;
                 dRItems.Add(item);
             }
 
