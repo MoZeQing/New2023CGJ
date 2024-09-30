@@ -198,7 +198,7 @@ namespace GameMain
                     weatherTag = WeatherTag.Night;
                     break;
                 case GameState.Night:
-                    if (GameEntry.Player.Ap <= 0)
+                    if (Mathf.Abs(GameEntry.Player.MaxAp- GameEntry.Player.Ap) > 2)
                         weatherTag = WeatherTag.Night;
                     else
                         weatherTag = WeatherTag.Afternoon;
