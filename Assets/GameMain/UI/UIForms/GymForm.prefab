@@ -216,7 +216,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1995799399863495957
 RectTransform:
   m_ObjectHideFlags: 0
@@ -642,11 +642,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 565d6021745440846a012c24d42ab958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiItemAction: 0
   uiItemTag: 0
-  size: {x: 1.2, y: 1.2, z: 1.2}
+  initSize: {x: 1.2, y: 1.2, z: 1.2}
+  toSize: {x: 1.2, y: 1.2, z: 1.2}
   speed: 0.3
   image: {fileID: 0}
-  animator: {fileID: 0}
+  cover: {fileID: 0}
   soundId: 0
 --- !u!1 &5253026589516111909
 GameObject:
@@ -1024,10 +1026,12 @@ MonoBehaviour:
   quickBtn: {fileID: 4891153769610779698}
   gameBtn: {fileID: 6601669936691365785}
   moneyText: {fileID: 1317878269048849293}
-  charData:
-    closet: 0
+  valueData:
+    energy: 0
+    ap: 0
+    money: 0
     favor: 0
-    stamina: 8
+    stamina: 0
     wisdom: 0
     charm: 0
   cost: 0
@@ -1329,7 +1333,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1401297be7ea7274698822f3eda7fb39, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1cc6facf1761e5e4daa8c7ad3712ebd5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

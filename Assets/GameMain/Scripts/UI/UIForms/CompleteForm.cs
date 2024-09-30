@@ -24,8 +24,6 @@ public class CompleteForm : BaseForm
 
         mAction = BaseFormData.Action;
         ValueData valueData = BaseFormData.UserData as ValueData;
-        Dictionary<ValueTag, int> pairs = new Dictionary<ValueTag, int>();
-        valueData.GetValueTag(pairs);
 
         okBtn.onClick.AddListener(() =>
         {
@@ -35,15 +33,15 @@ public class CompleteForm : BaseForm
         BuffData buffData = GameEntry.Buff.GetBuff();
         okBtn.gameObject.SetActive(false);
 
+        completeItems[0].SetData(ValueTag.Stamina,valueData.stamina);
+        completeItems[1].SetData(ValueTag.Wisdom,valueData.wisdom);
+        completeItems[2].SetData(ValueTag.Charm, valueData.charm);
         for (int i = 0; i < completeItems.Count; i++)
         {
             CompleteItem completeItem= completeItems[i];
-            completeItem.gameObject.SetActive(false);
-            if (i >= pairs.Count)
-                continue;
-            completeItem.transform.GetChild(0).GetComponent<Image>().color= Color.clear;
+            completeItem.transform.GetChild(0).GetComponent<CanvasGroup>().alpha= 0f;
             completeItem.transform.GetChild(0).localPosition = Vector3.down * 20f;
-            sequence.Append(completeItem.transform.GetChild(0).GetComponent<Image>().DOColor(Color.white, 0.1f * speed).OnComplete(() => completeItem.gameObject.SetActive(true)));
+            sequence.Append(completeItem.transform.GetChild(0).GetComponent<CanvasGroup>().DOFade(1f, 0.1f * speed).OnComplete(() => completeItem.gameObject.SetActive(true)));
             sequence.Append(completeItem.transform.GetChild(0).DOLocalMoveY(0, 0.5f * speed).SetEase(Ease.OutExpo));
         }
         sequence.AppendCallback(() => okBtn.gameObject.SetActive(true));

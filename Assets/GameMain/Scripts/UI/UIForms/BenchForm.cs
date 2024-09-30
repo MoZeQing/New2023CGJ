@@ -13,8 +13,10 @@ namespace GameMain
     {
         protected override void QuickBtn_Click()
         {
-            Tuple<ValueTag, int> tuple1 = new Tuple<ValueTag, int>(ValueTag.Wisdom, valueData.wisdom);
-            GameEntry.UI.OpenUIForm(UIFormId.ActionForm1, OnExit, tuple1);
+            GameEntry.Player.Ap -= valueData.ap;
+            GameEntry.Player.Money -= valueData.money;
+            GameEntry.Cat.Charm += valueData.charm;
+            GameEntry.UI.OpenUIForm(UIFormId.ActionForm1, OnExit, valueData);
         }
 
         protected override void GameBtn_Click()

@@ -8,16 +8,8 @@ public class CompleteItem : MonoBehaviour
 {
     [SerializeField] private Image valueTagImg;
     [SerializeField] private Text valueTagText;
-    public void SetData(string valueTag, int value)
+    public void SetData(ValueTag valueTag, int value)
     {
-        valueTagImg.sprite = Resources.Load<Sprite>($"Image/ValueTagIcon/{valueTag}");
-        if (value > 0)
-        {
-            valueTagText.text = $"+{value}";
-        }
-        else
-        {
-            valueTagText.text = $"{value}";
-        }
+        valueTagText.text = value > 0 ? $"+{value}" : $"{value}";
     }
 }

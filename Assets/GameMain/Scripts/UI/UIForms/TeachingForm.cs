@@ -60,15 +60,12 @@ namespace GameMain
                     continue;
                 if (behaviorData.behaviorTag == BehaviorTag.Click)
                     continue;
-                if (behaviorData.behaviorTag == BehaviorTag.Out)
+                if (behaviorData.behaviorTag == BehaviorTag.Sleep)
                     continue;
                 GameObject go = GameObject.Instantiate(behaviorBtn, buttonCanvas);
                 Button button=go.GetComponent<Button>();
                 Text text = go.transform.Find("Text").GetComponent<Text>();
-                if (mBehaviorTag == BehaviorTag.Sleep)
-                    button.onClick.AddListener(OnSleep);
-                else
-                    button.onClick.AddListener(() => Behaviour(behaviorData.behaviorTag));
+                button.onClick.AddListener(() => Behaviour(behaviorData.behaviorTag));
                 text.text = behaviorData.behaviorName.ToString();
                 m_Btns.Add(go);
             }
@@ -102,9 +99,12 @@ namespace GameMain
                 }
                 BuffData buffData = GameEntry.Buff.GetBuff();
                 GameEntry.Player.Energy -= (int)Mathf.Clamp((behavior.valueData.energy*buffData.EnergyMulti+buffData.EnergyPlus),0,9999999);
-                GameEntry.Player.Money -= behavior.valueData.money;
+                GameEntry.Player.Ap -= behavior.valueData.ap;
 
                 GameEntry.Cat.Favor += (int)(behavior.valueData.favor * buffData.FavorMulti + buffData.FavorPlus);
+                GameEntry.Cat.Stamina += (int)(behavior.valueData.stamina  + buffData.StaminaPlus);
+                GameEntry.Cat.Wisdom += (int)(behavior.valueData.wisdom  + buffData.WisdomPlus);
+                GameEntry.Cat.Charm += (int)(behavior.valueData.charm  + buffData.CharmPlus);
                 GameEntry.Event.FireNow(this, BehaviorEventArgs.Create(behaviorTag));
             }
             else
@@ -141,18 +141,15 @@ namespace GameMain
         //操作区域
         private void OnAugur(BehaviorData behavior)
         {
-            Tuple<ValueTag, int> tuple1 = new Tuple<ValueTag, int>(ValueTag.Charm, behavior.valueData.charm);
-            GameEntry.UI.OpenUIForm(UIFormId.ActionForm1, OnComplete, tuple1);
+            GameEntry.UI.OpenUIForm(UIFormId.ActionForm1, OnComplete, behavior.valueData);
         }
         private void OnSport(BehaviorData behavior)
         {
-            Tuple<ValueTag, int> tuple2 = new Tuple<ValueTag, int>(ValueTag.Stamina, behavior.valueData.stamina);
-            GameEntry.UI.OpenUIForm(UIFormId.ActionForm2, OnComplete, tuple2);
+            GameEntry.UI.OpenUIForm(UIFormId.ActionForm2, OnComplete, behavior.valueData);
         }
         private void OnRead(BehaviorData behavior)
         {
-            Tuple<ValueTag, int> tuple3 = new Tuple<ValueTag, int>(ValueTag.Wisdom, behavior.valueData.wisdom);
-            GameEntry.UI.OpenUIForm(UIFormId.ActionForm3, OnComplete, tuple3);
+            GameEntry.UI.OpenUIForm(UIFormId.ActionForm3, OnComplete, behavior.valueData);
         }
         public void OnSleep()
         {
