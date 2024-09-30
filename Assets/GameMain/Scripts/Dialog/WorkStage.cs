@@ -7,6 +7,27 @@ using UnityEngine;
 
 public class WorkStage : BaseStage
 {
+    protected override void SetDialogPos(BaseCharacter baseCharacter, DialogPos dialogPos)
+    {
+        for (int i = 0; i < mChars.Count; i++)
+        {
+            if (i == (int)dialogPos)
+            {
+                if (mChars[i] != baseCharacter && mChars[i] != null)
+                    mChars[i].Hide();
+                if (mChars[i] == baseCharacter)
+                    continue;
+                mChars[i] = baseCharacter;
+                Vector3 offset = mChars[i].CharSO.offset;
+                mChars[i].transform.DOMove(mPositions[(int)dialogPos].transform.position + offset * 0.01f, 0.5f);
+            }
+            else
+            {
+                if (baseCharacter == mChars[i])
+                    mChars[i] = null;
+            }
+        }
+    }
     protected override void SetDialogPos(ChatData chatData)
     {
         List<BaseCharacter> newChars = new List<BaseCharacter>
@@ -21,9 +42,9 @@ public class WorkStage : BaseStage
             {
                 Vector3? offset = character.CharSO.offset;
                 if (character.CharacterTag == CharacterTag.Hide)
-                    character.transform.position = mPositions[(int)newChars.IndexOf(character)].transform.position + (Vector3)offset * 0.001f;
+                    character.transform.position = mPositions[(int)newChars.IndexOf(character)].transform.position + (Vector3)offset * 0.01f;
                 else
-                    character.transform.DOMove(mPositions[(int)newChars.IndexOf(character)].transform.position + (Vector3)offset*0.001f, 0.5f);
+                    character.transform.DOMove(mPositions[(int)newChars.IndexOf(character)].transform.position + (Vector3)offset*0.01f, 0.5f);
                 character.Show();
             }
             else
@@ -34,7 +55,7 @@ public class WorkStage : BaseStage
         for (int i = 0; i < newChars.Count; i++)
         {
             Vector3? offset = newChars[i]?.CharSO.offset;
-            newChars[i]?.transform.DOMove((mPositions[(int)i].transform.position + (Vector3)offset* 0.001f) , 0.5f);
+            newChars[i]?.transform.DOMove((mPositions[(int)i].transform.position + (Vector3)offset* 0.01f) , 0.5f);
         }
         mChars = newChars;
     }
@@ -54,7 +75,7 @@ public class WorkStage : BaseStage
             BaseCharacter baseCharacter = charObj.GetComponent<BaseCharacter>();
             baseCharacter.SetData(charSO);
             Vector3 offset = baseCharacter.CharSO.offset;
-            baseCharacter.transform.position = mPositions[(int)pos].transform.position + offset * 0.001f;
+            baseCharacter.transform.position = mPositions[(int)pos].transform.position + offset * 0.01f;
             mCharChace.Add(charSO, baseCharacter);
             baseCharacter.transform.localScale *= charSO.scale;
         }

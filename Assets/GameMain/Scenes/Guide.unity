@@ -8228,7 +8228,7 @@ PrefabInstance:
     - target: {fileID: 1431559985338324810, guid: 2e45ccbb7b672fb4fb08800bceee2e08, type: 3}
       propertyPath: stage
       value: 
-      objectReference: {fileID: 1529612032687073268}
+      objectReference: {fileID: 0}
     - target: {fileID: 1431559985338324810, guid: 2e45ccbb7b672fb4fb08800bceee2e08, type: 3}
       propertyPath: charSpeed
       value: 0.015
@@ -8444,7 +8444,7 @@ PrefabInstance:
     - target: {fileID: 8627226305229433567, guid: 2e45ccbb7b672fb4fb08800bceee2e08, type: 3}
       propertyPath: stage
       value: 
-      objectReference: {fileID: 1529612032687073268}
+      objectReference: {fileID: 3397491652545523262}
     - target: {fileID: 8627226305229433567, guid: 2e45ccbb7b672fb4fb08800bceee2e08, type: 3}
       propertyPath: background
       value: 
@@ -18529,24 +18529,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 786919655511562399}
   m_CullTransparentMesh: 1
---- !u!114 &1529612032687073268
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3397491652545523260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d516039d488310d408a5c0b4b828a5a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mCanvas: {fileID: 3951090691461043704}
-  mCharacter: {fileID: 6210093682440533472, guid: 818028d1239963249a2814ac91e21b22, type: 3}
-  mPositions:
-  - {fileID: 2842934219889892899}
-  - {fileID: 786919655511562400}
-  - {fileID: 4764200948554821950}
 --- !u!223 &1705771805562311162
 Canvas:
   m_ObjectHideFlags: 0
@@ -18813,7 +18795,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3397491652545523261}
-  - component: {fileID: 1529612032687073268}
+  - component: {fileID: 3397491652545523262}
   m_Layer: 0
   m_Name: BaseStage
   m_TagString: Untagged
@@ -18842,6 +18824,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 980}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3397491652545523262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3397491652545523260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f933435a39c6244fbbdffaa485f6d49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mCanvas: {fileID: 3951090691461043704}
+  mCharacter: {fileID: 6210093682440533472, guid: 818028d1239963249a2814ac91e21b22, type: 3}
+  mPositions:
+  - {fileID: 2842934219889892899}
+  - {fileID: 786919655511562400}
+  - {fileID: 4764200948554821950}
 --- !u!224 &3951090691461043704
 RectTransform:
   m_ObjectHideFlags: 0
