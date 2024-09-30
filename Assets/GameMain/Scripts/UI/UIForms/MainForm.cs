@@ -101,19 +101,19 @@ namespace GameMain
             TitleUpdate();
             if (GameEntry.Player.GuideId <= 5&&GameEntry.Player.Day<4)
             {
-                outBtn.interactable = false;
+                outBtn.gameObject.SetActive(false);
             }
             else
             {
-                outBtn.interactable = true;
+                outBtn.gameObject.SetActive(true);
             }
             if (GameEntry.Player.GuideId == 6 && GameEntry.Player.Day == 4)
             {
-                teachBtn.interactable = false;
+                teachBtn.gameObject.SetActive(false);
             }
             else
             {
-                teachBtn.interactable = true;
+                teachBtn.gameObject.SetActive(true);
             }
             nowTime -=Time.deltaTime;
             if (nowTime <= 0)
@@ -207,9 +207,6 @@ namespace GameMain
                     weatherTag = WeatherTag.Morning;
                     break;
             }
-            if (weatherTag == GameEntry.Utils.WeatherTag)
-                return;
-
             GameEntry.Utils.WeatherTag = weatherTag;
             DRWeather weather = GameEntry.DataTable.GetDataTable<DRWeather>().GetDataRow((int)GameEntry.Utils.WeatherTag);
             changeBackgroundImg.sprite = backgroundImg.sprite;
@@ -217,6 +214,8 @@ namespace GameMain
             changeBackgroundImg.color = Color.white;
             backgroundImg.sprite = Resources.Load<Sprite>(weather.AssetName);
             changeBackgroundImg.DOColor(Color.clear, 3f).OnComplete(() => changeBackgroundImg.gameObject.SetActive(false));
+            if (weatherTag == GameEntry.Utils.WeatherTag)
+                return;
             GameEntry.Sound.PlaySound(weather.BackgroundMusicId);
         }
 
