@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 20}
   m_SizeDelta: {x: 136, y: 136}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3201656025129755408
@@ -177,14 +177,14 @@ RectTransform:
   m_GameObject: {fileID: 4040624781679932822}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_Children: []
   m_Father: {fileID: 8935352376703609853}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -30, y: 77}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1100361686638576100
@@ -238,6 +238,8 @@ GameObject:
   - component: {fileID: 7898646078185433649}
   - component: {fileID: 1728081993184411396}
   - component: {fileID: -6825731750781059069}
+  - component: {fileID: -5337366449097463270}
+  - component: {fileID: 8787064644639348112}
   m_Layer: 0
   m_Name: NodeItem
   m_TagString: Untagged
@@ -368,6 +370,46 @@ MonoBehaviour:
   mIceImg: {fileID: 8105815287913473031}
   mNameText: {fileID: 5493303807474830683}
   mBtn: {fileID: 1728081993184411396}
+--- !u!114 &-5337366449097463270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7606968778592899138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 565d6021745440846a012c24d42ab958, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiItemAction: 0
+  uiItemTag: 2
+  initSize: {x: 1.2, y: 1.2, z: 1.2}
+  toSize: {x: 1.2, y: 1.2, z: 1.2}
+  speed: 0.3
+  image: {fileID: 0}
+  cover: {fileID: 0}
+  soundId: 47
+--- !u!114 &8787064644639348112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7606968778592899138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 565d6021745440846a012c24d42ab958, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiItemAction: 1
+  uiItemTag: 2
+  initSize: {x: 1.2, y: 1.2, z: 1.2}
+  toSize: {x: 1.2, y: 1.2, z: 1.2}
+  speed: 0.3
+  image: {fileID: 0}
+  cover: {fileID: 0}
+  soundId: 49
 --- !u!1 &8999835116653160414
 GameObject:
   m_ObjectHideFlags: 0
