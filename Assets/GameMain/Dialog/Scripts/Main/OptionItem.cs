@@ -31,6 +31,8 @@ public class OptionItem : MonoBehaviour
         text.text = optionData.text;
 
         button.onClick.AddListener(Onclick);
+
+        button.interactable= GameEntry.Utils.Check(optionData.trigger);
     }
 
     private void Onclick()
