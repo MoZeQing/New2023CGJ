@@ -83,9 +83,6 @@ namespace GameMain
                     weatherTag = WeatherTag.Morning;
                     break;
             }
-            if (weatherTag == GameEntry.Utils.WeatherTag)
-                return false;
-
             GameEntry.Utils.WeatherTag = weatherTag;
             DRWeather weather = GameEntry.DataTable.GetDataTable<DRWeather>().GetDataRow((int)GameEntry.Utils.WeatherTag);
             if (GameEntry.Utils.WeatherTag == WeatherTag.Afternoon)
@@ -93,6 +90,8 @@ namespace GameMain
             else
                 backgroundImg.sprite = Resources.Load<Sprite>("Dialog/Background/MapForm_Night");
             GameEntry.Sound.GetSoundGroup("BGM").StopAllLoadedSounds();
+            if (weatherTag == GameEntry.Utils.WeatherTag)
+                return false;
             GameEntry.Sound.PlaySound(weather.BackgroundMusicId);
             return true;
         }
