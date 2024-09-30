@@ -10,6 +10,7 @@ namespace GameMain
 {
     public class MapForm : BaseForm
     {
+        [SerializeField] private Image backgroundImg;
         [SerializeField] private Button clothingBtn;
         [SerializeField] private Button libraryBtn;
         [SerializeField] private Button gymBtn;
@@ -46,6 +47,12 @@ namespace GameMain
             }
 
             GameEntry.Event.Subscribe(OutEventArgs.EventId, OnOutEvent);
+            GameEntry.Event.Subscribe(PlayerDataEventArgs.EventId, OnPlayerDataEvent);
+            MainUpdate();
+        }
+        private void OnPlayerDataEvent(object sender, GameEventArgs e)
+        {
+            MainUpdate();
         }
         private void OnOutEvent(object sender, GameEventArgs e)
         {
@@ -81,11 +88,10 @@ namespace GameMain
 
             GameEntry.Utils.WeatherTag = weatherTag;
             DRWeather weather = GameEntry.DataTable.GetDataTable<DRWeather>().GetDataRow((int)GameEntry.Utils.WeatherTag);
-            //changeBackgroundImg.sprite = backgroundImg.sprite;
-            //changeBackgroundImg.gameObject.SetActive(true);
-            //changeBackgroundImg.color = Color.white;
-            //backgroundImg.sprite = Resources.Load<Sprite>(weather.AssetName);
-            //changeBackgroundImg.DOColor(Color.clear, 3f).OnComplete(() => changeBackgroundImg.gameObject.SetActive(false));
+            if (GameEntry.Utils.WeatherTag == WeatherTag.Afternoon)
+                backgroundImg.sprite = Resources.Load<Sprite>("Dialog/Background/MapForm_Afternoon");
+            else
+                backgroundImg.sprite = Resources.Load<Sprite>("Dialog/Background/MapForm_Night");
             GameEntry.Sound.GetSoundGroup("BGM").StopAllLoadedSounds();
             GameEntry.Sound.PlaySound(weather.BackgroundMusicId);
             return true;
@@ -103,6 +109,7 @@ namespace GameMain
             saveLoadBtn.onClick.RemoveAllListeners();
 
             GameEntry.Event.Unsubscribe(OutEventArgs.EventId, OnOutEvent);
+            GameEntry.Event.Unsubscribe(PlayerDataEventArgs.EventId, OnPlayerDataEvent);
         }
         private void OnExit()
         {
