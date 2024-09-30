@@ -9,38 +9,11 @@ namespace GameMain
     {      
         void Start()
         {
-            //foreach (ItemTag itemTag in GameEntry.SaveLoad.glassItemDatas)
-            //{
-            //    if (GameEntry.Player.GetPlayerItem(itemTag) != null)
-            //    {
-            //        if (!GameEntry.Player.GetPlayerItem(itemTag).equiping)
-            //            continue;
-            //        GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, (NodeTag)(int)itemTag)
-            //        {
-            //            Position = new Vector3(6.073708f, -6.272577f, 0),
-            //            Follow = false
-            //        });
-            //    }
-            //}
-
-            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Heater)
+            if (!GameEntry.Utils.CheckFlag("trust_2"))
+                return;
+            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Cat)
             {
-                Position = new Vector3(6.073708f, -6.272577f, 0),
-                Follow = false
-            });
-            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Stirrer)
-            {
-                Position = new Vector3(6.073708f, -6.272577f, 0),
-                Follow = false
-            });
-            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.FrenchPress)
-            {
-                Position = new Vector3(6.073708f, -6.272577f, 0),
-                Follow = false
-            });
-            GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.ElectricGrinder)
-            {
-                Position = new Vector3(6.073708f, -6.272577f, 0),
+                Position = new Vector3(0f, -6.5f, 0f),
                 Follow = false
             });
         }
