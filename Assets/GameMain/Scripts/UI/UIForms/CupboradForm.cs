@@ -32,6 +32,10 @@ namespace GameMain
             dRItems.Clear();
             foreach (DRItem item in GameEntry.DataTable.GetDataTable<DRItem>().GetAllDataRows())
             {
+                if ((ItemKind)item.Kind == ItemKind.Clothes)
+                    continue;
+                if ((ItemKind)item.Kind == ItemKind.Instrument)
+                    continue;
                 if (GameEntry.Player.GetPlayerItem((ItemTag)item.Id)==null)
                     continue;
                 dRItems.Add(item);

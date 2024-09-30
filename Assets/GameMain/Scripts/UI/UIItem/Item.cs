@@ -12,25 +12,19 @@ public class Item : ShopItem
 {
     public override void SetData(DRItem itemData)
     {
-        //mShopItemData = itemData;
-        //this.gameObject.SetActive(true);
-        //itemImage.sprite = Resources.Load<Sprite>(itemData.ImagePath);
-        //if (GameEntry.Player.GetPlayerItem((ItemTag)itemData.Id) != null)
-        //    inventoryText.text = string.Format("{0}", GameEntry.Player.GetPlayerItem((ItemTag)itemData.Id).itemNum.ToString());
-        //else
-        //    inventoryText.text = string.Format("{0}", 0);
+        mShopItemData = itemData;
+        this.gameObject.SetActive(true);
+        itemImage.sprite = Resources.Load<Sprite>(itemData.IconPath);
+        nameText.text = itemData.ItemName;
     }
     public override void SetData(DRItem itemData, Action<DRItem> onClick, Action<bool, DRItem> onTouch)
     {
-        //mShopItemData = itemData;
-        //this.gameObject.SetActive(true);
-        //itemImage.sprite = Resources.Load<Sprite>(itemData.ImagePath);
-        //if (GameEntry.Player.GetPlayerItem((ItemTag)itemData.Id) != null)
-        //    inventoryText.text = string.Format("¿â´æ:{0}", GameEntry.Player.GetPlayerItem((ItemTag)itemData.Id).itemNum.ToString());
-        //else
-        //    inventoryText.text = string.Format("¿â´æ:{0}", 0);
-        //SetClick(onClick);
-        //SetTouch(onTouch);
+        mShopItemData = itemData;
+        this.gameObject.SetActive(true);
+        itemImage.sprite = Resources.Load<Sprite>(itemData.IconPath);
+        nameText.text = itemData.ItemName;
+        SetClick(onClick);
+        SetTouch(onTouch);
     }
 }
 [System.Serializable]
@@ -111,12 +105,8 @@ public enum ItemKind
     Materials=0,//Ô­²ÄÁÏ
     Item=1,//µÀ¾ß
     Instrument=2,//Æ÷Ðµ
-    Book=3,//Êé
-    Cake=4,//µ°¸â
-    Music = 5,//ÒôÀÖ
-    Dishes = 6,//²ËëÈ
-    Food = 7,//Ê³Îï
-    Clothes=8,//ÒÂ·þ
+    Cake=3,//µ°¸â
+    Clothes=4,//ÒÂ·þ
 }
 public enum ItemTag
 {
