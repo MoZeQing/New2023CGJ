@@ -99,7 +99,6 @@ namespace GameMain
                 }
                 BuffData buffData = GameEntry.Buff.GetBuff();
                 GameEntry.Player.Energy -= (int)Mathf.Clamp((behavior.valueData.energy*buffData.EnergyMulti+buffData.EnergyPlus),0,9999999);
-                GameEntry.Player.Ap -= behavior.valueData.ap;
 
                 GameEntry.Cat.Favor += (int)(behavior.valueData.favor * buffData.FavorMulti + buffData.FavorPlus);
                 GameEntry.Cat.Stamina += (int)(behavior.valueData.stamina  + buffData.StaminaPlus);
