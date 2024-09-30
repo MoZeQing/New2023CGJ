@@ -49,7 +49,9 @@ namespace GameMain
         protected override void OnClose(bool isShutdown, object userData)
         {
             base.OnClose(isShutdown, userData);
-            exitBtn.onClick.RemoveAllListeners();
+            exitBtn?.onClick.RemoveAllListeners();
+            leftBtn?.onClick.RemoveAllListeners();
+            rightBtn?.onClick.RemoveAllListeners();
 
             GameEntry.Event.Unsubscribe(DialogEventArgs.EventId, OnDialogEvent);
         }

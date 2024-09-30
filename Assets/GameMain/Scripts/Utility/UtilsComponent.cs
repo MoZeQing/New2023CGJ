@@ -285,6 +285,9 @@ namespace GameMain
                 case EventTag.AddAp:
                     GameEntry.Player.Ap+= int.Parse(eventData.values[1]);
                     return true;
+                case EventTag.AddMaxAp:
+                    GameEntry.Player.MaxAp += int.Parse(eventData.values[1]);
+                    return true;
                 case EventTag.AddItem:
                     GameEntry.Player.AddPlayerItem(new ItemData((ItemTag)Enum.Parse(typeof(ItemTag), eventData.values[1])), int.Parse(eventData.values[2]));
                     return true;

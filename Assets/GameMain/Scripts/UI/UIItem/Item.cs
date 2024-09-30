@@ -12,25 +12,25 @@ public class Item : ShopItem
 {
     public override void SetData(DRItem itemData)
     {
-        mShopItemData = itemData;
-        this.gameObject.SetActive(true);
-        itemImage.sprite = Resources.Load<Sprite>(itemData.ImagePath);
-        if (GameEntry.Player.GetPlayerItem((ItemTag)itemData.Id) != null)
-            inventoryText.text = string.Format("{0}", GameEntry.Player.GetPlayerItem((ItemTag)itemData.Id).itemNum.ToString());
-        else
-            inventoryText.text = string.Format("{0}", 0);
+        //mShopItemData = itemData;
+        //this.gameObject.SetActive(true);
+        //itemImage.sprite = Resources.Load<Sprite>(itemData.ImagePath);
+        //if (GameEntry.Player.GetPlayerItem((ItemTag)itemData.Id) != null)
+        //    inventoryText.text = string.Format("{0}", GameEntry.Player.GetPlayerItem((ItemTag)itemData.Id).itemNum.ToString());
+        //else
+        //    inventoryText.text = string.Format("{0}", 0);
     }
     public override void SetData(DRItem itemData, Action<DRItem> onClick, Action<bool, DRItem> onTouch)
     {
-        mShopItemData = itemData;
-        this.gameObject.SetActive(true);
-        itemImage.sprite = Resources.Load<Sprite>(itemData.ImagePath);
-        if (GameEntry.Player.GetPlayerItem((ItemTag)itemData.Id) != null)
-            inventoryText.text = string.Format("¿â´æ:{0}", GameEntry.Player.GetPlayerItem((ItemTag)itemData.Id).itemNum.ToString());
-        else
-            inventoryText.text = string.Format("¿â´æ:{0}", 0);
-        SetClick(onClick);
-        SetTouch(onTouch);
+        //mShopItemData = itemData;
+        //this.gameObject.SetActive(true);
+        //itemImage.sprite = Resources.Load<Sprite>(itemData.ImagePath);
+        //if (GameEntry.Player.GetPlayerItem((ItemTag)itemData.Id) != null)
+        //    inventoryText.text = string.Format("¿â´æ:{0}", GameEntry.Player.GetPlayerItem((ItemTag)itemData.Id).itemNum.ToString());
+        //else
+        //    inventoryText.text = string.Format("¿â´æ:{0}", 0);
+        //SetClick(onClick);
+        //SetTouch(onTouch);
     }
 }
 [System.Serializable]

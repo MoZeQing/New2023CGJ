@@ -15,7 +15,7 @@ namespace GameMain
         [SerializeField] protected Button itemBtn;
         [SerializeField] protected Text itemText;
         [SerializeField] protected Text priceText;
-        [SerializeField] protected Text inventoryText;
+        [SerializeField] protected Text nameText;
 
         protected DRItem mShopItemData;
         protected Action<DRItem> mAction;
@@ -36,15 +36,12 @@ namespace GameMain
             this.gameObject.SetActive(true);
             itemImage.sprite = Resources.Load<Sprite>(itemData.IconPath);
             itemText.text = itemData.Info;
+            nameText.text = $"{itemData.ItemName}";
             priceText.text = $"{itemData.Price}";
             if(GameEntry.Player.GetPlayerItem((ItemTag)itemData.Id)!=null)
                 itemBtn.interactable = (itemData.MaxNum > GameEntry.Player.GetPlayerItem((ItemTag)itemData.Id).itemNum);
             else 
                 itemBtn.interactable = true;
-            //if(GameEntry.Player.GetPlayerItem((ItemTag)itemData.Id)!=null)
-            //    inventoryText.text =  GameEntry.Player.GetPlayerItem((ItemTag)itemData.Id).itemNum.ToString(); 
-            //else
-            //    inventoryText.text = "0";
         }
         public virtual void SetData(DRItem itemData, Action<DRItem> click, Action<bool, DRItem> touch)
         {

@@ -24,15 +24,13 @@ namespace GameMain
             {
                 if ((ItemKind)item.Kind != kind)
                     continue;
-                if (item.Id > (int)ItemTag.Food3)
-                    continue;
                 dRItems.Add(item);
             }
 
-            cakeItem.Interactable= salePrice > GameEntry.Player.Money;
-            DRItem dRItem = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow((int)sales[(int)GameEntry.Player.Week]);
-            cakeItem.SetData(dRItem);
-            cakeItem.SetClick(CakeItem_OnClick);
+            //cakeItem.Interactable= salePrice > GameEntry.Player.Money;
+            //DRItem dRItem = GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow((int)sales[(int)GameEntry.Player.Week]);
+            //cakeItem.SetData(dRItem);
+            //cakeItem.SetClick(CakeItem_OnClick);
         }
         protected override void ShowItems()
         {
@@ -60,7 +58,7 @@ namespace GameMain
         }
         protected override void UpdateItem()
         {
-            cakeItem.Interactable = salePrice < GameEntry.Player.Money && !GameEntry.Utils.CheckDayPassFlag(sales[(int)GameEntry.Player.Week].ToString());
+            //cakeItem.Interactable = salePrice < GameEntry.Player.Money && !GameEntry.Utils.CheckDayPassFlag(sales[(int)GameEntry.Player.Week].ToString());
 
             base.UpdateItem();
         }
