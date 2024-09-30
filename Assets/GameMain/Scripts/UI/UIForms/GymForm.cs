@@ -12,9 +12,8 @@ namespace GameMain
     {
         protected override void QuickBtn_Click()
         {
-            Dictionary<ValueTag, int> dic = new Dictionary<ValueTag, int>();
-            charData.GetValueTag(dic);
-            GameEntry.UI.OpenUIForm(UIFormId.ActionForm2, OnExit, dic);
+            Tuple<ValueTag, int> tuple2 = new Tuple<ValueTag, int>(ValueTag.Wisdom, valueData.wisdom);
+            GameEntry.UI.OpenUIForm(UIFormId.ActionForm2, OnExit, tuple2);
         }
 
         protected override void GameBtn_Click()

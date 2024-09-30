@@ -157,9 +157,27 @@ namespace GameMain
     {
         public BehaviorTag behaviorTag;
         public string behaviorName;
-        public PlayerData playerData;
-        public CatData charData;
+        public ValueData valueData;
         public List<DialogueGraph> dialogues;
+    }
+    [System.Serializable]
+    public class ValueData
+    {
+        public int energy;//花费的体力
+        public int ap;//花费的AP
+        public int money;//花费的金钱
+        public int favor;//好感度
+        public int stamina;//体能
+        public int wisdom;//智慧
+        public int charm;//魅力
+
+        public Dictionary<ValueTag, int> GetValueTag(Dictionary<ValueTag, int> dic)
+        {
+            dic.Add(ValueTag.Stamina, stamina);
+            dic.Add(ValueTag.Wisdom, wisdom);
+            dic.Add(ValueTag.Charm, charm);
+            return dic;
+        }
     }
     [System.Serializable]
     public class CatData
@@ -192,34 +210,15 @@ namespace GameMain
         }//魅力
 
         public CatData() { }
-
-        public Dictionary<ValueTag, int> GetValueTag(Dictionary<ValueTag, int> dic)
-        {
-            if (favor != 0)
-                dic.Add(ValueTag.Favor, favor);
-            if (stamina != 0)
-                dic.Add(ValueTag.Stamina, stamina);
-            if (wisdom != 0)
-                dic.Add(ValueTag.Wisdom, wisdom);
-            if (charm != 0)
-                dic.Add(ValueTag.Charm, charm);
-            return dic;
-        }
     }
     public enum BehaviorTag
     {
         Click,
-        Clean,
-        Play,
         Talk,
-        Bath,
         TV,
-        Story,
         Touch,
-        Rest,
         Sleep,
         Morning,
-        Hug,
         Teach,
         Sport,
         Read,

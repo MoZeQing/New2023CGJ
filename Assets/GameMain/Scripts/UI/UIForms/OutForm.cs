@@ -16,7 +16,7 @@ namespace GameMain
         [SerializeField] protected Button quickBtn;
         [SerializeField] protected Button gameBtn;
         [SerializeField] protected Text moneyText;
-        [SerializeField] protected CatData charData;
+        [SerializeField] protected ValueData valueData;
         [SerializeField] protected int cost;
 
         protected override void OnOpen(object userData)
@@ -60,10 +60,8 @@ namespace GameMain
             }
         }
         protected virtual void QuickBtn_Click()
-        {
-            Dictionary<ValueTag, int> dic = new Dictionary<ValueTag, int>();
-            charData.GetValueTag(dic);
-            GameEntry.UI.OpenUIForm(UIFormId.ActionForm3, OnExit, dic);
+        {        
+            GameEntry.UI.OpenUIForm(UIFormId.ActionForm3, OnExit, valueData);
         }
 
         protected virtual void GameBtn_Click()

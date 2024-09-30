@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityGameFramework.Runtime;
+using System;
 
 
 namespace GameMain
@@ -12,9 +13,8 @@ namespace GameMain
     {       
         protected override void QuickBtn_Click()
         {
-            Dictionary<ValueTag, int> dic = new Dictionary<ValueTag, int>();
-            charData.GetValueTag(dic);
-            GameEntry.UI.OpenUIForm(UIFormId.ActionForm3, OnExit, dic);
+            Tuple<ValueTag, int> tuple3 = new Tuple<ValueTag, int>(ValueTag.Wisdom, valueData.wisdom);
+            GameEntry.UI.OpenUIForm(UIFormId.ActionForm3, OnExit, tuple3);
         }
 
         protected override void GameBtn_Click()

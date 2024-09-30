@@ -23,7 +23,9 @@ public class CompleteForm : BaseForm
         sequence.Append(canvas.transform.DOScale(Vector3.one, 1f).SetEase(Ease.OutExpo));
 
         mAction = BaseFormData.Action;
-        Dictionary<ValueTag,int> pairs= BaseFormData.UserData as Dictionary<ValueTag,int>;
+        ValueData valueData = BaseFormData.UserData as ValueData;
+        Dictionary<ValueTag, int> pairs = new Dictionary<ValueTag, int>();
+        valueData.GetValueTag(pairs);
 
         okBtn.onClick.AddListener(() =>
         {

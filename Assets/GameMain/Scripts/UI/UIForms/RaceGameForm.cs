@@ -36,8 +36,7 @@ namespace GameMain
         private int m_playerPosition;
 
         private Action mAction;
-        [SerializeField] private CatData charData;
-        [SerializeField] private PlayerData playerData;
+        [SerializeField] private ValueData mValueData;
 
         [SerializeField] private Button startBtn;
         private bool m_start;
@@ -91,11 +90,9 @@ namespace GameMain
             {
                 Dictionary<ValueTag, int> dic = new Dictionary<ValueTag, int>();
                 float power = (gameTime - m_gameTimer) / gameTime;
-                int stamina = (int)(charData.stamina * power);
-                dic.Add(ValueTag.Stamina, stamina);
-                playerData.GetValueTag(dic);
+                int stamina = (int)(mValueData.stamina * power);
 
-                GameEntry.UI.OpenUIForm(UIFormId.CompleteForm, OnExit, dic);
+                GameEntry.UI.OpenUIForm(UIFormId.CompleteForm, OnExit, mValueData);
                 return;
             }
 

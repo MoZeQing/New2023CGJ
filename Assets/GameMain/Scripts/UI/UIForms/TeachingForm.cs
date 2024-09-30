@@ -88,24 +88,23 @@ namespace GameMain
             BehaviorData behavior = GameEntry.Cat.GetBehavior(behaviorTag);
             if (behaviorTag != BehaviorTag.Sleep)
             {
-                if (GameEntry.Player.Energy < behavior.playerData.energy)
+                if (GameEntry.Player.Energy < behavior.valueData.energy)
                 {
                     GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你没有足够的体力");
                     GameEntry.UI.OpenUIForm(UIFormId.MainForm);
                     return;
                 }
-                if (GameEntry.Player.Ap < behavior.playerData.ap)
+                if (GameEntry.Player.Ap < behavior.valueData.ap)
                 {
                     GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你没有足够的行动力");
                     GameEntry.UI.OpenUIForm(UIFormId.MainForm);
                     return;
                 }
                 BuffData buffData = GameEntry.Buff.GetBuff();
-                GameEntry.Player.Energy -= (int)Mathf.Clamp((behavior.playerData.energy*buffData.EnergyMulti+buffData.EnergyPlus),0,9999999);
-                GameEntry.Player.Money -= behavior.playerData.money;
-                GameEntry.Player.MaxEnergy -= behavior.playerData.maxEnergy;
+                GameEntry.Player.Energy -= (int)Mathf.Clamp((behavior.valueData.energy*buffData.EnergyMulti+buffData.EnergyPlus),0,9999999);
+                GameEntry.Player.Money -= behavior.valueData.money;
 
-                GameEntry.Cat.Favor += (int)(behavior.charData.favor * buffData.FavorMulti + buffData.FavorPlus);
+                GameEntry.Cat.Favor += (int)(behavior.valueData.favor * buffData.FavorMulti + buffData.FavorPlus);
                 GameEntry.Event.FireNow(this, BehaviorEventArgs.Create(behaviorTag));
             }
             else
@@ -142,21 +141,18 @@ namespace GameMain
         //操作区域
         private void OnAugur(BehaviorData behavior)
         {
-            Dictionary<ValueTag, int> dic = new Dictionary<ValueTag, int>();
-            behavior.charData.GetValueTag(dic);
-            GameEntry.UI.OpenUIForm(UIFormId.ActionForm1, OnComplete, dic);
+            Tuple<ValueTag, int> tuple1 = new Tuple<ValueTag, int>(ValueTag.Charm, behavior.valueData.charm);
+            GameEntry.UI.OpenUIForm(UIFormId.ActionForm1, OnComplete, tuple1);
         }
         private void OnSport(BehaviorData behavior)
         {
-            Dictionary<ValueTag, int> dic = new Dictionary<ValueTag, int>();
-            behavior.charData.GetValueTag(dic);
-            GameEntry.UI.OpenUIForm(UIFormId.ActionForm2, OnComplete, dic);
+            Tuple<ValueTag, int> tuple2 = new Tuple<ValueTag, int>(ValueTag.Stamina, behavior.valueData.stamina);
+            GameEntry.UI.OpenUIForm(UIFormId.ActionForm2, OnComplete, tuple2);
         }
         private void OnRead(BehaviorData behavior)
         {
-            Dictionary<ValueTag, int> dic = new Dictionary<ValueTag, int>();
-            behavior.charData.GetValueTag(dic);
-            GameEntry.UI.OpenUIForm(UIFormId.ActionForm3, OnComplete, dic);
+            Tuple<ValueTag, int> tuple3 = new Tuple<ValueTag, int>(ValueTag.Wisdom, behavior.valueData.wisdom);
+            GameEntry.UI.OpenUIForm(UIFormId.ActionForm3, OnComplete, tuple3);
         }
         public void OnSleep()
         {
@@ -196,8 +192,7 @@ namespace GameMain
             else
             {
                 BehaviorData behavior = GameEntry.Cat.GetBehavior(mBehaviorTag);
-                GameEntry.Player.Ap -= behavior.playerData.ap;
-                GameEntry.Player.MaxAp -= behavior.playerData.maxAp;
+                GameEntry.Player.Ap -= behavior.valueData.ap;
                 dialogBox.gameObject.SetActive(false);
                 leftCanvas.gameObject.SetActive(true);
                 rightCanvas.gameObject.SetActive(true);

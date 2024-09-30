@@ -14,25 +14,45 @@ namespace GameMain
         [SerializeField] private Image catImg;
         [SerializeField] private Transform canvas;
         [SerializeField] private Animator animator;
-        [SerializeField,Range(0f,2f)] private float speed=1f;
+        [SerializeField] private Transform TextCanvas;
+        [SerializeField] private Image iconImg;
+        [SerializeField] private Text textText;
+        [SerializeField,Range(0f,2f)] private float speed=0.5f;
 
         private Action mAction;
 
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            Dictionary<ValueTag, int> pairs = BaseFormData.UserData as Dictionary<ValueTag, int>;
+            Tuple<ValueTag, int> tuple = BaseFormData.UserData as Tuple<ValueTag, int>;
+            //iconImg.sprite = Resources.Load<Sprite>($"Image/ValueTagIcon/{tuple.Item1}");
+            textText.text = tuple.Item2 > 0 ? $"+{tuple.Item2}" : $"{tuple.Item2}";
+            TextCanvas.localPosition = Vector3.down * 120f;
             mAction = BaseFormData.Action;
             progressImg.fillAmount = 0;
             canvas.transform.localPosition = Vector3.up * 1080f;
-            canvas.transform.DOLocalMoveY(0, 1f*speed).SetEase(Ease.OutExpo).OnComplete(() =>
+            canvas.transform.DOLocalMoveY(100f, speed).SetEase(Ease.OutExpo).OnComplete(() =>
             {
-                progressImg.DOFillAmount(1f, 3f*speed).OnComplete(() =>
+                progressImg.DOFillAmount(1f, speed).OnComplete(() =>
                 {
                     GameEntry.Sound.PlaySound(43);
-                    GameEntry.UI.OpenUIForm(UIFormId.CompleteForm, OnExit, pairs);
+                    TextCanvas.DOLocalMoveY(0f, speed).SetEase(Ease.OutExpo);
                 });
             });
+        }
+
+        protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
+        {
+            base.OnUpdate(elapseSeconds, realElapseSeconds);
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (!DOTween.IsTweening(canvas) &&
+                !DOTween.IsTweening(progressImg) &&
+                !DOTween.IsTweening(TextCanvas))
+                {
+                    OnExit();
+                }
+            }
         }
 
         protected override void OnClose(bool isShutdown, object userData)

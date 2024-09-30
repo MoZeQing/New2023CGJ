@@ -258,17 +258,6 @@ namespace GameMain
         public int guideID;
         public List<PlayerItemData> items = new List<PlayerItemData>();
         public List<int> recipes = new List<int>();
-
-        public Dictionary<ValueTag, int> GetValueTag(Dictionary<ValueTag, int> dic)
-        {
-            if (maxAp != 0)
-                dic.Add(ValueTag.MaxAp, maxAp);
-            if (ap != 0)
-                dic.Add(ValueTag.Ap, ap);
-            if (money != 0)
-                dic.Add(ValueTag.Money, money);
-            return dic;
-        }
     }
 
 

@@ -5,6 +5,7 @@ using UnityGameFramework.Runtime;
 using UnityEngine.UI;
 using GameFramework.Event;
 using DG.Tweening;
+using System;
 
 namespace GameMain
 {
@@ -12,9 +13,8 @@ namespace GameMain
     {
         protected override void QuickBtn_Click()
         {
-            Dictionary<ValueTag, int> dic = new Dictionary<ValueTag, int>();
-            charData.GetValueTag(dic);
-            GameEntry.UI.OpenUIForm(UIFormId.ActionForm1, OnExit, dic);
+            Tuple<ValueTag, int> tuple1 = new Tuple<ValueTag, int>(ValueTag.Wisdom, valueData.wisdom);
+            GameEntry.UI.OpenUIForm(UIFormId.ActionForm1, OnExit, tuple1);
         }
 
         protected override void GameBtn_Click()

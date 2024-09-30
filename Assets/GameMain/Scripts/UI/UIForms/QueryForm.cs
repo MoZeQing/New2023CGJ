@@ -22,8 +22,7 @@ namespace GameMain
 
         [SerializeField] private Transform canvas;
         [SerializeField] private int totalQuery;
-        [SerializeField] private CatData charData;
-        [SerializeField] private PlayerData playerData;
+        [SerializeField] private ValueData mValueData;
 
         private Action mAction;
         private int queryCount;
@@ -59,10 +58,10 @@ namespace GameMain
             if (totalQuery <= queryCount)
             {
                 float power = (float)trueCount / (float)totalQuery;
-                int wisdom = (int)(charData.wisdom * power);
+                int wisdom = (int)(mValueData.wisdom * power);
                 Dictionary<ValueTag, int> dic = new Dictionary<ValueTag, int>();
                 dic.Add(ValueTag.Wisdom, wisdom);
-                playerData.GetValueTag(dic);
+                mValueData.GetValueTag(dic);
                 GameEntry.UI.OpenUIForm(UIFormId.CompleteForm,OnExit,dic);
                 return;
             }

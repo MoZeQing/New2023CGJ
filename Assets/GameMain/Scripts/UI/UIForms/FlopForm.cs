@@ -27,9 +27,7 @@ namespace GameMain
         private float timer;
         [SerializeField] private Text showTime;
 
-        [SerializeField] private CatData charData;
-        [SerializeField] private PlayerData playerData;
-
+        private ValueData mValueData;
         private Action mAction;
         private int flipCount;
 
@@ -37,7 +35,7 @@ namespace GameMain
         {
             base.OnOpen(userData);
             mAction = BaseFormData.Action;
-            
+            mValueData = BaseFormData.UserData as ValueData;
             InitFlop();
         }
 
@@ -48,9 +46,9 @@ namespace GameMain
             {
                 Dictionary<ValueTag, int> dic = new Dictionary<ValueTag, int>();
                 float power = flipCount / pairCount;
-                int charm = (int)(charData.charm * power);
+                int charm = (int)(mValueData.charm * power);
                 dic.Add(ValueTag.Charm, charm);
-                playerData.GetValueTag(dic);
+                mValueData.GetValueTag(dic);
 
                 GameEntry.UI.OpenUIForm(UIFormId.CompleteForm, OnExit, dic);
                 return;
@@ -58,8 +56,8 @@ namespace GameMain
             else if(flipCount >= pairCount)
             {
                 Dictionary<ValueTag, int> dic = new Dictionary<ValueTag, int>();
-                dic.Add(ValueTag.Charm, charData.charm);
-                playerData.GetValueTag(dic);
+                dic.Add(ValueTag.Charm, mValueData.charm);
+                mValueData.GetValueTag(dic);
 
                 GameEntry.UI.OpenUIForm(UIFormId.CompleteForm, OnExit, dic);
                 return;
