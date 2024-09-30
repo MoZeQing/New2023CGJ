@@ -12,8 +12,7 @@ namespace GameMain
 {
     public class RecipeForm : BaseForm
     {
-        [SerializeField] private Image mProduct;
-        [SerializeField] private Image mTool;
+        [SerializeField] private RecipeItem mTool;
         [SerializeField] private GameObject mRecipeItem;
         [SerializeField] private Transform mCanvas;
         //[SerializeField] private Transform mRightCanvas;
@@ -146,7 +145,7 @@ namespace GameMain
             item.Choice = true;
             mTool.gameObject.SetActive(true);
             //mProduct.gameObject.SetActive(true);
-            mTool.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)recipeData.tool).IconPath);
+            mTool.SetData(recipeData.tool);
             //mProduct.sprite = Resources.Load<Sprite>(GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)recipeData.products[0]).SpritePath);
         }
 
