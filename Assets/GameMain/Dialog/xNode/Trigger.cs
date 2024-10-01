@@ -533,8 +533,8 @@ public class EventData
     public EventData(string eventText)
     {
         if (string.IsNullOrEmpty(eventText)) return;
-        string[] strings = eventText.Split(' ');
-        eventTag = (EventTag)Enum.Parse(typeof(EventTag), eventText);
+        values = eventText.Split(' ');
+        eventTag = (EventTag)Enum.Parse(typeof(EventTag), values[0]);
     }
     public override string ToString()
     { 

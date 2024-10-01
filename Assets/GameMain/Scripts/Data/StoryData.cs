@@ -24,7 +24,7 @@ public class StoryData
         dialogName = story.DialogName;
         if (!string.IsNullOrEmpty(story.EventText))
         {
-            string[] strings = story.EventText.Split('-');
+            string[] strings = story.EventText.Split('|');
             foreach (string text in strings)
             {
                 eventDatas.Add(new EventData(text));

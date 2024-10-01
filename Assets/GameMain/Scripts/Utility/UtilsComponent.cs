@@ -208,11 +208,10 @@ namespace GameMain
                     return true;
                 if (trigger.key == TriggerTag.Flag)
                 {
-                    string[] strings = trigger.value.Split('|');
                     if (!trigger.not)
-                        return CheckFlag(strings[0], int.Parse(strings[1]));
+                        return CheckFlag(trigger.value);
                     else
-                        return !CheckFlag(strings[0], int.Parse(strings[1]));
+                        return !CheckFlag(trigger.value);
                 }
                 if (!mUtilsData.values.ContainsKey(trigger.key))
                     return false;
