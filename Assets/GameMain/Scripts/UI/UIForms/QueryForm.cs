@@ -29,6 +29,7 @@ namespace GameMain
         private int trueCount;
         private DRQuery query;
         private List<DRQuery> queries= new List<DRQuery>();
+        private int newTotalQuery;
 
         protected override void OnOpen(object userData)
         {
@@ -43,6 +44,7 @@ namespace GameMain
 
             queryCount = 0;
             trueCount= 0;
+            newTotalQuery = totalQuery + (4 - GameEntry.Cat.WisdomLevel);
 
             ShowQuery();
         }
@@ -52,17 +54,22 @@ namespace GameMain
             base.OnClose(isShutdown, userData);
             answerTextBtn.onClick.RemoveAllListeners();
         }
-
+        private void OnComplete()
+        {
+            float power = (float)trueCount / (float)newTotalQuery;
+            ValueData newValueData = new ValueData(mValueData);
+            newValueData.wisdom = (int)(mValueData.wisdom * power);
+            newValueData.money = (int)(mValueData.money * power);
+            GameEntry.Player.Ap -= newValueData.ap;
+            GameEntry.Player.Money += newValueData.money;
+            GameEntry.Cat.Wisdom += newValueData.wisdom;
+            GameEntry.UI.OpenUIForm(UIFormId.CompleteForm, OnExit, newValueData);
+        }
         private void ShowQuery()
         {
-            if (totalQuery <= queryCount)
+            if (newTotalQuery <= queryCount)
             {
-                float power = (float)trueCount / (float)totalQuery;
-                int wisdom = (int)(mValueData.wisdom * power);
-                Dictionary<ValueTag, int> dic = new Dictionary<ValueTag, int>();
-                dic.Add(ValueTag.Wisdom, wisdom);
-                mValueData.GetValueTag(dic);
-                GameEntry.UI.OpenUIForm(UIFormId.CompleteForm,OnExit,dic);
+                OnComplete();
                 return;
             }
             answerTitle.gameObject.SetActive(false);
@@ -75,7 +82,7 @@ namespace GameMain
                 winFailImgs[i].gameObject.SetActive(false);
             }
             query = queries[UnityEngine.Random.Range(0, queries.Count)];
-            queryText.text = $"Q{queryCount+1}/{totalQuery}（完成的正确回答:{trueCount}）：\n{query.Query}";
+            queryText.text = $"Q{queryCount+1}/{newTotalQuery}（完成的正确回答:{trueCount}）：\n{query.Query}";
             answerTexts[0].text = $"A.{query.Answer1}";
             answerTexts[1].text = $"B.{query.Answer2}";
             answerTexts[2].text = $"C.{query.Answer3}";

@@ -58,7 +58,7 @@ namespace GameMain
             currentBGI = barrierGenInterval;
             currentBS = barrierSpeed;
             m_genTimer = currentBGI;
-            m_gameTimer = gameTime;
+            m_gameTimer = gameTime * (float)(2 / GameEntry.Cat.StaminaLevel);
 
             foreach (Transform t in genNodes)
             {
@@ -78,7 +78,17 @@ namespace GameMain
             base.OnClose(isShutdown, userData);
             startBtn.onClick.RemoveAllListeners();
         }
-
+        private void OnComplete()
+        {
+            float power = (gameTime - m_gameTimer) / gameTime;
+            ValueData newValueData = new ValueData(mValueData);
+            newValueData.wisdom = (int)(mValueData.wisdom * power);
+            newValueData.money = (int)(mValueData.money * power);
+            GameEntry.Player.Ap -= newValueData.ap;
+            GameEntry.Player.Money += newValueData.money;
+            GameEntry.Cat.Wisdom += newValueData.wisdom;
+            GameEntry.UI.OpenUIForm(UIFormId.CompleteForm, OnExit, newValueData);
+        }
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             if (!m_start)
@@ -88,11 +98,8 @@ namespace GameMain
 
             if(m_done)
             {
-                Dictionary<ValueTag, int> dic = new Dictionary<ValueTag, int>();
-                float power = (gameTime - m_gameTimer) / gameTime;
-                int stamina = (int)(mValueData.stamina * power);
-
-                GameEntry.UI.OpenUIForm(UIFormId.CompleteForm, OnExit, mValueData);
+                m_done = false;
+                OnComplete();
                 return;
             }
 

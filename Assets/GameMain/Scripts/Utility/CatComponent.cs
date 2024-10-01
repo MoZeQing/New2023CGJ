@@ -98,21 +98,21 @@ namespace GameMain
         {
             get
             {
-                return mCatData.charm / 40+1;
+                return Mathf.Min(mCatData.charm / 40 + 1, 4);
             }
         }
         public int WisdomLevel
         {
             get
             {
-                return mCatData.wisdom / 40+1;
+                return Mathf.Min(mCatData.wisdom / 40 + 1, 4);
             }
         }
         public int StaminaLevel
         {
             get
             {
-                return mCatData.stamina / 40+1;
+                return Mathf.Min(mCatData.stamina / 40 + 1, 4);
             }
         }
         public CatStateData GetCatState()
@@ -171,6 +171,16 @@ namespace GameMain
         public int wisdom;//智慧
         public int charm;//魅力
 
+        public ValueData(ValueData valueData)
+        {
+            energy = valueData.energy;
+            ap=valueData.ap;//花费的AP
+            money=valueData.money;//花费的金钱
+            favor=valueData.favor;//好感度
+            stamina=valueData.stamina;//体能
+            wisdom=valueData.wisdom;//智慧
+            charm=valueData.charm;//魅力
+    }
         public Dictionary<ValueTag, int> GetValueTag(Dictionary<ValueTag, int> dic)
         {
             dic.Add(ValueTag.Stamina, stamina);

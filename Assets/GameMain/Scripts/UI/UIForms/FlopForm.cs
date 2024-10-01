@@ -27,39 +27,38 @@ namespace GameMain
         private float timer;
         [SerializeField] private Text showTime;
 
-        private ValueData mValueData;
+        [SerializeField] private ValueData mValueData;
         private Action mAction;
         private int flipCount;
-
+        private bool isComplete;
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
             mAction = BaseFormData.Action;
-            mValueData = BaseFormData.UserData as ValueData;
             InitFlop();
+            isComplete = false;
         }
 
+        private void OnComplete()
+        {
+            float power = flipCount / pairCount;
+            ValueData newValueData = new ValueData(mValueData);
+            newValueData.charm = (int)(mValueData.charm * power);
+            newValueData.money = (int)(mValueData.money * power);
+            GameEntry.Player.Ap -= newValueData.ap;
+            GameEntry.Player.Money += newValueData.money;
+            GameEntry.Cat.Charm += newValueData.charm;
+            GameEntry.UI.OpenUIForm(UIFormId.CompleteForm, OnExit, newValueData);
+        }
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
-            if (timer <= 0)
+            if (timer <= 0 || flipCount >= pairCount)
             {
-                Dictionary<ValueTag, int> dic = new Dictionary<ValueTag, int>();
-                float power = flipCount / pairCount;
-                int charm = (int)(mValueData.charm * power);
-                dic.Add(ValueTag.Charm, charm);
-                mValueData.GetValueTag(dic);
-
-                GameEntry.UI.OpenUIForm(UIFormId.CompleteForm, OnExit, dic);
-                return;
-            }
-            else if(flipCount >= pairCount)
-            {
-                Dictionary<ValueTag, int> dic = new Dictionary<ValueTag, int>();
-                dic.Add(ValueTag.Charm, mValueData.charm);
-                mValueData.GetValueTag(dic);
-
-                GameEntry.UI.OpenUIForm(UIFormId.CompleteForm, OnExit, dic);
+                if (!isComplete)
+                    return;
+                isComplete = true;
+                OnComplete();
                 return;
             }
 
@@ -116,7 +115,7 @@ namespace GameMain
             foreach(Transform flop in genNode)
                 Destroy(flop.gameObject);
 
-            timer = timeLimit;
+            timer = timeLimit * (float)(GameEntry.Cat.CharmLevel / 4);
             flipCount = 0;
 
             m_pariGenCount = new int[pairCount];
