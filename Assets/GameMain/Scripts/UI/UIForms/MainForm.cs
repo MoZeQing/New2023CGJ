@@ -52,20 +52,28 @@ namespace GameMain
             galleryForm.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.GalleryForm, this));
             sleepBtn.onClick.AddListener(()=>
             {
-                ChangeTeach();
+                if (mAnimator.GetBool("Into"))
+                    ShowLittleCat();
+                else
+                    littleCatImg.gameObject.SetActive(false);
+                mAnimator.SetBool("Into", !mAnimator.GetBool("Into"));
+                canvasGroup.interactable = !mAnimator.GetBool("Into");
+                teachBtn1.interactable = mAnimator.GetBool("Into");
                 mTeachingForm.OnSleep();
             });
             outBtn.onClick.AddListener(Out_OnClick);
             buffBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.BuffForm));
 
             canvasGroup.interactable = true;
-
+            MainUpdate();
             GameEntry.Event.Subscribe(GameStateEventArgs.EventId, OnGameStateEvent);
             GameEntry.Event.Subscribe(PlayerDataEventArgs.EventId, OnPlayerDataEvent);
             GameEntry.Event.Subscribe(CatDataEventArgs.EventId, OnCatDataEvent);
             GameEntry.Event.Subscribe(PlayerDataEventArgs.EventId, mTeachingForm.OnPlayerDataEvent);
             GameEntry.Event.Subscribe(CatDataEventArgs.EventId, mTeachingForm.OnCatDataEvent);
             GameEntry.Event.Subscribe(DialogEventArgs.EventId, OnDialogEvent);
+
+            GameEntry.Event.Subscribe(OutEventArgs.EventId, OnOutEvent);
         }
         protected override void OnClose(bool isShutdown, object userData)
         {
@@ -86,6 +94,8 @@ namespace GameMain
             GameEntry.Event.Unsubscribe(PlayerDataEventArgs.EventId, mTeachingForm.OnPlayerDataEvent);
             GameEntry.Event.Unsubscribe(CatDataEventArgs.EventId, mTeachingForm.OnCatDataEvent);
             GameEntry.Event.Unsubscribe(DialogEventArgs.EventId, OnDialogEvent);
+
+            GameEntry.Event.Unsubscribe(OutEventArgs.EventId, OnOutEvent);
         }
         protected override void OnStart(object userData)
         {
@@ -128,11 +138,19 @@ namespace GameMain
                 ChangeTeach();
             }
         }
+        private void OnOutEvent(object sender, GameEventArgs e)
+        {
+            OutEventArgs args = e as OutEventArgs;
+            if (args.OutingSceneState != OutingSceneState.Home)
+                return;
+            MainUpdate();
+            DRWeather weather = GameEntry.DataTable.GetDataTable<DRWeather>().GetDataRow((int)GameEntry.Utils.WeatherTag);
+            GameEntry.Sound.PlaySound(weather.BackgroundMusicId);
+        }
         private void Out_OnClick()
         {
             GameEntry.UI.OpenUIForm(UIFormId.ChangeForm);
             GameEntry.UI.OpenUIForm(UIFormId.MapForm);
-            GameEntry.UI.CloseUIForm(this.UIForm);
         }
         private void ShowLittleCat()
         {
@@ -182,7 +200,6 @@ namespace GameMain
         private void OnGameStateEvent(object sender, GameEventArgs e)
         {
             GameStateEventArgs args = (GameStateEventArgs)e;
-            MainUpdate();
             if (args.GameState == GameState.Night || args.GameState == GameState.Afternoon || args.GameState == GameState.Morning)
             {
                 canvasGroup.interactable = true;
@@ -210,12 +227,12 @@ namespace GameMain
                 return;
             GameEntry.Utils.WeatherTag = weatherTag;
             DRWeather weather = GameEntry.DataTable.GetDataTable<DRWeather>().GetDataRow((int)GameEntry.Utils.WeatherTag);
+            GameEntry.Sound.PlaySound(weather.BackgroundMusicId);
             changeBackgroundImg.sprite = backgroundImg.sprite;
             changeBackgroundImg.gameObject.SetActive(true);
             changeBackgroundImg.color = Color.white;
             backgroundImg.sprite = Resources.Load<Sprite>(weather.AssetName);
             changeBackgroundImg.DOColor(Color.clear, 3f).OnComplete(() => changeBackgroundImg.gameObject.SetActive(false));
-            GameEntry.Sound.PlaySound(weather.BackgroundMusicId);
         }
 
 

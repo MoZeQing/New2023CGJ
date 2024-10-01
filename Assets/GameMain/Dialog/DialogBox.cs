@@ -119,8 +119,8 @@ public class DialogBox : MonoBehaviour
         if (optionFlag || !IsNext || m_Data == null)
             return;
 
-        try
-        {
+        //try
+        //{
             if (m_Data.After.Count != 0)
             {
                 foreach (BaseData after in m_Data.After)
@@ -150,11 +150,11 @@ public class DialogBox : MonoBehaviour
             {
                 CompleteDialog();
             }
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError($"Error occurred in Next(): {ex.Message}\nBaseData identifier: {m_Data.Id}\nStack Trace: {ex.StackTrace}");
-        }
+        //}
+        //catch (Exception ex)
+        //{
+        //    Debug.LogError($"Error occurred in Next(): {ex.Message}\nBaseData identifier: {m_Data.Id}\nStack Trace: {ex.StackTrace}");
+        //}
         isTextComplete = false;
     }
 

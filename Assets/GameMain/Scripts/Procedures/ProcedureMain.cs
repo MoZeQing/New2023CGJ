@@ -20,13 +20,13 @@ namespace GameMain
             base.OnEnter(procedureOwner);
             GameEntry.Player.AddRecipe(1);
             GameEntry.Utils.Location = OutingSceneState.Home;
-            GameEntry.UI.OpenUIForm(UIFormId.MainForm, this);
             mGameState = GameState.Afternoon;
             GameEntry.Utils.GameState = GameState.Afternoon;
             GameEntry.Dialog.StoryUpdate();
             GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Afternoon));
             mGameState = GameState.Night;
             GameEntry.Utils.GameState = GameState.Night;
+            GameEntry.UI.OpenUIForm(UIFormId.MainForm, this);
             GameEntry.Event.Subscribe(GameStateEventArgs.EventId, GameStateEvent);
             IDataTable<DRScene> dtScene = GameEntry.DataTable.GetDataTable<DRScene>();
             DRScene drScene = dtScene.GetDataRow(2);

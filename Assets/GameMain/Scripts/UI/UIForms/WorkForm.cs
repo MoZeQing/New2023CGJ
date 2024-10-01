@@ -65,7 +65,7 @@ namespace GameMain
             recipeBtn.onClick.RemoveAllListeners();
             guideBtn.onClick.RemoveAllListeners();
             GameEntry.Event.Unsubscribe(OrderEventArgs.EventId, OnOrderEvent);
-            GameEntry.Event.Subscribe(WorkEventArgs.EventId, OnWorkTipsEvent);
+            GameEntry.Event.Unsubscribe(WorkEventArgs.EventId, OnWorkTipsEvent);
         }
 
         private void Update()

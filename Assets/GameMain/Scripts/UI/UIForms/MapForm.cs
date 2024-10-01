@@ -46,7 +46,6 @@ namespace GameMain
                 gymBtn.gameObject.SetActive(true);
             }
 
-            GameEntry.Event.Subscribe(OutEventArgs.EventId, OnOutEvent);
             GameEntry.Event.Subscribe(PlayerDataEventArgs.EventId, OnPlayerDataEvent);
             MainUpdate();
         }
@@ -54,17 +53,7 @@ namespace GameMain
         {
             MainUpdate();
         }
-        private void OnOutEvent(object sender, GameEventArgs e)
-        {
-            OutEventArgs args = e as OutEventArgs;
-            if (args.OutingSceneState != OutingSceneState.Home)
-                return;
-            if (!MainUpdate())
-            {
-                DRWeather weather = GameEntry.DataTable.GetDataTable<DRWeather>().GetDataRow((int)GameEntry.Utils.WeatherTag);
-                GameEntry.Sound.PlaySound(weather.BackgroundMusicId);
-            }
-        }
+
         protected virtual bool MainUpdate()
         {
             WeatherTag weatherTag = WeatherTag.None;
@@ -89,10 +78,6 @@ namespace GameMain
                 backgroundImg.sprite = Resources.Load<Sprite>("Dialog/Background/MapForm_Afternoon");
             else
                 backgroundImg.sprite = Resources.Load<Sprite>("Dialog/Background/MapForm_Night");
-            GameEntry.Sound.GetSoundGroup("BGM").StopAllLoadedSounds();
-            if (weatherTag == GameEntry.Utils.WeatherTag)
-                return false;
-            GameEntry.Sound.PlaySound(weather.BackgroundMusicId);
             return true;
         }
         protected override void OnClose(bool isShutdown, object userData)
@@ -107,13 +92,11 @@ namespace GameMain
             restaurantBtn.onClick.RemoveAllListeners();
             saveLoadBtn.onClick.RemoveAllListeners();
 
-            GameEntry.Event.Unsubscribe(OutEventArgs.EventId, OnOutEvent);
             GameEntry.Event.Unsubscribe(PlayerDataEventArgs.EventId, OnPlayerDataEvent);
         }
         private void OnExit()
         {
             GameEntry.UI.OpenUIForm(UIFormId.ChangeForm);
-            GameEntry.UI.OpenUIForm(UIFormId.MainForm);
             GameEntry.UI.CloseUIForm(this.UIForm);
         }
         private void Outing(OutingSceneState outingSceneState)
