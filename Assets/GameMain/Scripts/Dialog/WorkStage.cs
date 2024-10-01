@@ -19,7 +19,7 @@ public class WorkStage : BaseStage
                     continue;
                 mChars[i] = baseCharacter;
                 Vector3 offset = mChars[i].CharSO.offset;
-                mChars[i].transform.DOMove(mPositions[(int)dialogPos].transform.position + offset * 0.01f, 0.5f);
+                mChars[i].transform.DOMove(mPositions[(int)dialogPos].transform.position + offset * 0.01f+Vector3.down*1.2f, 0.5f);
             }
             else
             {
@@ -42,9 +42,9 @@ public class WorkStage : BaseStage
             {
                 Vector3? offset = character.CharSO.offset;
                 if (character.CharacterTag == CharacterTag.Hide)
-                    character.transform.position = mPositions[(int)newChars.IndexOf(character)].transform.position + (Vector3)offset * 0.01f;
+                    character.transform.position = mPositions[(int)newChars.IndexOf(character)].transform.position + (Vector3)offset * 0.01f + Vector3.down * 1.2f;
                 else
-                    character.transform.DOMove(mPositions[(int)newChars.IndexOf(character)].transform.position + (Vector3)offset*0.01f, 0.5f);
+                    character.transform.DOMove(mPositions[(int)newChars.IndexOf(character)].transform.position + (Vector3)offset*0.01f + Vector3.down * 1.2f, 0.5f);
                 character.Show();
             }
             else
@@ -55,7 +55,7 @@ public class WorkStage : BaseStage
         for (int i = 0; i < newChars.Count; i++)
         {
             Vector3? offset = newChars[i]?.CharSO.offset;
-            newChars[i]?.transform.DOMove((mPositions[(int)i].transform.position + (Vector3)offset* 0.01f) , 0.5f);
+            newChars[i]?.transform.DOMove((mPositions[(int)i].transform.position + (Vector3)offset* 0.01f + Vector3.down * 1.2f) , 0.5f);
         }
         mChars = newChars;
     }
@@ -75,7 +75,7 @@ public class WorkStage : BaseStage
             BaseCharacter baseCharacter = charObj.GetComponent<BaseCharacter>();
             baseCharacter.SetData(charSO);
             Vector3 offset = baseCharacter.CharSO.offset;
-            baseCharacter.transform.position = mPositions[(int)pos].transform.position + offset * 0.01f;
+            baseCharacter.transform.position = mPositions[(int)pos].transform.position + offset * 0.01f + Vector3.down * 1.2f;
             mCharChace.Add(charSO, baseCharacter);
             baseCharacter.transform.localScale *= charSO.scale;
         }
