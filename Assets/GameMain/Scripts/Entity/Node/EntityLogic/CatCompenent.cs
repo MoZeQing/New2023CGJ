@@ -50,7 +50,7 @@ namespace GameMain
                     GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, productTag)
                     {
                         Position = this.transform.position + new Vector3(0.5f, 0, 0),
-                        RamdonJump = true,
+                        RamdonJump = false,
                         Grind = productGrind
                     });
                     RemoveChildren();//删除全部的子节点

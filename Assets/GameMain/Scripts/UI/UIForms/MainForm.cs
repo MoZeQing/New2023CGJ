@@ -108,22 +108,22 @@ namespace GameMain
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
             TitleUpdate();
-            if (GameEntry.Player.GuideId <= 5&&GameEntry.Player.Day<4)
-            {
-                outBtn.gameObject.SetActive(false);
-            }
-            else
-            {
-                outBtn.gameObject.SetActive(true);
-            }
-            if (GameEntry.Player.GuideId == 6 && GameEntry.Player.Day == 4)
-            {
-                teachBtn.gameObject.SetActive(false);
-            }
-            else
-            {
-                teachBtn.gameObject.SetActive(true);
-            }
+            //if (GameEntry.Player.GuideId <= 5&&GameEntry.Player.Day<4)
+            //{
+            //    outBtn.gameObject.SetActive(false);
+            //}
+            //else
+            //{
+            //    outBtn.gameObject.SetActive(true);
+            //}
+            //if (GameEntry.Player.GuideId == 6 && GameEntry.Player.Day == 4)
+            //{
+            //    teachBtn.gameObject.SetActive(false);
+            //}
+            //else
+            //{
+            //    teachBtn.gameObject.SetActive(true);
+            //}
             nowTime -=Time.deltaTime;
             if (nowTime <= 0)
             {

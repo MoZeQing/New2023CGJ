@@ -601,7 +601,7 @@ namespace GameMain
                             GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Espresso)
                             {
                                 Position = this.transform.position + new Vector3(0.5f, 0, 0),
-                                RamdonJump = true,
+                                RamdonJump = false,
                                 Grind = true
                             });
                         }
@@ -610,7 +610,7 @@ namespace GameMain
                             GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, mRecipeData.products[i])
                             {
                                 Position = this.transform.position + new Vector3(0.5f, 0, 0),
-                                RamdonJump = true,
+                                RamdonJump = false,
                                 Grind = GetChildGrind()
                             });
                         }
