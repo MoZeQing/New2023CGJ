@@ -9,7 +9,7 @@ namespace GameMain
     {      
         void Start()
         {
-            if (!GameEntry.Utils.CheckFlag("trust_2"))
+            if (!GameEntry.Utils.CheckFlag("Chapter_Maid"))
                 return;
             GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, NodeTag.Cat)
             {
