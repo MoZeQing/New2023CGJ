@@ -11,16 +11,16 @@ public class CompleteForm : BaseForm
     [SerializeField] private List<CompleteItem> completeItems;
     [SerializeField] private Button okBtn;
     [SerializeField] private Transform canvas;
-    [SerializeField,Range(0f,2f)] private float speed=1f;
+    [SerializeField,Range(0f,2f)] private float speed=0.5f;
 
     private Action mAction;
-
+    Sequence sequence = null;
     protected override void OnOpen(object userData)
     {
         base.OnOpen(userData);
-        Sequence sequence = DOTween.Sequence();
+        sequence = DOTween.Sequence();
         canvas.transform.localScale= Vector3.one*0.01f;
-        sequence.Append(canvas.transform.DOScale(Vector3.one, 1f).SetEase(Ease.OutExpo));
+        sequence.Append(canvas.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo));
 
         mAction = BaseFormData.Action;
         ValueData valueData = BaseFormData.UserData as ValueData;
@@ -46,7 +46,10 @@ public class CompleteForm : BaseForm
         }
         sequence.AppendCallback(() => okBtn.gameObject.SetActive(true));
     }
-
+    protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
+    {
+        base.OnUpdate(elapseSeconds, realElapseSeconds);
+    }
     protected override void OnClose(bool isShutdown, object userData)
     {
         base.OnClose(isShutdown, userData);

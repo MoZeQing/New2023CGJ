@@ -66,7 +66,6 @@ namespace GameMain
             GameEntry.Event.Subscribe(PlayerDataEventArgs.EventId, mTeachingForm.OnPlayerDataEvent);
             GameEntry.Event.Subscribe(CatDataEventArgs.EventId, mTeachingForm.OnCatDataEvent);
             GameEntry.Event.Subscribe(DialogEventArgs.EventId, OnDialogEvent);
-
         }
         protected override void OnClose(bool isShutdown, object userData)
         {
@@ -207,6 +206,8 @@ namespace GameMain
                     weatherTag = WeatherTag.Morning;
                     break;
             }
+            if (weatherTag == GameEntry.Utils.WeatherTag)
+                return;
             GameEntry.Utils.WeatherTag = weatherTag;
             DRWeather weather = GameEntry.DataTable.GetDataTable<DRWeather>().GetDataRow((int)GameEntry.Utils.WeatherTag);
             changeBackgroundImg.sprite = backgroundImg.sprite;
@@ -214,8 +215,6 @@ namespace GameMain
             changeBackgroundImg.color = Color.white;
             backgroundImg.sprite = Resources.Load<Sprite>(weather.AssetName);
             changeBackgroundImg.DOColor(Color.clear, 3f).OnComplete(() => changeBackgroundImg.gameObject.SetActive(false));
-            if (weatherTag == GameEntry.Utils.WeatherTag)
-                return;
             GameEntry.Sound.PlaySound(weather.BackgroundMusicId);
         }
 
