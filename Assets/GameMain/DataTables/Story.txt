@@ -1,7 +1,7 @@
-#	StoryÅäÖÃ±í								
+#	Storyé…ç½®è¡¨								
 #	Id		StoryName	IsRemove	OutingSceneState	GameState	Trigger	DialogName	EventText
 #	int		string	bool	int	int	string	string	string
-#	½ÌÑ§ÄÚÈÝ±àºÅ	±¸×¢	¹ÊÊÂ´¥·¢Æ÷Ãû³Æ	ÊÇ·ñÒÆ³ý	Íâ³ö³¡¾°	ÓÎÏ·Ä£Ê½	´¥·¢Æ÷Ìõ¼þ	¹ÊÊÂÃû³Æ	ÊÂ¼þ
+#	æ•™å­¦å†…å®¹ç¼–å·	å¤‡æ³¨	æ•…äº‹è§¦å‘å™¨åç§°	æ˜¯å¦ç§»é™¤	å¤–å‡ºåœºæ™¯	æ¸¸æˆæ¨¡å¼	è§¦å‘å™¨æ¡ä»¶	æ•…äº‹åç§°	äº‹ä»¶
 	6		Chapter_01_03_Midnight	TRUE	0	8	[Day = 2]	Chapter_01_03_Midnight	
 	11		Chapter_02_02_clothing	TRUE	6	7	[Day = 4]	Chapter_02_02_clothing	
 	12		Chapter_02_02_afternoon	TRUE	0	6	[Day = 4]	Chapter_02_02_afternoon	
@@ -18,11 +18,11 @@
 	28		Chapter_06_RentF	TRUE	0	1	(&[Day = 23](|[Money > 2500][Money = 2500]/)/)	Chapter_06_RentF	AddMoney -2500
 	29		Chapter_07_RentE	TRUE	0	1	(|(&[Day = 7][Money < 500]/)(&[Day = 11][Money < 1000]/)(&[Day = 15][Money < 1500]/)(&[Day = 19][Money < 2000]/)(&[Day = 23][Money < 2500]/)/)	Chapter_07_RentE	
 	30		Chapter_Maid	TRUE	0	1	(&[Flag = Closet3](|[Wisdom > 65][Wisdom = 65]/)(|[Stamina > 65][Stamina = 65]/)(|[Charm > 65][Charm = 65]/)(|[Day > 5][Day = 5]/)(|[Day = 20][Day < 20]/)/)	Chapter_Maid	
-	31		Chapter_ForeForest	TRUE	0	1	(&[Flag = Closet3](|[Day = 13][Day = 5][Day > 5][Day < 13]/)(|[Stamina = 40][Stamina > 40]/)/)	Chapter_ForeForest	
+	31		Chapter_ForeForest	TRUE	0	1	(&[Flag = Closet5][Day > 5][Day < 13](|[Stamina = 40][Stamina > 40]/)/)	Chapter_ForeForest	
 	32		Chapter_Forest	TRUE	0	6	[Flag = Chapter_ForeForest]	Chapter_Forest	
-	33		Chapter_ForeSea	TRUE	0	1	(&[Day > 13](|[Charm = 70][Charm > 70]/)(|[Stamina = 70][Stamina > 70]/)(|[Day < 20][Day = 20]/)/)	Chapter_ForeSea	
-	34		Chapter_Shopstreet	TRUE	0	6	(&[Money > 600](|[Day = 13][Day = 5][Day > 5][Day < 13]/)(|[Wisdom = 60][Wisdom > 60]/)(|[Charm = 60][Charm > 60]/)/)	Chapter_Shopstreet	AddMoney -100
+	33		Chapter_ForeSea	TRUE	0	1	(&[Day > 13](|[Charm = 70][Charm > 70]/)(|[Stamina = 70][Stamina > 70]/)[Day < 21]/)	Chapter_ForeSea	
+	34		Chapter_Shopstreet	TRUE	0	6	(&[Money > 600][Day > 4][Day < 14](|[Wisdom = 60][Wisdom > 60]/)(|[Charm = 60][Charm > 60]/)/)	Chapter_Shopstreet	AddMoney -100
 	35		Chapter_SeaSecond	TRUE	0	6	[Flag = Chapter_ForeSea]	Chapter_SeaSecond	
-	36		Chapter_SeaEnd	TRUE	0	8	(&[Flag = Closet4](|[Day = 18][Day > 18]/)(|[Day = 20][Day > 20]/)[Flag = Chapter_Shopstreet][Flag = Chapter_Chocolate][Flag = Chapter_SeaSecond][Flag = Chapter_SeaSecond][Money > 699][Wisdom > 89][Stamina > 89][Charm > 89]/)	Chapter_SeaEnd	
+	36		Chapter_SeaEnd	TRUE	0	8	(&[Flag = Closet4][Day > 17][Day < 21][Flag = Chapter_Shopstreet][Flag = Chapter_Chocolate][Flag = Chapter_SeaSecond][Flag = Chapter_SeaSecond][Money > 699][Wisdom > 89][Stamina > 89][Charm > 89]/)	Chapter_SeaEnd	
 	37		Chapter_Chocolate	TRUE	0	6	(&[Flag = Chapter_SeaSecond][Day > 13][Charm > 89][Wisdom > 89]/)	Chapter_Chocolate	
 	38		Chapter_Unsleep	TRUE	0	8	[Day = 12]	Chapter_Unsleep	
