@@ -75,10 +75,10 @@ namespace GameMain
             //剩余时间大于1/6得到2星
             //剩余时间大于0或至少完成1单得到1星
             //剩余时间等于且完成没有完成订单得到0星
-            int a = (int)(workData.Power * 6);
-            if (a > 2)
+            float a = workData.Power;
+            if (a > 0.333f && workData.orderDatas.Count == workData.OrderCount)
                 return 3;
-            if (a > 1&&workData.orderDatas.Count==workData.OrderCount)
+            if (a > 0.166f&&workData.orderDatas.Count==workData.OrderCount)
                 return 2;
             if (a > 0 || workData.Income > 0)
                 return 1;
@@ -112,7 +112,7 @@ namespace GameMain
 
             //订单总体列表
             income = (int)mWorkData.Income;
-            levelMoney = (int)(mWorkData.Money * (float)GetPower(mWorkData) / 3f * 1.5f);
+            levelMoney = (int)(mWorkData.Money * (float)GetPower(mWorkData) / 3f);
             sequence.Append(DOTween.To(value => { incomeText.text = Mathf.Floor(value).ToString(); }, startValue: 0, endValue: income, duration: 0.5f));
             sequence.Append(DOTween.To(value => { levelText.text = Mathf.Floor(value).ToString(); }, startValue: 0, endValue: levelMoney, duration: 0.5f));
             catValue = (int)((levelMoney + income) * (((float)GameEntry.Cat.CharmLevel - 1f) / 3f));
