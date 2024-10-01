@@ -9,7 +9,7 @@ using XNode.Examples.RuntimeMathNodes;
 namespace GameMain
 {
     //固定工具卡
-    public class ToolCompenent : BaseCompenent
+    public class ToolCompenent : BaseCompenent,IPointerClickHandler
     {
         [SerializeField] protected Animator mAnimator;
         protected override void OnInit(object userData)
@@ -96,6 +96,7 @@ namespace GameMain
             Compound();
             Check = IsMouseInside(this.gameObject);
         }
+        private NodeTag mMaterialTag = NodeTag.None;
         protected override void Compound()
         {
             //层级刷新
@@ -124,6 +125,7 @@ namespace GameMain
                                 mTime = recipe.ProducingTime * power;
                                 mProgressBarRenderer.gameObject.SetActive(true);
                                 mAnimator.SetBool("Producing", true);
+                                mMaterialTag = Child.NodeTag;
                                 HideChildren();//直接隐藏所有的子项目
                                 return;
                             }
@@ -169,7 +171,7 @@ namespace GameMain
                         {
                             GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, mRecipeData.products[i])
                             {
-                                Position = this.transform.position + new Vector3(0.5f, 0, 0),
+                                Position = this.transform.position + new Vector3(-0.5f, 0, 0),
                                 RamdonJump = true,
                                 Grind = GetChildGrind()
                             });
@@ -179,6 +181,7 @@ namespace GameMain
                     {
                         this.Remove();
                     }
+                    mMaterialTag = NodeTag.None;
                     mAnimator.SetBool("Producing", false);
                     mBackgroundSprite.sprite = Resources.Load<Sprite>(mDRNode.BackgroundPath);
                     mProducingTime = 0;
@@ -188,6 +191,28 @@ namespace GameMain
                     Producing = false;
                     return;
                 }
+            }
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (eventData.button == PointerEventData.InputButton.Right)
+            {
+                mAnimator.SetBool("Producing", false);
+                mBackgroundSprite.sprite = Resources.Load<Sprite>(mDRNode.BackgroundPath);
+                mProducingTime = 0;
+                mTime = 0f;
+                mRecipeData = null;
+                mProgressBarRenderer.gameObject.SetActive(false);
+                Producing = false;
+                if (mMaterialTag == NodeTag.None)
+                    return;
+                GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, mMaterialTag)
+                {
+                    Position = this.transform.position + new Vector3(0.5f, 0, 0),
+                    RamdonJump = true,
+                });
+                mMaterialTag = NodeTag.None;
             }
         }
     }

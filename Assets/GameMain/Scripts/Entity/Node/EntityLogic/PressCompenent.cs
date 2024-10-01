@@ -2,10 +2,13 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using XNode.Examples.RuntimeMathNodes;
 
 namespace GameMain
 {
-    public class PressCompenent : ToolCompenent
+    public class PressCompenent : ToolCompenent, IPointerClickHandler
     {
         protected NodeTag coffeeBean = NodeTag.None;
         protected NodeTag water=NodeTag.None;
@@ -55,8 +58,6 @@ namespace GameMain
                     mTime = recipe.ProducingTime * power;
                     mBackgroundSprite.sprite = Resources.Load<Sprite>("Image/Card/press_anim");
                     mProgressBarRenderer.gameObject.SetActive(true);
-                    coffeeBean = NodeTag.None;
-                    water = NodeTag.None;
                 }
                 if (!Producing && Child != null)
                 {
@@ -113,7 +114,40 @@ namespace GameMain
                     mRecipeData = null;
                     mProgressBarRenderer.gameObject.SetActive(false);
                     Producing = false;
+                    coffeeBean = NodeTag.None;
+                    water = NodeTag.None;
                     return;
+                }
+            }
+        }
+        public new void OnPointerClick(PointerEventData eventData)
+        {
+            if (eventData.button == PointerEventData.InputButton.Right)
+            {
+                mAnimator.SetBool("Producing", false);
+                mBackgroundSprite.sprite = Resources.Load<Sprite>(mDRNode.BackgroundPath);
+                mProducingTime = 0;
+                mTime = 0f;
+                mRecipeData = null;
+                mProgressBarRenderer.gameObject.SetActive(false);
+                Producing = false;
+                if (coffeeBean != NodeTag.None)
+                {
+                    GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, coffeeBean)
+                    {
+                        Position = this.transform.position + new Vector3(0.5f, 0, 0),
+                        RamdonJump = true,
+                    });
+                    coffeeBean = NodeTag.None;
+                }
+                if (water != NodeTag.None)
+                {
+                    GameEntry.Entity.ShowNode(new NodeData(GameEntry.Entity.GenerateSerialId(), 10000, water)
+                    {
+                        Position = this.transform.position + new Vector3(0.5f, 0, 0),
+                        RamdonJump = true,
+                    });
+                    water = NodeTag.None;
                 }
             }
         }
