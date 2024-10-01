@@ -123,10 +123,12 @@ namespace GameMain
             if (GameEntry.Player.GuideId == 6 && GameEntry.Player.Day == 4)
             {
                 teachBtn.gameObject.SetActive(false);
+                sleepBtn.gameObject.SetActive(false);
             }
             else
             {
                 teachBtn.gameObject.SetActive(true);
+                sleepBtn.gameObject.SetActive(true);
             }
             if (GameEntry.Player.Day == 22)
             {
