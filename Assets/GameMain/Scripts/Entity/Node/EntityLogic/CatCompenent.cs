@@ -36,7 +36,7 @@ namespace GameMain
                 mProgressBarRenderer.gameObject.SetActive(true);
                 mProgressBarRenderer.fillAmount = 1 - (1 - mProducingTime / mTime);
                 mProducingTime -= Time.deltaTime;
-                if (!Child.IsCoffee)
+                if (Child==null ||!Child.IsCoffee)
                 {
                     mProducingTime = 0;
                     mTime = 0f;

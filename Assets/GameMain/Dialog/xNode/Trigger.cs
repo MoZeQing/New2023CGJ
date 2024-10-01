@@ -622,5 +622,6 @@ public enum EventTag
     WorkTest,
     OrderTest,
     AddCGFlag,
-    AddMaxAp
+    AddMaxAp,
+    AddWisdom
 }

@@ -381,6 +381,9 @@ namespace GameMain
                 case EventTag.AddCGFlag:
                     GameEntry.SaveLoad.AddCGFlag(eventData.values[1]);
                     break;
+                case EventTag.AddWisdom:
+                    GameEntry.Cat.Wisdom += (int.Parse(eventData.values[1]));
+                    break;
             }
             return false;
         }
