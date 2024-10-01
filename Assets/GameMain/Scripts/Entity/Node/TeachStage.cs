@@ -14,7 +14,16 @@ public class TeachStage : BaseStage
 
     public override void ShowCharacter(ChatData chatData)
     {
-        baseCharacter.SetData(chatData.middleAction.charSO);
+        if (GameMain.GameEntry.Player.Day == 22)
+        {
+            baseCharacter.gameObject.SetActive(false);
+            return;
+        }
+        else
+        {
+            baseCharacter.gameObject.SetActive(true);
+        }
+        baseCharacter.SetData(charSO);
         baseCharacter.SetAction(chatData.middleAction.actionTag);
         baseCharacter.SetDiff(chatData.middleAction.diffTag);
     }

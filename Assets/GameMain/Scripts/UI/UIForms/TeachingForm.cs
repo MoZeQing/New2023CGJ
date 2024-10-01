@@ -238,6 +238,13 @@ namespace GameMain
         //单独给点击做一个方法调用
         public void Click_Action()
         {
+            favorText.text = GameEntry.Cat.Favor.ToString();
+            staminaText.text = GameEntry.Cat.Stamina.ToString();
+            wisdomText.text = GameEntry.Cat.Wisdom.ToString();
+            charmText.text = GameEntry.Cat.Charm.ToString();
+            staminaLevelText.text = $"Lv.{GameEntry.Cat.StaminaLevel}";
+            wisdomLevelText.text = $"Lv.{GameEntry.Cat.WisdomLevel}";
+            charmLevelText.text = $"Lv.{GameEntry.Cat.CharmLevel}";
             GameEntry.Sound.PlaySound(UnityEngine.Random.Range(24,27));
             Behaviour(BehaviorTag.Click);
         }
