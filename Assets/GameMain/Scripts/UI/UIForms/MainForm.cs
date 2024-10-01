@@ -73,6 +73,10 @@ namespace GameMain
             GameEntry.Event.Subscribe(DialogEventArgs.EventId, OnDialogEvent);
 
             GameEntry.Event.Subscribe(OutEventArgs.EventId, OnOutEvent);
+
+            littleCatImg.gameObject.SetActive(true);
+            teachBtn.gameObject.SetActive(true);
+            outBtn.gameObject.SetActive(true);
         }
         protected override void OnClose(bool isShutdown, object userData)
         {
@@ -108,24 +112,30 @@ namespace GameMain
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
             TitleUpdate();
-            //if (GameEntry.Player.GuideId <= 5&&GameEntry.Player.Day<4)
-            //{
-            //    outBtn.gameObject.SetActive(false);
-            //}
-            //else
-            //{
-            //    outBtn.gameObject.SetActive(true);
-            //}
-            //if (GameEntry.Player.GuideId == 6 && GameEntry.Player.Day == 4)
-            //{
-            //    teachBtn.gameObject.SetActive(false);
-            //}
-            //else
-            //{
-            //    teachBtn.gameObject.SetActive(true);
-            //}
+            if (GameEntry.Player.GuideId <= 5 && GameEntry.Player.Day < 4)
+            {
+                outBtn.gameObject.SetActive(false);
+            }
+            else
+            {
+                outBtn.gameObject.SetActive(true);
+            }
+            if (GameEntry.Player.GuideId == 6 && GameEntry.Player.Day == 4)
+            {
+                teachBtn.gameObject.SetActive(false);
+            }
+            else
+            {
+                teachBtn.gameObject.SetActive(true);
+            }
+            if (GameEntry.Player.Day == 22)
+            {
+                littleCatImg.gameObject.SetActive(false);
+                teachBtn.gameObject.SetActive(false);
+                outBtn.gameObject.SetActive(false);
+            }
             nowTime -=Time.deltaTime;
-            if (nowTime <= 0)
+            if (nowTime <= 0&&GameEntry.Player.Day!=22)
             {
                 nowTime = rateTime;
                 ShowLittleCat();

@@ -31,6 +31,8 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   start: 0
+  startData:
+    dialogName: 
 --- !u!114 &-2382672024562656066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67,7 +69,7 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: chatDatas
       _node: {fileID: -2382672024562656066}
-      _typeQualifiedName: System.Collections.Generic.List`1[[ChatData, Assembly-CSharp,
+      _typeQualifiedName: System.Collections.Generic.List`1[[Dialog.ChatData, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
         Culture=neutral, PublicKeyToken=b77a5c561934e089
       connections: []
@@ -77,7 +79,7 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: chatDatas 0
       _node: {fileID: -2382672024562656066}
-      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      _typeQualifiedName: Dialog.ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections: []
       _direction: 1
@@ -86,7 +88,7 @@ MonoBehaviour:
       _dynamic: 1
     - _fieldName: chatDatas 1
       _node: {fileID: -2382672024562656066}
-      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      _typeQualifiedName: Dialog.ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections: []
       _direction: 1
@@ -95,7 +97,7 @@ MonoBehaviour:
       _dynamic: 1
     - _fieldName: chatDatas 2
       _node: {fileID: -2382672024562656066}
-      _typeQualifiedName: ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      _typeQualifiedName: Dialog.ChatData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections: []
       _direction: 1
@@ -105,72 +107,54 @@ MonoBehaviour:
   a: 0
   dialogId: 
   chatDatas:
-  - charName: 
-    left:
+  - chatPos: 0
+    charName: 
+    leftAction:
       charSO: {fileID: 0}
-      actionData:
-        diffTag: 0
-        actionTag: 0
-        soundTag: 0
-    middle:
+      diffTag: 0
+      actionTag: 0
+    middleAction:
       charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
-      actionData:
-        diffTag: 0
-        actionTag: 0
-        soundTag: 0
-    right:
+      diffTag: 0
+      actionTag: 0
+    rightAction:
       charSO: {fileID: 0}
-      actionData:
-        diffTag: 0
-        actionTag: 0
-        soundTag: 0
-    background: {fileID: 0}
-    eventDatas: []
+      diffTag: 0
+      actionTag: 0
     text: "\u7231\u4E3D\u4E1D\uFF0C\u5728\u8FD9\u4F4F\u7740\u611F\u89C9\u8FD8\u9002\u5E94\u5417\uFF1F"
-  - charName: "\u7231\u4E3D\u4E1D"
-    left:
+    eventData: []
+  - chatPos: 0
+    charName: "\u7231\u4E3D\u4E1D"
+    leftAction:
       charSO: {fileID: 0}
-      actionData:
-        diffTag: 0
-        actionTag: 0
-        soundTag: 0
-    middle:
+      diffTag: 0
+      actionTag: 0
+    middleAction:
       charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
-      actionData:
-        diffTag: 0
-        actionTag: 0
-        soundTag: 0
-    right:
+      diffTag: 0
+      actionTag: 0
+    rightAction:
       charSO: {fileID: 0}
-      actionData:
-        diffTag: 0
-        actionTag: 0
-        soundTag: 0
-    background: {fileID: 0}
-    eventDatas: []
+      diffTag: 0
+      actionTag: 0
     text: "\u55EF\u2026\u2026"
-  - charName: 
-    left:
+    eventData: []
+  - chatPos: 0
+    charName: 
+    leftAction:
       charSO: {fileID: 0}
-      actionData:
-        diffTag: 0
-        actionTag: 0
-        soundTag: 0
-    middle:
+      diffTag: 0
+      actionTag: 0
+    middleAction:
       charSO: {fileID: 11400000, guid: 50f8da0be51f8ff4bb1222b946bc84c7, type: 2}
-      actionData:
-        diffTag: 0
-        actionTag: 0
-        soundTag: 0
-    right:
+      diffTag: 0
+      actionTag: 0
+    rightAction:
       charSO: {fileID: 0}
-      actionData:
-        diffTag: 0
-        actionTag: 0
-        soundTag: 0
-    background: {fileID: 0}
-    eventDatas: []
+      diffTag: 0
+      actionTag: 0
     text: "\u7231\u4E3D\u4E1D\u53EA\u662F\u4F4E\u7740\u5934\u5E94\u4E86\u4E00\u58F0"
+    eventData: []
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0

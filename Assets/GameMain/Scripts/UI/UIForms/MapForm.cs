@@ -33,18 +33,18 @@ namespace GameMain
             marketBtn.onClick.AddListener(() => Outing(OutingSceneState.Market));
             //restaurantBtn.onClick.AddListener(() => Outing(OutingSceneState.Restaurant));
             saveLoadBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.SaveLoadForm, this));
-            //if (GameEntry.Player.GuideId == 6)
-            //{
-            //    libraryBtn.gameObject.SetActive(false);
-            //    benchBtn.gameObject.SetActive(false);
-            //    gymBtn.gameObject.SetActive(false);
-            //}
-            //else
-            //{
-            //    libraryBtn.gameObject.SetActive(true);
-            //    benchBtn.gameObject.SetActive(true);
-            //    gymBtn.gameObject.SetActive(true);
-            //}
+            if (GameEntry.Player.GuideId == 6)
+            {
+                libraryBtn.gameObject.SetActive(false);
+                benchBtn.gameObject.SetActive(false);
+                gymBtn.gameObject.SetActive(false);
+            }
+            else
+            {
+                libraryBtn.gameObject.SetActive(true);
+                benchBtn.gameObject.SetActive(true);
+                gymBtn.gameObject.SetActive(true);
+            }
 
             GameEntry.Event.Subscribe(PlayerDataEventArgs.EventId, OnPlayerDataEvent);    
         }

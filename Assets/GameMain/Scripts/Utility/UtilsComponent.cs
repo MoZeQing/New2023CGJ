@@ -217,10 +217,20 @@ namespace GameMain
                     return false;
                 if (trigger.equals)
                 {
-                    if (mUtilsData.values[trigger.key] == trigger.value)
-                        return true;
+                    if (!trigger.not)
+                    {
+                        if (mUtilsData.values[trigger.key] == trigger.value)
+                            return true;
+                        else
+                            return false;
+                    }
                     else
-                        return false;
+                    {
+                        if (mUtilsData.values[trigger.key] == trigger.value)
+                            return false;
+                        else
+                            return true;
+                    }
                 }
                 else
                 {

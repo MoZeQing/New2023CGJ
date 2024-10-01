@@ -173,7 +173,7 @@ namespace GameMain
                         continue;
                 if (GameEntry.Utils.Check(story.trigger))
                 {
-                    GameEntry.UI.OpenUIForm(UIFormId.DialogForm, story.dialogName);
+                    GameEntry.UI.OpenUIForm(UIFormId.DialogForm, m_MapsDialogs[story.dialogName]);
                     InDialog = true;
                     GameEntry.Event.FireNow(this, DialogEventArgs.Create(InDialog, story.dialogName));
                     GameEntry.Event.FireNow(this, StoryEventArgs.Create(story.storyName));

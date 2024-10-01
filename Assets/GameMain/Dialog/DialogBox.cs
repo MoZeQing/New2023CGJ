@@ -195,14 +195,14 @@ public class DialogBox : MonoBehaviour
 
     protected virtual void ShowChat(ChatData chatData)
     {
-        try
-        {
+        //try
+        //{
             DisplayChat(chatData);
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError($"Error showing chat: {ex.Message}\nChatData identifier: {chatData.Id}");
-        }
+        //}
+        //catch (Exception ex)
+        //{
+        //    Debug.LogError($"Error showing chat: {ex.Message}\nChatData identifier: {chatData.Id}");
+        //}
     }
 
     protected void DisplayChat(ChatData chatData)

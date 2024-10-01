@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14d6996e17670c54fbd9885c10fe32df, type: 3}
+  m_Name: day22
+  m_EditorClassIdentifier: 
+  catStateData:
+    trigger:
+      key: 11
+      not: 0
+      equals: 1
+      value: 22
+      and: []
+    behaviors:
+    - behaviorTag: 4
+      behaviorName: "\u7761\u89C9\uFF08\u8FDB\u5165\u4E0B\u4E00\u5929\uFF09"
+      valueData:
+        energy: 0
+        ap: 0
+        money: 0
+        favor: 0
+        stamina: 0
+        wisdom: 0
+        charm: 0
+      dialogues:
+      - {fileID: 11400000, guid: be09f17600761cc4ab161548d1c166dd, type: 2}
+    - behaviorTag: 5
+      behaviorName: 
+      valueData:
+        energy: 0
+        ap: 0
+        money: 0
+        favor: 0
+        stamina: 0
+        wisdom: 0
+        charm: 0
+      dialogues:
+      - {fileID: 11400000, guid: d9bad65e337081642a59702efe7eca98, type: 2}
