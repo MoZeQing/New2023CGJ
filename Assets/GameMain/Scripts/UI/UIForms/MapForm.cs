@@ -31,7 +31,7 @@ namespace GameMain
             gymBtn.onClick.AddListener(() => Outing(OutingSceneState.Gym));
             benchBtn.onClick.AddListener(() => Outing(OutingSceneState.Beach));
             marketBtn.onClick.AddListener(() => Outing(OutingSceneState.Market));
-            restaurantBtn.onClick.AddListener(() => Outing(OutingSceneState.Restaurant));
+            //restaurantBtn.onClick.AddListener(() => Outing(OutingSceneState.Restaurant));
             saveLoadBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.SaveLoadForm, this));
             if (GameEntry.Player.GuideId == 6)
             {
@@ -76,7 +76,7 @@ namespace GameMain
             exitBtn.onClick.RemoveAllListeners();
             benchBtn.onClick.RemoveAllListeners(); 
             marketBtn.onClick.RemoveAllListeners();
-            restaurantBtn.onClick.RemoveAllListeners();
+            //restaurantBtn.onClick.RemoveAllListeners();
             saveLoadBtn.onClick.RemoveAllListeners();
 
             GameEntry.Event.Unsubscribe(PlayerDataEventArgs.EventId, OnPlayerDataEvent);
