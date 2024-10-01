@@ -18,6 +18,8 @@ namespace GameMain
         [SerializeField] protected Text moneyText;
         [SerializeField] protected ValueData valueData;
         [SerializeField] protected int cost;
+        [SerializeField] protected Week week1;
+        [SerializeField] protected Week week2;
 
         protected override void OnOpen(object userData)
         {
@@ -27,14 +29,14 @@ namespace GameMain
             exitBtn.onClick.AddListener(OnExit);
             moneyText.text=GameEntry.Player.Money.ToString();
 
+            matchBtn.interactable = (GameEntry.Player.Week == week1 || GameEntry.Player.Week == week2);
+
             GameEntry.Event.Subscribe(DialogEventArgs.EventId, OnDialogEvent);
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
-            trainBtn.interactable = GameEntry.Player.Money >= cost;
-            matchBtn.interactable = GameEntry.Player.Money >= cost;
         }
 
         protected override void OnClose(bool isShutdown, object userData)

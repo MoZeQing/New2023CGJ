@@ -88,6 +88,11 @@ namespace GameMain
         }
         private void Outing(OutingSceneState outingSceneState)
         {
+            if (Mathf.Abs(GameEntry.Player.MaxAp - GameEntry.Player.Ap) >= 2)
+            {
+                GameEntry.UI.OpenUIForm(UIFormId.PopTips, "太晚了，呆在家里吧");
+                return;
+            }
             if (GameEntry.Player.Ap <= 0)
             {
                 GameEntry.UI.OpenUIForm(UIFormId.PopTips, "你的体力已经耗尽，该去睡觉了！");

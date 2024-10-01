@@ -100,10 +100,14 @@ namespace GameMain
                 BuffData buffData = GameEntry.Buff.GetBuff();
                 GameEntry.Player.Energy -= (int)Mathf.Clamp((behavior.valueData.energy*buffData.EnergyMulti+buffData.EnergyPlus),0,9999999);
 
-                GameEntry.Cat.Favor += (int)(behavior.valueData.favor * buffData.FavorMulti + buffData.FavorPlus);
-                GameEntry.Cat.Stamina += (int)(behavior.valueData.stamina  + buffData.StaminaPlus);
-                GameEntry.Cat.Wisdom += (int)(behavior.valueData.wisdom  + buffData.WisdomPlus);
-                GameEntry.Cat.Charm += (int)(behavior.valueData.charm  + buffData.CharmPlus);
+                if(behavior.valueData.favor!=0)
+                    GameEntry.Cat.Favor += (int)(behavior.valueData.favor * buffData.FavorMulti + buffData.FavorPlus);
+                if (behavior.valueData.stamina != 0)
+                    GameEntry.Cat.Stamina += (int)(behavior.valueData.stamina  + buffData.StaminaPlus);
+                if (behavior.valueData.wisdom != 0)
+                    GameEntry.Cat.Wisdom += (int)(behavior.valueData.wisdom  + buffData.WisdomPlus);
+                if (behavior.valueData.charm != 0)
+                    GameEntry.Cat.Charm += (int)(behavior.valueData.charm  + buffData.CharmPlus);
                 GameEntry.Event.FireNow(this, BehaviorEventArgs.Create(behaviorTag));
             }
             else
@@ -140,15 +144,24 @@ namespace GameMain
         //操作区域
         private void OnAugur(BehaviorData behavior)
         {
-            GameEntry.UI.OpenUIForm(UIFormId.ActionForm1, OnComplete, behavior.valueData);
+            BuffData buffData = GameEntry.Buff.GetBuff();
+            ValueData valueData = new ValueData(behavior.valueData);
+            valueData.charm = (int)(behavior.valueData.charm + buffData.CharmPlus);
+            GameEntry.UI.OpenUIForm(UIFormId.ActionForm1, OnComplete, valueData);
         }
         private void OnSport(BehaviorData behavior)
         {
-            GameEntry.UI.OpenUIForm(UIFormId.ActionForm2, OnComplete, behavior.valueData);
+            BuffData buffData = GameEntry.Buff.GetBuff();
+            ValueData valueData = new ValueData(behavior.valueData);
+            valueData.stamina = (int)(behavior.valueData.stamina + buffData.StaminaPlus);
+            GameEntry.UI.OpenUIForm(UIFormId.ActionForm2, OnComplete, valueData);
         }
         private void OnRead(BehaviorData behavior)
         {
-            GameEntry.UI.OpenUIForm(UIFormId.ActionForm3, OnComplete, behavior.valueData);
+            BuffData buffData = GameEntry.Buff.GetBuff();
+            ValueData valueData = new ValueData(behavior.valueData);
+            valueData.wisdom = (int)(behavior.valueData.wisdom + buffData.WisdomPlus);
+            GameEntry.UI.OpenUIForm(UIFormId.ActionForm3, OnComplete, valueData);
         }
         public void OnSleep()
         {
