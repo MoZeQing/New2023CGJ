@@ -17,16 +17,56 @@ MonoBehaviour:
   outingSceneState: 0
   gameState: 6
   trigger:
-    key: 11
+    key: 1
     not: 0
-    equals: 1
-    value: 0
+    equals: 0
+    value: 
     and:
     - key: 11
       not: 0
-      equals: 0
-      value: 
-      and: []
+      equals: 1
+      value: 7
+      and:
+      - key: 9
+        not: 1
+        equals: 0
+        value: 500
+        and: []
+    - key: 11
+      not: 0
+      equals: 1
+      value: 11
+      and:
+      - key: 9
+        not: 1
+        equals: 0
+        value: 1000
+        and: []
+      - key: 0
+        not: 0
+        equals: 0
+        value: 
+        and: []
+    - key: 11
+      not: 0
+      equals: 1
+      value: 15
+      and:
+      - key: 9
+        not: 1
+        equals: 0
+        value: 1500
+        and: []
+    - key: 11
+      not: 0
+      equals: 1
+      value: 19
+      and:
+      - key: 9
+        not: 1
+        equals: 0
+        value: 2000
+        and: []
   dialogueGraph: {fileID: 11400000, guid: 7bbc307671e1bf246a7bc04620453362, type: 2}
   eventDatas: []
   content: "\u5728\u4E00\u4E2A\u6253\u70CA\u540E\u7684\u4E0B\u5348\uFF0C\u4E00\u76F4\u6C89\u9ED8\u4E0D\u8BED\u7684\u7231\u4E3D\u4E1D\u7A81\u7136\u4E3B\u52A8\u5411\u201C\u4F60\u201D\u8BE2\u95EE\u662F\u5426\u9700\u8981\u5979\u7684\u5E2E\u52A9\uFF0C\u5F97\u5230\u4F60\u80AF\u5B9A\u7684\u7B54\u590D\u540E\uFF0C\u7231\u4E3D\u4E1D\u5C0F\u58F0\u5730\u8BF4\u5979\u53EF\u4EE5\u5E72\u6253\u626B\u536B\u751F\u548C\u6D17\u7897\u4E4B\u7C7B\u7684\u6742\u6D3B\uFF0C\u4F60\u540C\u610F\u4E86\uFF0C\u4E4B\u540E\u7231\u4E3D\u4E1D\u5E2E\u5FD9\u5E72\u5B8C\u4E86\u81EA\u5DF1\u7684\u6D3B\uFF0C\u5979\u8868\u73B0\u7684\u5F88\u4E13\u4E1A\uFF0C\u770B\u8D77\u6765\u7ECF\u5E38\u5E72\u8FD9\u79CD\u6D3B\uFF0C\u8FD9\u5F15\u8D77\u4E86\u4F60\u7684\u6CE8\u610F\u3002"

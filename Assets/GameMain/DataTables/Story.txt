@@ -13,21 +13,31 @@
 	8		Chapter_02_01_afterwork	FALSE	0	5	[Day = 3]	Chapter_02_01_afterwork	
 	9		Chapter_02_02_forework	FALSE	0	3	[Day = 4]	Chapter_02_02_forework	
 	10		Chapter_02_02_afterwork	FALSE	0	5	[Day = 4]	Chapter_02_02_afterwork	
-	11		Chapter_02_02_clothing	FALSE	6	7	[Day = 4]	Chapter_02_02_clothing	
+	11		Chapter_02_02_clothing	TRUE	6	7	[Day = 4]	Chapter_02_02_clothing	
 	12		Chapter_02_02_afternoon	FALSE	0	6	[Day = 4]	Chapter_02_02_afternoon	
 	13		Chapter_02_03_forework	FALSE	0	3	[Day = 6]	Chapter_02_03_forework	
 	14		Chapter_02_03_afterwork	FALSE	0	5	[Day = 6]	Chapter_02_03_afterwork	
-	15		Chapter_03_01_Midnight	FALSE	0	8	[Day = 14]	Chapter_03_01_Midnight	
-	16		Chapter_03_02_forework	FALSE	0	3	[Day = 15]	Chapter_03_02_forework	
-	17		Chapter_03_02_afterwork	FALSE	0	5	[Day = 15]	Chapter_03_02_afterwork	
-	18		Chapter_03_02_morning	FALSE	0	1	[Day = 15]	Chapter_03_02_morning	
-	19		Chapter_03_02_afternoon	FALSE	0	6	[Day = 15]	Chapter_03_02_afternoon	
-	20		Chapter_03_03_morning	FALSE	0	1	[Day = 16]	Chapter_03_03_morning	
-	21		Chapter_03_03_clothing	FALSE	6	7	[Day = 16]	Chapter_03_03_clothing	
-	22		Chapter_03_03_Midnight	FALSE	0	8	[Day = 16]	Chapter_03_03_Midnight	
-	23		Chapter_01_RentF	FALSE	0	1	[Day = 3]	Chapter_01_RentF	
-	24		Chapter_02_RentF	FALSE	0	1	(&[Day = 7](|[Money > 500][Money = 500]/)/)	Chapter_02_RentF	AddMoney -500
-	25		Chapter_03_RentF	FALSE	0	1	(&[Day = 11](|[Money > 1000][Money = 1000]/)/)	Chapter_03_RentF	AddMoney -1000
-	26		Chapter_04_RentF	FALSE	0	1	(&[Day = 15](|[Money > 1500][Money = 1500]/)/)	Chapter_04_RentF	AddMoney -1500
-	27		Chapter_05_RentF	FALSE	0	1	(&[Day = 19](|[Money > 2000][Money = 2000]/)/)	Chapter_05_RentF	AddMoney -2000
-	28		Chapter_06_RentF	FALSE	0	1	(&[Day = 23](|[Money > 2500][Money = 2500]/)/)	Chapter_06_RentF	AddMoney -2500
+	15		Chapter_03_01_Midnight	FALSE	0	8	[Day = 21]	Chapter_03_01_Midnight	
+	16		Chapter_03_02_forework	FALSE	0	3	[Day = 22]	Chapter_03_02_forework	
+	17		Chapter_03_02_afterwork	FALSE	0	5	[Day = 22]	Chapter_03_02_afterwork	
+	18		Chapter_03_02_morning	FALSE	0	3	[Day = 22]	Chapter_03_02_morning	
+	19		Chapter_03_02_afternoon	FALSE	0	6	[Day = 22]	Chapter_03_02_afternoon	
+	20		Chapter_03_03_forework	FALSE	0	3	[Day = 23]	Chapter_03_03_forework	
+	21		Chapter_03_03_clothing	FALSE	6	7	[Day = 23]	Chapter_03_03_clothing	
+	22		Chapter_03_03_Midnight	FALSE	0	8	[Day = 23]	Chapter_03_03_Midnight	
+	23		Chapter_01_RentF	TRUE	0	1	[Day = 3]	Chapter_01_RentF	
+	24		Chapter_02_RentF	TRUE	0	1	(&[Day = 7](|[Money > 500][Money = 500]/)/)	Chapter_02_RentF	AddMoney -500
+	25		Chapter_03_RentF	TRUE	0	1	(&[Day = 11](|[Money > 1000][Money = 1000]/)/)	Chapter_03_RentF	AddMoney -1000
+	26		Chapter_04_RentF	TRUE	0	1	(&[Day = 15](|[Money > 1500][Money = 1500]/)/)	Chapter_04_RentF	AddMoney -1500
+	27		Chapter_05_RentF	TRUE	0	1	(&[Day = 19](|[Money > 2000][Money = 2000]/)/)	Chapter_05_RentF	AddMoney -2000
+	28		Chapter_06_RentF	TRUE	0	1	(&[Day = 23](|[Money > 2500][Money = 2500]/)/)	Chapter_06_RentF	AddMoney -2500
+	29		Chapter_07_RentE	FALSE	0	1	(|(&[Day = 7][Money < 500]/)(&[Day = 11][Money < 1000]/)(&[Day = 15][Money < 1500]/)(&[Day = 19][Money < 2000]/)(&[Day = 23][Money < 2500]/)/)	Chapter_07_RentE	
+	30		Chapter_Maid	FALSE	0	1	(&[Flag = Closet3](|[Wisdom > 65][Wisdom = 65]/)(|[Stamina > 65][Stamina = 65]/)(|[Charm > 65][Charm = 65]/)(|[Day > 5][Day = 5]/)(|[Day = 20][Day < 20]/)/)	Chapter_Maid	
+	31		Chapter_ForeForest	FALSE	0	1	(&[Flag = Closet3](|[Day = 13][Day = 5][Day > 5][Day < 13]/)(|[Stamina = 40][Stamina > 40]/)/)	Chapter_ForeForest	
+	32		Chapter_Forest	FALSE	0	6	[Flag = Chapter_ForeForest]	Chapter_Forest	
+	33		Chapter_ForeSea	FALSE	0	1	(&[Day > 13](|[Charm = 70][Charm > 70]/)(|[Stamina = 70][Stamina > 70]/)(|[Day < 20][Day = 20]/)/)	Chapter_ForeSea	
+	34		Chapter_Shopstreet	FALSE	0	6	(&[Money > 600](|[Day = 13][Day = 5][Day > 5][Day < 13]/)(|[Wisdom = 60][Wisdom > 60]/)(|[Charm = 60][Charm > 60]/)/)	Chapter_Shopstreet	AddMoney -100
+	35		Chapter_SeaSecond	FALSE	0	6	[Flag = Chapter_ForeSea]	Chapter_SeaSecond	
+	36		Chapter_SeaEnd	FALSE	0	8	(&[Flag = Closet4](|[Day = 18][Day > 18]/)(|[Day = 20][Day > 20]/)[Flag = Chapter_Shopstreet][Flag = Chapter_Chocolate][Flag = Chapter_SeaSecond][Flag = Chapter_SeaSecond][Money > 699][Wisdom > 89][Stamina > 89][Charm > 89]/)	Chapter_SeaEnd	
+	37		Chapter_Chocolate	FALSE	0	6	(&[Flag = Chapter_SeaSecond][Day > 13][Charm > 89][Wisdom > 89]/)	Chapter_Chocolate	
+	38		Chapter_Unsleep	FALSE	0	8	[Day = 12]	Chapter_Unsleep	
