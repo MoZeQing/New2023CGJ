@@ -41,12 +41,12 @@ namespace GameMain
         [SerializeField] private Button startBtn;
         private bool m_start;
 
-
+        private bool m_fire;
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
             mAction = BaseFormData.Action;
-
+            m_fire = false;
             scoreTitle.gameObject.SetActive(false);
             timeTitle.gameObject.SetActive(false);
             startBtn.gameObject.SetActive(true);
@@ -80,7 +80,10 @@ namespace GameMain
         }
         private void OnComplete()
         {
-            float power = (gameTime - m_gameTimer) / gameTime;
+            if (m_fire)
+                return;
+            m_fire = true;
+            float power = (gameTime * (float)(2 / GameEntry.Cat.StaminaLevel) - m_gameTimer) / gameTime * (float)(2 / GameEntry.Cat.StaminaLevel);
             ValueData newValueData = new ValueData(mValueData);
             newValueData.stamina = (int)(mValueData.stamina * power);
             newValueData.money = (int)(mValueData.money * power);
