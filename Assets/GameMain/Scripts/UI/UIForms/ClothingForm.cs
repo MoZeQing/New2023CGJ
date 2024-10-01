@@ -45,6 +45,11 @@ namespace GameMain
             salaryBtn.interactable = !GameEntry.Utils.CheckDayPassFlag("Work");
             base.UpdateItem();
         }
+        protected override void OnConfirm(DRItem itemData)
+        {
+            GameEntry.Utils.AddFlag(((ItemTag)itemData.Id).ToString());
+            base.OnConfirm(itemData);
+        }
         private void SalaryBtn_OnClick()
         {
             GameEntry.UI.OpenUIForm(UIFormId.OkTips, SalaryBtn_OnConfirm, "你确定要工作吗？");

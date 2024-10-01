@@ -333,6 +333,7 @@ namespace GameMain
                     return true;
                 case EventTag.SetClothing:
                     GameEntry.Player.AddPlayerItem(new ItemData((ItemTag)int.Parse(eventData.values[1])), 1);
+                    GameEntry.Utils.AddFlag(((ItemTag)int.Parse(eventData.values[1])).ToString());
                     GameEntry.Cat.Closet = int.Parse(eventData.values[1]);
                     break;
                 case EventTag.ShowForm:
