@@ -101,8 +101,8 @@ public class MyDailogBox : DialogBox
 
     protected override void ShowChat(ChatData chatData)
     {
-        try
-        {
+        //try
+        //{
             if (isBlackScreenActive)
             {
                 // 如果当前是黑屏状态，需要退出黑屏
@@ -117,11 +117,11 @@ public class MyDailogBox : DialogBox
             {
                 DisplayChat(chatData);
             }
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError($"Error showing chat: {ex.Message}\nChatData identifier: {chatData.Id}");
-        }
+        //}
+        //catch (Exception ex)
+        //{
+        //    Debug.LogError($"Error showing chat: {ex.Message}\nChatData identifier: {chatData.Id}");
+        //}
     }
     public virtual void ShowEventEffect(EventEffectData eventEffectData)
     {

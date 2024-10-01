@@ -63,7 +63,6 @@ namespace GameMain
             GameEntry.Level.LoadGame(saveLoadData.levelData);
             GameEntry.Player.LoadGame(saveLoadData);
             GameEntry.Buff.LoadData(saveLoadData.buffData);
-            GameEntry.Player.ClearRecipes();
             GameEntry.Event.FireNow(this, GameStateEventArgs.Create(GameState.Night));
             GameEntry.UI.OpenUIForm(UIFormId.ChangeForm);
             GameEntry.UI.CloseUIForm(this.UIForm);
