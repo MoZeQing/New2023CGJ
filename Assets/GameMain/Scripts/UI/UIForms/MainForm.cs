@@ -65,7 +65,6 @@ namespace GameMain
             buffBtn.onClick.AddListener(() => GameEntry.UI.OpenUIForm(UIFormId.BuffForm));
 
             canvasGroup.interactable = true;
-            MainUpdate();
             GameEntry.Event.Subscribe(GameStateEventArgs.EventId, OnGameStateEvent);
             GameEntry.Event.Subscribe(PlayerDataEventArgs.EventId, OnPlayerDataEvent);
             GameEntry.Event.Subscribe(CatDataEventArgs.EventId, OnCatDataEvent);
@@ -99,7 +98,8 @@ namespace GameMain
         }
         protected override void OnStart(object userData)
         {
-            MainUpdate();
+            BackgroundUpdate();
+            SoundUpdate();
             TitleUpdate();
             mTeachingForm.ShowButtons();
         }
@@ -143,9 +143,7 @@ namespace GameMain
             OutEventArgs args = e as OutEventArgs;
             if (args.OutingSceneState != OutingSceneState.Home)
                 return;
-            MainUpdate();
-            DRWeather weather = GameEntry.DataTable.GetDataTable<DRWeather>().GetDataRow((int)GameEntry.Utils.WeatherTag);
-            GameEntry.Sound.PlaySound(weather.BackgroundMusicId);
+            SoundUpdate();
         }
         private void Out_OnClick()
         {
@@ -183,19 +181,27 @@ namespace GameMain
         {
             DialogEventArgs args = (DialogEventArgs)e;
             if (!args.InDialog)
-                MainUpdate();
+            {
+                SoundUpdate();
+                if (mWeatherTag == GameEntry.Utils.WeatherTag)
+                    return;
+                BackgroundUpdate();
+            }
         }
         private void OnCatDataEvent(object sender, GameEventArgs e)
         {
             CatDataEventArgs args = (CatDataEventArgs)e;
-            MainUpdate();
             TitleUpdate();
         }
         private void OnPlayerDataEvent(object sender, GameEventArgs e)
         { 
             PlayerDataEventArgs args= (PlayerDataEventArgs)e;
-            MainUpdate();
             TitleUpdate();
+            if (mWeatherTag == GameEntry.Utils.WeatherTag)
+                return;
+            //如果weatherTag没有更新，则不进行背景更新
+            BackgroundUpdate();
+            SoundUpdate();
         }
         private void OnGameStateEvent(object sender, GameEventArgs e)
         {
@@ -205,27 +211,16 @@ namespace GameMain
                 canvasGroup.interactable = true;
             }
         }
-        protected virtual void MainUpdate()
+        protected virtual void SoundUpdate()
         {
-            WeatherTag weatherTag=WeatherTag.None;
-            switch (GameEntry.Utils.GameState)
-            {
-                case GameState.Midnight:
-                    weatherTag = WeatherTag.Night;
-                    break;
-                case GameState.Night:
-                    if (Mathf.Abs(GameEntry.Player.MaxAp- GameEntry.Player.Ap) > 2)
-                        weatherTag = WeatherTag.Night;
-                    else
-                        weatherTag = WeatherTag.Afternoon;
-                    break;
-                case GameState.Morning:
-                    weatherTag = WeatherTag.Morning;
-                    break;
-            }
-            if (weatherTag == GameEntry.Utils.WeatherTag)
-                return;
-            GameEntry.Utils.WeatherTag = weatherTag;
+            mWeatherTag = GameEntry.Utils.WeatherTag;
+            DRWeather weather = GameEntry.DataTable.GetDataTable<DRWeather>().GetDataRow((int)GameEntry.Utils.WeatherTag);
+            GameEntry.Sound.PlaySound(weather.BackgroundMusicId);
+        }
+        protected WeatherTag mWeatherTag;
+        protected virtual void BackgroundUpdate()
+        {
+            mWeatherTag = GameEntry.Utils.WeatherTag;
             DRWeather weather = GameEntry.DataTable.GetDataTable<DRWeather>().GetDataRow((int)GameEntry.Utils.WeatherTag);
             GameEntry.Sound.PlaySound(weather.BackgroundMusicId);
             changeBackgroundImg.sprite = backgroundImg.sprite;

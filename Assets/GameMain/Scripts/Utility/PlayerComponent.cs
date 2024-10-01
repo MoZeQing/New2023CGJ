@@ -204,6 +204,13 @@ namespace GameMain
             set
             {
                 mPlayerData.ap = value;
+                if (GameEntry.Utils.GameState == GameState.Night)
+                {
+                    if (Mathf.Abs(mPlayerData.maxAp - mPlayerData.ap) >= 2)
+                        GameEntry.Utils.WeatherTag = WeatherTag.Night;
+                    else
+                        GameEntry.Utils.WeatherTag = WeatherTag.Afternoon;
+                }
                 GameEntry.Utils.AddValue(TriggerTag.Ap, mPlayerData.ap.ToString());
                 GameEntry.Event.FireNow(this, PlayerDataEventArgs.Create(mPlayerData));
             }

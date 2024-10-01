@@ -86,6 +86,21 @@ namespace GameMain
             set
             {
                 mUtilsData.gameState = value;
+                switch (mUtilsData.gameState)
+                {
+                    case GameState.Midnight:
+                        WeatherTag = WeatherTag.Night;
+                        break;
+                    case GameState.Night:
+                        if (Mathf.Abs(GameEntry.Player.MaxAp - GameEntry.Player.Ap) >= 2)
+                            WeatherTag = WeatherTag.Night;
+                        else
+                            WeatherTag = WeatherTag.Afternoon;
+                        break;
+                    case GameState.Morning:
+                        WeatherTag = WeatherTag.Morning;
+                        break;
+                }
                 GameEntry.Event.FireNow(this, GameStateEventArgs.Create(mUtilsData.gameState));
                 GameEntry.Utils.AddValue(TriggerTag.TimeTag, mUtilsData.gameState.ToString());
             }

@@ -46,33 +46,20 @@ namespace GameMain
                 gymBtn.gameObject.SetActive(true);
             }
 
-            GameEntry.Event.Subscribe(PlayerDataEventArgs.EventId, OnPlayerDataEvent);
-            MainUpdate();
+            GameEntry.Event.Subscribe(PlayerDataEventArgs.EventId, OnPlayerDataEvent);    
+        }
+        protected override void OnStart(object userData)
+        {
+            base.OnStart(userData);
+            BackgroundUpdate();
         }
         private void OnPlayerDataEvent(object sender, GameEventArgs e)
         {
-            MainUpdate();
+            BackgroundUpdate();
         }
 
-        protected virtual bool MainUpdate()
+        protected virtual bool BackgroundUpdate()
         {
-            WeatherTag weatherTag = WeatherTag.None;
-            switch (GameEntry.Utils.GameState)
-            {
-                case GameState.Midnight:
-                    weatherTag = WeatherTag.Night;
-                    break;
-                case GameState.Night:
-                    if (Mathf.Abs(GameEntry.Player.MaxAp - GameEntry.Player.Ap) > 2)
-                        weatherTag = WeatherTag.Night;
-                    else
-                        weatherTag = WeatherTag.Afternoon;
-                    break;
-                case GameState.Morning:
-                    weatherTag = WeatherTag.Morning;
-                    break;
-            }
-            GameEntry.Utils.WeatherTag = weatherTag;
             DRWeather weather = GameEntry.DataTable.GetDataTable<DRWeather>().GetDataRow((int)GameEntry.Utils.WeatherTag);
             if (GameEntry.Utils.WeatherTag == WeatherTag.Afternoon)
                 backgroundImg.sprite = Resources.Load<Sprite>("Dialog/Background/MapForm_Afternoon");
