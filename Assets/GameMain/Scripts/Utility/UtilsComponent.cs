@@ -265,9 +265,9 @@ namespace GameMain
         public void RunEvent(string[] consoles)
         {
             if (consoles == null) return;
-            foreach (string console in consoles)
-            { 
-                RunEvent(console);
+            for (int i=0; i<consoles.Length;i++)
+            {
+                RunEvent(consoles[i]);
             }
         }
         public bool RunEvent(string consoleStr)

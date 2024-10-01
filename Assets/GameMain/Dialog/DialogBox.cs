@@ -111,7 +111,6 @@ public class DialogBox : MonoBehaviour
         optionFlag = false;
         ClearButtons();
         m_Data = optionData;
-        GameEntry.Utils.RunEvent(optionData.eventData);
         Next();
     }
 

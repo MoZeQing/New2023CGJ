@@ -232,7 +232,7 @@ public class CSVSerializeHelper : IDialogSerializeHelper
         return new OptionData
         {
             trigger = new ParentTrigger(csvString[13]),
-            eventData = string.IsNullOrEmpty(csvString[9]) ? null : csvString[15].Split('|'),
+            eventData = string.IsNullOrEmpty(csvString[9]) ? null : csvString[9].Split('|'),
             text = csvString[14] 
         };
     }
