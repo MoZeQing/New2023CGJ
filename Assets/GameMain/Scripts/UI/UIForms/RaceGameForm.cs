@@ -82,11 +82,11 @@ namespace GameMain
         {
             float power = (gameTime - m_gameTimer) / gameTime;
             ValueData newValueData = new ValueData(mValueData);
-            newValueData.wisdom = (int)(mValueData.wisdom * power);
+            newValueData.stamina = (int)(mValueData.stamina * power);
             newValueData.money = (int)(mValueData.money * power);
             GameEntry.Player.Ap -= newValueData.ap;
             GameEntry.Player.Money += newValueData.money;
-            GameEntry.Cat.Wisdom += newValueData.wisdom;
+            GameEntry.Cat.Stamina += newValueData.stamina;
             GameEntry.UI.OpenUIForm(UIFormId.CompleteForm, OnExit, newValueData);
         }
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
