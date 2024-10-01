@@ -148,6 +148,7 @@ namespace GameMain
                     InDialog = true;
                     GameEntry.Event.FireNow(this, DialogEventArgs.Create(InDialog, story.dialogName));
                     GameEntry.Event.FireNow(this, StoryEventArgs.Create(story.storyName));
+                    GameEntry.Utils.AddFlag(story.dialogName);
                     foreach (EventData eventData in story.eventDatas)
                     {
                         GameEntry.Utils.RunEvent(eventData);
@@ -177,6 +178,7 @@ namespace GameMain
                     InDialog = true;
                     GameEntry.Event.FireNow(this, DialogEventArgs.Create(InDialog, story.dialogName));
                     GameEntry.Event.FireNow(this, StoryEventArgs.Create(story.storyName));
+                    GameEntry.Utils.AddFlag(story.dialogName);
                     foreach (EventData eventData in story.eventDatas)
                     {
                         GameEntry.Utils.RunEvent(eventData);
