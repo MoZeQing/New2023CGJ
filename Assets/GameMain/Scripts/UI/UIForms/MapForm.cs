@@ -38,12 +38,14 @@ namespace GameMain
                 libraryBtn.gameObject.SetActive(false);
                 benchBtn.gameObject.SetActive(false);
                 gymBtn.gameObject.SetActive(false);
+                marketBtn.gameObject.SetActive(false);
             }
             else
             {
                 libraryBtn.gameObject.SetActive(true);
                 benchBtn.gameObject.SetActive(true);
                 gymBtn.gameObject.SetActive(true);
+                marketBtn.gameObject.SetActive(true);
             }
 
             GameEntry.Event.Subscribe(PlayerDataEventArgs.EventId, OnPlayerDataEvent);    
