@@ -105,12 +105,13 @@ public class DialogBox : MonoBehaviour
 
     protected virtual void Option_Onclick(object sender, EventArgs e)
     {
-        BaseData optionData = sender as BaseData;
+        OptionData optionData = sender as OptionData;
         if (optionData == null)
             return;
         optionFlag = false;
         ClearButtons();
         m_Data = optionData;
+        GameEntry.Utils.RunEvent(optionData.eventData);
         Next();
     }
 
