@@ -17,6 +17,7 @@ public class StoryData
 
     public StoryData(DRStory story)
     {
+        isRemove = story.IsRemove;
         storyName = story.StoryName;
         outingSceneState = (OutingSceneState)story.OutingSceneState;
         gameState=(GameState)story.GameState;
