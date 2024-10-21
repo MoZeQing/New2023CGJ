@@ -38,6 +38,7 @@ namespace GameMain
             base.OnEnter(procedureOwner);
             Debug.Log("Menu");
             mGameState = GameState.Menu;
+            GameEntry.SaveLoad.LoadGame();
             GameEntry.Event.Subscribe(GameStateEventArgs.EventId, GameStateEvent);
             GameEntry.UI.OpenUIForm(UIFormId.MenuForm, this);
         }

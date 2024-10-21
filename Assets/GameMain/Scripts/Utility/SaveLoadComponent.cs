@@ -28,10 +28,6 @@ namespace GameMain
         public int rent = 0;
         public int closet = 1001;
         public List<ItemTag> playerItems = new List<ItemTag>();
-        private void Start()
-        {
-            LoadGame();
-        }
         public void AddCGFlag(string cgTag)
         {
             if (!mGameData.cgFlags.Contains(cgTag))
@@ -81,7 +77,7 @@ namespace GameMain
             GameEntry.Player.Money = money;
             GameEntry.Cat.Favor = favor;
             GameEntry.Player.Day = day;
-            GameEntry.Player.Rent= rent;
+            GameEntry.Player.Rent = rent;
             GameEntry.Cat.Closet = closet;
             GameEntry.Utils.ClearFlag();
             GameEntry.Dialog.LoadGame();
@@ -113,22 +109,22 @@ namespace GameMain
         {
             SaveLoadData saveLoadData = new SaveLoadData();
             GameEntry.Event.FireNow(this, SaveGameEventArgs.Create(saveLoadData));
-            DateTime dateTime= DateTime.Now;
+            DateTime dateTime = DateTime.Now;
             saveLoadData.dataTime = dateTime.ToString("yyyy-MM-dd HH:mm:ss");
             saveLoadData.playerData = GameEntry.Player.GetSaveData();
             saveLoadData.charData = GameEntry.Cat.GetSaveData();
-            saveLoadData.utilsData=GameEntry.Utils.GetSaveData();
+            saveLoadData.utilsData = GameEntry.Utils.GetSaveData();
             saveLoadData.storyData = GameEntry.Dialog.LoadedStories;
             saveLoadData.levelData = GameEntry.Level.LoadedLevels;
             saveLoadData.buffData = GameEntry.Buff.GetSaveData();
-            mGameData.saveLoadData[index]= saveLoadData;
+            mGameData.saveLoadData[index] = saveLoadData;
             SaveGame();
         }
 
         private void SaveGame()
         {
             FileStream fs = File.Create(Application.persistentDataPath + "/save.sav");
-            BinaryFormatter bf=new BinaryFormatter();
+            BinaryFormatter bf = new BinaryFormatter();
             bf.Serialize(fs, mGameData);
             fs.Close();
         }
@@ -145,13 +141,15 @@ namespace GameMain
             GameEntry.Event.FireNow(this, LoadGameEventArgs.Create(saveLoadData));
             return saveLoadData;
         }
-        private void LoadGame()
+        public void LoadGame()
         {
+            FileStream fs = null;
             try
             {
                 if (File.Exists(Application.persistentDataPath + "/save.sav"))
                 {
-                    FileStream fs = File.OpenRead(Application.persistentDataPath + "/save.sav");
+                    //正常开流并关闭
+                    fs = File.OpenRead(Application.persistentDataPath + "/save.sav");
                     BinaryFormatter bf = new BinaryFormatter();
                     GameData gameData = (GameData)bf.Deserialize(fs);
                     mGameData = gameData;
@@ -159,40 +157,31 @@ namespace GameMain
                 }
                 else
                 {
+                    //不存在则创建一个存档
                     mGameData = new GameData();
-                    SaveGame();
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
+                //无法读取则重置存档
+                GameEntry.UI.OpenUIForm(UIFormId.OkTips, "<size=48>错误</size>\n存档无法读取，已经重置了您的存档");
+                mGameData = new GameData();
                 Debug.LogWarning(e.ToString());
+            }
+            finally
+            {
+                try
+                {
+                    fs.Close();
+                }
+                catch (Exception e) { }
+                SaveGame();
             }
         }
         public void RemoveGame(int index)
         {
             mGameData.saveLoadData[index] = null;
             SaveGame();
-        }
-        //摄屏
-        public Texture2D ScreenShot(Camera camera, Rect rect)
-        {
-            RenderTexture rt = new RenderTexture((int)rect.width, (int)rect.height,0);
-            camera.targetTexture= rt;
-            camera.Render();
-            RenderTexture.active = rt;
-            Texture2D screenShot = new Texture2D((int)rect.width, (int)rect.height, TextureFormat.RGB24, false);
-            screenShot.ReadPixels(rect, 0, 0);
-            screenShot.Apply();
-            camera.targetTexture = null;
-            RenderTexture.active = null;
-            GameObject.Destroy(rt);
-            byte[] bytes = screenShot.EncodeToPNG();
-            string path = Application.dataPath + "/ Resources / ScreenShot / screenshot.png";
-            System.IO.File.WriteAllBytes(path, bytes);
-#if UNITY_EDITOR
-            UnityEditor.AssetDatabase.Refresh();
-#endif
-            return screenShot;
         }
     }
     /// <summary>

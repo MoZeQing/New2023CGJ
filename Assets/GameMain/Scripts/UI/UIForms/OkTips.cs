@@ -42,7 +42,7 @@ namespace GameMain
 
         private void OnClick()
         {
-            BaseFormData.Action?.Invoke();
+            BaseFormData?.Action?.Invoke();
             GameEntry.UI.CloseUIForm(this.UIForm);
         }
     }
