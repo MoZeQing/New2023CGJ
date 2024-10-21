@@ -110,10 +110,10 @@ namespace GameMain
             {
                 LoadDataTable(dataTableName);
             }
-
+            //不加载字典
             // Preload dictionaries
             //LoadDictionary("Default");
-
+            //不加载字体
             // Preload fonts
             //LoadFont("MainFont");
         }

@@ -45,22 +45,34 @@ namespace GameMain
             get;
             protected set;
         }
+        /// <summary>
+        /// 是否为咖啡
+        /// </summary>
         public bool IsCoffee
         {
             get;
             protected set;
         }
         //基础特征
+        /// <summary>
+        /// 是否为冰咖啡
+        /// </summary>
         public bool Ice
         {
             get;
             protected set;
         }
+        /// <summary>
+        ///是否为粗咖啡 
+        /// </summary>
         public bool Grind
         {
             get;
             protected set;
         }
+        /// <summary>
+        /// 是否为工具
+        /// </summary>
         public bool Tool
         {
             get;
@@ -120,6 +132,7 @@ namespace GameMain
         protected List<NodeTag> mChildMaterials = new List<NodeTag>();//目前的子节点的全部标签
         protected override void OnInit(object userData)
         {
+            //初始化组件
             base.OnInit(userData);
             mCompenentData = (CompenentData)userData;
             mNodeData = mCompenentData.NodeData;
@@ -145,6 +158,7 @@ namespace GameMain
         }
         protected override void OnShow(object userData)
         {
+            //初始化数值
             base.OnShow(userData);
             UpdateCard("GamePlay");
             mHoldSprite.transform.localScale = Vector3.zero;
@@ -199,24 +213,29 @@ namespace GameMain
             {
                 this.transform.DOMove(mNodeData.Position + Vector3.down * 3f, 0.5f).SetEase(Ease.OutExpo);
             }
+            //如果是从点位拖动出，则触发一次事件
             if (mNodeData.FirstFollow)
             {
                 mCoverSprite.gameObject.SetActive(true);
                 ExecuteEvents.Execute<IPointerDownHandler>(this.gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.pointerDownHandler);
                 Vector3 newPos = -(mNodeData.Position - Vector3.down * 4.2f).normalized;
             }
+            //如果存在父级，自动跟随父级
             if (mNodeData.Adsorb != null)
             { 
                 Parent=mNodeData.Adsorb;
                 mNodeData.Adsorb.Child=this;
             }
         }
+        /// <summary>
+        /// 刷新整个卡牌的层级
+        /// </summary>
+        /// <param name="layerName"></param>
         protected virtual void UpdateCard(string layerName)
         {
             mShaderSprite.sortingLayerName = layerName;
             mBackgroundSprite.sortingLayerName = layerName;
             mMask.sortingLayerName = layerName;
-            //mHoldSprite.GetComponent<SpriteRenderer>().sortingLayerName = layerName;
             mIconSprite.sortingLayerName = layerName;
             mTextText.GetComponent<Canvas>().sortingLayerName = layerName;
             mCoverSprite.GetComponent<SpriteRenderer>().sortingLayerName = layerName;
@@ -225,12 +244,14 @@ namespace GameMain
             mShaderSprite.sortingOrder = GameEntry.Utils.CartSort;
             mBackgroundSprite.sortingOrder = GameEntry.Utils.CartSort;
             mMask.sortingOrder = GameEntry.Utils.CartSort;
-            //mHoldSprite.GetComponent<SpriteRenderer>().sortingOrder = GameEntry.Utils.CartSort;
             mIconSprite.sortingOrder = GameEntry.Utils.CartSort;
             mTextText.GetComponent<Canvas>().sortingOrder= GameEntry.Utils.CartSort;
             mCoverSprite.GetComponent<SpriteRenderer>().sortingOrder= GameEntry.Utils.CartSort;
             mBoundSprite.sortingOrder= GameEntry.Utils.CartSort;
         }
+        /// <summary>
+        /// 刷新标记
+        /// </summary>
         protected virtual void UpdateIcon()
         {
             if (GameEntry.DataTable.GetDataTable<DRNode>().GetDataRow((int)NodeTag).Coffee)
@@ -248,11 +269,10 @@ namespace GameMain
                 mGrindPoint.gameObject.SetActive(false);
             }
         }
-
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
-            if (Child == null)
+            if (Child == null)//吸附状态下仅显示下半部分碰撞箱
             {
                 mBoxCollider2D.size = mBackgroundSprite.size;
                 mBoxCollider2D.offset = new Vector2(0, 0.04449272f);
@@ -262,7 +282,7 @@ namespace GameMain
                 mBoxCollider2D.size = new Vector2(1.36f, 0.47594f);
                 mBoxCollider2D.offset = new Vector2(0f, -0.7279919f);
             }
-            if (!Input.GetMouseButton(0))
+            if (!Input.GetMouseButton(0))//处理从原材料区拿出的拖动
             {
                 if (mNodeData.FirstFollow)
                 {
@@ -272,6 +292,7 @@ namespace GameMain
             }
             if (mNodeData.Follow)//跟随鼠标
             {
+                //取消合成的逻辑
                 this.transform.DOMove(MouseToWorld(Input.mousePosition), 0.1f);
                 Producing = false;
                 mProducingTime = 0;
@@ -280,6 +301,7 @@ namespace GameMain
                 mProgressBarRenderer.gameObject.SetActive(false);
                 mProgressBarRenderer.fillAmount = 1;
             }
+            //范围限制
             this.transform.position = new Vector3(Mathf.Clamp(this.transform.position.x, -6f, 6f), Mathf.Clamp(this.transform.position.y, -9f, -5f), 0);
             if (Parent != null && !mNodeData.Follow)//跟随父卡牌
             {
@@ -290,9 +312,14 @@ namespace GameMain
             //刷新子集
             mChildMaterials = GenerateMaterialList();
             Compound();
-            Check=IsMouseInside(this.gameObject);
+            Check=IsMouseInside();
         }
-        protected bool IsMouseInside(GameObject go)
+        /// <summary>
+        /// 判断鼠标是否在自身范围内
+        /// </summary>
+        /// <param name="go"></param>
+        /// <returns></returns>
+        protected bool IsMouseInside()
         {
             Vector2 size = mBackgroundSprite.size;
             Vector3 position = this.transform.position;
@@ -314,6 +341,7 @@ namespace GameMain
             Parent = null;
             Child = null;
         }
+        //按下时的处理
         public void OnPointerDown(PointerEventData pointerEventData)
         {
             if (Tool)
@@ -333,6 +361,7 @@ namespace GameMain
                 GameEntry.Sound.PlaySound($"Assets/GameMain/Audio/{mDRNode.ClickSound}", "Sound");
         }
         public BaseCompenent BestCompenent { get; set; }
+        //松开时的判断
         public void OnPointerUp(PointerEventData pointerEventData)
         {
             if (Tool)
@@ -345,7 +374,7 @@ namespace GameMain
             //刷新子节点
             mCompenents.Clear();
             BaseCompenent parent = BestCompenent;
-
+            //避免循环
             int block = 1000;
             while (parent != null)
             {
@@ -379,6 +408,7 @@ namespace GameMain
         }
         private void OnTriggerStay2D(Collider2D collision)
         {
+            //判断在目前的接触的多个卡牌中最接近的卡牌，并选出目前的最优卡牌
             if (!mNodeData.Follow)
                 return;
             BaseCompenent baseCompenent = null;
@@ -396,6 +426,7 @@ namespace GameMain
             BestCompenent = mCompenents[0];
             foreach (BaseCompenent compenent in mCompenents)
             {
+                //根据距离刷新最优解
                 if ((compenent.transform.position - this.transform.position).magnitude < (BestCompenent.transform.position - this.transform.position).magnitude)
                 {
                     if (compenent.Child != null)
@@ -545,6 +576,7 @@ namespace GameMain
             }
             return true;
         }
+        //合成卡牌（需要拆开作为模板方式方法，方便工具类定制继承）
         protected virtual void Compound()
         {
             //层级刷新

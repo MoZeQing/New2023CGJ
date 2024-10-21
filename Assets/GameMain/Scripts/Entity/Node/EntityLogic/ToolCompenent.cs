@@ -72,7 +72,7 @@ namespace GameMain
                 Parent = mNodeData.Adsorb;
                 mNodeData.Adsorb.Child = this;
             }
-            Check = IsMouseInside(this.gameObject);
+            Check = IsMouseInside();
         }
         protected void HideChildren()
         {
@@ -94,7 +94,7 @@ namespace GameMain
             //Ë¢ÐÂ×Ó¼¯
             mChildMaterials = GenerateMaterialList();
             Compound();
-            Check = IsMouseInside(this.gameObject);
+            Check = IsMouseInside();
         }
         private NodeTag mMaterialTag = NodeTag.None;
         protected override void Compound()

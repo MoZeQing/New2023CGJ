@@ -19,27 +19,16 @@ namespace GameMain
         public void StartGame()
         {
             GameEntry.SaveLoad.InitData();
-            //GameEntry.Event.Subscribe(LoadingEventArgs.EventId, OnLoadingEvent);
-        }
-
-        private void OnLoadingEvent(object sender, GameEventArgs e)
-        {
-            LoadingEventArgs args = (LoadingEventArgs)e;
-
-            GameEntry.Event.Unsubscribe(LoadingEventArgs.EventId, OnLoadingEvent);
-        }
-
-        public void ExitGame()
-        { 
-            
         }
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
             Debug.Log("Menu");
             mGameState = GameState.Menu;
+            //客制化组件的初始化在此处开始
             GameEntry.SaveLoad.LoadGame();
-            GameEntry.Event.Subscribe(GameStateEventArgs.EventId, GameStateEvent);
+            GameEntry.Event.Subscribe(GameStateEventArgs.EventId, GameStateEvent);//事件监听切换模式
+            //客制化组件的初始化在此处开始
             GameEntry.UI.OpenUIForm(UIFormId.MenuForm, this);
         }
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
