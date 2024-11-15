@@ -143,17 +143,17 @@ namespace GameMain
         }
         public void LoadGame()
         {
-            FileStream fs = null;
             try
             {
                 if (File.Exists(Application.persistentDataPath + "/save.sav"))
                 {
-                    //正常开流并关闭
-                    fs = File.OpenRead(Application.persistentDataPath + "/save.sav");
-                    BinaryFormatter bf = new BinaryFormatter();
-                    GameData gameData = (GameData)bf.Deserialize(fs);
-                    mGameData = gameData;
-                    fs.Close();
+                    using (FileStream fs = File.OpenRead(Application.persistentDataPath + "/save.sav"))
+                    {
+                        BinaryFormatter bf = new BinaryFormatter();
+                        GameData gameData = (GameData)bf.Deserialize(fs);
+                        mGameData = gameData;
+                        fs.Close();
+                    }
                 }
                 else
                 {
@@ -170,11 +170,6 @@ namespace GameMain
             }
             finally
             {
-                try
-                {
-                    fs.Close();
-                }
-                catch (Exception e) { }
                 SaveGame();
             }
         }
