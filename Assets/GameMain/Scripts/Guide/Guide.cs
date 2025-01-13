@@ -25,7 +25,7 @@ namespace GameMain
             {
                 //初始化
                 materials[(int)NodeTag.CoffeeBean].SetActive(true);
-                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("点击咖啡豆槽位，会生成对应的材料卡", WorkTips.None));
+                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("コーヒー豆スロットをクリックすると、対応する材料カードが生成されます", WorkTips.None));
                 GameEntry.Event.FireNow(ArrowEventArgs.EventId, ArrowEventArgs.Create(true, new Vector3(-370f, -250f, 0f), Vector3.zero));
                 GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, Guide1_1);
                 GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, Guide1_2);
@@ -44,7 +44,7 @@ namespace GameMain
                 {
                     Position = new Vector3(-1.86f, -3.68f+1.6f, 0f)
                 });
-                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("使用研磨器将咖啡粉研磨为粗咖啡粉", WorkTips.None));
+                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("グラインダーを使用してコーヒー豆を粗挽きのコーヒー粉にします", WorkTips.None));
                 GameEntry.Event.FireNow(ArrowEventArgs.EventId, ArrowEventArgs.Create(true, new Vector3(-200f, 100f, 0f), new Vector3(0f,0f,180f)));
                 GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, Guide1_2);
                 GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, Guide1_3);
@@ -60,7 +60,7 @@ namespace GameMain
                 if (baseCompenent.NodeTag != NodeTag.CoarseGroundCoffee)
                     return;
                 materials[1].SetActive(true);//水
-                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("点击水槽位，会生成对应的材料卡", WorkTips.None));
+                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("水槽スロットをクリックすると、対応する材料カードが生成されます", WorkTips.None));
                 GameEntry.Event.FireNow(ArrowEventArgs.EventId, ArrowEventArgs.Create(true, new Vector3(450f, 150f, 0f), new Vector3(0f, 0f, 90f)));
                 GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, Guide1_3);
                 GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, Guide1_4);
@@ -79,7 +79,7 @@ namespace GameMain
                 {
                     Position = new Vector3(2.96f, -3.74f+1.6f, 0f)
                 });
-                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("使用加热器将水加热", WorkTips.None));
+                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("加熱器を使用して水を加熱します", WorkTips.None));
                 GameEntry.Event.FireNow(ArrowEventArgs.EventId, ArrowEventArgs.Create(true, new Vector3(270f, 100f, 0f), new Vector3(0f, 0f, 180f)));
                 GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, Guide1_4);
                 GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, Guide1_5);
@@ -98,7 +98,7 @@ namespace GameMain
                 {
                     Position = new Vector3(0.21f, -3.66f+1.6f, 0f)
                 });
-                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("将热水和粗咖啡粉放置到滤纸漏斗中，生成浓缩咖啡", WorkTips.None));
+                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("熱湯と粗挽きコーヒー粉をフィルターペーパーの漏斗に入れて、エスプレッソを作ります", WorkTips.None));
                 GameEntry.Event.FireNow(ArrowEventArgs.EventId, ArrowEventArgs.Create(true, new Vector3(30f, 100f, 0f), new Vector3(0f, 0f, 180f)));
                 GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, Guide1_5);
                 GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, Guide1_6);
@@ -113,7 +113,7 @@ namespace GameMain
             {
                 if (baseCompenent.NodeTag != NodeTag.Espresso)
                     return;
-                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("拖动生成的咖啡卡牌到左边的对应订单处", WorkTips.None));
+                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("生成されたコーヒーカードを左側の対応する注文欄にドラッグします", WorkTips.None));
                 GameEntry.Event.FireNow(ArrowEventArgs.EventId, ArrowEventArgs.Create(true, new Vector3(-450f, 200f, 0f), new Vector3(0f, 0f, 270f)));
                 GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, Guide1_6);
                 GameEntry.Event.Subscribe(OrderEventArgs.EventId, Guide1_7);
@@ -134,7 +134,7 @@ namespace GameMain
             GameStateEventArgs args = (GameStateEventArgs)e;
             if (args.GameState == GameState.Special)
             {
-                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("现在，制作一个新的浓缩咖啡吧", WorkTips.None));
+                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("では、新しいエスプレッソを作りましょう", WorkTips.None));
                 GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, Guide2_1);
                 GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, Guide2_2);
             }
@@ -149,7 +149,7 @@ namespace GameMain
                 if (baseCompenent.NodeTag != NodeTag.Espresso)
                     return;
                 materials[2].SetActive(true);
-                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("点击牛奶槽位，会生成对应的材料卡", WorkTips.None));
+                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("牛乳スロットをクリックすると、対応する材料カードが生成されます", WorkTips.None));
                 GameEntry.Event.FireNow(ArrowEventArgs.EventId, ArrowEventArgs.Create(true, new Vector3(-220f, -250f, 0f), Vector3.zero));
                 GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, Guide2_2);
                 GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, Guide2_3);
@@ -168,7 +168,7 @@ namespace GameMain
                 {
                     Position = new Vector3(5.26f, -3.73f+1.6f, 0f)
                 });
-                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("使用搅拌器将牛奶打发", WorkTips.None));
+                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("ミキサーを使用して牛乳を泡立てます", WorkTips.None));
                 GameEntry.Event.FireNow(ArrowEventArgs.EventId, ArrowEventArgs.Create(true, new Vector3(510f, 100f, 0f), new Vector3(0f, 0f, 180f)));
                 GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, Guide2_3);
                 GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, Guide2_4);
@@ -184,7 +184,7 @@ namespace GameMain
                 if (baseCompenent.NodeTag != NodeTag.LowFoamingMilk)
                     return;
                 materials[3].SetActive(true);
-                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("点击杯槽位，会生成对应的材料卡", WorkTips.None));
+                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("カップスロットをクリックすると、対応する材料カードが生成されます", WorkTips.None));
                 GameEntry.Event.FireNow(ArrowEventArgs.EventId, ArrowEventArgs.Create(true, new Vector3(450f, -25f, 0f), new Vector3(0f, 0f, 90f)));
                 GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, Guide2_4);
                 GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, Guide2_5);
@@ -199,7 +199,7 @@ namespace GameMain
             {
                 if (baseCompenent.NodeTag != NodeTag.Cup)
                     return;
-                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("使用杯子将浓缩咖啡和低泡牛奶合成为卡布奇诺", WorkTips.None));
+                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("カップを使ってエスプレッソとフォームミルクを組み合わせ、カプチーノを作ります", WorkTips.None));
                 GameEntry.Event.FireNow(ArrowEventArgs.EventId, ArrowEventArgs.Create(false));
                 GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, Guide2_5);
                 GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, Guide2_6);
@@ -214,7 +214,7 @@ namespace GameMain
             {
                 if (baseCompenent.NodeTag != NodeTag.Kapuziner)
                     return;
-                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("使用卡布奇诺交单", WorkTips.None));
+                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("カプチーノを注文に提出します", WorkTips.None));
                 GameEntry.Event.FireNow(ArrowEventArgs.EventId, ArrowEventArgs.Create(true, new Vector3(-450f, 200f, 0f), new Vector3(0f, 0f, 270f)));
                 GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, Guide2_6);
                 GameEntry.Event.Subscribe(OrderEventArgs.EventId, Guide2_7);
@@ -235,7 +235,7 @@ namespace GameMain
             GameStateEventArgs args = (GameStateEventArgs)e;
             if (args.GameState == GameState.Special)
             {
-                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("现在制作一杯细浓缩咖啡，因此我们先制作细咖啡粉", WorkTips.None));
+                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("次は細挽きエスプレッソを作りましょう。まず、細挽きコーヒー粉を準備します", WorkTips.None));
                 GameEntry.Player.AddRecipe(1);
                 GameEntry.Event.Unsubscribe(GameStateEventArgs.EventId, Guide3_1);
                 GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, Guide3_3);
@@ -244,7 +244,7 @@ namespace GameMain
         }
         public void Guide3_2()
         {
-            GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("所谓细咖啡粉，就是再研磨一次的粗咖啡粉", WorkTips.None));
+            GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("細挽きコーヒー粉とは、粗挽きコーヒー粉をさらに研磨したものです", WorkTips.None));
         }
         //现在，继续完成细拿铁吧
         public void Guide3_3(object sender, GameEventArgs e)
@@ -256,7 +256,7 @@ namespace GameMain
                 if (baseCompenent.NodeTag != NodeTag.FineGroundCoffee)
                     return;
                 materials[7].SetActive(true);
-                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("继续完成细版本的冰卡布奇诺吧！\n<size=24>（对于配方有疑惑，可以点击右下角的制作手册查看配方）</size>", WorkTips.None));
+                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("引き続き、細挽きバージョンのアイスカプチーノを完成させましょう！  <size=24>（レシピに疑問がある場合は、右下の作成マニュアルをクリックして確認できます）</size>  ", WorkTips.None));
 
                 GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, Guide3_3);
                 GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, Guide3_5);
@@ -277,7 +277,7 @@ namespace GameMain
             {
                 if (baseCompenent.NodeTag != NodeTag.IceKapuziner)
                     return;
-                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("那么将咖啡拖动到对应的订单上", WorkTips.None));
+                GameEntry.Event.FireNow(WorkEventArgs.EventId, WorkEventArgs.Create("それでは、コーヒーを対応する注文欄にドラッグしてください", WorkTips.None));
                 GameEntry.Event.FireNow(ArrowEventArgs.EventId, ArrowEventArgs.Create(true, new Vector3(-450f, 200f, 0f), new Vector3(0f, 0f, 270f)));
                 GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, Guide3_5);
                 GameEntry.Event.Subscribe(OrderEventArgs.EventId, Guide3_6);
